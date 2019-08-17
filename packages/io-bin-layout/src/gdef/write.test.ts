@@ -1,0 +1,43 @@
+import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { Config } from "@ot-builder/cfg-log";
+import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { Gdef } from "@ot-builder/ft-layout";
+import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
+import { readOtMetadata } from "@ot-builder/io-bin-metadata";
+import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Data } from "@ot-builder/prelude";
+import { BimapCtx, GdefIdentity, TestFont } from "@ot-builder/test-util";
+import { WriteTimeIVS } from "@ot-builder/var-store";
+import { OtVar } from "@ot-builder/variance";
+
+import { GdefTableIo } from "./index";
+
+describe("GDEF write", () => {
+    function gdefRoundTrip(file: string) {
+        const bufFont = TestFont.get(file);
+        const sfnt = new BinaryView(bufFont).next(SfntOtf);
+        const cfg = Config.create({ fontMetadata: {}, glyphStore: {} });
+        const md = readOtMetadata(sfnt, cfg);
+        const axes = md.fvar ? Data.Order.fromList("Axes", md.fvar.axes) : null;
+
+        const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
+        const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(GdefTableIo, gOrd, axes);
+
+        const ivsW = WriteTimeIVS.create(new OtVar.MasterSet());
+        const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, axes));
+
+        const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, axes);
+
+        GdefIdentity.test(BimapCtx.from(gOrd, gOrd), gdefDat.gdef, gdefDat2.gdef);
+    }
+
+    test("Source Serif Variable", () => {
+        gdefRoundTrip("SourceSerifVariable-Roman.otf");
+    });
+    test("Inter Regular", () => {
+        gdefRoundTrip("Inter-Regular.otf");
+    });
+    test("Scheherazade Regular", () => {
+        gdefRoundTrip("Scheherazade-Regular.ttf");
+    });
+});

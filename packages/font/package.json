@@ -1,0 +1,38 @@
+{
+  "name": "@ot-builder/font",
+  "dependencies": {
+    "tslib": "^1.9.3",
+    "@ot-builder/ft-metadata": "0.1.0",
+    "@ot-builder/ft-name": "0.1.0",
+    "@ot-builder/ft-glyphs": "0.1.0",
+    "@ot-builder/ft-encoding": "0.1.0",
+    "@ot-builder/ft-layout": "0.1.0",
+    "@ot-builder/prelude": "0.1.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "@types/jest": "^24.0.15"
+  },
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "jest": {
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "rootDir": "lib/"
+  },
+  "main": "./lib/index.js",
+  "version": "0.1.0",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "lib/**/*.d.ts"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "target": "es6",
+        "sourceMap": true,
+        "module": "commonjs",
+        "importHelpers": true,
+        "lib": ["es2017", "es2018", "esnext"],
+        "moduleResolution": "node",
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true
+    }
+}

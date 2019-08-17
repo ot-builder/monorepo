@@ -1,0 +1,28 @@
+{
+    "name": "ot-builder-monorepo",
+    "private": true,
+    "license": "MIT",
+    "scripts": {
+        "boot": "npm i && npm run update:package.json && lerna bootstrap --hoist --ignore-scripts && npm run update:tsconfig.json",
+        "clean": "rimraf .cache && lerna run clean && lerna clean --yes",
+        "build": "tsc --build packages/tsconfig.json",
+        "rebuild": "npm run clean && npm run boot && npm run build",
+        "watch": "tsc --build --watch packages/tsconfig.json",
+        "update:tsconfig.json": "ts-node scripts/update-package-tsconfig.ts",
+        "update:package.json": "ts-node scripts/update-package-json.ts",
+        "create-package": "ts-node scripts/create-package.ts",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "@types/node": "^12.6.1",
+        "lerna": "^3.15.0",
+        "typescript": "^3.5.3",
+        "ts-node": "^8.3.0",
+        "rimraf": "^2.6.3",
+        "jest": "^24.8.0",
+        "vrsource-tslint-rules": "^6.0.0",
+        "tslint-lerna-rules": "^1.0.4",
+        "prettier": "^1.15.2",
+        "prettier-tslint": "^0.4.0"
+    }
+}

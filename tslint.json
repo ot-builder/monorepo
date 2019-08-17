@@ -1,0 +1,28 @@
+{
+    "rulesDirectory": ["tslint-lerna-rules", "vrsource-tslint-rules/rules"],
+    "rules": {
+        "class-name": true,
+        "curly": [true, "ignore-same-line"],
+        "member-access": true,
+        "no-duplicate-variable": true,
+        "no-relative-import": true,
+        "no-string-throw": true,
+        "no-switch-case-fall-through": true,
+        "no-unused-expression": true,
+        "no-var-keyword": true,
+        "ordered-imports": [true, { "grouped-imports": true }],
+        "semicolon": [true, "always", "ignore-bound-class-methods"],
+        "triple-equals": [true, "allow-null-check"],
+        "ext-variable-name": [
+            true,
+            ["class", "pascal"],
+            ["interface", "pascal"],
+            ["parameter", "camel"],
+            ["property", "private", "camel", "allow-leading-underscore"],
+            ["property", "protected", "camel", "allow-leading-underscore"],
+            ["variable", "local", "camel", "allow-leading-underscore", { "regex": "^(?![ijkl]$)" }],
+            ["method", "private", "camel", "allow-leading-underscore"],
+            ["method", "protected", "camel", "allow-leading-underscore"]
+        ]
+    }
+}

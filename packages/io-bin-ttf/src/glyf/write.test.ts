@@ -1,0 +1,70 @@
+import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { Config } from "@ot-builder/cfg-log";
+import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { readOtMetadata } from "@ot-builder/io-bin-metadata";
+import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
+
+import { rectifyGlyphOrder } from "../rectify/rectify";
+
+import { LocaTable, LocaTableIo, LocaTag } from "./loca";
+import { GlyfTableRead } from "./read";
+import { GlyfTag } from "./shared";
+import { GlyfTableWrite } from "./write";
+
+function roundTripTest(file: string) {
+    const bufFont = TestFont.get(file);
+    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const cfg = Config.create({ fontMetadata: {} });
+    const { head, maxp } = readOtMetadata(sfnt, cfg);
+    const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
+    const gOrd = gs.decideOrder();
+    const loca = new BinaryView(sfnt.tables.get(LocaTag)!).next(LocaTableIo, head, maxp);
+    const glyf = new BinaryView(sfnt.tables.get(GlyfTag)!).next(
+        GlyfTableRead,
+        loca,
+        gOrd,
+        new OtGlyph.CoStat.Forward()
+    );
+    rectifyGlyphOrder(gOrd);
+
+    const gOrd1 = gs.decideOrder();
+    const loca1: LocaTable = { glyphOffsets: [] };
+    const stat = new OtGlyph.Stat.Forward();
+    const bufGlyf = Frag.packFrom(GlyfTableWrite, gOrd1, loca1, stat);
+    expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
+    for (const offset of loca1.glyphOffsets) expect(offset % 4).toBe(0);
+    const bufLoca = Frag.packFrom(LocaTableIo, loca1, head);
+
+    const gs2 = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
+    const gOrd2 = gs2.decideOrder();
+    const loca2 = new BinaryView(bufLoca).next(LocaTableIo, head, maxp);
+    const glyf2 = new BinaryView(bufGlyf).next(
+        GlyfTableRead,
+        loca2,
+        gOrd2,
+        new OtGlyph.CoStat.Forward()
+    );
+    rectifyGlyphOrder(gOrd2);
+
+    GlyphIdentity.testStore(gs, gs2, GlyphIdentity.CompareMode.TTF);
+}
+
+test("Reading : TTF, static, SourceSerifVariable-Roman.ttf", () => {
+    roundTripTest("SourceSerifVariable-Roman.ttf");
+});
+test("Reading : TTF, static, SourceSerifVariable-Italic.ttf", () => {
+    roundTripTest("SourceSerifVariable-Italic.ttf");
+});
+test("Reading : TTF, static, SourceSerifPro-Regular.ttf", () => {
+    roundTripTest("SourceSerifPro-Regular.ttf");
+});
+test("Reading : TTF, static, SourceSerifPro-It.ttf", () => {
+    roundTripTest("SourceSerifPro-It.ttf");
+});
+test("Reading : TTF, static, Scheherazade-Regular.ttf", () => {
+    roundTripTest("Scheherazade-Regular.ttf");
+});
+test("Reading : TTF, static, Scheherazade-Bold.ttf", () => {
+    roundTripTest("Scheherazade-Bold.ttf");
+});
