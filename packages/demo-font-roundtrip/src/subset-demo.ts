@@ -1,9 +1,13 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { OtFont } from "@ot-builder/font";
 import { OtGlyph, OtGlyphStore, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { FontIoConfig, readFont, writeFont } from "@ot-builder/io-bin-font";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import {
+    FontIoConfig,
+    readFont,
+    readSfntOtf,
+    writeFont,
+    writeSfntOtf
+} from "@ot-builder/io-bin-font";
 import { Rectify } from "@ot-builder/rectify";
 import { rectifyFontGlyphs, traceGlyphs } from "@ot-builder/rectify-font";
 import * as fs from "fs";
@@ -22,8 +26,7 @@ const cfg = Config.create<FontIoConfig>({});
 console.log("demo start");
 
 const bufFont = fs.readFileSync(path.resolve(file));
-const sfnt = new BinaryView(bufFont).next(SfntOtf);
-const font = readFont(sfnt, OtListGlyphStoreFactory, cfg);
+const font = readFont(readSfntOtf(bufFont), OtListGlyphStoreFactory, cfg);
 console.log("read complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,11 +38,12 @@ rectifyFontGlyphs(rectifier, font, OtListGlyphStoreFactory);
 
 console.log("write start");
 
-const sfnt1 = writeFont(font, cfg);
-const buf1 = Frag.packFrom(SfntOtf, sfnt1);
+const buf1 = writeSfntOtf(writeFont(font, cfg));
 fs.writeFileSync(path.resolve(fileOut), buf1);
 
 console.log("write complete");
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 function createSubsetRectifier<GS extends OtGlyphStore>(font: OtFont<GS>, text: string) {
     const init: Set<OtGlyph> = new Set();

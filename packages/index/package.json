@@ -12,9 +12,12 @@
     "@ot-builder/ft-glyphs": "0.1.0",
     "@ot-builder/ft-encoding": "0.1.0",
     "@ot-builder/ft-layout": "0.1.0",
+    "@ot-builder/ft-sfnt": "0.1.0",
     "@ot-builder/font": "0.1.0",
     "@ot-builder/prelude": "0.1.0",
     "@ot-builder/primitive": "0.1.0",
+    "@ot-builder/io-bin-font": "0.1.0",
+    "@ot-builder/rectify-font": "0.1.0",
     "@ot-builder/standard-glyph-namer": "0.1.0"
   },
   "scripts": {
