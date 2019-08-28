@@ -26,6 +26,7 @@ function rectifyFontMetadata<GS extends OtGlyphStore>(
     if (font.vhea) font.vhea.rectifyCoords(recCoord);
     if (font.post) font.post.rectifyCoords(recCoord);
     if (font.os2) font.os2.rectifyCoords(recCoord);
+    if (font.gasp) font.gasp.rectifyCoords(recCoord);
 }
 function rectifyGlyphs<GS extends OtGlyphStore>(
     recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,

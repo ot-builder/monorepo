@@ -2,6 +2,7 @@ import { Data } from "@ot-builder/prelude";
 
 import { Avar } from "./avar";
 import { Fvar } from "./fvar";
+import { Gasp } from "./gasp";
 import { Head } from "./head";
 import { Maxp } from "./maxp";
 import { MetricHead } from "./metric-head";
@@ -25,6 +26,7 @@ export interface OtFontMetadata {
     hhea?: Data.Maybe<MetricHead.Table>;
     vhea?: Data.Maybe<MetricHead.Table>;
     avar?: Data.Maybe<Avar.Table>;
+    gasp?: Data.Maybe<Gasp.Table>;
 }
 
 export interface OtFontIoMetadata extends OtFontMetadata {
