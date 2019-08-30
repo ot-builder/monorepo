@@ -1,7 +1,7 @@
 export { Data } from "@ot-builder/prelude";
 export * from "@ot-builder/cfg-log";
 
-export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar } from "@ot-builder/ft-metadata";
+export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ft-metadata";
 
 export { OtGlyph, GeneralGlyph } from "@ot-builder/ft-glyphs";
 export { Cff, Cvt, FpgmPrep } from "@ot-builder/ft-glyphs";

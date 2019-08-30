@@ -1,6 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ft-metadata";
+import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
 import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -73,6 +74,14 @@ class Os2MvarLensSource implements MvarLensSource {
         yield ["stro", new MvarPropAccess(this.os2, "yStrikeoutPosition")];
     }
 }
+class GaspMvarLensSource implements MvarLensSource {
+    constructor(private gasp: Gasp.Table) {}
+    public *entries(): IterableIterator<[string, Data.Access<OtVar.Value>]> {
+        for (let ri = 0; ri < 10 && ri < this.gasp.ranges.length; ri++) {
+            yield [`gsp${ri}`, new MvarPropAccess(this.gasp.ranges[ri], "maxPPEM")];
+        }
+    }
+}
 
 function* lensSourcesFromMd(
     md: OtFontMetadata
@@ -81,6 +90,7 @@ function* lensSourcesFromMd(
     if (md.vhea) yield* new VheaMvarLensSource(md.vhea).entries();
     if (md.post) yield* new PostMvarLensSource(md.post).entries();
     if (md.os2) yield* new Os2MvarLensSource(md.os2).entries();
+    if (md.gasp) yield* new GaspMvarLensSource(md.gasp).entries();
 }
 
 export const MvarTableIo = {

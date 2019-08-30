@@ -16,6 +16,7 @@ export * from "./os2";
 export * from "./post";
 export * from "./metric-head";
 export * from "./avar";
+export * from "./gasp";
 
 export interface OtFontMetadata {
     head: Head.Table;
