@@ -82,73 +82,90 @@ class Run {
         public readonly cost: number
     ) {}
 
-    public static Start(unicode: number, gid: number) {
-        return new Run(null, unicode, unicode, gid, gid, null, UInt16.size * 4);
+    public static Linked(started: boolean, link: null | Run, unicode: number, gid: number) {
+        if (started && !link) return null;
+        if (!link) return new Run(null, unicode, unicode, gid, gid, null, UInt16.size * 4);
+        else return new Run(link, unicode, unicode, gid, gid, null, link.cost + UInt16.size * 4);
     }
-    public static Linked(link: Run, unicode: number, gid: number) {
-        return new Run(link, unicode, unicode, gid, gid, null, link.cost + UInt16.size * 4);
+    public static GrowSequent(old: null | Run, unicode: number, gid: number) {
+        if (!old || unicode !== old.unicodeEnd + 1 || gid !== old.gidEnd + 1) return null;
+        return new Run(old.link, old.unicodeStart, unicode, old.gidStart, gid, null, old.cost);
     }
-    public static GrowSequent(old: Run, unicode: number, gid: number) {
-        if (unicode !== old.unicodeEnd + 1 || gid !== old.gidEnd + 1) {
-            return Run.Linked(old, unicode, gid);
-        } else {
-            return new Run(old.link, old.unicodeStart, unicode, old.gidStart, gid, null, old.cost);
-        }
-    }
-    public static GrowRagged(old: Run, unicode: number, gid: number) {
-        if (unicode !== old.unicodeEnd + 1) {
-            return Run.Linked(old, unicode, gid);
-        } else {
-            let gidArray = old.glyphIdArray ? [...old.glyphIdArray] : null;
-            let cost = old.cost;
-            if (!gidArray) {
-                gidArray = [];
-                for (let gidJ = old.gidStart; gidJ <= old.gidEnd; gidJ++) {
-                    gidArray.push(gidJ);
-                }
-                cost += gidArray.length * UInt16.size;
+    public static GrowRagged(old: null | Run, unicode: number, gid: number) {
+        if (!old || unicode !== old.unicodeEnd + 1) return null;
+
+        let gidArray = old.glyphIdArray ? [...old.glyphIdArray] : null;
+        let cost = old.cost;
+        if (!gidArray) {
+            gidArray = [];
+            for (let gidJ = old.gidStart; gidJ <= old.gidEnd; gidJ++) {
+                gidArray.push(gidJ);
             }
-            gidArray.push(gid);
-            cost += UInt16.size;
-            return new Run(old.link, old.unicodeStart, unicode, old.gidStart, gid, gidArray, cost);
+            cost += gidArray.length * UInt16.size;
         }
+        gidArray.push(gid);
+        cost += UInt16.size;
+        return new Run(old.link, old.unicodeStart, unicode, old.gidStart, gid, gidArray, cost);
     }
 }
 
+const TrackLength = 2;
+const Track = 1 << TrackLength;
+const TrackRestMask = (1 << (TrackLength - 1)) - 1;
+
 // Find out the optimal run segmentation for a CMAP format 4 subtable
 class CmapSegDpState {
-    private sequent: null | Run = null;
-    private ragged: null | Run = null;
+    private started = false;
+    private sequent: (null | Run)[] = [];
+    private ragged: (null | Run)[] = [];
 
-    private min(a: Run, b: Run) {
-        if (a.cost < b.cost) return a;
-        else return b;
+    private min(...runs: (null | Run)[]) {
+        let best: null | Run = null;
+        for (const run of runs) {
+            if (!run) continue;
+            if (!best || run.cost < best.cost) best = run;
+        }
+        return best;
     }
 
     public process(unicode: number, gid: number) {
-        const sequent = this.sequent;
-        const ragged = this.ragged;
+        const sequent = [...this.sequent];
+        const ragged = [...this.ragged];
 
-        const keepSeq = sequent ? Run.GrowSequent(sequent, unicode, gid) : Run.Start(unicode, gid);
-        const keepRagged = ragged ? Run.GrowRagged(ragged, unicode, gid) : Run.Start(unicode, gid);
-        const crossSeq = sequent ? Run.Linked(sequent, unicode, gid) : Run.Start(unicode, gid);
-        const crossRag = ragged ? Run.Linked(ragged, unicode, gid) : Run.Start(unicode, gid);
-
-        const cross = this.min(crossSeq, crossRag);
-        this.sequent = this.min(keepSeq, cross);
-        this.ragged = this.min(keepRagged, cross);
+        for (let tr = 0; tr < Track; tr++) this.sequent[tr] = this.ragged[tr] = null;
+        for (let mode = 0; mode < Track * 2; mode++) {
+            const original = mode >>> 1;
+            const track = ((original & TrackRestMask) << 1) | (mode & 1);
+            if (mode & 1) {
+                this.sequent[track] = this.min(
+                    this.sequent[track],
+                    Run.GrowSequent(sequent[original], unicode, gid)
+                );
+                this.ragged[track] = this.min(
+                    this.ragged[track],
+                    Run.GrowRagged(ragged[original], unicode, gid)
+                );
+            } else {
+                const basis = this.min(sequent[original], ragged[original]);
+                this.sequent[track] = this.ragged[track] = this.min(
+                    this.sequent[track],
+                    Run.Linked(this.started, basis, unicode, gid)
+                );
+            }
+        }
+        this.started = true;
     }
     public processForce(unicode: number, gid: number) {
-        const sequent = this.sequent;
-        const ragged = this.ragged;
-
-        this.sequent = sequent ? Run.Linked(sequent, unicode, gid) : Run.Start(unicode, gid);
-        this.ragged = ragged ? Run.Linked(ragged, unicode, gid) : Run.Start(unicode, gid);
+        for (let tr = 0; tr < Track; tr++) {
+            this.sequent[tr] = Run.Linked(this.started, this.sequent[tr], unicode, gid);
+            this.ragged[tr] = Run.Linked(this.started, this.ragged[tr], unicode, gid);
+        }
+        this.started = true;
     }
 
     private getChainStart() {
         if (!this.sequent || !this.ragged) throw Errors.Unreachable();
-        return this.min(this.sequent, this.ragged);
+        return this.min(...this.sequent, ...this.ragged);
     }
 
     public getChain() {

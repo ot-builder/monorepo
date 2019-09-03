@@ -219,7 +219,7 @@ function tryEmbedPeakTuple(ctx: TupleVariationBuildContext, peak: number[]) {
 
 const DeltaRuns = Write(
     (frag: Frag, deltas: number[], mask: boolean[], dimensions: number, dim: number) => {
-        const dp = new DeltaRunDp.Writer(4);
+        const dp = new DeltaRunDp.Writer(3);
         for (let ixDelta = dim, zid = 0; ixDelta < deltas.length; ixDelta += dimensions, zid++) {
             const delta = deltas[ixDelta];
             if (mask[zid]) dp.update(Arith.Round.Coord(delta));
@@ -234,7 +234,7 @@ const PointsMask = Write((frag: Frag, n: number, mask: boolean[]) => {
         frag.uint8(0);
         return;
     } else {
-        const dp = new PointNumberRunDp.Writer(4);
+        const dp = new PointNumberRunDp.Writer(3);
         let points = 0;
         let last = 0;
         for (let zid = 0; zid < n; zid++) {
