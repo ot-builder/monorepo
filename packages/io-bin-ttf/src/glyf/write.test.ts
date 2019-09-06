@@ -12,7 +12,7 @@ import { GlyfTableRead } from "./read";
 import { GlyfTag } from "./shared";
 import { GlyfTableWrite } from "./write";
 
-function roundTripTest(file: string) {
+function roundTripTest(file: string, padSpace: boolean) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = Config.create({ fontMetadata: {} });
@@ -27,6 +27,12 @@ function roundTripTest(file: string) {
         new OtGlyph.CoStat.Forward()
     );
     rectifyGlyphOrder(gOrd);
+
+    if (padSpace) {
+        for (const g of gOrd) {
+            if (!g.geometries.length) g.geometries.push(new OtGlyph.ContourSet([]));
+        }
+    }
 
     const gOrd1 = gs.decideOrder();
     const loca1: LocaTable = { glyphOffsets: [] };
@@ -51,20 +57,26 @@ function roundTripTest(file: string) {
 }
 
 test("Reading : TTF, static, SourceSerifVariable-Roman.ttf", () => {
-    roundTripTest("SourceSerifVariable-Roman.ttf");
+    roundTripTest("SourceSerifVariable-Roman.ttf", false);
+    roundTripTest("SourceSerifVariable-Roman.ttf", true);
 });
 test("Reading : TTF, static, SourceSerifVariable-Italic.ttf", () => {
-    roundTripTest("SourceSerifVariable-Italic.ttf");
+    roundTripTest("SourceSerifVariable-Italic.ttf", false);
+    roundTripTest("SourceSerifVariable-Italic.ttf", true);
 });
 test("Reading : TTF, static, SourceSerifPro-Regular.ttf", () => {
-    roundTripTest("SourceSerifPro-Regular.ttf");
+    roundTripTest("SourceSerifPro-Regular.ttf", false);
+    roundTripTest("SourceSerifPro-Regular.ttf", true);
 });
 test("Reading : TTF, static, SourceSerifPro-It.ttf", () => {
-    roundTripTest("SourceSerifPro-It.ttf");
+    roundTripTest("SourceSerifPro-It.ttf", false);
+    roundTripTest("SourceSerifPro-It.ttf", true);
 });
 test("Reading : TTF, static, Scheherazade-Regular.ttf", () => {
-    roundTripTest("Scheherazade-Regular.ttf");
+    roundTripTest("Scheherazade-Regular.ttf", false);
+    roundTripTest("Scheherazade-Regular.ttf", true);
 });
 test("Reading : TTF, static, Scheherazade-Bold.ttf", () => {
-    roundTripTest("Scheherazade-Bold.ttf");
+    roundTripTest("Scheherazade-Bold.ttf", false);
+    roundTripTest("Scheherazade-Bold.ttf", true);
 });
