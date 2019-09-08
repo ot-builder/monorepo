@@ -4,7 +4,7 @@ import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { rectifyGlyphOrder } from "../rectify/rectify";
 
@@ -68,7 +68,7 @@ test("Reading : TTF, static", () => {
         const diacritic = g300.geometries[1] as OtGlyph.TtReference;
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));
-        expect(OV.equal(diacritic.transform.dx, 0x94)).toBe(true);
-        expect(OV.equal(diacritic.transform.dy, 0)).toBe(true);
+        expect(OtVar.Ops.equal(diacritic.transform.dx, 0x94)).toBe(true);
+        expect(OtVar.Ops.equal(diacritic.transform.dy, 0)).toBe(true);
     }
 });

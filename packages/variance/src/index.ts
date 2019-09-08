@@ -73,5 +73,3 @@ export namespace OtVar {
     export type Rectifier = Rectify.Coord.RectifierT<Value>;
     export type Rectifiable = Rectify.Coord.RectifiableT<Value>;
 }
-
-export const OV = OtVarOps;

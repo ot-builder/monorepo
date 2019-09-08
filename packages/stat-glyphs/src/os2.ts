@@ -1,7 +1,7 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Os2 } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export class Os2Stat implements OtGlyph.Stat.Sink {
     constructor(private os2: Os2.Table, private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>) {}
@@ -19,7 +19,7 @@ export class Os2Stat implements OtGlyph.Stat.Sink {
         extent: OtGlyph.Stat.BoundingBox
     ) {
         if (this.outer) this.outer.setMetric(gid, horizontal, vertical, extent);
-        const adv = OV.originOf(horizontal.end) - OV.originOf(horizontal.start);
+        const adv = OtVar.Ops.originOf(horizontal.end) - OtVar.Ops.originOf(horizontal.start);
         if (adv > 0) {
             this.metricsCount += 1;
             this.metricsSum += adv;

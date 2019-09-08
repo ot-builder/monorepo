@@ -1,4 +1,4 @@
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { WriteTimeIVS } from "./impl";
 
@@ -37,7 +37,7 @@ const Corner = new OtVar.Master([
 
 test("Write time IVS : Value management", () => {
     const mc = new OtVar.MasterSet(undefined, true);
-    const cr = OV.Creator(mc);
+    const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
     expect({ outer: 0, inner: 0 }).toEqual(
@@ -67,7 +67,7 @@ test("Write time IVS : Value management", () => {
 
 test("Write time IVS : Value management with overflow", () => {
     const mc = new OtVar.MasterSet(undefined, true);
-    const cr = OV.Creator(mc);
+    const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
     for (let p = 0; p < 0x100; p++) {
@@ -83,7 +83,7 @@ test("Write time IVS : Value management with overflow", () => {
 
 test("Write time IVS : Master-only management (CFF2-ish)", () => {
     const mc = new OtVar.MasterSet(undefined, true);
-    const cr = OV.Creator(mc);
+    const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();
     const d1 = col.collect(cr.make(100, [Bold, 150], [Wide, 100]));

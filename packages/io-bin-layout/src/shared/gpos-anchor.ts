@@ -4,12 +4,12 @@ import { Gpos } from "@ot-builder/ft-layout";
 import { Arith, Data } from "@ot-builder/prelude";
 import { Int16, NonNullablePtr16, NullablePtr16, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "./device-table";
 
 function anchorNeedsFormat3(a: Gpos.Anchor) {
-    return !OV.isConstant(a.x) || !OV.isConstant(a.y) || a.xDevice || a.yDevice;
+    return !OtVar.Ops.isConstant(a.x) || !OtVar.Ops.isConstant(a.y) || a.xDevice || a.yDevice;
 }
 
 export const GposAnchor = {
@@ -32,8 +32,8 @@ export const GposAnchor = {
             const xDD = bp.next(Ptr16DeviceTable, ivs);
             const yDD = bp.next(Ptr16DeviceTable, ivs);
             return {
-                x: OV.add(x, xDD ? xDD.variation : 0),
-                y: OV.add(y, yDD ? yDD.variation : 0),
+                x: OtVar.Ops.add(x, xDD ? xDD.variation : 0),
+                y: OtVar.Ops.add(y, yDD ? yDD.variation : 0),
                 xDevice: xDD ? xDD.deviceDeltas : null,
                 yDevice: yDD ? yDD.deviceDeltas : null
             };
@@ -44,21 +44,21 @@ export const GposAnchor = {
     write(bb: Frag, a: Gpos.Anchor, ivs: Data.Maybe<WriteTimeIVS>) {
         if (a.attachToPoint) {
             bb.uint16(2);
-            bb.int16(Arith.Round.Coord(OV.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OV.originOf(a.y)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
             bb.uint16(a.attachToPoint.pointIndex);
         } else if (anchorNeedsFormat3(a)) {
             const dtX = { variation: a.x, deviceDeltas: a.xDevice };
             const dtY = { variation: a.y, deviceDeltas: a.yDevice };
             bb.uint16(3);
-            bb.int16(Arith.Round.Coord(OV.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OV.originOf(a.y)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
             bb.push(Ptr16DeviceTable, dtX, ivs);
             bb.push(Ptr16DeviceTable, dtY, ivs);
         } else {
             bb.uint16(1);
-            bb.int16(Arith.Round.Coord(OV.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OV.originOf(a.y)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
         }
     },
     measure(a: Data.Maybe<Gpos.Anchor>) {

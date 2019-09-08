@@ -2,7 +2,7 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
@@ -34,7 +34,7 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
             case CffOperator.Blend:
                 return this.st.doBlend();
             case CffOperator.Subrs:
-                const vwPrivateSubrs = this.viewDict.lift(OV.originOf(this.st.pop()));
+                const vwPrivateSubrs = this.viewDict.lift(OtVar.Ops.originOf(this.st.pop()));
                 this.result.localSubroutines = vwPrivateSubrs.next(CffSubroutineIndex, this.ctx);
                 break;
             case CffOperator.BlueValues:
@@ -71,16 +71,16 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
                 this.result.stemSnapV = this.st.accumulate(this.st.allArgs());
                 break;
             case CffOperator.LanguageGroup:
-                this.result.languageGroup = OV.originOf(this.st.pop());
+                this.result.languageGroup = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.ExpansionFactor:
                 this.result.expansionFactor = this.st.pop();
                 break;
             case CffOperator.defaultWidthX:
-                this.result.defaultWidthX = OV.originOf(this.st.pop());
+                this.result.defaultWidthX = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.nominalWidthX:
-                this.result.nominalWidthX = OV.originOf(this.st.pop());
+                this.result.nominalWidthX = OtVar.Ops.originOf(this.st.pop());
                 break;
             default:
                 throw Errors.Cff.OperatorNotSupported(opCode);
@@ -98,7 +98,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         let a: OtVar.Value = 0;
         let deltas: OtVar.Value[] = [];
         for (const v of vs) {
-            const d = OV.minus(v, a);
+            const d = OtVar.Ops.minus(v, a);
             deltas.push(d);
             a = v;
         }
@@ -106,7 +106,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
     }
 
     private *emitNumber(q: OtVar.Value, defaultQ: OtVar.Value, op: CffOperator) {
-        if (OV.equal(q, defaultQ, 1 / 0x10000)) return;
+        if (OtVar.Ops.equal(q, defaultQ, 1 / 0x10000)) return;
         yield new CffDrawCallRaw([q], op);
     }
 

@@ -1,4 +1,4 @@
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteContext } from "../../context/write";
 import { CharStringOperator } from "../../interp/operator";
@@ -33,7 +33,7 @@ const Corner = new OtVar.Master([
 ]);
 
 test("CFF Encoding: Draw call conversion", () => {
-    const cr = OV.Creator();
+    const cr = OtVar.Ops.Creator();
     const ctx = new CffWriteContext(2, 1000);
     const dcrSeq = new CffDrawCallRaw(
         [
@@ -70,7 +70,7 @@ test("CFF Encoding: Draw call conversion", () => {
 });
 
 test("CFF Encoding: Draw call conversion should not overflow", () => {
-    const cr = OV.Creator(new OtVar.MasterSet(undefined, true));
+    const cr = OtVar.Ops.Creator(new OtVar.MasterSet(undefined, true));
     const ctx = new CffWriteContext(2, 1000);
     let a: OtVar.Value[] = [];
     for (let x = 0; x < 128; x++) {

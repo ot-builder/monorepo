@@ -3,7 +3,7 @@ import { Errors } from "@ot-builder/errors";
 import { Gdef } from "@ot-builder/ft-layout";
 import { Arith, Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "../shared/device-table";
 
@@ -36,7 +36,7 @@ const CaretValueFormat1 = {
         return { x: view.uint16() } as Caret;
     }),
     ...Write((frag, caret: Caret) => {
-        frag.uint16(1).int16(Arith.Round.Coord(OV.originOf(caret.x)));
+        frag.uint16(1).int16(Arith.Round.Coord(OtVar.Ops.originOf(caret.x)));
     })
 };
 const CaretValueFormat2 = {
@@ -47,7 +47,7 @@ const CaretValueFormat2 = {
     }),
     ...Write((frag, caret: Caret) => {
         if (!caret.pointAttachment) throw Errors.Unreachable();
-        frag.uint16(2).int16(OV.originOf(caret.pointAttachment.pointIndex));
+        frag.uint16(2).int16(OtVar.Ops.originOf(caret.pointAttachment.pointIndex));
     })
 };
 const CaretValueFormat3 = {
@@ -56,15 +56,15 @@ const CaretValueFormat3 = {
         if (format !== 3) throw Errors.Unreachable();
         let x: OtVar.Value = view.int16();
         let dd = view.next(Ptr16DeviceTable, ivs);
-        x = OV.add(x, dd ? dd.variation : 0);
+        x = OtVar.Ops.add(x, dd ? dd.variation : 0);
         return { x: x, xDevice: dd ? dd.deviceDeltas : undefined } as Caret;
     }),
     ...Write((frag, caret: Caret, ivs?: Data.Maybe<WriteTimeIVS>) => {
-        if (OV.isConstant(caret.x) && !caret.xDevice) {
+        if (OtVar.Ops.isConstant(caret.x) && !caret.xDevice) {
             frag.push(CaretValueFormat1, caret);
         } else {
             frag.uint16(3)
-                .int16(Arith.Round.Coord(OV.originOf(caret.x)))
+                .int16(Arith.Round.Coord(OtVar.Ops.originOf(caret.x)))
                 .push(Ptr16DeviceTable, { deviceDeltas: caret.xDevice, variation: caret.x }, ivs);
         }
     })

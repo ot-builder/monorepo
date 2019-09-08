@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Cvt } from "@ot-builder/ft-glyphs";
 import { Int16 } from "@ot-builder/primitive";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export const CvtIo = {
     read(view: BinaryView) {
@@ -10,6 +10,6 @@ export const CvtIo = {
         return new Cvt.Table(entries);
     },
     write(frag: Frag, table: Cvt.Table) {
-        frag.array(Int16, table.items.map(x => OV.originOf(x)));
+        frag.array(Int16, table.items.map(x => OtVar.Ops.originOf(x)));
     }
 };

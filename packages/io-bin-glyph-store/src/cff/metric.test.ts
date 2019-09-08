@@ -5,7 +5,7 @@ import { DefaultCffCfgProps } from "@ot-builder/io-bin-cff";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 
 import { readGlyphStore } from "../general/read";
@@ -28,8 +28,8 @@ test("CFF metric variation test, WidthAndVWidthVF.otf", () => {
     const [wdth, vwid] = fvar!.axes;
     const narrow = OtVar.Master.Create({ axis: wdth, min: -1, peak: -1, max: 0 });
     const short = OtVar.Master.Create({ axis: vwid, min: -1, peak: -1, max: 0 });
-    const cr = OV.Creator();
-    expect(OV.equal(gid1.vertical.start, cr.make(1100, [short, -440]))).toBe(true);
-    expect(OV.equal(gid1.vertical.end, cr.make(-150, [short, +60]))).toBe(true);
-    expect(OV.equal(gid1.horizontal.end, cr.make(750, [narrow, -300]))).toBe(true);
+    const cr = OtVar.Ops.Creator();
+    expect(OtVar.Ops.equal(gid1.vertical.start, cr.make(1100, [short, -440]))).toBe(true);
+    expect(OtVar.Ops.equal(gid1.vertical.end, cr.make(-150, [short, +60]))).toBe(true);
+    expect(OtVar.Ops.equal(gid1.horizontal.end, cr.make(750, [narrow, -300]))).toBe(true);
 });

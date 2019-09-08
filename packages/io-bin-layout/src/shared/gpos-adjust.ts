@@ -3,7 +3,7 @@ import { Gpos, LayoutCommon } from "@ot-builder/ft-layout";
 import { Arith, Data } from "@ot-builder/prelude";
 import { Int16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 import * as crypto from "crypto";
 
 import { Ptr16DeviceTable } from "./device-table";
@@ -20,14 +20,14 @@ export enum GposAdjustmentFormat {
 }
 
 function needDeviceEntry(dt: Data.Maybe<ReadonlyArray<number>>, v: OtVar.Value) {
-    return dt || !OV.isConstant(v);
+    return dt || !OtVar.Ops.isConstant(v);
 }
 function omitWhenNoDeviceNeed<T>(dt: Data.Maybe<ReadonlyArray<number>>, v: OtVar.Value, val: T) {
-    return dt || !OV.isConstant(v) ? val : null;
+    return dt || !OtVar.Ops.isConstant(v) ? val : null;
 }
 function deviceDataSize(dt: Data.Maybe<ReadonlyArray<number>>, v: OtVar.Value) {
     if (dt) return Int16.size * 5 + dt.length;
-    else if (!OV.isConstant(v)) return Int16.size * 5;
+    else if (!OtVar.Ops.isConstant(v)) return Int16.size * 5;
     else return 0;
 }
 
@@ -76,28 +76,28 @@ export const GposAdjustment = {
         if (format & GposAdjustmentFormat.X_PLACEMENT_DEVICE) {
             const dd = view.next(Ptr16DeviceTable, ivs);
             if (dd) {
-                adj.dX = OV.add(adj.dX, dd.variation);
+                adj.dX = OtVar.Ops.add(adj.dX, dd.variation);
                 adj.dXDevice = dd.deviceDeltas;
             }
         }
         if (format & GposAdjustmentFormat.Y_PLACEMENT_DEVICE) {
             const dd = view.next(Ptr16DeviceTable, ivs);
             if (dd) {
-                adj.dY = OV.add(adj.dY, dd.variation);
+                adj.dY = OtVar.Ops.add(adj.dY, dd.variation);
                 adj.dYDevice = dd.deviceDeltas;
             }
         }
         if (format & GposAdjustmentFormat.X_ADVANCE_DEVICE) {
             const dd = view.next(Ptr16DeviceTable, ivs);
             if (dd) {
-                adj.dWidth = OV.add(adj.dWidth, dd.variation);
+                adj.dWidth = OtVar.Ops.add(adj.dWidth, dd.variation);
                 adj.dWidthDevice = dd.deviceDeltas;
             }
         }
         if (format & GposAdjustmentFormat.Y_ADVANCE_DEVICE) {
             const dd = view.next(Ptr16DeviceTable, ivs);
             if (dd) {
-                adj.dHeight = OV.add(adj.dHeight, dd.variation);
+                adj.dHeight = OtVar.Ops.add(adj.dHeight, dd.variation);
                 adj.dHeightDevice = dd.deviceDeltas;
             }
         }
@@ -107,16 +107,16 @@ export const GposAdjustment = {
 
     write(b: Frag, adj: Gpos.Adjustment, format: number, ivs: Data.Maybe<WriteTimeIVS>) {
         if (format & GposAdjustmentFormat.X_PLACEMENT) {
-            b.int16(Arith.Round.Offset(OV.originOf(adj.dX)));
+            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dX)));
         }
         if (format & GposAdjustmentFormat.Y_PLACEMENT) {
-            b.int16(Arith.Round.Offset(OV.originOf(adj.dY)));
+            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dY)));
         }
         if (format & GposAdjustmentFormat.X_ADVANCE) {
-            b.int16(Arith.Round.Offset(OV.originOf(adj.dWidth)));
+            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dWidth)));
         }
         if (format & GposAdjustmentFormat.Y_ADVANCE) {
-            b.int16(Arith.Round.Offset(OV.originOf(adj.dHeight)));
+            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dHeight)));
         }
         if (format & GposAdjustmentFormat.X_PLACEMENT_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dXDevice, adj.dX, {
@@ -154,10 +154,10 @@ export const GposAdjustment = {
 
     decideFormat(adj: Gpos.Adjustment) {
         let f: GposAdjustmentFormat = 0;
-        if (!OV.isZero(adj.dX)) f |= GposAdjustmentFormat.X_PLACEMENT;
-        if (!OV.isZero(adj.dY)) f |= GposAdjustmentFormat.Y_PLACEMENT;
-        if (!OV.isZero(adj.dWidth)) f |= GposAdjustmentFormat.X_ADVANCE;
-        if (!OV.isZero(adj.dHeight)) f |= GposAdjustmentFormat.Y_ADVANCE;
+        if (!OtVar.Ops.isZero(adj.dX)) f |= GposAdjustmentFormat.X_PLACEMENT;
+        if (!OtVar.Ops.isZero(adj.dY)) f |= GposAdjustmentFormat.Y_PLACEMENT;
+        if (!OtVar.Ops.isZero(adj.dWidth)) f |= GposAdjustmentFormat.X_ADVANCE;
+        if (!OtVar.Ops.isZero(adj.dHeight)) f |= GposAdjustmentFormat.Y_ADVANCE;
         if (needDeviceEntry(adj.dXDevice, adj.dX)) {
             f |= GposAdjustmentFormat.X_PLACEMENT_DEVICE | GposAdjustmentFormat.X_PLACEMENT;
         }

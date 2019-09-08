@@ -1,7 +1,7 @@
 import { Errors } from "@ot-builder/errors";
 import { WriteTimeIVD } from "@ot-builder/var-store";
 import { WriteTimeDelayValue } from "@ot-builder/var-store/lib/ivs/impl";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffEncodingOptions, CffWriteContext } from "../../context/write";
 import { CffOperator, CharStringOperator } from "../../interp/operator";
@@ -73,8 +73,8 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         for (const dc of from) {
             let args: Array<number | WriteTimeDelayValue> = [];
             for (const arg of dc.args) {
-                if (!col || OV.isConstant(arg)) {
-                    args.push(OV.evaluate(arg, null));
+                if (!col || OtVar.Ops.isConstant(arg)) {
+                    args.push(OtVar.Ops.evaluate(arg, null));
                 } else {
                     args.push(col.collect(arg));
                 }

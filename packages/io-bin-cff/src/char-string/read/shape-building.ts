@@ -1,5 +1,5 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffCharStringDataSink } from "./interpreter";
 
@@ -62,8 +62,8 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
     }
     public lineTo(x: OtVar.Value, y: OtVar.Value) {
         // console.log(`L`, x, y);
-        this.cx = OV.add(this.cx, x);
-        this.cy = OV.add(this.cy, y);
+        this.cx = OtVar.Ops.add(this.cx, x);
+        this.cy = OtVar.Ops.add(this.cy, y);
         // console.log(`CXY`, this.cx, this.cy);
         this.currentContour.push(new OtGlyph.Point(this.cx, this.cy, OtGlyph.PointType.Corner));
     }
@@ -77,12 +77,12 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         y3: OtVar.Value
     ) {
         // console.log(`C`, x1, y1, x2, y2, x3, y3);
-        const cx1 = OV.add(this.cx, x1);
-        const cy1 = OV.add(this.cy, y1);
-        const cx2 = OV.add(cx1, x2);
-        const cy2 = OV.add(cy1, y2);
-        const cx3 = OV.add(cx2, x3);
-        const cy3 = OV.add(cy2, y3);
+        const cx1 = OtVar.Ops.add(this.cx, x1);
+        const cy1 = OtVar.Ops.add(this.cy, y1);
+        const cx2 = OtVar.Ops.add(cx1, x2);
+        const cy2 = OtVar.Ops.add(cy1, y2);
+        const cx3 = OtVar.Ops.add(cx2, x3);
+        const cy3 = OtVar.Ops.add(cy2, y3);
         this.cx = cx3;
         this.cy = cy3;
         // console.log(`CXY`, this.cx, this.cy);

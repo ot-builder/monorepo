@@ -1,5 +1,5 @@
 import { OtGlyph, OtGlyphStore } from "@ot-builder/ft-glyphs";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { FastMatch } from "./fast-match";
 
@@ -75,8 +75,8 @@ export namespace GlyphIdentity {
     function removeContourCycle(c: OtGlyph.Point[]) {
         if (!c || !c.length) return;
         if (
-            OV.equal(c[0].x, c[c.length - 1].x, 1 / 64) &&
-            OV.equal(c[0].y, c[c.length - 1].y, 1 / 64) &&
+            OtVar.Ops.equal(c[0].x, c[c.length - 1].x, 1 / 64) &&
+            OtVar.Ops.equal(c[0].y, c[c.length - 1].y, 1 / 64) &&
             c[0].kind === OtGlyph.PointType.Corner &&
             c[c.length - 1].kind === OtGlyph.PointType.Corner
         ) {

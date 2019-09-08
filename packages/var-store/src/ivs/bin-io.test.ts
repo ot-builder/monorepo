@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Data } from "@ot-builder/prelude";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { ReadTimeIVS, WriteTimeIVS } from "./impl";
 
@@ -31,7 +31,7 @@ const Corner = new OtVar.Master([
 
 test("IVS roundtrip -- Traditional", () => {
     const mc = new OtVar.MasterSet(undefined, true);
-    const cr = OV.Creator(mc);
+    const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
@@ -43,17 +43,17 @@ test("IVS roundtrip -- Traditional", () => {
         Data.Order.fromList("Axes", [Wght, Wdth])
     );
 
-    expect(OV.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(true);
-    expect(OV.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 150], [Wide, 200]))).toBe(true);
-    expect(OV.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 100], [Wide, 0]))).toBe(true);
-    expect(OV.equal(ivs1.queryValue(2, 0), cr.make(0, [Bold, -10], [Wide, 20], [Corner, 3]))).toBe(
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 150], [Wide, 200]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 100], [Wide, 0]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(2, 0), cr.make(0, [Bold, -10], [Wide, 20], [Corner, 3]))).toBe(
         true
     );
 });
 
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     const mc = new OtVar.MasterSet(undefined, true);
-    const cr = OV.Creator(mc);
+    const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();
     col.collect(cr.make(100, [Bold, 150], [Wide, 100]));
@@ -69,7 +69,7 @@ test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     );
     const ivd = ivs1.getIVD(0);
     expect(
-        OV.equal(
+        OtVar.Ops.equal(
             ivs1.buildValue(ivd, [123, 456, 789]),
             cr.make(0, [Bold, 123], [Wide, 456], [Corner, 789])
         )

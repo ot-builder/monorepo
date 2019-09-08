@@ -2,9 +2,7 @@ import { Frag, Write } from "@ot-builder/bin-util";
 import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
 import { Arith } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
-import { displayBuffer } from "@ot-builder/test-util";
-import { OV } from "@ot-builder/variance";
-import { bgBlack } from "ansi-styles";
+import { OtVar } from "@ot-builder/variance";
 
 import { CompositeGlyph, GlyphClassifier, SimpleGlyph } from "./classifier";
 import { LocaTable } from "./loca";
@@ -75,8 +73,8 @@ function collectSimpleGlyphOutlineData(sg: SimpleGlyph) {
             endPtsOfContours += contour.length;
             endPtsOfContoursArray.push(endPtsOfContours);
             for (const z of contour) {
-                const px = Arith.Round.Coord(OV.originOf(z.x));
-                const py = Arith.Round.Coord(OV.originOf(z.y));
+                const px = Arith.Round.Coord(OtVar.Ops.originOf(z.x));
+                const py = Arith.Round.Coord(OtVar.Ops.originOf(z.y));
                 let flag = z.kind === OtGlyph.PointType.Corner ? SimpleGlyphFlag.ON_CURVE_POINT : 0;
 
                 flag |= FlagShrinker.decideAndWrite(
@@ -130,8 +128,8 @@ function analyzeComponent(ref: OtGlyph.TtReference) {
             flag |= ComponentFlag.ARG_1_AND_2_ARE_WORDS;
         }
     } else {
-        arg1 = Arith.Round.Coord(OV.originOf(ref.transform.dx));
-        arg2 = Arith.Round.Coord(OV.originOf(ref.transform.dy));
+        arg1 = Arith.Round.Coord(OtVar.Ops.originOf(ref.transform.dx));
+        arg2 = Arith.Round.Coord(OtVar.Ops.originOf(ref.transform.dy));
         flag |= ComponentFlag.ARGS_ARE_XY_VALUES;
         if (arg1 !== Int8.from(arg1) || arg2 !== Int8.from(arg2)) {
             flag |= ComponentFlag.ARG_1_AND_2_ARE_WORDS;

@@ -5,7 +5,7 @@ import { Maxp } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
 import { UIntN } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 type IndexMapping = { outer: number; inner: number };
 type DeltaMapCallback = (gid: number, outer: number, inner: number) => void;
@@ -152,12 +152,12 @@ export const MetricVarianceIo = {
             let advanceMap: IndexMapping[] = [];
             let originMap: IndexMapping[] = [];
             for (let gid = 0; gid < mv.measures.length; gid++) {
-                if (!OV.isConstant(mv.measures[gid].advance)) empty = false;
+                if (!OtVar.Ops.isConstant(mv.measures[gid].advance)) empty = false;
                 advanceMap[gid] = ivs.valueToInnerOuterIDForce(mv.measures[gid].advance, mFallback);
             }
             if (mv.isVertical) {
                 for (let gid = 0; gid < mv.measures.length; gid++) {
-                    if (!OV.isConstant(mv.measures[gid].start)) empty = false;
+                    if (!OtVar.Ops.isConstant(mv.measures[gid].start)) empty = false;
                     originMap[gid] = ivs.valueToInnerOuterIDForce(
                         mv.measures[gid].start,
                         mFallback

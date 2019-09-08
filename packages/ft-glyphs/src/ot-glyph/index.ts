@@ -1,6 +1,6 @@
 import { Data } from "@ot-builder/prelude";
 import { Rectify, Trace } from "@ot-builder/rectify";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";
 
@@ -69,7 +69,7 @@ export namespace OtGlyph {
             return new Point(x, y, kind);
         }
     }
-    export const PointOps = new GeneralGlyph.Point.OpT(OV, Point);
+    export const PointOps = new GeneralGlyph.Point.OpT(OtVar.Ops, Point);
 
     export class ContourSet implements GeneralGlyph.ContourSetT<OtGlyph, OtVar.Value> {
         constructor(public contours: GeneralGlyph.Contour.T<OtVar.Value>[] = []) {}

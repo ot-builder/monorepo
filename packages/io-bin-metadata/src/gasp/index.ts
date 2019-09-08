@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export const GaspTableIo = {
     read(view: BinaryView) {
@@ -25,7 +25,7 @@ const GapsRange = {
         return new Gasp.Range(rangeMaxPPEM, rangeGaspBehavior);
     },
     write(frag: Frag, range: Gasp.Range) {
-        frag.uint16(OV.originOf(range.maxPPEM));
+        frag.uint16(OtVar.Ops.originOf(range.maxPPEM));
         frag.uint16(range.behavior);
     }
 };

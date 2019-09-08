@@ -4,7 +4,7 @@ import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { LookupReader, LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { EmptyStat } from "../stat";
@@ -93,7 +93,7 @@ export function SetupVariation() {
     };
     const ms = new OtVar.MasterSet();
     const ivs = WriteTimeIVS.create(ms);
-    const cr = OV.Creator(ms);
+    const cr = OtVar.Ops.Creator(ms);
     const create = (...xs: (number | [OtVar.Master, number])[]) => cr.make(...xs);
     return { axes, masters, ivs, masterSet: ms, create };
 }

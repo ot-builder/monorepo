@@ -1,4 +1,3 @@
-import { thisTypeAnnotation } from "@babel/types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ft-encoding";

@@ -1,5 +1,5 @@
 import { OtGeometryHandler, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export function rectifyGlyphOrder(gOrd: OtGlyphOrder) {
     let gs = new Set<OtGlyph>();
@@ -36,8 +36,8 @@ function consolidateRef(geometry: OtGlyph.TtReference, glyph: OtGlyph, gs: Set<O
         geometry.transform = {
             ...geometry.transform,
             scaledOffset: false,
-            dx: OV.minus(zOut.x, zIn.x),
-            dy: OV.minus(zOut.x, zIn.x)
+            dx: OtVar.Ops.minus(zOut.x, zIn.x),
+            dy: OtVar.Ops.minus(zOut.x, zIn.x)
         };
     }
 }

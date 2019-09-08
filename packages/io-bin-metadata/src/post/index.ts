@@ -3,7 +3,7 @@ import { Errors } from "@ot-builder/errors";
 import { Post } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
 import { F16D16 } from "@ot-builder/primitive";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import macGlyphNames from "./mac-glyph-names";
 
@@ -106,8 +106,8 @@ export const PostAndNameIo = {
         frag.uint16(post.majorVersion);
         frag.uint16(post.minorVersion);
         frag.push(F16D16, post.italicAngle);
-        frag.int16(OV.originOf(post.underlinePosition));
-        frag.int16(OV.originOf(post.underlineThickness));
+        frag.int16(OtVar.Ops.originOf(post.underlinePosition));
+        frag.int16(OtVar.Ops.originOf(post.underlineThickness));
         frag.uint32(post.isFixedPitch ? 1 : 0);
         if (keepMemorySettings) {
             frag.uint32(post.minMemType42);

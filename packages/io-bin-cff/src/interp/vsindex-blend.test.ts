@@ -2,7 +2,7 @@ import { Errors } from "@ot-builder/errors";
 import { Maybe } from "@ot-builder/prelude/lib/data";
 import { TestVariance } from "@ot-builder/test-util";
 import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffInterp } from "./ir";
 import { CffOperator } from "./operator";
@@ -35,17 +35,17 @@ function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
     const boldOnly = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
-        OV,
+        OtVar.Ops,
         new OtVar.MasterSet()
     );
     boldOnly.masterIDs = [0];
     const wideOnly = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
-        OV,
+        OtVar.Ops,
         new OtVar.MasterSet()
     );
     wideOnly.masterIDs = [1];
     const boldAndWide = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
-        OV,
+        OtVar.Ops,
         new OtVar.MasterSet()
     );
     boldAndWide.masterIDs = [0, 1];
@@ -61,30 +61,30 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend", () => {
-        const cr = OV.Creator();
+        const cr = OtVar.Ops.Creator();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 1).operator(CffOperator.Blend);
 
         expect(1).toBe(inter.getStack().length);
         const [x] = inter.getStack();
-        expect(true).toBe(OV.equal(x, cr.make(1, [Bold, 2])));
+        expect(true).toBe(OtVar.Ops.equal(x, cr.make(1, [Bold, 2])));
     });
 
     test("Should handle blend of multiple arguments", () => {
-        const cr = OV.Creator();
+        const cr = OtVar.Ops.Creator();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 3, 4, 2).operator(CffOperator.Blend);
 
         expect(2).toBe(inter.getStack().length);
         const [x, y] = inter.getStack();
-        expect(true).toBe(OV.equal(x, cr.make(1, [Bold, 3])));
-        expect(true).toBe(OV.equal(y, cr.make(2, [Bold, 4])));
+        expect(true).toBe(OtVar.Ops.equal(x, cr.make(1, [Bold, 3])));
+        expect(true).toBe(OtVar.Ops.equal(y, cr.make(2, [Bold, 4])));
     });
 
     test("Should handle VSIndex", () => {
-        const cr = OV.Creator();
+        const cr = OtVar.Ops.Creator();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);
@@ -92,12 +92,12 @@ describe("CFF Interpreter", () => {
 
         expect(2).toBe(inter.getStack().length);
         const [x, y] = inter.getStack();
-        expect(true).toBe(OV.equal(x, cr.make(1, [Bold, 3], [Wide, 4])));
-        expect(true).toBe(OV.equal(y, cr.make(2, [Bold, 5], [Wide, 6])));
+        expect(true).toBe(OtVar.Ops.equal(x, cr.make(1, [Bold, 3], [Wide, 4])));
+        expect(true).toBe(OtVar.Ops.equal(y, cr.make(2, [Bold, 5], [Wide, 6])));
     });
 
     test("Should handle blend chaining", () => {
-        const cr = OV.Creator();
+        const cr = OtVar.Ops.Creator();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);
@@ -106,7 +106,7 @@ describe("CFF Interpreter", () => {
 
         expect(2).toBe(inter.getStack().length);
         const [x, y] = inter.getStack();
-        expect(true).toBe(OV.equal(x, cr.make(1, [Bold, 6], [Wide, 8])));
-        expect(true).toBe(OV.equal(y, cr.make(2, [Bold, 10], [Wide, 12])));
+        expect(true).toBe(OtVar.Ops.equal(x, cr.make(1, [Bold, 6], [Wide, 8])));
+        expect(true).toBe(OtVar.Ops.equal(y, cr.make(2, [Bold, 10], [Wide, 12])));
     });
 });

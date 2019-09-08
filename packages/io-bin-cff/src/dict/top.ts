@@ -2,7 +2,7 @@ import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteIndex } from "../cff-index/write";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
@@ -26,26 +26,26 @@ export class CffTopDictInterpreter extends CffFontDictInterpreterBase
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
             case CffOperator.CharStrings:
-                this.td.vCharStrings = this.ctx.vwCffTable.lift(OV.originOf(this.st.pop()));
+                this.td.vCharStrings = this.ctx.vwCffTable.lift(OtVar.Ops.originOf(this.st.pop()));
                 break;
             case CffOperator.FDArray:
-                this.td.vFDArray = this.ctx.vwCffTable.lift(OV.originOf(this.st.pop()));
+                this.td.vFDArray = this.ctx.vwCffTable.lift(OtVar.Ops.originOf(this.st.pop()));
                 break;
             case CffOperator.FDSelect:
-                this.td.vFDSelect = this.ctx.vwCffTable.lift(OV.originOf(this.st.pop()));
+                this.td.vFDSelect = this.ctx.vwCffTable.lift(OtVar.Ops.originOf(this.st.pop()));
                 break;
             case CffOperator.VStore:
-                this.td.vVarStore = this.ctx.vwCffTable.lift(OV.originOf(this.st.pop()));
+                this.td.vVarStore = this.ctx.vwCffTable.lift(OtVar.Ops.originOf(this.st.pop()));
                 break;
             case CffOperator.Charset:
-                this.td.vCharSet = this.ctx.vwCffTable.lift(OV.originOf(this.st.pop()));
+                this.td.vCharSet = this.ctx.vwCffTable.lift(OtVar.Ops.originOf(this.st.pop()));
                 break;
             case CffOperator.Encoding:
                 this.st.pop(); // Ignore
                 break;
             case CffOperator.ROS:
                 const cid = new Cff.CID();
-                cid.supplement = OV.originOf(this.st.pop());
+                cid.supplement = OtVar.Ops.originOf(this.st.pop());
                 cid.ordering = this.popString();
                 cid.registry = this.popString();
                 this.td.cidROS = cid;

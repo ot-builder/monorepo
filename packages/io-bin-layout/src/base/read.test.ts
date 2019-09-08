@@ -7,7 +7,7 @@ import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { BaseTableIo } from "./index";
 
@@ -31,6 +31,6 @@ describe("BASE read", () => {
         expect(baseH.baselineTags).toEqual(["ideo", "romn"]);
         const baseHDflt = baseH.scripts.get(`DFLT`)!.baseValues!;
         expect(baseHDflt.defaultBaselineIndex).toBe(1);
-        expect(OV.equal(1, baseHDflt.baseValues.get("romn")!.at)).toBe(true);
+        expect(OtVar.Ops.equal(1, baseHDflt.baseValues.get("romn")!.at)).toBe(true);
     });
 });

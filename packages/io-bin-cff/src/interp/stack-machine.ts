@@ -1,13 +1,13 @@
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export class CffStackMachine {
     public ivd: ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
     public vms = new OtVar.MasterSet();
-    private varCreator = OV.Creator(this.vms);
+    private varCreator = OtVar.Ops.Creator(this.vms);
 
     constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
         if (ivs) this.ivd = ivs.tryGetIVD(0);
@@ -33,7 +33,7 @@ export class CffStackMachine {
         if (vqs.length < 2) return vqs;
         let s = vqs[0];
         for (let index = 1; index < vqs.length; index++) {
-            s = OV.add(s, vqs[index]);
+            s = OtVar.Ops.add(s, vqs[index]);
             vqs[index] = s;
         }
         return vqs;
@@ -69,14 +69,14 @@ export class CffStackMachine {
     }
     public doVsIndex() {
         const [_outId] = this.args(1);
-        const outId = OV.originOf(_outId);
+        const outId = OtVar.Ops.originOf(_outId);
         this.setVsIndex(outId);
         return outId;
     }
     public doBlend() {
         if (!this.ivs || !this.ivd) throw Errors.Cff.NotVariable();
         const [_n] = this.args(1);
-        const nValues = OV.originOf(_n);
+        const nValues = OtVar.Ops.originOf(_n);
         const nMasters = this.ivd.masterIDs.length;
         const args = this.args(nValues * (1 + nMasters));
         let results: OtVar.Value[] = [];
@@ -86,10 +86,10 @@ export class CffStackMachine {
             for (let ixMaster = 0; ixMaster < nMasters; ixMaster++) {
                 variance[ixMaster] = [
                     this.ivs.getMaster(this.ivd.masterIDs[ixMaster]),
-                    OV.originOf(args[nValues + ixVal * nMasters + ixMaster])
+                    OtVar.Ops.originOf(args[nValues + ixVal * nMasters + ixMaster])
                 ];
             }
-            results.push(OV.add(orig, this.varCreator.create(0, variance)));
+            results.push(OtVar.Ops.add(orig, this.varCreator.create(0, variance)));
         }
         for (const x of results) {
             this.stack.push(x);

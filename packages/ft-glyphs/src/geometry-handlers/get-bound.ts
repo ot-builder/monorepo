@@ -1,4 +1,4 @@
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
 
@@ -19,6 +19,6 @@ class BoundBoxPointSink {
         return this.bb.getResult();
     }
     public addControlKnot(knot: OtGlyph.Point) {
-        this.bb.addPoint(OV.originOf(knot.x), OV.originOf(knot.y));
+        this.bb.addPoint(OtVar.Ops.originOf(knot.x), OtVar.Ops.originOf(knot.y));
     }
 }

@@ -5,7 +5,7 @@ import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { DefaultCffCfgProps } from "../cfg";
 import { ReadCff2 } from "../main/read-cff2";
@@ -34,8 +34,8 @@ test("Reading : CFF2", () => {
         const csB = b.geometries[0] as OtGlyph.ContourSet;
         expect(csB.contours.length).toBe(4);
         for (const contour of csB.contours) {
-            expect(true).toBe(OV.equal(contour[0].x, contour[contour.length - 1].x, 1));
-            expect(true).toBe(OV.equal(contour[0].y, contour[contour.length - 1].y, 1));
+            expect(true).toBe(OtVar.Ops.equal(contour[0].x, contour[contour.length - 1].x, 1));
+            expect(true).toBe(OtVar.Ops.equal(contour[0].y, contour[contour.length - 1].y, 1));
         }
     }
 });

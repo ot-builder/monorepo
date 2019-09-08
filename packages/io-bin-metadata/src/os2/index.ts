@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Os2 } from "@ot-builder/ft-metadata";
 import { Tag } from "@ot-builder/primitive";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export const Os2Panose = {
     read(bp: BinaryView) {
@@ -87,16 +87,16 @@ export const Os2TableIo = {
         frag.uint16(table.usWeightClass);
         frag.uint16(table.usWidthClass);
         frag.uint16(table.fsType);
-        frag.int16(OV.originOf(table.ySubscriptXSize));
-        frag.int16(OV.originOf(table.ySubscriptYSize));
-        frag.int16(OV.originOf(table.ySubscriptXOffset));
-        frag.int16(OV.originOf(table.ySubscriptYOffset));
-        frag.int16(OV.originOf(table.ySuperscriptXSize));
-        frag.int16(OV.originOf(table.ySuperscriptYSize));
-        frag.int16(OV.originOf(table.ySuperscriptXOffset));
-        frag.int16(OV.originOf(table.ySuperscriptYOffset));
-        frag.int16(OV.originOf(table.yStrikeoutSize));
-        frag.int16(OV.originOf(table.yStrikeoutPosition));
+        frag.int16(OtVar.Ops.originOf(table.ySubscriptXSize));
+        frag.int16(OtVar.Ops.originOf(table.ySubscriptYSize));
+        frag.int16(OtVar.Ops.originOf(table.ySubscriptXOffset));
+        frag.int16(OtVar.Ops.originOf(table.ySubscriptYOffset));
+        frag.int16(OtVar.Ops.originOf(table.ySuperscriptXSize));
+        frag.int16(OtVar.Ops.originOf(table.ySuperscriptYSize));
+        frag.int16(OtVar.Ops.originOf(table.ySuperscriptXOffset));
+        frag.int16(OtVar.Ops.originOf(table.ySuperscriptYOffset));
+        frag.int16(OtVar.Ops.originOf(table.yStrikeoutSize));
+        frag.int16(OtVar.Ops.originOf(table.yStrikeoutPosition));
         frag.int16(table.sFamilyClass);
         frag.push(Os2Panose, table.panose);
         frag.uint32(table.ulUnicodeRange1);
@@ -107,17 +107,17 @@ export const Os2TableIo = {
         frag.uint16(table.fsSelection);
         frag.uint16(table.usFirstCharIndex);
         frag.uint16(table.usLastCharIndex);
-        frag.int16(OV.originOf(table.sTypoAscender));
-        frag.int16(OV.originOf(table.sTypoDescender));
-        frag.int16(OV.originOf(table.sTypoLineGap));
-        frag.uint16(OV.originOf(table.usWinAscent));
-        frag.uint16(OV.originOf(table.usWinDescent));
+        frag.int16(OtVar.Ops.originOf(table.sTypoAscender));
+        frag.int16(OtVar.Ops.originOf(table.sTypoDescender));
+        frag.int16(OtVar.Ops.originOf(table.sTypoLineGap));
+        frag.uint16(OtVar.Ops.originOf(table.usWinAscent));
+        frag.uint16(OtVar.Ops.originOf(table.usWinDescent));
         if (table.version < 1) return;
         frag.uint32(table.ulCodePageRange1);
         frag.uint32(table.ulCodePageRange2);
         if (table.version < 2) return;
-        frag.int16(OV.originOf(table.sxHeight));
-        frag.int16(OV.originOf(table.sCapHeight));
+        frag.int16(OtVar.Ops.originOf(table.sxHeight));
+        frag.int16(OtVar.Ops.originOf(table.sCapHeight));
         frag.uint16(table.usDefaultChar);
         frag.uint16(table.usBreakChar);
         frag.uint16(table.usMaxContext);

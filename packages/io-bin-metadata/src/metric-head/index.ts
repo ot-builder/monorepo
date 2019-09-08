@@ -1,6 +1,6 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { MetricHead } from "@ot-builder/ft-metadata";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export const MetricHeadIo = {
     ...Read((view, vertical: boolean) => {
@@ -30,16 +30,16 @@ export const MetricHeadIo = {
     ...Write((frag, table: MetricHead.Table) => {
         frag.uint16(table.majorVersion);
         frag.uint16(table.minorVersion);
-        frag.int16(Math.round(OV.originOf(table.ascender)));
-        frag.int16(Math.round(OV.originOf(table.descender)));
-        frag.int16(Math.round(OV.originOf(table.lineGap)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.ascender)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.descender)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.lineGap)));
         frag.uint16(table.advanceMax);
         frag.int16(table.minStartSideBearing);
         frag.int16(table.minEndSideBearing);
         frag.int16(table.maxExtent);
-        frag.int16(Math.round(OV.originOf(table.caretSlopeRise)));
-        frag.int16(Math.round(OV.originOf(table.caretSlopeRun)));
-        frag.int16(Math.round(OV.originOf(table.caretOffset)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.caretSlopeRise)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.caretSlopeRun)));
+        frag.int16(Math.round(OtVar.Ops.originOf(table.caretOffset)));
         frag.int16(table._reserved0);
         frag.int16(table._reserved1);
         frag.int16(table._reserved2);

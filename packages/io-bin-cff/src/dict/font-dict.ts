@@ -2,7 +2,7 @@ import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffReadIndex } from "../cff-index/read";
 import { CffWriteIndex } from "../cff-index/write";
@@ -29,7 +29,7 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
     protected fd = new Cff.FontDict();
 
     protected popString() {
-        const sid = OV.originOf(this.st.pop());
+        const sid = OtVar.Ops.originOf(this.st.pop());
         if (!this.ctx.strings) throw Errors.Cff.StringsDisallowed();
         return this.ctx.strings.get(sid);
     }
@@ -58,25 +58,25 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
 
             // Numbers
             case CffOperator.IsFixedPitch:
-                this.fd.isFixedPitch = !!OV.originOf(this.st.pop());
+                this.fd.isFixedPitch = !!OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.ItalicAngle:
-                this.fd.italicAngle = OV.originOf(this.st.pop());
+                this.fd.italicAngle = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.UnderlinePosition:
-                this.fd.underlinePosition = OV.originOf(this.st.pop());
+                this.fd.underlinePosition = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.UnderlineThickness:
-                this.fd.underlineThickness = OV.originOf(this.st.pop());
+                this.fd.underlineThickness = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.PaintType:
-                this.fd.paintType = OV.originOf(this.st.pop());
+                this.fd.paintType = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.CharStringType:
                 this.st.pop();
                 break;
             case CffOperator.StrokeWidth:
-                this.fd.strokeWidth = OV.originOf(this.st.pop());
+                this.fd.strokeWidth = OtVar.Ops.originOf(this.st.pop());
                 break;
 
             // CID
@@ -84,16 +84,16 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
                 this.fd.cidFontName = this.popString();
                 break;
             case CffOperator.CIDFontVersion:
-                this.fd.cidFontVersion = OV.originOf(this.st.pop());
+                this.fd.cidFontVersion = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.CIDFontRevision:
-                this.fd.cidFontRevision = OV.originOf(this.st.pop());
+                this.fd.cidFontRevision = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.CIDFontType:
-                this.fd.cidFontType = OV.originOf(this.st.pop());
+                this.fd.cidFontType = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.CIDCount:
-                this.fd.cidCount = OV.originOf(this.st.pop());
+                this.fd.cidCount = OtVar.Ops.originOf(this.st.pop());
                 break;
 
             // Unique ID, XUID, etc
@@ -121,8 +121,8 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
             case CffOperator.Private:
                 const [vvSize, vvOffset] = this.st.args(2);
                 this.fd.privateDict = this.ctx.vwCffTable
-                    .lift(OV.originOf(vvOffset))
-                    .next(CffPrivateDictIo, this.ctx, OV.originOf(vvSize));
+                    .lift(OtVar.Ops.originOf(vvOffset))
+                    .next(CffPrivateDictIo, this.ctx, OtVar.Ops.originOf(vvSize));
                 break;
 
             default:
@@ -140,7 +140,7 @@ export class CffFontDictInterpreter extends CffFontDictInterpreterBase
 
 export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict> {
     private *emitNum(q: OtVar.Value, defaultQ: OtVar.Value, op: CffOperator) {
-        if (OV.equal(q, defaultQ, 1 / 0x10000)) return;
+        if (OtVar.Ops.equal(q, defaultQ, 1 / 0x10000)) return;
         yield new CffDrawCallRaw([q], op);
     }
 

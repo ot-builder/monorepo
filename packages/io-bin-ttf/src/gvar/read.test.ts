@@ -5,7 +5,7 @@ import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { DefaultTtfCfgProps } from "../cfg";
 import { LocaTableIo, LocaTag } from "../glyf/loca";
@@ -39,21 +39,21 @@ test("Reading : TTF, variable", () => {
     );
     const thin = new OtVar.Master([{ axis: fvar!.axes[0], min: -1, peak: -1, max: 0 }]);
     const bold = new OtVar.Master([{ axis: fvar!.axes[0], min: 0, peak: +1, max: +1 }]);
-    const cr = OV.Creator();
+    const cr = OtVar.Ops.Creator();
     rectifyGlyphOrder(gOrd);
     {
         const notDef = gOrd.at(0);
         expect(notDef.geometries.length).toBe(1);
         const outlines = notDef.geometries[0] as OtGlyph.ContourSet;
-        expect(OV.equal(outlines.contours[0][0].x, 80)).toBe(true);
-        expect(OV.equal(outlines.contours[0][1].x, cr.make(500, [thin, 35], [bold, -40]))).toBe(
-            true
-        );
+        expect(OtVar.Ops.equal(outlines.contours[0][0].x, 80)).toBe(true);
+        expect(
+            OtVar.Ops.equal(outlines.contours[0][1].x, cr.make(500, [thin, 35], [bold, -40]))
+        ).toBe(true);
     }
     {
         const a = gOrd.at(2);
         // Note: we don't read HMTX yet so the default advance **should be** 0
-        expect(OV.equal(a.horizontal.end, cr.make(0, [thin, -10], [bold, +17]))).toBe(true);
+        expect(OtVar.Ops.equal(a.horizontal.end, cr.make(0, [thin, -10], [bold, +17]))).toBe(true);
     }
     {
         const g300 = gOrd.at(300);
@@ -65,7 +65,9 @@ test("Reading : TTF, variable", () => {
         const diacritic = g300.geometries[1] as OtGlyph.TtReference;
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));
-        expect(OV.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))).toBe(true);
-        expect(OV.equal(diacritic.transform.dy, 0)).toBe(true);
+        expect(OtVar.Ops.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))).toBe(
+            true
+        );
+        expect(OtVar.Ops.equal(diacritic.transform.dy, 0)).toBe(true);
     }
 });

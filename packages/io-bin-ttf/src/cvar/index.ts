@@ -10,7 +10,7 @@ import {
     TupleVariationWriteOpt,
     TvdAccess
 } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CumulativeTvd } from "../shared/tvd-access";
 
@@ -70,7 +70,7 @@ class CvtTvhClient implements TupleVariationGeometryClient {
 class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     constructor(ms: OtVar.MasterSet, readonly cvt: Cvt.Table, readonly cvtId: number) {
         super(ms);
-        this.original = OV.originOf(cvt.items[cvtId] || 0);
+        this.original = OtVar.Ops.originOf(cvt.items[cvtId] || 0);
     }
     public readonly original: number;
     public finish() {

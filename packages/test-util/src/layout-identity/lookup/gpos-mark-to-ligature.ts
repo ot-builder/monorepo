@@ -1,7 +1,7 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
-import { OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { BimapCtx, StdCompare } from "../../compar-util";
 import { FastMatch } from "../../fast-match";
@@ -12,15 +12,15 @@ export namespace GposMarkToLigatureIdentity {
         mre: Data.Maybe<Gpos.MarkRecord>,
         bre: Data.Maybe<Gpos.LigatureRecord>
     ) {
-        let offsetX = OV.neutral;
-        let offsetY = OV.neutral;
+        let offsetX = OtVar.Ops.neutral;
+        let offsetY = OtVar.Ops.neutral;
         if (mre && bre) {
             for (let mc = 0; mc < mre.markAnchors.length; mc++) {
                 const markAnchor = mre.markAnchors[mc];
                 const baseAnchor = bre.baseAnchors[component][mc];
                 if (!markAnchor || !baseAnchor) continue;
-                offsetX = OV.minus(baseAnchor.x, markAnchor.x);
-                offsetY = OV.minus(baseAnchor.y, markAnchor.y);
+                offsetX = OtVar.Ops.minus(baseAnchor.x, markAnchor.x);
+                offsetY = OtVar.Ops.minus(baseAnchor.y, markAnchor.y);
             }
         }
         return { x: offsetX, y: offsetY };

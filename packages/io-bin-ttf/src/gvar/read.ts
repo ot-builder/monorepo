@@ -4,9 +4,8 @@ import { Assert } from "@ot-builder/errors";
 import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
-import { displayBuffer } from "@ot-builder/test-util";
 import { TupleVariationGeometryClient, TupleVariationRead, TvdAccess } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { TtfCfg } from "../cfg";
 import { CumulativeTvd } from "../shared/tvd-access";
@@ -146,7 +145,7 @@ class ContourTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> 
     ) {
         super(ms);
         const z = cs.contours[cid][zid];
-        this.original = isX ? OV.originOf(z.x) : OV.originOf(z.y);
+        this.original = isX ? OtVar.Ops.originOf(z.x) : OtVar.Ops.originOf(z.y);
     }
     public readonly original: number;
     public finish() {
@@ -162,7 +161,9 @@ class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
         private readonly isX: number
     ) {
         super(ms);
-        this.original = isX ? OV.originOf(ref.transform.dx) : OV.originOf(ref.transform.dy);
+        this.original = isX
+            ? OtVar.Ops.originOf(ref.transform.dx)
+            : OtVar.Ops.originOf(ref.transform.dy);
     }
     public readonly original: number;
     public finish() {
@@ -183,7 +184,7 @@ class MetricTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     ) {
         super(ms);
         const met = isH ? ref.horizontal : ref.vertical;
-        this.original = isStart ? OV.originOf(met.start) : OV.originOf(met.end);
+        this.original = isStart ? OtVar.Ops.originOf(met.start) : OtVar.Ops.originOf(met.end);
     }
     public readonly original: number;
     public finish() {

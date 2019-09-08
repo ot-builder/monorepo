@@ -1,5 +1,5 @@
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteContext } from "../../context/write";
 import { CharStringOperator } from "../../interp/operator";
@@ -24,8 +24,8 @@ class CffCodeGen {
         let current: OtVar.Value = 0;
         let args: OtVar.Value[] = [];
         for (let s of stemList) {
-            const arg1 = OV.minus(s.start, current);
-            const arg2 = OV.minus(s.end, s.start);
+            const arg1 = OtVar.Ops.minus(s.start, current);
+            const arg2 = OtVar.Ops.minus(s.end, s.start);
             current = s.end;
             args.push(arg1, arg2);
         }
@@ -83,9 +83,9 @@ class CffCodeGen {
         defaultWidthX: OtVar.Value,
         nominalWidthX: OtVar.Value
     ) {
-        const width = OV.minus(hMetric.end, hMetric.start);
-        if (OV.equal(width, defaultWidthX, 1 / 0x10000)) return;
-        const arg = OV.minus(width, nominalWidthX);
+        const width = OtVar.Ops.minus(hMetric.end, hMetric.start);
+        if (OtVar.Ops.equal(width, defaultWidthX, 1 / 0x10000)) return;
+        const arg = OtVar.Ops.minus(width, nominalWidthX);
         if (!this.st.rawDrawCalls.length) {
             this.st.pushRawCall(new CffDrawCallRaw([arg], CharStringOperator.EndChar));
         } else {
@@ -210,9 +210,9 @@ class CffContourHandler implements OtGlyph.PrimitiveSink {
         this.knotsHandled += 1;
     }
     private pushCorner(a: OtGlyph.Point) {
-        this.st.bBoxStat.addPoint(OV.originOf(a.x), OV.originOf(a.y));
-        const dx = OV.minus(a.x, this.st.cx);
-        const dy = OV.minus(a.y, this.st.cy);
+        this.st.bBoxStat.addPoint(OtVar.Ops.originOf(a.x), OtVar.Ops.originOf(a.y));
+        const dx = OtVar.Ops.minus(a.x, this.st.cx);
+        const dy = OtVar.Ops.minus(a.y, this.st.cy);
         this.st.cx = a.x;
         this.st.cy = a.y;
         if (!this.knotsHandled) {
@@ -225,22 +225,22 @@ class CffContourHandler implements OtGlyph.PrimitiveSink {
     private pushCurve(a: OtGlyph.Point, b: OtGlyph.Point, c: OtGlyph.Point) {
         this.st.bBoxStat.addBox(
             OtGlyph.Stat.bezierCurveBoundingBox(
-                OV.originOf(this.st.cx),
-                OV.originOf(this.st.cy),
-                OV.originOf(a.x),
-                OV.originOf(a.y),
-                OV.originOf(b.x),
-                OV.originOf(b.y),
-                OV.originOf(c.x),
-                OV.originOf(c.y)
+                OtVar.Ops.originOf(this.st.cx),
+                OtVar.Ops.originOf(this.st.cy),
+                OtVar.Ops.originOf(a.x),
+                OtVar.Ops.originOf(a.y),
+                OtVar.Ops.originOf(b.x),
+                OtVar.Ops.originOf(b.y),
+                OtVar.Ops.originOf(c.x),
+                OtVar.Ops.originOf(c.y)
             )
         );
-        const dxA = OV.minus(a.x, this.st.cx);
-        const dyA = OV.minus(a.y, this.st.cy);
-        const dxB = OV.minus(b.x, a.x);
-        const dyB = OV.minus(b.y, a.y);
-        const dxC = OV.minus(c.x, b.x);
-        const dyC = OV.minus(c.y, b.y);
+        const dxA = OtVar.Ops.minus(a.x, this.st.cx);
+        const dyA = OtVar.Ops.minus(a.y, this.st.cy);
+        const dxB = OtVar.Ops.minus(b.x, a.x);
+        const dyB = OtVar.Ops.minus(b.y, a.y);
+        const dxC = OtVar.Ops.minus(c.x, b.x);
+        const dyC = OtVar.Ops.minus(c.y, b.y);
         this.st.cx = c.x;
         this.st.cy = c.y;
         this.st.pushRawCall(

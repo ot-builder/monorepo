@@ -5,7 +5,7 @@ import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
 import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 export const MvarTag = "MVAR";
 
@@ -117,7 +117,7 @@ export const MvarTableIo = {
             const lens = lenses.get(tag);
             if (lens) {
                 const current = lens.get();
-                lens.set(OV.add(current, value));
+                lens.set(OtVar.Ops.add(current, value));
             }
         }
     },

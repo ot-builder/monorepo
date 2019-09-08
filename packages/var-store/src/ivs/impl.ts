@@ -2,7 +2,7 @@ import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Control, Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt16 } from "@ot-builder/primitive";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import {
     CReadTimeIVS,
@@ -52,7 +52,7 @@ const RegionList = {
 
 const IVD = {
     ...Read(vw => {
-        const ivd = new ReadTimeIVD(OV, new OtVar.MasterSet());
+        const ivd = new ReadTimeIVD(OtVar.Ops, new OtVar.MasterSet());
         const itemCount = vw.uint16();
         const shortDeltaCount = vw.uint16();
         const regionIndexCount = vw.uint16();

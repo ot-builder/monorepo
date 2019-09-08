@@ -1,7 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
-import { OtVar, OV } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
 import { CffInterp } from "../../interp/ir";
 import { CharStringIrSource } from "../../interp/ir-source";
@@ -170,7 +170,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 return this.doConditional();
             case CharStringOperator.CallSubr:
             case CharStringOperator.CallGSubr:
-                const subr = OV.originOf(this.state.pop());
+                const subr = OtVar.Ops.originOf(this.state.pop());
                 const buf =
                     opCode === CharStringOperator.CallSubr
                         ? this.getLocalSubroutine(subr)
@@ -188,12 +188,14 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
 
     // Hinting
     private doStemHint(isVertical: boolean, args: OtVar.Value[]) {
-        if (args.length % 2) this.sink.setWidth(OV.add(this.subroutines.nominalWidthX, args[0]));
+        if (args.length % 2) {
+            this.sink.setWidth(OtVar.Ops.add(this.subroutines.nominalWidthX, args[0]));
+        }
         this.sink.stemQuantity += args.length >> 1;
         let hintBase: OtVar.Value = 0;
         for (let argId = args.length % 2; argId < args.length; argId += 2) {
-            const startEdge = OV.add(hintBase, args[argId]);
-            const endEdge = OV.add(startEdge, args[argId + 1]);
+            const startEdge = OtVar.Ops.add(hintBase, args[argId]);
+            const endEdge = OtVar.Ops.add(startEdge, args[argId + 1]);
             this.sink.addStemHint(isVertical, startEdge, endEdge);
             hintBase = endEdge;
         }
@@ -211,7 +213,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             else this.sink.lineTo(0, d);
         }
         if (this.state.stackHeight()) {
-            this.sink.setWidth(OV.add(this.subroutines.nominalWidthX, this.state.pop()));
+            this.sink.setWidth(OtVar.Ops.add(this.subroutines.nominalWidthX, this.state.pop()));
         }
         this.state.allArgs();
     }
@@ -445,19 +447,19 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             args[6],
             args[7],
             args[8],
-            OV.negate(OV.add(OV.add(args[1], args[3]), args[7]))
+            OtVar.Ops.negate(OtVar.Ops.add(OtVar.Ops.add(args[1], args[3]), args[7]))
         );
     }
     private doFlex1(args: OtVar.Value[]) {
-        let dx: OtVar.Value = OV.sum(args[0], args[2], args[4], args[6], args[8]);
-        let dy: OtVar.Value = OV.sum(args[1], args[3], args[5], args[7], args[9]);
+        let dx: OtVar.Value = OtVar.Ops.sum(args[0], args[2], args[4], args[6], args[8]);
+        let dy: OtVar.Value = OtVar.Ops.sum(args[1], args[3], args[5], args[7], args[9]);
 
         // Note: we assume that this condition won't change during variation
-        if (Math.abs(OV.originOf(dx)) > Math.abs(OV.originOf(dy))) {
+        if (Math.abs(OtVar.Ops.originOf(dx)) > Math.abs(OtVar.Ops.originOf(dy))) {
             dx = args[10];
-            dy = OV.negate(dy);
+            dy = OtVar.Ops.negate(dy);
         } else {
-            dx = OV.negate(dx);
+            dx = OtVar.Ops.negate(dx);
             dy = args[10];
         }
         this.sink.curveTo(args[0], args[1], args[2], args[3], args[4], args[5]);
@@ -467,60 +469,60 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     // LOGIC
     private doAnd() {
         const [a, b] = this.state.args(2);
-        this.state.push(OV.originOf(a) && OV.originOf(b) ? 1 : 0);
+        this.state.push(OtVar.Ops.originOf(a) && OtVar.Ops.originOf(b) ? 1 : 0);
     }
     private doOr() {
         const [a, b] = this.state.args(2);
-        this.state.push(OV.originOf(a) || OV.originOf(b) ? 1 : 0);
+        this.state.push(OtVar.Ops.originOf(a) || OtVar.Ops.originOf(b) ? 1 : 0);
     }
     private doNot() {
         const a = this.state.pop();
-        this.state.push(!OV.originOf(a) ? 1 : 0);
+        this.state.push(!OtVar.Ops.originOf(a) ? 1 : 0);
     }
     private doEq() {
         const [a, b] = this.state.args(2);
-        const diff = OV.minus(b, a);
-        this.state.push(OV.originOf(diff) ? 1 : 0);
+        const diff = OtVar.Ops.minus(b, a);
+        this.state.push(OtVar.Ops.originOf(diff) ? 1 : 0);
     }
 
     // ARITH
     private doAbs() {
         const a = this.state.pop();
-        this.state.push(Math.abs(OV.originOf(a)));
+        this.state.push(Math.abs(OtVar.Ops.originOf(a)));
     }
     private doAdd() {
         const [a, b] = this.state.args(2);
-        this.state.push(OV.add(a, b));
+        this.state.push(OtVar.Ops.add(a, b));
     }
     private doSub() {
         const [a, b] = this.state.args(2);
-        this.state.push(OV.minus(a, b));
+        this.state.push(OtVar.Ops.minus(a, b));
     }
     private doNeg() {
         const a = this.state.pop();
-        this.state.push(OV.negate(a));
+        this.state.push(OtVar.Ops.negate(a));
     }
     private doMul() {
         const [a, b] = this.state.args(2);
-        if (OV.isConstant(a)) {
-            this.state.push(OV.scale(OV.originOf(a), b));
-        } else if (OV.isConstant(b)) {
-            this.state.push(OV.scale(OV.originOf(b), a));
+        if (OtVar.Ops.isConstant(a)) {
+            this.state.push(OtVar.Ops.scale(OtVar.Ops.originOf(a), b));
+        } else if (OtVar.Ops.isConstant(b)) {
+            this.state.push(OtVar.Ops.scale(OtVar.Ops.originOf(b), a));
         } else {
-            this.state.push(OV.originOf(a) * OV.originOf(b));
+            this.state.push(OtVar.Ops.originOf(a) * OtVar.Ops.originOf(b));
         }
     }
     private doDiv() {
         const [a, b] = this.state.args(2);
-        if (!OV.isConstant(b)) {
-            this.state.push(OV.originOf(a) / OV.originOf(b));
+        if (!OtVar.Ops.isConstant(b)) {
+            this.state.push(OtVar.Ops.originOf(a) / OtVar.Ops.originOf(b));
         } else {
-            this.state.push(OV.scale(1 / OV.originOf(b), a));
+            this.state.push(OtVar.Ops.scale(1 / OtVar.Ops.originOf(b), a));
         }
     }
     private doSqrt() {
         const a = this.state.pop();
-        this.state.push(Math.sqrt(OV.originOf(a)));
+        this.state.push(Math.sqrt(OtVar.Ops.originOf(a)));
     }
     private doRandom() {
         this.state.push(this.state.getRandom());
@@ -542,13 +544,13 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     }
     private doIndex() {
         const index = this.state.pop();
-        this.state.push(this.state.topIndex(OV.originOf(index)));
+        this.state.push(this.state.topIndex(OtVar.Ops.originOf(index)));
     }
     private doRoll() {
         const [xRollN, xRollJ] = this.state.args(2);
 
-        const rollJ = OV.originOf(xRollJ);
-        const rollN = OV.originOf(xRollN);
+        const rollJ = OtVar.Ops.originOf(xRollJ);
+        const rollN = OtVar.Ops.originOf(xRollN);
         const len = this.state.stackHeight();
         const last = len - 1;
         const first = len - rollN;
@@ -561,24 +563,24 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     // MEMORY
     private doGet() {
         const index = this.state.pop();
-        const v = this.state.transient[OV.originOf(index)];
-        if (v === undefined) throw Errors.Cff.TransientInvalid(OV.originOf(index));
+        const v = this.state.transient[OtVar.Ops.originOf(index)];
+        if (v === undefined) throw Errors.Cff.TransientInvalid(OtVar.Ops.originOf(index));
         this.state.push(v);
     }
     private doPut() {
         const [val, index] = this.state.args(2);
-        this.state.transient[OV.originOf(index)] = val;
+        this.state.transient[OtVar.Ops.originOf(index)] = val;
     }
 
     // FLOW CONTROL
     private doConditional() {
         const [s1, s2, v1, v2] = this.state.args(4);
-        const diff = OV.minus(v1, v2);
-        this.state.push(OV.originOf(diff) <= 0 ? s1 : s2);
+        const diff = OtVar.Ops.minus(v1, v2);
+        this.state.push(OtVar.Ops.originOf(diff) <= 0 ? s1 : s2);
     }
     private doEndChar() {
         if (this.state.stackHeight()) {
-            this.sink.setWidth(OV.add(this.subroutines.nominalWidthX, this.state.pop()));
+            this.sink.setWidth(OtVar.Ops.add(this.subroutines.nominalWidthX, this.state.pop()));
         }
         this.state.allArgs();
         this.halt = this.end = true;
