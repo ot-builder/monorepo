@@ -5,7 +5,6 @@ export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder
 
 export { OtGlyph, GeneralGlyph } from "@ot-builder/ft-glyphs";
 export { Cff, Cvt, FpgmPrep } from "@ot-builder/ft-glyphs";
-export { OtGlyphStore, OtGlyphStoreFactory, OtGlyphOrder } from "@ot-builder/ft-glyphs";
 export { OtGlyphNamingSource, OtGlyphNamer } from "@ot-builder/ft-glyphs";
 export { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 

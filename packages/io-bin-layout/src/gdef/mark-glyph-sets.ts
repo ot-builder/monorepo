@@ -1,14 +1,15 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { LayoutCommon } from "@ot-builder/ft-layout";
+import { Data } from "@ot-builder/prelude";
 
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 type MarkGlyphSets = Array<LayoutCommon.Coverage.T<OtGlyph>>;
 
 export const MarkGlyphSets = {
-    ...Read((view, gOrd: OtGlyphOrder) => {
+    ...Read((view, gOrd: Data.Order<OtGlyph>) => {
         const format = view.uint16();
         Assert.FormatSupported("MarkGlyphSetsTable::markGlyphSetTableFormat", format, 1);
         const count = view.uint16();
@@ -18,7 +19,7 @@ export const MarkGlyphSets = {
         }
         return ans;
     }),
-    ...Write((frag, markGlyphSets: MarkGlyphSets, gOrd: OtGlyphOrder) => {
+    ...Write((frag, markGlyphSets: MarkGlyphSets, gOrd: Data.Order<OtGlyph>) => {
         frag.uint16(1);
         frag.uint16(markGlyphSets.length);
         for (const mgs of markGlyphSets) {

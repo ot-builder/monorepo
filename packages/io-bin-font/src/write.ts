@@ -1,7 +1,7 @@
 import { Config } from "@ot-builder/cfg-log";
 import { OtFont } from "@ot-builder/font";
 import { OtEncoding } from "@ot-builder/ft-encoding";
-import { CffCoGlyphs, OtGlyph, OtGlyphStore, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
+import { CffCoGlyphs, OtGlyph, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import { OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { OtNameData } from "@ot-builder/ft-name";
@@ -15,6 +15,8 @@ import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 
 import { createConfig, FontIoConfig } from "./config";
+
+type OtGlyphStore = Data.OrderStore<OtGlyph>;
 
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code
 function MD<GS extends OtGlyphStore>(font: OtFont<GS>, naming: WritePostNaming): OtFontIoMetadata {

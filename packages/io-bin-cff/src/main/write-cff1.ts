@@ -1,7 +1,7 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
 
@@ -23,7 +23,7 @@ export const WriteCff1 = Write(
     (
         frag: Frag,
         cff: Cff.Table,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         cfg: Config<CffCfg>,
         head: Head.Table,
         stat?: Data.Maybe<OtGlyph.Stat.Sink>
@@ -55,7 +55,7 @@ export const WriteCff1 = Write(
 
 function setupTopDict(
     cff: Cff.Table,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     charStringResults: CharStringGlobalOptimizeResult,
     ctx: CffWriteContext
 ) {

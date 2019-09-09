@@ -1,6 +1,6 @@
 import { Config } from "@ot-builder/cfg-log";
 import { OtFont } from "@ot-builder/font";
-import { OtGlyph, OtGlyphStore, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import {
     FontIoConfig,
     readFont,
@@ -8,6 +8,7 @@ import {
     writeFont,
     writeSfntOtf
 } from "@ot-builder/io-bin-font";
+import { Data } from "@ot-builder/prelude";
 import { Rectify } from "@ot-builder/rectify";
 import { rectifyFontGlyphs, traceGlyphs } from "@ot-builder/rectify-font";
 import * as fs from "fs";
@@ -45,7 +46,10 @@ console.log("write complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createSubsetRectifier<GS extends OtGlyphStore>(font: OtFont<GS>, text: string) {
+function createSubsetRectifier<GS extends Data.OrderStore<OtGlyph>>(
+    font: OtFont<GS>,
+    text: string
+) {
     const init: Set<OtGlyph> = new Set();
     const gOrd = font.glyphs.decideOrder();
     init.add(gOrd.at(0)); // keep NOTDEF

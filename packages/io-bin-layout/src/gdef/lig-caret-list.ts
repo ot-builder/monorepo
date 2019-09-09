@@ -1,6 +1,6 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { ZipWithIndex } from "@ot-builder/prelude/lib/control";
@@ -14,7 +14,7 @@ import { CaretValue } from "./lig-caret-value";
 type CaretList = Gdef.LigCaretListT<OtGlyph, OtVar.Value>;
 
 export const LigCaretList = {
-    ...Read((view, gOrd: OtGlyphOrder, ivs?: Data.Maybe<ReadTimeIVS>) => {
+    ...Read((view, gOrd: Data.Order<OtGlyph>, ivs?: Data.Maybe<ReadTimeIVS>) => {
         const gidCov = view.ptr16().next(GidCoverage);
         const glyphCount = view.uint16();
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
@@ -26,7 +26,7 @@ export const LigCaretList = {
         }
         return lcl;
     }),
-    ...Write((frag, atl: CaretList, gOrd: OtGlyphOrder, ivs?: Data.Maybe<WriteTimeIVS>) => {
+    ...Write((frag, atl: CaretList, gOrd: Data.Order<OtGlyph>, ivs?: Data.Maybe<WriteTimeIVS>) => {
         const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
         frag.ptr16New().push(GidCoverage, gidList);
         frag.uint16(gidList.length);

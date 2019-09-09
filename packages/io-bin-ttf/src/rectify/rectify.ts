@@ -1,7 +1,8 @@
-import { OtGeometryHandler, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
-export function rectifyGlyphOrder(gOrd: OtGlyphOrder) {
+export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
     let gs = new Set<OtGlyph>();
     for (const glyph of gOrd) {
         rectifyGlyph(glyph, gs);

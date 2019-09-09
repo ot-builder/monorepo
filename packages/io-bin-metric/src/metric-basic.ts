@@ -1,7 +1,8 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { MetricBasic, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { MetricBasic, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Maxp, MetricHead } from "@ot-builder/ft-metadata";
+import { Data } from "@ot-builder/prelude";
 
 export const MetricBasicIo = {
     ...Read((view, hea: MetricHead.Table, maxp: Maxp.Table) => {
@@ -23,7 +24,7 @@ export const MetricBasicIo = {
 
         return table;
     }),
-    ...Write((frag, mtx: MetricBasic.Table, hea: MetricHead.Table, gord: OtGlyphOrder) => {
+    ...Write((frag, mtx: MetricBasic.Table, hea: MetricHead.Table, gord: Data.Order<OtGlyph>) => {
         if (gord.length !== mtx.measures.length) {
             throw Errors.GlyphCountMismatch(`metric-static table writing`);
         }

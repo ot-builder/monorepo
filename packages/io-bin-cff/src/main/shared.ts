@@ -1,6 +1,6 @@
 import { Config } from "@ot-builder/cfg-log";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
@@ -36,7 +36,7 @@ function getCorrespondedPd(cff: Cff.Table, fdId: number) {
 
 export function readCffCommon(
     cff: Cff.Table,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     topDict: CffTopDictRead,
     ctx: CffReadContext,
     gSubrs: Buffer[],
@@ -155,7 +155,7 @@ function getLocalOptimizers(cfg: Config<CffCfg>, ctx: CffWriteContext) {
 export function buildCharStrings(
     cff: Cff.Table,
     cfg: Config<CffCfg>,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     ctx: CffWriteContext
 ) {
     const fdCount = cff.fdArray ? cff.fdArray.length : 1;
@@ -178,7 +178,7 @@ export function buildCharStrings(
     return results;
 }
 
-export function getRevFdSelect(cff: Cff.Table, gOrd: OtGlyphOrder) {
+export function getRevFdSelect(cff: Cff.Table, gOrd: Data.Order<OtGlyph>) {
     if (!cff.fdSelect) return [];
     let results: number[] = [];
     for (let gid = 0; gid < gOrd.length; gid++) {

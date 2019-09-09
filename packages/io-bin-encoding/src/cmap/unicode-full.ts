@@ -1,7 +1,8 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 
 import { SubtableHandler, SubtableHandlerKey } from "./general";
@@ -16,7 +17,7 @@ export class UnicodeFull implements SubtableHandler {
         return platform === 3 && encoding === 10 && format === 12;
     }
 
-    public read(view: BinaryView, gOrd: OtGlyphOrder) {
+    public read(view: BinaryView, gOrd: Data.Order<OtGlyph>) {
         const format = view.uint16();
         Assert.FormatSupported("subtable format", format, 12);
 
@@ -40,7 +41,7 @@ export class UnicodeFull implements SubtableHandler {
         }
     }
 
-    public writeOpt(cmap: Cmap.Table, gOrd: OtGlyphOrder) {
+    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) {
         return new CmapFormat12Writer().getFrag(
             new UnicodeEncodingCollector(cmap.unicode, gOrd, UInt32.max).collect()
         );

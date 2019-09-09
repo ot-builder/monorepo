@@ -1,8 +1,11 @@
 import { OtFont } from "@ot-builder/font";
-import { OtGlyphStore } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Fvar } from "@ot-builder/ft-metadata";
+import { Data } from "@ot-builder/prelude";
 import { Rectify } from "@ot-builder/rectify";
 import { OtVar } from "@ot-builder/variance";
+
+type OtGlyphStore = Data.OrderStore<OtGlyph>;
 
 export function rectifyFontCoords<GS extends OtGlyphStore>(
     recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,

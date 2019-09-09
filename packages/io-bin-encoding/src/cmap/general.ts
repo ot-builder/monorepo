@@ -1,6 +1,7 @@
 import { BinaryView, Frag, Read, WriteOpt } from "@ot-builder/bin-util";
 import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 
 export enum SubtableHandlerKey {
     UnicodeBmp = 1,
@@ -9,8 +10,8 @@ export enum SubtableHandlerKey {
 }
 
 export interface SubtableHandler
-    extends Read<void, [OtGlyphOrder]>,
-        WriteOpt<Cmap.Table, [OtGlyphOrder]> {
+    extends Read<void, [Data.Order<OtGlyph>]>,
+        WriteOpt<Cmap.Table, [Data.Order<OtGlyph>]> {
     readonly key?: number;
     acceptEncoding(platform: number, encoding: number, format: number): boolean;
     apply(cmap: Cmap.Table): void;

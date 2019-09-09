@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -10,12 +10,12 @@ import { LookupReader, LookupWriter, SubtableWriteContext } from "../gsub-gpos-s
 import { EmptyStat } from "../stat";
 
 export interface LookupRoundTripConfig<C extends GsubGpos.Lookup> {
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     reader: (type: number) => LookupReader<GsubGpos.Lookup, C>;
     writer: () => LookupWriter<GsubGpos.Lookup, C>;
     lOrd?: Data.Order<GsubGpos.Lookup>;
     trick?: number;
-    validate(gOrd: OtGlyphOrder, lOrd: Data.Order<GsubGpos.Lookup>, a: C, b: C): void;
+    validate(gOrd: Data.Order<OtGlyph>, lOrd: Data.Order<GsubGpos.Lookup>, a: C, b: C): void;
     variation?: Data.Maybe<TestVariation>;
 }
 

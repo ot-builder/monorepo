@@ -1,6 +1,6 @@
 import { Read } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
-import { Cff, CffCoGlyphs, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { Cff, CffCoGlyphs, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
@@ -16,7 +16,7 @@ export const ReadCff2 = Read(
     (
         view,
         cfg: Config<CffCfg>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         axes?: Data.Maybe<Data.Order<OtVar.Axis>>,
         coStat?: Data.Maybe<OtGlyph.CoStat.Source>
     ): CffCoGlyphs => {

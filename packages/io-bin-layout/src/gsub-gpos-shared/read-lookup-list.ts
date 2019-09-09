@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
 import { Control, Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
@@ -10,7 +10,7 @@ import { LookupFlag, LookupReader, LookupReaderFactory } from "./general";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export interface LookupReadContext {
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<ReadTimeIVS>;
 }

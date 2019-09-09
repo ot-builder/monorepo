@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { NonNullablePtr16, NullablePtr16, SimpleArray, Tag, UInt16 } from "@ot-builder/primitive";
@@ -11,7 +11,7 @@ import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 import { BaseCoord, Ptr16BaseCoord, Ptr16BaseCoordNullable } from "./coord";
 
 export const BaseTableIo = {
-    read(view: BinaryView, gOrd: OtGlyphOrder, axes?: Data.Maybe<Data.Order<OtVar.Axis>>) {
+    read(view: BinaryView, gOrd: Data.Order<OtGlyph>, axes?: Data.Maybe<Data.Order<OtVar.Axis>>) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("BASETable", majorVersion, minorVersion, [1, 0], [1, 1]);
@@ -31,7 +31,7 @@ export const BaseTableIo = {
     write(
         frag: Frag,
         table: Base.Table,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         axes?: Data.Maybe<Data.Order<OtVar.Axis>>
     ) {
         const ivs: null | WriteTimeIVS = axes ? WriteTimeIVS.create(new OtVarMasterSet()) : null;
@@ -49,13 +49,18 @@ export const BaseTableIo = {
 };
 
 const AxisTable = {
-    read(view: BinaryView, gOrd: OtGlyphOrder, ivs: Data.Maybe<ReadTimeIVS>) {
+    read(view: BinaryView, gOrd: Data.Order<OtGlyph>, ivs: Data.Maybe<ReadTimeIVS>) {
         const ax = new Base.AxisTable();
         ax.baselineTags = view.next(Ptr16BaseTagListNullable);
         ax.scripts = new Map(view.next(Ptr16BaseScriptList, ax.baselineTags, gOrd, ivs));
         return ax;
     },
-    write(frag: Frag, ax: Base.AxisTable, gOrd: OtGlyphOrder, ivs: Data.Maybe<WriteTimeIVS>) {
+    write(
+        frag: Frag,
+        ax: Base.AxisTable,
+        gOrd: Data.Order<OtGlyph>,
+        ivs: Data.Maybe<WriteTimeIVS>
+    ) {
         const sortedTags = ax.baselineTags ? [...ax.baselineTags].sort() : null;
         frag.push(Ptr16BaseTagListNullable, sortedTags);
         const baseScriptList = [...ax.scripts].sort(byTagOrder);
@@ -83,7 +88,7 @@ const BaseScriptRecord = {
     read(
         view: BinaryView,
         baseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<ReadTimeIVS>
     ): [Tag, Base.Script] {
         const tag = view.next(Tag);
@@ -94,7 +99,7 @@ const BaseScriptRecord = {
         frag: Frag,
         [tag, bs]: [Tag, Base.Script],
         sortedBaseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<WriteTimeIVS>
     ) {
         frag.push(Tag, tag);
@@ -107,7 +112,7 @@ const BaseScript = {
     read(
         view: BinaryView,
         baseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<ReadTimeIVS>
     ) {
         const script = new Base.Script();
@@ -127,7 +132,7 @@ const BaseScript = {
         frag: Frag,
         script: Base.Script,
         sortedBaseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<WriteTimeIVS>
     ) {
         frag.push(Ptr16BaseValuesNullable, script.baseValues, sortedBaseTags, gOrd, ivs);
@@ -150,7 +155,7 @@ const BaseValues = {
     read(
         view: BinaryView,
         baseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<ReadTimeIVS>
     ) {
         if (!baseTags) throw Errors.NullPtr(`AxisTable::baseTagListOffset`);
@@ -167,7 +172,7 @@ const BaseValues = {
         frag: Frag,
         bv: Base.BaseValues,
         sortedBaseTags: Data.Maybe<ReadonlyArray<Tag>>,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ivs: Data.Maybe<WriteTimeIVS>
     ) {
         if (!sortedBaseTags) throw Errors.NullPtr(`AxisTable::baseTagListOffset`);
@@ -183,7 +188,7 @@ const BaseValues = {
 const Ptr16BaseValuesNullable = NullablePtr16(BaseValues);
 
 const MinMaxTable = {
-    read(view: BinaryView, gOrd: OtGlyphOrder, ivs: Data.Maybe<ReadTimeIVS>) {
+    read(view: BinaryView, gOrd: Data.Order<OtGlyph>, ivs: Data.Maybe<ReadTimeIVS>) {
         const defaultMinMax = view.next(MinMaxValue, gOrd, ivs);
         const featMinMaxCount = view.uint16();
         const featMinMax = new Map<Tag, Base.MinMaxValue>();
@@ -194,7 +199,12 @@ const MinMaxTable = {
         }
         return new Base.MinMaxTable(defaultMinMax, featMinMax);
     },
-    write(frag: Frag, mmt: Base.MinMaxTable, gOrd: OtGlyphOrder, ivs: Data.Maybe<WriteTimeIVS>) {
+    write(
+        frag: Frag,
+        mmt: Base.MinMaxTable,
+        gOrd: Data.Order<OtGlyph>,
+        ivs: Data.Maybe<WriteTimeIVS>
+    ) {
         frag.push(MinMaxValue, mmt.defaultMinMax, gOrd, ivs);
         if (mmt.featMinMax && mmt.featMinMax.size) {
             const fmmList = [...mmt.featMinMax].sort(byTagOrder);
@@ -212,13 +222,22 @@ const Ptr16MinMaxTable = NonNullablePtr16(MinMaxTable);
 const Ptr16MinMaxTableNullable = NullablePtr16(MinMaxTable);
 
 const MinMaxValue = {
-    read(view: BinaryView, gOrd: OtGlyphOrder, ivs: Data.Maybe<ReadTimeIVS>): Base.MinMaxValue {
+    read(
+        view: BinaryView,
+        gOrd: Data.Order<OtGlyph>,
+        ivs: Data.Maybe<ReadTimeIVS>
+    ): Base.MinMaxValue {
         return {
             minCoord: view.next(Ptr16BaseCoordNullable, gOrd, ivs),
             maxCoord: view.next(Ptr16BaseCoordNullable, gOrd, ivs)
         };
     },
-    write(frag: Frag, mm: Base.MinMaxValue, gOrd: OtGlyphOrder, ivs: Data.Maybe<WriteTimeIVS>) {
+    write(
+        frag: Frag,
+        mm: Base.MinMaxValue,
+        gOrd: Data.Order<OtGlyph>,
+        ivs: Data.Maybe<WriteTimeIVS>
+    ) {
         frag.push(Ptr16BaseCoordNullable, mm.minCoord, gOrd, ivs);
         frag.push(Ptr16BaseCoordNullable, mm.maxCoord, gOrd, ivs);
     }

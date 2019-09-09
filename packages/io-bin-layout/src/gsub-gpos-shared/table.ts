@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -19,13 +19,13 @@ import { LookupWriteContext, WriteLookupList } from "./write-lookup-list";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export interface TableReadContext {
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
     axes?: Data.Maybe<Data.Order<OtVar.Axis>>;
     ivs?: Data.Maybe<ReadTimeIVS>;
 }
 export interface TableWriteContext {
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     axes?: Data.Maybe<Data.Order<OtVar.Axis>>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<WriteTimeIVS>;

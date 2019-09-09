@@ -1,6 +1,6 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
 import { Control, Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
@@ -20,7 +20,7 @@ import {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export interface LookupWriteContext {
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<WriteTimeIVS>;
     tricks?: Data.Maybe<Map<GsubGpos.Lookup, number>>;

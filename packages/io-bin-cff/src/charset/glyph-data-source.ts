@@ -1,5 +1,5 @@
-import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { Errors } from "@ot-builder/errors";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 
 import { CffWriteContext } from "../context/write";
@@ -7,7 +7,10 @@ import { CffWriteContext } from "../context/write";
 import { CffCharSetDataSource } from "./io";
 
 export class CffGlyphNameCharSetSource implements CffCharSetDataSource {
-    constructor(private readonly ctx: CffWriteContext, private readonly gOrd: OtGlyphOrder) {}
+    constructor(
+        private readonly ctx: CffWriteContext,
+        private readonly gOrd: Data.Order<OtGlyph>
+    ) {}
     public getMappingList() {
         if (!this.ctx.strings) throw Errors.Cff.ShouldHaveStrings();
         const results: number[] = [];
@@ -21,7 +24,7 @@ export class CffGlyphNameCharSetSource implements CffCharSetDataSource {
 export class CffCidCharSetSource implements CffCharSetDataSource {
     constructor(
         private readonly ctx: CffWriteContext,
-        private readonly gOrd: OtGlyphOrder,
+        private readonly gOrd: Data.Order<OtGlyph>,
         private readonly cidMap: Data.Maybe<Map<number, OtGlyph>>
     ) {}
     public getMappingList() {

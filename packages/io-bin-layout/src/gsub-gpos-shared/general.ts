@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
@@ -7,13 +7,13 @@ import { OtlStat } from "../stat";
 
 export interface SubtableReadingContext<L> {
     crossReferences: Data.Order<L>;
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     ivs: Data.Maybe<ReadTimeIVS>;
 }
 export interface SubtableWriteContext<L> {
     trick: number;
     crossReferences: Data.Order<L>;
-    gOrd: OtGlyphOrder;
+    gOrd: Data.Order<OtGlyph>;
     ivs: Data.Maybe<WriteTimeIVS>;
     stat: OtlStat;
 }

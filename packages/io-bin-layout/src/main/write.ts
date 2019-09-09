@@ -1,5 +1,5 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
@@ -20,7 +20,7 @@ export function writeOtl(
     // inOut
     // in
     otl: OtFontLayoutData,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ) {
     let { gsub, gpos, gdef } = otl;

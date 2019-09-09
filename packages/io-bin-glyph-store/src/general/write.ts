@@ -1,6 +1,6 @@
 import { Config } from "@ot-builder/cfg-log";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
-import { Fvar, Head, Maxp, OtFontMetadata } from "@ot-builder/ft-metadata";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Head, Maxp, OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { HeadExtendStat, HmtxStat, MaxpStat, Os2Stat, VmtxStat } from "@ot-builder/stat-glyphs";
@@ -22,7 +22,7 @@ export interface WriteGlyphStoreImpl<C, T> {
         sink: SfntIoTableSink,
         cfg: Config<C>,
         coGlyphs: T,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         ctx: GlyphStoreWriteImplCtx
     ): void;
 }
@@ -36,7 +36,7 @@ export function writeGlyphStore<C, T>(
     md: OtFontMetadata,
     // in
     coGlyphs: T,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     cb: WriteGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, os2, hhea, vhea } = md;

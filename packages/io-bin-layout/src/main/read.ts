@@ -1,5 +1,5 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base, Gdef, Gpos, Gsub, GsubGpos, OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
@@ -12,7 +12,11 @@ import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
 import { TableReadContext } from "../gsub-gpos-shared/table";
 
-export function readOtl(sfnt: Sfnt, gOrd: OtGlyphOrder, md: OtFontMetadata): OtFontLayoutData {
+export function readOtl(
+    sfnt: Sfnt,
+    gOrd: Data.Order<OtGlyph>,
+    md: OtFontMetadata
+): OtFontLayoutData {
     let gdef: Data.Maybe<Gdef.Table> = null;
     let ivs: Data.Maybe<ReadTimeIVS> = null;
     const bGdef = sfnt.tables.get(Gdef.Tag);

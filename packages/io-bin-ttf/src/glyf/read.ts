@@ -1,5 +1,5 @@
 import { Read } from "@ot-builder/bin-util";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 
@@ -156,7 +156,7 @@ const ComponentTransformMatrix = Read((view, flags: number) => {
     return { scaleX, scaleY, scale01, scale10 };
 });
 
-const CompositeGlyph = Read((view, gOrd: OtGlyphOrder) => {
+const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
     let references: OtGlyph.Reference[] = [];
     let instructions: Data.Maybe<Buffer> = null;
 
@@ -202,7 +202,7 @@ const CompositeGlyph = Read((view, gOrd: OtGlyphOrder) => {
 });
 
 export const GlyfTableRead = Read(
-    (view, loca: LocaTable, gOrd: OtGlyphOrder, coStat: OtGlyph.CoStat.Source) => {
+    (view, loca: LocaTable, gOrd: Data.Order<OtGlyph>, coStat: OtGlyph.CoStat.Source) => {
         for (let gid = 0; gid < gOrd.length; gid++) {
             const glyph = gOrd.at(gid);
             const offset = loca.glyphOffsets[gid];

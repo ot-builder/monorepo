@@ -1,4 +1,5 @@
-import { OtGlyph, OtGlyphStore } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { FastMatch } from "./fast-match";
@@ -58,9 +59,9 @@ export namespace GlyphIdentity {
         }
     }
 
-    export function testStore(
-        expected: OtGlyphStore,
-        actual: OtGlyphStore,
+    export function testStore<GS extends Data.OrderStore<OtGlyph>>(
+        expected: GS,
+        actual: GS,
         mode: CompareMode = 0,
         tolerance = 1
     ) {

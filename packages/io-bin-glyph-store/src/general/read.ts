@@ -1,5 +1,5 @@
 import { Config } from "@ot-builder/cfg-log";
-import { OtGlyph, OtGlyphOrder, OtGlyphStore, OtGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head, Maxp, OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { Data } from "@ot-builder/prelude";
@@ -19,14 +19,19 @@ export type GlyphStoreReadImplCtx = {
 };
 
 export interface ReadGlyphStoreImpl<C, T> {
-    readGlyphs(sfnt: Sfnt, cfg: Config<C>, gOrd: OtGlyphOrder, ctx: GlyphStoreReadImplCtx): T;
+    readGlyphs(
+        sfnt: Sfnt,
+        cfg: Config<C>,
+        gOrd: Data.Order<OtGlyph>,
+        ctx: GlyphStoreReadImplCtx
+    ): T;
 }
 
-export function readGlyphStore<C, T, S extends OtGlyphStore>(
+export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
     sfnt: Sfnt,
     cfg: Config<C & GlyphStoreCfg>,
     md: OtFontIoMetadata,
-    gsf: OtGlyphStoreFactory<S>,
+    gsf: Data.OrderStoreFactory<OtGlyph, S>,
     cb: ReadGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, hhea, vhea } = md;

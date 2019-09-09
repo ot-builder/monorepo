@@ -1,7 +1,7 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { TupleVariationGeometryClient, TupleVariationRead, TvdAccess } from "@ot-builder/var-store";
@@ -18,7 +18,7 @@ export interface GvarReadIgnore {
 export const GvarTableRead = Read(
     (
         view,
-        gOrd: OtGlyphOrder,
+        gOrd: Data.Order<OtGlyph>,
         cfg: Config<TtfCfg>,
         ignore: GvarReadIgnore,
         axes: Data.Order<OtVar.Axis>
@@ -40,7 +40,12 @@ export const GvarTableRead = Read(
 );
 
 const GvarHeader = Read(
-    (bp: BinaryView, gOrd: OtGlyphOrder, cfg: Config<TtfCfg>, axes: Data.Order<OtVar.Axis>) => {
+    (
+        bp: BinaryView,
+        gOrd: Data.Order<OtGlyph>,
+        cfg: Config<TtfCfg>,
+        axes: Data.Order<OtVar.Axis>
+    ) => {
         const majorVersion = bp.uint16();
         const minorVersion = bp.uint16();
         const axisCount = bp.uint16();

@@ -1,11 +1,12 @@
 import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { GID, UInt24 } from "@ot-builder/primitive";
 
 export class UnicodeEncodingCollector {
     constructor(
         private encoding: Cmap.EncodingMap,
-        private gOrd: OtGlyphOrder,
+        private gOrd: Data.Order<OtGlyph>,
         private readonly maxCodePoint: number
     ) {}
     public collect(): [number, number][] {
@@ -35,7 +36,7 @@ export class UvsEncodingCollector {
     constructor(
         private encoding: Cmap.VsEncodingMap,
         private defaults: Cmap.EncodingMap,
-        private gOrd: OtGlyphOrder
+        private gOrd: Data.Order<OtGlyph>
     ) {}
     public collect(): UvsEncodingEntry[] {
         let m: Map<number, UvsEncodingEntry> = new Map();

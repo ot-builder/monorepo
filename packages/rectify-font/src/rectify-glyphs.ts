@@ -1,11 +1,12 @@
 import { OtFont } from "@ot-builder/font";
-import { OtGlyph, OtGlyphStore, OtGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { Rectify } from "@ot-builder/rectify";
 
-function rectifyFontGlyphStore<GS extends OtGlyphStore>(
+function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
     rec: Rectify.Glyph.RectifierT<OtGlyph>,
     font: OtFont<GS>,
-    gsf: OtGlyphStoreFactory<GS>
+    gsf: Data.OrderStoreFactory<OtGlyph, GS>
 ) {
     const gOrd = font.glyphs.decideOrder();
     const gList1: OtGlyph[] = [];
@@ -20,10 +21,10 @@ function rectifyFontGlyphStore<GS extends OtGlyphStore>(
     font.glyphs = glyphs1;
 }
 
-export function rectifyFontGlyphs<GS extends OtGlyphStore>(
+export function rectifyFontGlyphs<GS extends Data.OrderStore<OtGlyph>>(
     rec: Rectify.Glyph.RectifierT<OtGlyph>,
     font: OtFont<GS>,
-    gsf: OtGlyphStoreFactory<GS>
+    gsf: Data.OrderStoreFactory<OtGlyph, GS>
 ) {
     rectifyFontGlyphStore(rec, font, gsf);
     if (OtFont.isCff(font)) font.cff.rectifyGlyphs(rec);

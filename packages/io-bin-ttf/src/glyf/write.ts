@@ -1,6 +1,6 @@
 import { Frag, Write } from "@ot-builder/bin-util";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
-import { Arith } from "@ot-builder/prelude";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Arith, Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -186,7 +186,7 @@ function writeComponentTransform(frag: Frag, flag: number, transform: OtGlyph.Tr
         frag.push(F2D14, transform.yy);
     }
 }
-const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: OtGlyphOrder) => {
+const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: Data.Order<OtGlyph>) => {
     const st = cg.getStatData();
     frag.int16(-1)
         .int16(st.extent.xMin)
@@ -211,7 +211,7 @@ const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: OtGlyphO
 });
 
 export const GlyfTableWrite = Write(
-    (frag, gOrd: OtGlyphOrder, outLoca: LocaTable, stat: OtGlyph.Stat.Sink) => {
+    (frag, gOrd: Data.Order<OtGlyph>, outLoca: LocaTable, stat: OtGlyph.Stat.Sink) => {
         let offset = 0;
         stat.setNumGlyphs(gOrd.length);
         const classifier = new GlyphClassifier(gOrd);

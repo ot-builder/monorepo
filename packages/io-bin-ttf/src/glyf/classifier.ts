@@ -1,8 +1,9 @@
 import { Errors } from "@ot-builder/errors";
-import { OtGeometryHandler, OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
-    constructor(private gOrd: OtGlyphOrder) {}
+    constructor(private gOrd: Data.Order<OtGlyph>) {}
     public cache: Map<OtGlyph, SpaceGlyph> = new Map();
 
     private classifyImpl(g: OtGlyph): SpaceGlyph {

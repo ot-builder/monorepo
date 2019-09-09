@@ -1,7 +1,8 @@
 import { BinaryView, Frag, FragHole, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyph, OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 import { UInt24, UInt32 } from "@ot-builder/primitive";
 
 import { SubtableHandler, SubtableHandlerKey } from "./general";
@@ -77,7 +78,7 @@ const NonDefaultVs = {
             p,
             mapping: Cmap.GeneralVsEncodingMapT<DefaultGlyphT | OtGlyph>,
             varSelector: UInt24,
-            gOrd: OtGlyphOrder
+            gOrd: Data.Order<OtGlyph>
         ) => {
             const numUVSMappings = p.uint32();
             for (let index = 0; index < numUVSMappings; index++) {
@@ -105,7 +106,7 @@ export class UnicodeVS implements SubtableHandler {
         return platform === 0 && encoding === 5 && format === 14;
     }
 
-    public read(view: BinaryView, gOrd: OtGlyphOrder) {
+    public read(view: BinaryView, gOrd: Data.Order<OtGlyph>) {
         const format = view.uint16();
         Assert.FormatSupported("subtable format", format, 14);
 
@@ -131,7 +132,7 @@ export class UnicodeVS implements SubtableHandler {
         }
     }
 
-    public writeOpt(cmap: Cmap.Table, gOrd: OtGlyphOrder) {
+    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) {
         const collected = new UvsEncodingCollector(cmap.vs, cmap.unicode, gOrd).collect();
         if (!collected || !collected.length) return;
 

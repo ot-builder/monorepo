@@ -1,12 +1,13 @@
 import { Read } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
 
 import { SubtableRawData } from "./general";
 import { SubtableHandlers } from "./handlers";
 
-export const ReadCmap = Read((view, gOrd: OtGlyphOrder) => {
+export const ReadCmap = Read((view, gOrd: Data.Order<OtGlyph>) => {
     const version = view.uint16();
     Assert.VersionSupported("cmap", version, 0);
 

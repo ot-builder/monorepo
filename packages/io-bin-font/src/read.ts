@@ -1,13 +1,7 @@
 import { Config } from "@ot-builder/cfg-log";
 import { OtFont } from "@ot-builder/font";
 import { OtEncoding } from "@ot-builder/ft-encoding";
-import {
-    Cff,
-    OtGlyph,
-    OtGlyphNamingSource,
-    OtGlyphStore,
-    OtGlyphStoreFactory
-} from "@ot-builder/ft-glyphs";
+import { Cff, OtGlyph, OtGlyphNamingSource } from "@ot-builder/ft-glyphs";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readEncoding } from "@ot-builder/io-bin-encoding";
@@ -20,9 +14,9 @@ import { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
 
 import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 
-export function readFont<GS extends OtGlyphStore>(
+export function readFont<GS extends Data.OrderStore<OtGlyph>>(
     sfnt: Sfnt,
-    gsf: OtGlyphStoreFactory<GS>,
+    gsf: Data.OrderStoreFactory<OtGlyph, GS>,
     partialConfig: Config<FontIoConfig>
 ): OtFont<GS> {
     const cfg = createConfig(partialConfig);

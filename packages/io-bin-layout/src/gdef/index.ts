@@ -1,8 +1,7 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef } from "@ot-builder/ft-layout";
-import { Fvar } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -14,7 +13,7 @@ import { LigCaretList } from "./lig-caret-list";
 import { MarkGlyphSets } from "./mark-glyph-sets";
 
 export const GdefTableIo = {
-    ...Read((view, gOrd: OtGlyphOrder, axes: Data.Maybe<Data.Order<OtVar.Axis>>) => {
+    ...Read((view, gOrd: Data.Order<OtGlyph>, axes: Data.Maybe<Data.Order<OtVar.Axis>>) => {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported(`GDEF`, majorVersion, minorVersion, [1, 0], [1, 2], [1, 3]);
@@ -43,7 +42,7 @@ export const GdefTableIo = {
         (
             frag,
             gdef: Gdef.Table,
-            gOrd: OtGlyphOrder,
+            gOrd: Data.Order<OtGlyph>,
             ivs: Data.Maybe<WriteTimeIVS>,
             axes: Data.Maybe<Data.Order<OtVar.Axis>>
         ) => {

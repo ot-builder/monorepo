@@ -1,10 +1,11 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { Cmap, OtEncoding } from "@ot-builder/ft-encoding";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { Data } from "@ot-builder/prelude";
 
 import { EncodingCfg } from "../cfg";
 import { ReadCmap } from "../cmap/read";
@@ -16,7 +17,7 @@ import { Os2UnicodeRangeStat } from "../stat/os2-unicode-range";
 export function readEncoding(
     sfnt: Sfnt,
     cfg: Config<EncodingCfg>,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ): OtEncoding {
     const bCmap = sfnt.tables.get(Cmap.Tag);
@@ -27,7 +28,7 @@ export function writeEncoding(
     out: SfntIoTableSink,
     cfg: Config<EncodingCfg>,
     encoding: OtEncoding,
-    gOrd: OtGlyphOrder,
+    gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ) {
     if (encoding.cmap) {

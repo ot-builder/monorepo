@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyphOrder } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base } from "@ot-builder/ft-layout";
 import { Arith, Data } from "@ot-builder/prelude";
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/primitive";
@@ -14,7 +14,7 @@ function anchorNeedsFormat3(a: Base.Coord) {
 }
 
 export const BaseCoord = {
-    read(bp: BinaryView, gOrd: OtGlyphOrder, ivs: Data.Maybe<ReadTimeIVS>): Base.Coord {
+    read(bp: BinaryView, gOrd: Data.Order<OtGlyph>, ivs: Data.Maybe<ReadTimeIVS>): Base.Coord {
         const format = bp.uint16();
         switch (format) {
             case 1:
@@ -35,7 +35,7 @@ export const BaseCoord = {
                 throw Errors.FormatNotSupported("BaseCoord", format);
         }
     },
-    write(bb: Frag, a: Base.Coord, gOrd: OtGlyphOrder, ivs: Data.Maybe<WriteTimeIVS>) {
+    write(bb: Frag, a: Base.Coord, gOrd: Data.Order<OtGlyph>, ivs: Data.Maybe<WriteTimeIVS>) {
         if (a.pointAttachment) {
             bb.uint16(2);
             bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
