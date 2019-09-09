@@ -49,7 +49,7 @@ export class ListStoreFactory<T> implements OrderStoreFactory<T, ListStore<T>> {
     }
 }
 
-class ListStore<T> implements OrderStore<T> {
+export class ListStore<T> implements OrderStore<T> {
     constructor(private readonly sourceKind: string, public readonly items: Array<T>) {}
 
     public decideOrder(): Order<T> {

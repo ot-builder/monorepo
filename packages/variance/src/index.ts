@@ -9,6 +9,7 @@ import { VarianceInstance } from "./interface/instance";
 import { VarianceMaster, VarianceMasterCollectResult, VarianceMasterSet } from "./interface/master";
 import { VariableCreator, VariableOps } from "./interface/value";
 import { OtVarMaster, OtVarMasterDim, OtVarMasterSet, OtVarOps, OtVarValue } from "./otvar-impl";
+import { OtVarInstance } from "./otvar-impl/instance";
 
 export namespace GeneralVar {
     export type Axis = VarianceAxis;
@@ -54,6 +55,8 @@ export namespace OtVar {
     }
     export type Master = OtVarMaster<Axis>;
     export const Master = OtVarMaster;
+    export type Instance = VarianceInstance<Axis>;
+    export const Instance = OtVarInstance;
     export type Value = OtVarValue<Axis, Master>;
     export type MasterSet = OtVarMasterSet<Axis>;
     export const MasterSet = OtVarMasterSet;
