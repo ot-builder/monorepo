@@ -29,20 +29,20 @@
     ],
     "rootDir": "lib/"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "main": "./lib/index.js",
   "version": "0.1.0",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*.js",
     "lib/**/*.json",
     "lib/**/*.d.ts"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,5 +1,6 @@
 {
   "name": "@ot-builder/demo-font-roundtrip",
+  "private": true,
   "dependencies": {
     "tslib": "^1.9.3",
     "@ot-builder/prelude": "0.1.0",
@@ -22,17 +23,14 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "jest": {
     "testMatch": [
       "**/*.test.js"
     ],
     "rootDir": "lib/"
   },
-  "main": "./lib/index.js",
   "version": "0.1.0",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*.js",
