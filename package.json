@@ -14,9 +14,9 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@types/node": "^12.6.1",
-        "lerna": "^3.15.0",
-        "typescript": "^3.5.3",
+        "@types/node": "^12.7.5",
+        "lerna": "^3.16.4",
+        "typescript": "^3.6.0",
         "ts-node": "^8.3.0",
         "rimraf": "^2.6.3",
         "jest": "^24.8.0",
