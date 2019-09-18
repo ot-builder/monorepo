@@ -1,7 +1,8 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ft-layout";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { Int16, NonNullablePtr16, NullablePtr16, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -44,21 +45,21 @@ export const GposAnchor = {
     write(bb: Frag, a: Gpos.Anchor, ivs: Data.Maybe<WriteTimeIVS>) {
         if (a.attachToPoint) {
             bb.uint16(2);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
             bb.uint16(a.attachToPoint.pointIndex);
         } else if (anchorNeedsFormat3(a)) {
             const dtX = { variation: a.x, deviceDeltas: a.xDevice };
             const dtY = { variation: a.y, deviceDeltas: a.yDevice };
             bb.uint16(3);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
             bb.push(Ptr16DeviceTable, dtX, ivs);
             bb.push(Ptr16DeviceTable, dtY, ivs);
         } else {
             bb.uint16(1);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.x)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.y)));
         }
     },
     measure(a: Data.Maybe<Gpos.Anchor>) {

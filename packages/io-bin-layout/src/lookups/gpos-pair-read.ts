@@ -1,7 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
-import { Range } from "@ot-builder/prelude/lib/control";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
@@ -47,9 +46,9 @@ const SubtableFormat2 = {
 
         for (const gid of cov) ClassDefUtil.padClass0(cd1, context.gOrd.at(gid));
         for (const g of context.gOrd) ClassDefUtil.padClass0(cd2, g);
-        for (const c1 of Range(0, class1Count)) {
+        for (let c1 = 0; c1 < class1Count; c1++) {
             const gs1 = new Set(ClassDefUtil.GlyphMatchingClass(cd1, c1));
-            for (const c2 of Range(0, class2Count)) {
+            for (let c2 = 0; c2 < class2Count; c2++) {
                 const gs2 = new Set(ClassDefUtil.GlyphMatchingClass(cd2, c2));
                 const value1 = view.next(GposAdjustment, valueFormat1, context.ivs);
                 const value2 = view.next(GposAdjustment, valueFormat2, context.ivs);

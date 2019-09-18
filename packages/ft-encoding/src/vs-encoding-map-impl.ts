@@ -1,4 +1,4 @@
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { VsEncodingMapT } from "./general";
 
@@ -43,8 +43,8 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G>, Trace.Glyph.Tra
     }
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.mapping = Rectify.mapSomeT(rec, this.mapping, Rectify.Id, (rec, blo) =>
-            Rectify.Glyph.comapSome(rec, blo)
+        this.mapping = RectifyImpl.mapSomeT(rec, this.mapping, RectifyImpl.Id, (rec, blo) =>
+            RectifyImpl.Glyph.comapSome(rec, blo)
         );
     }
 

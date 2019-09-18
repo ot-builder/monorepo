@@ -18,6 +18,7 @@
     "@types/jest": "^24.0.15",
     "@ot-builder/test-util": "0.1.0",
     "@ot-builder/ft-sfnt": "0.1.0",
+    "@ot-builder/common-impl": "0.1.0",
     "@ot-builder/io-bin-sfnt": "0.1.0",
     "@ot-builder/io-bin-metadata": "0.1.0",
     "@ot-builder/io-bin-glyph-store": "0.1.0"

@@ -19,6 +19,9 @@
       "path": "./cfg-log/tsconfig.json"
     },
     {
+      "path": "./common-impl/tsconfig.json"
+    },
+    {
       "path": "./rectify/tsconfig.json"
     },
     {

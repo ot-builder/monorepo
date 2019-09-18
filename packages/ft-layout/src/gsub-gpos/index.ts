@@ -1,7 +1,7 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14, Tag } from "@ot-builder/primitive";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
@@ -32,7 +32,7 @@ export namespace GsubGpos {
         lookups: Array<L>;
     }
     function cleanupFeature<L>(ft: FeatureT<L>, ls: ReadonlySet<L>): null | FeatureT<L> {
-        const l1 = Rectify.Elim.listSomeOpt(ft.lookups, ls);
+        const l1 = RectifyImpl.Elim.listSomeOpt(ft.lookups, ls);
         if (!l1) return null;
         else return { ...ft, lookups: l1 };
     }
@@ -46,8 +46,8 @@ export namespace GsubGpos {
         fs: ReadonlySet<FeatureT<L>>
     ): null | LanguageT<L> {
         if (!la) return null;
-        const requiredFeature1 = Rectify.Elim.findInSet(la.requiredFeature, fs);
-        const features1 = Rectify.Elim.listSome(la.features, fs);
+        const requiredFeature1 = RectifyImpl.Elim.findInSet(la.requiredFeature, fs);
+        const features1 = RectifyImpl.Elim.listSome(la.features, fs);
         if (!features1 && !requiredFeature1) return null;
         return { requiredFeature: requiredFeature1, features: features1 };
     }
@@ -58,7 +58,7 @@ export namespace GsubGpos {
     }
     function cleanupScript<L>(sc: ScriptT<L>, fs: ReadonlySet<FeatureT<L>>): null | ScriptT<L> {
         const defaultLanguage = cleanupLanguage(sc.defaultLanguage, fs);
-        const languages = Rectify.Elim.comapSomeT(sc.languages, cleanupLanguage, fs);
+        const languages = RectifyImpl.Elim.comapSomeT(sc.languages, cleanupLanguage, fs);
         if (!defaultLanguage && !languages.size) return null;
         else return { defaultLanguage, languages };
     }
@@ -77,7 +77,7 @@ export namespace GsubGpos {
         rec: Rectify.Axis.RectifierT<A>,
         fv: FeatureVariationT<A, L>
     ) {
-        fv.conditions = Rectify.listSomeT(rec, fv.conditions, (r, c) => {
+        fv.conditions = RectifyImpl.listSomeT(rec, fv.conditions, (r, c) => {
             const a1 = r.axis(c.axis);
             if (a1) return { ...c, axis: a1 };
             else return null;
@@ -90,7 +90,7 @@ export namespace GsubGpos {
     ): null | FeatureVariationT<A, L> {
         let subst: Map<FeatureT<L>, FeatureT<L>> = new Map();
         for (const [from, to] of fv.substitutions) {
-            const from1 = Rectify.Elim.findInSet(from, fs);
+            const from1 = RectifyImpl.Elim.findInSet(from, fs);
             const to1 = cleanupFeature(to, ls);
             if (from1 && to1) subst.set(from1, to1);
         }
@@ -170,18 +170,18 @@ export namespace GsubGpos {
             return new Set(lookups);
         }
         private cleanupFeatures(lookupSet: ReadonlySet<Lookup>) {
-            this.features = Rectify.Elim.listSomeT(this.features, cleanupFeature, lookupSet);
+            this.features = RectifyImpl.Elim.listSomeT(this.features, cleanupFeature, lookupSet);
             return new Set(this.features);
         }
         private cleanupScripts(featureSet: ReadonlySet<FeatureT<Lookup>>) {
-            this.scripts = Rectify.Elim.comapSomeT(this.scripts, cleanupScript, featureSet);
+            this.scripts = RectifyImpl.Elim.comapSomeT(this.scripts, cleanupScript, featureSet);
         }
         private cleanupFeatureVariations(
             lookupSet: ReadonlySet<Lookup>,
             featureSet: ReadonlySet<FeatureT<Lookup>>
         ) {
             if (!this.FeatureVariations) return;
-            this.FeatureVariations = Rectify.Elim.listSomeT(
+            this.FeatureVariations = RectifyImpl.Elim.listSomeT(
                 this.FeatureVariations,
                 cleanupFeatureVariation,
                 lookupSet,

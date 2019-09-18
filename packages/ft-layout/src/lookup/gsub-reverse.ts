@@ -1,4 +1,4 @@
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { GeneralLookupT } from "./general";
 
@@ -15,11 +15,11 @@ export class GsubReverseSingleSubT<G, X, L> implements GeneralLookupT<G, X, L> {
     public rules: GsubReverseRuleT<G, Set<G>>[] = [];
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
 
-        this.rules = Rectify.listSomeT(rec, this.rules, (rec, rule) => {
-            const match1 = Rectify.listAllT(rec, rule.match, Rectify.Glyph.setAll);
-            const replace1 = Rectify.Glyph.bimapSome(rec, rule.replacement);
+        this.rules = RectifyImpl.listSomeT(rec, this.rules, (rec, rule) => {
+            const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setAll);
+            const replace1 = RectifyImpl.Glyph.bimapSome(rec, rule.replacement);
             if (!match1 || !replace1) return null;
             else return { ...rule, match: match1, replacement: replace1 };
         });

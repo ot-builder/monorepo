@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
@@ -7,7 +8,7 @@ export class TupleStorage {
 }
 
 export class TupleAllocator {
-    private store: Data.PathMap<F2D14, TupleStorage> = new Data.PathMap();
+    private store: Data.PathMap<F2D14, TupleStorage> = new ImpLib.PathMapImpl();
     private size = 0;
 
     public allocate(tuple: F2D14[]) {

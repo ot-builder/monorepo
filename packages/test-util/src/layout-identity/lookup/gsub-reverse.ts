@@ -1,6 +1,6 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
-import { Control } from "@ot-builder/prelude";
 
 import { BimapCtx, StdCompare } from "../../compar-util";
 
@@ -9,7 +9,7 @@ export namespace GsubReverseLookupIdentity {
         if (rExp.match.length !== rAct.match.length) return false;
         if (rExp.doSubAt !== rAct.doSubAt) return false;
 
-        for (let [sa, sb] of Control.ZipWithIndex(rExp.match, rAct.match)) {
+        for (let [sa, sb] of ImpLib.Iterators.ZipWithIndex(rExp.match, rAct.match)) {
             for (const g of sa) if (!sb.has(bmg.forward(g))) return false;
             for (const g of sb) if (!sa.has(bmg.reward(g))) return false;
         }

@@ -1,7 +1,8 @@
 import { Read, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Gdef } from "@ot-builder/ft-layout";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -36,7 +37,7 @@ const CaretValueFormat1 = {
         return { x: view.uint16() } as Caret;
     }),
     ...Write((frag, caret: Caret) => {
-        frag.uint16(1).int16(Arith.Round.Coord(OtVar.Ops.originOf(caret.x)));
+        frag.uint16(1).int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(caret.x)));
     })
 };
 const CaretValueFormat2 = {
@@ -64,7 +65,7 @@ const CaretValueFormat3 = {
             frag.push(CaretValueFormat1, caret);
         } else {
             frag.uint16(3)
-                .int16(Arith.Round.Coord(OtVar.Ops.originOf(caret.x)))
+                .int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(caret.x)))
                 .push(Ptr16DeviceTable, { deviceDeltas: caret.xDevice, variation: caret.x }, ivs);
         }
     })

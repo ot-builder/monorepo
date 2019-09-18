@@ -2,7 +2,6 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
-import { Range } from "@ot-builder/prelude/lib/control";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { Ptr16GidCoverage } from "../shared/coverage";
@@ -70,7 +69,7 @@ const LigatureAttach = {
         ctx: SubtableReadingContext<GsubGpos.Lookup>
     ) {
         const componentCount = view.uint16();
-        for (const componentID of Range(0, componentCount)) {
+        for (let componentID = 0; componentID < componentCount; componentID++) {
             for (let cls = 0; cls < clsCount; cls++) {
                 const anchor = view.next(NullablePtr16GposAnchor, ctx.ivs);
                 let rec = bases.get(baseGlyph);

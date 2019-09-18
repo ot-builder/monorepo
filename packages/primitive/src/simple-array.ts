@@ -1,5 +1,8 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
+
+type Cons<X, T extends any[]> = ((x: X, ...t: T) => void) extends (...t: infer R) => void
+    ? R
+    : never;
 
 export function SimpleArray<TR, AR extends any[], TW, AW extends any[]>(
     n: Read<number, []> & Write<number, []>,
@@ -19,7 +22,7 @@ export function SimpleArray<TR, AR extends any[], TW, AW extends any[]>(
 
 export function ExtCountArray<TR, AR extends any[], TW, AW extends any[]>(
     r: Read<TR, AR> & Write<TW, AW>
-): Read<TR[], Data.Cons<number, AR>> & Write<readonly TW[], Data.Cons<number, AW>> {
+): Read<TR[], Cons<number, AR>> & Write<readonly TW[], Cons<number, AW>> {
     return {
         read: (view, n, ...ar) => {
             return view.array(n, r, ...(ar as AR));

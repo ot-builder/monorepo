@@ -1,5 +1,5 @@
 import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { LayoutCommon } from "../common";
 
@@ -60,13 +60,13 @@ export class GposMarkToBaseLookupT<G, X, L> extends GposMarkLookupBaseT<G, X, L>
     public bases = new Map<G, GposBaseRecordT<X>>();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.marks = Rectify.Glyph.mapSome(rec, this.marks);
-        this.bases = Rectify.Glyph.mapSome(rec, this.bases);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.marks = RectifyImpl.Glyph.mapSome(rec, this.marks);
+        this.bases = RectifyImpl.Glyph.mapSome(rec, this.bases);
     }
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
-        this.marks = Rectify.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
-        this.bases = Rectify.mapSomeT(rec, this.bases, (r, g) => g, rectifyBaseRecord);
+        this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
+        this.bases = RectifyImpl.mapSomeT(rec, this.bases, (r, g) => g, rectifyBaseRecord);
     }
     public cleanupEliminable() {
         return !this.marks.size || !this.bases.size;
@@ -79,13 +79,13 @@ export class GposMarkToMarkLookupT<G, X, L> extends GposMarkLookupBaseT<G, X, L>
     public baseMarks = new Map<G, GposBaseRecordT<X>>();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.marks = Rectify.Glyph.mapSome(rec, this.marks);
-        this.baseMarks = Rectify.Glyph.mapSome(rec, this.baseMarks);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.marks = RectifyImpl.Glyph.mapSome(rec, this.marks);
+        this.baseMarks = RectifyImpl.Glyph.mapSome(rec, this.baseMarks);
     }
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
-        this.marks = Rectify.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
-        this.baseMarks = Rectify.mapSomeT(rec, this.baseMarks, (r, g) => g, rectifyBaseRecord);
+        this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
+        this.baseMarks = RectifyImpl.mapSomeT(rec, this.baseMarks, (r, g) => g, rectifyBaseRecord);
     }
     public cleanupEliminable() {
         return !this.marks.size || !this.baseMarks.size;
@@ -98,13 +98,13 @@ export class GposMarkToLigatureLookupT<G, X, L> extends GposMarkLookupBaseT<G, X
     public bases = new Map<G, GposLigatureRecordT<X>>();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.marks = Rectify.Glyph.mapSome(rec, this.marks);
-        this.bases = Rectify.Glyph.mapSome(rec, this.bases);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.marks = RectifyImpl.Glyph.mapSome(rec, this.marks);
+        this.bases = RectifyImpl.Glyph.mapSome(rec, this.bases);
     }
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
-        this.marks = Rectify.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
-        this.bases = Rectify.mapSomeT(rec, this.bases, (r, g) => g, rectifyLigatureRecord);
+        this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
+        this.bases = RectifyImpl.mapSomeT(rec, this.bases, (r, g) => g, rectifyLigatureRecord);
     }
     public cleanupEliminable() {
         return !this.marks.size || !this.bases.size;

@@ -1,4 +1,5 @@
 import { Read } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Stat } from "@ot-builder/ft-name";
 import { Data } from "@ot-builder/prelude";
@@ -70,7 +71,7 @@ const AxisValueFormat1 = Read((view, axes: AxisOrder) => {
     const valueNameID = view.uint16();
     const value = view.next(F16D16);
 
-    return Data.Pair(
+    return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Static(axis, value),
         new Stat.NameAssignment(flags, valueNameID)
     );
@@ -88,7 +89,7 @@ const AxisValueFormat2 = Read((view, axes: AxisOrder) => {
     const rangeMinValue = view.next(F16D16);
     const rangeMaxValue = view.next(F16D16);
 
-    return Data.Pair(
+    return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Variable(axis, rangeMinValue, nominalValue, rangeMaxValue),
         new Stat.NameAssignment(flags, valueNameID)
     );
@@ -105,7 +106,7 @@ const AxisValueFormat3 = Read((view, axes: AxisOrder) => {
     const value = view.next(F16D16);
     const linkedValue = view.next(F16D16);
 
-    return Data.Pair(
+    return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Linked(axis, value, linkedValue),
         new Stat.NameAssignment(flags, valueNameID)
     );
@@ -126,7 +127,7 @@ const AxisValueFormat4 = Read((view, axes: AxisOrder) => {
         assignments.push([axis, value]);
     }
 
-    return Data.Pair(
+    return ImpLib.Tuple.Tie(
         new Stat.AxisValue.PolyAxis(assignments),
         new Stat.NameAssignment(flags, valueNameID)
     );

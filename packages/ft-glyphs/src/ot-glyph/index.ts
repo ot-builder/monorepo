@@ -109,7 +109,11 @@ export namespace OtGlyph {
         readonly contour: number;
         readonly index: number;
     };
-    export type PointRefW = Data.Writable<PointRef>;
+    export type PointRefW = {
+        geometry: number;
+        contour: number;
+        index: number;
+    };
 
     export namespace PointRef {
         export function compare(a: PointRef, b: PointRef) {

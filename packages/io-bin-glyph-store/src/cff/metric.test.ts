@@ -6,7 +6,6 @@ import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
-import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 
 import { readGlyphStore } from "../general/read";
 

@@ -1,8 +1,9 @@
 import { Frag, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
-import { Control, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 import { WriteTimeIVS } from "@ot-builder/var-store";
 import * as crypto from "crypto";
@@ -211,7 +212,7 @@ class LookupListWriter {
         Assert.SizeMatch("HPS", frag.size, hps);
 
         // write headers
-        for (const [h, o] of Control.ZipWithIndex(this.lookupHeaders, ho)) {
+        for (const [h, o] of ImpLib.Iterators.ZipWithIndex(this.lookupHeaders, ho)) {
             Assert.OffsetMatch("header", frag.size, o);
             const hsNonExt = this.measureHeaderSize(h);
             frag.uint16(h.useExtension ? lwf.extendedFormat : h.lookupType);

@@ -2,14 +2,13 @@ import { Write } from "@ot-builder/bin-util";
 import { Cmap } from "@ot-builder/ft-encoding";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { Comparison } from "@ot-builder/prelude/lib/control";
 
 import { SubtableAssignment } from "./general";
 import { SubtableHandlers } from "./handlers";
 
-const ByPlatform = Comparison<SubtableAssignment>((a, b) => {
+function ByPlatform(a: SubtableAssignment, b: SubtableAssignment) {
     return a.platform - b.platform || a.encoding - b.encoding;
-});
+}
 
 export const WriteCmap = Write((frag, cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) => {
     let assignments: SubtableAssignment[] = [];

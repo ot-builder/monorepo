@@ -10,3 +10,4 @@ export function rowCount<T>(a: ReadonlyArray<T>, columns: number) {
 
 // re-exports
 export * from "./rounding";
+export * from "./approx";

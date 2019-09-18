@@ -6,7 +6,6 @@ import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";
 import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
-import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 
 import { readGlyphStore } from "../general/read";
 

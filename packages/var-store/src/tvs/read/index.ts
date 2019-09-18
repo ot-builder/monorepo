@@ -1,6 +1,7 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Arith, Control, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -29,7 +30,7 @@ export const TupleVariationRead = Read(
     (view: BinaryView, client: TupleVariationGeometryClient, vsr: TupleVariationSource) => {
         const dimensions = client.dimensions;
         let totalPoints = 0;
-        for (const c of client.contours) totalPoints += Arith.rowCount(c, client.dimensions);
+        for (const c of client.contours) totalPoints += ImpLib.Arith.rowCount(c, client.dimensions);
 
         const _tupleVariationCount = view.uint16();
         const vwData = view.ptr16();
@@ -102,9 +103,15 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
     };
 });
 
+function Iota(a: number, b: number) {
+    let as: number[] = [];
+    for (let x = a; x < b; x++) as.push(x);
+    return as;
+}
+
 const PointNumbers = Read((view: BinaryView, nPoints: number) => {
     const pointCount = view.next(PointCount);
-    if (pointCount == null) return [...Control.Iota(0, nPoints)];
+    if (pointCount == null) return Iota(0, nPoints);
 
     let currentPoint = 0;
     let points: number[] = [];

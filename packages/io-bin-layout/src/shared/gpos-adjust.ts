@@ -1,6 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Gpos, LayoutCommon } from "@ot-builder/ft-layout";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { Int16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -107,16 +108,16 @@ export const GposAdjustment = {
 
     write(b: Frag, adj: Gpos.Adjustment, format: number, ivs: Data.Maybe<WriteTimeIVS>) {
         if (format & GposAdjustmentFormat.X_PLACEMENT) {
-            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dX)));
+            b.int16(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(adj.dX)));
         }
         if (format & GposAdjustmentFormat.Y_PLACEMENT) {
-            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dY)));
+            b.int16(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(adj.dY)));
         }
         if (format & GposAdjustmentFormat.X_ADVANCE) {
-            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dWidth)));
+            b.int16(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(adj.dWidth)));
         }
         if (format & GposAdjustmentFormat.Y_ADVANCE) {
-            b.int16(Arith.Round.Offset(OtVar.Ops.originOf(adj.dHeight)));
+            b.int16(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(adj.dHeight)));
         }
         if (format & GposAdjustmentFormat.X_PLACEMENT_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dXDevice, adj.dX, {

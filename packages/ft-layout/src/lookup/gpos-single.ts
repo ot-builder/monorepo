@@ -1,5 +1,4 @@
-import { GeneralGlyph } from "@ot-builder/ft-glyphs";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { LayoutCommon } from "../common";
 
@@ -11,8 +10,8 @@ export class GposSingleLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     public adjustments: Map<G, LayoutCommon.Adjust.T<X>> = new Map();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.adjustments = Rectify.Glyph.mapSome(rec, this.adjustments);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.adjustments = RectifyImpl.Glyph.mapSome(rec, this.adjustments);
     }
     public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {}
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {

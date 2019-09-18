@@ -1,4 +1,5 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { MetricVariance } from "@ot-builder/ft-glyphs";
 import { Maxp } from "@ot-builder/ft-metadata";
@@ -131,7 +132,7 @@ export const MetricVarianceIo = {
             frag,
             mv: MetricVariance.Table,
             axes: Data.Order<OtVar.Axis>,
-            pEmpty?: Data.Maybe<Data.Access<boolean>>
+            pEmpty?: Data.Maybe<ImpLib.Access<boolean>>
         ) => {
             // No axes present in font, reject
             if (!axes.length) throw Errors.Variation.NoAxes();

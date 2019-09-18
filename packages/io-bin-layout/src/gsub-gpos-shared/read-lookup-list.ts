@@ -1,8 +1,9 @@
 import { BinaryView } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
-import { Control, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
 
 import { LookupFlag, LookupReader, LookupReaderFactory } from "./general";
@@ -133,7 +134,11 @@ class CReadLookupList {
             this.applyIgnoreSet(lookup, lookupFlag, markFilteringSet, lrc.gdef);
         }
         const lookupOrder = Data.Order.fromList(`Lookups`, lookups);
-        for (const [lookup, reader, sts] of Control.Zip3WithIndex(lookups, readers, subtables)) {
+        for (const [lookup, reader, sts] of ImpLib.Iterators.Zip3WithIndex(
+            lookups,
+            readers,
+            subtables
+        )) {
             for (const st of sts) {
                 reader.parseSubtable(st, lookup, {
                     ivs: lrc.ivs,

@@ -2,7 +2,8 @@
 // The algorithm comes form:
 //   - https://github.com/fonttools/fonttools/blob/master/Lib/fontTools/varLib/iup.py
 
-import { Arith, Data } from "@ot-builder/prelude";
+import { ImpLib } from "@ot-builder/common-impl";
+import { Data } from "@ot-builder/prelude";
 
 import { iup } from "../shared/iup";
 
@@ -17,21 +18,21 @@ function canIupBetween(
     tolerance: number
 ) {
     for (let dim = 0; dim < dimensions; dim++) {
-        const zdPrev = Arith.d2(dimensions, Arith.pmod(zPrev, n), dim);
-        const zdNext = Arith.d2(dimensions, Arith.pmod(zNext, n), dim);
+        const zdPrev = ImpLib.Arith.d2(dimensions, ImpLib.Arith.pmod(zPrev, n), dim);
+        const zdNext = ImpLib.Arith.d2(dimensions, ImpLib.Arith.pmod(zNext, n), dim);
         for (let zPoint = zPrev + 1; zPoint < zNext; zPoint++) {
-            const zdPoint = Arith.d2(dimensions, Arith.pmod(zPoint, n), dim);
+            const zdPoint = ImpLib.Arith.d2(dimensions, ImpLib.Arith.pmod(zPoint, n), dim);
 
             const original = deltas[zdPoint];
             const interpolated = iup(
-                Arith.Round.Coord(coords[zdPrev]),
-                Arith.Round.Coord(coords[zdPoint]),
-                Arith.Round.Coord(coords[zdNext]),
-                Arith.Round.Coord(deltas[zdPrev]),
-                Arith.Round.Coord(deltas[zdNext])
+                ImpLib.Arith.Round.Coord(coords[zdPrev]),
+                ImpLib.Arith.Round.Coord(coords[zdPoint]),
+                ImpLib.Arith.Round.Coord(coords[zdNext]),
+                ImpLib.Arith.Round.Coord(deltas[zdPrev]),
+                ImpLib.Arith.Round.Coord(deltas[zdNext])
             );
 
-            if (!Data.Approx.equal(original, interpolated, tolerance)) return false;
+            if (!ImpLib.Arith.Approx.equal(original, interpolated, tolerance)) return false;
         }
     }
     return true;
@@ -54,21 +55,21 @@ function iupContourBoundForcedSet(
     let zN = 0,
         zL = n - 1;
 
-    let forced: boolean[] = Data.Mask.Falses(n);
+    let forced: boolean[] = ImpLib.BitMask.Falses(n);
 
     for (let _zPoint = n - 1; _zPoint > -1; _zPoint--) {
-        const zPoint = Arith.pmod(_zPoint, n);
+        const zPoint = ImpLib.Arith.pmod(_zPoint, n);
         const z = zL;
 
-        zL = Arith.pmod(_zPoint - 1, n);
+        zL = ImpLib.Arith.pmod(_zPoint - 1, n);
 
         for (let dim = 0; dim < dimensions; dim++) {
-            const cZ = Arith.Round.Coord(coords[Arith.d2(dimensions, z, dim)]);
-            const dZ = deltas[Arith.d2(dimensions, z, dim)];
-            const cL = Arith.Round.Coord(coords[Arith.d2(dimensions, zL, dim)]);
-            const dL = Arith.Round.Coord(deltas[Arith.d2(dimensions, zL, dim)]);
-            const cN = Arith.Round.Coord(coords[Arith.d2(dimensions, zN, dim)]);
-            const dN = Arith.Round.Coord(deltas[Arith.d2(dimensions, zN, dim)]);
+            const cZ = ImpLib.Arith.Round.Coord(coords[ImpLib.Arith.d2(dimensions, z, dim)]);
+            const dZ = deltas[ImpLib.Arith.d2(dimensions, z, dim)];
+            const cL = ImpLib.Arith.Round.Coord(coords[ImpLib.Arith.d2(dimensions, zL, dim)]);
+            const dL = ImpLib.Arith.Round.Coord(deltas[ImpLib.Arith.d2(dimensions, zL, dim)]);
+            const cN = ImpLib.Arith.Round.Coord(coords[ImpLib.Arith.d2(dimensions, zN, dim)]);
+            const dN = ImpLib.Arith.Round.Coord(deltas[ImpLib.Arith.d2(dimensions, zN, dim)]);
 
             let c1: number, c2: number, d1: number, d2: number;
             if (cL <= cN) {
@@ -105,13 +106,13 @@ function pointIsForced(
     tolerance: number
 ) {
     if (c1 <= cZ && cZ <= c2) {
-        return !Data.Approx.between(d1, dZ, d2, tolerance);
+        return !ImpLib.Arith.Approx.between(d1, dZ, d2, tolerance);
     } else {
         if (c1 === c2) {
             if (d1 === d2) {
-                return !Data.Approx.equal(dZ, d1, tolerance);
+                return !ImpLib.Arith.Approx.equal(dZ, d1, tolerance);
             } else {
-                return !Data.Approx.zero(dZ, tolerance);
+                return !ImpLib.Arith.Approx.zero(dZ, tolerance);
             }
         } else if (d1 !== d2) {
             if (cZ < c1) {
@@ -137,8 +138,8 @@ function roundCost(
 ) {
     let c = COST_INTEGER;
     for (let dim = 0; dim < dimensions; dim++) {
-        const x = deltas[Arith.d2(dimensions, point, dim)];
-        if (!Data.Approx.equal(Math.round(x), x, tolerance)) c = COST_NON_INTEGER;
+        const x = deltas[ImpLib.Arith.d2(dimensions, point, dim)];
+        if (!ImpLib.Arith.Approx.equal(Math.round(x), x, tolerance)) c = COST_NON_INTEGER;
     }
     return c;
 }
@@ -186,21 +187,21 @@ function iupOptimizeDP(
 }
 
 function rotateArray<T>(a: ReadonlyArray<T>, n: number, k: number): T[] {
-    k = Arith.pmod(k, n);
+    k = ImpLib.Arith.pmod(k, n);
     if (!k) return [...a];
     return [...a.slice(n - k), ...a.slice(0, n - k)];
 }
 
 function allDeltasSmall(deltas: ReadonlyArray<number>, tolerance: number) {
-    for (const delta of deltas) if (!Data.Approx.zero(delta, tolerance)) return false;
+    for (const delta of deltas) if (!ImpLib.Arith.Approx.zero(delta, tolerance)) return false;
     return true;
 }
 
 function allDeltasSame(deltas: ReadonlyArray<number>, n: number, dimensions: number) {
     for (let dim = 0; dim < dimensions; dim++) {
-        const d0 = deltas[Arith.d2(dimensions, 0, dim)];
+        const d0 = deltas[ImpLib.Arith.d2(dimensions, 0, dim)];
         for (let ixPt = 1; ixPt < n; ixPt++) {
-            const dj = deltas[Arith.d2(dimensions, ixPt, dim)];
+            const dj = deltas[ImpLib.Arith.d2(dimensions, ixPt, dim)];
             if (d0 !== dj) return false;
         }
     }
@@ -221,14 +222,14 @@ export function iupOptimize(
     deltas: ReadonlyArray<number>, // N * Dimensions items of deltas
     tolerance: number // Tolerance
 ): boolean[] {
-    if (n <= dimensions) return Data.Mask.Trues(n);
+    if (n <= dimensions) return ImpLib.BitMask.Trues(n);
 
     // If all are within tolerance distance of 0, encode nothing:
-    if (allDeltasSmall(deltas, tolerance)) return Data.Mask.Falses(n);
+    if (allDeltasSmall(deltas, tolerance)) return ImpLib.BitMask.Falses(n);
 
     // If all deltas are exactly the same, return just one (the first one):
     if (allDeltasSame(deltas, n, dimensions)) {
-        let solution = Data.Mask.Falses(n);
+        let solution = ImpLib.BitMask.Falses(n);
         solution[0] = true;
         return solution;
     }
@@ -251,10 +252,10 @@ export function iupOptimize(
         const coords1 = rotateArray(coords, dimensions * n, dimensions * rot);
         const forces1 = rotateArray(forces, n, rot);
         const { chain } = iupOptimizeDP(coords1, deltas1, n, dimensions, tolerance, forces1);
-        let answer: boolean[] = Data.Mask.Falses(n);
+        let answer: boolean[] = ImpLib.BitMask.Falses(n);
         let jChain: number | null = n - 1;
         while (jChain !== null && jChain >= 0) {
-            answer[Arith.pmod(jChain, n)] = true;
+            answer[ImpLib.Arith.pmod(jChain, n)] = true;
             jChain = chain[jChain];
         }
 
@@ -273,13 +274,13 @@ export function iupOptimize(
             n
         );
 
-        let bestSolution: boolean[] = Data.Mask.Trues(n),
+        let bestSolution: boolean[] = ImpLib.BitMask.Trues(n),
             bestCost = COST_NON_INTEGER * (n + 1);
         for (let start = n - 1; start < 2 * n - 1; start++) {
-            let solution: boolean[] = Data.Mask.Falses(n);
+            let solution: boolean[] = ImpLib.BitMask.Falses(n);
             let cur: number | null = start;
             while (cur !== null && cur > start - n) {
-                solution[Arith.pmod(cur, n)] = true;
+                solution[ImpLib.Arith.pmod(cur, n)] = true;
                 cur = chain[cur];
             }
             if (cur === start - n) {

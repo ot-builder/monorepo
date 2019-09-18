@@ -1,8 +1,9 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base } from "@ot-builder/ft-layout";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -38,17 +39,17 @@ export const BaseCoord = {
     write(bb: Frag, a: Base.Coord, gOrd: Data.Order<OtGlyph>, ivs: Data.Maybe<WriteTimeIVS>) {
         if (a.pointAttachment) {
             bb.uint16(2);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
             bb.uint16(gOrd.reverse(a.pointAttachment.glyph));
             bb.uint16(a.pointAttachment.pointIndex);
         } else if (anchorNeedsFormat3(a)) {
             const dtAt = { variation: a.at, deviceDeltas: a.deviceDeltas };
             bb.uint16(3);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
             bb.push(Ptr16DeviceTable, dtAt, ivs);
         } else {
             bb.uint16(1);
-            bb.int16(Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
+            bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
         }
     }
 };

@@ -1,6 +1,7 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { MetricBasic, MetricVariance, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Fvar, Head, MetricHead } from "@ot-builder/ft-metadata";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export class HmtxStat implements OtGlyph.Stat.Sink {
@@ -32,11 +33,11 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
         extent: OtGlyph.Stat.BoundingBox
     ) {
         const hOrg = this.hvar ? 0 : horizontal.start;
-        const stHOrg = Arith.Round.Coord(OtVar.Ops.originOf(hOrg));
+        const stHOrg = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(hOrg));
         const advance = OtVar.Ops.minus(horizontal.end, hOrg);
-        const stLsb = Arith.Round.Coord(extent.xMin) - stHOrg;
-        const stAdv = Arith.Round.Offset(OtVar.Ops.originOf(advance));
-        const stRsb = stHOrg + stAdv - Arith.Round.Coord(extent.xMax);
+        const stLsb = ImpLib.Arith.Round.Coord(extent.xMin) - stHOrg;
+        const stAdv = ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(advance));
+        const stRsb = stHOrg + stAdv - ImpLib.Arith.Round.Coord(extent.xMax);
 
         if (stLsb < this.minLeftSideBearing) this.minLeftSideBearing = stLsb;
         if (stRsb < this.minRightSideBearing) this.minRightSideBearing = stRsb;
@@ -95,7 +96,9 @@ export class HmtxCoStat implements OtGlyph.CoStat.Source {
             start = 0;
         } else {
             start = extent.xMin - this.hmtx.measures[gid].startSideBearing;
-            if (this.hvar) start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.hvar.measures[gid].start));
+            if (this.hvar) {
+                start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.hvar.measures[gid].start));
+            }
         }
         let end: OtVar.Value = OtVar.Ops.add(
             start,

@@ -12,7 +12,13 @@ export namespace LayoutAnchor {
         readonly xDevice?: Data.Maybe<DeviceTable>;
         readonly yDevice?: Data.Maybe<DeviceTable>;
     }
-    export type WT<X> = Data.Writable<T<X>>;
+    export interface WT<X> {
+        x: X;
+        y: X;
+        attachToPoint?: Data.Maybe<OtGlyph.PointIDRef>;
+        xDevice?: Data.Maybe<DeviceTable>;
+        yDevice?: Data.Maybe<DeviceTable>;
+    }
     export function rectify<X>(rec: Rectify.Coord.RectifierT<X>, anc: T<X>) {
         return { ...anc, x: rec.coord(anc.x), y: rec.coord(anc.y) };
     }

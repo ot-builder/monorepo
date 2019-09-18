@@ -6,6 +6,7 @@
     "tslib": "^1.9.3",
     "@ot-builder/prelude": "0.1.0",
     "@ot-builder/bin-util": "0.1.0",
+    "@ot-builder/common-impl": "0.1.0",
     "@ot-builder/primitive": "0.1.0",
     "@ot-builder/variance": "0.1.0",
     "@ot-builder/var-store": "0.1.0",

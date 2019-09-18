@@ -1,4 +1,4 @@
-import { Arith } from "@ot-builder/prelude";
+import { ImpLib } from "@ot-builder/common-impl";
 
 export interface TvdAccess<M> {
     readonly original: number;
@@ -56,19 +56,22 @@ export function iupContour<M>(
     deltas: (number | undefined)[]
 ) {
     let ixPoint = 0;
-    const n = Arith.rowCount(contour, dimensions);
+    const n = ImpLib.Arith.rowCount(contour, dimensions);
     while (ixPoint < n && deltas[start + ixPoint] === undefined) ixPoint++;
     if (ixPoint >= n) return;
     const firstDelta = ixPoint;
     let prevDelta = ixPoint;
-    contour[Arith.d2(dimensions, firstDelta, dim)].addDelta(master, deltas[start + firstDelta]!);
+    contour[ImpLib.Arith.d2(dimensions, firstDelta, dim)].addDelta(
+        master,
+        deltas[start + firstDelta]!
+    );
 
     ixPoint = incMod(ixPoint, n);
     while (ixPoint % n !== firstDelta) {
         if (deltas[start + ixPoint] !== undefined) {
             fillThisGap(dimensions, dim, n, start, prevDelta, ixPoint, contour, master, deltas);
             prevDelta = ixPoint;
-            contour[Arith.d2(dimensions, prevDelta, dim)].addDelta(
+            contour[ImpLib.Arith.d2(dimensions, prevDelta, dim)].addDelta(
                 master,
                 deltas[start + prevDelta]!
             );
@@ -92,13 +95,13 @@ function fillThisGap<M>(
 ) {
     for (let ixMiddle = incMod(begin, n); ixMiddle !== end; ixMiddle = incMod(ixMiddle, n)) {
         const delta = iup(
-            contour[Arith.d2(dimensions, begin, dim)].original,
-            contour[Arith.d2(dimensions, ixMiddle, dim)].original,
-            contour[Arith.d2(dimensions, end, dim)].original,
+            contour[ImpLib.Arith.d2(dimensions, begin, dim)].original,
+            contour[ImpLib.Arith.d2(dimensions, ixMiddle, dim)].original,
+            contour[ImpLib.Arith.d2(dimensions, end, dim)].original,
             deltas[start + begin]!,
             deltas[start + end]!
         );
-        contour[Arith.d2(dimensions, ixMiddle, dim)].addDelta(master, delta);
+        contour[ImpLib.Arith.d2(dimensions, ixMiddle, dim)].addDelta(master, delta);
     }
 }
 
@@ -113,6 +116,6 @@ export function inferDeltas<M>(
     for (let ixContour = 0; ixContour < contours.length; ixContour++) {
         const contour = contours[ixContour];
         iupContour(dimensions, dim, start, contour, master, deltas);
-        start += Arith.rowCount(contour, dimensions);
+        start += ImpLib.Arith.rowCount(contour, dimensions);
     }
 }

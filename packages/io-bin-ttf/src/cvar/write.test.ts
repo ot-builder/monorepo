@@ -1,5 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Cvt } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -26,7 +27,7 @@ function cvtRoundTipLoop(file: string) {
 
     let cvarBuf = null;
     if (axes) {
-        const sfEmpty = new Data.State<boolean>(false);
+        const sfEmpty = new ImpLib.State<boolean>(false);
         cvarBuf = Frag.packFrom(CvarIo, cvt, axes, sfEmpty);
         if (sfEmpty.get()) cvarBuf = null;
     }

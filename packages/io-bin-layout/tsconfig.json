@@ -19,6 +19,9 @@
       "path": "../bin-util/tsconfig.json"
     },
     {
+      "path": "../common-impl/tsconfig.json"
+    },
+    {
       "path": "../primitive/tsconfig.json"
     },
     {

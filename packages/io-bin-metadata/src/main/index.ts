@@ -1,5 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import {
     Avar,
@@ -79,7 +80,7 @@ export function writeOtMetadata(
         );
     }
     if (md.fvar) {
-        const sfEmpty = new Data.State(false);
+        const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(
             MvarTableIo,
             Data.Order.fromList(`Axes`, md.fvar.axes),

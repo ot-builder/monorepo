@@ -1,4 +1,6 @@
 export { Data } from "@ot-builder/prelude";
+export { Rectify, Trace } from "@ot-builder/rectify";
+
 export * from "@ot-builder/cfg-log";
 
 export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ft-metadata";

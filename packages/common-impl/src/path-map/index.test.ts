@@ -1,7 +1,7 @@
-import { PathMap } from "./path-map";
+import { PathMapImpl } from "./index";
 
 test("Path map test", () => {
-    const map = new PathMap<number, number>();
+    const map = new PathMapImpl<number, number>();
     map.set([1, 2, 3], 1);
     map.set([2, 3, 4], 2);
 

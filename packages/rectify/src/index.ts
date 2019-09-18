@@ -1,5 +1,70 @@
 // RECTIFICATION INTERFACES
 export namespace Rectify {
+    ////// "GLYPH" rectifier (VERY frequently used)
+    export namespace Glyph {
+        export interface RectifierT<G> {
+            glyph(from: G): null | undefined | G;
+        }
+        export interface RectifiableT<G> {
+            rectifyGlyphs(rectifier: RectifierT<G>): void | boolean;
+        }
+    }
+
+    ////// "Axis" rectifier
+    export namespace Axis {
+        export interface RectifierT<A> {
+            axis(axis: A): null | undefined | A;
+            readonly addedAxes: ReadonlyArray<A>;
+        }
+        export interface RectifiableT<A> {
+            rectifyAxes(rectifier: RectifierT<A>): void;
+        }
+    }
+
+    ////// "Coord" rectifier
+    export namespace Coord {
+        export interface RectifierT<X> {
+            coord(value: X): X;
+            cv(value: X): X;
+        }
+        export interface RectifiableT<X> {
+            rectifyCoords(rectifier: RectifierT<X>): void;
+        }
+    }
+
+    ////// "Lookup" rectifier
+    export namespace Lookup {
+        export interface RectifierT<L> {
+            lookup(l: L): null | undefined | L;
+        }
+        export interface RectifiableT<L> {
+            rectifyLookups(rectifier: RectifierT<L>): void;
+        }
+    }
+
+    ////// "Elim" rectifier
+    export namespace Elim {
+        export interface Eliminable {
+            cleanupEliminable(): boolean;
+        }
+    }
+}
+
+// TRACING INTERFACES
+export namespace Trace {
+    export namespace Glyph {
+        export interface TracerT<G> {
+            has(glyph: G): boolean;
+            add(glyph: G): void;
+        }
+        export interface TraceableT<G> {
+            traceGlyphs(marker: TracerT<G>): void;
+        }
+    }
+}
+
+// Rectifiable implementation methods
+export namespace RectifyImpl {
     export function Id<R, X>(r: R, x: X): X {
         return x;
     }
@@ -106,124 +171,83 @@ export namespace Rectify {
         return m1;
     }
 
-    ////// "GLYPH" rectifier (VERY frequently used)
     export namespace Glyph {
-        export interface RectifierT<G> {
-            glyph(from: G): null | undefined | G;
-        }
-        export interface RectifiableT<G> {
-            rectifyGlyphs(rectifier: RectifierT<G>): void | boolean;
-        }
-        function single<G>(rectifier: RectifierT<G>, g: G) {
+        function single<G>(rectifier: Rectify.Glyph.RectifierT<G>, g: G) {
             return rectifier.glyph(g);
         }
-        export function setAll<G>(rec: RectifierT<G>, gs: ReadonlySet<G>) {
-            return Rectify.setAllT(rec, gs, single);
+        export function setAll<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlySet<G>) {
+            return RectifyImpl.setAllT(rec, gs, single);
         }
-        export function setSome<G>(rec: RectifierT<G>, gs: ReadonlySet<G>) {
-            return Rectify.setSomeT(rec, gs, single);
+        export function setSome<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlySet<G>) {
+            return RectifyImpl.setSomeT(rec, gs, single);
         }
-        export function listAll<G>(rec: RectifierT<G>, gs: ReadonlyArray<G>) {
-            return Rectify.listAllT(rec, gs, single);
+        export function listAll<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+            return RectifyImpl.listAllT(rec, gs, single);
         }
-        export function listSome<G>(rec: RectifierT<G>, gs: ReadonlyArray<G>) {
-            return Rectify.listSomeT(rec, gs, single);
+        export function listSome<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+            return RectifyImpl.listSomeT(rec, gs, single);
         }
-        export function listSparse<G>(rec: RectifierT<G>, gs: ReadonlyArray<G>) {
-            return Rectify.listSparseT(rec, gs, single);
+        export function listSparse<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+            return RectifyImpl.listSparseT(rec, gs, single);
         }
-        export function bimapAll<G>(rec: RectifierT<G>, gm: ReadonlyMap<G, G>) {
-            return Rectify.mapAllT(rec, gm, single, single);
+        export function bimapAll<G>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, G>) {
+            return RectifyImpl.mapAllT(rec, gm, single, single);
         }
-        export function bimapSome<G>(rec: RectifierT<G>, gm: ReadonlyMap<G, G>) {
-            return Rectify.mapSomeT(rec, gm, single, single);
+        export function bimapSome<G>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, G>) {
+            return RectifyImpl.mapSomeT(rec, gm, single, single);
         }
-        export function mapAll<G, X>(rec: RectifierT<G>, gm: ReadonlyMap<G, X>) {
-            return Rectify.mapAllT(rec, gm, single, (r, x) => x);
+        export function mapAll<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, X>) {
+            return RectifyImpl.mapAllT(rec, gm, single, (r, x) => x);
         }
-        export function mapSome<G, X>(rec: RectifierT<G>, gm: ReadonlyMap<G, X>) {
-            return Rectify.mapSomeT(rec, gm, single, (r, x) => x);
+        export function mapSome<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, X>) {
+            return RectifyImpl.mapSomeT(rec, gm, single, (r, x) => x);
         }
-        export function comapAll<G, X>(rec: RectifierT<G>, gm: ReadonlyMap<X, G>) {
-            return Rectify.mapAllT(rec, gm, (r, x) => x, single);
+        export function comapAll<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<X, G>) {
+            return RectifyImpl.mapAllT(rec, gm, (r, x) => x, single);
         }
-        export function comapSome<G, X>(rec: RectifierT<G>, gm: ReadonlyMap<X, G>) {
-            return Rectify.mapSomeT(rec, gm, (r, x) => x, single);
+        export function comapSome<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<X, G>) {
+            return RectifyImpl.mapSomeT(rec, gm, (r, x) => x, single);
         }
         export function mapAllT<G, X>(
-            rec: RectifierT<G>,
+            rec: Rectify.Glyph.RectifierT<G>,
             gm: ReadonlyMap<G, X>,
-            fn: (rec: RectifierT<G>, x: X) => null | undefined | X
+            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
         ) {
-            return Rectify.mapAllT(rec, gm, single, fn);
+            return RectifyImpl.mapAllT(rec, gm, single, fn);
         }
         export function mapSomeT<G, X>(
-            rec: RectifierT<G>,
+            rec: Rectify.Glyph.RectifierT<G>,
             gm: ReadonlyMap<G, X>,
-            fn: (rec: RectifierT<G>, x: X) => null | undefined | X
+            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
         ) {
-            return Rectify.mapSomeT(rec, gm, single, fn);
+            return RectifyImpl.mapSomeT(rec, gm, single, fn);
         }
         export function comapAllT<G, X>(
-            rec: RectifierT<G>,
+            rec: Rectify.Glyph.RectifierT<G>,
             gm: ReadonlyMap<X, G>,
-            fn: (rec: RectifierT<G>, x: X) => null | undefined | X
+            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
         ) {
-            return Rectify.mapAllT(rec, gm, fn, single);
+            return RectifyImpl.mapAllT(rec, gm, fn, single);
         }
         export function comapSomeT<G, X>(
-            rec: RectifierT<G>,
+            rec: Rectify.Glyph.RectifierT<G>,
             gm: ReadonlyMap<X, G>,
-            fn: (rec: RectifierT<G>, x: X) => null | undefined | X
+            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
         ) {
-            return Rectify.mapSomeT(rec, gm, fn, single);
+            return RectifyImpl.mapSomeT(rec, gm, fn, single);
         }
     }
 
-    ////// "Axis" rectifier
-    export namespace Axis {
-        export interface RectifierT<A> {
-            axis(axis: A): null | undefined | A;
-            readonly addedAxes: ReadonlyArray<A>;
-        }
-        export interface RectifiableT<A> {
-            rectifyAxes(rectifier: RectifierT<A>): void;
-        }
-    }
-
-    ////// "Coord" rectifier
     export namespace Coord {
-        export interface RectifierT<X> {
-            coord(value: X): X;
-            cv(value: X): X;
-        }
-        export interface RectifiableT<X> {
-            rectifyCoords(rectifier: RectifierT<X>): void;
-        }
-
-        function single<X>(rec: RectifierT<X>, x: X) {
+        function single<X>(rec: Rectify.Coord.RectifierT<X>, x: X) {
             return rec.coord(x);
         }
-        export function list<X>(rec: RectifierT<X>, arr: ReadonlyArray<X>) {
-            return Rectify.listSomeT(rec, arr, single);
+        export function list<X>(rec: Rectify.Coord.RectifierT<X>, arr: ReadonlyArray<X>) {
+            return RectifyImpl.listSomeT(rec, arr, single);
         }
     }
 
-    ////// "Lookup" rectifier
-    export namespace Lookup {
-        export interface RectifierT<L> {
-            lookup(l: L): null | undefined | L;
-        }
-        export interface RectifiableT<L> {
-            rectifyLookups(rectifier: RectifierT<L>): void;
-        }
-    }
-
-    ////// "Elim" rectifier
     export namespace Elim {
-        export interface Eliminable {
-            cleanupEliminable(): boolean;
-        }
         export function findInSet<L>(l: null | undefined | L, ls: ReadonlySet<L>) {
             if (l == null || !ls.has(l)) return null;
             else return l;
@@ -268,19 +292,6 @@ export namespace Rectify {
             }
             if (!a1.length) return null;
             return a1;
-        }
-    }
-}
-
-// TRACING INTERFACES
-export namespace Trace {
-    export namespace Glyph {
-        export interface TracerT<G> {
-            has(glyph: G): boolean;
-            add(glyph: G): void;
-        }
-        export interface TraceableT<G> {
-            traceGlyphs(marker: TracerT<G>): void;
         }
     }
 }

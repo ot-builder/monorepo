@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
 import { GeneralVar } from "@ot-builder/variance";
@@ -48,8 +49,8 @@ export class CReadTimeIVS<A extends GeneralVar.Axis, M extends GeneralVar.Master
 }
 
 export class WriteTimeIVD {
-    private allocator = new Data.IndexAllocator();
-    public mapping: Data.PathMap<number, number> = new Data.PathMap();
+    private allocator = new ImpLib.IndexAllocator();
+    public mapping: Data.PathMap<number, number> = new ImpLib.PathMapImpl();
     constructor(public readonly outerIndex: number, readonly masterIDs: number[]) {}
 
     public find(deltas: number[]) {
@@ -69,7 +70,7 @@ export class WriteTimeIVD {
 }
 
 export class WriteTimeIVDAllocator implements Data.Allocator<WriteTimeIVD, [number[]]> {
-    private allocOuterID = new Data.IndexAllocator();
+    private allocOuterID = new ImpLib.IndexAllocator();
     private ivdList: WriteTimeIVD[] = [];
     public next(r: number[]) {
         const outerID = this.allocOuterID.next();
@@ -171,7 +172,7 @@ export class GeneralWriteTimeIVStore<A extends GeneralVar.Axis, M extends Genera
         private readonly masterCollector: GeneralVar.MasterSet<A, M>,
         private maxInnerIndex: number
     ) {
-        this.pmBlossom = new Data.PathMap();
+        this.pmBlossom = new ImpLib.PathMapImpl();
         this.acIVD = new WriteTimeIVDAllocator();
         this.acBlossom = new WriteTimeIVDBlossomAllocator(this.acIVD, this.maxInnerIndex);
     }

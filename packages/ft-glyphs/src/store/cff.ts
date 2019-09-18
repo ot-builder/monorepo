@@ -1,5 +1,5 @@
 import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl } from "@ot-builder/rectify";
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
@@ -31,12 +31,12 @@ export namespace Cff {
         public inheritedVsIndex = 0;
 
         public rectifyCoords(rec: OtVar.Rectifier) {
-            this.blueValues = Rectify.Coord.list(rec, this.blueValues);
-            this.otherBlues = Rectify.Coord.list(rec, this.otherBlues);
-            this.familyBlues = Rectify.Coord.list(rec, this.familyBlues);
-            this.familyOtherBlues = Rectify.Coord.list(rec, this.familyOtherBlues);
-            this.stemSnapH = Rectify.Coord.list(rec, this.stemSnapH);
-            this.stemSnapV = Rectify.Coord.list(rec, this.stemSnapV);
+            this.blueValues = RectifyImpl.Coord.list(rec, this.blueValues);
+            this.otherBlues = RectifyImpl.Coord.list(rec, this.otherBlues);
+            this.familyBlues = RectifyImpl.Coord.list(rec, this.familyBlues);
+            this.familyOtherBlues = RectifyImpl.Coord.list(rec, this.familyOtherBlues);
+            this.stemSnapH = RectifyImpl.Coord.list(rec, this.stemSnapH);
+            this.stemSnapV = RectifyImpl.Coord.list(rec, this.stemSnapV);
             this.blueScale = rec.coord(this.blueScale);
             this.blueShift = rec.coord(this.blueShift);
             this.blueFuzz = rec.coord(this.blueFuzz);
@@ -55,7 +55,7 @@ export namespace Cff {
         public mapping: null | Map<number, OtGlyph> = null;
 
         public rectifyGlyphs(rec: OtGlyph.Rectifier) {
-            if (this.mapping) this.mapping = Rectify.Glyph.comapSome(rec, this.mapping);
+            if (this.mapping) this.mapping = RectifyImpl.Glyph.comapSome(rec, this.mapping);
         }
     }
 
@@ -100,7 +100,7 @@ export namespace Cff {
 
         public rectifyGlyphs(rec: OtGlyph.Rectifier) {
             if (this.cid) this.cid.rectifyGlyphs(rec);
-            if (this.fdSelect) this.fdSelect = Rectify.Glyph.mapSome(rec, this.fdSelect);
+            if (this.fdSelect) this.fdSelect = RectifyImpl.Glyph.mapSome(rec, this.fdSelect);
         }
         public rectifyCoords(rec: OtVar.Rectifier) {
             this.fontDict.rectifyCoords(rec);

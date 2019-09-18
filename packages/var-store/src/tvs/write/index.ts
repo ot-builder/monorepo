@@ -1,6 +1,7 @@
 import { Frag, Write, WriteOpt } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -45,7 +46,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         // - Header
         const fHaveSharedPoints =
             !ctx.forcePrivatePointNumbers &&
-            !Data.Mask.allTrue(blobResults.map(x => x.embedPointIndex))
+            !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
                 ? TvhSetFlags.SHARED_POINT_NUMBERS
                 : 0;
         frRoot.uint16(fHaveSharedPoints | blobResults.length);
@@ -106,8 +107,8 @@ function writeBlobImpl(
         mid,
         tolerance
     );
-    if (Data.Mask.allFalseN(n, mask)) mask[0] = true;
-    const embedPointIndex = ctx.forcePrivatePointNumbers || !Data.Mask.allTrueN(n, mask);
+    if (ImpLib.BitMask.allFalseN(n, mask)) mask[0] = true;
+    const embedPointIndex = ctx.forcePrivatePointNumbers || !ImpLib.BitMask.allTrueN(n, mask);
     const hr = writeTupleVariationHeader(ctx, tuc, master, embedPointIndex);
 
     if (hr.fPrivatePoints) frBody.push(PointsMask, n, mask);
@@ -128,10 +129,10 @@ function logChoices(dimensions: number, coords: number[], deltas: number[], mask
     for (let z = 0; z < mask.length; z++) {
         let r = "";
         for (let dim = 0; dim < dimensions; dim++) {
-            const delta = deltas[Arith.d2(dimensions, z, dim)];
+            const delta = deltas[ImpLib.Arith.d2(dimensions, z, dim)];
             r +=
                 (dim ? " " : "") +
-                coords[Arith.d2(dimensions, z, dim)] +
+                coords[ImpLib.Arith.d2(dimensions, z, dim)] +
                 (delta >= 0 ? "+" : "") +
                 delta;
         }
@@ -161,15 +162,15 @@ function decidePointsAndDeltas(
             contourCoords.push(dd.origin || 0);
             contourDeltas.push(dd.resolve()[mid] || 0);
         }
-        const n = Arith.rowCount(contourCoords, source.dimensions);
+        const n = ImpLib.Arith.rowCount(contourCoords, source.dimensions);
         const counterMask = tolerance
             ? iupOptimize(source.dimensions, n, contourCoords, contourDeltas, tolerance)
-            : Data.Mask.Trues(n);
+            : ImpLib.BitMask.Trues(n);
         for (let zid = 0; zid < n; zid++) {
             mask.push(!!counterMask[zid]);
             if (counterMask[zid]) {
                 for (let dim = 0; dim < source.dimensions; dim++) {
-                    let delta = contourDeltas[Arith.d2(source.dimensions, zid, dim)];
+                    let delta = contourDeltas[ImpLib.Arith.d2(source.dimensions, zid, dim)];
                     if (Math.round(delta) !== delta) hasNonIntegerDelta = true;
                 }
             }
@@ -222,7 +223,7 @@ const DeltaRuns = Write(
         const dp = new DeltaRunDp.Writer(3);
         for (let ixDelta = dim, zid = 0; ixDelta < deltas.length; ixDelta += dimensions, zid++) {
             const delta = deltas[ixDelta];
-            if (mask[zid]) dp.update(Arith.Round.Coord(delta));
+            if (mask[zid]) dp.update(ImpLib.Arith.Round.Coord(delta));
         }
         dp.write(frag);
     }
@@ -230,7 +231,7 @@ const DeltaRuns = Write(
 
 const AllPoints = Write(frag => frag.uint8(0));
 const PointsMask = Write((frag: Frag, n: number, mask: boolean[]) => {
-    if (Data.Mask.allTrueN(n, mask)) {
+    if (ImpLib.BitMask.allTrueN(n, mask)) {
         frag.uint8(0);
         return;
     } else {

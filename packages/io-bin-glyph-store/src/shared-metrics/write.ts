@@ -1,4 +1,5 @@
 import { Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ft-glyphs";
 import { Fvar, MetricHead } from "@ot-builder/ft-metadata";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
@@ -19,7 +20,7 @@ export function writeHMetrics(
 
     sink.add(MetricBasic.TagHmtx, Frag.pack(Frag.from(MetricBasicIo, statHmtx.hmtx, hhea, gOrd)));
     if (axes && writeMetricVariance && statHmtx.hvar) {
-        const hvarEmpty = new Data.State(true);
+        const hvarEmpty = new ImpLib.State(true);
         sink.add(
             MetricVariance.TagHvar,
             Frag.pack(Frag.from(MetricVarianceIo, statHmtx.hvar, axes, hvarEmpty)),
@@ -41,7 +42,7 @@ export function writeVMetrics(
     sink.add(MetricBasic.TagVmtx, Frag.pack(Frag.from(MetricBasicIo, statVmtx.vmtx, vhea, gOrd)));
     sink.add(Vorg.Tag, Frag.pack(Frag.from(VorgIo, statVmtx.vorg)));
     if (axes && writeMetricVariance && statVmtx.vvar) {
-        const vvarEmpty = new Data.State(true);
+        const vvarEmpty = new ImpLib.State(true);
         sink.add(
             MetricVariance.TagVvar,
             Frag.pack(Frag.from(MetricVarianceIo, statVmtx.vvar, axes, vvarEmpty)),

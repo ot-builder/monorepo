@@ -1,4 +1,4 @@
-import { Arith } from "@ot-builder/prelude";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtVar } from "@ot-builder/variance";
 
 export class TvsCollector extends OtVar.ValueCollector<DelayDeltaValue> {
@@ -20,11 +20,11 @@ export function collectDeltaData(mc: TvsCollector, dimensions: number, data: OtV
     let ans: DelayDeltaValue[][] = [];
     for (const contour of data) {
         let z: DelayDeltaValue[] = [];
-        const n = Arith.rowCount(contour, dimensions);
+        const n = ImpLib.Arith.rowCount(contour, dimensions);
         for (let zid = 0; zid < n; zid++) {
             for (let dim = 0; dim < dimensions; dim++) {
-                z[Arith.d2(dimensions, zid, dim)] = mc.collect(
-                    contour[Arith.d2(dimensions, zid, dim)]
+                z[ImpLib.Arith.d2(dimensions, zid, dim)] = mc.collect(
+                    contour[ImpLib.Arith.d2(dimensions, zid, dim)]
                 );
             }
         }

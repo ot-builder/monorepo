@@ -1,6 +1,6 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
-import { Control } from "@ot-builder/prelude";
 
 import { BimapCtx, StdCompare } from "../../compar-util";
 import { FastMatch } from "../../fast-match";
@@ -16,7 +16,7 @@ export namespace GsubMultiAltLookupIdentity {
             const sb = actual.mapping.get(gb) || [gb];
             if (sb.length !== sa.length) console.log(ga.name);
             FastMatch.exactly(sb.length, sa.length);
-            for (const [sga, sgb] of Control.ZipWithIndex(sa, sb)) {
+            for (const [sga, sgb] of ImpLib.Iterators.ZipWithIndex(sa, sb)) {
                 FastMatch.exactly(sgb, bmg.forward(sga));
             }
         }

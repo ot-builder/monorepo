@@ -1,4 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Cvt, FpgmPrep, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import {
@@ -53,7 +54,7 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
     writeMetricVariance: true,
     writeGlyphs(sfnt, cfg, coGlyphs, gOrd, ctx) {
         if (ctx.axes && coGlyphs.cvt) {
-            const afEmpty = new Data.State<boolean>(false);
+            const afEmpty = new ImpLib.State<boolean>(false);
             const bCvar = Frag.packFrom(CvarIo, coGlyphs.cvt, ctx.axes, afEmpty);
             sfnt.add(Cvt.TagVar, bCvar, afEmpty);
         }
@@ -67,7 +68,7 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
             sfnt.add(FpgmPrep.TagPrep, Frag.packFrom(FpgmPrepIo, coGlyphs.prep));
         }
         if (ctx.axes) {
-            const afEmpty = new Data.State<boolean>(false);
+            const afEmpty = new ImpLib.State<boolean>(false);
             const bGvar = Frag.packFrom(Gvar.Write, gOrd, cfg, ctx.axes, afEmpty);
             sfnt.add(Gvar.Tag, bGvar, afEmpty);
         }

@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Data } from "@ot-builder/prelude";
 
 import { VarianceAxis } from "../interface/axis";
@@ -21,7 +22,7 @@ export class OtVarMasterSet<A extends VarianceAxis>
     private axisMap: Map<A, number> = new Map();
 
     private nMasters: number = 0;
-    private masterMap: Data.PathMap<number, VRCRecord<A>> = new Data.PathMap();
+    private masterMap: Data.PathMap<number, VRCRecord<A>> = new ImpLib.PathMapImpl();
 
     constructor(
         protected readonly axisFilter?: (a: A) => boolean,

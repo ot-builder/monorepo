@@ -1,4 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { Cvt } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
@@ -27,7 +28,7 @@ export const CvarIo = {
         frag: Frag,
         cvt: Cvt.Table,
         axes: Data.Order<OtVar.Axis>,
-        acEmpty?: Data.Access<boolean>
+        acEmpty?: ImpLib.Access<boolean>
     ) {
         frag.uint16(1).uint16(0);
         const context: TupleVariationBuildContext = {

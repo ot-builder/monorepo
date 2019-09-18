@@ -1,21 +1,22 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { GeneralLookupT } from "./general";
 
 export class GsubLigatureLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-    public mapping: Data.PathMap<G, G> = new Data.PathMap();
+    public mapping: Data.PathMap<G, G> = new ImpLib.PathMapImpl();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
 
-        const mapping1: Data.PathMap<G, G> = new Data.PathMap();
+        const mapping1: Data.PathMap<G, G> = new ImpLib.PathMapImpl();
         for (const [src, dst] of this.mapping.entries()) {
             const dst1 = rec.glyph(dst);
             if (!dst1) continue;
-            const src1 = Rectify.Glyph.listAll(rec, src);
+            const src1 = RectifyImpl.Glyph.listAll(rec, src);
             if (!src1) continue;
             mapping1.set(src1, dst1);
         }

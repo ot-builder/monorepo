@@ -1,4 +1,4 @@
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { GeneralLookupT } from "./general";
 
@@ -22,8 +22,8 @@ export class GsubMultipleLookupT<G, X, L> extends GsubMultipleLookupBaseT<G, X, 
     public ignoreGlyphs = new Set<G>();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.mapping = Rectify.Glyph.mapSomeT(rec, this.mapping, Rectify.Glyph.listAll);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.mapping = RectifyImpl.Glyph.mapSomeT(rec, this.mapping, RectifyImpl.Glyph.listAll);
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
 }
@@ -34,8 +34,8 @@ export class GsubAlternateLookupT<G, X, L> extends GsubMultipleLookupBaseT<G, X,
     public ignoreGlyphs = new Set<G>();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.mapping = Rectify.Glyph.mapSomeT(rec, this.mapping, Rectify.Glyph.listSome);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.mapping = RectifyImpl.Glyph.mapSomeT(rec, this.mapping, RectifyImpl.Glyph.listSome);
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
 }

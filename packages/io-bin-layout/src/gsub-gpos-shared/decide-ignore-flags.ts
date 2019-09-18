@@ -107,13 +107,19 @@ function igcMarkAttachmentClass<G>(
     };
 }
 
+function setEqual<T>(a: ReadonlySet<T>, b: ReadonlySet<T>) {
+    for (let g of a) if (!b.has(g)) return false;
+    for (let g of b) if (!a.has(g)) return false;
+    return true;
+}
+
 function igfMarkGlyphSet<G>(
     gs: Data.Maybe<ReadonlySet<G>>,
     mgs: Data.Maybe<Array<ReadonlySet<G>>>
 ): null | IgnoreFlagOptions {
     if (!mgs || !gs || !gs.size) return null;
     for (let mgsIndex = 0; mgsIndex < mgs.length; mgsIndex++) {
-        if (Data.Util.setEqual(gs, mgs[mgsIndex])) {
+        if (setEqual(gs, mgs[mgsIndex])) {
             return {
                 ignoreBaseGlyphs: false,
                 ignoreLigatures: false,

@@ -1,4 +1,4 @@
-import { Maybe } from "./interface";
+import { Maybe } from "./maybe";
 
 export interface OrderStoreFactory<T, S extends OrderStore<T> = OrderStore<T>> {
     createStoreFromSize(count: number): S;

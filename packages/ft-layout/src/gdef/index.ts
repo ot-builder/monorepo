@@ -1,6 +1,6 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
@@ -37,32 +37,32 @@ export namespace Gdef {
         public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {}
         public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
             if (this.ligCarets) {
-                this.ligCarets = Rectify.mapSomeT(
+                this.ligCarets = RectifyImpl.mapSomeT(
                     rec,
                     this.ligCarets,
                     (r, g) => g,
-                    (r, lcs) => Rectify.listSomeT(r, lcs, rectifyLigCaret)
+                    (r, lcs) => RectifyImpl.listSomeT(r, lcs, rectifyLigCaret)
                 );
             }
         }
         public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
             if (this.glyphClassDef) {
-                this.glyphClassDef = Rectify.Glyph.mapSome(rec, this.glyphClassDef);
+                this.glyphClassDef = RectifyImpl.Glyph.mapSome(rec, this.glyphClassDef);
             }
             if (this.attachList) {
-                this.attachList = Rectify.Glyph.mapSome(rec, this.attachList);
+                this.attachList = RectifyImpl.Glyph.mapSome(rec, this.attachList);
             }
             if (this.ligCarets) {
-                this.ligCarets = Rectify.Glyph.mapSome(rec, this.ligCarets);
+                this.ligCarets = RectifyImpl.Glyph.mapSome(rec, this.ligCarets);
             }
             if (this.markAttachClassDef) {
-                this.markAttachClassDef = Rectify.Glyph.mapSome(rec, this.markAttachClassDef);
+                this.markAttachClassDef = RectifyImpl.Glyph.mapSome(rec, this.markAttachClassDef);
             }
             if (this.markGlyphSets) {
-                this.markGlyphSets = Rectify.listSomeT(
+                this.markGlyphSets = RectifyImpl.listSomeT(
                     rec,
                     this.markGlyphSets,
-                    Rectify.Glyph.setSome
+                    RectifyImpl.Glyph.setSome
                 );
             }
         }

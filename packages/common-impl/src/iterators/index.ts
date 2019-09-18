@@ -52,9 +52,3 @@ export function* Zip3WithIndex<A, B, C>(
         yield [as[id], bs[id], cs[id], id];
     }
 }
-export function* Range(start: number, end: number): IterableIterator<number> {
-    for (let x = start; x < end; x++) yield x;
-}
-export function Iota(start: number, end: number) {
-    return Array.from(Range(start, end));
-}

@@ -1,7 +1,7 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl } from "@ot-builder/rectify";
 import { OtVar } from "@ot-builder/variance";
 
 export namespace Base {
@@ -62,18 +62,18 @@ export namespace Base {
         public baseValues: Map<Tag, CoordT<OtGlyph, OtVar.Value>> = new Map();
 
         public rectifyCoords(rec: Rectify.Coord.RectifierT<OtVar.Value>) {
-            this.baseValues = Rectify.mapSomeT(
+            this.baseValues = RectifyImpl.mapSomeT(
                 rec,
                 this.baseValues,
-                Rectify.Id,
+                RectifyImpl.Id,
                 rectifyBaseCoordCoord
             );
         }
         public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
-            this.baseValues = Rectify.mapSomeT(
+            this.baseValues = RectifyImpl.mapSomeT(
                 rec,
                 this.baseValues,
-                Rectify.Id,
+                RectifyImpl.Id,
                 rectifyBaseCoordGlyph
             );
         }
@@ -87,19 +87,19 @@ export namespace Base {
         ) {}
         public rectifyCoords(rec: Rectify.Coord.RectifierT<OtVar.Value>) {
             this.defaultMinMax = rectifyMinMaxValueCoord(rec, this.defaultMinMax);
-            this.featMinMax = Rectify.mapSomeT(
+            this.featMinMax = RectifyImpl.mapSomeT(
                 rec,
                 this.featMinMax,
-                Rectify.Id,
+                RectifyImpl.Id,
                 rectifyMinMaxValueCoord
             );
         }
         public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
             this.defaultMinMax = rectifyMinMaxValueGlyph(rec, this.defaultMinMax);
-            this.featMinMax = Rectify.mapSomeT(
+            this.featMinMax = RectifyImpl.mapSomeT(
                 rec,
                 this.featMinMax,
-                Rectify.Id,
+                RectifyImpl.Id,
                 rectifyMinMaxValueGlyph
             );
         }
@@ -116,8 +116,8 @@ export namespace Base {
         lc: MinMaxValueT<G, X>
     ): MinMaxValueT<G, X> {
         return {
-            minCoord: Rectify.maybeT(rec, lc.minCoord, rectifyBaseCoordCoord),
-            maxCoord: Rectify.maybeT(rec, lc.maxCoord, rectifyBaseCoordCoord)
+            minCoord: RectifyImpl.maybeT(rec, lc.minCoord, rectifyBaseCoordCoord),
+            maxCoord: RectifyImpl.maybeT(rec, lc.maxCoord, rectifyBaseCoordCoord)
         };
     }
     function rectifyMinMaxValueGlyph<G, X>(
@@ -125,8 +125,8 @@ export namespace Base {
         lc: MinMaxValueT<G, X>
     ): MinMaxValueT<G, X> {
         return {
-            minCoord: Rectify.maybeT(rec, lc.minCoord, rectifyBaseCoordGlyph),
-            maxCoord: Rectify.maybeT(rec, lc.maxCoord, rectifyBaseCoordGlyph)
+            minCoord: RectifyImpl.maybeT(rec, lc.minCoord, rectifyBaseCoordGlyph),
+            maxCoord: RectifyImpl.maybeT(rec, lc.maxCoord, rectifyBaseCoordGlyph)
         };
     }
 

@@ -1,6 +1,5 @@
 import { Frag, Read, Sized, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Control } from "@ot-builder/prelude";
 import { UInt16, UInt32, UInt8 } from "@ot-builder/primitive";
 
 import { CffReadContext } from "../context/read";
@@ -21,7 +20,7 @@ const FdSelectFormat0 = {
     })
 };
 
-class FdSelectFormat34ReadState implements Control.RunsState<[number, number | void]> {
+class FdSelectFormat34ReadState {
     constructor(private sink: CffFdSelectSink) {}
     private started = false;
     private lastStartGid = 0;
@@ -40,7 +39,7 @@ class FdSelectFormat34ReadState implements Control.RunsState<[number, number | v
     }
 }
 
-class FdSelectFormat34WriteState implements Control.RunsState<[number]> {
+class FdSelectFormat34WriteState {
     constructor(
         private readonly frag: Frag,
         private readonly wGid: Write<number> & Sized,

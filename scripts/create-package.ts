@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 const lernaJsonRoot = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "..", "package.json"), "utf-8")
+    fs.readFileSync(path.join(__dirname, "..", "lerna.json"), "utf-8")
 );
 
 const packagesRoot = path.join(__dirname, "..", "packages");

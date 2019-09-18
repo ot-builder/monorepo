@@ -1,12 +1,13 @@
 import { Frag, FragPointerEmbedding, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Stat } from "@ot-builder/ft-name";
 import { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 
 export const StatWrite = Write((frag, stat: Stat.Table) => {
-    const stValueRecordOffset = new Data.State<number>(0);
-    const stNeedFormat12 = new Data.State(false);
+    const stValueRecordOffset = new ImpLib.State<number>(0);
+    const stNeedFormat12 = new ImpLib.State(false);
     const body = Frag.from(StatTableBody, stat, stValueRecordOffset, stNeedFormat12);
 
     frag.uint16(1)
@@ -23,8 +24,8 @@ const StatTableBody = Write(
     (
         frag,
         stat: Stat.Table,
-        acValueRecordOffset: Data.Access<number>,
-        acNeedFormat12: Data.Access<boolean>
+        acValueRecordOffset: ImpLib.Access<number>,
+        acNeedFormat12: ImpLib.Access<boolean>
     ) => {
         const start = frag.size;
         frag.push(DesignAxisArray, stat.designAxes);
@@ -55,7 +56,7 @@ const AxisValueArray = Write(
         frag,
         ava: ReadonlyArray<[Stat.AxisValue.General, Stat.NameAssignment]>,
         axes: AxisOrder,
-        acNeedFormat12: Data.Access<boolean>
+        acNeedFormat12: ImpLib.Access<boolean>
     ) => {
         for (let item of ava) {
             frag.ptr16New(FragPointerEmbedding.EmbedRelative).push(
@@ -72,7 +73,7 @@ const AxisValue = Write(
         frag,
         [av, asg]: [Stat.AxisValue.General, Stat.NameAssignment],
         axes: AxisOrder,
-        acNeedFormat12: Data.Access<boolean>
+        acNeedFormat12: ImpLib.Access<boolean>
     ) => {
         if (av instanceof Stat.AxisValue.Static) {
             frag.push(AxisValueFormat1, [av, asg], axes);

@@ -1,4 +1,4 @@
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
 
 import { LayoutCommon } from "../common";
 
@@ -10,8 +10,8 @@ export class GposCursiveLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     public attachments: Map<G, LayoutCommon.CursiveAnchorPair.T<X>> = new Map();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = Rectify.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.attachments = Rectify.Glyph.mapSome(rec, this.attachments);
+        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
+        this.attachments = RectifyImpl.Glyph.mapSome(rec, this.attachments);
     }
     public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {}
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {

@@ -1,6 +1,7 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ft-glyphs";
 import { Fvar, MetricHead } from "@ot-builder/ft-metadata";
-import { Arith, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { statLongMetricCount } from "./hmtx";
@@ -31,10 +32,10 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
         vertical: OtGlyph.Metric,
         extent: OtGlyph.Stat.BoundingBox
     ) {
-        const stVOrg = Arith.Round.Coord(OtVar.Ops.originOf(vertical.start));
+        const stVOrg = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(vertical.start));
         const advance = OtVar.Ops.minus(vertical.start, vertical.end);
-        const stTsb = stVOrg - Arith.Round.Coord(extent.yMax);
-        const stAdv = Arith.Round.Offset(OtVar.Ops.originOf(advance));
+        const stTsb = stVOrg - ImpLib.Arith.Round.Coord(extent.yMax);
+        const stAdv = ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(advance));
         const stBsb = extent.yMin - (stVOrg - stAdv);
 
         if (stTsb < this.minTopSideBearing) this.minTopSideBearing = stTsb;
@@ -111,7 +112,9 @@ export class VmtxCoStat implements OtGlyph.CoStat.Source {
         if (!extent) start = 0;
         else start = extent.yMax + this.vmtx.measures[gid].startSideBearing;
         if (this.vorg) start = this.vorg.get(gid);
-        if (this.vvar) start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.vvar.measures[gid].start));
+        if (this.vvar) {
+            start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.vvar.measures[gid].start));
+        }
         let end: OtVar.Value = OtVar.Ops.minus(
             start,
             OtVar.Ops.add(

@@ -1,4 +1,3 @@
-import { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 
 export namespace Stat {

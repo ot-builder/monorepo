@@ -1,6 +1,7 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Control, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -37,7 +38,11 @@ const RegionList = {
     ...Write((fr, regions: ReadonlyArray<OtVar.Master>, axes: Data.Order<OtVar.Axis>) => {
         fr.uint16(axes.length); // axesCount
         fr.uint16(regions.length);
-        for (const region of Control.ToCount(regions, regions.length, new OtVar.Master([]))) {
+        for (const region of ImpLib.Iterators.ToCount(
+            regions,
+            regions.length,
+            new OtVar.Master([])
+        )) {
             const m: Map<OtVar.Axis, OtVar.MasterDim> = new Map();
             for (const dim of region.regions) {
                 m.set(dim.axis, dim);
@@ -80,15 +85,15 @@ const IVD = {
                 const delta = deltas[mid] || 0;
                 if (Int8.from(delta) !== delta) shortDeltaCount = mid + 1;
             }
-            deltaMatrix[innerID] = deltas;
+            deltaMatrix[innerID] = [...deltas];
         }
 
         fr.uint16(deltaMatrix.length);
         fr.uint16(shortDeltaCount);
         fr.uint16(regionIndexCount);
         fr.arrayNF(UInt16, regionIndexCount, ivd.masterIDs, 0);
-        for (const deltas of Control.ToCount(deltaMatrix, deltaMatrix.length, [])) {
-            for (const [delta, dim] of Control.ToCountIndex(deltas, regionIndexCount, 0)) {
+        for (const deltas of ImpLib.Iterators.ToCount(deltaMatrix, deltaMatrix.length, [])) {
+            for (const [delta, dim] of ImpLib.Iterators.ToCountIndex(deltas, regionIndexCount, 0)) {
                 if (dim < shortDeltaCount) fr.int16(delta);
                 else fr.int8(delta);
             }
