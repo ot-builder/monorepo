@@ -1,5 +1,5 @@
-import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 import { Rectify } from "@ot-builder/prelude";
+import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 import { GeneralVar, OtVar } from "@ot-builder/variance";
 export namespace Fvar {
     export const Tag = "fvar";

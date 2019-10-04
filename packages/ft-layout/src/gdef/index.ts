@@ -1,7 +1,6 @@
 import { RectifyImpl } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/prelude";
+import { Data, Rectify, Trace } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";

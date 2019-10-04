@@ -1,5 +1,4 @@
-import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/prelude";
+import { Data, Rectify, Trace } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";

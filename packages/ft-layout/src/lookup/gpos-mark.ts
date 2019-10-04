@@ -1,6 +1,5 @@
 import { RectifyImpl } from "@ot-builder/common-impl";
-import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/prelude";
+import { Data, Rectify, Trace } from "@ot-builder/prelude";
 
 import { LayoutCommon } from "../common";
 

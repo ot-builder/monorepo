@@ -1,6 +1,5 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/prelude";
+import { Data, Rectify } from "@ot-builder/prelude";
 
 import { DeviceTable } from "./adjust";
 
