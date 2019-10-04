@@ -1,4 +1,4 @@
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 import { EncodingMapT } from "./general";
 

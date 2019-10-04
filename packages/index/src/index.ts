@@ -1,5 +1,5 @@
 export { Data } from "@ot-builder/prelude";
-export { Rectify, Trace } from "@ot-builder/rectify";
+export { Rectify, Trace } from "@ot-builder/prelude";
 
 export * from "@ot-builder/cfg-log";
 

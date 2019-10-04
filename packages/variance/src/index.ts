@@ -1,4 +1,4 @@
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 
 import {
     DelayVariableValueFactory,

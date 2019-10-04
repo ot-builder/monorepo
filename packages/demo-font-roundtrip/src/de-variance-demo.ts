@@ -8,7 +8,7 @@ import {
     writeFont,
     writeSfntOtf
 } from "@ot-builder/io-bin-font";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 import { rectifyFontCoords } from "@ot-builder/rectify-font";
 import { OtVar } from "@ot-builder/variance";
 import * as fs from "fs";

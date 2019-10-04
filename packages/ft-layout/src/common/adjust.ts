@@ -1,5 +1,5 @@
 import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 
 export type DeviceTable = ReadonlyArray<number>;
 export type DeviceTableW = Array<number>;

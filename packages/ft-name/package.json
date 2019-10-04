@@ -7,7 +7,8 @@
     "@ot-builder/errors": "0.1.0",
     "@ot-builder/variance": "0.1.0",
     "@ot-builder/ft-metadata": "0.1.0",
-    "@ot-builder/cfg-log": "0.1.0"
+    "@ot-builder/cfg-log": "0.1.0",
+    "@ot-builder/common-impl": "0.1.0"
   },
   "devDependencies": {
     "jest": "^24.8.0",

@@ -25,9 +25,6 @@
       "path": "../primitive/tsconfig.json"
     },
     {
-      "path": "../rectify/tsconfig.json"
-    },
-    {
       "path": "../variance/tsconfig.json"
     },
     {

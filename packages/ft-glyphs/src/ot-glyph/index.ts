@@ -1,5 +1,5 @@
 import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, Trace } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";

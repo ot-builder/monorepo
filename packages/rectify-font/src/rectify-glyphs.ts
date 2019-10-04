@@ -1,7 +1,7 @@
 import { OtFont } from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 
 function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
     rec: Rectify.Glyph.RectifierT<OtGlyph>,

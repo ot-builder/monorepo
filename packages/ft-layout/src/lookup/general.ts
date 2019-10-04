@@ -1,5 +1,5 @@
 import { Data } from "@ot-builder/prelude";
-import { Rectify, Trace } from "@ot-builder/rectify";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 /** General lookup type */
 export interface GeneralLookupT<G, X, L>

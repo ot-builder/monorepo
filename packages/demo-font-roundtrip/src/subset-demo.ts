@@ -9,7 +9,7 @@ import {
     writeSfntOtf
 } from "@ot-builder/io-bin-font";
 import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 import { rectifyFontGlyphs, traceGlyphs } from "@ot-builder/rectify-font";
 import * as fs from "fs";
 import * as path from "path";

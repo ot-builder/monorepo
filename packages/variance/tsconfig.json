@@ -23,9 +23,6 @@
     },
     {
       "path": "../primitive/tsconfig.json"
-    },
-    {
-      "path": "../rectify/tsconfig.json"
     }
   ]
 }

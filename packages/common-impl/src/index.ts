@@ -18,3 +18,5 @@ export namespace ImpLib {
         export const Tie = _Tie.Tie;
     }
 }
+
+export { RectifyImpl } from "./rectify-impl";

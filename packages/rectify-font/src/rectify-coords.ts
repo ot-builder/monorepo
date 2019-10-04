@@ -2,7 +2,7 @@ import { OtFont } from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Fvar } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
-import { Rectify } from "@ot-builder/rectify";
+import { Rectify } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 type OtGlyphStore = Data.OrderStore<OtGlyph>;

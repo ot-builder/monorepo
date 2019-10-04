@@ -1,4 +1,5 @@
-import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
+import { RectifyImpl } from "@ot-builder/common-impl";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 import { GeneralLookupT } from "./general";
 

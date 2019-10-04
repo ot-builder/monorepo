@@ -1,6 +1,7 @@
 import { ImpLib } from "@ot-builder/common-impl";
+import { RectifyImpl } from "@ot-builder/common-impl";
 import { Data } from "@ot-builder/prelude";
-import { Rectify, RectifyImpl, Trace } from "@ot-builder/rectify";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 import { GeneralLookupT } from "./general";
 
