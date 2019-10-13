@@ -157,7 +157,7 @@ const ComponentTransformMatrix = Read((view, flags: number) => {
 });
 
 const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
-    let references: OtGlyph.Reference[] = [];
+    let references: OtGlyph.TtReference[] = [];
     let instructions: Data.Maybe<Buffer> = null;
 
     let flags = 0;

@@ -1,6 +1,6 @@
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Caster, Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
     constructor(private gOrd: Data.Order<OtGlyph>) {}
@@ -9,49 +9,34 @@ export class GlyphClassifier {
     private classifyImpl(g: OtGlyph): SpaceGlyph {
         const gid = this.gOrd.reverse(g);
 
-        if (!g.geometries.length) {
+        const visitor = new GeometryClassifier();
+        const hintVisitor = new HintClassifier();
+        g.visitGeometry(visitor);
+        g.visitHint(hintVisitor);
+
+        if (!visitor.hasContours && !visitor.hasReference) {
             return new SpaceGlyph(gid, g.horizontal, g.vertical);
         }
-        let hasReference = false;
-        let allReference = true;
-        let hasContours = false;
-        let allContours = true;
-        for (const geometry of g.geometries) {
-            if (geometry instanceof OtGlyph.ContourSet) {
-                hasContours = true;
-            } else {
-                allContours = false;
-            }
-            if (geometry instanceof OtGlyph.TtReference) {
-                hasReference = true;
-            } else {
-                allReference = false;
-            }
-        }
-
-        let instructions = Buffer.alloc(0);
-        if (g.hints instanceof OtGlyph.TtfInstructionHint) instructions = g.hints.instructions;
-
-        if (hasReference && allReference) {
+        if (visitor.hasReference && visitor.allReference) {
             return new CompositeGlyph(
                 this,
                 gid,
                 g.horizontal,
                 g.vertical,
-                g.geometries as OtGlyph.TtReference[],
-                instructions
+                visitor.collectedReferences,
+                hintVisitor.collectedInstructions
             );
-        } else if (hasContours && allContours) {
+        }
+        if (visitor.hasContours && visitor.allContours) {
             return new SimpleGlyph(
                 gid,
                 g.horizontal,
                 g.vertical,
-                g.geometries as OtGlyph.ContourSet[],
-                instructions
+                visitor.collectedContourSets,
+                hintVisitor.collectedInstructions
             );
-        } else {
-            throw Errors.Ttf.MixedGlyph(gid);
         }
+        throw Errors.Ttf.MixedGlyph(gid);
     }
 
     public classify(g: OtGlyph): SpaceGlyph {
@@ -60,6 +45,109 @@ export class GlyphClassifier {
         const sg = this.classifyImpl(g);
         this.cache.set(g, sg);
         return sg;
+    }
+}
+
+class GeometryClassifier implements OtGlyph.GeometryVisitor {
+    public hasReference = false;
+    public allReference = true;
+    public hasContours = false;
+    public allContours = true;
+
+    public collectedContourSets: OtGlyph.ContourSet[] = [];
+    public collectedReferences: OtGlyph.TtReference[] = [];
+
+    public addContourSet() {
+        return new ContourSetVisitor(this);
+    }
+    public addReference() {
+        return new RefVisitor(this);
+    }
+}
+
+class HintClassifier implements OtGlyph.TtfInstructionHintVisitor {
+    public collectedInstructions: Buffer = Buffer.alloc(0);
+
+    public queryInterface<T>(tag: Caster.TypeID<T>): undefined | T {
+        return Caster.StandardQueryInterface(this, tag, OtGlyph.TID_TtfInstructionHintVisitor);
+    }
+    public begin() {}
+    public end() {}
+    public addInstructions(instr: Buffer) {
+        this.collectedInstructions = instr;
+    }
+}
+
+class ContourSetVisitor implements OtGlyph.ContourVisitor {
+    constructor(private cls: GeometryClassifier) {}
+    public collected = new OtGlyph.ContourSet();
+    public begin() {}
+    public addContour() {
+        return new ContourVisitor(this.collected);
+    }
+    public end() {
+        this.cls.hasContours = true;
+        this.cls.allReference = false;
+        this.cls.collectedContourSets.push(this.collected);
+    }
+}
+
+class ContourVisitor implements OtGlyph.PrimitiveVisitor {
+    constructor(private cs: OtGlyph.ContourSet) {}
+    private collected: OtGlyph.Point[] = [];
+    public begin() {}
+    public end() {
+        if (this.collected.length) this.cs.contours.push(this.collected);
+    }
+    public addControlKnot(k: OtGlyph.Point) {
+        this.collected.push(k);
+    }
+}
+
+class RefVisitor implements OtGlyph.ReferenceVisitor {
+    constructor(private cls: GeometryClassifier) {}
+
+    private to: null | OtGlyph = null;
+    private transform: null | OtGlyph.Transform2X3 = null;
+    public roundXyToGrid = false;
+    public useMyMetrics = false;
+    public overlapCompound = false;
+    public pointAttachment: Data.Maybe<OtGlyph.PointAttachment> = null;
+
+    public begin() {}
+    public end() {
+        if (!this.to || !this.transform) return;
+        this.cls.hasReference = true;
+        this.cls.allContours = false;
+
+        const ref = new OtGlyph.TtReference(this.to, this.transform);
+        ref.roundXyToGrid = this.roundXyToGrid;
+        ref.useMyMetrics = this.useMyMetrics;
+        ref.overlapCompound = this.overlapCompound;
+        ref.pointAttachment = this.pointAttachment;
+        this.cls.collectedReferences.push(ref);
+    }
+    public setTarget(g: OtGlyph) {
+        this.to = g;
+    }
+    public setTransform(t: OtGlyph.Transform2X3) {
+        this.transform = t;
+    }
+    public setPointAttachment(inner: number, outer: number) {
+        this.pointAttachment = { inner: { pointIndex: inner }, outer: { pointIndex: outer } };
+    }
+    public setFlag(name: string, flag: boolean) {
+        switch (name) {
+            case "roundXyToGrid":
+                this.roundXyToGrid = flag;
+                break;
+            case "useMyMetrics":
+                this.useMyMetrics = flag;
+                break;
+            case "overlapCompound":
+                this.overlapCompound = flag;
+                break;
+        }
     }
 }
 

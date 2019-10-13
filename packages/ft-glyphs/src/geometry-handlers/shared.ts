@@ -4,11 +4,11 @@ export interface PointSink {
     addControlKnot(knot: OtGlyph.Point): void;
 }
 
-export interface StatGeometrySink<T> extends OtGlyph.GeometrySink {
+export interface StatGeometryVisitor<T> extends OtGlyph.GeometryVisitor {
     getResult(): T;
 }
-export interface StatGeometrySinkClass<T> {
-    new (): StatGeometrySink<T>;
+export interface StatGeometryVisitorClass<T> {
+    new (): StatGeometryVisitor<T>;
 }
 
 export class PointTransformer<PS extends PointSink> {
@@ -26,20 +26,17 @@ export class PointTransformer<PS extends PointSink> {
     }
 }
 
-export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.GeometrySink {
+export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.GeometryVisitor {
     constructor(protected readonly acc: PointTransformer<PS>) {}
-    public addReference(ref: OtGlyph.Reference) {
-        const plRef = new OtGhPointHandlerT(
-            this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, ref.transform))
-        );
-        ref.to.transfer(plRef);
+    public addReference() {
+        return new RefHandler(this.acc);
     }
     public addContourSet() {
         return new ContourSetHandler(this.acc);
     }
 }
 
-class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourSink {
+class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
     public addContour() {
@@ -48,11 +45,35 @@ class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourSink {
     public end() {}
 }
 
-class ContourHandler<PS extends PointSink> implements OtGlyph.PrimitiveSink {
+class ContourHandler<PS extends PointSink> implements OtGlyph.PrimitiveVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
     public end() {}
     public addControlKnot(knot: OtGlyph.Point) {
         this.acc.addControlKnot(knot);
     }
+}
+
+class RefHandler<PS extends PointSink> implements OtGlyph.ReferenceVisitor {
+    constructor(private readonly acc: PointTransformer<PS>) {}
+    private target: null | OtGlyph = null;
+    private transform: null | OtGlyph.Transform2X3 = null;
+    public begin() {}
+    public end() {
+        if (!this.target || !this.transform) return;
+        const target = this.target;
+        const transform = this.transform;
+        const plRef = new OtGhPointHandlerT(
+            this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, transform))
+        );
+        target.visitGeometry(plRef);
+    }
+    public setTarget(g: OtGlyph) {
+        this.target = g;
+    }
+    public setTransform(t: OtGlyph.Transform2X3) {
+        this.transform = t;
+    }
+    public setPointAttachment() {}
+    public setFlag() {}
 }

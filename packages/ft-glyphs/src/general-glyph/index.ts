@@ -1,4 +1,4 @@
-import { Data, Rectify, Trace } from "@ot-builder/prelude";
+import { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";
@@ -6,27 +6,38 @@ import { Point as GlyphPoint } from "./point";
 import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
+    // Geometry
     export interface GeometryT<G, X>
         extends Rectify.Coord.RectifiableT<X>,
             Rectify.Glyph.RectifiableT<G>,
             Trace.Glyph.TraceableT<G> {
-        transfer(sink: GeometrySinkT<G, X>): void;
+        visitGeometry(sink: GeometryVisitorT<G, X>): void;
     }
 
-    export interface GeometrySinkT<G, X> {
-        addContourSet(): ContourSinkT<X>;
-        addReference(ref: ReferenceT<G, X>): void;
-    }
-    export interface GeometryElementSink {
+    // Geometry Visitors
+    export interface GeometryElementVisitor {
         begin(): void;
         end(): void;
     }
-    export interface ContourSinkT<X> extends GeometryElementSink {
-        addContour(): PrimitiveSinkT<X>;
+    export interface GeometryVisitorT<G, X> {
+        addContourSet(): ContourVisitorT<X>;
+        addReference(): ReferenceVisitorT<G, X>;
     }
-    export interface PrimitiveSinkT<X> extends GeometryElementSink {
+    export interface ContourVisitorT<X> extends GeometryElementVisitor {
+        addContour(): PrimitiveVisitorT<X>;
+    }
+    export interface PrimitiveVisitorT<X> extends GeometryElementVisitor {
         addControlKnot(point: GlyphPoint.T<X>): void;
     }
+    export interface ReferenceVisitorT<G, X> extends GeometryElementVisitor {
+        setTarget(glyph: G): void;
+        setTransform(tfm: GlyphTransform2X3.T<X>): void;
+        setFlag(name: string, on: boolean): void;
+        setPointAttachment(innerPointID: number, outerPointID: number): void;
+    }
+
+    // Hint visitors
+    export interface HintVisitorT<X> extends Caster.IUnknown, GeometryElementVisitor {}
 
     export interface T<G, X>
         extends Rectify.Coord.RectifiableT<X>,
@@ -37,15 +48,8 @@ export namespace GeneralGlyph {
         geometries: GeometryT<G, X>[];
         hints?: Data.Maybe<HintT<X>>;
     }
-    export interface ContourSetT<G, X> extends GeometryT<G, X> {
-        contours: GlyphContour.T<X>[];
-    }
-    export interface ReferenceT<G, X> extends GeometryT<G, X> {
-        to: G;
-        transform: GlyphTransform2X3.T<X>;
-    }
     export interface HintT<X> extends Rectify.Coord.RectifiableT<X> {
-        readonly kind: string;
+        visitHint(visitor: HintVisitorT<X>): void;
     }
 
     export import Point = GlyphPoint;

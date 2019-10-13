@@ -1,4 +1,4 @@
-import { Data, Rectify, Trace } from "@ot-builder/prelude";
+import { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";
@@ -14,8 +14,11 @@ export class OtGlyph
     public geometries: OtGlyph.Geometry[] = [];
     public hints: Data.Maybe<OtGlyph.Hint> = null;
 
-    public transfer(sink: OtGlyph.GeometrySink) {
-        for (const geometry of this.geometries) geometry.transfer(sink);
+    public visitGeometry(sink: OtGlyph.GeometryVisitor) {
+        for (const geometry of this.geometries) geometry.visitGeometry(sink);
+    }
+    public visitHint(sink: OtGlyph.HintVisitor) {
+        if (this.hints) this.hints.visitHint(sink);
     }
 
     public rectifyCoords(rectify: OtVar.Rectifier) {
@@ -58,10 +61,18 @@ export namespace OtGlyph {
             return { scaledOffset: false, xx: s, xy: 0, yx: 0, yy: s, dx: 0, dy: 0 };
         }
     }
-    export type GeometrySink = GeneralGlyph.GeometrySinkT<OtGlyph, OtVar.Value>;
-    export type ContourSink = GeneralGlyph.ContourSinkT<OtVar.Value>;
-    export type PrimitiveSink = GeneralGlyph.PrimitiveSinkT<OtVar.Value>;
+    export type GeometryVisitor = GeneralGlyph.GeometryVisitorT<OtGlyph, OtVar.Value>;
+    export type ContourVisitor = GeneralGlyph.ContourVisitorT<OtVar.Value>;
+    export type PrimitiveVisitor = GeneralGlyph.PrimitiveVisitorT<OtVar.Value>;
+    export type ReferenceVisitor = GeneralGlyph.ReferenceVisitorT<OtGlyph, OtVar.Value>;
+    export type HintVisitor = GeneralGlyph.HintVisitorT<OtVar.Value>;
 
+    export enum PointType {
+        Corner = 0,
+        Lead = 1,
+        Follow = 2,
+        Quad = 3
+    }
     export class Point implements GeneralGlyph.Point.T<OtVar.Value> {
         constructor(public x: OtVar.Value, public y: OtVar.Value, public kind: number) {}
         public static create(x: OtVar.Value, y: OtVar.Value, kind: number) {
@@ -70,9 +81,37 @@ export namespace OtGlyph {
     }
     export const PointOps = new GeneralGlyph.Point.OpT(OtVar.Ops, Point);
 
-    export class ContourSet implements GeneralGlyph.ContourSetT<OtGlyph, OtVar.Value> {
+    export type PointIDRef = {
+        readonly pointIndex: number;
+    };
+    export type GlyphPointIDRef<G> = {
+        readonly glyph: G;
+        readonly pointIndex: number;
+    };
+    export type PointRef = {
+        readonly geometry: number;
+        readonly contour: number;
+        readonly index: number;
+    };
+    export type PointRefW = {
+        geometry: number;
+        contour: number;
+        index: number;
+    };
+    export namespace PointRef {
+        export function compare(a: PointRef, b: PointRef) {
+            return a.geometry - b.geometry || a.contour - b.contour || a.index - b.index;
+        }
+    }
+    export type PointAttachment = {
+        readonly inner: PointIDRef;
+        readonly outer: PointIDRef;
+    };
+
+    // Geometry types
+    export class ContourSet implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {
         constructor(public contours: GeneralGlyph.Contour.T<OtVar.Value>[] = []) {}
-        public transfer(sink: OtGlyph.GeometrySink) {
+        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
             const csSink = sink.addContourSet();
             csSink.begin();
             for (const contour of this.contours) {
@@ -95,44 +134,27 @@ export namespace OtGlyph {
         public traceGlyphs(tracer: OtGlyph.Tracer) {}
     }
 
-    export type PointIDRef = {
-        readonly pointIndex: number;
-    };
-    export type GlyphPointIDRef<G> = {
-        readonly glyph: G;
-        readonly pointIndex: number;
-    };
-
-    export type PointRef = {
-        readonly geometry: number;
-        readonly contour: number;
-        readonly index: number;
-    };
-    export type PointRefW = {
-        geometry: number;
-        contour: number;
-        index: number;
-    };
-
-    export namespace PointRef {
-        export function compare(a: PointRef, b: PointRef) {
-            return a.geometry - b.geometry || a.contour - b.contour || a.index - b.index;
-        }
-    }
-    export type PointAttachment = {
-        readonly inner: PointIDRef;
-        readonly outer: PointIDRef;
-    };
-
-    export type Reference = GeneralGlyph.ReferenceT<OtGlyph, OtVar.Value>;
-    export class TtReference implements GeneralGlyph.ReferenceT<OtGlyph, OtVar.Value> {
+    export class TtReference implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {
         constructor(public to: OtGlyph, public transform: Transform2X3) {}
         public roundXyToGrid = false;
         public useMyMetrics = false;
         public overlapCompound = false;
         public pointAttachment: Data.Maybe<PointAttachment> = null;
-        public transfer(sink: OtGlyph.GeometrySink) {
-            sink.addReference(this);
+        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
+            const refSink = sink.addReference();
+            refSink.begin();
+            refSink.setTarget(this.to);
+            refSink.setTransform(this.transform);
+            if (this.pointAttachment) {
+                refSink.setPointAttachment(
+                    this.pointAttachment.inner.pointIndex,
+                    this.pointAttachment.outer.pointIndex
+                );
+            }
+            refSink.setFlag("roundXyToGrid", this.roundXyToGrid);
+            refSink.setFlag("useMyMetrics", this.useMyMetrics);
+            refSink.setFlag("overlapCompound", this.overlapCompound);
+            refSink.end();
         }
         public rectifyCoords(rectify: OtVar.Rectifier) {
             this.transform = {
@@ -155,13 +177,34 @@ export namespace OtGlyph {
         }
     }
 
-    // Hints
+    // Hints and hint visitors
+    export const TID_TtfInstructionHintVisitor = new Caster.TypeID<TtfInstructionHintVisitor>(
+        "OTB::TrueType::TID_TtfInstructionHintVisitor"
+    );
+    export interface TtfInstructionHintVisitor extends HintVisitor {
+        addInstructions(buffer: Buffer): void;
+    }
     export class TtfInstructionHint implements GeneralGlyph.HintT<OtVar.Value> {
-        public readonly kind = "TrueType.Instruction";
         constructor(public instructions: Buffer) {}
         public rectifyCoords(rectify: OtVar.Rectifier) {}
+        public visitHint(hv: HintVisitor) {
+            const visitor = hv.queryInterface(TID_TtfInstructionHintVisitor);
+            if (!visitor) return;
+            visitor.begin();
+            visitor.addInstructions(this.instructions);
+            visitor.end();
+        }
     }
 
+    export const TID_CffHintVisitor = new Caster.TypeID<CffHintVisitor>(
+        "OTB::TrueType::TID_CffHintVisitor"
+    );
+    export interface CffHintVisitor extends HintVisitor {
+        addHorizontalStem(stem: CffHintStem): void;
+        addVerticalStem(stem: CffHintStem): void;
+        addHintMask(stem: CffHintMask): void;
+        addCounterMask(stem: CffHintMask): void;
+    }
     export class CffHintStem implements OtVar.Rectifiable {
         constructor(public start: OtVar.Value, public end: OtVar.Value) {}
         public rectifyCoords(rectify: OtVar.Rectifier) {
@@ -176,9 +219,7 @@ export namespace OtGlyph {
             public maskV: Set<CffHintStem>
         ) {}
     }
-
     export class CffHint implements GeneralGlyph.HintT<OtVar.Value> {
-        public readonly kind = "Cff.Hints";
         public hStems: CffHintStem[] = [];
         public vStems: CffHintStem[] = [];
         public hintMasks: CffHintMask[] = [];
@@ -187,13 +228,16 @@ export namespace OtGlyph {
             for (const hs of this.hStems) hs.rectifyCoords(rectify);
             for (const vs of this.vStems) vs.rectifyCoords(rectify);
         }
-    }
-
-    export enum PointType {
-        Corner = 0,
-        Lead = 1,
-        Follow = 2,
-        Quad = 3
+        public visitHint(hv: HintVisitor) {
+            const visitor = hv.queryInterface(TID_CffHintVisitor);
+            if (!visitor) return;
+            visitor.begin();
+            for (const hs of this.hStems) visitor.addHorizontalStem(hs);
+            for (const vs of this.vStems) visitor.addVerticalStem(vs);
+            for (const hm of this.hintMasks) visitor.addHintMask(hm);
+            for (const cm of this.counterMasks) visitor.addCounterMask(cm);
+            visitor.end();
+        }
     }
 
     export import Stat = OtGlyphStat;

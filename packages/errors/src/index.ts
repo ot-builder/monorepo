@@ -72,6 +72,8 @@ export namespace Errors {
             new Error(`Private dict missing for FD ${fdId}`);
         export const ShouldHaveFdArray = () => new Error(`FDArray should be present`);
         export const UnknownToken = () => new TypeError("Unrecognized token type");
+        export const ReferencesNotSupported = () =>
+            new TypeError("CFF does not support references.");
     }
 
     export namespace Ttf {
