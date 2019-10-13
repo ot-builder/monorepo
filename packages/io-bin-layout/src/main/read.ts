@@ -29,8 +29,8 @@ export function readOtl(
         ivs = res.ivs;
     }
 
-    let gsub: Data.Maybe<GsubGpos.Table> = null;
-    let gpos: Data.Maybe<GsubGpos.Table> = null;
+    let gsub: Data.Maybe<Gsub.Table> = null;
+    let gpos: Data.Maybe<Gpos.Table> = null;
     const trc: TableReadContext = { gOrd, gdef, axes, ivs };
     if (bGsub) gsub = new BinaryView(bGsub).next(GsubTableIo, trc);
     if (bGpos) gpos = new BinaryView(bGpos).next(GposTableIo, trc);

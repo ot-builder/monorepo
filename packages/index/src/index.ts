@@ -11,7 +11,7 @@ export { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 
 export { Cmap } from "@ot-builder/ft-encoding";
 export { Name, Stat, Meta } from "@ot-builder/ft-name";
-export { LayoutCommon, Gdef, GsubGpos, Gsub, Gpos, Base } from "@ot-builder/ft-layout";
+export { DicingStore, LayoutCommon, Gdef, Gsub, Gpos, Base } from "@ot-builder/ft-layout";
 export { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
 
 export { OtFont } from "@ot-builder/font";

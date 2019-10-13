@@ -1,8 +1,8 @@
-import { DicingStore } from "./index";
+import { DicingStoreImpl } from "./index";
 
 describe("Dicing store", () => {
     test("Should work", () => {
-        const ds = new DicingStore<number, number, number>();
+        const ds = new DicingStoreImpl<number, number, number>();
 
         ds.set(new Set([1, 2, 3]), new Set([4, 5, 6]), 1);
         expect(ds.get(1, 4)).toBe(1);
@@ -24,7 +24,7 @@ describe("Dicing store", () => {
         expect(ds.getYClassDef()).toEqual([[4], [5, 6], [7]]);
     });
     test("setIfAbsent should work", () => {
-        const ds = new DicingStore<number, number, number>();
+        const ds = new DicingStoreImpl<number, number, number>();
         ds.set(new Set([1, 2, 3]), new Set([4, 5, 6]), 1);
         expect(ds.get(1, 4)).toBe(1);
         ds.setIfAbsent(new Set([2, 3, 5]), new Set([5, 6, 7]), 2);

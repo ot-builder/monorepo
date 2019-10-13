@@ -1,7 +1,6 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { DicingStore, Gpos, GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
-import * as crypto from "crypto";
 
 import { SubtableWriteContext } from "../../gsub-gpos-shared/general";
 import { GposAdjustment } from "../../shared/gpos-adjust";

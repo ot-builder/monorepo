@@ -1,7 +1,7 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, Gsub, GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
@@ -268,19 +268,35 @@ abstract class ChainingContextualReader
     }
 }
 
-export class ContextualReader extends ChainingContextualReader {
+export class GsubContextualReader extends ChainingContextualReader {
     constructor() {
         super(false);
     }
     public createLookup() {
-        return new GsubGpos.ChainingLookup();
+        return new Gsub.Chaining();
     }
 }
-export class ChainingReader extends ChainingContextualReader {
+export class GsubChainingReader extends ChainingContextualReader {
     constructor() {
         super(true);
     }
     public createLookup() {
-        return new GsubGpos.ChainingLookup();
+        return new Gsub.Chaining();
+    }
+}
+export class GposContextualReader extends ChainingContextualReader {
+    constructor() {
+        super(false);
+    }
+    public createLookup() {
+        return new Gpos.Chaining();
+    }
+}
+export class GposChainingReader extends ChainingContextualReader {
+    constructor() {
+        super(true);
+    }
+    public createLookup() {
+        return new Gpos.Chaining();
     }
 }

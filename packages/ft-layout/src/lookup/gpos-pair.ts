@@ -2,7 +2,7 @@ import { RectifyImpl } from "@ot-builder/common-impl";
 import { Rectify, Trace } from "@ot-builder/prelude";
 
 import { LayoutCommon } from "../common";
-import { DicingStore } from "../dicing-store";
+import { DicingStore, DicingStoreImpl } from "../dicing-store";
 
 import { GeneralLookupT } from "./general";
 
@@ -10,12 +10,12 @@ import { GeneralLookupT } from "./general";
 export class GposPairLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-    public adjustments = new DicingStore<G, G, LayoutCommon.Adjust.PairT<X>>();
+    public adjustments: DicingStore<G, G, LayoutCommon.Adjust.PairT<X>> = new DicingStoreImpl();
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
         this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
 
-        const adjustments1 = new DicingStore<G, G, LayoutCommon.Adjust.PairT<X>>();
+        const adjustments1 = new DicingStoreImpl<G, G, LayoutCommon.Adjust.PairT<X>>();
         const cdFirst = this.adjustments.getXClassDef();
         const cdSecond = this.adjustments.getYClassDef();
         for (let c1 = 0; c1 < cdFirst.length; c1++) {
@@ -33,7 +33,7 @@ export class GposPairLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     }
     public traceGlyphs(marker: Trace.Glyph.TracerT<G>) {}
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
-        const adjustments1 = new DicingStore<G, G, LayoutCommon.Adjust.PairT<X>>();
+        const adjustments1: DicingStore<G, G, LayoutCommon.Adjust.PairT<X>> = new DicingStoreImpl();
         const cdFirst = this.adjustments.getXClassDef();
         const cdSecond = this.adjustments.getYClassDef();
         for (let c1 = 0; c1 < cdFirst.length; c1++) {

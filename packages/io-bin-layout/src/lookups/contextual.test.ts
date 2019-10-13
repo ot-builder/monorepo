@@ -5,7 +5,7 @@ import { BimapCtx, LookupCtx, LookupIdentity } from "@ot-builder/test-util";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 
-import { ChainingReader, ContextualReader } from "./contextual-read";
+import { GsubChainingReader, GsubContextualReader } from "./contextual-read";
 import { GsubChainingContextualWriter } from "./contextual-write";
 import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./test-util.test";
 
@@ -19,7 +19,7 @@ const roundtripConfig: LookupRoundTripConfig<GsubGpos.ChainingLookup> = {
     gOrd,
     lOrd,
     writer: () => new GsubChainingContextualWriter(),
-    reader: ty => (ty === 5 ? new ContextualReader() : new ChainingReader()),
+    reader: ty => (ty === 5 ? new GsubContextualReader() : new GsubChainingReader()),
     validate(gOrd, lOrd, a, b) {
         LookupIdentity.Chaining.test(
             LookupCtx.from(BimapCtx.from(gOrd), BimapCtx.from(lOrd)),
@@ -30,7 +30,7 @@ const roundtripConfig: LookupRoundTripConfig<GsubGpos.ChainingLookup> = {
 };
 
 test("GSUB/GPOS Contextual : Simple", () => {
-    const lookup = new GsubGpos.ChainingLookup();
+    const lookup = new Gsub.Chaining();
     lookup.rules.push({
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         inputBegins: 0,

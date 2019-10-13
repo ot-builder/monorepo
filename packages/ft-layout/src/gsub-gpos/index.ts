@@ -24,9 +24,6 @@ import { GsubReverseRuleT, GsubReverseSingleSubT, GsubReverseSubstT } from "../l
 import { GsubSingleLookupT } from "../lookup/gsub-single";
 
 export namespace GsubGpos {
-    export const TagGsub = "GSUB";
-    export const TagGpos = "GPOS";
-
     export interface FeatureT<L> {
         tag: Tag;
         lookups: Array<L>;
@@ -115,12 +112,10 @@ export namespace GsubGpos {
     export type ChainingApplication = ChainingApplicationT<Lookup>;
     export type ChainingRule = ChainingRuleT<Set<OtGlyph>, Lookup>;
     export type ChainingClassRule = ChainingRuleT<number, Lookup>;
-    export class ChainingLookup
-        extends ForwardChainingLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
+    export type ChainingLookup = ForwardChainingLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>;
 
     // exported class
-    export class Table implements TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup> {
+    export class TableImpl implements TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup> {
         constructor(
             public scripts: Map<Tag, ScriptT<Lookup>> = new Map(),
             public features: Array<FeatureT<Lookup>> = [],
@@ -202,18 +197,29 @@ export namespace GsubGpos {
 export namespace Gsub {
     export const Tag = "GSUB";
 
-    export class Single extends GsubSingleLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class Multiple extends GsubMultipleLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class Alternate extends GsubAlternateLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class Ligature extends GsubLigatureLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class ReverseSub extends GsubReverseSingleSubT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
+    export type Table = GsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
+    export const Table = GsubGpos.TableImpl;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Lookup = GsubGpos.Lookup;
+    export type AxisRangeCondition = GsubGpos.AxisRangeConditionT<OtVar.Axis>;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeConditionT<OtVar.Axis>;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<OtVar.Axis, Lookup>;
 
-    //  Internal data types
+    // Lookup classes
+    export class Single extends GsubSingleLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Multiple extends GsubMultipleLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Alternate extends GsubAlternateLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Ligature extends GsubLigatureLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Chaining extends ForwardChainingLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class ReverseSub extends GsubReverseSingleSubT<OtGlyph, OtVar.Value, Lookup> {}
+
+    // Lookup-internal data types
+    export type ChainingApplication = GsubGpos.ChainingApplication;
+    export type ChainingRule = GsubGpos.ChainingRule;
+    export type ChainingClassRule = GsubGpos.ChainingClassRule;
+
     export type ReverseRuleSubst = GsubReverseSubstT<OtGlyph>;
     export type ReverseRule = GsubReverseRuleT<OtGlyph, Set<OtGlyph>>;
 }
@@ -221,21 +227,26 @@ export namespace Gsub {
 export namespace Gpos {
     export const Tag = "GPOS";
 
-    export class Single extends GposSingleLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class Pair extends GposPairLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class Cursive extends GposCursiveLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class MarkToBase extends GposMarkToBaseLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class MarkToLigature
-        extends GposMarkToLigatureLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
-    export class MarkToMark extends GposMarkToMarkLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>
-        implements GsubGpos.Lookup {}
+    export type Table = GsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
+    export const Table = GsubGpos.TableImpl;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Lookup = GsubGpos.Lookup;
+    export type AxisRangeCondition = GsubGpos.AxisRangeConditionT<OtVar.Axis>;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeConditionT<OtVar.Axis>;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<OtVar.Axis, Lookup>;
 
-    // "internal" data type aliases
+    // Lookup classes
+    export class Single extends GposSingleLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Pair extends GposPairLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Cursive extends GposCursiveLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class MarkToBase extends GposMarkToBaseLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class MarkToLigature extends GposMarkToLigatureLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class MarkToMark extends GposMarkToMarkLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Chaining extends ForwardChainingLookupT<OtGlyph, OtVar.Value, Lookup> {}
+
+    // Lookup-internal data type aliases
     export type Adjustment = LayoutCommon.Adjust.T<OtVar.Value>;
     export type AdjustmentPair = LayoutCommon.Adjust.PairT<OtVar.Value>;
     export type Anchor = LayoutCommon.Anchor.T<OtVar.Value>;
@@ -244,6 +255,10 @@ export namespace Gpos {
     export type MarkRecord = GposMarkRecordT<OtVar.Value>;
     export type BaseRecord = GposBaseRecordT<OtVar.Value>;
     export type LigatureRecord = GposLigatureRecordT<OtVar.Value>;
+
+    export type ChainingApplication = GsubGpos.ChainingApplication;
+    export type ChainingRule = GsubGpos.ChainingRule;
+    export type ChainingClassRule = GsubGpos.ChainingClassRule;
 
     // Zeroes
     export const ZeroAdjustment: Adjustment = { dX: 0, dY: 0, dWidth: 0, dHeight: 0 };

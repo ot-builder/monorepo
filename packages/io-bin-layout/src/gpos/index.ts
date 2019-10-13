@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
 
 import {
     LookupReader,
@@ -9,7 +9,7 @@ import {
     LookupWriterFactory
 } from "../gsub-gpos-shared/general";
 import { GsubGposTable, TableReadContext, TableWriteContext } from "../gsub-gpos-shared/table";
-import { ChainingReader, ContextualReader } from "../lookups/contextual-read";
+import { GposChainingReader, GposContextualReader } from "../lookups/contextual-read";
 import { GposChainingContextualWriter } from "../lookups/contextual-write";
 import { GposCursiveReader, GposCursiveWriter } from "../lookups/gpos-cursive";
 import {
@@ -44,9 +44,9 @@ const gpos: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.
             case 6:
                 return new GposMarkToMarkReader();
             case 7:
-                return new ContextualReader();
+                return new GposContextualReader();
             case 8:
-                return new ChainingReader();
+                return new GposChainingReader();
             default:
                 throw Errors.FormatNotSupported(`GSUB lookup`, x);
         }
@@ -64,9 +64,10 @@ const gpos: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.
 
 export const GposTableIo = {
     read(view: BinaryView, trc: TableReadContext) {
-        return view.next(GsubGposTable, gpos, trc);
+        const o = view.next(GsubGposTable, gpos, trc);
+        return new Gpos.Table(o.scripts, o.features, o.lookups, o.featureVariations);
     },
-    write(frag: Frag, table: GsubGpos.Table, twc: TableWriteContext) {
+    write(frag: Frag, table: Gpos.Table, twc: TableWriteContext) {
         return frag.push(GsubGposTable, table, gpos, twc);
     }
 };

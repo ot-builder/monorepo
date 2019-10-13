@@ -1,6 +1,6 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, Gsub, GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
@@ -261,9 +261,7 @@ abstract class ChainingContextualWriter
     }
     public abstract getLookupType(lookup: GsubGpos.ChainingLookup): number;
 
-    public canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup {
-        return l instanceof GsubGpos.ChainingLookup;
-    }
+    public abstract canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup;
 
     private covSubtable(
         rule: GsubGpos.ChainingRule,
@@ -346,9 +344,15 @@ export class GsubChainingContextualWriter extends ChainingContextualWriter {
     public getLookupType(lookup: GsubGpos.ChainingLookup) {
         return this.useChainingLookup(lookup) ? 6 : 5;
     }
+    public canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup {
+        return l instanceof Gsub.Chaining;
+    }
 }
 export class GposChainingContextualWriter extends ChainingContextualWriter {
     public getLookupType(lookup: GsubGpos.ChainingLookup) {
         return this.useChainingLookup(lookup) ? 8 : 7;
+    }
+    public canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup {
+        return l instanceof Gpos.Chaining;
     }
 }

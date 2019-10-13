@@ -2,7 +2,19 @@ import { Data } from "@ot-builder/prelude";
 
 type DicingPlan<X> = { cls: number; from: null | number; items: null | X[]; inSet: boolean };
 
-export class DicingStore<X, Y, D> {
+export interface DicingStore<X, Y, D> {
+    get(x: X, y: Y): Data.Maybe<D>;
+    getByClass(cx: number, cy: number): Data.Maybe<D>;
+    getXClassDef(): X[][];
+    getYClassDef(): Y[][];
+    entries(): IterableIterator<[X, Y, Data.Maybe<D>]>;
+
+    set(x: Set<X>, y: Set<Y>, v: D): void;
+    setIfAbsent(x: Set<X>, y: Set<Y>, v: D): void;
+    update(mdfX: Set<X>, mdfY: Set<Y>, fn: (original: Data.Maybe<D>) => Data.Maybe<D>): void;
+}
+
+export class DicingStoreImpl<X, Y, D> {
     private clsDefX: Map<X, number> = new Map();
     private clsDefY: Map<Y, number> = new Map();
     private dataMatrix: Data.Maybe<D>[][] = [];

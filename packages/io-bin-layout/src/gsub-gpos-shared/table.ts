@@ -55,11 +55,11 @@ export const GsubGposTable = {
                 ? vFeatureVariation.next(FeatureVariations, trc.axes, fOrd, lOrd)
                 : null;
 
-        return new GsubGpos.Table(scripts, features, lookups, featureVariations);
+        return { scripts, features, lookups, featureVariations };
     },
     write(
         frag: Frag,
-        table: GsubGpos.Table,
+        table: GsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, GsubGpos.Lookup>,
         lwf: LookupWriterFactory<GsubGpos.Lookup>,
         twc: TableWriteContext
     ) {
