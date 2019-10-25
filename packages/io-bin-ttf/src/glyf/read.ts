@@ -217,13 +217,13 @@ export const GlyfTableRead = Read(
                 bound.yMax = vGlyph.int16();
                 if (numberOfContours >= 0) {
                     const { geometry, instructions } = vGlyph.next(SimpleGlyph, numberOfContours);
-                    glyph.geometries.push(geometry);
+                    glyph.geometry = geometry;
                     if (instructions && instructions.byteLength) {
                         glyph.hints = new OtGlyph.TtfInstructionHint(instructions);
                     }
                 } else {
                     const r = vGlyph.next(CompositeGlyph, gOrd);
-                    glyph.geometries = r.references;
+                    glyph.geometry = new OtGlyph.TtReferenceList(r.references);
                     if (r.instructions && r.instructions.byteLength) {
                         glyph.hints = new OtGlyph.TtfInstructionHint(r.instructions);
                     }

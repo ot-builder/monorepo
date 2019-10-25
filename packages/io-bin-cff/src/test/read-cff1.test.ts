@@ -26,7 +26,7 @@ test("Reading : CFF1", () => {
     const { gs, cff } = readCff1("SourceSerifPro-Regular.otf");
     {
         const b = gs.items[3];
-        const csB = b.geometries[0] as OtGlyph.ContourSet;
+        const csB = b.geometry! as OtGlyph.ContourSet;
         expect(csB.contours.length).toBe(3);
         expect(b.horizontal.end).toBe(629);
     }

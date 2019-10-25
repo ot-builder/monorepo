@@ -11,11 +11,11 @@ export class OtGlyph
     public name?: string;
     public horizontal: GeneralGlyph.Metric.T<OtVar.Value> = { start: 0, end: 0 };
     public vertical: GeneralGlyph.Metric.T<OtVar.Value> = { start: 0, end: 0 };
-    public geometries: OtGlyph.Geometry[] = [];
+    public geometry: Data.Maybe<OtGlyph.Geometry> = null;
     public hints: Data.Maybe<OtGlyph.Hint> = null;
 
     public visitGeometry(sink: OtGlyph.GeometryVisitor) {
-        for (const geometry of this.geometries) geometry.visitGeometry(sink);
+        if (this.geometry) this.geometry.visitGeometry(sink);
     }
     public visitHint(sink: OtGlyph.HintVisitor) {
         if (this.hints) this.hints.visitHint(sink);
@@ -30,22 +30,20 @@ export class OtGlyph
             start: rectify.coord(this.vertical.start),
             end: rectify.coord(this.vertical.end)
         };
-        for (const geometry of this.geometries) geometry.rectifyCoords(rectify);
+        if (this.geometry) this.geometry.rectifyCoords(rectify);
         if (this.hints) this.hints.rectifyCoords(rectify);
     }
 
     public rectifyGlyphs(rectify: OtGlyph.Rectifier) {
-        let geom1: OtGlyph.Geometry[] = [];
-        for (const geom of this.geometries) {
-            const removed = geom.rectifyGlyphs(rectify);
-            if (!removed) geom1.push(geom);
+        if (this.geometry) {
+            const removed = this.geometry.rectifyGlyphs(rectify);
+            if (removed) this.geometry = null;
         }
-        this.geometries = geom1;
     }
 
     public traceGlyphs(tracer: OtGlyph.Tracer) {
         if (!tracer.has(this)) return;
-        for (const geom of this.geometries) geom.traceGlyphs(tracer);
+        if (this.geometry) this.geometry.traceGlyphs(tracer);
     }
 }
 export namespace OtGlyph {
@@ -132,6 +130,29 @@ export namespace OtGlyph {
         }
         public rectifyGlyphs(rectify: OtGlyph.Rectifier) {}
         public traceGlyphs(tracer: OtGlyph.Tracer) {}
+    }
+
+    export class TtReferenceList implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {
+        constructor(public references: TtReference[] = []) {}
+
+        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
+            for (const ref of this.references) ref.visitGeometry(sink);
+        }
+        public rectifyCoords(rec: OtVar.Rectifier) {
+            for (const ref of this.references) ref.rectifyCoords(rec);
+        }
+        public rectifyGlyphs(rec: OtGlyph.Rectifier) {
+            let ref1: TtReference[] = [];
+            for (const ref of this.references) {
+                const remove = ref.rectifyGlyphs(rec);
+                if (!remove) ref1.push(ref);
+            }
+            this.references = ref1;
+            return !ref1.length;
+        }
+        public traceGlyphs(tracer: OtGlyph.Tracer) {
+            for (const ref of this.references) ref.traceGlyphs(tracer);
+        }
     }
 
     export class TtReference implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {

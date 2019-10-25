@@ -31,7 +31,7 @@ test("Reading : CFF2", () => {
     const { gs, cff } = readCff2("SourceSerifVariable-Roman.otf");
     {
         const b = gs.items[3];
-        const csB = b.geometries[0] as OtGlyph.ContourSet;
+        const csB = b.geometry! as OtGlyph.ContourSet;
         expect(csB.contours.length).toBe(4);
         for (const contour of csB.contours) {
             expect(true).toBe(OtVar.Ops.equal(contour[0].x, contour[contour.length - 1].x, 1));

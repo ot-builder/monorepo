@@ -6,14 +6,12 @@ import { rectifyGlyphOrder } from "./rectify";
 describe("GLYF data rectification", () => {
     test("Rectify point attachments", () => {
         const to = new OtGlyph();
-        to.geometries.push(
-            new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]])
-        );
+        to.geometry = new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]]);
         const from = new OtGlyph();
         const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
         const ref2 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Scale(2));
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
-        from.geometries.push(ref1, ref2);
+        from.geometry = new OtGlyph.TtReferenceList([ref1, ref2]);
 
         const gOrd = Data.Order.fromList(`Glyphs`, [from, to]);
         rectifyGlyphOrder(gOrd);
@@ -23,11 +21,9 @@ describe("GLYF data rectification", () => {
     });
     test("Rectify point attachments, nested", () => {
         const sp = new OtGlyph();
-        sp.geometries.push(
-            new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]])
-        );
+        sp.geometry = new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]]);
         const spr = new OtGlyph();
-        spr.geometries.push(
+        spr.geometry = new OtGlyph.TtReferenceList([
             new OtGlyph.TtReference(sp, {
                 scaledOffset: true,
                 xx: 2,
@@ -37,13 +33,13 @@ describe("GLYF data rectification", () => {
                 dx: 2,
                 dy: 2
             })
-        );
+        ]);
 
         const from = new OtGlyph();
         const ref1 = new OtGlyph.TtReference(spr, OtGlyph.Transform2X3.Scale(2));
         const ref2 = new OtGlyph.TtReference(spr, OtGlyph.Transform2X3.Scale(1));
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
-        from.geometries.push(ref1, ref2);
+        from.geometry = new OtGlyph.TtReferenceList([ref1, ref2]);
 
         const gOrd = Data.Order.fromList(`Glyphs`, [from, sp]);
         rectifyGlyphOrder(gOrd);

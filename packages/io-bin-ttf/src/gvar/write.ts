@@ -85,30 +85,59 @@ export const GvarTableWrite = Write(
 );
 
 class GlyphTupleVariationSource implements TupleVariationBuildSource {
+    public readonly dimensions = 2;
+    public readonly data: OtVar.Value[][];
+
     constructor(glyph: OtGlyph) {
         let cs: OtVar.Value[][] = [];
-        for (const geometry of glyph.geometries) {
-            if (geometry instanceof OtGlyph.ContourSet) {
-                // Contours
-                for (let cid = 0; cid < geometry.contours.length; cid++) {
-                    const contour = geometry.contours[cid];
-                    let cc: OtVar.Value[] = [];
-                    cs.push(cc);
-                    for (let zid = 0; zid < contour.length; zid++) {
-                        cc.push(geometry.contours[cid][zid].x, geometry.contours[cid][zid].y);
-                    }
-                }
-            } else if (geometry instanceof OtGlyph.TtReference) {
-                // References
-                cs.push([geometry.transform.dx, geometry.transform.dy]);
-            }
-        }
+
+        // Geometry
+        glyph.visitGeometry(new GeometryVisitor(cs));
         // H metric
         cs.push([glyph.horizontal.start, 0], [glyph.horizontal.end, 0]);
         // V metric
         cs.push([0, glyph.vertical.start], [0, glyph.vertical.end]);
         this.data = cs;
     }
-    public readonly dimensions = 2;
-    public readonly data: OtVar.Value[][];
+}
+
+// Inner classes
+class GeometryVisitor implements OtGlyph.GeometryVisitor {
+    constructor(public collected: OtVar.Value[][]) {}
+    public addContourSet() {
+        return new ContourSetVisitor(this.collected);
+    }
+    public addReference() {
+        return new RefVisitor(this.collected);
+    }
+}
+class ContourSetVisitor implements OtGlyph.ContourVisitor {
+    constructor(public collected: OtVar.Value[][]) {}
+    public begin() {}
+    public end() {}
+    public addContour() {
+        return new ContourVisitor(this.collected);
+    }
+}
+class ContourVisitor implements OtGlyph.PrimitiveVisitor {
+    constructor(public collected: OtVar.Value[][]) {}
+    private readonly items: OtVar.Value[] = [];
+    public begin() {}
+    public end() {
+        this.collected.push(this.items);
+    }
+    public addControlKnot(z: OtGlyph.Point) {
+        this.items.push(z.x, z.y);
+    }
+}
+class RefVisitor implements OtGlyph.ReferenceVisitor {
+    constructor(public collected: OtVar.Value[][]) {}
+    public begin() {}
+    public end() {}
+    public setTarget() {}
+    public setTransform(t: OtGlyph.Transform2X3) {
+        this.collected.push([t.dx, t.dy]);
+    }
+    public setPointAttachment() {}
+    public setFlag() {}
 }

@@ -12,10 +12,9 @@ export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
 function rectifyGlyph(glyph: OtGlyph, gs: Set<OtGlyph>) {
     if (gs.has(glyph)) return;
 
-    for (const geometry of glyph.geometries) {
-        if (geometry instanceof OtGlyph.TtReference) {
-            consolidateRef(geometry, glyph, gs);
-        }
+    const geometry = glyph.geometry;
+    if (geometry && geometry instanceof OtGlyph.TtReferenceList) {
+        for (const ref of geometry.references) consolidateRef(ref, glyph, gs);
     }
 
     gs.add(glyph);

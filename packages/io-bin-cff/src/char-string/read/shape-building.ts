@@ -97,7 +97,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
 
     public endChar() {
         this.startContour();
-        this.glyph.geometries.push(new OtGlyph.ContourSet(this.contours));
+        if (this.contours.length) this.glyph.geometry = new OtGlyph.ContourSet(this.contours);
         this.glyph.hints = this.hints;
     }
 }

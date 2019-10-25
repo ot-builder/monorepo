@@ -35,22 +35,20 @@ test("Draw call generator test", () => {
     ];
     glyph.hints = hints;
 
-    glyph.geometries.push(
-        new OtGlyph.ContourSet([
-            [
-                new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner),
-                new OtGlyph.Point(2, 1, OtGlyph.PointType.Corner),
-                new OtGlyph.Point(2, 2, OtGlyph.PointType.Corner),
-                new OtGlyph.Point(1, 2, OtGlyph.PointType.Corner)
-            ],
-            [
-                new OtGlyph.Point(10, 10, OtGlyph.PointType.Corner),
-                new OtGlyph.Point(20, 10, OtGlyph.PointType.Corner),
-                new OtGlyph.Point(20, 20, OtGlyph.PointType.Lead),
-                new OtGlyph.Point(10, 20, OtGlyph.PointType.Follow)
-            ]
-        ])
-    );
+    glyph.geometry = new OtGlyph.ContourSet([
+        [
+            new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner),
+            new OtGlyph.Point(2, 1, OtGlyph.PointType.Corner),
+            new OtGlyph.Point(2, 2, OtGlyph.PointType.Corner),
+            new OtGlyph.Point(1, 2, OtGlyph.PointType.Corner)
+        ],
+        [
+            new OtGlyph.Point(10, 10, OtGlyph.PointType.Corner),
+            new OtGlyph.Point(20, 10, OtGlyph.PointType.Corner),
+            new OtGlyph.Point(20, 20, OtGlyph.PointType.Lead),
+            new OtGlyph.Point(10, 20, OtGlyph.PointType.Follow)
+        ]
+    ]);
 
     const drawCalls = codeGenGlyph(ctx, 0, glyph);
     const mirSeq = CffDrawCall.charStringSeqToMir(ctx, drawCalls);

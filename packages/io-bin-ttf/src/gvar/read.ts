@@ -90,23 +90,8 @@ class GlyphTvhClient implements TupleVariationGeometryClient {
 
     private createContours(ms: OtVar.MasterSet, glyph: OtGlyph) {
         let cs: TvdAccess<OtVar.Master>[][] = [];
-        for (const geometry of glyph.geometries) {
-            if (geometry instanceof OtGlyph.ContourSet) {
-                for (let cid = 0; cid < geometry.contours.length; cid++) {
-                    const contour = geometry.contours[cid];
-                    let cc: TvdAccess<OtVar.Master>[] = [];
-                    cs.push(cc);
-                    for (let zid = 0; zid < contour.length; zid++) {
-                        cc.push(
-                            new ContourTvdAccess(ms, geometry, cid, zid, 1),
-                            new ContourTvdAccess(ms, geometry, cid, zid, 0)
-                        );
-                    }
-                }
-            } else if (geometry instanceof OtGlyph.TtReference) {
-                cs.push([new RefTvdAccess(ms, geometry, 1), new RefTvdAccess(ms, geometry, 0)]);
-            }
-        }
+        // Geometry
+        this.processGeometry(cs, ms, glyph.geometry);
 
         // H metric
         if (this.ignore.horizontalMetric) {
@@ -128,6 +113,57 @@ class GlyphTvhClient implements TupleVariationGeometryClient {
             );
         }
         return cs;
+    }
+
+    // When we reading GVAR, the kinds of geometries are very limited.
+    // Therefore, we can use the simple approach rather than bothering GeometryVisitor's.
+    private processGeometry(
+        cs: TvdAccess<OtVar.Master>[][],
+        ms: OtVar.MasterSet,
+        geometry: Data.Maybe<OtGlyph.Geometry>
+    ) {
+        if (!geometry) return;
+        else if (geometry instanceof OtGlyph.ContourSet) {
+            this.processContourSet(cs, ms, geometry);
+        } else if (geometry instanceof OtGlyph.TtReference) {
+            this.processReference(cs, ms, geometry);
+        } else if (geometry instanceof OtGlyph.TtReferenceList) {
+            this.processReferenceList(cs, ms, geometry);
+        }
+    }
+
+    private processContourSet(
+        cs: TvdAccess<OtVar.Master>[][],
+        ms: OtVar.MasterSet,
+        geometry: OtGlyph.ContourSet
+    ) {
+        for (let cid = 0; cid < geometry.contours.length; cid++) {
+            const contour = geometry.contours[cid];
+            let cc: TvdAccess<OtVar.Master>[] = [];
+            cs.push(cc);
+            for (let zid = 0; zid < contour.length; zid++) {
+                cc.push(
+                    new ContourTvdAccess(ms, geometry, cid, zid, 1),
+                    new ContourTvdAccess(ms, geometry, cid, zid, 0)
+                );
+            }
+        }
+    }
+    private processReferenceList(
+        cs: TvdAccess<OtVar.Master>[][],
+        ms: OtVar.MasterSet,
+        geometry: OtGlyph.TtReferenceList
+    ) {
+        for (const ref of geometry.references) {
+            this.processReference(cs, ms, ref);
+        }
+    }
+    private processReference(
+        cs: TvdAccess<OtVar.Master>[][],
+        ms: OtVar.MasterSet,
+        geometry: OtGlyph.TtReference
+    ) {
+        cs.push([new RefTvdAccess(ms, geometry, 1), new RefTvdAccess(ms, geometry, 0)]);
     }
 
     public finish() {

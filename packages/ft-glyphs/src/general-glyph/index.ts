@@ -45,7 +45,7 @@ export namespace GeneralGlyph {
             Trace.Glyph.TraceableT<G> {
         horizontal: GlyphMetric.T<X>;
         vertical: GlyphMetric.T<X>;
-        geometries: GeometryT<G, X>[];
+        geometry: Data.Maybe<GeometryT<G, X>>;
         hints?: Data.Maybe<HintT<X>>;
     }
     export interface HintT<X> extends Rectify.Coord.RectifiableT<X> {

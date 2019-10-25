@@ -21,7 +21,6 @@ export namespace GlyphIdentity {
         tolerance = 1,
         place = ""
     ) {
-        expect(actual.geometries.length).toBe(expected.geometries.length);
         if (mode & CompareMode.CompareName) {
             expect(actual.name).toBe(expected.name);
         }
@@ -31,23 +30,7 @@ export namespace GlyphIdentity {
             FastMatch.otvar(actual.vertical.start, expected.vertical.start, "VM start");
             FastMatch.otvar(actual.vertical.end, expected.vertical.end, "VM end");
         }
-        for (let geomId = 0; geomId < expected.geometries.length; geomId++) {
-            const geomE = expected.geometries[geomId];
-            const geomA = actual.geometries[geomId];
-            if (geomE instanceof OtGlyph.ContourSet) {
-                expect(geomA).toBeInstanceOf(OtGlyph.ContourSet);
-                testContours(
-                    geomE,
-                    geomA as OtGlyph.ContourSet,
-                    !!(mode & CompareMode.RemoveCycle),
-                    tolerance,
-                    place + "/" + geomId
-                );
-            } else if (geomE instanceof OtGlyph.TtReference) {
-                expect(geomA).toBeInstanceOf(OtGlyph.TtReference);
-                testReference(geomE, geomA as OtGlyph.TtReference, mode, tolerance);
-            }
-        }
+        testGeometry(expected.geometry, actual.geometry, mode, tolerance, place);
         if (mode & CompareMode.CompareInstructions) {
             if (expected.hints && expected.hints instanceof OtGlyph.TtfInstructionHint) {
                 expect(actual.hints).toBeTruthy();
@@ -56,6 +39,31 @@ export namespace GlyphIdentity {
                     (actual.hints as OtGlyph.TtfInstructionHint).instructions
                 );
             }
+        }
+    }
+
+    function testGeometry(
+        geomE: Data.Maybe<OtGlyph.Geometry>,
+        geomA: Data.Maybe<OtGlyph.Geometry>,
+        mode: CompareMode = 0,
+        tolerance = 1,
+        place = ""
+    ) {
+        if (!geomE && !geomA) return;
+        expect(!!geomE).toBe(!!geomA);
+
+        if (geomE instanceof OtGlyph.ContourSet) {
+            expect(geomA).toBeInstanceOf(OtGlyph.ContourSet);
+            testContours(
+                geomE,
+                geomA as OtGlyph.ContourSet,
+                !!(mode & CompareMode.RemoveCycle),
+                tolerance,
+                place
+            );
+        } else if (geomE instanceof OtGlyph.TtReferenceList) {
+            expect(geomA).toBeInstanceOf(OtGlyph.TtReferenceList);
+            testReferenceList(geomE, geomA as OtGlyph.TtReferenceList, mode, tolerance);
         }
     }
 
@@ -121,6 +129,19 @@ export namespace GlyphIdentity {
             }
         }
     }
+
+    function testReferenceList(
+        expected: OtGlyph.TtReferenceList,
+        actual: OtGlyph.TtReferenceList,
+        tolerance: number,
+        mode: number
+    ) {
+        expect(expected.references.length).toBe(actual.references.length);
+        for (let rid = 0; rid < expected.references.length; rid++) {
+            testReference(expected.references[rid], actual.references[rid], tolerance, mode);
+        }
+    }
+
     function testReference(
         expected: OtGlyph.TtReference,
         actual: OtGlyph.TtReference,

@@ -29,8 +29,8 @@ test("Reading : TTF, static", () => {
     rectifyGlyphOrder(gOrd);
     {
         const notDef = gOrd.at(0);
-        expect(notDef.geometries.length).toBe(1);
-        const outlines = notDef.geometries[0] as OtGlyph.ContourSet;
+        const outlines = notDef.geometry as OtGlyph.ContourSet;
+        expect(outlines).toBeTruthy();
         expect(outlines.contours).toEqual([
             [
                 new OtGlyph.Point(80, 0, 0),
@@ -60,12 +60,15 @@ test("Reading : TTF, static", () => {
     }
     {
         const g300 = gOrd.at(300);
-        expect(g300.geometries.length).toBe(2);
-        expect(g300.geometries[0]).toBeInstanceOf(OtGlyph.TtReference);
-        expect(g300.geometries[1]).toBeInstanceOf(OtGlyph.TtReference);
+        expect(g300.geometry).toBeTruthy();
+        expect(g300.geometry).toBeInstanceOf(OtGlyph.TtReferenceList);
 
-        const base = g300.geometries[0] as OtGlyph.TtReference;
-        const diacritic = g300.geometries[1] as OtGlyph.TtReference;
+        const geom = g300.geometry as OtGlyph.TtReferenceList;
+        expect(geom.references.length).toBe(2);
+
+        const base = geom.references[0];
+        const diacritic = geom.references[1];
+
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));
         expect(OtVar.Ops.equal(diacritic.transform.dx, 0x94)).toBe(true);
