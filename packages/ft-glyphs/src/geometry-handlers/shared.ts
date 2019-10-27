@@ -1,3 +1,5 @@
+import { ImpLib } from "@ot-builder/common-impl";
+
 import { OtGlyph } from "../ot-glyph";
 
 export interface PointSink {
@@ -28,10 +30,10 @@ export class PointTransformer<PS extends PointSink> {
 
 export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.GeometryVisitor {
     constructor(protected readonly acc: PointTransformer<PS>) {}
-    public addReference() {
+    public visitReference() {
         return new RefHandler(this.acc);
     }
-    public addContourSet() {
+    public visitContourSet() {
         return new ContourSetHandler(this.acc);
     }
 }
@@ -39,7 +41,7 @@ export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.Geometry
 class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
-    public addContour() {
+    public visitContour() {
         return new ContourHandler(this.acc);
     }
     public end() {}
@@ -49,8 +51,8 @@ class ContourHandler<PS extends PointSink> implements OtGlyph.PrimitiveVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
     public end() {}
-    public addControlKnot(knot: OtGlyph.Point) {
-        this.acc.addControlKnot(knot);
+    public visitPoint(knot: ImpLib.Access<OtGlyph.Point>) {
+        this.acc.addControlKnot(knot.get());
     }
 }
 
@@ -68,11 +70,11 @@ class RefHandler<PS extends PointSink> implements OtGlyph.ReferenceVisitor {
         );
         target.visitGeometry(plRef);
     }
-    public setTarget(g: OtGlyph) {
-        this.target = g;
+    public visitTarget(g: ImpLib.Access<OtGlyph>) {
+        this.target = g.get();
     }
-    public setTransform(t: OtGlyph.Transform2X3) {
-        this.transform = t;
+    public visitTransform(t: ImpLib.Access<OtGlyph.Transform2X3>) {
+        this.transform = t.get();
     }
     public setPointAttachment() {}
     public setFlag() {}

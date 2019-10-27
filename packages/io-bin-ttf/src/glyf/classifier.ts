@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Caster, Data } from "@ot-builder/prelude";
@@ -57,10 +58,10 @@ class GeometryClassifier implements OtGlyph.GeometryVisitor {
     public collectedContourSets: OtGlyph.ContourSet[] = [];
     public collectedReferences: OtGlyph.TtReference[] = [];
 
-    public addContourSet() {
+    public visitContourSet() {
         return new ContourSetVisitor(this);
     }
-    public addReference() {
+    public visitReference() {
         return new RefVisitor(this);
     }
 }
@@ -82,7 +83,7 @@ class ContourSetVisitor implements OtGlyph.ContourVisitor {
     constructor(private cls: GeometryClassifier) {}
     public collected = new OtGlyph.ContourSet();
     public begin() {}
-    public addContour() {
+    public visitContour() {
         return new ContourVisitor(this.collected);
     }
     public end() {
@@ -99,8 +100,8 @@ class ContourVisitor implements OtGlyph.PrimitiveVisitor {
     public end() {
         if (this.collected.length) this.cs.contours.push(this.collected);
     }
-    public addControlKnot(k: OtGlyph.Point) {
-        this.collected.push(k);
+    public visitPoint(pK: ImpLib.Access<OtGlyph.Point>) {
+        this.collected.push(pK.get());
     }
 }
 
@@ -127,11 +128,11 @@ class RefVisitor implements OtGlyph.ReferenceVisitor {
         ref.pointAttachment = this.pointAttachment;
         this.cls.collectedReferences.push(ref);
     }
-    public setTarget(g: OtGlyph) {
-        this.to = g;
+    public visitTarget(g: ImpLib.Access<OtGlyph>) {
+        this.to = g.get();
     }
-    public setTransform(t: OtGlyph.Transform2X3) {
-        this.transform = t;
+    public visitTransform(t: ImpLib.Access<OtGlyph.Transform2X3>) {
+        this.transform = t.get();
     }
     public setPointAttachment(inner: number, outer: number) {
         this.pointAttachment = { inner: { pointIndex: inner }, outer: { pointIndex: outer } };

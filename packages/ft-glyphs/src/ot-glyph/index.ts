@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
@@ -109,16 +110,19 @@ export namespace OtGlyph {
     // Geometry types
     export class ContourSet implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {
         constructor(public contours: GeneralGlyph.Contour.T<OtVar.Value>[] = []) {}
-        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
-            const csSink = sink.addContourSet();
-            csSink.begin();
-            for (const contour of this.contours) {
-                const cSink = csSink.addContour();
-                cSink.begin();
-                for (const z of contour) cSink.addControlKnot(z);
-                cSink.end();
+        public visitGeometry(visitor: OtGlyph.GeometryVisitor) {
+            const cVisitor = visitor.visitContourSet();
+            cVisitor.begin();
+            for (let cid = 0; cid < this.contours.length; cid++) {
+                const contour = this.contours[cid];
+                const zVisitor = cVisitor.visitContour();
+                zVisitor.begin();
+                for (let zid = 0; zid < contour.length; zid++) {
+                    zVisitor.visitPoint(new ContourSetPointPtr(this, cid, zid));
+                }
+                zVisitor.end();
             }
-            csSink.end();
+            cVisitor.end();
         }
         public rectifyCoords(rectify: OtVar.Rectifier) {
             for (const c of this.contours) {
@@ -131,12 +135,25 @@ export namespace OtGlyph {
         public rectifyGlyphs(rectify: OtGlyph.Rectifier) {}
         public traceGlyphs(tracer: OtGlyph.Tracer) {}
     }
+    class ContourSetPointPtr implements ImpLib.Access<GeneralGlyph.Point.T<OtVar.Value>> {
+        constructor(
+            private readonly cs: ContourSet,
+            private readonly cid: number,
+            private readonly zid: number
+        ) {}
+        public get() {
+            return this.cs.contours[this.cid][this.zid];
+        }
+        public set(z: GeneralGlyph.Point.T<OtVar.Value>) {
+            this.cs.contours[this.cid][this.zid] = z;
+        }
+    }
 
     export class TtReferenceList implements GeneralGlyph.GeometryT<OtGlyph, OtVar.Value> {
         constructor(public references: TtReference[] = []) {}
 
-        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
-            for (const ref of this.references) ref.visitGeometry(sink);
+        public visitGeometry(visitor: OtGlyph.GeometryVisitor) {
+            for (const ref of this.references) ref.visitGeometry(visitor);
         }
         public rectifyCoords(rec: OtVar.Rectifier) {
             for (const ref of this.references) ref.rectifyCoords(rec);
@@ -161,21 +178,21 @@ export namespace OtGlyph {
         public useMyMetrics = false;
         public overlapCompound = false;
         public pointAttachment: Data.Maybe<PointAttachment> = null;
-        public visitGeometry(sink: OtGlyph.GeometryVisitor) {
-            const refSink = sink.addReference();
-            refSink.begin();
-            refSink.setTarget(this.to);
-            refSink.setTransform(this.transform);
+        public visitGeometry(visitor: OtGlyph.GeometryVisitor) {
+            const refVisitor = visitor.visitReference();
+            refVisitor.begin();
+            refVisitor.visitTarget(new TtReferenceGlyphPtr(this));
+            refVisitor.visitTransform(new TtReferenceTransformPtr(this));
             if (this.pointAttachment) {
-                refSink.setPointAttachment(
+                refVisitor.setPointAttachment(
                     this.pointAttachment.inner.pointIndex,
                     this.pointAttachment.outer.pointIndex
                 );
             }
-            refSink.setFlag("roundXyToGrid", this.roundXyToGrid);
-            refSink.setFlag("useMyMetrics", this.useMyMetrics);
-            refSink.setFlag("overlapCompound", this.overlapCompound);
-            refSink.end();
+            refVisitor.setFlag("roundXyToGrid", this.roundXyToGrid);
+            refVisitor.setFlag("useMyMetrics", this.useMyMetrics);
+            refVisitor.setFlag("overlapCompound", this.overlapCompound);
+            refVisitor.end();
         }
         public rectifyCoords(rectify: OtVar.Rectifier) {
             this.transform = {
@@ -195,6 +212,24 @@ export namespace OtGlyph {
                 tracer.add(this.to);
                 this.to.traceGlyphs(tracer);
             }
+        }
+    }
+    class TtReferenceGlyphPtr implements ImpLib.Access<OtGlyph> {
+        constructor(private ref: TtReference) {}
+        public get() {
+            return this.ref.to;
+        }
+        public set(g: OtGlyph) {
+            this.ref.to = g;
+        }
+    }
+    class TtReferenceTransformPtr implements ImpLib.Access<Transform2X3> {
+        constructor(private ref: TtReference) {}
+        public get() {
+            return this.ref.transform;
+        }
+        public set(tfm: Transform2X3) {
+            this.ref.transform = tfm;
         }
     }
 

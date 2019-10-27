@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
@@ -20,18 +21,18 @@ export namespace GeneralGlyph {
         end(): void;
     }
     export interface GeometryVisitorT<G, X> {
-        addContourSet(): ContourVisitorT<X>;
-        addReference(): ReferenceVisitorT<G, X>;
+        visitContourSet(): ContourVisitorT<X>;
+        visitReference(): ReferenceVisitorT<G, X>;
     }
     export interface ContourVisitorT<X> extends GeometryElementVisitor {
-        addContour(): PrimitiveVisitorT<X>;
+        visitContour(): PrimitiveVisitorT<X>;
     }
     export interface PrimitiveVisitorT<X> extends GeometryElementVisitor {
-        addControlKnot(point: GlyphPoint.T<X>): void;
+        visitPoint(pPoint: ImpLib.Access<GlyphPoint.T<X>>): void;
     }
     export interface ReferenceVisitorT<G, X> extends GeometryElementVisitor {
-        setTarget(glyph: G): void;
-        setTransform(tfm: GlyphTransform2X3.T<X>): void;
+        visitTarget(glyph: ImpLib.Access<G>): void;
+        visitTransform(tfm: ImpLib.Access<GlyphTransform2X3.T<X>>): void;
         setFlag(name: string, on: boolean): void;
         setPointAttachment(innerPointID: number, outerPointID: number): void;
     }

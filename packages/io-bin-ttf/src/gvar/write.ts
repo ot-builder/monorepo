@@ -104,10 +104,10 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
 // Inner classes
 class GeometryVisitor implements OtGlyph.GeometryVisitor {
     constructor(public collected: OtVar.Value[][]) {}
-    public addContourSet() {
+    public visitContourSet() {
         return new ContourSetVisitor(this.collected);
     }
-    public addReference() {
+    public visitReference() {
         return new RefVisitor(this.collected);
     }
 }
@@ -115,7 +115,7 @@ class ContourSetVisitor implements OtGlyph.ContourVisitor {
     constructor(public collected: OtVar.Value[][]) {}
     public begin() {}
     public end() {}
-    public addContour() {
+    public visitContour() {
         return new ContourVisitor(this.collected);
     }
 }
@@ -126,7 +126,8 @@ class ContourVisitor implements OtGlyph.PrimitiveVisitor {
     public end() {
         this.collected.push(this.items);
     }
-    public addControlKnot(z: OtGlyph.Point) {
+    public visitPoint(pZ: ImpLib.Access<OtGlyph.Point>) {
+        const z = pZ.get();
         this.items.push(z.x, z.y);
     }
 }
@@ -134,9 +135,10 @@ class RefVisitor implements OtGlyph.ReferenceVisitor {
     constructor(public collected: OtVar.Value[][]) {}
     public begin() {}
     public end() {}
-    public setTarget() {}
-    public setTransform(t: OtGlyph.Transform2X3) {
-        this.collected.push([t.dx, t.dy]);
+    public visitTarget() {}
+    public visitTransform(pTransform: ImpLib.Access<OtGlyph.Transform2X3>) {
+        const transform = pTransform.get();
+        this.collected.push([transform.dx, transform.dy]);
     }
     public setPointAttachment() {}
     public setFlag() {}

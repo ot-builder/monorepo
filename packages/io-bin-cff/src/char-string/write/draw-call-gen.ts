@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Caster } from "@ot-builder/prelude";
@@ -183,10 +184,10 @@ class CffHintHandler implements OtGlyph.CffHintVisitor {
 
 class CffGeometryHandler implements OtGlyph.GeometryVisitor {
     constructor(private readonly st: CffCodeGenState) {}
-    public addReference(): never {
+    public visitReference(): never {
         throw Errors.Cff.ReferencesNotSupported();
     }
-    public addContourSet() {
+    public visitContourSet() {
         return new CffContourSetHandler(this.st);
     }
 }
@@ -196,7 +197,7 @@ class CffContourSetHandler implements OtGlyph.ContourVisitor {
     public begin() {
         this.st.advance(0, 0, 0);
     }
-    public addContour() {
+    public visitContour() {
         return new CffContourHandler(this.st);
     }
     public end() {
@@ -216,7 +217,10 @@ class CffContourHandler implements OtGlyph.PrimitiveVisitor {
     public begin() {
         this.st.advance(0, 0, 0);
     }
-    public addControlKnot(knot: OtGlyph.Point) {
+    public visitPoint(pKnot: ImpLib.Access<OtGlyph.Point>) {
+        this.addKnotImpl(pKnot.get());
+    }
+    private addKnotImpl(knot: OtGlyph.Point) {
         if (!this.knotsHandled) this.firstKnot = knot;
         if (knot.kind === OtGlyph.PointType.Lead && this.pendingKnots.length === 0) {
             this.pendingKnots.push(knot);
@@ -275,7 +279,7 @@ class CffContourHandler implements OtGlyph.PrimitiveVisitor {
         // Close contour
         this.st.addContourStat(this.knotsHandled);
         if (this.firstKnot) {
-            this.addControlKnot({ ...this.firstKnot, kind: OtGlyph.PointType.Corner });
+            this.addKnotImpl({ ...this.firstKnot, kind: OtGlyph.PointType.Corner });
         }
         this.st.advance(0, 1, 0);
     }

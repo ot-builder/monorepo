@@ -1,5 +1,6 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
@@ -90,8 +91,8 @@ class GlyphTvhClient implements TupleVariationGeometryClient {
 
     private createContours(ms: OtVar.MasterSet, glyph: OtGlyph) {
         let cs: TvdAccess<OtVar.Master>[][] = [];
-        // Geometry
-        this.processGeometry(cs, ms, glyph.geometry);
+
+        glyph.visitGeometry(new GeometryVisitor(ms, cs));
 
         // H metric
         if (this.ignore.horizontalMetric) {
@@ -115,62 +116,68 @@ class GlyphTvhClient implements TupleVariationGeometryClient {
         return cs;
     }
 
-    // When we reading GVAR, the kinds of geometries are very limited.
-    // Therefore, we can use the simple approach rather than bothering GeometryVisitor's.
-    private processGeometry(
-        cs: TvdAccess<OtVar.Master>[][],
-        ms: OtVar.MasterSet,
-        geometry: Data.Maybe<OtGlyph.Geometry>
-    ) {
-        if (!geometry) return;
-        else if (geometry instanceof OtGlyph.ContourSet) {
-            this.processContourSet(cs, ms, geometry);
-        } else if (geometry instanceof OtGlyph.TtReference) {
-            this.processReference(cs, ms, geometry);
-        } else if (geometry instanceof OtGlyph.TtReferenceList) {
-            this.processReferenceList(cs, ms, geometry);
-        }
-    }
-
-    private processContourSet(
-        cs: TvdAccess<OtVar.Master>[][],
-        ms: OtVar.MasterSet,
-        geometry: OtGlyph.ContourSet
-    ) {
-        for (let cid = 0; cid < geometry.contours.length; cid++) {
-            const contour = geometry.contours[cid];
-            let cc: TvdAccess<OtVar.Master>[] = [];
-            cs.push(cc);
-            for (let zid = 0; zid < contour.length; zid++) {
-                cc.push(
-                    new ContourTvdAccess(ms, geometry, cid, zid, 1),
-                    new ContourTvdAccess(ms, geometry, cid, zid, 0)
-                );
-            }
-        }
-    }
-    private processReferenceList(
-        cs: TvdAccess<OtVar.Master>[][],
-        ms: OtVar.MasterSet,
-        geometry: OtGlyph.TtReferenceList
-    ) {
-        for (const ref of geometry.references) {
-            this.processReference(cs, ms, ref);
-        }
-    }
-    private processReference(
-        cs: TvdAccess<OtVar.Master>[][],
-        ms: OtVar.MasterSet,
-        geometry: OtGlyph.TtReference
-    ) {
-        cs.push([new RefTvdAccess(ms, geometry, 1), new RefTvdAccess(ms, geometry, 0)]);
-    }
-
     public finish() {
         for (const c of this.contours) for (const z of c) z.finish();
     }
 }
 
+// Inner classes
+class GeometryVisitor implements OtGlyph.GeometryVisitor {
+    constructor(
+        private readonly ms: OtVar.MasterSet,
+        public collected: TvdAccess<OtVar.Master>[][]
+    ) {}
+    public visitContourSet() {
+        return new ContourSetVisitor(this.ms, this.collected);
+    }
+    public visitReference() {
+        return new RefVisitor(this.ms, this.collected);
+    }
+}
+class ContourSetVisitor implements OtGlyph.ContourVisitor {
+    constructor(
+        private readonly ms: OtVar.MasterSet,
+        public collected: TvdAccess<OtVar.Master>[][]
+    ) {}
+    public begin() {}
+    public end() {}
+    public visitContour() {
+        return new ContourVisitor(this.ms, this.collected);
+    }
+}
+class ContourVisitor implements OtGlyph.PrimitiveVisitor {
+    constructor(
+        private readonly ms: OtVar.MasterSet,
+        public collected: TvdAccess<OtVar.Master>[][]
+    ) {}
+    private readonly items: TvdAccess<OtVar.Master>[] = [];
+    public begin() {}
+    public end() {
+        this.collected.push(this.items);
+    }
+    public visitPoint(pZ: ImpLib.Access<OtGlyph.Point>) {
+        this.items.push(new ContourTvdAccess(this.ms, pZ, 1), new ContourTvdAccess(this.ms, pZ, 0));
+    }
+}
+class RefVisitor implements OtGlyph.ReferenceVisitor {
+    constructor(
+        private readonly ms: OtVar.MasterSet,
+        public collected: TvdAccess<OtVar.Master>[][]
+    ) {}
+    public begin() {}
+    public end() {}
+    public visitTarget() {}
+    public visitTransform(pTransform: ImpLib.Access<OtGlyph.Transform2X3>) {
+        this.collected.push([
+            new RefTvdAccess(this.ms, pTransform, 1),
+            new RefTvdAccess(this.ms, pTransform, 0)
+        ]);
+    }
+    public setPointAttachment() {}
+    public setFlag() {}
+}
+
+// TvdAccess implementations
 class TvdIgnore implements TvdAccess<OtVar.Master> {
     public readonly original = 0;
     public addDelta(master: OtVar.Master, delta: number) {}
@@ -179,41 +186,38 @@ class TvdIgnore implements TvdAccess<OtVar.Master> {
 class ContourTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     constructor(
         ms: OtVar.MasterSet,
-        private readonly cs: OtGlyph.ContourSet,
-        private readonly cid: number,
-        private readonly zid: number,
+        private readonly pZ: ImpLib.Access<OtGlyph.Point>,
         private readonly isX: number
     ) {
         super(ms);
-        const z = cs.contours[cid][zid];
+        const z = pZ.get();
         this.original = isX ? OtVar.Ops.originOf(z.x) : OtVar.Ops.originOf(z.y);
     }
     public readonly original: number;
     public finish() {
-        const z = this.cs.contours[this.cid][this.zid];
+        const z = this.pZ.get();
         const z1 = this.isX ? { ...z, x: this.collectTo(z.x) } : { ...z, y: this.collectTo(z.y) };
-        this.cs.contours[this.cid][this.zid] = z1;
+        this.pZ.set(z1);
     }
 }
 class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     constructor(
         ms: OtVar.MasterSet,
-        private ref: OtGlyph.TtReference,
+        private pTransform: ImpLib.Access<OtGlyph.Transform2X3>,
         private readonly isX: number
     ) {
         super(ms);
-        this.original = isX
-            ? OtVar.Ops.originOf(ref.transform.dx)
-            : OtVar.Ops.originOf(ref.transform.dy);
+        const transform = pTransform.get();
+        this.original = isX ? OtVar.Ops.originOf(transform.dx) : OtVar.Ops.originOf(transform.dy);
     }
     public readonly original: number;
     public finish() {
-        const tf = this.ref.transform;
+        const tf = this.pTransform.get();
         const tf1 = {
             ...tf,
             ...(this.isX ? { dx: this.collectTo(tf.dx) } : { dy: this.collectTo(tf.dy) })
         };
-        this.ref.transform = tf1;
+        this.pTransform.set(tf1);
     }
 }
 class MetricTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
