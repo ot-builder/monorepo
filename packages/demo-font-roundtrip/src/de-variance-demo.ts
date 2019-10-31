@@ -1,5 +1,5 @@
 import { Config } from "@ot-builder/cfg-log";
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
+import { OtListGlyphStoreFactory, StdPointAttachRectifier } from "@ot-builder/ft-glyphs";
 import { Fvar } from "@ot-builder/ft-metadata";
 import {
     FontIoConfig,
@@ -33,7 +33,12 @@ console.log("read complete");
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 if (font.fvar) {
-    rectifyFontCoords(createAxisRectifier(), createValueRectifier(font.fvar.axes, instance), font);
+    rectifyFontCoords(
+        createAxisRectifier(),
+        createValueRectifier(font.fvar.axes, instance),
+        new StdPointAttachRectifier(Rectify.PointAttach.Manner.TrustAttachment),
+        font
+    );
     font.fvar = font.avar = null;
 }
 

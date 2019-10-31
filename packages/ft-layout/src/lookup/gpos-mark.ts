@@ -26,12 +26,42 @@ function rectifyMarkRecord<X>(rec: Rectify.Coord.RectifierT<X>, mr: GposMarkReco
     }
     return mr1;
 }
+function rectifyPointAttachMarkRecord<G, X>(
+    rec: Rectify.PointAttach.RectifierT<G, X>,
+    glyph: G,
+    mr: GposMarkRecordT<X>
+) {
+    const mr1: GposMarkRecordT<X> = { markAnchors: [] };
+    for (let clsAnchor = 0; clsAnchor < mr.markAnchors.length; clsAnchor++) {
+        const a = mr.markAnchors[clsAnchor];
+        if (!a) mr1.markAnchors[clsAnchor] = a;
+        else {
+            mr1.markAnchors[clsAnchor] = LayoutCommon.Anchor.rectifyPointAttachment(rec, glyph, a);
+        }
+    }
+    return mr1;
+}
 function rectifyBaseRecord<X>(rec: Rectify.Coord.RectifierT<X>, mr: GposBaseRecordT<X>) {
     const mr1: GposBaseRecordT<X> = { baseAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
         const a = mr.baseAnchors[clsAnchor];
         if (!a) mr1.baseAnchors[clsAnchor] = a;
         else mr1.baseAnchors[clsAnchor] = LayoutCommon.Anchor.rectify(rec, a);
+    }
+    return mr1;
+}
+function rectifyPointAttachBaseRecord<G, X>(
+    rec: Rectify.PointAttach.RectifierT<G, X>,
+    glyph: G,
+    mr: GposBaseRecordT<X>
+) {
+    const mr1: GposBaseRecordT<X> = { baseAnchors: [] };
+    for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
+        const a = mr.baseAnchors[clsAnchor];
+        if (!a) mr1.baseAnchors[clsAnchor] = a;
+        else {
+            mr1.baseAnchors[clsAnchor] = LayoutCommon.Anchor.rectifyPointAttachment(rec, glyph, a);
+        }
     }
     return mr1;
 }
@@ -43,6 +73,28 @@ function rectifyLigatureRecord<X>(rec: Rectify.Coord.RectifierT<X>, mr: GposLiga
             const a = mr.baseAnchors[part][clsAnchor];
             if (!a) mr1.baseAnchors[part][clsAnchor] = a;
             else mr1.baseAnchors[part][clsAnchor] = LayoutCommon.Anchor.rectify(rec, a);
+        }
+    }
+    return mr1;
+}
+function rectifyPointAttachLigatureRecord<G, X>(
+    rec: Rectify.PointAttach.RectifierT<G, X>,
+    glyph: G,
+    mr: GposLigatureRecordT<X>
+) {
+    const mr1: GposLigatureRecordT<X> = { baseAnchors: [] };
+    for (let part = 0; part < mr.baseAnchors.length; part++) {
+        mr1.baseAnchors[part] = [];
+        for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
+            const a = mr.baseAnchors[part][clsAnchor];
+            if (!a) mr1.baseAnchors[part][clsAnchor] = a;
+            else {
+                mr1.baseAnchors[part][clsAnchor] = LayoutCommon.Anchor.rectifyPointAttachment(
+                    rec,
+                    glyph,
+                    a
+                );
+            }
         }
     }
     return mr1;
@@ -68,6 +120,20 @@ export class GposMarkToBaseLookupT<G, X, L> extends GposMarkLookupBaseT<G, X, L>
         this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
         this.bases = RectifyImpl.mapSomeT(rec, this.bases, (r, g) => g, rectifyBaseRecord);
     }
+    public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<G, X>) {
+        this.marks = RectifyImpl.mapSome2T(
+            rec,
+            this.marks,
+            RectifyImpl.Id,
+            rectifyPointAttachMarkRecord
+        );
+        this.bases = RectifyImpl.mapSome2T(
+            rec,
+            this.bases,
+            RectifyImpl.Id,
+            rectifyPointAttachBaseRecord
+        );
+    }
     public cleanupEliminable() {
         return !this.marks.size || !this.bases.size;
     }
@@ -87,6 +153,20 @@ export class GposMarkToMarkLookupT<G, X, L> extends GposMarkLookupBaseT<G, X, L>
         this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
         this.baseMarks = RectifyImpl.mapSomeT(rec, this.baseMarks, (r, g) => g, rectifyBaseRecord);
     }
+    public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<G, X>) {
+        this.marks = RectifyImpl.mapSome2T(
+            rec,
+            this.marks,
+            RectifyImpl.Id,
+            rectifyPointAttachMarkRecord
+        );
+        this.baseMarks = RectifyImpl.mapSome2T(
+            rec,
+            this.baseMarks,
+            RectifyImpl.Id,
+            rectifyPointAttachBaseRecord
+        );
+    }
     public cleanupEliminable() {
         return !this.marks.size || !this.baseMarks.size;
     }
@@ -105,6 +185,20 @@ export class GposMarkToLigatureLookupT<G, X, L> extends GposMarkLookupBaseT<G, X
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {
         this.marks = RectifyImpl.mapSomeT(rec, this.marks, (r, g) => g, rectifyMarkRecord);
         this.bases = RectifyImpl.mapSomeT(rec, this.bases, (r, g) => g, rectifyLigatureRecord);
+    }
+    public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<G, X>) {
+        this.marks = RectifyImpl.mapSome2T(
+            rec,
+            this.marks,
+            RectifyImpl.Id,
+            rectifyPointAttachMarkRecord
+        );
+        this.bases = RectifyImpl.mapSome2T(
+            rec,
+            this.bases,
+            RectifyImpl.Id,
+            rectifyPointAttachLigatureRecord
+        );
     }
     public cleanupEliminable() {
         return !this.marks.size || !this.bases.size;

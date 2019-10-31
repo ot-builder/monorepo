@@ -24,4 +24,5 @@ export class GposSingleLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
         return !this.adjustments.size;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment() {}
 }

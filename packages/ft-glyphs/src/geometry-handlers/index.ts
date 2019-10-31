@@ -4,6 +4,7 @@ import { OtGhCountPoint } from "./count-point";
 import { OtGhGetBound } from "./get-bound";
 import { OtGhPointLister } from "./point-lister";
 import { StatGeometryVisitorClass } from "./shared";
+export { OtGhStdPointAttachRectifier as StdPointAttachRectifier } from "./point-attach-rectifier";
 
 export namespace OtGeometryHandler {
     export const ListPoint = OtGhPointLister;

@@ -46,6 +46,13 @@ export class OtGlyph
         if (!tracer.has(this)) return;
         if (this.geometry) this.geometry.traceGlyphs(tracer);
     }
+
+    public rectifyPointAttachment(
+        rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+        c: OtGlyph
+    ) {
+        if (this.geometry) this.geometry.rectifyPointAttachment(rec, c);
+    }
 }
 export namespace OtGlyph {
     export type Geometry = GeneralGlyph.GeometryT<OtGlyph, OtVar.Value>;
@@ -74,8 +81,8 @@ export namespace OtGlyph {
     }
     export class Point implements GeneralGlyph.Point.T<OtVar.Value> {
         constructor(public x: OtVar.Value, public y: OtVar.Value, public kind: number) {}
-        public static create(x: OtVar.Value, y: OtVar.Value, kind: number) {
-            return new Point(x, y, kind);
+        public static create(x: OtVar.Value, y: OtVar.Value, kind: number = PointType.Corner) {
+            return new Point(x || 0, y || 0, kind);
         }
     }
     export const PointOps = new GeneralGlyph.Point.OpT(OtVar.Ops, Point);
@@ -134,6 +141,7 @@ export namespace OtGlyph {
         }
         public rectifyGlyphs(rectify: OtGlyph.Rectifier) {}
         public traceGlyphs(tracer: OtGlyph.Tracer) {}
+        public rectifyPointAttachment() {}
     }
     class ContourSetPointPtr implements ImpLib.Access<GeneralGlyph.Point.T<OtVar.Value>> {
         constructor(
@@ -169,6 +177,12 @@ export namespace OtGlyph {
         }
         public traceGlyphs(tracer: OtGlyph.Tracer) {
             for (const ref of this.references) ref.traceGlyphs(tracer);
+        }
+        public rectifyPointAttachment(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            c: OtGlyph
+        ) {
+            for (const component of this.references) component.rectifyPointAttachment(rec, c);
         }
     }
 
@@ -212,6 +226,55 @@ export namespace OtGlyph {
                 tracer.add(this.to);
                 this.to.traceGlyphs(tracer);
             }
+        }
+        public rectifyPointAttachment(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            c: OtGlyph
+        ) {
+            if (!this.pointAttachment) return;
+
+            const desired = this.computePointAttachmentOffset(rec, c);
+            if (!desired) {
+                this.pointAttachment = null;
+                return;
+            }
+
+            const accept = rec.acceptOffset(desired, {
+                x: this.transform.dx,
+                y: this.transform.dy
+            });
+            if (accept.x && accept.y) return;
+
+            switch (rec.manner) {
+                case Rectify.PointAttach.Manner.TrustAttachment:
+                    this.transform = {
+                        ...this.transform,
+                        dx: desired.x,
+                        dy: desired.y,
+                        scaledOffset: false
+                    };
+                    break;
+                case Rectify.PointAttach.Manner.TrustCoordinate:
+                    this.pointAttachment = null;
+                    break;
+            }
+        }
+
+        private computePointAttachmentOffset(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            c: OtGlyph
+        ) {
+            if (!this.pointAttachment) return null;
+            const outerPoint = rec.getGlyphPoint(c, this.pointAttachment.outer.pointIndex);
+            const innerPoint = rec.getGlyphPoint(this.to, this.pointAttachment.inner.pointIndex);
+
+            if (!outerPoint || !innerPoint) return null;
+
+            const transformedInner = PointOps.applyTransform(
+                Point.create(innerPoint.x, innerPoint.y),
+                { ...this.transform, dx: 0, dy: 0 }
+            );
+            return PointOps.minus(Point.create(outerPoint.x, outerPoint.y), transformedInner);
         }
     }
     class TtReferenceGlyphPtr implements ImpLib.Access<OtGlyph> {

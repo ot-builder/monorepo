@@ -8,7 +8,10 @@ export namespace Base {
     export const Tag = "BASE";
 
     export class Table
-        implements Rectify.Glyph.RectifiableT<OtGlyph>, Rectify.Coord.RectifiableT<OtVar.Value> {
+        implements
+            Rectify.Glyph.RectifiableT<OtGlyph>,
+            Rectify.Coord.RectifiableT<OtVar.Value>,
+            Rectify.PointAttach.NonTerminalT<OtGlyph, OtVar.Value> {
         public horizontal: Data.Maybe<AxisTable> = null;
         public vertical: Data.Maybe<AxisTable> = null;
 
@@ -19,6 +22,10 @@ export namespace Base {
         public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
             if (this.horizontal) this.horizontal.rectifyGlyphs(rec);
             if (this.vertical) this.vertical.rectifyGlyphs(rec);
+        }
+        public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>) {
+            if (this.horizontal) this.horizontal.rectifyPointAttachment(rec, true);
+            if (this.vertical) this.vertical.rectifyPointAttachment(rec, false);
         }
     }
 
@@ -31,6 +38,14 @@ export namespace Base {
         }
         public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
             for (const script of this.scripts.values()) script.rectifyGlyphs(rec);
+        }
+        public rectifyPointAttachment(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            horizontal: boolean
+        ) {
+            for (const script of this.scripts.values()) {
+                script.rectifyPointAttachment(rec, horizontal);
+            }
         }
     }
 
@@ -52,6 +67,17 @@ export namespace Base {
             if (this.defaultMinMax) this.defaultMinMax.rectifyGlyphs(rec);
             if (this.baseLangSysRecords) {
                 for (const [tag, mm] of this.baseLangSysRecords) mm.rectifyGlyphs(rec);
+            }
+        }
+        public rectifyPointAttachment(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            horizontal: boolean
+        ) {
+            if (this.defaultMinMax) this.defaultMinMax.rectifyPointAttachment(rec, horizontal);
+            if (this.baseLangSysRecords) {
+                for (const [tag, mm] of this.baseLangSysRecords) {
+                    mm.rectifyPointAttachment(rec, horizontal);
+                }
             }
         }
     }
@@ -103,6 +129,18 @@ export namespace Base {
                 rectifyMinMaxValueGlyph
             );
         }
+        public rectifyPointAttachment(
+            rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+            horizontal: boolean
+        ) {
+            this.defaultMinMax = rectifyMinMaxValuePointAttach(rec, this.defaultMinMax, horizontal);
+            this.featMinMax = RectifyImpl.mapSomeT(
+                rec,
+                this.featMinMax,
+                RectifyImpl.Id,
+                (rec, lc) => rectifyMinMaxValuePointAttach(rec, lc, horizontal)
+            );
+        }
     }
 
     // Min-max value pair
@@ -129,6 +167,20 @@ export namespace Base {
             maxCoord: RectifyImpl.maybeT(rec, lc.maxCoord, rectifyBaseCoordGlyph)
         };
     }
+    function rectifyMinMaxValuePointAttach<G, X>(
+        rec: Rectify.PointAttach.RectifierT<G, X>,
+        lc: MinMaxValueT<G, X>,
+        horizontal: boolean
+    ): MinMaxValueT<G, X> {
+        return {
+            minCoord: RectifyImpl.maybeT(rec, lc.minCoord, (rec, lc) =>
+                rectifyBaseCoordPointAttach(rec, lc, horizontal)
+            ),
+            maxCoord: RectifyImpl.maybeT(rec, lc.maxCoord, (rec, lc) =>
+                rectifyBaseCoordPointAttach(rec, lc, horizontal)
+            )
+        };
+    }
 
     // Base coord
     export type Coord = CoordT<OtGlyph, OtVar.Value>;
@@ -153,5 +205,29 @@ export namespace Base {
         const g1 = rec.glyph(lc.pointAttachment.glyph);
         if (!g1) return { ...lc, pointAttachment: null };
         else return { ...lc, pointAttachment: { ...lc.pointAttachment, glyph: g1 } };
+    }
+
+    function rectifyBaseCoordPointAttach<G, X>(
+        rec: Rectify.PointAttach.RectifierT<G, X>,
+        lc: CoordT<G, X>,
+        horizontal: boolean
+    ): CoordT<G, X> {
+        if (!lc.pointAttachment) return lc;
+
+        const desired = rec.getGlyphPoint(lc.pointAttachment.glyph, lc.pointAttachment.pointIndex);
+        if (!desired) return { ...lc, pointAttachment: null };
+
+        const accept = horizontal
+            ? rec.acceptOffset(desired, { y: lc.at })
+            : rec.acceptOffset(desired, { x: lc.at });
+        if (horizontal ? accept.y : accept.x) return lc;
+
+        switch (rec.manner) {
+            case Rectify.PointAttach.Manner.TrustAttachment:
+                if (horizontal) return { ...lc, at: desired.y };
+                else return { ...lc, at: desired.x };
+            case Rectify.PointAttach.Manner.TrustCoordinate:
+                return { ...lc, pointAttachment: null };
+        }
     }
 }

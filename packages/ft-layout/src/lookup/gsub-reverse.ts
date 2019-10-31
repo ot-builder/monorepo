@@ -31,4 +31,5 @@ export class GsubReverseSingleSubT<G, X, L> implements GeneralLookupT<G, X, L> {
         return !this.rules.length;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment() {}
 }

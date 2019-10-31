@@ -41,4 +41,5 @@ export class ForwardChainingLookupT<G, X, L> implements GeneralLookupT<G, X, L> 
             })
         }));
     }
+    public rectifyPointAttachment() {}
 }

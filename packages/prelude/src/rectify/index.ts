@@ -48,6 +48,27 @@ export namespace Rectify {
             cleanupEliminable(): boolean;
         }
     }
+
+    ////// "Point Attachment" rectifier
+    export namespace PointAttach {
+        export type XYT<X> = { readonly x?: X; readonly y?: X };
+        export type XYFT<X> = { readonly x: X; readonly y: X };
+        export enum Manner {
+            TrustAttachment,
+            TrustCoordinate
+        }
+        export interface RectifierT<G, X> {
+            readonly manner: Manner;
+            getGlyphPoint(outerGlyph: G, outerID: number): null | XYFT<X>;
+            acceptOffset(actual: XYT<X>, desired: XYT<X>): { x: boolean; y: boolean };
+        }
+        export interface TerminalT<G, X> {
+            rectifyPointAttachment(rectifier: RectifierT<G, X>, context: G): void;
+        }
+        export interface NonTerminalT<G, X> {
+            rectifyPointAttachment(rectifier: RectifierT<G, X>): void;
+        }
+    }
 }
 
 // TRACING INTERFACES

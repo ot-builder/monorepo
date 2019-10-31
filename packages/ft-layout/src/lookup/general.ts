@@ -6,6 +6,7 @@ export interface GeneralLookupT<G, X, L>
         Rectify.Glyph.RectifiableT<G>,
         Rectify.Coord.RectifiableT<X>,
         Rectify.Lookup.RectifiableT<L>,
+        Rectify.PointAttach.NonTerminalT<G, X>,
         Rectify.Elim.Eliminable {
     rightToLeft: boolean;
     ignoreGlyphs: Data.Maybe<Set<G>>;

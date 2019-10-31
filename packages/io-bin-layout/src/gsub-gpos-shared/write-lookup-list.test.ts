@@ -14,6 +14,7 @@ class MockLookup implements GsubGpos.Lookup {
     public rectifyGlyphs() {}
     public rectifyCoords() {}
     public traceGlyphs() {}
+    public rectifyPointAttachment() {}
     public cleanupEliminable() {
         return false;
     }

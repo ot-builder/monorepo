@@ -15,6 +15,7 @@ export class GsubMultipleLookupBaseT<G, X, L> {
     public cleanupEliminable() {
         return !this.mapping.size;
     }
+    public rectifyPointAttachment() {}
 }
 
 export class GsubMultipleLookupT<G, X, L> extends GsubMultipleLookupBaseT<G, X, L>

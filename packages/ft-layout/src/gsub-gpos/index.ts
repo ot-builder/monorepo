@@ -100,6 +100,7 @@ export namespace GsubGpos {
             Rectify.Axis.RectifiableT<A>,
             Rectify.Glyph.RectifiableT<G>,
             Rectify.Coord.RectifiableT<X>,
+            Rectify.PointAttach.NonTerminalT<G, X>,
             Rectify.Elim.Eliminable {
         scripts: Map<Tag, ScriptT<L>>;
         features: Array<FeatureT<L>>;
@@ -190,6 +191,9 @@ export namespace GsubGpos {
             this.cleanupScripts(featureSet);
             this.cleanupFeatureVariations(lookupSet, featureSet);
             return !this.lookups.length || !this.scripts.size || !this.features.length;
+        }
+        public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>) {
+            for (const lookup of this.lookups) lookup.rectifyPointAttachment(rec);
         }
     }
 }

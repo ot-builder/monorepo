@@ -1,4 +1,5 @@
 import { Rectify } from "@ot-builder/prelude";
+
 // Rectifiable implementation methods
 export namespace RectifyImpl {
     export function Id<R, X>(r: R, x: X): X {
@@ -90,6 +91,22 @@ export namespace RectifyImpl {
         }
         return m1;
     }
+    export function mapAll2T<R, X, Y>(
+        rectifier: R,
+        m: ReadonlyMap<X, Y>,
+        fnX: (re: R, x: X) => null | undefined | X,
+        fnY: (re: R, x1: X, y: Y) => null | undefined | Y
+    ) {
+        let m1 = new Map<X, Y>();
+        for (const [x, y] of m) {
+            const x1 = fnX(rectifier, x);
+            if (x1 == null) return null;
+            const y1 = fnY(rectifier, x1, y);
+            if (y1 == null) return null;
+            m1.set(x1, y1);
+        }
+        return m1;
+    }
     export function mapSomeT<R, X, Y>(
         rectifier: R,
         m: ReadonlyMap<X, Y>,
@@ -101,6 +118,22 @@ export namespace RectifyImpl {
             const x1 = fnX(rectifier, x);
             if (x1 == null) continue;
             const y1 = fnY(rectifier, y);
+            if (y1 == null) continue;
+            m1.set(x1, y1);
+        }
+        return m1;
+    }
+    export function mapSome2T<R, X, Y>(
+        rectifier: R,
+        m: ReadonlyMap<X, Y>,
+        fnX: (re: R, x: X) => null | undefined | X,
+        fnY: (re: R, x1: X, y: Y) => null | undefined | Y
+    ) {
+        let m1 = new Map<X, Y>();
+        for (const [x, y] of m) {
+            const x1 = fnX(rectifier, x);
+            if (x1 == null) continue;
+            const y1 = fnY(rectifier, x1, y);
             if (y1 == null) continue;
             m1.set(x1, y1);
         }

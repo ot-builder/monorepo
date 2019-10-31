@@ -67,4 +67,5 @@ export class GposPairLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
         return true;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment() {}
 }

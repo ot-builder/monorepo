@@ -22,4 +22,5 @@ export class GsubSingleLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
         return !this.mapping.size;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment() {}
 }

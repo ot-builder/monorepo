@@ -11,7 +11,8 @@ export namespace GeneralGlyph {
     export interface GeometryT<G, X>
         extends Rectify.Coord.RectifiableT<X>,
             Rectify.Glyph.RectifiableT<G>,
-            Trace.Glyph.TraceableT<G> {
+            Trace.Glyph.TraceableT<G>,
+            Rectify.PointAttach.TerminalT<G, X> {
         visitGeometry(sink: GeometryVisitorT<G, X>): void;
     }
 

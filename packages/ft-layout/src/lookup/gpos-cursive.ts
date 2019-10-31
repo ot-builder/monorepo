@@ -24,4 +24,12 @@ export class GposCursiveLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
         return !this.attachments.size;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<G, X>) {
+        this.attachments = RectifyImpl.mapSome2T(
+            rec,
+            this.attachments,
+            (rec, g) => g,
+            LayoutCommon.CursiveAnchorPair.rectifyPointAttachment
+        );
+    }
 }

@@ -33,4 +33,5 @@ export class GsubLigatureLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
         return ![...this.mapping.entries()].length;
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
+    public rectifyPointAttachment() {}
 }

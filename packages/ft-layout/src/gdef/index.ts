@@ -21,11 +21,32 @@ export namespace Gdef {
     function rectifyLigCaret<X>(rec: Rectify.Coord.RectifierT<X>, lc: LigCaretT<X>): LigCaretT<X> {
         return { ...lc, x: rec.coord(lc.x) };
     }
+    function rectifyLigCaretPointAttachment<G, X>(
+        rectifier: Rectify.PointAttach.RectifierT<G, X>,
+        context: G,
+        lc: LigCaretT<X>
+    ): LigCaretT<X> {
+        if (!lc.pointAttachment) return lc;
+
+        const desired = rectifier.getGlyphPoint(context, lc.pointAttachment.pointIndex);
+        if (!desired) return { ...lc, pointAttachment: null };
+
+        const accept = rectifier.acceptOffset(desired, lc);
+        if (accept.x) return lc;
+
+        switch (rectifier.manner) {
+            case Rectify.PointAttach.Manner.TrustAttachment:
+                return { ...lc, x: desired.x };
+            case Rectify.PointAttach.Manner.TrustCoordinate:
+                return { ...lc, pointAttachment: null };
+        }
+    }
 
     export class TableT<G, X>
         implements
             Rectify.Glyph.RectifiableT<G>,
             Rectify.Coord.RectifiableT<X>,
+            Rectify.PointAttach.NonTerminalT<G, X>,
             Trace.Glyph.TraceableT<G> {
         public glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>> = null;
         public attachList: Data.Maybe<AttachPointListT<G>> = null;
@@ -63,6 +84,19 @@ export namespace Gdef {
                     rec,
                     this.markGlyphSets,
                     RectifyImpl.Glyph.setSome
+                );
+            }
+        }
+        public rectifyPointAttachment(rec: Rectify.PointAttach.RectifierT<G, X>) {
+            if (this.ligCarets) {
+                this.ligCarets = RectifyImpl.mapSome2T(
+                    rec,
+                    this.ligCarets,
+                    RectifyImpl.Id,
+                    (rec, g, lcs) =>
+                        RectifyImpl.listSomeT(rec, lcs, (rec, lc) =>
+                            rectifyLigCaretPointAttachment(rec, g, lc)
+                        )
                 );
             }
         }
