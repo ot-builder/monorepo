@@ -1,12 +1,12 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { LayoutCommon } from "@ot-builder/ft-layout";
+import { Gdef } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
-type MarkGlyphSets = Array<LayoutCommon.Coverage.T<OtGlyph>>;
+type MarkGlyphSets = Array<Gdef.Coverage>;
 
 export const MarkGlyphSets = {
     ...Read((view, gOrd: Data.Order<OtGlyph>) => {

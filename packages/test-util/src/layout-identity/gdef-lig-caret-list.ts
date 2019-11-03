@@ -7,9 +7,7 @@ import { BimapCtx, StdCompare } from "../compar-util";
 import { FastMatch } from "../fast-match";
 
 export namespace GdefLigCaretListIdentity {
-    type CaretList = Gdef.LigCaretListT<OtGlyph, OtVar.Value>;
-
-    function testSingle(bim: BimapCtx<OtGlyph>, a: CaretList, b: CaretList) {
+    function testSingle(bim: BimapCtx<OtGlyph>, a: Gdef.LigCaretList, b: Gdef.LigCaretList) {
         for (const [glyph, lc] of a) {
             const lcb = b.get(bim.forward(glyph)) || [];
             expect(lcb.length).toBe(lc.length);

@@ -8,8 +8,6 @@ import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "../shared/device-table";
 
-type Caret = Gdef.LigCaretT<OtVar.Value>;
-
 export const CaretValue = {
     ...Read((view, ivs?: Data.Maybe<ReadTimeIVS>) => {
         const format = view.lift(0).uint16();
@@ -24,7 +22,7 @@ export const CaretValue = {
                 throw Errors.FormatNotSupported("ligCaretValue", format);
         }
     }),
-    ...Write((frag, caret: Caret, ivs?: Data.Maybe<WriteTimeIVS>) => {
+    ...Write((frag, caret: Gdef.LigCaret, ivs?: Data.Maybe<WriteTimeIVS>) => {
         if (caret.pointAttachment) return frag.push(CaretValueFormat2, caret);
         else return frag.push(CaretValueFormat3, caret, ivs);
     })
@@ -34,9 +32,9 @@ const CaretValueFormat1 = {
     ...Read(view => {
         const format = view.uint16();
         if (format !== 1) throw Errors.Unreachable();
-        return { x: view.uint16() } as Caret;
+        return { x: view.uint16() } as Gdef.LigCaret;
     }),
-    ...Write((frag, caret: Caret) => {
+    ...Write((frag, caret: Gdef.LigCaret) => {
         frag.uint16(1).int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(caret.x)));
     })
 };
@@ -44,9 +42,9 @@ const CaretValueFormat2 = {
     ...Read(view => {
         const format = view.uint16();
         if (format !== 2) throw Errors.Unreachable();
-        return { x: 0, pointAttachment: { pointIndex: view.uint16() } } as Caret;
+        return { x: 0, pointAttachment: { pointIndex: view.uint16() } } as Gdef.LigCaret;
     }),
-    ...Write((frag, caret: Caret) => {
+    ...Write((frag, caret: Gdef.LigCaret) => {
         if (!caret.pointAttachment) throw Errors.Unreachable();
         frag.uint16(2).int16(OtVar.Ops.originOf(caret.pointAttachment.pointIndex));
     })
@@ -58,9 +56,9 @@ const CaretValueFormat3 = {
         let x: OtVar.Value = view.int16();
         let dd = view.next(Ptr16DeviceTable, ivs);
         x = OtVar.Ops.add(x, dd ? dd.variation : 0);
-        return { x: x, xDevice: dd ? dd.deviceDeltas : undefined } as Caret;
+        return { x: x, xDevice: dd ? dd.deviceDeltas : undefined } as Gdef.LigCaret;
     }),
-    ...Write((frag, caret: Caret, ivs?: Data.Maybe<WriteTimeIVS>) => {
+    ...Write((frag, caret: Gdef.LigCaret, ivs?: Data.Maybe<WriteTimeIVS>) => {
         if (OtVar.Ops.isConstant(caret.x) && !caret.xDevice) {
             frag.push(CaretValueFormat1, caret);
         } else {

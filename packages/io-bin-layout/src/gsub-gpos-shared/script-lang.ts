@@ -3,9 +3,9 @@ import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { NullablePtr16, Tag, UInt16 } from "@ot-builder/primitive";
 
-type Feature = GsubGpos.FeatureT<GsubGpos.Lookup>;
-type LangSys = GsubGpos.LanguageT<GsubGpos.Lookup>;
-type Script = GsubGpos.ScriptT<GsubGpos.Lookup>;
+type Feature = GsubGpos.Feature;
+type LangSys = GsubGpos.Language;
+type Script = GsubGpos.Script;
 
 const LangSysTable = {
     read(view: BinaryView, fOrd: Data.Order<Feature>): LangSys {

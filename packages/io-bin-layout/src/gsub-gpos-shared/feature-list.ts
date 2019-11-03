@@ -3,15 +3,13 @@ import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 
-type Feature = GsubGpos.FeatureT<GsubGpos.Lookup>;
-
 export const FeatureTable = {
-    read(view: BinaryView, lOrd: Data.Order<GsubGpos.Lookup>, tag: Tag): Feature {
+    read(view: BinaryView, lOrd: Data.Order<GsubGpos.Lookup>, tag: Tag): GsubGpos.Feature {
         const vFeatureParams = view.ptr16Nullable(); // TODO: add featureParams handler
         const lookups = view.array(view.uint16(), UInt16).map(x => lOrd.at(x));
         return { tag, lookups };
     },
-    write(frag: Frag, feat: Feature, lOrd: Data.Order<GsubGpos.Lookup>) {
+    write(frag: Frag, feat: GsubGpos.Feature, lOrd: Data.Order<GsubGpos.Lookup>) {
         frag.ptr16(null); // TODO: add featureParams handler
         frag.uint16(feat.lookups.length);
         for (const lookup of feat.lookups) frag.uint16(lOrd.reverse(lookup));
@@ -21,14 +19,18 @@ export const FeatureTable = {
 export const FeatureList = {
     read(view: BinaryView, lOrd: Data.Order<GsubGpos.Lookup>) {
         const featureCount = view.uint16();
-        const features: Feature[] = [];
+        const features: GsubGpos.Feature[] = [];
         for (let fid = 0; fid < featureCount; fid++) {
             const tag = view.next(Tag);
             features.push(view.ptr16().next(FeatureTable, lOrd, tag));
         }
         return features;
     },
-    write(frag: Frag, featureList: ReadonlyArray<Feature>, lOrd: Data.Order<GsubGpos.Lookup>) {
+    write(
+        frag: Frag,
+        featureList: ReadonlyArray<GsubGpos.Feature>,
+        lOrd: Data.Order<GsubGpos.Lookup>
+    ) {
         frag.uint16(featureList.length);
         for (const feature of featureList) {
             frag.push(Tag, feature.tag);

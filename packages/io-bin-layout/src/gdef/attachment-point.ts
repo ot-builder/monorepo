@@ -13,7 +13,7 @@ export const GdefAttachmentPointList = {
         const gidCov = view.ptr16().next(GidCoverage);
         const glyphCount = view.uint16();
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
-        const atp: Gdef.AttachPointListT<OtGlyph> = new Map();
+        const atp: Gdef.AttachPointList = new Map();
         for (const gid of gidCov) {
             const pointCount = view.uint16();
             const pointIndices = view.array(pointCount, UInt16);
@@ -21,7 +21,7 @@ export const GdefAttachmentPointList = {
         }
         return atp;
     }),
-    ...Write((frag, atl: Gdef.AttachPointListT<OtGlyph>, gOrd: Data.Order<OtGlyph>) => {
+    ...Write((frag, atl: Gdef.AttachPointList, gOrd: Data.Order<OtGlyph>) => {
         const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
         frag.ptr16New().push(GidCoverage, gidList);
         frag.uint16(gidList.length);

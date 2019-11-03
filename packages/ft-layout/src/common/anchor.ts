@@ -1,22 +1,20 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data, Rectify } from "@ot-builder/prelude";
 
-import { DeviceTable } from "./adjust";
-
 export namespace LayoutAnchor {
     export interface T<X> {
         readonly x: X;
         readonly y: X;
         readonly attachToPoint?: Data.Maybe<OtGlyph.PointIDRef>;
-        readonly xDevice?: Data.Maybe<DeviceTable>;
-        readonly yDevice?: Data.Maybe<DeviceTable>;
+        readonly xDevice?: Data.Maybe<ReadonlyArray<number>>;
+        readonly yDevice?: Data.Maybe<ReadonlyArray<number>>;
     }
     export interface WT<X> {
         x: X;
         y: X;
         attachToPoint?: Data.Maybe<OtGlyph.PointIDRef>;
-        xDevice?: Data.Maybe<DeviceTable>;
-        yDevice?: Data.Maybe<DeviceTable>;
+        xDevice?: Data.Maybe<ReadonlyArray<number>>;
+        yDevice?: Data.Maybe<ReadonlyArray<number>>;
     }
     export function rectify<X>(rec: Rectify.Coord.RectifierT<X>, anc: T<X>) {
         return { ...anc, x: rec.coord(anc.x), y: rec.coord(anc.y) };

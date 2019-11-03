@@ -11,7 +11,7 @@ export interface IgnoreFlagOptions {
 
 export function decideIgnoreFlags<G, X>(
     gs: Data.Maybe<ReadonlySet<G>>,
-    fn: Data.Maybe<Gdef.TableT<G, X>>
+    fn: Data.Maybe<Gdef.General.TableT<G, X>>
 ): null | IgnoreFlagOptions {
     if (!fn) return null;
     return (

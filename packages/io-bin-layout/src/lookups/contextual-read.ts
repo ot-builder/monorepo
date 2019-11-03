@@ -1,7 +1,7 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, Gsub, GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, Gsub, GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
@@ -20,10 +20,7 @@ class IndividualResolver implements Resolver {
     }
 }
 class ClassResolver implements Resolver {
-    constructor(
-        private cd: LayoutCommon.ClassDef.T<OtGlyph>,
-        private startCoverageSet: Set<OtGlyph>
-    ) {}
+    constructor(private cd: GsubGpos.ClassDef, private startCoverageSet: Set<OtGlyph>) {}
     public toGlyphSet(id: number, start: boolean) {
         const gs = new Set<OtGlyph>();
         for (const [g, cls] of this.cd) {

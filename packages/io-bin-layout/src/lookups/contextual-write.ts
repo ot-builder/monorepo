@@ -1,6 +1,6 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, Gsub, GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, Gsub, GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
@@ -13,9 +13,9 @@ import { Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 
 type CompatibleRuleResult = {
-    cdBacktrack: LayoutCommon.ClassDef.T<OtGlyph>;
-    cdInput: LayoutCommon.ClassDef.T<OtGlyph>;
-    cdLookAhead: LayoutCommon.ClassDef.T<OtGlyph>;
+    cdBacktrack: GsubGpos.ClassDef;
+    cdInput: GsubGpos.ClassDef;
+    cdLookAhead: GsubGpos.ClassDef;
     cr: GsubGpos.ChainingClassRule;
     firstGlyphSet: Set<OtGlyph>;
     firstGlyphClass: number;
@@ -23,9 +23,9 @@ type CompatibleRuleResult = {
 
 class ClassDefsAnalyzeState {
     public firstGlyphSet: Set<OtGlyph> = new Set();
-    public cdBacktrack: LayoutCommon.ClassDef.T<OtGlyph> = new Map();
-    public cdInput: LayoutCommon.ClassDef.T<OtGlyph> = new Map();
-    public cdLookAhead: LayoutCommon.ClassDef.T<OtGlyph> = new Map();
+    public cdBacktrack: GsubGpos.ClassDef = new Map();
+    public cdInput: GsubGpos.ClassDef = new Map();
+    public cdLookAhead: GsubGpos.ClassDef = new Map();
     public rules: Array<GsubGpos.ChainingRule> = [];
     public classRules: Map<number, Array<GsubGpos.ChainingClassRule>> = new Map();
     public lastFirstClass: number = 0;
@@ -34,7 +34,7 @@ class ClassDefsAnalyzeState {
 
     private glyphSetCompatibleWithExistingClassDef(
         gs: Data.Maybe<Set<OtGlyph>>,
-        cd: LayoutCommon.ClassDef.T<OtGlyph>
+        cd: GsubGpos.ClassDef
     ) {
         if (!gs || !gs.size) return undefined;
         let firstClass: number | undefined = undefined;
@@ -49,10 +49,7 @@ class ClassDefsAnalyzeState {
         return firstClass;
     }
 
-    private glyphSetCompatibleWithNewClassDef(
-        gs: Data.Maybe<Set<OtGlyph>>,
-        cd: LayoutCommon.ClassDef.T<OtGlyph>
-    ) {
+    private glyphSetCompatibleWithNewClassDef(gs: Data.Maybe<Set<OtGlyph>>, cd: GsubGpos.ClassDef) {
         if (!gs || !gs.size) return undefined;
         for (const g of gs) {
             const gk = cd.get(g);
@@ -63,10 +60,7 @@ class ClassDefsAnalyzeState {
         return introClass;
     }
 
-    private glyphSetCompatibleWithClassDef(
-        gs: Data.Maybe<Set<OtGlyph>>,
-        cd: LayoutCommon.ClassDef.T<OtGlyph>
-    ) {
+    private glyphSetCompatibleWithClassDef(gs: Data.Maybe<Set<OtGlyph>>, cd: GsubGpos.ClassDef) {
         const kExisting = this.glyphSetCompatibleWithExistingClassDef(gs, cd);
         if (kExisting != null) return kExisting;
         else return this.glyphSetCompatibleWithNewClassDef(gs, cd);

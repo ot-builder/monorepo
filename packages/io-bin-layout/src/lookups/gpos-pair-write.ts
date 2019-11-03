@@ -1,6 +1,6 @@
 import { Frag } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, GsubGpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
@@ -167,10 +167,10 @@ const SubtableFormat2 = {
     }
 };
 
-class FinalClassMatrix<G> {
-    public covGlyphSet: Set<G> = new Set();
-    public cd1: LayoutCommon.ClassDef.T<G> = new Map();
-    public cd2: LayoutCommon.ClassDef.T<G> = new Map();
+class FinalClassMatrix {
+    public covGlyphSet: Set<OtGlyph> = new Set();
+    public cd1: GsubGpos.ClassDef = new Map();
+    public cd2: GsubGpos.ClassDef = new Map();
     private adjMat: Gpos.AdjustmentPair[][] = [];
 
     public get(c1: number, c2: number) {
@@ -193,8 +193,8 @@ class FinalClassMatrix<G> {
         return [format1, format2];
     }
 
-    private static getClassRelocationM<G>(cc: G[][]) {
-        let cc1 = cc.map((gs, cl) => [cl, gs] as [number, G[]]);
+    private static getClassRelocationM(cc: OtGlyph[][]) {
+        let cc1 = cc.map((gs, cl) => [cl, gs] as [number, OtGlyph[]]);
         cc1.sort((a, b) => b[1].length - a[1].length);
         let forward: number[] = [];
         let clf = 0;
@@ -208,8 +208,8 @@ class FinalClassMatrix<G> {
         return forward;
     }
 
-    public static fromClassMatrix<G>(cm: ClassMatrix<G>) {
-        const fcm = new FinalClassMatrix<G>();
+    public static fromClassMatrix(cm: ClassMatrix<OtGlyph>) {
+        const fcm = new FinalClassMatrix();
         const reloFirst = FinalClassMatrix.getClassRelocationM(cm.cFirst);
         const reloSecond = FinalClassMatrix.getClassRelocationM(cm.cSecond);
 

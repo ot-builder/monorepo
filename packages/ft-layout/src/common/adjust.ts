@@ -1,38 +1,30 @@
 import { Data, Rectify } from "@ot-builder/prelude";
 
-export type DeviceTable = ReadonlyArray<number>;
-export type DeviceTableW = Array<number>;
-
 export namespace LayoutAdjustment {
-    export interface VT<X> {
-        value: X;
-        device?: Data.Maybe<DeviceTable>;
-    }
-
     export interface DeviceDataT<X> {
         variation: X;
-        deviceDeltas?: Data.Maybe<DeviceTable>;
+        deviceDeltas?: Data.Maybe<ReadonlyArray<number>>;
     }
 
     export interface T<X> {
         readonly dX: X;
-        readonly dXDevice?: Data.Maybe<DeviceTable>;
+        readonly dXDevice?: Data.Maybe<ReadonlyArray<number>>;
         readonly dY: X;
-        readonly dYDevice?: Data.Maybe<DeviceTable>;
+        readonly dYDevice?: Data.Maybe<ReadonlyArray<number>>;
         readonly dWidth: X;
-        readonly dWidthDevice?: Data.Maybe<DeviceTable>;
+        readonly dWidthDevice?: Data.Maybe<ReadonlyArray<number>>;
         readonly dHeight: X;
-        readonly dHeightDevice?: Data.Maybe<DeviceTable>;
+        readonly dHeightDevice?: Data.Maybe<ReadonlyArray<number>>;
     }
     export interface WT<X> {
         dX: X;
-        dXDevice?: Data.Maybe<DeviceTable>;
+        dXDevice?: Data.Maybe<ReadonlyArray<number>>;
         dY: X;
-        dYDevice?: Data.Maybe<DeviceTable>;
+        dYDevice?: Data.Maybe<ReadonlyArray<number>>;
         dWidth: X;
-        dWidthDevice?: Data.Maybe<DeviceTable>;
+        dWidthDevice?: Data.Maybe<ReadonlyArray<number>>;
         dHeight: X;
-        dHeightDevice?: Data.Maybe<DeviceTable>;
+        dHeightDevice?: Data.Maybe<ReadonlyArray<number>>;
     }
 
     export type PairT<X> = [T<X>, T<X>];

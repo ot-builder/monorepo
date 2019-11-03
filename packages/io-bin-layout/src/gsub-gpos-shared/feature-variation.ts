@@ -7,8 +7,10 @@ import { OtVar } from "@ot-builder/variance";
 
 import { FeatureTable } from "./feature-list";
 
-type Feature = GsubGpos.FeatureT<GsubGpos.Lookup>;
+type Feature = GsubGpos.Feature;
 type Lookup = GsubGpos.Lookup;
+type Condition = GsubGpos.FeatureVariationCondition;
+type FeatureVariation = GsubGpos.FeatureVariation;
 
 const FeatureTableSubstitution = {
     read(view: BinaryView, fOrd: Data.Order<Feature>, lOrd: Data.Order<Lookup>) {
@@ -39,9 +41,6 @@ const FeatureTableSubstitution = {
         }
     }
 };
-
-type Condition = GsubGpos.FeatureVariationConditionT<OtVar.Axis>;
-type FeatureVariation = GsubGpos.FeatureVariationT<OtVar.Axis, GsubGpos.Lookup>;
 
 const ConditionTable = {
     read(view: BinaryView, axes: Data.Order<OtVar.Axis>): Condition {

@@ -59,7 +59,7 @@ export const GsubGposTable = {
     },
     write(
         frag: Frag,
-        table: GsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, GsubGpos.Lookup>,
+        table: GsubGpos.Table,
         lwf: LookupWriterFactory<GsubGpos.Lookup>,
         twc: TableWriteContext
     ) {

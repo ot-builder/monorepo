@@ -5,20 +5,17 @@ import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
 
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 import { CaretValue } from "./lig-caret-value";
-
-type CaretList = Gdef.LigCaretListT<OtGlyph, OtVar.Value>;
 
 export const LigCaretList = {
     ...Read((view, gOrd: Data.Order<OtGlyph>, ivs?: Data.Maybe<ReadTimeIVS>) => {
         const gidCov = view.ptr16().next(GidCoverage);
         const glyphCount = view.uint16();
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
-        const lcl: CaretList = new Map();
+        const lcl: Gdef.LigCaretList = new Map();
         for (const gid of gidCov) {
             const caretCount = view.uint16();
             const carets = view.array(caretCount, CaretValue, ivs);
@@ -26,13 +23,20 @@ export const LigCaretList = {
         }
         return lcl;
     }),
-    ...Write((frag, atl: CaretList, gOrd: Data.Order<OtGlyph>, ivs?: Data.Maybe<WriteTimeIVS>) => {
-        const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
-        frag.ptr16New().push(GidCoverage, gidList);
-        frag.uint16(gidList.length);
-        for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
-            frag.uint16(pl.length);
-            for (const z of pl) frag.push(CaretValue, z, ivs);
+    ...Write(
+        (
+            frag,
+            atl: Gdef.LigCaretList,
+            gOrd: Data.Order<OtGlyph>,
+            ivs?: Data.Maybe<WriteTimeIVS>
+        ) => {
+            const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
+            frag.ptr16New().push(GidCoverage, gidList);
+            frag.uint16(gidList.length);
+            for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
+                frag.uint16(pl.length);
+                for (const z of pl) frag.push(CaretValue, z, ivs);
+            }
         }
-    })
+    )
 };
