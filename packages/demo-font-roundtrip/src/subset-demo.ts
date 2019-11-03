@@ -1,16 +1,6 @@
-import { Config } from "@ot-builder/cfg-log";
-import { OtFont } from "@ot-builder/font";
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import {
-    FontIoConfig,
-    readFont,
-    readSfntOtf,
-    writeFont,
-    writeSfntOtf
-} from "@ot-builder/io-bin-font";
-import { Data, Rectify } from "@ot-builder/prelude";
-import { rectifyFontGlyphs, traceGlyphs } from "@ot-builder/rectify-font";
 import * as fs from "fs";
+import { Ot } from "ot-builder";
+import * as Ob from "ot-builder";
 import * as path from "path";
 
 const file = process.argv[2];
@@ -19,37 +9,37 @@ const fileOut = process.argv[4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const cfg = Config.create<FontIoConfig>({});
+const cfg = Ob.Config.create<Ob.FontIoConfig>({});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 console.log("demo start");
 
 const bufFont = fs.readFileSync(path.resolve(file));
-const font = readFont(readSfntOtf(bufFont), OtListGlyphStoreFactory, cfg);
+const font = Ob.readFont(Ob.readSfntOtf(bufFont), Ot.ListGlyphStoreFactory, cfg);
 console.log("read complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 const rectifier = createSubsetRectifier(font, subsetText);
-rectifyFontGlyphs(rectifier, font, OtListGlyphStoreFactory);
+Ob.rectifyFontGlyphs(rectifier, font, Ot.ListGlyphStoreFactory);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 console.log("write start");
 
-const buf1 = writeSfntOtf(writeFont(font, cfg));
+const buf1 = Ob.writeSfntOtf(Ob.writeFont(font, cfg));
 fs.writeFileSync(path.resolve(fileOut), buf1);
 
 console.log("write complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createSubsetRectifier<GS extends Data.OrderStore<OtGlyph>>(
-    font: OtFont<GS>,
+function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
+    font: Ot.Font<GS>,
     text: string
 ) {
-    const init: Set<OtGlyph> = new Set();
+    const init: Set<Ot.Glyph> = new Set();
     const gOrd = font.glyphs.decideOrder();
     init.add(gOrd.at(0)); // keep NOTDEF
 
@@ -60,9 +50,9 @@ function createSubsetRectifier<GS extends Data.OrderStore<OtGlyph>>(
             if (g) init.add(g);
         }
     }
-    const collected = traceGlyphs(font, init);
-    const rect: Rectify.Glyph.RectifierT<OtGlyph> = {
-        glyph(g: OtGlyph) {
+    const collected = Ob.traceGlyphs(font, init);
+    const rect: Ob.Rectify.Glyph.RectifierT<Ot.Glyph> = {
+        glyph(g: Ot.Glyph) {
             if (collected.has(g)) return g;
             else return undefined;
         }

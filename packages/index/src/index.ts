@@ -1,27 +1,17 @@
+import * as OtbPrimitive from "@ot-builder/primitive";
+
+import * as _Ot from "./ot";
+export import Ot = _Ot;
+
 export { Data, Caster, Rectify, Trace } from "@ot-builder/prelude";
 
 export * from "@ot-builder/cfg-log";
 
-export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ft-metadata";
-
-export { OtGlyph, GeneralGlyph } from "@ot-builder/ft-glyphs";
-export { Cff, Cvt, FpgmPrep } from "@ot-builder/ft-glyphs";
-export { OtGlyphNamingSource, OtGlyphNamer } from "@ot-builder/ft-glyphs";
-export { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-
-export { Cmap } from "@ot-builder/ft-encoding";
-export { Name, Stat, Meta } from "@ot-builder/ft-name";
-export { DicingStore, Gdef, Gsub, Gpos, Base } from "@ot-builder/ft-layout";
-export { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
-
-export { OtFont } from "@ot-builder/font";
 export { FontIoConfig, readFont, writeFont } from "@ot-builder/io-bin-font";
-export { Sfnt } from "@ot-builder/ft-sfnt";
 export { readSfntOtf, writeSfntOtf } from "@ot-builder/io-bin-font";
 export { traceGlyphs, rectifyFontGlyphs, rectifyFontCoords } from "@ot-builder/rectify-font";
 
 // re-export primitive types from Primitive
-import * as OtbPrimitive from "@ot-builder/primitive";
 export type Tag = OtbPrimitive.Tag;
 export type UInt8 = OtbPrimitive.UInt8;
 export type UInt16 = OtbPrimitive.UInt16;

@@ -1,17 +1,6 @@
-import { Config } from "@ot-builder/cfg-log";
-import { OtListGlyphStoreFactory, StdPointAttachRectifier } from "@ot-builder/ft-glyphs";
-import { Fvar } from "@ot-builder/ft-metadata";
-import {
-    FontIoConfig,
-    readFont,
-    readSfntOtf,
-    writeFont,
-    writeSfntOtf
-} from "@ot-builder/io-bin-font";
-import { Rectify } from "@ot-builder/prelude";
-import { rectifyFontCoords } from "@ot-builder/rectify-font";
-import { OtVar } from "@ot-builder/variance";
 import * as fs from "fs";
+import { Ot } from "ot-builder";
+import * as Ob from "ot-builder";
 import * as path from "path";
 
 const file = process.argv[2];
@@ -20,23 +9,23 @@ const fileOut = process.argv[4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const cfg = Config.create<FontIoConfig>({});
+const cfg = Ob.Config.create<Ob.FontIoConfig>({});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 console.log("demo start");
 
 const bufFont = fs.readFileSync(path.resolve(file));
-const font = readFont(readSfntOtf(bufFont), OtListGlyphStoreFactory, cfg);
+const font = Ob.readFont(Ob.readSfntOtf(bufFont), Ot.ListGlyphStoreFactory, cfg);
 console.log("read complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 if (font.fvar) {
-    rectifyFontCoords(
+    Ob.rectifyFontCoords(
         createAxisRectifier(),
         createValueRectifier(font.fvar.axes, instance),
-        new StdPointAttachRectifier(Rectify.PointAttach.Manner.TrustAttachment),
+        new Ot.StdPointAttachRectifier(Ob.Rectify.PointAttach.Manner.TrustAttachment),
         font
     );
     font.fvar = font.avar = null;
@@ -46,20 +35,20 @@ if (font.fvar) {
 
 console.log("write start");
 
-const buf1 = writeSfntOtf(writeFont(font, cfg));
+const buf1 = Ob.writeSfntOtf(Ob.writeFont(font, cfg));
 fs.writeFileSync(path.resolve(fileOut), buf1);
 
 console.log("write complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createAxisRectifier(): Rectify.Axis.RectifierT<Fvar.Axis> {
+function createAxisRectifier(): Ob.Rectify.Axis.RectifierT<Ot.Fvar.Axis> {
     return {
         axis: a => null,
         addedAxes: []
     };
 }
-function normalize(axis: OtVar.Axis, userValue: number) {
+function normalize(axis: Ot.Var.Axis, userValue: number) {
     if (userValue < axis.min) userValue = axis.min;
     if (userValue > axis.max) userValue = axis.max;
     if (userValue < axis.default) {
@@ -70,10 +59,10 @@ function normalize(axis: OtVar.Axis, userValue: number) {
         return 0;
     }
 }
-function parseInstance(axes: Iterable<Fvar.Axis>, strInstance: string) {
+function parseInstance(axes: Iterable<Ot.Fvar.Axis>, strInstance: string) {
     const seg = strInstance.split(/[,;]/g);
     if (!seg.length) return null;
-    const instance: Map<Fvar.Axis, number> = new Map();
+    const instance: Map<Ot.Fvar.Axis, number> = new Map();
     for (const s of seg) {
         const parts = s.split("=").map(s => s.trim());
         if (parts.length !== 2) continue;
@@ -89,10 +78,10 @@ function parseInstance(axes: Iterable<Fvar.Axis>, strInstance: string) {
     if (!instance.size) return null;
     else return instance;
 }
-function createValueRectifier(axes: Iterable<Fvar.Axis>, strInstance: string): OtVar.Rectifier {
+function createValueRectifier(axes: Iterable<Ot.Fvar.Axis>, strInstance: string): Ot.Var.Rectifier {
     const instance = parseInstance(axes, strInstance);
     return {
-        coord: x => OtVar.Ops.evaluate(x, instance),
-        cv: x => OtVar.Ops.evaluate(x, instance)
+        coord: x => Ot.Var.Ops.evaluate(x, instance),
+        cv: x => Ot.Var.Ops.evaluate(x, instance)
     };
 }

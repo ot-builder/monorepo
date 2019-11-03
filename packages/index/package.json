@@ -18,7 +18,8 @@
     "@ot-builder/primitive": "0.1.0",
     "@ot-builder/io-bin-font": "0.1.0",
     "@ot-builder/rectify-font": "0.1.0",
-    "@ot-builder/standard-glyph-namer": "0.1.0"
+    "@ot-builder/standard-glyph-namer": "0.1.0",
+    "@ot-builder/variance": "0.1.0"
   },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",

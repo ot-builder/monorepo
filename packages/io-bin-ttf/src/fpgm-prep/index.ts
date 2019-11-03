@@ -1,12 +1,22 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { FpgmPrep } from "@ot-builder/ft-glyphs";
+import { Fpgm, Prep } from "@ot-builder/ft-glyphs";
 
-export const FpgmPrepIo = {
+export const FpgmIo = {
     read(view: BinaryView) {
         let buf = view.bytes(view.sourceBufferSize);
-        return new FpgmPrep.Table(buf);
+        return new Fpgm.Table(buf);
     },
-    write(frag: Frag, table: FpgmPrep.Table) {
+    write(frag: Frag, table: Fpgm.Table) {
+        frag.bytes(table.instructions);
+    }
+};
+
+export const PrepIo = {
+    read(view: BinaryView) {
+        let buf = view.bytes(view.sourceBufferSize);
+        return new Prep.Table(buf);
+    },
+    write(frag: Frag, table: Prep.Table) {
         frag.bytes(table.instructions);
     }
 };

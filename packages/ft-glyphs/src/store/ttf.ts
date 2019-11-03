@@ -1,10 +1,14 @@
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
-// Shared typedef for "fpgm" and "prep"
-export namespace FpgmPrep {
-    export const TagFpgm = "fpgm";
-    export const TagPrep = "prep";
+export namespace Fpgm {
+    export const Tag = "fpgm";
+    export class Table {
+        constructor(public instructions: Buffer) {}
+    }
+}
+export namespace Prep {
+    export const Tag = "prep";
     export class Table {
         constructor(public instructions: Buffer) {}
     }
@@ -22,7 +26,7 @@ export namespace Cvt {
 }
 
 export interface TtfCoGlyphs {
-    fpgm?: Data.Maybe<FpgmPrep.Table>;
-    prep?: Data.Maybe<FpgmPrep.Table>;
+    fpgm?: Data.Maybe<Fpgm.Table>;
+    prep?: Data.Maybe<Prep.Table>;
     cvt?: Data.Maybe<Cvt.Table>;
 }

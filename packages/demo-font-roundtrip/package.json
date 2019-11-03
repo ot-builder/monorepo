@@ -3,15 +3,7 @@
   "private": true,
   "dependencies": {
     "tslib": "^1.9.3",
-    "@ot-builder/prelude": "0.1.0",
-    "@ot-builder/ft-sfnt": "0.1.0",
-    "@ot-builder/font": "0.1.0",
-    "@ot-builder/io-bin-font": "0.1.0",
-    "@ot-builder/ft-glyphs": "0.1.0",
-    "@ot-builder/ft-metadata": "0.1.0",
-    "@ot-builder/cfg-log": "0.1.0",
-    "@ot-builder/variance": "0.1.0",
-    "@ot-builder/rectify-font": "0.1.0"
+    "ot-builder": "0.1.0"
   },
   "devDependencies": {
     "jest": "^24.8.0",

@@ -1,14 +1,15 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Cvt, FpgmPrep, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
+import { Cvt, Fpgm, Prep, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import {
     CvarIo,
     CvtIo,
-    FpgmPrepIo,
+    FpgmIo,
     Glyf,
     Gvar,
     Loca,
+    PrepIo,
     rectifyGlyphOrder,
     TtfCfg
 } from "@ot-builder/io-bin-ttf";
@@ -36,10 +37,10 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         rectifyGlyphOrder(gOrd);
         // Co-glyphs
         let cog: TtfCoGlyphs = {};
-        const bFpgm = sfnt.tables.get(FpgmPrep.TagFpgm);
-        if (bFpgm) cog.fpgm = new BinaryView(bFpgm).next(FpgmPrepIo);
-        const bPrep = sfnt.tables.get(FpgmPrep.TagPrep);
-        if (bPrep) cog.prep = new BinaryView(bPrep).next(FpgmPrepIo);
+        const bFpgm = sfnt.tables.get(Fpgm.Tag);
+        if (bFpgm) cog.fpgm = new BinaryView(bFpgm).next(FpgmIo);
+        const bPrep = sfnt.tables.get(Prep.Tag);
+        if (bPrep) cog.prep = new BinaryView(bPrep).next(PrepIo);
         const bCvt = sfnt.tables.get(Cvt.Tag);
         if (bCvt) {
             cog.cvt = new BinaryView(bCvt).next(CvtIo);
@@ -58,15 +59,11 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
             const bCvar = Frag.packFrom(CvarIo, coGlyphs.cvt, ctx.axes, afEmpty);
             sfnt.add(Cvt.TagVar, bCvar, afEmpty);
         }
-        if (coGlyphs.cvt) {
-            sfnt.add(Cvt.Tag, Frag.packFrom(CvtIo, coGlyphs.cvt));
-        }
-        if (coGlyphs.fpgm) {
-            sfnt.add(FpgmPrep.TagFpgm, Frag.packFrom(FpgmPrepIo, coGlyphs.fpgm));
-        }
-        if (coGlyphs.prep) {
-            sfnt.add(FpgmPrep.TagPrep, Frag.packFrom(FpgmPrepIo, coGlyphs.prep));
-        }
+
+        if (coGlyphs.cvt) sfnt.add(Cvt.Tag, Frag.packFrom(CvtIo, coGlyphs.cvt));
+        if (coGlyphs.fpgm) sfnt.add(Fpgm.Tag, Frag.packFrom(FpgmIo, coGlyphs.fpgm));
+        if (coGlyphs.prep) sfnt.add(Prep.Tag, Frag.packFrom(PrepIo, coGlyphs.prep));
+
         if (ctx.axes) {
             const afEmpty = new ImpLib.State<boolean>(false);
             const bGvar = Frag.packFrom(Gvar.Write, gOrd, cfg, ctx.axes, afEmpty);
