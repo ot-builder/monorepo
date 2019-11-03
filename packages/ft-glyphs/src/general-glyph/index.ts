@@ -14,6 +14,7 @@ export namespace GeneralGlyph {
             Trace.Glyph.TraceableT<G>,
             Rectify.PointAttach.TerminalT<G, X> {
         visitGeometry(sink: GeometryVisitorT<G, X>): void;
+        duplicate(): GeometryT<G, X>;
     }
 
     // Geometry Visitors
@@ -52,6 +53,7 @@ export namespace GeneralGlyph {
     }
     export interface HintT<X> extends Rectify.Coord.RectifiableT<X> {
         visitHint(visitor: HintVisitorT<X>): void;
+        duplicate(): HintT<X>;
     }
 
     export import Point = GlyphPoint;

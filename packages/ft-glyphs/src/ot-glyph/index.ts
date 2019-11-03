@@ -53,6 +53,18 @@ export class OtGlyph
     ) {
         if (this.geometry) this.geometry.rectifyPointAttachment(rec, c);
     }
+
+    /**
+     * Duplicate glyph (note: it won't duplicate references)
+     */
+    public duplicate() {
+        const g1 = new OtGlyph();
+        g1.horizontal = { ...this.horizontal };
+        g1.vertical = { ...this.vertical };
+        if (this.geometry) g1.geometry = this.geometry.duplicate();
+        if (this.hints) g1.hints = this.hints.duplicate();
+        return g1;
+    }
 }
 export namespace OtGlyph {
     export type Geometry = GeneralGlyph.GeometryT<OtGlyph, OtVar.Value>;
@@ -142,6 +154,10 @@ export namespace OtGlyph {
         public rectifyGlyphs(rectify: OtGlyph.Rectifier) {}
         public traceGlyphs(tracer: OtGlyph.Tracer) {}
         public rectifyPointAttachment() {}
+        public duplicate() {
+            let c1 = this.contours.map(c => c.map(z => ({ ...z })));
+            return new ContourSet(c1);
+        }
     }
     class ContourSetPointPtr implements ImpLib.Access<GeneralGlyph.Point.T<OtVar.Value>> {
         constructor(
@@ -183,6 +199,9 @@ export namespace OtGlyph {
             c: OtGlyph
         ) {
             for (const component of this.references) component.rectifyPointAttachment(rec, c);
+        }
+        public duplicate() {
+            return new TtReferenceList(this.references.map(ref => ref.duplicate()));
         }
     }
 
@@ -276,6 +295,14 @@ export namespace OtGlyph {
             );
             return PointOps.minus(Point.create(outerPoint.x, outerPoint.y), transformedInner);
         }
+        public duplicate() {
+            const ref1 = new TtReference(this.to, { ...this.transform });
+            ref1.roundXyToGrid = this.roundXyToGrid;
+            ref1.useMyMetrics = this.useMyMetrics;
+            ref1.overlapCompound = this.overlapCompound;
+            if (this.pointAttachment) ref1.pointAttachment = { ...this.pointAttachment };
+            return ref1;
+        }
     }
     class TtReferenceGlyphPtr implements ImpLib.Access<OtGlyph> {
         constructor(private ref: TtReference) {}
@@ -312,6 +339,9 @@ export namespace OtGlyph {
             visitor.begin();
             visitor.addInstructions(this.instructions);
             visitor.end();
+        }
+        public duplicate() {
+            return new TtfInstructionHint(Buffer.from(this.instructions));
         }
     }
 
@@ -356,6 +386,14 @@ export namespace OtGlyph {
             for (const hm of this.hintMasks) visitor.addHintMask(hm);
             for (const cm of this.counterMasks) visitor.addCounterMask(cm);
             visitor.end();
+        }
+        public duplicate() {
+            const h1 = new CffHint();
+            h1.hStems = this.hStems.map(s => new CffHintStem(s.start, s.end));
+            h1.vStems = this.vStems.map(s => new CffHintStem(s.start, s.end));
+            h1.hintMasks = this.hintMasks.map(s => new CffHintMask(s.at, s.maskH, s.maskV));
+            h1.counterMasks = this.counterMasks.map(s => new CffHintMask(s.at, s.maskH, s.maskV));
+            return h1;
         }
     }
 
