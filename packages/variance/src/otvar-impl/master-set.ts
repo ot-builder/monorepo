@@ -6,10 +6,7 @@ import { VarianceMasterSet } from "../interface/master";
 
 import { OtVarMaster } from "./master";
 
-type VRStep = [number, number, number, number];
-function byAxisIndex(a: VRStep, b: VRStep) {
-    return a[0] - b[0];
-}
+type VRStep = [number, number, number];
 
 type VRCRecord<A extends VarianceAxis> = {
     readonly master: OtVarMaster<A>;
@@ -19,15 +16,12 @@ type VRCRecord<A extends VarianceAxis> = {
 export class OtVarMasterSet<A extends VarianceAxis>
     implements VarianceMasterSet<A, OtVarMaster<A>> {
     private nAxes: number = 0;
-    private axisMap: Map<A, number> = new Map();
+    private axisMap: WeakMap<A, number> = new WeakMap();
 
     private nMasters: number = 0;
     private masterMap: Data.PathMap<number, VRCRecord<A>> = new ImpLib.PathMapImpl();
 
-    constructor(
-        protected readonly axisFilter?: (a: A) => boolean,
-        protected readonly sortAxes?: boolean
-    ) {}
+    constructor() {}
 
     private putAxis(a: A) {
         const axisIndex = this.axisMap.get(a);
@@ -37,26 +31,30 @@ export class OtVarMasterSet<A extends VarianceAxis>
         return this.nAxes;
     }
     private getStepNumbers(master: OtVarMaster<A>) {
-        const stepNumbers: VRStep[] = [];
+        const steps: (undefined | VRStep)[] = [];
         for (const region of master.regions) {
-            if (this.axisFilter && !this.axisFilter(region.axis)) continue;
-            stepNumbers.push([this.putAxis(region.axis), region.min, region.peak, region.max]);
+            const aid = this.putAxis(region.axis);
+            steps[aid] = [region.min, region.peak, region.max];
         }
-        if (this.sortAxes) stepNumbers.sort(byAxisIndex);
+        const stepNumbers: number[] = [];
+        for (let aid = 0; aid < steps.length; aid++) {
+            const step = steps[aid];
+            if (step) stepNumbers.push(aid, step[0], step[1], step[2]);
+        }
         return stepNumbers;
     }
 
     private getImpl(master: OtVarMaster<A>) {
         const stepNumbers = this.getStepNumbers(master);
         const lens = this.masterMap.createLens();
-        for (const step of stepNumbers) lens.focus(step);
+        lens.focus(stepNumbers);
 
         return lens.get();
     }
     private getOrPutImpl(master: OtVarMaster<A>) {
         const stepNumbers = this.getStepNumbers(master);
         const lens = this.masterMap.createLens();
-        for (const step of stepNumbers) lens.focus(step);
+        lens.focus(stepNumbers);
 
         const existing = lens.get();
         if (existing) return existing;

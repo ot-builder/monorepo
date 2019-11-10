@@ -36,7 +36,7 @@ const Corner = new OtVar.Master([
 ]);
 
 test("Write time IVS : Value management", () => {
-    const mc = new OtVar.MasterSet(undefined, true);
+    const mc = new OtVar.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
@@ -66,7 +66,7 @@ test("Write time IVS : Value management", () => {
 });
 
 test("Write time IVS : Value management with overflow", () => {
-    const mc = new OtVar.MasterSet(undefined, true);
+    const mc = new OtVar.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
@@ -82,7 +82,7 @@ test("Write time IVS : Value management with overflow", () => {
 });
 
 test("Write time IVS : Master-only management (CFF2-ish)", () => {
-    const mc = new OtVar.MasterSet(undefined, true);
+    const mc = new OtVar.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();

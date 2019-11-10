@@ -98,6 +98,7 @@ export namespace OtGlyph {
         }
     }
     export const PointOps = new GeneralGlyph.Point.OpT(OtVar.Ops, Point);
+    export type Contour = GeneralGlyph.Contour.T<OtVar.Value>;
 
     export type PointIDRef = {
         readonly pointIndex: number;

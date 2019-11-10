@@ -13,7 +13,6 @@ import {
     rectifyGlyphOrder,
     TtfCfg
 } from "@ot-builder/io-bin-ttf";
-import { Data } from "@ot-builder/prelude";
 
 import { ReadGlyphStoreImpl } from "../general/read";
 import { WriteGlyphStoreImpl } from "../general/write";

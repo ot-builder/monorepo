@@ -45,18 +45,9 @@ test("Variance Value test", () => {
     vv.setDelta(Bold, 50);
     expect(vv.getDelta(Bold)).toBe(50);
     expect(vv.getDelta(Bold1)).toBe(50);
-    expect(vv.getDelta(Bold2)).toBe(0);
+    expect(vv.getDelta(Bold2)).toBe(50); // "Bold" and "Bold2" are identical
     vv.addDelta(Wide, 70);
     expect(vv.getDelta(Wide)).toBe(70);
     expect(vv.evaluate(Bold.getPeak())).toBe(150);
     expect(vv.evaluate(Corner.getPeak())).toBe(220);
-});
-
-test("Axes sorting", () => {
-    const vrc = new OtVarMasterSet(undefined, true);
-    const idBold = vrc.getOrPush(Bold);
-    const idBold1 = vrc.getOrPush(Bold1);
-    const idBold2 = vrc.getOrPush(Bold2);
-    expect(idBold).toBe(idBold1);
-    expect(idBold).toBe(idBold2);
 });

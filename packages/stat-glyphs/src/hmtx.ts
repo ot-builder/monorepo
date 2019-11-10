@@ -12,6 +12,7 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
     public minLeftSideBearing = 0x7fff;
     public minRightSideBearing = 0x7fff;
     public xMaxExtent = 0;
+    public xMaxAdvance = 0;
 
     public hOrgStartAtZero = true;
 
@@ -39,6 +40,7 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
         const stAdv = ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(advance));
         const stRsb = stHOrg + stAdv - ImpLib.Arith.Round.Coord(extent.xMax);
 
+        if (stAdv > this.xMaxAdvance) this.xMaxAdvance = stAdv;
         if (stLsb < this.minLeftSideBearing) this.minLeftSideBearing = stLsb;
         if (stRsb < this.minRightSideBearing) this.minRightSideBearing = stRsb;
         if (stLsb + extent.xMax - extent.xMin > this.xMaxExtent) {
@@ -65,6 +67,7 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
         this.hhea.minStartSideBearing = this.minLeftSideBearing;
         this.hhea.minEndSideBearing = this.minRightSideBearing;
         this.hhea.maxExtent = this.xMaxExtent;
+        this.hhea.advanceMax = this.xMaxAdvance;
         statLongMetricCount(this.hhea, this.hmtx);
         this.head.flags &= ~Head.Flags.LeftSidebearingAtX0;
         this.head.flags |= this.hOrgStartAtZero ? Head.Flags.LeftSidebearingAtX0 : 0;

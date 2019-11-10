@@ -15,6 +15,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
     public minTopSideBearing = 0x7fff;
     public minBottomSideBearing = 0x7fff;
     public yMaxExtent = 0;
+    public yMaxAdvance = 0;
 
     constructor(
         private vhea: MetricHead.Table,
@@ -38,6 +39,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
         const stAdv = ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(advance));
         const stBsb = extent.yMin - (stVOrg - stAdv);
 
+        if (stAdv > this.yMaxAdvance) this.yMaxAdvance = stAdv;
         if (stTsb < this.minTopSideBearing) this.minTopSideBearing = stTsb;
         if (stBsb < this.minBottomSideBearing) this.minBottomSideBearing = stBsb;
         if (stTsb + extent.yMax - extent.yMin > this.yMaxExtent) {
@@ -90,6 +92,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
         this.vhea.minStartSideBearing = this.minTopSideBearing;
         this.vhea.minEndSideBearing = this.minBottomSideBearing;
         this.vhea.maxExtent = this.yMaxExtent;
+        this.vhea.advanceMax = this.yMaxAdvance;
         statLongMetricCount(this.vhea, this.vmtx);
         this.statVorgFreq();
     }

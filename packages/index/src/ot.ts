@@ -1,3 +1,6 @@
+import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Data } from "@ot-builder/prelude";
+
 export { OtVar as Var } from "@ot-builder/variance";
 
 export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ft-metadata";
@@ -10,6 +13,9 @@ export {
 } from "@ot-builder/ft-glyphs";
 export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 export { StdPointAttachRectifier } from "@ot-builder/ft-glyphs";
+export type ListGlyphStore = Data.ListStore<OtGlyph>;
+export type GlyphStore = Data.OrderStore<OtGlyph>;
+export type GlyphOrder = Data.Order<OtGlyph>;
 
 export { Cmap } from "@ot-builder/ft-encoding";
 export { Name, Stat, Meta } from "@ot-builder/ft-name";
