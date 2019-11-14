@@ -70,7 +70,7 @@ test("CFF Encoding: Draw call conversion", () => {
 });
 
 test("CFF Encoding: Draw call conversion should not overflow", () => {
-    const cr = OtVar.Ops.Creator(new OtVar.MasterSet());
+    const cr = OtVar.Ops.Creator();
     const ctx = new CffWriteContext(2, 1000);
     let a: OtVar.Value[] = [];
     for (let x = 0; x < 128; x++) {

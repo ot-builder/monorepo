@@ -38,16 +38,23 @@ const Corner = new OtVarMaster([
 ]);
 
 test("Variance Value test", () => {
-    const vv = new OtVarValueC<VarianceAxis, OtVarMaster<VarianceAxis>>(100, new OtVarMasterSet());
+    const ms = new OtVarMasterSet();
+
+    const vv = OtVarValueC.Create(ms, 100, []);
     expect(Bold).not.toBe(Bold1);
     expect(vv.origin).toBe(100);
     expect(vv.getDelta(Bold)).toBe(0);
-    vv.setDelta(Bold, 50);
-    expect(vv.getDelta(Bold)).toBe(50);
-    expect(vv.getDelta(Bold1)).toBe(50);
-    expect(vv.getDelta(Bold2)).toBe(50); // "Bold" and "Bold2" are identical
-    vv.addDelta(Wide, 70);
-    expect(vv.getDelta(Wide)).toBe(70);
-    expect(vv.evaluate(Bold.getPeak())).toBe(150);
-    expect(vv.evaluate(Corner.getPeak())).toBe(220);
+
+    const vv1 = OtVarValueC.Create(ms, 100, [[Bold, 50]]);
+    expect(vv1.getDelta(Bold)).toBe(50);
+    expect(vv1.getDelta(Bold1)).toBe(50);
+    expect(vv1.getDelta(Bold2)).toBe(50); // "Bold" and "Bold2" are identical
+
+    const vv2 = OtVarValueC.Create(ms, 100, [
+        [Bold, 50],
+        [Wide, 70]
+    ]);
+    expect(vv2.getDelta(Wide)).toBe(70);
+    expect(vv2.evaluate(Bold.getPeak())).toBe(150);
+    expect(vv2.evaluate(Corner.getPeak())).toBe(220);
 });

@@ -31,11 +31,7 @@ class OtVarCreatorImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
     }
     public create(origin: number = 0, variance: Iterable<[M, number]> = []) {
         if (!variance) return origin;
-        const v = new OtVarValueC<A, M>(origin, this.masterSet);
-        for (const [m, delta] of variance) {
-            if (delta) v.addDelta(m, delta);
-        }
-        return v;
+        return OtVarValueC.Create(this.masterSet, origin, variance);
     }
     public make(...xs: (OtVarValue<A, M> | [M, number])[]) {
         let v: OtVarValue<A, M> = this.ops.neutral;
@@ -53,21 +49,17 @@ class OrVarOpsImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
 
     protected scaleAdd(sa: number, a: OtVarValue<A, M>, sb: number, b: OtVarValue<A, M>) {
         if (typeof a === "number") {
-            if (typeof b === "number") return sa * a + sb * b;
-            else {
-                const b1 = b.scale(sb);
-                b1.origin = b1.origin + sa * a;
-                return b1;
+            if (typeof b === "number") {
+                return sa * a + sb * b;
+            } else {
+                return b.scaleAddNumber(sb, sa * a);
             }
         } else {
-            const a1 = a.scale(sa);
             if (typeof b === "number") {
-                a1.origin = a1.origin + sb * b;
+                return a.scaleAddNumber(sa, sb * b);
             } else {
-                a1.origin = a1.origin + sb * b.origin;
-                a1.inPlaceAddScale(sb, b);
+                return a.scaleAddScaleVariable(sa, sb, b);
             }
-            return a1;
         }
     }
 

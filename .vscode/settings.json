@@ -167,6 +167,5 @@
         "**/.cache": true
     },
     "typescript.tsdk": "./node_modules/typescript/lib",
-    "prettier.tslintIntegration": true,
     "typescript.preferences.importModuleSpecifier": "non-relative"
 }

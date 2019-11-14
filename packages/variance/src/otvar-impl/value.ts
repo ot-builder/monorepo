@@ -8,7 +8,10 @@ export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
     /** delta values */
     private readonly deltaValues: number[] = [];
 
-    constructor(public origin: number, private readonly masterSet: VarianceMasterSet<A, M>) {}
+    private constructor(
+        private readonly masterSet: VarianceMasterSet<A, M>,
+        public readonly origin: number
+    ) {}
 
     private getVarianceByIndex(index: number) {
         if (index < this.deltaValues.length) {
@@ -20,17 +23,20 @@ export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
     private setVarianceByIndex(index: number, value: number) {
         this.deltaValues[index] = value;
     }
+    private addVarianceByIndex(index: number, value: number) {
+        this.deltaValues[index] = value + this.getVarianceByIndex(index);
+    }
 
     public getDelta(master: M) {
         const rec = this.masterSet.getOrPush(master);
         if (!rec) return 0;
         else return this.getVarianceByIndex(rec.index);
     }
-    public setDelta(master: M, value: number) {
+    private setDelta(master: M, value: number) {
         const rec = this.masterSet.getOrPush(master);
         if (rec) this.setVarianceByIndex(rec.index, value);
     }
-    public addDelta(master: M, value: number) {
+    private addDelta(master: M, value: number) {
         const rec = this.masterSet.getOrPush(master);
         if (rec) this.setVarianceByIndex(rec.index, value + this.getVarianceByIndex(rec.index));
     }
@@ -49,24 +55,35 @@ export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
         return v;
     }
 
-    public scale(scale: number) {
-        const v1 = new OtVarValueC<A, M>(this.origin * scale, this.masterSet);
-        for (const [master, index] of this.masterSet) {
-            v1.setDelta(master, this.getVarianceByIndex(index) * scale);
+    public scaleAddNumber(thisScale: number, other: number) {
+        const v1 = new OtVarValueC<A, M>(this.masterSet, this.origin * thisScale + other);
+        for (let mid = 0; mid < this.deltaValues.length; mid++) {
+            v1.deltaValues[mid] = thisScale * (this.deltaValues[mid] || 0);
         }
         return v1;
     }
-    public inPlaceAddScale(scale: number, other: OtVarValueC<A, M>) {
+    public scaleAddScaleVariable(thisScale: number, otherScale: number, other: OtVarValueC<A, M>) {
+        const v1 = new OtVarValueC<A, M>(
+            this.masterSet,
+            thisScale * this.origin + otherScale * other.origin
+        );
+
         if (other.masterSet === this.masterSet) {
+            for (let mid = 0; mid < this.deltaValues.length; mid++) {
+                v1.addVarianceByIndex(mid, thisScale * this.getVarianceByIndex(mid));
+            }
             for (let mid = 0; mid < other.deltaValues.length; mid++) {
-                this.deltaValues[mid] =
-                    (this.deltaValues[mid] || 0) + scale * (other.deltaValues[mid] || 0);
+                v1.addVarianceByIndex(mid, otherScale * other.getVarianceByIndex(mid));
             }
         } else {
+            for (const [master, variance] of this.variance()) {
+                v1.addDelta(master, thisScale * variance);
+            }
             for (const [master, variance] of other.variance()) {
-                this.addDelta(master, scale * variance);
+                v1.addDelta(master, otherScale * variance);
             }
         }
+        return v1;
     }
 
     public toString() {
@@ -79,5 +96,15 @@ export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
 
     public [util.inspect.custom]() {
         return "{" + this.toString() + "}";
+    }
+
+    public static Create<A extends VarianceAxis, M extends VarianceMaster<A>>(
+        masterSet: VarianceMasterSet<A, M>,
+        origin: number,
+        variance: Iterable<[M, number]>
+    ) {
+        const v = new OtVarValueC(masterSet, origin);
+        for (const [master, delta] of variance) v.setDelta(master, delta);
+        return v;
     }
 }
