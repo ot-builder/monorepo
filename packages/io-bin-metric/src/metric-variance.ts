@@ -138,9 +138,9 @@ export const MetricVarianceIo = {
             if (!axes.length) throw Errors.Variation.NoAxes();
             Assert.NoGap("HVAR/VVAR measures", mv.measures);
 
-            const ms = new OtVar.MasterSet();
+            const ms = OtVar.Create.MasterSet();
             const ivs = WriteTimeIVS.create(ms);
-            const mFallback = new OtVar.Master([
+            const mFallback = OtVar.Create.Master([
                 {
                     axis: axes.at(0),
                     min: 0,

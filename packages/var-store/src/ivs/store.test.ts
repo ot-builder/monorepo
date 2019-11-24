@@ -14,29 +14,29 @@ const Wdth: OtVar.Axis = {
     default: 100,
     max: 200
 };
-const Bold = new OtVar.Master([
+const Bold = OtVar.Create.Master([
     { axis: Wght, min: 0, peak: 1, max: 1 },
     { axis: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Bold1 = new OtVar.Master([
+const Bold1 = OtVar.Create.Master([
     { axis: Wght, min: 0, peak: 1, max: 1 },
     { axis: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Bold2 = new OtVar.Master([
+const Bold2 = OtVar.Create.Master([
     { axis: Wdth, min: -1, peak: 0, max: 1 },
     { axis: Wght, min: 0, peak: 1, max: 1 }
 ]);
-const Wide = new OtVar.Master([
+const Wide = OtVar.Create.Master([
     { axis: Wght, min: -1, peak: 0, max: 1 },
     { axis: Wdth, min: 0, peak: 1, max: 1 }
 ]);
-const Corner = new OtVar.Master([
+const Corner = OtVar.Create.Master([
     { axis: Wght, min: 0, peak: 1, max: 1 },
     { axis: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("Write time IVS : Value management", () => {
-    const mc = new OtVar.MasterSet();
+    const mc = OtVar.Create.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
@@ -66,7 +66,7 @@ test("Write time IVS : Value management", () => {
 });
 
 test("Write time IVS : Value management with overflow", () => {
-    const mc = new OtVar.MasterSet();
+    const mc = OtVar.Create.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
 
@@ -82,7 +82,7 @@ test("Write time IVS : Value management with overflow", () => {
 });
 
 test("Write time IVS : Master-only management (CFF2-ish)", () => {
-    const mc = new OtVar.MasterSet();
+    const mc = OtVar.Create.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();

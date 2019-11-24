@@ -37,8 +37,8 @@ test("Reading : TTF, variable", () => {
         {},
         Data.Order.fromList("Axes", fvar!.axes)
     );
-    const thin = new OtVar.Master([{ axis: fvar!.axes[0], min: -1, peak: -1, max: 0 }]);
-    const bold = new OtVar.Master([{ axis: fvar!.axes[0], min: 0, peak: +1, max: +1 }]);
+    const thin = OtVar.Create.Master([{ axis: fvar!.axes[0], min: -1, peak: -1, max: 0 }]);
+    const bold = OtVar.Create.Master([{ axis: fvar!.axes[0], min: 0, peak: +1, max: +1 }]);
     const cr = OtVar.Ops.Creator();
     rectifyGlyphOrder(gOrd);
     {

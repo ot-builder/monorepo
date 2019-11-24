@@ -52,7 +52,7 @@ export class MasterToTupleConverter {
                 start.push(F2D14.from(md.min));
                 peak.push(F2D14.from(md.peak));
                 end.push(F2D14.from(md.max));
-                isIntermediate = isIntermediate || !OtVar.MasterDim.isSimple(md);
+                isIntermediate = isIntermediate || !this.masterDimIsSimple(md);
             } else {
                 start.push(0);
                 peak.push(0);
@@ -65,6 +65,11 @@ export class MasterToTupleConverter {
         } else {
             return { peak };
         }
+    }
+    private masterDimIsSimple(dim: OtVar.MasterDim) {
+        if (dim.peak > 0) return dim.min === 0 && dim.max === dim.peak;
+        else if (dim.peak < 0) return dim.min === dim.peak && dim.max === 0;
+        else return true;
     }
     public getTuples(master: OtVar.Master) {
         const existing = this.cache.get(master);

@@ -25,8 +25,8 @@ test("CFF metric variation test, WidthAndVWidthVF.otf", () => {
     const { glyphs, fvar } = readCff("WidthAndVWidthVF.otf");
     const gid1 = glyphs.items[1];
     const [wdth, vwid] = fvar!.axes;
-    const narrow = OtVar.Master.Create({ axis: wdth, min: -1, peak: -1, max: 0 });
-    const short = OtVar.Master.Create({ axis: vwid, min: -1, peak: -1, max: 0 });
+    const narrow = OtVar.Create.Master([{ axis: wdth, min: -1, peak: -1, max: 0 }]);
+    const short = OtVar.Create.Master([{ axis: vwid, min: -1, peak: -1, max: 0 }]);
     const cr = OtVar.Ops.Creator();
     expect(OtVar.Ops.equal(gid1.vertical.start, cr.make(1100, [short, -440]))).toBe(true);
     expect(OtVar.Ops.equal(gid1.vertical.end, cr.make(-150, [short, +60]))).toBe(true);

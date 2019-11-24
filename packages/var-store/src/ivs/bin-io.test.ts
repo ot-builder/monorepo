@@ -16,21 +16,21 @@ const Wdth: OtVar.Axis = {
     default: 100,
     max: 200
 };
-const Bold = new OtVar.Master([
+const Bold = OtVar.Create.Master([
     { axis: Wght, min: 0, peak: 1, max: 1 },
     { axis: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Wide = new OtVar.Master([
+const Wide = OtVar.Create.Master([
     { axis: Wght, min: -1, peak: 0, max: 1 },
     { axis: Wdth, min: 0, peak: 1, max: 1 }
 ]);
-const Corner = new OtVar.Master([
+const Corner = OtVar.Create.Master([
     { axis: Wght, min: 0, peak: 1, max: 1 },
     { axis: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("IVS roundtrip -- Traditional", () => {
-    const mc = new OtVar.MasterSet();
+    const mc = OtVar.Create.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]));
@@ -52,7 +52,7 @@ test("IVS roundtrip -- Traditional", () => {
 });
 
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
-    const mc = new OtVar.MasterSet();
+    const mc = OtVar.Create.MasterSet();
     const cr = OtVar.Ops.Creator(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();

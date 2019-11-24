@@ -1,7 +1,7 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
-import { GeneralVar } from "@ot-builder/variance";
+import { GeneralVar, GeneralVarInternalImpl } from "@ot-builder/variance";
 
 export class ReadTimeIVD<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
     constructor(operator: GeneralVar.Ops<A, M, X>, masterSet: GeneralVar.MasterSet<A, M>) {
@@ -120,16 +120,18 @@ export class WriteTimeIVCollector<
     A extends GeneralVar.Axis,
     M extends GeneralVar.Master<A>,
     X
-> extends GeneralVar.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
+> extends GeneralVarInternalImpl.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
     constructor(
         op: GeneralVar.Ops<A, M, X>,
         masterCollector: GeneralVar.MasterSet<A, M>,
         private pmBlossom: Data.PathMap<number, WriteTimeIVDBlossom>,
         private acBlossom: WriteTimeIVDBlossomAllocator
     ) {
-        super(op, masterCollector, {
-            create: (col, origin, deltaMA) => new DelayDeltaValue(col, origin, deltaMA)
-        });
+        super(
+            op,
+            masterCollector,
+            (col, origin, deltaMA) => new DelayDeltaValue(col, origin, deltaMA)
+        );
     }
     public getIVD() {
         this.settleDown();

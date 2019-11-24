@@ -86,22 +86,28 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
     const endTuple =
         _tupleIndex & TvhFlags.INTERMEDIATE_REGION ? view.array(vsr.axes.length, F2D14) : null;
 
-    const spans: OtVar.MasterDim[] = [];
+    const dims: OtVar.MasterDim[] = [];
     for (let aid = 0; aid < vsr.axes.length; aid++) {
         const axis = vsr.axes.at(aid);
-        const p = peakTuple[aid];
+        const peak = peakTuple[aid];
         const mDim: OtVar.MasterDim =
             startTuple && endTuple
-                ? { axis, min: startTuple[aid], peak: p, max: endTuple[aid] }
-                : OtVar.MasterDim.fromPeak(axis, p);
-        spans.push(mDim);
+                ? { axis, min: startTuple[aid], peak: peak, max: endTuple[aid] }
+                : createMasterDimFromPeak(axis, peak);
+        dims.push(mDim);
     }
     return {
-        master: new OtVar.Master(spans),
+        master: OtVar.Create.Master(dims),
         variationDataSize,
         hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS)
     };
 });
+
+function createMasterDimFromPeak(axis: OtVar.Axis, peak: number): OtVar.MasterDim {
+    if (peak > 0) return { axis, min: 0, peak, max: peak };
+    else if (peak < 0) return { axis, min: peak, peak, max: 0 };
+    else return { axis, min: 0, peak: 0, max: 0 };
+}
 
 function Iota(a: number, b: number) {
     let as: number[] = [];

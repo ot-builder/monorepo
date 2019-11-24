@@ -88,10 +88,10 @@ export function SetupVariation() {
     ];
     const [wght, wdth] = axes;
     const masters = {
-        bold: new OtVar.Master([{ axis: wght, min: 0, peak: 1, max: 1 }]),
-        wide: new OtVar.Master([{ axis: wdth, min: 0, peak: 1, max: 1 }])
+        bold: OtVar.Create.Master([{ axis: wght, min: 0, peak: 1, max: 1 }]),
+        wide: OtVar.Create.Master([{ axis: wdth, min: 0, peak: 1, max: 1 }])
     };
-    const ms = new OtVar.MasterSet();
+    const ms = OtVar.Create.MasterSet();
     const ivs = WriteTimeIVS.create(ms);
     const cr = OtVar.Ops.Creator(ms);
     const create = (...xs: (number | [OtVar.Master, number])[]) => cr.make(...xs);

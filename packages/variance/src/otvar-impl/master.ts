@@ -103,8 +103,4 @@ export class OtVarMaster<A extends VarianceAxis> implements VarianceMaster<A> {
         }
         return `{${s}}`;
     }
-
-    public static Create<A extends VarianceAxis>(...init: OtVarMasterDim<A>[]) {
-        return new OtVarMaster(init);
-    }
 }

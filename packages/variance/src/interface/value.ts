@@ -25,5 +25,4 @@ export interface VariableCreator<A extends VarianceAxis, M extends VarianceMaste
     readonly masterSet: VarianceMasterSet<A, M>;
     create(origin?: number, variance?: Iterable<[M, number]>): X;
     make(...xs: (X | [M, number])[]): X;
-    withMasterSet(value: X): X;
 }

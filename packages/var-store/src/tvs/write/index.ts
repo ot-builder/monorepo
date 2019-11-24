@@ -27,7 +27,7 @@ export interface TupleVariationBuildSource {
 
 export const TupleVariationWriteOpt = WriteOpt(
     (source: TupleVariationBuildSource, ctx: TupleVariationBuildContext) => {
-        const col = new TvsCollector(new OtVar.MasterSet());
+        const col = new TvsCollector(OtVar.Create.MasterSet());
         const data = collectDeltaData(col, source.dimensions, source.data);
         const tuc = new MasterToTupleConverter(ctx.axes, !!ctx.forceIntermediate);
 

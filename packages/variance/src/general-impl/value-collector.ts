@@ -2,14 +2,12 @@ import { VarianceAxis } from "../interface/axis";
 import { VarianceMaster, VarianceMasterSet } from "../interface/master";
 import { VariableOps } from "../interface/value";
 
-export interface DelayVariableValueFactory<
+export type GeneralCollectedValueFactory<
     A extends VarianceAxis,
     M extends VarianceMaster<A>,
     X,
     D
-> {
-    create(col: GeneralVariableValueCollector<A, M, X, D>, origin: number, deltaMA: number[]): D;
-}
+> = (col: GeneralVariableValueCollector<A, M, X, D>, origin: number, deltaMA: number[]) => D;
 
 export class GeneralVariableValueCollector<
     A extends VarianceAxis,
@@ -20,7 +18,7 @@ export class GeneralVariableValueCollector<
     constructor(
         private op: VariableOps<A, M, X>,
         private masterCollector: VarianceMasterSet<A, M>,
-        private dvf: DelayVariableValueFactory<A, M, X, D>
+        private dvf: GeneralCollectedValueFactory<A, M, X, D>
     ) {}
 
     private masterList: M[] = [];
@@ -47,7 +45,7 @@ export class GeneralVariableValueCollector<
             if (index === undefined) continue;
             deltaMA[index] = (deltaMA[index] || 0) + delta;
         }
-        return this.dvf.create(this, origin, deltaMA);
+        return this.dvf(this, origin, deltaMA);
     }
 
     public settleDown() {

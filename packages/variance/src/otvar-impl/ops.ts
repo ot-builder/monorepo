@@ -25,10 +25,6 @@ class OtVarCreatorImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
         public ops: VectorSpace<OtVarValue<A, M>, number>
     ) {}
 
-    public withMasterSet(x: OtVarValue<A, M>) {
-        if (typeof x === "number") return x;
-        else return this.create(x.origin, x.variance());
-    }
     public create(origin: number = 0, variance: Iterable<[M, number]> = []) {
         if (!variance) return origin;
         return OtVarValueC.Create(this.masterSet, origin, variance);

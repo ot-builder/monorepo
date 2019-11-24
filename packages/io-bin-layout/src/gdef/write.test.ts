@@ -23,7 +23,7 @@ describe("GDEF write", () => {
         const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
         const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(GdefTableIo, gOrd, axes);
 
-        const ivsW = WriteTimeIVS.create(new OtVar.MasterSet());
+        const ivsW = WriteTimeIVS.create(OtVar.Create.MasterSet());
         const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, axes));
 
         const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, axes);

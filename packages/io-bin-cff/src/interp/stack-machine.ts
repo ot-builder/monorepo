@@ -6,7 +6,7 @@ import { OtVar } from "@ot-builder/variance";
 export class CffStackMachine {
     public ivd: ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
-    public vms = new OtVar.MasterSet();
+    public vms = OtVar.Create.MasterSet();
     private varCreator = OtVar.Ops.Creator(this.vms);
 
     constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
