@@ -57,7 +57,7 @@ export namespace OtVar {
         export function MasterSet(): MasterSet {
             return new OtVarMasterSet<Axis>();
         }
-        export function ValueCollector<D>(dvf: CollectedValueFactory<D>) {
+        export function ValueCollector<D>(dvf: CollectedValueFactory<D>): ValueCollector<D> {
             return new GeneralVariableValueCollector(Ops, MasterSet(), dvf);
         }
     }
