@@ -5,27 +5,29 @@ import { GeneralGlyph } from "../general-glyph/index";
 
 export namespace OtGlyphStat {
     // Bounding box
-    export interface BoundingBox {
-        xMin: number;
-        xMax: number;
-        yMin: number;
-        yMax: number;
-    }
-    export namespace BoundingBox {
-        export function Blank(): BoundingBox {
-            return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
+
+    export class BoundingBox {
+        constructor(
+            public xMin: number,
+            public xMax: number,
+            public yMin: number,
+            public yMax: number
+        ) {}
+        public static Blank(): BoundingBox {
+            return new BoundingBox(0, 0, 0, 0);
         }
     }
+
     export class BoundingBoxBuilder {
         private box: BoundingBox | null = null;
         public addPoint(x: number, y: number) {
             if (!this.box) {
-                this.box = {
-                    xMin: Math.floor(x),
-                    xMax: Math.ceil(x),
-                    yMin: Math.floor(y),
-                    yMax: Math.ceil(y)
-                };
+                this.box = new BoundingBox(
+                    Math.floor(x),
+                    Math.ceil(x),
+                    Math.floor(y),
+                    Math.ceil(y)
+                );
             } else {
                 this.box.xMin = Math.min(this.box.xMin, Math.floor(x));
                 this.box.xMax = Math.max(this.box.xMax, Math.ceil(x));
