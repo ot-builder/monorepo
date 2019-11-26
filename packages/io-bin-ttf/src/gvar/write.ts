@@ -1,9 +1,9 @@
-import { Frag, Write } from "@ot-builder/bin-util";
+import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { F2D14 } from "@ot-builder/primitive";
+import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
     TupleVariationBuildContext,
@@ -13,6 +13,8 @@ import {
 import { OtVar } from "@ot-builder/variance";
 
 import { TtfCfg } from "../cfg";
+
+import { GvarFlag, GvarOffsetAlign } from "./shared";
 
 export const GvarTableWrite = Write(
     (
@@ -40,10 +42,10 @@ export const GvarTableWrite = Write(
             );
             if (tvd) {
                 hasMeaningfulData = true;
-                const tvdBuffer = Frag.pack(tvd);
+                const tvdBuffer = alignBufferSize(Frag.pack(tvd), GvarOffsetAlign);
                 gvarOffsets.push(gvarBody.size);
                 gvarBody.bytes(tvdBuffer);
-                if (tvdBuffer.length % 2) gvarBody.uint8(0);
+                gvarBody.uint32(0);
             } else {
                 gvarOffsets.push(gvarBody.size);
             }
@@ -68,14 +70,14 @@ export const GvarTableWrite = Write(
             .ptr32(bSharedTuples)
             .uint16(gOrd.length);
 
-        if (gvarBody.size < 0x10000 * 2) {
+        if (gvarBody.size < UInt16.max * 2) {
             frag.uint16(0);
             frag.ptr32(gvarBody);
             for (let gid = 0; gid <= gOrd.length; gid++) {
                 frag.uint16(gvarOffsets[gid] / 2);
             }
         } else {
-            frag.uint16(1);
+            frag.uint16(GvarFlag.LongOffsets);
             frag.ptr32(gvarBody);
             for (let gid = 0; gid <= gOrd.length; gid++) {
                 frag.uint32(gvarOffsets[gid]);

@@ -1,4 +1,4 @@
-import { BufferWriter } from "@ot-builder/bin-util";
+import { alignBufferSize, BufferWriter } from "@ot-builder/bin-util";
 import { Tag, UInt32 } from "@ot-builder/primitive";
 import * as crypto from "crypto";
 
@@ -18,10 +18,7 @@ export function collectTableData(tag: Tag, buf: Buffer, blobStore: BlobStore): T
     // Pad buffer with 0
 
     const originalLength = buf.byteLength;
-    const bw = new BufferWriter();
-    bw.bytes(buf);
-    while (bw.length % 4) bw.uint8(0);
-    const b = bw.toBuffer();
+    const b = alignBufferSize(buf, 4);
 
     const hasher = crypto.createHash("sha256");
     hasher.update(b);
@@ -31,7 +28,7 @@ export function collectTableData(tag: Tag, buf: Buffer, blobStore: BlobStore): T
     if (existing) {
         return { tag, blob: existing, length: originalLength };
     } else {
-        const blob = { offset: 0, content: bw.toBuffer(), checksum: calculateChecksum(b) };
+        const blob = { offset: 0, content: b, checksum: calculateChecksum(b) };
         blobStore.set(hash, blob);
         return { tag, blob, length: originalLength };
     }

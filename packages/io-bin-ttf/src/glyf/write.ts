@@ -1,4 +1,4 @@
-import { Frag, Write } from "@ot-builder/bin-util";
+import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
@@ -7,7 +7,7 @@ import { OtVar } from "@ot-builder/variance";
 
 import { CompositeGlyph, GlyphClassifier, SimpleGlyph } from "./classifier";
 import { LocaTable } from "./loca";
-import { ComponentFlag, SimpleGlyphFlag } from "./shared";
+import { ComponentFlag, GlyfOffsetAlign, SimpleGlyphFlag } from "./shared";
 
 class FlagShrinker {
     public flags: number[] = [];
@@ -213,11 +213,11 @@ const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: Data.Ord
 
 export const GlyfTableWrite = Write(
     (frag, gOrd: Data.Order<OtGlyph>, outLoca: LocaTable, stat: OtGlyph.Stat.Sink) => {
-        let offset = 0;
+        const sink = new StdGlyfDataSink(outLoca, frag);
+        sink.begin();
         stat.setNumGlyphs(gOrd.length);
         const classifier = new GlyphClassifier(gOrd);
         for (const glyph of gOrd) {
-            outLoca.glyphOffsets.push(offset);
             const cg = classifier.classify(glyph);
             cg.stat(stat);
             let fGlyph = new Frag();
@@ -226,12 +226,24 @@ export const GlyfTableWrite = Write(
             } else if (cg instanceof CompositeGlyph) {
                 fGlyph.push(CompositeGlyphData, cg, gOrd);
             }
-            const bGlyph = Frag.pack(fGlyph);
-            frag.bytes(bGlyph);
-            offset += bGlyph.byteLength;
-            while (offset % 4) frag.uint8(0), offset++; // Align to 4 bytes
+            sink.add(fGlyph);
         }
         stat.settle();
-        outLoca.glyphOffsets.push(offset);
+        sink.end();
     }
 );
+
+class StdGlyfDataSink {
+    constructor(private readonly loca: LocaTable, private readonly frag: Frag) {}
+    private offset = 0;
+    public begin() {}
+    public add(fGlyph: Frag) {
+        this.loca.glyphOffsets.push(this.offset);
+        const bGlyph = alignBufferSize(Frag.pack(fGlyph), GlyfOffsetAlign);
+        this.frag.bytes(bGlyph);
+        this.offset += bGlyph.byteLength;
+    }
+    public end() {
+        this.loca.glyphOffsets.push(this.offset);
+    }
+}

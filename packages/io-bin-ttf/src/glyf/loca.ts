@@ -1,5 +1,8 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Head, Maxp } from "@ot-builder/ft-metadata";
+import { UInt16 } from "@ot-builder/primitive";
+
+import { LocaShortOffsetScaling } from "./shared";
 
 export const LocaTag = "loca";
 export interface LocaTable {
@@ -25,12 +28,12 @@ export const LocaTableIo = {
     write(frag: Frag, loca: LocaTable, head: Head.Table) {
         let canUseFormat0 = true;
         for (const offset of loca.glyphOffsets) {
-            if (offset > 0xffff * 2 || offset % 2) canUseFormat0 = false;
+            if (offset >= UInt16.max * 2 || offset % LocaShortOffsetScaling) canUseFormat0 = false;
         }
         if (canUseFormat0) {
             head.indexToLocFormat = 0;
             for (const offset of loca.glyphOffsets) {
-                frag.uint16(offset >>> 1);
+                frag.uint16(offset / LocaShortOffsetScaling);
             }
         } else {
             head.indexToLocFormat = 1;

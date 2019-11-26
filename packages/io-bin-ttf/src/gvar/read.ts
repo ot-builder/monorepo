@@ -11,6 +11,8 @@ import { OtVar } from "@ot-builder/variance";
 import { TtfCfg } from "../cfg";
 import { CumulativeTvd } from "../shared/tvd-access";
 
+import { GvarFlag } from "./shared";
+
 export interface GvarReadIgnore {
     horizontalMetric?: boolean;
     verticalMetric?: boolean;
@@ -68,7 +70,7 @@ const GvarHeader = Read(
         }
 
         const glyphVariationDataOffsets: number[] = [];
-        if (flags & 1) {
+        if (flags & GvarFlag.LongOffsets) {
             for (let gid = 0; gid <= glyphCount; gid++) {
                 glyphVariationDataOffsets[gid] = bp.uint32();
             }

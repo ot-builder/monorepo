@@ -26,3 +26,6 @@ export enum ComponentFlag {
     SCALED_COMPONENT_OFFSET = 0x800,
     UNSCALED_COMPONENT_OFFSET = 0x1000
 }
+
+export const GlyfOffsetAlign = 4;
+export const LocaShortOffsetScaling = 2;
