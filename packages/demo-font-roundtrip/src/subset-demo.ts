@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { Ot } from "ot-builder";
 import * as Ob from "ot-builder";
+import { Ot } from "ot-builder";
 import * as path from "path";
 
 const file = process.argv[2];
@@ -38,7 +38,7 @@ console.log("write complete");
 function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,
     text: string
-) {
+): Ot.Glyph.Rectifier {
     const init: Set<Ot.Glyph> = new Set();
     const gOrd = font.glyphs.decideOrder();
     init.add(gOrd.at(0)); // keep NOTDEF
@@ -51,11 +51,10 @@ function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
         }
     }
     const collected = Ob.traceGlyphs(font, init);
-    const rect: Ob.Rectify.Glyph.RectifierT<Ot.Glyph> = {
+    return {
         glyph(g: Ot.Glyph) {
             if (collected.has(g)) return g;
             else return undefined;
         }
     };
-    return rect;
 }
