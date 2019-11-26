@@ -4,6 +4,7 @@
     "tslib": "^1.9.3",
     "@ot-builder/prelude": "0.1.0",
     "@ot-builder/primitive": "0.1.0",
+    "@ot-builder/bin-composite-types": "0.1.0",
     "@ot-builder/errors": "0.1.0",
     "@ot-builder/variance": "0.1.0",
     "@ot-builder/ft-metadata": "0.1.0",

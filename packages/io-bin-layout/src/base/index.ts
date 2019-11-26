@@ -1,9 +1,10 @@
+import { NonNullablePtr16, NullablePtr16, SimpleArray } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
-import { NonNullablePtr16, NullablePtr16, SimpleArray, Tag, UInt16 } from "@ot-builder/primitive";
+import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";

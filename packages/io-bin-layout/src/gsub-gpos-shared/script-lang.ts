@@ -1,7 +1,8 @@
+import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
-import { NullablePtr16, Tag, UInt16 } from "@ot-builder/primitive";
+import { Tag, UInt16 } from "@ot-builder/primitive";
 
 type Feature = GsubGpos.Feature;
 type LangSys = GsubGpos.Language;
@@ -19,7 +20,10 @@ const LangSysTable = {
         frag.uint16(0);
         frag.uint16(fOrd.tryReverseFallback(lang.requiredFeature, 0xffff));
         frag.uint16(lang.features.length);
-        frag.array(UInt16, lang.features.map(f => fOrd.reverse(f)));
+        frag.array(
+            UInt16,
+            lang.features.map(f => fOrd.reverse(f))
+        );
     }
 };
 

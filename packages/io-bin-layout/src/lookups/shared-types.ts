@@ -1,4 +1,5 @@
-import { Ptr16, SimpleArray, UInt16 } from "@ot-builder/primitive";
+import { Ptr16, SimpleArray } from "@ot-builder/bin-composite-types";
+import { UInt16 } from "@ot-builder/primitive";
 
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 

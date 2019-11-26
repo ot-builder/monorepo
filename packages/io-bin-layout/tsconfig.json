@@ -25,6 +25,9 @@
       "path": "../primitive/tsconfig.json"
     },
     {
+      "path": "../bin-composite-types/tsconfig.json"
+    },
+    {
       "path": "../variance/tsconfig.json"
     },
     {

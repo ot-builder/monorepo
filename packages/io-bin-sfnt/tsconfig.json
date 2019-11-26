@@ -22,6 +22,9 @@
       "path": "../primitive/tsconfig.json"
     },
     {
+      "path": "../bin-composite-types/tsconfig.json"
+    },
+    {
       "path": "../cfg-log/tsconfig.json"
     },
     {

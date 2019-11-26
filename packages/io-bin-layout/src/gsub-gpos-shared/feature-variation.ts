@@ -1,8 +1,9 @@
+import { NonNullablePtr32, SimpleArray } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
-import { F2D14, NonNullablePtr32, SimpleArray, UInt16, UInt32 } from "@ot-builder/primitive";
+import { F2D14, UInt16, UInt32 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import { FeatureTable } from "./feature-list";
