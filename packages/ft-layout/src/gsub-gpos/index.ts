@@ -19,10 +19,12 @@ import { GsubAlternateLookupT, GsubMultipleLookupT } from "../lookup/gsub-multip
 import { GsubReverseRuleT, GsubReverseSingleSubT, GsubReverseSubstT } from "../lookup/gsub-reverse";
 import { GsubSingleLookupT } from "../lookup/gsub-single";
 
+import * as FeatureParamLib from "./feature-params";
 import { GeneralGsubGpos } from "./general";
 
 export namespace GsubGpos {
     export import General = GeneralGsubGpos;
+    export import FeatureParams = FeatureParamLib.FeatureParams;
 
     export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
     export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;
@@ -44,6 +46,8 @@ export namespace GsubGpos {
 
 export namespace Gsub {
     export const Tag = "GSUB";
+
+    export import FeatureParams = FeatureParamLib.FeatureParams;
 
     export class Table extends GeneralGsubGpos.TableImpl<OtVar.Axis, OtGlyph, OtVar.Value> {}
     export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;
@@ -78,6 +82,8 @@ export namespace Gsub {
 
 export namespace Gpos {
     export const Tag = "GPOS";
+
+    export import FeatureParams = FeatureParamLib.FeatureParams;
 
     export class Table extends GeneralGsubGpos.TableImpl<OtVar.Axis, OtGlyph, OtVar.Value> {}
     export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;

@@ -13,4 +13,16 @@ export namespace Caster {
         if (expected.id === actual.id) return obj as any;
         return undefined;
     }
+
+    // "Dependent pair"
+    export class Sigma implements IUnknown {
+        private constructor(private readonly tid: TypeID<any>, private readonly value: any) {}
+        public queryInterface<T>(tag: TypeID<T>): undefined | T {
+            return StandardQueryInterface(this.value, this.tid, tag);
+        }
+
+        public static create<T>(tid: TypeID<T>, value: T) {
+            return new Sigma(tid, value);
+        }
+    }
 }

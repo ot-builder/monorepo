@@ -1,5 +1,5 @@
 import { RectifyImpl } from "@ot-builder/common-impl";
-import { Data, Rectify, Trace } from "@ot-builder/prelude";
+import { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 import { F2D14, Tag } from "@ot-builder/primitive";
 
 import { GeneralLookupT } from "../lookup/general";
@@ -8,6 +8,7 @@ export namespace GeneralGsubGpos {
     export interface FeatureT<L> {
         tag: Tag;
         lookups: Array<L>;
+        params?: Data.Maybe<Caster.Sigma>;
     }
     function cleanupFeature<L>(ft: FeatureT<L>, ls: ReadonlySet<L>): null | FeatureT<L> {
         const l1 = RectifyImpl.Elim.listSomeOpt(ft.lookups, ls);
