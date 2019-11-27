@@ -133,7 +133,7 @@ class CReadLookupList {
             subtables.push(subtableViews);
             this.applyIgnoreSet(lookup, lookupFlag, markFilteringSet, lrc.gdef);
         }
-        const lookupOrder = Data.Order.fromList(`Lookups`, lookups);
+        const lookupOrder = ImpLib.Order.fromList(`Lookups`, lookups);
         for (const [lookup, reader, sts] of ImpLib.Iterators.Zip3WithIndex(
             lookups,
             readers,

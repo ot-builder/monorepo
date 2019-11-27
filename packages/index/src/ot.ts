@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 
@@ -13,7 +14,7 @@ export {
 } from "@ot-builder/ft-glyphs";
 export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 export { StdPointAttachRectifier } from "@ot-builder/ft-glyphs";
-export type ListGlyphStore = Data.ListStore<OtGlyph>;
+export type ListGlyphStore = ImpLib.Order.ListStore<OtGlyph>;
 export type GlyphStore = Data.OrderStore<OtGlyph>;
 export type GlyphOrder = Data.Order<OtGlyph>;
 

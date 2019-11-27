@@ -1,4 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
@@ -45,9 +46,9 @@ export const GsubGposTable = {
 
         const lrc: LookupReadContext = { ...trc };
         const lookups = vLookupList.next(ReadLookupList, lrf, lrc);
-        const lOrd = Data.Order.fromList(`Lookups`, lookups);
+        const lOrd = ImpLib.Order.fromList(`Lookups`, lookups);
         const features = vFeatureList.next(FeatureList, lOrd);
-        const fOrd = Data.Order.fromList(`Features`, features);
+        const fOrd = ImpLib.Order.fromList(`Features`, features);
         const scripts = vScriptList.next(ScriptList, fOrd);
 
         const featureVariations =
@@ -65,9 +66,9 @@ export const GsubGposTable = {
     ) {
         const lwc: LookupWriteContext = { ...twc, tricks: setLookupTricks(table) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
-        const lOrd = Data.Order.fromList(`Lookups`, table.lookups);
+        const lOrd = ImpLib.Order.fromList(`Lookups`, table.lookups);
         const fFeatures = Frag.solidFrom(FeatureList, table.features, lOrd);
-        const fOrd = Data.Order.fromList(`Features`, table.features);
+        const fOrd = ImpLib.Order.fromList(`Features`, table.features);
         const fScripts = Frag.solidFrom(ScriptList, table.scripts, fOrd);
         const fFeatureVariations =
             !table.FeatureVariations || !twc.axes || !twc.axes.length

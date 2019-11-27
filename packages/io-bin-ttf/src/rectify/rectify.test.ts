@@ -1,5 +1,5 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
 
 import { rectifyGlyphOrder } from "./rectify";
 
@@ -13,7 +13,7 @@ describe("GLYF data rectification", () => {
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
         from.geometry = new OtGlyph.TtReferenceList([ref1, ref2]);
 
-        const gOrd = Data.Order.fromList(`Glyphs`, [from, to]);
+        const gOrd = ImpLib.Order.fromList(`Glyphs`, [from, to]);
         rectifyGlyphOrder(gOrd);
 
         expect(ref2.transform.dx).toBe(-1);
@@ -41,7 +41,7 @@ describe("GLYF data rectification", () => {
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
         from.geometry = new OtGlyph.TtReferenceList([ref1, ref2]);
 
-        const gOrd = Data.Order.fromList(`Glyphs`, [from, sp]);
+        const gOrd = ImpLib.Order.fromList(`Glyphs`, [from, sp]);
         rectifyGlyphOrder(gOrd);
 
         expect(ref2.transform.dx).toBe(6);

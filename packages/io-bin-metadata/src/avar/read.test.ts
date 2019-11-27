@@ -1,7 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Avar, Fvar } from "@ot-builder/ft-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 
 import { FvarIo } from "../fvar";
@@ -14,7 +14,7 @@ test("Reading : AVAR", () => {
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
     const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(
         AvarIo,
-        Data.Order.fromList(`Axes`, fvar.axes)
+        ImpLib.Order.fromList(`Axes`, fvar.axes)
     );
     const [wght, cntr] = fvar.axes;
     expect(avar.segmentMaps.get(wght)).toEqual([
@@ -26,5 +26,9 @@ test("Reading : AVAR", () => {
         [9967 / 16384, 11821 / 16384],
         [1, 1]
     ]);
-    expect(avar.segmentMaps.get(cntr)).toEqual([[-1, -1], [0, 0], [1, 1]]);
+    expect(avar.segmentMaps.get(cntr)).toEqual([
+        [-1, -1],
+        [0, 0],
+        [1, 1]
+    ]);
 });

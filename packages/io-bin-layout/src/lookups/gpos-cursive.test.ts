@@ -1,14 +1,9 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GposCursiveReader, GposCursiveWriter } from "./gpos-cursive";
-import {
-    LookupRoundTripConfig,
-    LookupRoundTripTest,
-    SetupVariation,
-    shuffleArray
-} from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest, SetupVariation } from "./test-util.test";
 
 describe("GPOS cursive lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);
@@ -38,7 +33,7 @@ describe("GPOS cursive lookup handler", () => {
                 }
             });
         }
-        lookup.attachments = new Map(shuffleArray([...lookup.attachments]));
+        lookup.attachments = Disorder.shuffleMap(lookup.attachments);
 
         LookupRoundTripTest(lookup, roundtripConfig);
     });
@@ -56,7 +51,7 @@ describe("GPOS cursive lookup handler", () => {
                 }
             });
         }
-        lookup.attachments = new Map(shuffleArray([...lookup.attachments]));
+        lookup.attachments = Disorder.shuffleMap(lookup.attachments);
 
         LookupRoundTripTest(lookup, roundtripConfig);
     });
@@ -77,7 +72,7 @@ describe("GPOS cursive lookup handler", () => {
                 }
             });
         }
-        lookup.attachments = new Map(shuffleArray([...lookup.attachments]));
+        lookup.attachments = Disorder.shuffleMap(lookup.attachments);
 
         LookupRoundTripTest(lookup, { ...roundtripConfig, variation });
     });

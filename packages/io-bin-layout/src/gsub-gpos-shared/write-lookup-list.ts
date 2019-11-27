@@ -257,7 +257,7 @@ export const WriteLookupList = Write(
         lwf: LookupWriterFactory<GsubGpos.Lookup>,
         lwc: LookupWriteContext
     ) => {
-        const crossReferences = Data.Order.fromList(`Lookups`, lookups);
+        const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
         const llw = new LookupListWriter();
         for (const lookup of lookups) {
             const trick = lwc.tricks ? lwc.tricks.get(lookup) || 0 : 0;

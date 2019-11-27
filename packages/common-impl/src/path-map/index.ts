@@ -121,4 +121,12 @@ export class PathMapImpl<Step, Value> implements Data.PathMap<Step, Value> {
     public values() {
         return this.root.values();
     }
+
+    public static create<Step, Value>(
+        iter?: Iterable<[ReadonlyArray<Step>, Value]>
+    ): PathMapImpl<Step, Value> {
+        const pm = new PathMapImpl<Step, Value>();
+        if (iter) for (const [key, value] of iter) pm.set(key, value);
+        return pm;
+    }
 }

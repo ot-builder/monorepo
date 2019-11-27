@@ -1,6 +1,6 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GposMarkToBaseReader } from "./gpos-mark-read";
 import { GposMarkToBaseWriter } from "./gpos-mark-write";
@@ -51,6 +51,8 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
                           ]
             });
         }
+        lookup.marks = Disorder.shuffleMap(lookup.marks);
+        lookup.bases = Disorder.shuffleMap(lookup.bases);
 
         LookupRoundTripTest(lookup, { ...roundtripConfig, variation });
     });

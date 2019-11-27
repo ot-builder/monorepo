@@ -1,9 +1,9 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 
@@ -35,7 +35,7 @@ test("Reading : TTF, variable", () => {
         gOrd,
         cfg,
         {},
-        Data.Order.fromList("Axes", fvar!.axes)
+        ImpLib.Order.fromList("Axes", fvar!.axes)
     );
     const thin = OtVar.Create.Master([{ axis: fvar!.axes[0], min: -1, peak: -1, max: 0 }]);
     const bold = OtVar.Create.Master([{ axis: fvar!.axes[0], min: 0, peak: +1, max: +1 }]);

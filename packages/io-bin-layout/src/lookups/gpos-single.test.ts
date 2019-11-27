@@ -1,16 +1,11 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 
 import { GposSingleReader, GposSingleWriter } from "./gpos-single";
-import {
-    LookupRoundTripConfig,
-    LookupRoundTripTest,
-    SetupVariation,
-    shuffleArray
-} from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest, SetupVariation } from "./test-util.test";
 
 describe("GPOS single lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x4000);
@@ -36,7 +31,7 @@ describe("GPOS single lookup handler", () => {
                 dHeight: Math.round((-gid * 2) / 8)
             });
         }
-        lookup.adjustments = new Map(shuffleArray([...lookup.adjustments]));
+        lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);
 
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
@@ -56,7 +51,7 @@ describe("GPOS single lookup handler", () => {
                 dHeight: Math.round((-gid * 2) / 1024)
             });
         }
-        lookup.adjustments = new Map(shuffleArray([...lookup.adjustments]));
+        lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);
 
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
@@ -78,7 +73,7 @@ describe("GPOS single lookup handler", () => {
                 dHeight: Math.round((-gid * 2) / 1024)
             });
         }
-        lookup.adjustments = new Map(shuffleArray([...lookup.adjustments]));
+        lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);
 
         LookupRoundTripTest(lookup, { ...roundtripConfig, variation });
     });

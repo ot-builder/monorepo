@@ -19,7 +19,7 @@ export const StatRead = Read(view => {
 
     const axes = vwAxisRecord ? vwAxisRecord.next(DesignAxisArray, designAxisCount) : [];
     const values = vwAxisValues
-        ? vwAxisValues.next(AxisValueArray, axisValueCount, Data.Order.fromList(`Axes`, axes))
+        ? vwAxisValues.next(AxisValueArray, axisValueCount, ImpLib.Order.fromList(`Axes`, axes))
         : [];
 
     const table = new Stat.Table(axes, values, elidedFallbackNameID);

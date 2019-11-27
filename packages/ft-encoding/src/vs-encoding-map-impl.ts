@@ -7,6 +7,14 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G>, Trace.Glyph.Tra
     private sizeCache: undefined | number = undefined;
     private mapping: Map<number, Map<number, G>> = new Map();
 
+    constructor(init?: Iterable<[number, number, G]>) {
+        if (init) {
+            for (const [code, vs, glyph] of init) {
+                this.set(code, vs, glyph);
+            }
+        }
+    }
+
     get size() {
         if (this.sizeCache != null) return this.sizeCache;
         this.sizeCache = 0;

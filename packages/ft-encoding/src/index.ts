@@ -14,14 +14,14 @@ export namespace Cmap {
 
     export class Table extends CharacterMapT<OtGlyph> {}
 
-    export function createMapping(): EncodingMap {
-        return new EncodingMapImplT<OtGlyph>();
+    export function createMapping(init?: Iterable<[number, OtGlyph]>): EncodingMap {
+        return new EncodingMapImplT<OtGlyph>(init);
     }
-    export function createVsMapping(): VsEncodingMap {
-        return new VsEncodingMapImplT<OtGlyph>();
+    export function createVsMapping(init?: Iterable<[number, number, OtGlyph]>): VsEncodingMap {
+        return new VsEncodingMapImplT<OtGlyph>(init);
     }
-    export function createVsMappingT<T>(): VsEncodingMapT<T> {
-        return new VsEncodingMapImplT<T>();
+    export function createVsMappingT<T>(init?: Iterable<[number, number, T]>): VsEncodingMapT<T> {
+        return new VsEncodingMapImplT<T>(init);
     }
 }
 

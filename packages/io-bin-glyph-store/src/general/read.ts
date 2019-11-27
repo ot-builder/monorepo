@@ -1,4 +1,5 @@
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head, Maxp, OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
@@ -31,11 +32,11 @@ export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
     sfnt: Sfnt,
     cfg: Config<C & GlyphStoreCfg>,
     md: OtFontIoMetadata,
-    gsf: Data.OrderStoreFactory<OtGlyph, S>,
+    gsf: Data.OrderStoreFactoryWithDefault<OtGlyph, S>,
     cb: ReadGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, hhea, vhea } = md;
-    const axes = fvar ? Data.Order.fromList("Axes", fvar.axes) : null;
+    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
 
     const hor = readHMetric(sfnt, maxp, hhea, axes);
     const hmStartsAtZero = !!(head.flags & Head.Flags.LeftSidebearingAtX0);

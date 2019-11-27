@@ -1,6 +1,6 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GposMarkToLigatureReader } from "./gpos-mark-read";
 import { GposMarkToLigatureWriter } from "./gpos-mark-write";
@@ -31,6 +31,8 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 baseAnchors: [[{ x: gid, y: gid }], [{ x: gid, y: gid }], [{ x: gid, y: gid }]]
             });
         }
+        lookup.marks = Disorder.shuffleMap(lookup.marks);
+        lookup.bases = Disorder.shuffleMap(lookup.bases);
 
         LookupRoundTripTest(lookup, roundtripConfig);
     });
@@ -39,17 +41,28 @@ describe("GPOS mark-to-ligature lookup handler", () => {
         const gidMaxMark = 0x100;
         for (let gid = 0; gid < gidMaxMark; gid++) {
             lookup.marks.set(gOrd.at(gid), {
-                markAnchors: [{ x: gid, y: gid }, { x: gid, y: gid }]
+                markAnchors: [
+                    { x: gid, y: gid },
+                    { x: gid, y: gid }
+                ]
             });
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
             lookup.bases.set(gOrd.at(gid), {
                 baseAnchors:
                     gid % 2
-                        ? [[null, { x: 1 + gid, y: 1 + gid }], [{ x: -gid, y: -gid }, null]]
-                        : [[{ x: 1 + gid, y: 1 + gid }, null], [null, { x: -gid, y: -gid }]]
+                        ? [
+                              [null, { x: 1 + gid, y: 1 + gid }],
+                              [{ x: -gid, y: -gid }, null]
+                          ]
+                        : [
+                              [{ x: 1 + gid, y: 1 + gid }, null],
+                              [null, { x: -gid, y: -gid }]
+                          ]
             });
         }
+        lookup.marks = Disorder.shuffleMap(lookup.marks);
+        lookup.bases = Disorder.shuffleMap(lookup.bases);
 
         LookupRoundTripTest(lookup, roundtripConfig);
     });

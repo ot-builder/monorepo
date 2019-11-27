@@ -34,4 +34,8 @@ export class GsubLigatureLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
     public rectifyPointAttachment() {}
+
+    public static createMapping<G>(iter?: Iterable<[ReadonlyArray<G>, G]>): Data.PathMap<G, G> {
+        return ImpLib.PathMapImpl.create(iter);
+    }
 }

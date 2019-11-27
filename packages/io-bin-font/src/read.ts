@@ -16,7 +16,7 @@ import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 
 export function readFont<GS extends Data.OrderStore<OtGlyph>>(
     sfnt: Sfnt,
-    gsf: Data.OrderStoreFactory<OtGlyph, GS>,
+    gsf: Data.OrderStoreFactoryWithDefault<OtGlyph, GS>,
     partialConfig: Config<FontIoConfig>
 ): OtFont<GS> {
     const cfg = createConfig(partialConfig);

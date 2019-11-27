@@ -1,4 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Fvar } from "@ot-builder/ft-metadata";
 import { Data } from "@ot-builder/prelude";
@@ -34,7 +35,7 @@ export function singleGlyphCodeGenRoundTrip(
 
     let rIVS: null | ReadTimeIVS;
     if (fvar) {
-        const axes = Data.Order.fromList("Axes", fvar.axes);
+        const axes = ImpLib.Order.fromList("Axes", fvar.axes);
         const bIVS = Frag.pack(new Frag().push(WriteTimeIVS, wCtx.ivs!, axes));
         rIVS = new BinaryView(bIVS).next(ReadTimeIVS, axes);
     } else {

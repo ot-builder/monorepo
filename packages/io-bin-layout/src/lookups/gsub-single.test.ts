@@ -1,11 +1,11 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 
 import { GsubSingleReader, GsubSingleWriter } from "./gsub-single";
-import { LookupRoundTripConfig, LookupRoundTripTest, shuffleArray } from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
 
 describe("GSUB single lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);
@@ -26,7 +26,7 @@ describe("GSUB single lookup handler", () => {
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.set(gOrd.at(gid), gOrd.at((gid + 0x30) % gOrd.length));
         }
-        lookup.mapping = new Map(shuffleArray([...lookup.mapping]));
+        lookup.mapping = Disorder.shuffleMap(lookup.mapping);
 
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {

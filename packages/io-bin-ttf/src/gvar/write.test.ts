@@ -1,9 +1,9 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
 import { DefaultTtfCfgProps, TtfCfgProps } from "../cfg";
@@ -25,7 +25,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         fontMetadata: {}
     });
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? Data.Order.fromList("Axes", fvar.axes) : null;
+    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const gOrd = gs.decideOrder();
     const loca = new BinaryView(sfnt.tables.get(LocaTag)!).next(LocaTableIo, head, maxp);

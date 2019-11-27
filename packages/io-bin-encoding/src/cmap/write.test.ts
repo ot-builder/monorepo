@@ -5,7 +5,7 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { BimapCtx, CmapIdentity, TestFont } from "@ot-builder/test-util";
+import { BimapCtx, CmapIdentity, Disorder, TestFont } from "@ot-builder/test-util";
 
 import { ReadCmap } from "./read";
 import { WriteCmap } from "./write";
@@ -18,6 +18,13 @@ function cmapRoundtrip(file: string) {
 
     const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
     const cmap = new BinaryView(sfnt.tables.get(Cmap.Tag)!).next(ReadCmap, gOrd);
+    if (cmap.unicode) {
+        cmap.unicode = Cmap.createMapping(Disorder.shuffleArray([...cmap.unicode.entries()]));
+    }
+    if (cmap.vs) {
+        cmap.vs = Cmap.createVsMapping(Disorder.shuffleArray([...cmap.vs.entries()]));
+    }
+
     const bufCmap = Frag.pack(Frag.from(WriteCmap, cmap, gOrd));
     const cmap1 = new BinaryView(bufCmap).next(ReadCmap, gOrd);
 

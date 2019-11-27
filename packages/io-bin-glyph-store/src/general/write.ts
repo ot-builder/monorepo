@@ -1,4 +1,5 @@
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head, Maxp, OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
@@ -40,7 +41,7 @@ export function writeGlyphStore<C, T>(
     cb: WriteGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, os2, hhea, vhea } = md;
-    const axes = fvar ? Data.Order.fromList("Axes", fvar.axes) : null;
+    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
     // stat stages
     const statHead = new HeadExtendStat(head);
     const statMaxp = new MaxpStat(maxp, statHead);

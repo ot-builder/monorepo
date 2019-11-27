@@ -1,8 +1,10 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
+import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -23,7 +25,7 @@ export function LookupRoundTripTest<C extends GsubGpos.Lookup>(
     expected: C,
     cfg: LookupRoundTripConfig<C>
 ) {
-    const lOrd = cfg.lOrd || Data.Order.fromList(`Lookups`, []);
+    const lOrd = cfg.lOrd || ImpLib.Order.fromList(`Lookups`, []);
     const writer = cfg.writer();
     const swc: SubtableWriteContext<GsubGpos.Lookup> = {
         gOrd: cfg.gOrd,
@@ -42,12 +44,12 @@ export function LookupRoundTripTest<C extends GsubGpos.Lookup>(
             Frag.from(
                 WriteTimeIVS,
                 cfg.variation.ivs,
-                Data.Order.fromList("Axes", cfg.variation.axes)
+                ImpLib.Order.fromList("Axes", cfg.variation.axes)
             )
         );
         ivsR = new BinaryView(bufIvs).next(
             ReadTimeIVS,
-            Data.Order.fromList("Axes", cfg.variation.axes)
+            ImpLib.Order.fromList("Axes", cfg.variation.axes)
         );
     }
 
@@ -65,19 +67,8 @@ export function LookupRoundTripTest<C extends GsubGpos.Lookup>(
     cfg.validate(cfg.gOrd, lOrd, expected, actual);
 }
 
-export function shuffleArray<T>(a: T[]) {
-    let itemR: number, temp: T, itemF: number;
-    for (itemF = a.length - 1; itemF > 0; itemF--) {
-        itemR = Math.floor(Math.random() * (itemF + 1));
-        temp = a[itemF];
-        a[itemF] = a[itemR];
-        a[itemR] = temp;
-    }
-    return a;
-}
-
 export function TuGlyphSet<G>(gOrd: Data.Order<G>, ...ids: number[]) {
-    return new Set(ids.map(gid => gOrd.at(gid)));
+    return Disorder.shuffleSet(new Set(ids.map(gid => gOrd.at(gid))));
 }
 
 export type TestVariation = { axes: OtVar.Axis[]; ivs: WriteTimeIVS };

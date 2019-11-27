@@ -1,6 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Base, Gdef, Gpos, Gsub, GsubGpos, OtFontLayoutData } from "@ot-builder/ft-layout";
+import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { Data } from "@ot-builder/prelude";
@@ -22,7 +23,7 @@ export function readOtl(
     const bGdef = sfnt.tables.get(Gdef.Tag);
     const bGsub = sfnt.tables.get(Gsub.Tag);
     const bGpos = sfnt.tables.get(Gpos.Tag);
-    const axes = md.fvar ? Data.Order.fromList("Axes", md.fvar.axes) : null;
+    const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
     if (bGdef) {
         const res = new BinaryView(bGdef).next(GdefTableIo, gOrd, axes);
         gdef = res.gdef;

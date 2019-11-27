@@ -14,7 +14,6 @@ import {
 } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 
 import { AvarIo } from "../avar";
 import { FontMetadataCfg } from "../cfg";
@@ -55,14 +54,14 @@ export function readOtMetadata(sfnt: Sfnt, cfg: Config<FontMetadataCfg>): OtFont
     const bAvar = sfnt.tables.get(Avar.Tag);
     const avar =
         bAvar && fvar
-            ? new BinaryView(bAvar).next(AvarIo, Data.Order.fromList(`Axes`, fvar.axes))
+            ? new BinaryView(bAvar).next(AvarIo, ImpLib.Order.fromList(`Axes`, fvar.axes))
             : null;
 
     const md = { head, maxp, fvar, hhea, vhea, post, postGlyphNaming, os2, avar };
 
     const bMvar = sfnt.tables.get(MvarTag);
     if (fvar && bMvar) {
-        new BinaryView(bMvar).next(MvarTableIo, Data.Order.fromList(`Axes`, fvar.axes), md);
+        new BinaryView(bMvar).next(MvarTableIo, ImpLib.Order.fromList(`Axes`, fvar.axes), md);
     }
 
     return md;
@@ -76,14 +75,14 @@ export function writeOtMetadata(
     if (md.fvar && md.avar) {
         sink.add(
             Avar.Tag,
-            Frag.packFrom(AvarIo, md.avar, Data.Order.fromList(`Axes`, md.fvar.axes))
+            Frag.packFrom(AvarIo, md.avar, ImpLib.Order.fromList(`Axes`, md.fvar.axes))
         );
     }
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(
             MvarTableIo,
-            Data.Order.fromList(`Axes`, md.fvar.axes),
+            ImpLib.Order.fromList(`Axes`, md.fvar.axes),
             md,
             sfEmpty
         );

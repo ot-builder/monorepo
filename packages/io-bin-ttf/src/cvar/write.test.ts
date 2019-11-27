@@ -4,7 +4,6 @@ import { ImpLib } from "@ot-builder/common-impl";
 import { Cvt } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { CvtIdentity, EmptyCtx, TestFont } from "@ot-builder/test-util";
 
 import { CvtIo } from "../cvt/index";
@@ -16,7 +15,7 @@ function cvtRoundTipLoop(file: string) {
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = Config.create({ fontMetadata: {} });
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? Data.Order.fromList("Axes", fvar.axes) : null;
+    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
 
     const cvt = new BinaryView(sfnt.tables.get(Cvt.Tag)!).next(CvtIo);
     if (axes) {

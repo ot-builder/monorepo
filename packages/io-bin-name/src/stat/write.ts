@@ -34,7 +34,7 @@ const StatTableBody = Write(
             Frag.from(
                 AxisValueArray,
                 stat.assignments,
-                Data.Order.fromList(`DesignAxes`, stat.designAxes),
+                ImpLib.Order.fromList(`DesignAxes`, stat.designAxes),
                 acNeedFormat12
             )
         );

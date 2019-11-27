@@ -7,3 +7,4 @@ export * from "./cvt-identity";
 export * from "./layout-identity/gdef";
 export * from "./layout-identity/lookup";
 export * from "./layout-identity/base";
+export * from "./disorder";

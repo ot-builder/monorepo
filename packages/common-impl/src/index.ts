@@ -2,6 +2,7 @@ import * as _Access from "./access";
 import * as _Arith from "./arith";
 import { BitMask as _BitMask } from "./bitmask";
 import * as _Iterators from "./iterators";
+import * as _Order from "./order";
 import { IndexAllocator as _IndexAllocator, PathMapImpl as _PathMapImpl } from "./path-map";
 import * as _Tie from "./typing-helper/tie";
 
@@ -13,6 +14,7 @@ export namespace ImpLib {
     export const IndexAllocator = _IndexAllocator;
     export import Access = _Access.Access;
     export const State = _Access.State;
+    export import Order = _Order;
 
     export namespace Tuple {
         export const Tie = _Tie.Tie;

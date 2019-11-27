@@ -1,6 +1,6 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
-import { Data } from "@ot-builder/prelude";
 import { BimapCtx, LookupCtx, LookupIdentity } from "@ot-builder/test-util";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
@@ -13,7 +13,7 @@ const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();
 
 const ll = [new Gsub.Single(), new Gsub.Single(), new Gsub.Single()];
-const lOrd = Data.Order.fromList(`Lookups`, ll);
+const lOrd = ImpLib.Order.fromList(`Lookups`, ll);
 
 const roundtripConfig: LookupRoundTripConfig<GsubGpos.ChainingLookup> = {
     gOrd,

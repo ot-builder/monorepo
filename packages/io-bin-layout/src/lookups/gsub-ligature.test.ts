@@ -1,6 +1,7 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GsubLigatureReader, GsubLigatureWriter } from "./gsub-ligature";
 import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
@@ -30,6 +31,9 @@ describe("GSUB ligature lookup handler", () => {
                 gOrd.at(gid)
             );
         }
+        lookup.mapping = ImpLib.PathMapImpl.create(
+            Disorder.shuffleArray([...lookup.mapping.entries()])
+        );
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 
@@ -45,6 +49,9 @@ describe("GSUB ligature lookup handler", () => {
                 gOrd.at(gid)
             );
         }
+        lookup.mapping = ImpLib.PathMapImpl.create(
+            Disorder.shuffleArray([...lookup.mapping.entries()])
+        );
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 });

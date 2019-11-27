@@ -1,9 +1,9 @@
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
-import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
+import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GsubMultiReader, GsubMultiWriter } from "./gsub-multi-alternate";
-import { LookupRoundTripConfig, LookupRoundTripTest, shuffleArray } from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
 
 describe("GSUB multi/alternate lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x1000);
@@ -27,7 +27,7 @@ describe("GSUB multi/alternate lookup handler", () => {
                 gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
             ]);
         }
-        lookup.mapping = new Map(shuffleArray([...lookup.mapping]));
+        lookup.mapping = Disorder.shuffleMap(lookup.mapping);
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 
@@ -39,7 +39,7 @@ describe("GSUB multi/alternate lookup handler", () => {
                 gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
             ]);
         }
-        lookup.mapping = new Map(shuffleArray([...lookup.mapping]));
+        lookup.mapping = Disorder.shuffleMap(lookup.mapping);
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 });

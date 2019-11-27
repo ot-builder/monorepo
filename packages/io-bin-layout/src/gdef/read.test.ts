@@ -1,11 +1,11 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gdef } from "@ot-builder/ft-layout";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 
 import { GdefTableIo } from "./index";
@@ -16,7 +16,7 @@ describe("GDEF read", () => {
         const sfnt = new BinaryView(bufFont).next(SfntOtf);
         const cfg = Config.create({ fontMetadata: {}, glyphStore: {} });
         const md = readOtMetadata(sfnt, cfg);
-        const axes = md.fvar ? Data.Order.fromList("Axes", md.fvar.axes) : null;
+        const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
 
         const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
         const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(GdefTableIo, gOrd, axes);

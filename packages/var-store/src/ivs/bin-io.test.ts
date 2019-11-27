@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtVar } from "@ot-builder/variance";
 
 import { ReadTimeIVS, WriteTimeIVS } from "./impl";
@@ -37,10 +37,10 @@ test("IVS roundtrip -- Traditional", () => {
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 100]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
-    const frag = new Frag().push(WriteTimeIVS, ivs, Data.Order.fromList("Axes", [Wght, Wdth]));
+    const frag = new Frag().push(WriteTimeIVS, ivs, ImpLib.Order.fromList("Axes", [Wght, Wdth]));
     const ivs1 = new BinaryView(Frag.pack(frag)).next(
         ReadTimeIVS,
-        Data.Order.fromList("Axes", [Wght, Wdth])
+        ImpLib.Order.fromList("Axes", [Wght, Wdth])
     );
 
     expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(true);
@@ -62,10 +62,10 @@ test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     col.collect(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
     col.getIVD();
 
-    const frag = new Frag().push(WriteTimeIVS, ivs, Data.Order.fromList("Axes", [Wght, Wdth]));
+    const frag = new Frag().push(WriteTimeIVS, ivs, ImpLib.Order.fromList("Axes", [Wght, Wdth]));
     const ivs1 = new BinaryView(Frag.pack(frag)).next(
         ReadTimeIVS,
-        Data.Order.fromList("Axes", [Wght, Wdth])
+        ImpLib.Order.fromList("Axes", [Wght, Wdth])
     );
     const ivd = ivs1.getIVD(0);
     expect(

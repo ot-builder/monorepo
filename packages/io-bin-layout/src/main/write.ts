@@ -1,4 +1,5 @@
 import { Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
@@ -24,7 +25,7 @@ export function writeOtl(
     md: OtFontMetadata
 ) {
     let { gsub, gpos, gdef } = otl;
-    const axes = md.fvar ? Data.Order.fromList("Axes", md.fvar.axes) : null;
+    const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
     const ivs = md.fvar ? WriteTimeIVS.create(new OtVarMasterSet()) : null;
     if (ivs && !gdef) gdef = new Gdef.Table();
     const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
