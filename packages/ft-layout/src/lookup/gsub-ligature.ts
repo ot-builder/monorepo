@@ -1,31 +1,35 @@
-import { ImpLib, RectifyImpl } from "@ot-builder/common-impl";
-import { Data, Rectify, Trace } from "@ot-builder/prelude";
+import { RectifyImpl } from "@ot-builder/common-impl";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 import { GeneralLookupT } from "./general";
 
+export type GsubLigatureLookupEntryT<G> = {
+    readonly from: ReadonlyArray<G>;
+    readonly to: G;
+};
 export class GsubLigatureLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-    public mapping: Data.PathMap<G, G> = new ImpLib.PathMapImpl();
+    public mapping: Array<GsubLigatureLookupEntryT<G>> = [];
 
     public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
         this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
 
-        const mapping1: Data.PathMap<G, G> = new ImpLib.PathMapImpl();
-        for (const [src, dst] of this.mapping.entries()) {
-            const dst1 = rec.glyph(dst);
+        const mapping1: Array<GsubLigatureLookupEntryT<G>> = [];
+        for (const { from, to } of this.mapping) {
+            const dst1 = rec.glyph(to);
             if (!dst1) continue;
-            const src1 = RectifyImpl.Glyph.listAll(rec, src);
+            const src1 = RectifyImpl.Glyph.listAll(rec, from);
             if (!src1) continue;
-            mapping1.set(src1, dst1);
+            mapping1.push({ from: src1, to: dst1 });
         }
         this.mapping = mapping1;
     }
     public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {
-        for (const [src, dst] of this.mapping.entries()) {
+        for (const { from, to } of this.mapping) {
             let found = true;
-            for (const part of src) if (!tracer.has(part)) found = false;
-            if (found && !tracer.has(dst)) tracer.add(dst);
+            for (const part of from) if (!tracer.has(part)) found = false;
+            if (found && !tracer.has(to)) tracer.add(to);
         }
     }
     public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {}
@@ -34,8 +38,4 @@ export class GsubLigatureLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
     }
     public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
     public rectifyPointAttachment() {}
-
-    public static createMapping<G>(iter?: Iterable<[ReadonlyArray<G>, G]>): Data.PathMap<G, G> {
-        return ImpLib.PathMapImpl.create(iter);
-    }
 }

@@ -1,6 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
@@ -16,7 +14,7 @@ import {
 } from "../lookup/gpos-mark";
 import { GposPairLookupT } from "../lookup/gpos-pair";
 import { GposSingleLookupT } from "../lookup/gpos-single";
-import { GsubLigatureLookupT } from "../lookup/gsub-ligature";
+import { GsubLigatureLookupEntryT, GsubLigatureLookupT } from "../lookup/gsub-ligature";
 import { GsubAlternateLookupT, GsubMultipleLookupT } from "../lookup/gsub-multiple";
 import { GsubReverseRuleT, GsubReverseSingleSubT, GsubReverseSubstT } from "../lookup/gsub-reverse";
 import { GsubSingleLookupT } from "../lookup/gsub-single";
@@ -67,6 +65,8 @@ export namespace Gsub {
     // Lookup-internal data types
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
     export type ClassDef = LayoutCommon.ClassDef.T<OtGlyph>;
+
+    export type LigatureEntry = GsubLigatureLookupEntryT<OtGlyph>;
 
     export type ChainingApplication = GsubGpos.ChainingApplication;
     export type ChainingRule = GsubGpos.ChainingRule;

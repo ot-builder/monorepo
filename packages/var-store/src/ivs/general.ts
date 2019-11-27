@@ -1,6 +1,5 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
 import { GeneralVar, GeneralVarInternalImpl } from "@ot-builder/variance";
 
 export class ReadTimeIVD<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
@@ -50,7 +49,7 @@ export class CReadTimeIVS<A extends GeneralVar.Axis, M extends GeneralVar.Master
 
 export class WriteTimeIVD {
     private allocator = new ImpLib.IndexAllocator();
-    public mapping: Data.PathMap<number, number> = new ImpLib.PathMapImpl();
+    public mapping = new ImpLib.PathMapImpl<number, number>();
     constructor(public readonly outerIndex: number, readonly masterIDs: number[]) {}
 
     public find(deltas: number[]) {
@@ -69,7 +68,7 @@ export class WriteTimeIVD {
     }
 }
 
-export class WriteTimeIVDAllocator implements Data.Allocator<WriteTimeIVD, [number[]]> {
+export class WriteTimeIVDAllocator implements ImpLib.Allocator<WriteTimeIVD, [number[]]> {
     private allocOuterID = new ImpLib.IndexAllocator();
     private ivdList: WriteTimeIVD[] = [];
     public next(r: number[]) {
@@ -109,7 +108,7 @@ export class WriteTimeIVDBlossom {
 }
 
 export class WriteTimeIVDBlossomAllocator
-    implements Data.Allocator<WriteTimeIVDBlossom, [number[]]> {
+    implements ImpLib.Allocator<WriteTimeIVDBlossom, [number[]]> {
     constructor(private nodeAlloc: WriteTimeIVDAllocator, private maxInnerIndex: number) {}
     public next(masterIDs: number[]) {
         return new WriteTimeIVDBlossom(this.nodeAlloc, this.maxInnerIndex, masterIDs);
@@ -124,7 +123,7 @@ export class WriteTimeIVCollector<
     constructor(
         op: GeneralVar.Ops<A, M, X>,
         masterCollector: GeneralVar.MasterSet<A, M>,
-        private pmBlossom: Data.PathMap<number, WriteTimeIVDBlossom>,
+        private pmBlossom: ImpLib.PathMap<number, WriteTimeIVDBlossom>,
         private acBlossom: WriteTimeIVDBlossomAllocator
     ) {
         super(
@@ -166,7 +165,7 @@ export class DelayDeltaValue<A extends GeneralVar.Axis, M extends GeneralVar.Mas
 }
 
 export class GeneralWriteTimeIVStore<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
-    private pmBlossom: Data.PathMap<number, WriteTimeIVDBlossom>;
+    private pmBlossom: ImpLib.PathMap<number, WriteTimeIVDBlossom>;
     private acBlossom: WriteTimeIVDBlossomAllocator;
     private acIVD: WriteTimeIVDAllocator;
     constructor(

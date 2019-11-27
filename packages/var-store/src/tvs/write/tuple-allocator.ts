@@ -8,7 +8,7 @@ export class TupleStorage {
 }
 
 export class TupleAllocator {
-    private store: Data.PathMap<F2D14, TupleStorage> = new ImpLib.PathMapImpl();
+    private store = new ImpLib.PathMapImpl<F2D14, TupleStorage>();
     private size = 0;
 
     public allocate(tuple: F2D14[]) {

@@ -1,5 +1,4 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { Data } from "@ot-builder/prelude";
 
 import { VarianceAxis } from "../interface/axis";
 import { VarianceMasterSet } from "../interface/master";
@@ -19,7 +18,7 @@ export class OtVarMasterSet<A extends VarianceAxis>
     private axisMap: WeakMap<A, number> = new WeakMap();
 
     private nMasters: number = 0;
-    private masterMap: Data.PathMap<number, VRCRecord<A>> = new ImpLib.PathMapImpl();
+    private masterMap = new ImpLib.PathMapImpl<number, VRCRecord<A>>();
 
     constructor() {}
 

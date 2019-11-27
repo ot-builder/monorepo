@@ -5,6 +5,9 @@ export namespace FastMatch {
     export function exactly<T>(actual: T, expected: T) {
         if (actual !== expected) expect(actual).toBe(expected);
     }
+    export function truly<T>(actual: T) {
+        if (!actual) expect(actual).toBeTruthy();
+    }
 
     export function otvar(
         expected: OtVar.Value,
@@ -18,7 +21,10 @@ export namespace FastMatch {
             msg +=
                 ` - MASTER: (default), Expected: ${OtVar.Ops.evaluate(expected, null)},` +
                 ` Actual: ${OtVar.Ops.evaluate(actual, null)}\n`;
-            for (const [master] of [...OtVar.Ops.varianceOf(expected), ...OtVar.Ops.varianceOf(actual)]) {
+            for (const [master] of [
+                ...OtVar.Ops.varianceOf(expected),
+                ...OtVar.Ops.varianceOf(actual)
+            ]) {
                 const expValue = OtVar.Ops.evaluate(expected, master.getPeak());
                 const actValue = OtVar.Ops.evaluate(actual, master.getPeak());
                 const delta = Math.abs(expValue - actValue);

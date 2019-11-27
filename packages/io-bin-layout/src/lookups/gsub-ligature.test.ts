@@ -1,4 +1,3 @@
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
@@ -23,35 +22,31 @@ describe("GSUB ligature lookup handler", () => {
     test("Exhaustive", () => {
         const lookup = new Gsub.Ligature();
         for (let gid = 0; gid < gOrd.length; gid++) {
-            lookup.mapping.set(
-                [
+            lookup.mapping.push({
+                from: [
                     gOrd.at((gid + 0x30) % gOrd.length),
                     gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
                 ],
-                gOrd.at(gid)
-            );
+                to: gOrd.at(gid)
+            });
         }
-        lookup.mapping = ImpLib.PathMapImpl.create(
-            Disorder.shuffleArray([...lookup.mapping.entries()])
-        );
+        lookup.mapping = Disorder.shuffleArray([...lookup.mapping]);
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 
     test("Many overlapping", () => {
         const lookup = new Gsub.Ligature();
         for (let gid = 0; gid < gOrd.length; gid++) {
-            lookup.mapping.set(
-                [
+            lookup.mapping.push({
+                from: [
                     gOrd.at((gid + 0x30) % 16),
                     gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length),
                     gOrd.at((gid - 0x60 + gOrd.length) % gOrd.length)
                 ],
-                gOrd.at(gid)
-            );
+                to: gOrd.at(gid)
+            });
         }
-        lookup.mapping = ImpLib.PathMapImpl.create(
-            Disorder.shuffleArray([...lookup.mapping.entries()])
-        );
+        lookup.mapping = Disorder.shuffleArray([...lookup.mapping]);
         LookupRoundTripTest(lookup, roundtripConfig);
     });
 });

@@ -38,10 +38,10 @@ const SubtableFormat1 = {
                 const gidLigatureGlyph = ligature.uint16();
                 const componentCount = ligature.uint16();
                 const componentGlyphIDs = ligature.array(componentCount - 1, UInt16);
-                lookup.mapping.set(
-                    [gidFirst, ...componentGlyphIDs].map(gid => context.gOrd.at(gid)),
-                    context.gOrd.at(gidLigatureGlyph)
-                );
+                lookup.mapping.push({
+                    from: [gidFirst, ...componentGlyphIDs].map(gid => context.gOrd.at(gid)),
+                    to: context.gOrd.at(gidLigatureGlyph)
+                });
             }
         }
     },
@@ -62,7 +62,10 @@ const SubtableFormat1 = {
                 const fLig = fLigSet.ptr16New();
                 fLig.uint16(ctx.gOrd.reverse(to))
                     .uint16(rests.length + 1)
-                    .array(UInt16, rests.map(g => ctx.gOrd.reverse(g)));
+                    .array(
+                        UInt16,
+                        rests.map(g => ctx.gOrd.reverse(g))
+                    );
             }
         }
     }
@@ -128,7 +131,7 @@ export class GsubLigatureWriter implements LookupWriter<GsubGpos.Lookup, Gsub.Li
         let frags: Frag[] = [];
         // Iterate the path map using post-root order to make sure that longer ligatures
         // is processed first.
-        for (const [from, to] of lookup.mapping.postRootEntries()) {
+        for (const { from, to } of lookup.mapping) {
             if (from.length < 1) continue; // meaningless, skip
             ctx.stat.setContext(from.length); // Stat
             const [g0, ...gCont] = from;

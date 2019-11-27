@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import { Allocator, PathMap, PathMapLens } from "./interface";
 
 class PathMapNode<Step, Value> {
     public value: Value | undefined;
@@ -22,7 +22,7 @@ class PathMapNode<Step, Value> {
     }
 }
 
-export class IndexAllocator implements Data.Allocator<number> {
+export class IndexAllocator implements Allocator<number> {
     private index = 0;
     public next() {
         return this.index++;
@@ -32,7 +32,7 @@ export class IndexAllocator implements Data.Allocator<number> {
     }
 }
 
-class PathMapLens<Step, Value> implements Data.PathMapLens<Step, Value> {
+class PathMapLensImpl<Step, Value> implements PathMapLens<Step, Value> {
     private current: PathMapNode<Step, Value>;
     constructor(node: PathMapNode<Step, Value>) {
         this.current = node;
@@ -52,7 +52,7 @@ class PathMapLens<Step, Value> implements Data.PathMapLens<Step, Value> {
             return existing;
         }
     }
-    public getOrAlloc<R extends any[] = []>(alloc: Data.Allocator<Value, R>, ...r: R) {
+    public getOrAlloc<R extends any[] = []>(alloc: Allocator<Value, R>, ...r: R) {
         const existing = this.current.value;
         if (existing === undefined) {
             const value = alloc.next(...r);
@@ -95,10 +95,10 @@ class PathMapLens<Step, Value> implements Data.PathMapLens<Step, Value> {
     }
 }
 
-export class PathMapImpl<Step, Value> implements Data.PathMap<Step, Value> {
+export class PathMapImpl<Step, Value> implements PathMap<Step, Value> {
     private root = new PathMapNode<Step, Value>();
     public createLens() {
-        return new PathMapLens(this.root);
+        return new PathMapLensImpl(this.root);
     }
     public get(steps: Iterable<Step>) {
         const lens = this.createLens();
