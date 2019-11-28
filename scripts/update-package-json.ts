@@ -24,6 +24,7 @@ for (const packageName of packages) {
     delete packageJSONData.types;
     delete packageJSONData.files;
     delete packageJSONData.publishConfig;
+    delete packageJSONData.jest;
 
     packageJSONData.main = "./lib/index.js";
     packageJSONData.types = "./lib/index.d.ts";
@@ -36,7 +37,6 @@ for (const packageName of packages) {
     if (!packageJSONData.private) {
         packageJSONData.publishConfig = { access: "public" };
     }
-    packageJSONData.jest = { testMatch: ["**/*.test.js"], rootDir: "lib/" };
 
     fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
 }

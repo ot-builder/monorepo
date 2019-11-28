@@ -34,8 +34,7 @@ const packageJSONData = {
     },
     publishConfig: {
         access: "public"
-    },
-    jest: { testMatch: ["**/*.test.js"], rootDir: "lib/" }
+    }
 };
 
 fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));

@@ -1,25 +1,19 @@
 {
   "name": "@ot-builder/cfg-log",
   "dependencies": {
-    "tslib": "^1.9.3",
-    "@ot-builder/prelude": "0.1.0"
+    "@ot-builder/prelude": "0.2.0",
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
-    "@types/jest": "^24.0.15"
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
   },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "jest": {
-    "testMatch": [
-      "**/*.test.js"
-    ],
-    "rootDir": "lib/"
-  },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [

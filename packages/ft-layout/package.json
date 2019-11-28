@@ -4,30 +4,24 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
+    "@ot-builder/bin-composite-types": "0.2.0",
+    "@ot-builder/cfg-log": "0.2.0",
+    "@ot-builder/common-impl": "0.2.0",
+    "@ot-builder/errors": "0.2.0",
+    "@ot-builder/ft-glyphs": "0.2.0",
+    "@ot-builder/ft-metadata": "0.2.0",
+    "@ot-builder/prelude": "0.2.0",
+    "@ot-builder/primitive": "0.2.0",
+    "@ot-builder/variance": "0.2.0",
     "@types/jest": "^24.0.15",
-    "@ot-builder/prelude": "0.1.0",
-    "@ot-builder/common-impl": "0.1.0",
-    "@ot-builder/variance": "0.1.0",
-    "@ot-builder/primitive": "0.1.0",
-    "@ot-builder/bin-composite-types": "0.1.0",
-    "@ot-builder/ft-metadata": "0.1.0",
-    "@ot-builder/ft-glyphs": "0.1.0",
-    "@ot-builder/errors": "0.1.0",
-    "@ot-builder/cfg-log": "0.1.0"
+    "jest": "^24.8.0"
   },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "jest": {
-    "testMatch": [
-      "**/*.test.js"
-    ],
-    "rootDir": "lib/"
-  },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [

@@ -11,7 +11,8 @@
         "update:tsconfig.json": "ts-node scripts/update-package-tsconfig.ts",
         "update:package.json": "ts-node scripts/update-package-json.ts",
         "create-package": "ts-node scripts/create-package.ts",
-        "test": "jest"
+        "test": "jest",
+        "bump-ver": "lerna version --no-git-tag-version --no-push --force-publish --exact && npm run update:package.json && npm run update:tsconfig.json"
     },
     "devDependencies": {
         "@types/node": "^12.7.5",
