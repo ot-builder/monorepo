@@ -37,6 +37,14 @@ const packageJSONData = {
     }
 };
 
+fs.writeFileSync(path.join(packagesRoot, packageName, "src", "index.ts"), `export default {}`);
+
 fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
 fs.writeFileSync(path.join(packagesRoot, packageName, ".npmrc"), `package-lock=false`);
-fs.writeFileSync(path.join(packagesRoot, packageName, "src", "index.ts"), `export default {}`);
+fs.writeFileSync(
+    path.join(packagesRoot, packageName, "src", ".npmignore"),
+    `tsconfig.json
+lib/**/*.map
+src/
+`
+);
