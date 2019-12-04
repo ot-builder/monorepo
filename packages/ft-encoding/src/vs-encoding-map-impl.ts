@@ -22,30 +22,30 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G>, Trace.Glyph.Tra
         return this.sizeCache;
     }
     public get(code: number, vs: number) {
-        const blossom = this.mapping.get(code);
+        const blossom = this.mapping.get(vs);
         if (!blossom) return undefined;
-        else return blossom.get(vs);
+        else return blossom.get(code);
     }
     public set(code: number, vs: number, glyph: G) {
         this.sizeCache = undefined;
-        let blossom = this.mapping.get(code);
+        let blossom = this.mapping.get(vs);
         if (!blossom) {
             blossom = new Map();
-            this.mapping.set(code, blossom);
+            this.mapping.set(vs, blossom);
         }
-        blossom.set(vs, glyph);
+        blossom.set(code, glyph);
     }
     public delete(code: number, vs: number) {
         this.sizeCache = undefined;
-        let blossom = this.mapping.get(code);
+        let blossom = this.mapping.get(vs);
         if (blossom) {
-            blossom.delete(vs);
-            if (!blossom.size) this.mapping.delete(code);
+            blossom.delete(code);
+            if (!blossom.size) this.mapping.delete(vs);
         }
     }
     public *entries(): IterableIterator<[number, number, G]> {
-        for (const [code, blossom] of this.mapping) {
-            for (const [vs, glyph] of blossom) {
+        for (const [vs, blossom] of this.mapping) {
+            for (const [code, glyph] of blossom) {
                 yield [code, vs, glyph];
             }
         }
