@@ -61,13 +61,13 @@ test("Reading : TTF, static", () => {
     {
         const g300 = gOrd.at(300);
         expect(g300.geometry).toBeTruthy();
-        expect(g300.geometry).toBeInstanceOf(OtGlyph.TtReferenceList);
+        expect(g300.geometry).toBeInstanceOf(OtGlyph.GeometryList);
 
-        const geom = g300.geometry as OtGlyph.TtReferenceList;
-        expect(geom.references.length).toBe(2);
+        const geom = g300.geometry as OtGlyph.GeometryList;
+        expect(geom.items.length).toBe(2);
 
-        const base = geom.references[0];
-        const diacritic = geom.references[1];
+        const base = geom.items[0] as OtGlyph.TtReference;
+        const diacritic = geom.items[1] as OtGlyph.TtReference;
 
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));

@@ -61,9 +61,12 @@ export namespace GlyphIdentity {
                 tolerance,
                 place
             );
-        } else if (geomE instanceof OtGlyph.TtReferenceList) {
-            expect(geomA).toBeInstanceOf(OtGlyph.TtReferenceList);
-            testReferenceList(geomE, geomA as OtGlyph.TtReferenceList, mode, tolerance);
+        } else if (geomE instanceof OtGlyph.GeometryList) {
+            expect(geomA).toBeInstanceOf(OtGlyph.GeometryList);
+            testGeometryList(geomE, geomA as OtGlyph.GeometryList, mode, tolerance);
+        } else if (geomE instanceof OtGlyph.TtReference) {
+            expect(geomA).toBeInstanceOf(OtGlyph.TtReference);
+            testReference(geomE, geomA as OtGlyph.TtReference, mode, tolerance);
         }
     }
 
@@ -130,15 +133,17 @@ export namespace GlyphIdentity {
         }
     }
 
-    function testReferenceList(
-        expected: OtGlyph.TtReferenceList,
-        actual: OtGlyph.TtReferenceList,
+    function testGeometryList(
+        expected: OtGlyph.GeometryList,
+        actual: OtGlyph.GeometryList,
         tolerance: number,
         mode: number
     ) {
-        expect(expected.references.length).toBe(actual.references.length);
-        for (let rid = 0; rid < expected.references.length; rid++) {
-            testReference(expected.references[rid], actual.references[rid], tolerance, mode);
+        expect(expected.items.length).toBe(actual.items.length);
+        for (let rid = 0; rid < expected.items.length; rid++) {
+            const expectedItem = expected.items[rid];
+            const actualItem = actual.items[rid];
+            testGeometry(expectedItem, actualItem, mode, tolerance);
         }
     }
 

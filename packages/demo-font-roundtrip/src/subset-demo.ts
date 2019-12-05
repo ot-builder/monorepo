@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as Ob from "ot-builder";
-import { Ot } from "ot-builder";
+import { Ot, Rectify } from "ot-builder";
 import * as path from "path";
 
 const file = process.argv[2];
@@ -38,7 +38,7 @@ console.log("write complete");
 function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,
     text: string
-): Ot.Glyph.Rectifier {
+): Rectify.Glyph.RectifierT<Ot.Glyph> {
     const init: Set<Ot.Glyph> = new Set();
     const gOrd = font.glyphs.decideOrder();
     init.add(gOrd.at(0)); // keep NOTDEF

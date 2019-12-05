@@ -42,7 +42,7 @@ export function singleGlyphCodeGenRoundTrip(
         rIVS = null;
     }
 
-    const glyph1 = new OtGlyph();
+    const glyph1 = OtGlyph.create();
     const gb = new CffGlyphBuilder(glyph1);
     const st = new CffCharStringInterpStateImpl(rIVS);
     interpretCharString(buf, st, { global: [], local: [], defaultWidthX: 0, nominalWidthX: 0 }, gb);

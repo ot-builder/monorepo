@@ -13,7 +13,7 @@ export namespace OtGeometryHandler {
 
     export function stat<T>(cls: StatGeometryVisitorClass<T>, ...gs: OtGlyph.Geometry[]): T {
         const sink = new cls();
-        for (const g of gs) g.visitGeometry(sink);
+        for (const g of gs) g.acceptGeometryVisitor(sink);
         return sink.getResult();
     }
 }

@@ -1,4 +1,3 @@
-import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Caster } from "@ot-builder/prelude";
@@ -22,10 +21,10 @@ function byMaskPosition(a: CompileTimeMask, b: CompileTimeMask) {
 class CffCodeGen {
     constructor(private readonly st: CffCodeGenState) {}
     public processHints(glyph: OtGlyph) {
-        glyph.visitHint(new CffHintHandler(this.st));
+        glyph.acceptHintVisitor(new CffHintHandler(this.st));
     }
     public processGeometry(glyph: OtGlyph) {
-        glyph.visitGeometry(new CffGeometryHandler(this.st));
+        glyph.acceptGeometryVisitor(new CffGeometryHandler(this.st));
     }
     public addWidth(
         hMetric: OtGlyph.Metric,
@@ -122,16 +121,16 @@ class CffHintHandler implements OtGlyph.CffHintVisitor {
     private counterMasks: OtGlyph.CffHintMask[] = [];
 
     public begin() {}
-    public addHorizontalStem(s: OtGlyph.CffHintStem) {
+    public visitHorizontalStem(s: OtGlyph.CffHintStem) {
         this.hStems.push(s);
     }
-    public addVerticalStem(s: OtGlyph.CffHintStem) {
+    public visitVerticalStem(s: OtGlyph.CffHintStem) {
         this.vStems.push(s);
     }
-    public addHintMask(m: OtGlyph.CffHintMask) {
+    public visitHintMask(m: OtGlyph.CffHintMask) {
         this.hintMasks.push(m);
     }
-    public addCounterMask(m: OtGlyph.CffHintMask) {
+    public visitCounterMask(m: OtGlyph.CffHintMask) {
         this.counterMasks.push(m);
     }
     public end() {
@@ -184,21 +183,25 @@ class CffHintHandler implements OtGlyph.CffHintVisitor {
 
 class CffGeometryHandler implements OtGlyph.GeometryVisitor {
     constructor(private readonly st: CffCodeGenState) {}
+    public begin() {}
+    public end() {}
     public visitReference(): never {
         throw Errors.Cff.ReferencesNotSupported();
     }
-    public visitContourSet() {
-        return new CffContourSetHandler(this.st);
+    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
+        g.acceptContourSetVisitor(new CffContourSetHandler(this.st));
     }
 }
 
-class CffContourSetHandler implements OtGlyph.ContourVisitor {
+class CffContourSetHandler implements OtGlyph.ContourSetVisitor {
     constructor(private readonly st: CffCodeGenState) {}
     public begin() {
         this.st.advance(0, 0, 0);
     }
-    public visitContour() {
-        return new CffContourHandler(this.st);
+    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
+        for (const contour of s.listContours()) {
+            contour.acceptContourVisitor(new CffContourHandler(this.st));
+        }
     }
     public end() {
         this.st.advance(1, 0, 0);
@@ -206,7 +209,7 @@ class CffContourSetHandler implements OtGlyph.ContourVisitor {
 }
 
 // A contour handler holds a state machine that processes off-curve control knots knot-by-knot.
-class CffContourHandler implements OtGlyph.PrimitiveVisitor {
+class CffContourHandler implements OtGlyph.ContourVisitor {
     constructor(private readonly st: CffCodeGenState) {}
 
     // Internal states
@@ -217,9 +220,12 @@ class CffContourHandler implements OtGlyph.PrimitiveVisitor {
     public begin() {
         this.st.advance(0, 0, 0);
     }
-    public visitPoint(pKnot: ImpLib.Access<OtGlyph.Point>) {
-        this.addKnotImpl(pKnot.get());
+    public visitContour(c: OtGlyph.ContourShape) {
+        for (const z of c.listPoints()) {
+            this.addKnotImpl(z);
+        }
     }
+
     private addKnotImpl(knot: OtGlyph.Point) {
         if (!this.knotsHandled) this.firstKnot = knot;
         if (knot.kind === OtGlyph.PointType.Lead && this.pendingKnots.length === 0) {

@@ -223,7 +223,7 @@ export const GlyfTableRead = Read(
                     }
                 } else {
                     const r = vGlyph.next(CompositeGlyph, gOrd);
-                    glyph.geometry = new OtGlyph.TtReferenceList(r.references);
+                    glyph.geometry = new OtGlyph.GeometryList(r.references);
                     if (r.instructions && r.instructions.byteLength) {
                         glyph.hints = new OtGlyph.TtfInstructionHint(r.instructions);
                     }

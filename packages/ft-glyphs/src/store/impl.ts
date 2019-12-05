@@ -4,5 +4,5 @@ import { OtGlyph } from "../ot-glyph";
 
 export const OtListGlyphStoreFactory = new ImpLib.Order.ListStoreFactoryWithDefault(
     `Glyphs`,
-    () => new OtGlyph()
+    OtGlyph.create
 );

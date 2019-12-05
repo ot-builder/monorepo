@@ -1,8 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { Cvt } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Access, Data } from "@ot-builder/prelude";
 import {
     TupleVariationBuildContext,
     TupleVariationBuildSource,
@@ -24,12 +23,7 @@ export const CvarIo = {
         const client = new CvtTvhClient(cvt);
         view.next(TupleVariationRead, client, { axes, sharedTuples: [] });
     },
-    write(
-        frag: Frag,
-        cvt: Cvt.Table,
-        axes: Data.Order<OtVar.Axis>,
-        acEmpty?: ImpLib.Access<boolean>
-    ) {
+    write(frag: Frag, cvt: Cvt.Table, axes: Data.Order<OtVar.Axis>, acEmpty?: Access<boolean>) {
         frag.uint16(1).uint16(0);
         const context: TupleVariationBuildContext = {
             axes,
