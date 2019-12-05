@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import { Access } from "@ot-builder/prelude";
 
 import { OtGlyph } from "../ot-glyph";
 
@@ -30,29 +30,33 @@ export class PointTransformer<PS extends PointSink> {
 
 export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.GeometryVisitor {
     constructor(protected readonly acc: PointTransformer<PS>) {}
-    public visitReference() {
-        return new RefHandler(this.acc);
+    public begin() {}
+    public end() {}
+    public visitReference(g: OtGlyph.ReferenceGeometry) {
+        g.acceptReferenceVisitor(new RefHandler(this.acc));
     }
-    public visitContourSet() {
-        return new ContourSetHandler(this.acc);
+    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
+        g.acceptContourSetVisitor(new ContourSetHandler(this.acc));
     }
 }
 
-class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourVisitor {
+class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourSetVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
-    public visitContour() {
-        return new ContourHandler(this.acc);
+    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
+        for (const contour of s.listContours()) {
+            contour.acceptContourVisitor(new ContourHandler(this.acc));
+        }
     }
     public end() {}
 }
 
-class ContourHandler<PS extends PointSink> implements OtGlyph.PrimitiveVisitor {
+class ContourHandler<PS extends PointSink> implements OtGlyph.ContourVisitor {
     constructor(private readonly acc: PointTransformer<PS>) {}
     public begin() {}
     public end() {}
-    public visitPoint(knot: ImpLib.Access<OtGlyph.Point>) {
-        this.acc.addControlKnot(knot.get());
+    public visitContour(s: OtGlyph.ContourShape) {
+        for (const z of s.listPoints()) this.acc.addControlKnot(z);
     }
 }
 
@@ -68,12 +72,12 @@ class RefHandler<PS extends PointSink> implements OtGlyph.ReferenceVisitor {
         const plRef = new OtGhPointHandlerT(
             this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, transform))
         );
-        target.visitGeometry(plRef);
+        target.acceptGeometryVisitor(plRef);
     }
-    public visitTarget(g: ImpLib.Access<OtGlyph>) {
+    public visitTarget(g: Access<OtGlyph>) {
         this.target = g.get();
     }
-    public visitTransform(t: ImpLib.Access<OtGlyph.Transform2X3>) {
+    public visitTransform(t: Access<OtGlyph.Transform2X3>) {
         this.transform = t.get();
     }
     public setPointAttachment() {}

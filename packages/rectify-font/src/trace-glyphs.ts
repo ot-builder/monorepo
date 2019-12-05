@@ -1,10 +1,10 @@
 import { OtFont } from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Data, Trace } from "@ot-builder/prelude";
 
 function traceGlyphsImpl<GS extends Data.OrderStore<OtGlyph>>(
     font: OtFont<GS>,
-    tracer: OtGlyph.Tracer
+    tracer: Trace.Glyph.TracerT<OtGlyph>
 ) {
     const gOrd = font.glyphs.decideOrder();
     for (const g of gOrd) g.traceGlyphs(tracer);

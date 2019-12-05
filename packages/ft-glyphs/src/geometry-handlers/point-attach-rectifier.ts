@@ -11,7 +11,7 @@ export class OtGhStdPointAttachRectifier
 
     public getGlyphPoint(g: OtGlyph, zid: number): null | Rectify.PointAttach.XYFT<OtVar.Value> {
         const lister = new OtGhPointLister();
-        g.visitGeometry(lister);
+        g.acceptGeometryVisitor(lister);
         const points = lister.getResult();
         return points[zid];
     }

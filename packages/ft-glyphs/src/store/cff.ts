@@ -1,5 +1,5 @@
 import { RectifyImpl } from "@ot-builder/common-impl";
-import { Data } from "@ot-builder/prelude";
+import { Data, Rectify } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
@@ -46,7 +46,7 @@ export namespace Cff {
         }
     }
 
-    export class CID implements OtGlyph.Rectifiable {
+    export class CID implements Rectify.Glyph.RectifiableT<OtGlyph> {
         // ROS
         public registry: string = "Adobe";
         public ordering: string = "Identity";
@@ -54,7 +54,7 @@ export namespace Cff {
         // Optional, only present in subset fonts
         public mapping: null | Map<number, OtGlyph> = null;
 
-        public rectifyGlyphs(rec: OtGlyph.Rectifier) {
+        public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
             if (this.mapping) this.mapping = RectifyImpl.Glyph.comapSome(rec, this.mapping);
         }
     }
@@ -90,7 +90,7 @@ export namespace Cff {
     }
 
     // CFF(2) table
-    export class Table implements OtVar.Rectifiable, OtGlyph.Rectifiable {
+    export class Table implements OtVar.Rectifiable, Rectify.Glyph.RectifiableT<OtGlyph> {
         constructor(public readonly version: number) {}
         public postScriptFontName: string = "";
         public cid: CID | null = null;
@@ -98,7 +98,7 @@ export namespace Cff {
         public fdArray: FontDict[] | null = null;
         public fdSelect: null | Map<OtGlyph, number> = null;
 
-        public rectifyGlyphs(rec: OtGlyph.Rectifier) {
+        public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyph>) {
             if (this.cid) this.cid.rectifyGlyphs(rec);
             if (this.fdSelect) this.fdSelect = RectifyImpl.Glyph.mapSome(rec, this.fdSelect);
         }

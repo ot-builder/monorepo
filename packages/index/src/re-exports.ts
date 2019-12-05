@@ -6,7 +6,7 @@ export {
     writeFont,
     writeSfntOtf
 } from "@ot-builder/io-bin-font";
-export { Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
+export { Access, Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
 export { rectifyFontCoords, rectifyFontGlyphs, traceGlyphs } from "@ot-builder/rectify-font";
 
 // re-export primitive types from Primitive

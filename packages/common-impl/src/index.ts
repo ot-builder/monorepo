@@ -17,7 +17,6 @@ export namespace ImpLib {
     export import PathMap = PathMapInterfaceLib.PathMap;
     export import Allocator = PathMapInterfaceLib.Allocator;
     export import PathMapLens = PathMapInterfaceLib.PathMapLens;
-    export import Access = _Access.Access;
     export const State = _Access.State;
     export import Order = _Order;
 

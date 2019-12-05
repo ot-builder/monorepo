@@ -1,7 +1,6 @@
-import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Caster, Data } from "@ot-builder/prelude";
+import { Access, Caster, Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
     constructor(private gOrd: Data.Order<OtGlyph>) {}
@@ -12,8 +11,8 @@ export class GlyphClassifier {
 
         const visitor = new GeometryClassifier();
         const hintVisitor = new HintClassifier();
-        g.visitGeometry(visitor);
-        g.visitHint(hintVisitor);
+        g.acceptGeometryVisitor(visitor);
+        g.acceptHintVisitor(hintVisitor);
 
         if (!visitor.hasContours && !visitor.hasReference) {
             return new SpaceGlyph(gid, g.horizontal, g.vertical);
@@ -58,11 +57,13 @@ class GeometryClassifier implements OtGlyph.GeometryVisitor {
     public collectedContourSets: OtGlyph.ContourSet[] = [];
     public collectedReferences: OtGlyph.TtReference[] = [];
 
-    public visitContourSet() {
-        return new ContourSetVisitor(this);
+    public begin() {}
+    public end() {}
+    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
+        g.acceptContourSetVisitor(new ContourSetVisitor(this));
     }
-    public visitReference() {
-        return new RefVisitor(this);
+    public visitReference(g: OtGlyph.ReferenceGeometry) {
+        g.acceptReferenceVisitor(new RefVisitor(this));
     }
 }
 
@@ -79,12 +80,14 @@ class HintClassifier implements OtGlyph.TtfInstructionHintVisitor {
     }
 }
 
-class ContourSetVisitor implements OtGlyph.ContourVisitor {
+class ContourSetVisitor implements OtGlyph.ContourSetVisitor {
     constructor(private cls: GeometryClassifier) {}
     public collected = new OtGlyph.ContourSet();
     public begin() {}
-    public visitContour() {
-        return new ContourVisitor(this.collected);
+    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
+        for (const contour of s.listContours()) {
+            contour.acceptContourVisitor(new ContourVisitor(this.collected));
+        }
     }
     public end() {
         this.cls.hasContours = true;
@@ -93,15 +96,17 @@ class ContourSetVisitor implements OtGlyph.ContourVisitor {
     }
 }
 
-class ContourVisitor implements OtGlyph.PrimitiveVisitor {
+class ContourVisitor implements OtGlyph.ContourVisitor {
     constructor(private cs: OtGlyph.ContourSet) {}
     private collected: OtGlyph.Point[] = [];
     public begin() {}
     public end() {
         if (this.collected.length) this.cs.contours.push(this.collected);
     }
-    public visitPoint(pK: ImpLib.Access<OtGlyph.Point>) {
-        this.collected.push(pK.get());
+    public visitContour(c: OtGlyph.ContourShape) {
+        for (const z of c.listPoints()) {
+            this.collected.push(z);
+        }
     }
 }
 
@@ -128,10 +133,10 @@ class RefVisitor implements OtGlyph.ReferenceVisitor {
         ref.pointAttachment = this.pointAttachment;
         this.cls.collectedReferences.push(ref);
     }
-    public visitTarget(g: ImpLib.Access<OtGlyph>) {
+    public visitTarget(g: Access<OtGlyph>) {
         this.to = g.get();
     }
-    public visitTransform(t: ImpLib.Access<OtGlyph.Transform2X3>) {
+    public visitTransform(t: Access<OtGlyph.Transform2X3>) {
         this.transform = t.get();
     }
     public setPointAttachment(inner: number, outer: number) {

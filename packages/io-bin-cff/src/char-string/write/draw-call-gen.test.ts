@@ -8,7 +8,7 @@ import { Mir } from "./mir";
 
 test("Draw call generator test", () => {
     const ctx = new CffWriteContext(2, 1000);
-    const glyph = new OtGlyph();
+    const glyph = OtGlyph.create();
     const hints = new OtGlyph.CffHint();
     hints.hStems = [new OtGlyph.CffHintStem(1, 2), new OtGlyph.CffHintStem(3, 4)];
     hints.hintMasks = [

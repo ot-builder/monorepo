@@ -1,8 +1,7 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Access, Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
@@ -22,7 +21,7 @@ export const GvarTableWrite = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: Config<TtfCfg>,
         axes: Data.Order<OtVar.Axis>,
-        acEmpty?: ImpLib.Access<boolean>
+        acEmpty?: Access<boolean>
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {
@@ -94,7 +93,7 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
         let cs: OtVar.Value[][] = [];
 
         // Geometry
-        glyph.visitGeometry(new GeometryVisitor(cs));
+        glyph.acceptGeometryVisitor(new GeometryVisitor(cs));
         // H metric
         cs.push([glyph.horizontal.start, 0], [glyph.horizontal.end, 0]);
         // V metric
@@ -106,31 +105,36 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
 // Inner classes
 class GeometryVisitor implements OtGlyph.GeometryVisitor {
     constructor(public collected: OtVar.Value[][]) {}
-    public visitContourSet() {
-        return new ContourSetVisitor(this.collected);
+    public begin() {}
+    public end() {}
+    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
+        g.acceptContourSetVisitor(new ContourSetVisitor(this.collected));
     }
-    public visitReference() {
-        return new RefVisitor(this.collected);
+    public visitReference(g: OtGlyph.ReferenceGeometry) {
+        g.acceptReferenceVisitor(new RefVisitor(this.collected));
     }
 }
-class ContourSetVisitor implements OtGlyph.ContourVisitor {
+class ContourSetVisitor implements OtGlyph.ContourSetVisitor {
     constructor(public collected: OtVar.Value[][]) {}
     public begin() {}
     public end() {}
-    public visitContour() {
-        return new ContourVisitor(this.collected);
+    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
+        for (const c of s.listContours()) {
+            c.acceptContourVisitor(new ContourVisitor(this.collected));
+        }
     }
 }
-class ContourVisitor implements OtGlyph.PrimitiveVisitor {
+class ContourVisitor implements OtGlyph.ContourVisitor {
     constructor(public collected: OtVar.Value[][]) {}
     private readonly items: OtVar.Value[] = [];
     public begin() {}
     public end() {
         this.collected.push(this.items);
     }
-    public visitPoint(pZ: ImpLib.Access<OtGlyph.Point>) {
-        const z = pZ.get();
-        this.items.push(z.x, z.y);
+    public visitContour(c: OtGlyph.ContourShape) {
+        for (const z of c.listPoints()) {
+            this.items.push(z.x, z.y);
+        }
     }
 }
 class RefVisitor implements OtGlyph.ReferenceVisitor {
@@ -138,7 +142,7 @@ class RefVisitor implements OtGlyph.ReferenceVisitor {
     public begin() {}
     public end() {}
     public visitTarget() {}
-    public visitTransform(pTransform: ImpLib.Access<OtGlyph.Transform2X3>) {
+    public visitTransform(pTransform: Access<OtGlyph.Transform2X3>) {
         const transform = pTransform.get();
         this.collected.push([transform.dx, transform.dy]);
     }
