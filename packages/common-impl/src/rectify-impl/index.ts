@@ -1,4 +1,4 @@
-import { Rectify } from "@ot-builder/prelude";
+import { Rectify, Trace } from "@ot-builder/prelude";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {
@@ -221,6 +221,10 @@ export namespace RectifyImpl {
             if (l == null || !ls.has(l)) return null;
             else return l;
         }
+        export function findInMap<L>(l: null | undefined | L, ls: ReadonlyMap<L, L>) {
+            if (l == null) return null;
+            return ls.get(l);
+        }
         export function comapSomeT<K, L, A extends any[]>(
             a: ReadonlyMap<K, L>,
             fn: (l: L, ...args: A) => null | undefined | L,
@@ -245,7 +249,7 @@ export namespace RectifyImpl {
             }
             return a1;
         }
-        export function listSome<L>(a: ReadonlyArray<L>, ls: ReadonlySet<L>) {
+        export function listSome<L>(a: ReadonlyArray<null | undefined | L>, ls: ReadonlySet<L>) {
             let a1: L[] = [];
             for (const item of a) {
                 const l1 = findInSet(item, ls);
@@ -253,7 +257,7 @@ export namespace RectifyImpl {
             }
             return a1;
         }
-        export function listSomeOpt<L>(a: ReadonlyArray<L>, ls: ReadonlySet<L>) {
+        export function listSomeOpt<L>(a: ReadonlyArray<null | undefined | L>, ls: ReadonlySet<L>) {
             let a1: L[] = [];
             for (const item of a) {
                 const l1 = findInSet(item, ls);
@@ -261,6 +265,18 @@ export namespace RectifyImpl {
             }
             if (!a1.length) return null;
             return a1;
+        }
+    }
+}
+export namespace TraceImpl {
+    export namespace Glyph {
+        export function Nop<G>(): Trace.Glyph.ProcT<G> {
+            return tracer => {};
+        }
+        export function Seq<G>(from: Iterable<Trace.Glyph.ProcT<G>>): Trace.Glyph.ProcT<G> {
+            return tracer => {
+                for (const proc of from) proc(tracer);
+            };
         }
     }
 }

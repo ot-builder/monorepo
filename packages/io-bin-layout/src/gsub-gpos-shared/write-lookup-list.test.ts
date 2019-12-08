@@ -11,14 +11,9 @@ class MockLookup implements GsubGpos.Lookup {
     public rightToLeft = false;
     public ignoreGlyphs = null;
     constructor(public count: number) {}
-    public rectifyGlyphs() {}
-    public rectifyCoords() {}
-    public traceGlyphs() {}
-    public rectifyPointAttachment() {}
-    public cleanupEliminable() {
-        return false;
+    public acceptLookupAlgebra<E>(alg: GsubGpos.LookupAlg<E>): E {
+        throw new Error("not implemented");
     }
-    public rectifyLookups() {}
 }
 
 class MockLookupReader implements LookupReader<GsubGpos.Lookup, MockLookup> {

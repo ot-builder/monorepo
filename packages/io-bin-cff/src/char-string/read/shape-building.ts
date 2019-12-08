@@ -8,7 +8,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
     public stemQuantity: number = 0;
     public transient: OtVar.Value[] = [];
 
-    private hints = new OtGlyph.CffHint();
+    private hints = OtGlyph.CffHint.create();
     private contours: OtGlyph.Point[][] = [];
     private currentContour: OtGlyph.Point[] = [];
 
@@ -17,9 +17,9 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
     }
     public addStemHint(isVertical: boolean, startEdge: OtVar.Value, endEdge: OtVar.Value) {
         if (isVertical) {
-            this.hints.vStems.push(new OtGlyph.CffHintStem(startEdge, endEdge));
+            this.hints.vStems.push(OtGlyph.CffHint.createStem(startEdge, endEdge));
         } else {
-            this.hints.hStems.push(new OtGlyph.CffHintStem(startEdge, endEdge));
+            this.hints.hStems.push(OtGlyph.CffHint.createStem(startEdge, endEdge));
         }
     }
     public addHintMask(isCounterMask: boolean, flags: number[]) {
@@ -33,7 +33,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
                 if (masked) ssVertical.add(this.hints.hStems[sid - this.hints.hStems.length]);
             }
         }
-        const hm = new OtGlyph.CffHintMask(
+        const hm = OtGlyph.CffHint.createMask(
             {
                 geometry: 0,
                 contour: this.contours.length,
@@ -97,7 +97,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
 
     public endChar() {
         this.startContour();
-        if (this.contours.length) this.glyph.geometry = new OtGlyph.ContourSet(this.contours);
+        if (this.contours.length) this.glyph.geometry = OtGlyph.ContourSet.create(this.contours);
         this.glyph.hints = this.hints;
     }
 }

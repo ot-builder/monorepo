@@ -1,6 +1,5 @@
-import { Errors } from "@ot-builder/errors";
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Caster } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteContext } from "../../context/write";
@@ -14,36 +13,50 @@ type CompileTimeMask = {
     flags: number[];
 };
 
-function byMaskPosition(a: CompileTimeMask, b: CompileTimeMask) {
-    return OtGlyph.PointRef.compare(a.at, b.at);
-}
+type AdvanceWidthHandler = {
+    defaultWidthX: OtVar.Value;
+    nominalWidthX: OtVar.Value;
+};
 
-class CffCodeGen {
-    constructor(private readonly st: CffCodeGenState) {}
-    public processHints(glyph: OtGlyph) {
-        glyph.acceptHintVisitor(new CffHintHandler(this.st));
-    }
-    public processGeometry(glyph: OtGlyph) {
-        glyph.acceptGeometryVisitor(new CffGeometryHandler(this.st));
-    }
-    public addWidth(
-        hMetric: OtGlyph.Metric,
-        defaultWidthX: OtVar.Value,
-        nominalWidthX: OtVar.Value
+class CffGlyphHandler implements OtGlyph.GlyphAlg<void> {
+    constructor(
+        private readonly widthHandler: null | AdvanceWidthHandler,
+        private readonly st: CffCodeGenState
     ) {
-        const width = OtVar.Ops.minus(hMetric.end, hMetric.start);
-        if (OtVar.Ops.equal(width, defaultWidthX, 1 / 0x10000)) return;
-        const arg = OtVar.Ops.minus(width, nominalWidthX);
-        if (!this.st.rawDrawCalls.length) {
-            this.st.pushRawCall(new CffDrawCallRaw([arg], CharStringOperator.EndChar));
-        } else {
-            this.st.rawDrawCalls[0] = new CffDrawCallRaw(
-                [arg, ...this.st.rawDrawCalls[0].args],
-                this.st.rawDrawCalls[0].operator,
-                this.st.rawDrawCalls[0].flags
-            );
+        this.geometryAlgebra = new CffGeometryHandler(st);
+        this.hintAlgebra = new CffHintHandler(st);
+    }
+    public geometryAlgebra: CffGeometryHandler;
+    public hintAlgebra: CffHintHandler;
+
+    public glyph(
+        hMetric: OtGlyph.Metric,
+        vMetric: OtGlyph.Metric,
+        fGeom: Data.Maybe<() => void>,
+        fHint: Data.Maybe<() => void>
+    ) {
+        if (fHint) fHint();
+        if (fGeom) fGeom();
+
+        if (this.widthHandler) {
+            const width = OtVar.Ops.minus(hMetric.end, hMetric.start);
+            if (OtVar.Ops.equal(width, this.widthHandler.defaultWidthX, 1 / 0x10000)) return;
+            const arg = OtVar.Ops.minus(width, this.widthHandler.nominalWidthX);
+            if (!this.st.rawDrawCalls.length) {
+                this.st.pushRawCall(new CffDrawCallRaw([arg], CharStringOperator.EndChar));
+            } else {
+                this.st.rawDrawCalls[0] = new CffDrawCallRaw(
+                    [arg, ...this.st.rawDrawCalls[0].args],
+                    this.st.rawDrawCalls[0].operator,
+                    this.st.rawDrawCalls[0].flags
+                );
+            }
         }
     }
+}
+
+function byMaskPosition(a: CompileTimeMask, b: CompileTimeMask) {
+    return OtGlyph.PointRef.compare(a.at, b.at);
 }
 
 class CffCodeGenState {
@@ -108,53 +121,33 @@ class CffCodeGenState {
     }
 }
 
-class CffHintHandler implements OtGlyph.CffHintVisitor {
+class CffHintHandler implements OtGlyph.HintAlg<void> {
     constructor(private readonly st: CffCodeGenState) {}
 
-    public queryInterface<T>(tag: Caster.TypeID<T>): undefined | T {
-        return Caster.StandardQueryInterface(this, tag, OtGlyph.TID_CffHintVisitor);
-    }
-
-    private hStems: OtGlyph.CffHintStem[] = [];
-    private vStems: OtGlyph.CffHintStem[] = [];
-    private hintMasks: OtGlyph.CffHintMask[] = [];
-    private counterMasks: OtGlyph.CffHintMask[] = [];
-
-    public begin() {}
-    public visitHorizontalStem(s: OtGlyph.CffHintStem) {
-        this.hStems.push(s);
-    }
-    public visitVerticalStem(s: OtGlyph.CffHintStem) {
-        this.vStems.push(s);
-    }
-    public visitHintMask(m: OtGlyph.CffHintMask) {
-        this.hintMasks.push(m);
-    }
-    public visitCounterMask(m: OtGlyph.CffHintMask) {
-        this.counterMasks.push(m);
-    }
-    public end() {
+    public empty() {}
+    public ttfInstructions() {}
+    public cffHint(h: OtGlyph.CffHintProps) {
         const hasMask =
-            (this.hintMasks.length || this.counterMasks.length) &&
-            (this.hStems.length || this.vStems.length);
+            (h.hintMasks.length || h.counterMasks.length) && (h.hStems.length || h.vStems.length);
         this.pushStemList(
             hasMask ? CharStringOperator.HStemHM : CharStringOperator.HStem,
-            this.hStems
+            h.hStems
         );
         this.pushStemList(
             hasMask ? CharStringOperator.VStemHM : CharStringOperator.VStem,
-            this.vStems
+            h.vStems
         );
         if (hasMask) {
-            for (const mask of this.hintMasks) {
-                this.st.masks.push(this.makeCtMask(false, mask));
+            for (const mask of h.hintMasks) {
+                this.st.masks.push(this.makeCtMask(h, false, mask));
             }
-            for (const mask of this.counterMasks) {
-                this.st.masks.push(this.makeCtMask(true, mask));
+            for (const mask of h.counterMasks) {
+                this.st.masks.push(this.makeCtMask(h, true, mask));
             }
             this.st.masks.sort(byMaskPosition);
         }
     }
+
     private pushStemList(op: CharStringOperator, stemList: ReadonlyArray<OtGlyph.CffHintStem>) {
         if (!stemList.length) return;
         let current: OtVar.Value = 0;
@@ -167,13 +160,17 @@ class CffHintHandler implements OtGlyph.CffHintVisitor {
         }
         this.st.pushRawCall(new CffDrawCallRaw(args, op));
     }
-    private makeCtMask(contour: boolean, mask: OtGlyph.CffHintMask): CompileTimeMask {
+    private makeCtMask(
+        h: OtGlyph.CffHintProps,
+        contour: boolean,
+        mask: OtGlyph.CffHintMask
+    ): CompileTimeMask {
         const flags: number[] = [];
-        for (const s of this.hStems) {
+        for (const s of h.hStems) {
             if (mask.maskH.has(s)) flags.push(1);
             else flags.push(0);
         }
-        for (const s of this.vStems) {
+        for (const s of h.vStems) {
             if (mask.maskV.has(s)) flags.push(1);
             else flags.push(0);
         }
@@ -181,35 +178,25 @@ class CffHintHandler implements OtGlyph.CffHintVisitor {
     }
 }
 
-class CffGeometryHandler implements OtGlyph.GeometryVisitor {
+class CffGeometryHandler implements OtGlyph.GeometryAlg<void> {
     constructor(private readonly st: CffCodeGenState) {}
-    public begin() {}
-    public end() {}
-    public visitReference(): never {
-        throw Errors.Cff.ReferencesNotSupported();
-    }
-    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
-        g.acceptContourSetVisitor(new CffContourSetHandler(this.st));
-    }
-}
-
-class CffContourSetHandler implements OtGlyph.ContourSetVisitor {
-    constructor(private readonly st: CffCodeGenState) {}
-    public begin() {
+    public empty() {}
+    public ttReference() {}
+    public geometryList() {}
+    public contourSet(cs: OtGlyph.ContourSetProps) {
         this.st.advance(0, 0, 0);
-    }
-    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
-        for (const contour of s.listContours()) {
-            contour.acceptContourVisitor(new CffContourHandler(this.st));
+        for (const contour of cs.contours) {
+            const ch = new CffContourHandler(this.st);
+            ch.begin();
+            ch.visitContour(contour);
+            ch.end();
         }
-    }
-    public end() {
         this.st.advance(1, 0, 0);
     }
 }
 
 // A contour handler holds a state machine that processes off-curve control knots knot-by-knot.
-class CffContourHandler implements OtGlyph.ContourVisitor {
+class CffContourHandler {
     constructor(private readonly st: CffCodeGenState) {}
 
     // Internal states
@@ -220,10 +207,8 @@ class CffContourHandler implements OtGlyph.ContourVisitor {
     public begin() {
         this.st.advance(0, 0, 0);
     }
-    public visitContour(c: OtGlyph.ContourShape) {
-        for (const z of c.listPoints()) {
-            this.addKnotImpl(z);
-        }
+    public visitContour(c: OtGlyph.Contour) {
+        for (const z of c) this.addKnotImpl(z);
     }
 
     private addKnotImpl(knot: OtGlyph.Point) {
@@ -298,13 +283,9 @@ export function codeGenGlyph(
     pd?: Cff.PrivateDict
 ) {
     const st = new CffCodeGenState();
-    const cg = new CffCodeGen(st);
-
-    cg.processHints(glyph);
-    cg.processGeometry(glyph);
-    if (wCtx.version <= 1) {
-        cg.addWidth(glyph.horizontal, pd ? pd.defaultWidthX : 0, pd ? pd.nominalWidthX : 0);
-    }
+    const wh: null | AdvanceWidthHandler =
+        wCtx.version > 1 ? null : pd || { defaultWidthX: 0, nominalWidthX: 0 };
+    glyph.acceptGlyphAlgebra(new CffGlyphHandler(wh, st));
 
     const calls = st.getDrawCalls(wCtx);
     const gStat = st.getStat();

@@ -58,7 +58,7 @@ test("Reading : TTF, variable", () => {
     {
         const g300 = gOrd.at(300);
         expect(g300.geometry).toBeTruthy();
-        expect(g300.geometry).toBeInstanceOf(OtGlyph.GeometryList);
+        expect(g300.geometry!.queryInterface(OtGlyph.TID_GeometryList)).toBeTruthy();
 
         const geom = g300.geometry as OtGlyph.GeometryList;
         expect(geom.items.length).toBe(2);

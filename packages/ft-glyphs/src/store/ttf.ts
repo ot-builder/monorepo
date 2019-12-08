@@ -17,11 +17,8 @@ export namespace Prep {
 export namespace Cvt {
     export const Tag = "cvt ";
     export const TagVar = "cvar";
-    export class Table implements OtVar.Rectifiable {
+    export class Table {
         constructor(public items: OtVar.Value[] = []) {}
-        public rectifyCoords(rec: OtVar.Rectifier) {
-            this.items = this.items.map(x => rec.cv(x));
-        }
     }
 }
 

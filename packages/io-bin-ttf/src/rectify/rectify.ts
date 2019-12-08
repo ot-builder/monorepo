@@ -1,4 +1,8 @@
-import { OtGlyph, StdPointAttachRectifier } from "@ot-builder/ft-glyphs";
+import {
+    OtGhRectifyGeomPointAttachmentAlg,
+    OtGlyph,
+    StdPointAttachRectifier
+} from "@ot-builder/ft-glyphs";
 import { Data, Rectify } from "@ot-builder/prelude";
 
 export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
@@ -11,10 +15,14 @@ export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
 function rectifyGlyph(glyph: OtGlyph, gs: Set<OtGlyph>) {
     if (gs.has(glyph)) return;
 
-    glyph.rectifyPointAttachment(
-        new StdPointAttachRectifier(Rectify.PointAttach.Manner.TrustAttachment),
-        glyph
-    );
+    if (glyph.geometry) {
+        glyph.geometry = glyph.geometry.acceptGeometryAlgebra(
+            new OtGhRectifyGeomPointAttachmentAlg(
+                new StdPointAttachRectifier(Rectify.PointAttach.Manner.TrustAttachment),
+                glyph
+            )
+        );
+    }
 
     gs.add(glyph);
 }

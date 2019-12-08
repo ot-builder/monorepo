@@ -43,10 +43,13 @@
       "path": "./ft-name/tsconfig.json"
     },
     {
-      "path": "./test-util/tsconfig.json"
+      "path": "./standard-glyph-namer/tsconfig.json"
     },
     {
       "path": "./ft-sfnt/tsconfig.json"
+    },
+    {
+      "path": "./test-util/tsconfig.json"
     },
     {
       "path": "./var-store/tsconfig.json"
@@ -83,9 +86,6 @@
     },
     {
       "path": "./io-bin-name/tsconfig.json"
-    },
-    {
-      "path": "./standard-glyph-namer/tsconfig.json"
     },
     {
       "path": "./io-bin-font/tsconfig.json"

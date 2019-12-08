@@ -2,9 +2,9 @@ import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
 
-import { OtGhPointHandlerT, PointTransformer } from "./shared";
+import { OtGhPointAlg, PointTransformer } from "./shared";
 
-export class OtGhGetBound extends OtGhPointHandlerT<BoundBoxPointSink> {
+export class OtGhGetBound extends OtGhPointAlg<BoundBoxPointSink> {
     constructor() {
         super(new PointTransformer(new BoundBoxPointSink(), z => z));
     }

@@ -30,7 +30,7 @@ function roundTripTest(file: string, padSpace: boolean) {
 
     if (padSpace) {
         for (const g of gOrd) {
-            if (!g.geometry) g.geometry = new OtGlyph.ContourSet([]);
+            if (!g.geometry) g.geometry = OtGlyph.ContourSet.create([]);
         }
     }
 

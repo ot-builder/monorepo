@@ -1,43 +1,22 @@
-import { Rectify, Trace } from "@ot-builder/prelude";
+import { Access, Caster } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";
 
 import { OtGlyphInterface } from "./glyph-interface";
+import { TID_GeometryList } from "./type-id";
 
 type Geometry = GeneralGlyph.GeometryT<OtGlyphInterface, OtVar.Value>;
-export class GeometryList implements Geometry {
+export class GeometryListImpl implements GeneralGlyph.GeometryListT<OtGlyphInterface, OtVar.Value> {
     constructor(public items: Geometry[] = []) {}
-
-    public acceptGeometryVisitor(
-        visitor: GeneralGlyph.GeometryVisitorT<OtGlyphInterface, OtVar.Value>
-    ) {
-        visitor.begin();
-        for (const part of this.items) part.acceptGeometryVisitor(visitor);
-        visitor.end();
+    public queryInterface<U>(tid: Caster.TypeID<U>): undefined | U {
+        return Caster.StandardQueryInterface(this, tid, TID_GeometryList);
     }
-    public rectifyCoords(rec: OtVar.Rectifier) {
-        for (const part of this.items) part.rectifyCoords(rec);
-    }
-    public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<OtGlyphInterface>) {
-        let newItems: Geometry[] = [];
-        for (const part of this.items) {
-            const remove = part.rectifyGlyphs(rec);
-            if (!remove) newItems.push(part);
-        }
-        this.items = newItems;
-        return !newItems.length;
-    }
-    public traceGlyphs(tracer: Trace.Glyph.TracerT<OtGlyphInterface>) {
-        for (const part of this.items) part.traceGlyphs(tracer);
-    }
-    public rectifyPointAttachment(
-        rec: Rectify.PointAttach.RectifierT<OtGlyphInterface, OtVar.Value>,
-        c: OtGlyphInterface
-    ) {
-        for (const part of this.items) part.rectifyPointAttachment(rec, c);
-    }
-    public duplicate() {
-        return new GeometryList(this.items.map(part => part.duplicate()));
+    public acceptGeometryAlgebra<E>(
+        alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>
+    ): E {
+        let parts: E[] = [];
+        for (const item of this.items) parts.push(item.acceptGeometryAlgebra(alg));
+        return alg.geometryList(parts);
     }
 }

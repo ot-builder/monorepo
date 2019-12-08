@@ -2,21 +2,46 @@ import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
-import { ChainingApplicationT, ChainingRuleT, ForwardChainingLookupT } from "../lookup/chaining";
-import { GposCursiveLookupT } from "../lookup/gpos-cursive";
 import {
+    ForwardChainingLookupBaseT,
+    GposChainingLookupT,
+    GsubChainingLookupT
+} from "../lookup/chaining";
+import {
+    ChainingApplicationT,
+    ChainingRuleT,
+    ForwardChainingPropT,
     GposBaseRecordT,
+    GposCursivePropT,
     GposLigatureRecordT,
     GposMarkRecordT,
+    GposMarkToBasePropT,
+    GposMarkToLigaturePropT,
+    GposMarkToMarkPropT,
+    GposPairPropT,
+    GposSinglePropT,
+    GsubLigatureLookupEntryT,
+    GsubLigaturePropT,
+    GsubMultipleAlternatePropT,
+    GsubReverseRuleT,
+    GsubReverseSingleSubPropT,
+    GsubReverseSubstT,
+    GsubSinglePropT,
+    LookupAlgT,
+    LookupPropT,
+    LookupT
+} from "../lookup/general";
+import { GposCursiveLookupT } from "../lookup/gpos-cursive";
+import {
     GposMarkToBaseLookupT,
     GposMarkToLigatureLookupT,
     GposMarkToMarkLookupT
 } from "../lookup/gpos-mark";
 import { GposPairLookupT } from "../lookup/gpos-pair";
 import { GposSingleLookupT } from "../lookup/gpos-single";
-import { GsubLigatureLookupEntryT, GsubLigatureLookupT } from "../lookup/gsub-ligature";
+import { GsubLigatureLookupT } from "../lookup/gsub-ligature";
 import { GsubAlternateLookupT, GsubMultipleLookupT } from "../lookup/gsub-multiple";
-import { GsubReverseRuleT, GsubReverseSingleSubT, GsubReverseSubstT } from "../lookup/gsub-reverse";
+import { GsubReverseSingleSubLookupT } from "../lookup/gsub-reverse";
 import { GsubSingleLookupT } from "../lookup/gsub-single";
 
 import * as FeatureParamLib from "./feature-params";
@@ -26,14 +51,18 @@ export namespace GsubGpos {
     export import General = GeneralGsubGpos;
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
-    export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<Lookup>;
-    export type Language = GeneralGsubGpos.LanguageT<Lookup>;
-    export type Script = GeneralGsubGpos.ScriptT<Lookup>;
+    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value>;
+    export type Lookup = LookupT<OtGlyph, OtVar.Value>;
+    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
+    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
+    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
     export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
     export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<OtVar.Axis, Lookup>;
+    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
+        OtVar.Axis,
+        OtGlyph,
+        OtVar.Value
+    >;
 
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
     export type ClassDef = LayoutCommon.ClassDef.T<OtGlyph>;
@@ -41,7 +70,11 @@ export namespace GsubGpos {
     export type ChainingApplication = ChainingApplicationT<Lookup>;
     export type ChainingRule = ChainingRuleT<Set<OtGlyph>, Lookup>;
     export type ChainingClassRule = ChainingRuleT<number, Lookup>;
-    export type ChainingLookup = ForwardChainingLookupT<OtGlyph, OtVar.Value, GsubGpos.Lookup>;
+    export type ChainingLookup = ForwardChainingLookupBaseT<OtGlyph, OtVar.Value>;
+    export type ChainingProp<E> = ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
+
+    export type LookupProp = LookupPropT<OtGlyph>;
+    export type LookupAlg<E> = LookupAlgT<OtGlyph, OtVar.Value, E>;
 }
 
 export namespace Gsub {
@@ -50,21 +83,32 @@ export namespace Gsub {
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
     export class Table extends GeneralGsubGpos.TableImpl<OtVar.Axis, OtGlyph, OtVar.Value> {}
-    export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<Lookup>;
-    export type Language = GeneralGsubGpos.LanguageT<Lookup>;
-    export type Script = GeneralGsubGpos.ScriptT<Lookup>;
+    export type Lookup = LookupT<OtGlyph, OtVar.Value>;
+    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
+    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
+    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
     export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
     export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<OtVar.Axis, Lookup>;
+    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
+        OtVar.Axis,
+        OtGlyph,
+        OtVar.Value
+    >;
 
     // Lookup classes
-    export class Single extends GsubSingleLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Multiple extends GsubMultipleLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Alternate extends GsubAlternateLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Ligature extends GsubLigatureLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Chaining extends ForwardChainingLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class ReverseSub extends GsubReverseSingleSubT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Single extends GsubSingleLookupT<OtGlyph, OtVar.Value> {}
+    export class Multiple extends GsubMultipleLookupT<OtGlyph, OtVar.Value> {}
+    export class Alternate extends GsubAlternateLookupT<OtGlyph, OtVar.Value> {}
+    export class Ligature extends GsubLigatureLookupT<OtGlyph, OtVar.Value> {}
+    export class Chaining extends GsubChainingLookupT<OtGlyph, OtVar.Value> {}
+    export class ReverseSub extends GsubReverseSingleSubLookupT<OtGlyph, OtVar.Value> {}
+
+    // Data props
+    export type SingleProp = GsubSinglePropT<OtGlyph, OtVar.Value>;
+    export type MultipleAlternateProp = GsubMultipleAlternatePropT<OtGlyph, OtVar.Value>;
+    export type LigatureProp = GsubLigaturePropT<OtGlyph, OtVar.Value>;
+    export type ChainingProp<E> = ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
+    export type ReverseSubProp = GsubReverseSingleSubPropT<OtGlyph, OtVar.Value>;
 
     // Lookup-internal data types
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
@@ -86,22 +130,34 @@ export namespace Gpos {
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
     export class Table extends GeneralGsubGpos.TableImpl<OtVar.Axis, OtGlyph, OtVar.Value> {}
-    export type Lookup = GeneralGsubGpos.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<Lookup>;
-    export type Language = GeneralGsubGpos.LanguageT<Lookup>;
-    export type Script = GeneralGsubGpos.ScriptT<Lookup>;
+    export type Lookup = LookupT<OtGlyph, OtVar.Value>;
+    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
+    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
+    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
     export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
     export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<OtVar.Axis, Lookup>;
+    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
+        OtVar.Axis,
+        OtGlyph,
+        OtVar.Value
+    >;
 
     // Lookup classes
-    export class Single extends GposSingleLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Pair extends GposPairLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Cursive extends GposCursiveLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class MarkToBase extends GposMarkToBaseLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class MarkToLigature extends GposMarkToLigatureLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class MarkToMark extends GposMarkToMarkLookupT<OtGlyph, OtVar.Value, Lookup> {}
-    export class Chaining extends ForwardChainingLookupT<OtGlyph, OtVar.Value, Lookup> {}
+    export class Single extends GposSingleLookupT<OtGlyph, OtVar.Value> {}
+    export class Pair extends GposPairLookupT<OtGlyph, OtVar.Value> {}
+    export class Cursive extends GposCursiveLookupT<OtGlyph, OtVar.Value> {}
+    export class MarkToBase extends GposMarkToBaseLookupT<OtGlyph, OtVar.Value> {}
+    export class MarkToLigature extends GposMarkToLigatureLookupT<OtGlyph, OtVar.Value> {}
+    export class MarkToMark extends GposMarkToMarkLookupT<OtGlyph, OtVar.Value> {}
+    export class Chaining extends GposChainingLookupT<OtGlyph, OtVar.Value> {}
+
+    export type SingleProp = GposSinglePropT<OtGlyph, OtVar.Value>;
+    export type PairProp = GposPairPropT<OtGlyph, OtVar.Value>;
+    export type CursiveProp = GposCursivePropT<OtGlyph, OtVar.Value>;
+    export type MarkToBaseProp = GposMarkToBasePropT<OtGlyph, OtVar.Value>;
+    export type MarkToLigatureProp = GposMarkToLigaturePropT<OtGlyph, OtVar.Value>;
+    export type MarkToMarkProp = GposMarkToMarkPropT<OtGlyph, OtVar.Value>;
+    export type ChainingProp<E> = ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
 
     // Lookup-internal data type aliases
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;

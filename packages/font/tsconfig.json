@@ -47,6 +47,12 @@
     },
     {
       "path": "../ft-name/tsconfig.json"
+    },
+    {
+      "path": "../standard-glyph-namer/tsconfig.json"
+    },
+    {
+      "path": "../ft-sfnt/tsconfig.json"
     }
   ]
 }

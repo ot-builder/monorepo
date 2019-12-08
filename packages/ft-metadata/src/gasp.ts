@@ -11,21 +11,13 @@ export namespace Gasp {
         GASP_SYMMETRIC_SMOOTHING = 0x0008
     }
 
-    export class Range implements OtVar.Rectifiable {
+    export class Range {
         constructor(
             public maxPPEM: OtVar.Value, // Why?
             public behavior: UInt16
         ) {}
-        public rectifyCoords(rec: OtVar.Rectifier) {
-            this.maxPPEM = rec.coord(this.maxPPEM);
-        }
     }
-    export class Table implements OtVar.Rectifiable {
-        constructor(public ranges: Range[]) {}
-        public rectifyCoords(rec: OtVar.Rectifier) {
-            for (const range of this.ranges) {
-                range.rectifyCoords(rec);
-            }
-        }
+    export class Table {
+        constructor(public ranges: Range[] = []) {}
     }
 }

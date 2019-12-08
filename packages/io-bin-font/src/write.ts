@@ -1,7 +1,7 @@
 import { Config } from "@ot-builder/cfg-log";
-import { OtFont } from "@ot-builder/font";
+import * as Ot from "@ot-builder/font";
 import { OtEncoding } from "@ot-builder/ft-encoding";
-import { CffCoGlyphs, OtGlyph, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
+import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import { OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { OtNameData } from "@ot-builder/ft-name";
@@ -16,40 +16,40 @@ import { Data } from "@ot-builder/prelude";
 
 import { createConfig, FontIoConfig } from "./config";
 
-type OtGlyphStore = Data.OrderStore<OtGlyph>;
+type OtGlyphStore = Data.OrderStore<Ot.Glyph>;
 
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code
-function MD<GS extends OtGlyphStore>(font: OtFont<GS>, naming: WritePostNaming): OtFontIoMetadata {
+function MD<GS extends OtGlyphStore>(font: Ot.Font<GS>, naming: WritePostNaming): OtFontIoMetadata {
     return { ...font, postGlyphNaming: naming };
 }
-function Names<GS extends OtGlyphStore>(font: OtFont<GS>): OtNameData {
+function Names<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtNameData {
     return font;
 }
-function CffCoGlyphs<GS extends OtGlyphStore>(font: OtFont.Cff<GS>): CffCoGlyphs {
+function CffCoGlyphs<GS extends OtGlyphStore>(font: Ot.Font.Cff<GS>): CffCoGlyphs {
     return font;
 }
-function TtfCoGlyphs<GS extends OtGlyphStore>(font: OtFont.Ttf<GS>): TtfCoGlyphs {
+function TtfCoGlyphs<GS extends OtGlyphStore>(font: Ot.Font.Ttf<GS>): TtfCoGlyphs {
     return font;
 }
-function Encoding<GS extends OtGlyphStore>(font: OtFont<GS>): OtEncoding {
+function Encoding<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtEncoding {
     return font;
 }
-function OTL<GS extends OtGlyphStore>(font: OtFont<GS>): OtFontLayoutData {
+function OTL<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtFontLayoutData {
     return font;
 }
 
 class WritePostNaming implements Data.Naming.Source<number> {
-    constructor(private readonly gOrd: Data.Order<OtGlyph>) {}
+    constructor(private readonly gOrd: Data.Order<Ot.Glyph>) {}
     public getName(gid: number) {
         return this.gOrd.at(gid).name;
     }
 }
 
 export function writeFont<GS extends OtGlyphStore>(
-    font: OtFont<GS>,
+    font: Ot.Font<GS>,
     partialConfig: Config<FontIoConfig>
 ): Sfnt {
-    const sfnt = new Sfnt(OtFont.isCff(font) ? 0x4f54544f : 0x00010000);
+    const sfnt = new Sfnt(Ot.Font.isCff(font) ? 0x4f54544f : 0x00010000);
     const sink = new SfntIoTableSink(sfnt);
 
     const cfg = createConfig(partialConfig);
@@ -59,7 +59,7 @@ export function writeFont<GS extends OtGlyphStore>(
     const md = MD(font, new WritePostNaming(gOrd1));
     writeOtl(sink, OTL(font), gOrd1, md);
     writeEncoding(sink, cfg, Encoding(font), gOrd1, md);
-    if (OtFont.isCff(font)) {
+    if (Ot.Font.isCff(font)) {
         writeGlyphStore(sink, cfg, md, CffCoGlyphs(font), gOrd1, WriteCffGlyphs);
     } else {
         writeGlyphStore(sink, cfg, md, TtfCoGlyphs(font), gOrd1, WriteTtfGlyphs);

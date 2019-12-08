@@ -90,62 +90,49 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
     public readonly data: OtVar.Value[][];
 
     constructor(glyph: OtGlyph) {
-        let cs: OtVar.Value[][] = [];
-
-        // Geometry
-        glyph.acceptGeometryVisitor(new GeometryVisitor(cs));
-        // H metric
-        cs.push([glyph.horizontal.start, 0], [glyph.horizontal.end, 0]);
-        // V metric
-        cs.push([0, glyph.vertical.start], [0, glyph.vertical.end]);
-        this.data = cs;
+        this.data = glyph.acceptGlyphAlgebra(new VarCollector());
     }
 }
 
-// Inner classes
-class GeometryVisitor implements OtGlyph.GeometryVisitor {
-    constructor(public collected: OtVar.Value[][]) {}
-    public begin() {}
-    public end() {}
-    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
-        g.acceptContourSetVisitor(new ContourSetVisitor(this.collected));
-    }
-    public visitReference(g: OtGlyph.ReferenceGeometry) {
-        g.acceptReferenceVisitor(new RefVisitor(this.collected));
+class VarCollector implements OtGlyph.GlyphAlg<OtVar.Value[][]> {
+    public geometryAlgebra = new GeomVarCollector();
+    public hintAlgebra = null;
+    public glyph(
+        hMetric: OtGlyph.Metric,
+        vMetric: OtGlyph.Metric,
+        fnGeom: Data.Maybe<() => OtVar.Value[][]>,
+        fnHints: Data.Maybe<() => OtVar.Value[][]>
+    ) {
+        const cs = [...(fnGeom ? fnGeom() : []), ...(fnHints ? fnHints() : [])];
+        cs.push([hMetric.start, 0], [hMetric.end, 0]);
+        cs.push([0, vMetric.start], [0, vMetric.end]);
+        return cs;
     }
 }
-class ContourSetVisitor implements OtGlyph.ContourSetVisitor {
-    constructor(public collected: OtVar.Value[][]) {}
-    public begin() {}
-    public end() {}
-    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
-        for (const c of s.listContours()) {
-            c.acceptContourVisitor(new ContourVisitor(this.collected));
+
+class GeomVarCollector implements OtGlyph.GeometryAlg<OtVar.Value[][]> {
+    public empty() {
+        return [];
+    }
+    public contourSet(cs: OtGlyph.ContourSetProps) {
+        let collected: OtVar.Value[][] = [];
+        for (const c of cs.contours) {
+            const items: OtVar.Value[] = [];
+            for (const z of c) {
+                items.push(z.x, z.y);
+            }
+            collected.push(items);
         }
+        return collected;
     }
-}
-class ContourVisitor implements OtGlyph.ContourVisitor {
-    constructor(public collected: OtVar.Value[][]) {}
-    private readonly items: OtVar.Value[] = [];
-    public begin() {}
-    public end() {
-        this.collected.push(this.items);
-    }
-    public visitContour(c: OtGlyph.ContourShape) {
-        for (const z of c.listPoints()) {
-            this.items.push(z.x, z.y);
+    public geometryList(parts: OtVar.Value[][][]) {
+        let collected: OtVar.Value[][] = [];
+        for (const sub of parts) {
+            for (const x of sub) collected.push(x);
         }
+        return collected;
     }
-}
-class RefVisitor implements OtGlyph.ReferenceVisitor {
-    constructor(public collected: OtVar.Value[][]) {}
-    public begin() {}
-    public end() {}
-    public visitTarget() {}
-    public visitTransform(pTransform: Access<OtGlyph.Transform2X3>) {
-        const transform = pTransform.get();
-        this.collected.push([transform.dx, transform.dy]);
+    public ttReference(ref: OtGlyph.TtReferenceProps) {
+        return [[ref.transform.dx, ref.transform.dy]];
     }
-    public setPointAttachment() {}
-    public setFlag() {}
 }

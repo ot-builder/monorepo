@@ -71,9 +71,9 @@ export const GsubGposTable = {
         const fOrd = ImpLib.Order.fromList(`Features`, table.features);
         const fScripts = Frag.solidFrom(ScriptList, table.scripts, fOrd);
         const fFeatureVariations =
-            !table.FeatureVariations || !twc.axes || !twc.axes.length
+            !table.featureVariations || !twc.axes || !twc.axes.length
                 ? null
-                : Frag.solidFrom(FeatureVariations, table.FeatureVariations, twc.axes, fOrd, lOrd);
+                : Frag.solidFrom(FeatureVariations, table.featureVariations, twc.axes, fOrd, lOrd);
 
         // Write it!
         const minorVersion = fFeatureVariations ? 1 : 0;

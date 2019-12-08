@@ -1,73 +1,90 @@
-import { Access, Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
+import { Access, Caster, Data } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";
-import { Point as GlyphPoint } from "./point";
+import { Point as GlyphPoint, PointAttachment, PointRef } from "./point";
 import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
     // Geometry
-    export interface GeometryT<G, X>
-        extends Rectify.Coord.RectifiableT<X>,
-            Rectify.Glyph.RectifiableT<G>,
-            Trace.Glyph.TraceableT<G>,
-            Rectify.PointAttach.TerminalT<G, X> {
-        acceptGeometryVisitor(sink: GeometryVisitorT<G, X>): void;
-        duplicate(): GeometryT<G, X>;
+    export interface GeometryT<G, X> extends Caster.IUnknown {
+        acceptGeometryAlgebra<E>(alg: GeometryAlgT<G, X, E>): E;
     }
-    export interface ContourSetGeometryT<G, X> extends GeometryT<G, X> {
-        acceptContourSetVisitor(contourSetVisitor: ContourSetVisitorT<G, X>): void;
-        listContours(): Iterable<ContourShapeT<G, X>>;
+    export interface ContourSetPropsT<G, X> {
+        contours: Contour.T<X>[];
     }
-    export interface ContourShapeT<G, X> {
-        acceptContourVisitor(cv: ContourVisitorT<G, X>): void;
-        listPoints(): Iterable<GlyphPoint.T<X>>;
-        listPointAccesses(): Iterable<Access<GlyphPoint.T<X>>>;
+    export interface ContourSetT<G, X> extends ContourSetPropsT<G, X>, GeometryT<G, X> {}
+    export interface TtReferencePropsT<G, X> {
+        to: G;
+        transform: Transform2X3.T<X>;
+        roundXyToGrid: boolean;
+        useMyMetrics: boolean;
+        overlapCompound: boolean;
+        pointAttachment: Data.Maybe<PointAttachment>;
     }
-    export interface ReferenceGeometryT<G, X> extends GeometryT<G, X> {
-        acceptReferenceVisitor(refVisitor: ReferenceVisitorT<G, X>): void;
+    export interface TtReferenceT<G, X> extends TtReferencePropsT<G, X>, GeometryT<G, X> {}
+    export interface GeometryListT<G, X> extends GeometryT<G, X> {
+        items: GeometryT<G, X>[];
     }
 
-    // Geometry Visitor
-    export interface ScopedVisitor {
-        begin(): void;
-        end(): void;
-    }
-    export interface GeometryVisitorT<G, X> extends ScopedVisitor {
-        visitContourSet(cg: ContourSetGeometryT<G, X>): void;
-        visitReference(rg: ReferenceGeometryT<G, X>): void;
-    }
-    export interface ContourSetVisitorT<G, X> extends ScopedVisitor {
-        visitContourSet(cg: ContourSetGeometryT<G, X>): void;
-    }
-    export interface ContourVisitorT<G, X> extends ScopedVisitor {
-        visitContour(sh: ContourShapeT<G, X>): void;
-    }
-    export interface ReferenceVisitorT<G, X> extends ScopedVisitor {
-        visitTarget(glyph: Access<G>): void;
-        visitTransform(tfm: Access<GlyphTransform2X3.T<X>>): void;
-        setFlag(name: string, on: boolean): void;
-        setPointAttachment(innerPointID: number, outerPointID: number): void;
+    // Geometry algebra
+    export interface GeometryAlgT<G, X, E> {
+        contourSet(g: ContourSetPropsT<G, X>): E;
+        ttReference(g: TtReferencePropsT<G, X>): E;
+        geometryList(parts: E[]): E;
     }
 
     // Hint type
-    export interface HintT<X> extends Rectify.Coord.RectifiableT<X> {
-        acceptHintVisitor(visitor: HintVisitorT<X>): void;
-        duplicate(): HintT<X>;
+    export interface HintT<X> extends Caster.IUnknown {
+        acceptHintAlgebra<E>(alg: HintAlgT<X, E>): E;
+    }
+    export interface TtInstructionPropsT<X> {
+        instructions: Buffer;
+    }
+    export interface TtInstructionHintT<X> extends TtInstructionPropsT<X>, HintT<X> {}
+    export interface CffHintStemT<X> {
+        start: X;
+        end: X;
+    }
+    export interface CffHintMaskT<X> {
+        at: PointRef;
+        maskH: Set<CffHintStemT<X>>;
+        maskV: Set<CffHintStemT<X>>;
+    }
+    export interface CffHintPropsT<X> {
+        hStems: CffHintStemT<X>[];
+        vStems: CffHintStemT<X>[];
+        hintMasks: CffHintMaskT<X>[];
+        counterMasks: CffHintMaskT<X>[];
+    }
+    export interface CffHintT<X> extends CffHintPropsT<X>, HintT<X> {}
+
+    // Hint algebra
+    export interface HintAlgT<X, E> {
+        ttfInstructions(g: TtInstructionPropsT<X>): E;
+        cffHint(h: CffHintPropsT<X>): E;
     }
 
-    // Hint visitor
-    export interface HintVisitorT<X> extends Caster.IUnknown, ScopedVisitor {}
-
     // Glyph types
-    export interface GlyphT<G, X>
-        extends Rectify.Coord.RectifiableT<X>,
-            Rectify.Glyph.RectifiableT<G>,
-            Trace.Glyph.TraceableT<G> {
+    export interface GlyphT<G, X> {
         horizontal: GlyphMetric.T<X>;
         vertical: GlyphMetric.T<X>;
         geometry: Data.Maybe<GeometryT<G, X>>;
         hints?: Data.Maybe<HintT<X>>;
+
+        acceptGlyphAlgebra<E, EG, EH>(alg: GlyphAlgT<G, X, E, EG, EH>): E;
+    }
+
+    // Glyph algebra
+    export interface GlyphAlgT<G, X, E, EG = E, EH = E> {
+        geometryAlgebra: Data.Maybe<GeometryAlgT<G, X, EG>>;
+        hintAlgebra: Data.Maybe<HintAlgT<X, EH>>;
+        glyph(
+            horizontal: GlyphMetric.T<X>,
+            vertical: GlyphMetric.T<X>,
+            fnGeometry: Data.Maybe<() => EG>,
+            fnHints: Data.Maybe<() => EH>
+        ): E;
     }
 
     // Re-exports

@@ -6,25 +6,32 @@ import { rectifyGlyphOrder } from "./rectify";
 describe("GLYF data rectification", () => {
     test("Rectify point attachments", () => {
         const to = OtGlyph.create();
-        to.geometry = new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]]);
+        to.geometry = OtGlyph.ContourSet.create([
+            [new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]
+        ]);
         const from = OtGlyph.create();
-        const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
-        const ref2 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Scale(2));
+        const ref1 = OtGlyph.TtReference.create(to, OtGlyph.Transform2X3.Neutral());
+        const ref2 = OtGlyph.TtReference.create(to, OtGlyph.Transform2X3.Scale(2));
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
-        from.geometry = new OtGlyph.GeometryList([ref1, ref2]);
+        from.geometry = OtGlyph.GeometryList.create([ref1, ref2]);
 
         const gOrd = ImpLib.Order.fromList(`Glyphs`, [from, to]);
         rectifyGlyphOrder(gOrd);
 
-        expect(ref2.transform.dx).toBe(-1);
-        expect(ref2.transform.dy).toBe(-1);
+        // Geometry is changed after rectification
+        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1] as OtGlyph.TtReference;
+        expect(ref2a.transform.dx).toBe(-1);
+        expect(ref2a.transform.dy).toBe(-1);
     });
+
     test("Rectify point attachments, nested", () => {
         const sp = OtGlyph.create();
-        sp.geometry = new OtGlyph.ContourSet([[new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]]);
+        sp.geometry = OtGlyph.ContourSet.create([
+            [new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]
+        ]);
         const spr = OtGlyph.create();
-        spr.geometry = new OtGlyph.GeometryList([
-            new OtGlyph.TtReference(sp, {
+        spr.geometry = OtGlyph.GeometryList.create([
+            OtGlyph.TtReference.create(sp, {
                 scaledOffset: true,
                 xx: 2,
                 xy: 0,
@@ -36,15 +43,17 @@ describe("GLYF data rectification", () => {
         ]);
 
         const from = OtGlyph.create();
-        const ref1 = new OtGlyph.TtReference(spr, OtGlyph.Transform2X3.Scale(2));
-        const ref2 = new OtGlyph.TtReference(spr, OtGlyph.Transform2X3.Scale(1));
+        const ref1 = OtGlyph.TtReference.create(spr, OtGlyph.Transform2X3.Scale(2));
+        const ref2 = OtGlyph.TtReference.create(spr, OtGlyph.Transform2X3.Scale(1));
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
-        from.geometry = new OtGlyph.GeometryList([ref1, ref2]);
+        from.geometry = OtGlyph.GeometryList.create([ref1, ref2]);
 
         const gOrd = ImpLib.Order.fromList(`Glyphs`, [from, sp]);
         rectifyGlyphOrder(gOrd);
 
-        expect(ref2.transform.dx).toBe(6);
-        expect(ref2.transform.dy).toBe(6);
+        // Geometry is changed after rectification
+        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1] as OtGlyph.TtReference;
+        expect(ref2a.transform.dx).toBe(6);
+        expect(ref2a.transform.dy).toBe(6);
     });
 });

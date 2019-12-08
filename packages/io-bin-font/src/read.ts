@@ -1,7 +1,5 @@
 import { Config } from "@ot-builder/cfg-log";
-import { OtFont } from "@ot-builder/font";
-import { OtEncoding } from "@ot-builder/ft-encoding";
-import { Cff, OtGlyph, OtGlyphNamingSource } from "@ot-builder/ft-glyphs";
+import * as Ot from "@ot-builder/font";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readEncoding } from "@ot-builder/io-bin-encoding";
@@ -14,11 +12,11 @@ import { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
 
 import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 
-export function readFont<GS extends Data.OrderStore<OtGlyph>>(
+export function readFont<GS extends Data.OrderStore<Ot.Glyph>>(
     sfnt: Sfnt,
-    gsf: Data.OrderStoreFactoryWithDefault<OtGlyph, GS>,
+    gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
     partialConfig: Config<FontIoConfig>
-): OtFont<GS> {
+): Ot.Font<GS> {
     const cfg = createConfig(partialConfig);
     const md = readOtMetadata(sfnt, cfg);
     const names = readNames(sfnt);
@@ -26,8 +24,8 @@ export function readFont<GS extends Data.OrderStore<OtGlyph>>(
     let gOrd,
         glyphs,
         coGlyphs,
-        cffGlyphNaming: Data.Maybe<Data.Naming.Source<OtGlyph>> = null;
-    if (sfnt.tables.has(Cff.Tag1) || sfnt.tables.has(Cff.Tag2)) {
+        cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>> = null;
+    if (sfnt.tables.has(Ot.Cff.Tag1) || sfnt.tables.has(Ot.Cff.Tag2)) {
         const r = readGlyphStore(sfnt, cfg, md, gsf, ReadCffGlyphs);
         gOrd = r.gOrd;
         glyphs = r.glyphs;
@@ -51,12 +49,12 @@ export function readFont<GS extends Data.OrderStore<OtGlyph>>(
 
 function nameGlyphs(
     md: OtFontIoMetadata,
-    gOrd: Data.Order<OtGlyph>,
-    cffGlyphNaming: Data.Maybe<Data.Naming.Source<OtGlyph>>,
-    encoding: OtEncoding,
+    gOrd: Data.Order<Ot.Glyph>,
+    cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>>,
+    encoding: Ot.Encoding,
     cfg: Config<FontIoCfgFinal>
 ) {
-    const namingSource: OtGlyphNamingSource = {
+    const namingSource: Ot.GlyphNamingSource = {
         post: md.postGlyphNaming ? new PostGlyphNamingWrapper(md.postGlyphNaming, gOrd) : null,
         cff: cffGlyphNaming,
         encoding: new CmapNameIndexSource(encoding)
@@ -68,20 +66,20 @@ function nameGlyphs(
     }
 }
 
-class PostGlyphNamingWrapper implements Data.Naming.Source<OtGlyph> {
+class PostGlyphNamingWrapper implements Data.Naming.Source<Ot.Glyph> {
     constructor(
         private postNaming: Data.Naming.Source<number>,
-        private gOrd: Data.Order<OtGlyph>
+        private gOrd: Data.Order<Ot.Glyph>
     ) {}
-    public getName(glyph: OtGlyph) {
+    public getName(glyph: Ot.Glyph) {
         let gid = this.gOrd.tryReverse(glyph);
         if (gid == null) return undefined;
         else return this.postNaming.getName(gid);
     }
 }
 
-class CmapNameIndexSource implements Data.Naming.IndexSource<OtGlyph> {
-    constructor(encoding: OtEncoding) {
+class CmapNameIndexSource implements Data.Naming.IndexSource<Ot.Glyph> {
+    constructor(encoding: Ot.Encoding) {
         if (encoding.cmap) {
             const encodingList = [...encoding.cmap.unicode.entries()].sort((a, b) => a[0] - b[0]);
             for (const [uni, g] of encodingList) {
@@ -95,13 +93,13 @@ class CmapNameIndexSource implements Data.Naming.IndexSource<OtGlyph> {
             }
         }
     }
-    private reverse: Map<OtGlyph, number> = new Map();
-    private reverseVar: Map<OtGlyph, number[]> = new Map();
+    private reverse: Map<Ot.Glyph, number> = new Map();
+    private reverseVar: Map<Ot.Glyph, number[]> = new Map();
 
-    public getIndex(glyph: OtGlyph) {
+    public getIndex(glyph: Ot.Glyph) {
         return this.reverse.get(glyph);
     }
-    public getVariantIndex(glyph: OtGlyph) {
+    public getVariantIndex(glyph: Ot.Glyph) {
         return this.reverseVar.get(glyph);
     }
 }

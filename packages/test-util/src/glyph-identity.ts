@@ -32,11 +32,11 @@ export namespace GlyphIdentity {
         }
         testGeometry(expected.geometry, actual.geometry, mode, tolerance, place);
         if (mode & CompareMode.CompareInstructions) {
-            if (expected.hints && expected.hints instanceof OtGlyph.TtfInstructionHint) {
+            if (expected.hints && expected.hints.queryInterface(OtGlyph.TID_TtInstructionHint)) {
                 expect(actual.hints).toBeTruthy();
-                expect(actual.hints).toBeInstanceOf(OtGlyph.TtfInstructionHint);
-                expect(expected.hints.instructions).toEqual(
-                    (actual.hints as OtGlyph.TtfInstructionHint).instructions
+                expect(actual.hints!.queryInterface(OtGlyph.TID_TtInstructionHint)).toBeTruthy();
+                expect((expected.hints! as OtGlyph.TtInstructionHint).instructions).toEqual(
+                    (actual.hints! as OtGlyph.TtInstructionHint).instructions
                 );
             }
         }
@@ -52,21 +52,33 @@ export namespace GlyphIdentity {
         if (!geomE && !geomA) return;
         expect(!!geomE).toBe(!!geomA);
 
-        if (geomE instanceof OtGlyph.ContourSet) {
-            expect(geomA).toBeInstanceOf(OtGlyph.ContourSet);
+        if (geomE!.queryInterface(OtGlyph.TID_ContourSet)) {
+            expect(geomA!.queryInterface(OtGlyph.TID_ContourSet)).toBeTruthy();
             testContours(
-                geomE,
+                geomE as OtGlyph.ContourSet,
                 geomA as OtGlyph.ContourSet,
                 !!(mode & CompareMode.RemoveCycle),
                 tolerance,
                 place
             );
-        } else if (geomE instanceof OtGlyph.GeometryList) {
-            expect(geomA).toBeInstanceOf(OtGlyph.GeometryList);
-            testGeometryList(geomE, geomA as OtGlyph.GeometryList, mode, tolerance);
-        } else if (geomE instanceof OtGlyph.TtReference) {
-            expect(geomA).toBeInstanceOf(OtGlyph.TtReference);
-            testReference(geomE, geomA as OtGlyph.TtReference, mode, tolerance);
+        } else if (geomE!.queryInterface(OtGlyph.TID_GeometryList)) {
+            expect(geomA!.queryInterface(OtGlyph.TID_GeometryList)).toBeTruthy();
+            testGeometryList(
+                geomE as OtGlyph.GeometryList,
+                geomA as OtGlyph.GeometryList,
+                mode,
+                tolerance
+            );
+        } else if (geomE!.queryInterface(OtGlyph.TID_TtReference)) {
+            expect(geomA!.queryInterface(OtGlyph.TID_TtReference)).toBeTruthy();
+            testReference(
+                geomE as OtGlyph.TtReference,
+                geomA as OtGlyph.TtReference,
+                mode,
+                tolerance
+            );
+        } else {
+            throw new TypeError("Unknown geometry type");
         }
     }
 

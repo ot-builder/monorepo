@@ -1,8 +1,8 @@
 import { OtGlyph } from "../ot-glyph";
 
-import { OtGhPointHandlerT, PointTransformer } from "./shared";
+import { OtGhPointAlg, PointTransformer } from "./shared";
 
-export class OtGhPointLister extends OtGhPointHandlerT<PointCollector> {
+export class OtGhPointLister extends OtGhPointAlg<PointCollector> {
     constructor() {
         super(new PointTransformer(new PointCollector(), z => z));
     }

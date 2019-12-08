@@ -61,11 +61,6 @@ export namespace OtVar {
             return new GeneralVariableValueCollector(Ops, MasterSet(), dvf);
         }
     }
-
-    export type AxisRectifier = Rectify.Axis.RectifierT<Axis>;
-    export type AxesRectifiable = Rectify.Axis.RectifiableT<Axis>;
-    export type Rectifier = Rectify.Coord.RectifierT<Value>;
-    export type Rectifiable = Rectify.Coord.RectifiableT<Value>;
 }
 
 export namespace GeneralVarInternalImpl {

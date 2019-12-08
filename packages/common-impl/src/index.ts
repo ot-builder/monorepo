@@ -25,4 +25,4 @@ export namespace ImpLib {
     }
 }
 
-export { RectifyImpl } from "./rectify-impl";
+export { RectifyImpl, TraceImpl } from "./rectify-impl";

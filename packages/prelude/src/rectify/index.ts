@@ -5,9 +5,6 @@ export namespace Rectify {
         export interface RectifierT<G> {
             glyph(from: G): null | undefined | G;
         }
-        export interface RectifiableT<G> {
-            rectifyGlyphs(rectifier: RectifierT<G>): void | boolean;
-        }
     }
 
     ////// "Axis" rectifier
@@ -15,9 +12,6 @@ export namespace Rectify {
         export interface RectifierT<A> {
             axis(axis: A): null | undefined | A;
             readonly addedAxes: ReadonlyArray<A>;
-        }
-        export interface RectifiableT<A> {
-            rectifyAxes(rectifier: RectifierT<A>): void;
         }
     }
 
@@ -27,18 +21,12 @@ export namespace Rectify {
             coord(value: X): X;
             cv(value: X): X;
         }
-        export interface RectifiableT<X> {
-            rectifyCoords(rectifier: RectifierT<X>): void;
-        }
     }
 
     ////// "Lookup" rectifier
     export namespace Lookup {
         export interface RectifierT<L> {
             lookup(l: L): null | undefined | L;
-        }
-        export interface RectifiableT<L> {
-            rectifyLookups(rectifier: RectifierT<L>): void;
         }
     }
 
@@ -78,8 +66,6 @@ export namespace Trace {
             has(glyph: G): boolean;
             add(glyph: G): void;
         }
-        export interface TraceableT<G> {
-            traceGlyphs(marker: TracerT<G>): void;
-        }
+        export type ProcT<G> = (tracer: TracerT<G>) => void;
     }
 }

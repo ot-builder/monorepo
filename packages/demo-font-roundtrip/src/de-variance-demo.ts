@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Ot } from "ot-builder";
+import { Ot, Rectify } from "ot-builder";
 import * as Ob from "ot-builder";
 import * as path from "path";
 
@@ -78,7 +78,10 @@ function parseInstance(axes: Iterable<Ot.Fvar.Axis>, strInstance: string) {
     if (!instance.size) return null;
     else return instance;
 }
-function createValueRectifier(axes: Iterable<Ot.Fvar.Axis>, strInstance: string): Ot.Var.Rectifier {
+function createValueRectifier(
+    axes: Iterable<Ot.Fvar.Axis>,
+    strInstance: string
+): Rectify.Coord.RectifierT<Ot.Var.Value> {
     const instance = parseInstance(axes, strInstance);
     return {
         coord: x => Ot.Var.Ops.evaluate(x, instance),

@@ -9,25 +9,25 @@ import { Mir } from "./mir";
 test("Draw call generator test", () => {
     const ctx = new CffWriteContext(2, 1000);
     const glyph = OtGlyph.create();
-    const hints = new OtGlyph.CffHint();
-    hints.hStems = [new OtGlyph.CffHintStem(1, 2), new OtGlyph.CffHintStem(3, 4)];
+    const hints = OtGlyph.CffHint.create();
+    hints.hStems = [OtGlyph.CffHint.createStem(1, 2), OtGlyph.CffHint.createStem(3, 4)];
     hints.hintMasks = [
-        new OtGlyph.CffHintMask(
+        OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 0 },
             new Set([hints.hStems[0]]),
             new Set()
         ),
-        new OtGlyph.CffHintMask(
+        OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 1 },
             new Set([hints.hStems[1]]),
             new Set()
         ),
-        new OtGlyph.CffHintMask(
+        OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 1, index: 0 },
             new Set([hints.hStems[0]]),
             new Set()
         ),
-        new OtGlyph.CffHintMask(
+        OtGlyph.CffHint.createMask(
             { geometry: 1, contour: 0, index: 0 },
             new Set([hints.hStems[0], hints.hStems[1]]),
             new Set()
@@ -35,7 +35,7 @@ test("Draw call generator test", () => {
     ];
     glyph.hints = hints;
 
-    glyph.geometry = new OtGlyph.ContourSet([
+    glyph.geometry = OtGlyph.ContourSet.create([
         [
             new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner),
             new OtGlyph.Point(2, 1, OtGlyph.PointType.Corner),

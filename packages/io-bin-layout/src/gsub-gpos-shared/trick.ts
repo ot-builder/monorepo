@@ -19,8 +19,8 @@ function setLookupTrickByFeatureTag(
             setTricksForLookupSet(tricks, feature.lookups, trick);
         }
     }
-    if (table.FeatureVariations) {
-        for (const fv of table.FeatureVariations) {
+    if (table.featureVariations) {
+        for (const fv of table.featureVariations) {
             for (const [from, to] of fv.substitutions) {
                 if (tagSet.has(from.tag)) setTricksForLookupSet(tricks, to.lookups, trick);
             }

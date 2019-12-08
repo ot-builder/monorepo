@@ -1,9 +1,6 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
-import { Rectify, Trace } from "@ot-builder/prelude";
-
 import { VsEncodingMapT } from "./general";
 
-export class VsEncodingMapImplT<G> implements VsEncodingMapT<G>, Trace.Glyph.TraceableT<G> {
+export class VsEncodingMapImplT<G> implements VsEncodingMapT<G> {
     private sizeCache: undefined | number = undefined;
     private mapping: Map<number, Map<number, G>> = new Map();
 
@@ -49,15 +46,5 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G>, Trace.Glyph.Tra
                 yield [code, vs, glyph];
             }
         }
-    }
-
-    public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.mapping = RectifyImpl.mapSomeT(rec, this.mapping, RectifyImpl.Id, (rec, blo) =>
-            RectifyImpl.Glyph.comapSome(rec, blo)
-        );
-    }
-
-    public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {
-        for (const [code, vs, glyph] of this.entries()) tracer.add(glyph);
     }
 }

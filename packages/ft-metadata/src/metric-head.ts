@@ -5,7 +5,7 @@ export namespace MetricHead {
     export const TagHhea = "hhea";
     export const TagVhea = "vhea";
 
-    export abstract class Table implements OtVar.Rectifiable {
+    export abstract class Table {
         public abstract readonly isVertical: boolean;
         public majorVersion: UInt16 = 1;
         public minorVersion: UInt16 = 0;
@@ -25,15 +25,6 @@ export namespace MetricHead {
         public _reserved3: Int16 = 0;
         public metricDataFormat: Int16 = 0;
         public numberOfLongMetrics: UInt16 = 0;
-
-        public rectifyCoords(rectify: OtVar.Rectifier) {
-            this.ascender = rectify.coord(this.ascender);
-            this.descender = rectify.coord(this.descender);
-            this.lineGap = rectify.coord(this.lineGap);
-            this.caretSlopeRise = rectify.coord(this.caretSlopeRise);
-            this.caretSlopeRun = rectify.coord(this.caretSlopeRun);
-            this.caretOffset = rectify.coord(this.caretOffset);
-        }
     }
     export class Hhea extends Table {
         public readonly isVertical = false;

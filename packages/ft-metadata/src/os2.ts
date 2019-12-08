@@ -245,7 +245,7 @@ export namespace Os2 {
         public bXHeight: UInt8 = 0;
     }
 
-    export class Table implements OtVar.Rectifiable {
+    export class Table {
         public version: UInt16 = 0;
         public xAvgCharWidth: Int16 = 0;
         public usWeightClass: UInt16 = 0;
@@ -285,25 +285,5 @@ export namespace Os2 {
         public usMaxContext: UInt16 = 0;
         public usLowerOpticalPointSize: UInt16 = 0;
         public usUpperOpticalPointSize: UInt16 = 0;
-
-        public rectifyCoords(rectify: OtVar.Rectifier) {
-            this.ySubscriptXSize = rectify.coord(this.ySubscriptXSize);
-            this.ySubscriptYSize = rectify.coord(this.ySubscriptYSize);
-            this.ySubscriptXOffset = rectify.coord(this.ySubscriptXOffset);
-            this.ySubscriptYOffset = rectify.coord(this.ySubscriptYOffset);
-            this.ySuperscriptXSize = rectify.coord(this.ySuperscriptXSize);
-            this.ySuperscriptYSize = rectify.coord(this.ySuperscriptYSize);
-            this.ySuperscriptXOffset = rectify.coord(this.ySuperscriptXOffset);
-            this.ySuperscriptYOffset = rectify.coord(this.ySuperscriptYOffset);
-            this.yStrikeoutSize = rectify.coord(this.yStrikeoutSize);
-            this.yStrikeoutPosition = rectify.coord(this.yStrikeoutPosition);
-            this.sTypoAscender = rectify.coord(this.sTypoAscender);
-            this.sTypoDescender = rectify.coord(this.sTypoDescender);
-            this.sTypoLineGap = rectify.coord(this.sTypoLineGap);
-            this.usWinAscent = rectify.coord(this.usWinAscent);
-            this.usWinDescent = rectify.coord(this.usWinDescent);
-            this.sxHeight = rectify.coord(this.sxHeight);
-            this.sCapHeight = rectify.coord(this.sCapHeight);
-        }
     }
 }

@@ -1,16 +1,14 @@
-import { Access } from "@ot-builder/prelude";
-
 import { OtGlyph } from "../ot-glyph";
 
 export interface PointSink {
     addControlKnot(knot: OtGlyph.Point): void;
 }
 
-export interface StatGeometryVisitor<T> extends OtGlyph.GeometryVisitor {
+export interface StatGeometryAlg<T> extends OtGlyph.GeometryAlg<void> {
     getResult(): T;
 }
-export interface StatGeometryVisitorClass<T> {
-    new (): StatGeometryVisitor<T>;
+export interface StatGeometryAlgClass<T> {
+    new (): StatGeometryAlg<T>;
 }
 
 export class PointTransformer<PS extends PointSink> {
@@ -27,59 +25,21 @@ export class PointTransformer<PS extends PointSink> {
         return new PointTransformer<PS>(this.ps, z => tf(tf1(z)));
     }
 }
-
-export class OtGhPointHandlerT<PS extends PointSink> implements OtGlyph.GeometryVisitor {
+export class OtGhPointAlg<PS extends PointSink> implements OtGlyph.GeometryAlg<void> {
     constructor(protected readonly acc: PointTransformer<PS>) {}
-    public begin() {}
-    public end() {}
-    public visitReference(g: OtGlyph.ReferenceGeometry) {
-        g.acceptReferenceVisitor(new RefHandler(this.acc));
-    }
-    public visitContourSet(g: OtGlyph.ContourSetGeometry) {
-        g.acceptContourSetVisitor(new ContourSetHandler(this.acc));
-    }
-}
-
-class ContourSetHandler<PS extends PointSink> implements OtGlyph.ContourSetVisitor {
-    constructor(private readonly acc: PointTransformer<PS>) {}
-    public begin() {}
-    public visitContourSet(s: OtGlyph.ContourSetGeometry) {
-        for (const contour of s.listContours()) {
-            contour.acceptContourVisitor(new ContourHandler(this.acc));
+    public empty() {}
+    public contourSet(cs: OtGlyph.ContourSetProps) {
+        for (const c of cs.contours) {
+            for (const z of c) {
+                this.acc.addControlKnot(z);
+            }
         }
     }
-    public end() {}
-}
-
-class ContourHandler<PS extends PointSink> implements OtGlyph.ContourVisitor {
-    constructor(private readonly acc: PointTransformer<PS>) {}
-    public begin() {}
-    public end() {}
-    public visitContour(s: OtGlyph.ContourShape) {
-        for (const z of s.listPoints()) this.acc.addControlKnot(z);
-    }
-}
-
-class RefHandler<PS extends PointSink> implements OtGlyph.ReferenceVisitor {
-    constructor(private readonly acc: PointTransformer<PS>) {}
-    private target: null | OtGlyph = null;
-    private transform: null | OtGlyph.Transform2X3 = null;
-    public begin() {}
-    public end() {
-        if (!this.target || !this.transform) return;
-        const target = this.target;
-        const transform = this.transform;
-        const plRef = new OtGhPointHandlerT(
-            this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, transform))
+    public geometryList(parts: void[]) {}
+    public ttReference(ref: OtGlyph.TtReferenceProps) {
+        const plRef = new OtGhPointAlg(
+            this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, ref.transform))
         );
-        target.acceptGeometryVisitor(plRef);
+        if (ref.to.geometry) ref.to.geometry.acceptGeometryAlgebra(plRef);
     }
-    public visitTarget(g: Access<OtGlyph>) {
-        this.target = g.get();
-    }
-    public visitTransform(t: Access<OtGlyph.Transform2X3>) {
-        this.transform = t.get();
-    }
-    public setPointAttachment() {}
-    public setFlag() {}
 }

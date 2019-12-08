@@ -1,43 +1,23 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
-import { Rectify, Trace } from "@ot-builder/prelude";
+import { GsubMultipleAlternatePropT, LookupAlgT, LookupT } from "./general";
 
-import { GeneralLookupT } from "./general";
-
-export class GsubMultipleLookupBaseT<G, X, L> {
+export class GsubMultipleLookupBaseT<G, X> {
     public mapping: Map<G, ReadonlyArray<G>> = new Map();
-
-    public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {}
-    public traceGlyphs(tracer: Trace.Glyph.TracerT<G>) {
-        for (const [src, dst] of this.mapping.entries()) {
-            if (tracer.has(src)) for (const g of dst) if (!tracer.has(g)) tracer.add(g);
-        }
-    }
-    public cleanupEliminable() {
-        return !this.mapping.size;
-    }
-    public rectifyPointAttachment() {}
 }
 
-export class GsubMultipleLookupT<G, X, L> extends GsubMultipleLookupBaseT<G, X, L>
-    implements GeneralLookupT<G, X, L> {
+export class GsubMultipleLookupT<G, X> extends GsubMultipleLookupBaseT<G, X>
+    implements GsubMultipleAlternatePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-
-    public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.mapping = RectifyImpl.Glyph.mapSomeT(rec, this.mapping, RectifyImpl.Glyph.listAll);
+    public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
+        return alg.gsubMulti(this);
     }
-    public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
 }
 
-export class GsubAlternateLookupT<G, X, L> extends GsubMultipleLookupBaseT<G, X, L>
-    implements GeneralLookupT<G, X, L> {
+export class GsubAlternateLookupT<G, X> extends GsubMultipleLookupBaseT<G, X>
+    implements GsubMultipleAlternatePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-
-    public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.mapping = RectifyImpl.Glyph.mapSomeT(rec, this.mapping, RectifyImpl.Glyph.listSome);
+    public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
+        return alg.gsubAlternate(this);
     }
-    public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {}
 }

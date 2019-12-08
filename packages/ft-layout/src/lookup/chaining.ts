@@ -1,45 +1,46 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
-import { Rectify, Trace } from "@ot-builder/prelude";
+import {
+    ChainingApplicationT,
+    ChainingRuleT,
+    ForwardChainingPropT,
+    LookupAlgT,
+    LookupT
+} from "./general";
 
-import { GeneralLookupT } from "./general";
-
-export interface ChainingApplicationT<L> {
-    at: number;
-    lookup: L;
-}
-export interface ChainingRuleT<GS, L> {
-    match: Array<GS>;
-    inputBegins: number;
-    inputEnds: number;
-    applications: Array<ChainingApplicationT<L>>;
-}
-
-export class ForwardChainingLookupT<G, X, L> implements GeneralLookupT<G, X, L> {
+export abstract class ForwardChainingLookupBaseT<G, X> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-    public rules: ChainingRuleT<Set<G>, L>[] = [];
+    public rules: ChainingRuleT<Set<G>, LookupT<G, X>>[] = [];
 
-    public rectifyGlyphs(rec: Rectify.Glyph.RectifierT<G>) {
-        this.ignoreGlyphs = RectifyImpl.Glyph.setSome(rec, this.ignoreGlyphs);
-        this.rules = RectifyImpl.listSomeT(rec, this.rules, (rec, rule) => {
-            const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setAll);
-            if (match1 && match1.length) return { ...rule, match: match1 };
-            else return null;
-        });
+    public abstract acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E;
+    protected getProps<E>(alg: LookupAlgT<G, X, E>): ForwardChainingPropT<G, X, E> {
+        const rules1: ChainingRuleT<Set<G>, E>[] = [];
+        for (const rule of this.rules) {
+            const applications1: ChainingApplicationT<E>[] = [];
+            for (const app of rule.applications) {
+                applications1.push({
+                    at: app.at,
+                    lookup: app.lookup.acceptLookupAlgebra(alg)
+                });
+            }
+            rules1.push({ ...rule, applications: applications1 });
+        }
+        return {
+            rightToLeft: this.rightToLeft,
+            ignoreGlyphs: this.ignoreGlyphs,
+            rules: rules1
+        };
     }
-    public traceGlyphs(marker: Trace.Glyph.TracerT<G>) {}
-    public rectifyCoords(rec: Rectify.Coord.RectifierT<X>) {}
-    public cleanupEliminable() {
-        return !this.rules.length;
+}
+export class GsubChainingLookupT<G, X> extends ForwardChainingLookupBaseT<G, X>
+    implements ForwardChainingPropT<G, X, LookupT<G, X>>, LookupT<G, X> {
+    public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
+        return alg.gsubChaining(this.getProps(alg));
     }
-    public rectifyLookups(rec: Rectify.Lookup.RectifierT<L>) {
-        this.rules = RectifyImpl.listSomeT(rec, this.rules, (rec, rule) => ({
-            ...rule,
-            applications: RectifyImpl.listSomeT(rec, rule.applications, (rec, app) => {
-                const lookup1 = rec.lookup(app.lookup);
-                return lookup1 ? { at: app.at, lookup: lookup1 } : null;
-            })
-        }));
+}
+
+export class GposChainingLookupT<G, X> extends ForwardChainingLookupBaseT<G, X>
+    implements ForwardChainingPropT<G, X, LookupT<G, X>>, LookupT<G, X> {
+    public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
+        return alg.gposChaining(this.getProps(alg));
     }
-    public rectifyPointAttachment() {}
 }

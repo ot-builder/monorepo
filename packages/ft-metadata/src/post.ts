@@ -3,7 +3,7 @@ import { OtVar } from "@ot-builder/variance";
 
 export namespace Post {
     export const Tag = "post";
-    export class Table implements OtVar.Rectifiable {
+    export class Table {
         public majorVersion: UInt16 = 3;
         public minorVersion: UInt16 = 0;
         public italicAngle: F16D16 = 0;
@@ -14,10 +14,5 @@ export namespace Post {
         public maxMemType42: UInt32 = 0;
         public minMemType1: UInt32 = 0;
         public maxMemType1: UInt32 = 0;
-
-        public rectifyCoords(rectify: OtVar.Rectifier) {
-            this.underlinePosition = rectify.coord(this.underlinePosition);
-            this.underlineThickness = rectify.coord(this.underlineThickness);
-        }
     }
 }

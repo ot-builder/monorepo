@@ -39,17 +39,9 @@ function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,
     text: string
 ): Rectify.Glyph.RectifierT<Ot.Glyph> {
-    const init: Set<Ot.Glyph> = new Set();
-    const gOrd = font.glyphs.decideOrder();
-    init.add(gOrd.at(0)); // keep NOTDEF
-
-    const codePoints = [...text].map(s => s.codePointAt(0)!);
-    if (font.cmap) {
-        for (const code of codePoints) {
-            const g = font.cmap.unicode.get(code);
-            if (g) init.add(g);
-        }
-    }
+    const codePointFilter =
+        text === "*" ? { has: () => true } : new Set([...text].map(s => s.codePointAt(0)!));
+    const init = Ob.visibleGlyphsFromUnicodeSet(font, codePointFilter);
     const collected = Ob.traceGlyphs(font, init);
     return {
         glyph(g: Ot.Glyph) {

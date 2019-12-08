@@ -1,4 +1,3 @@
-import { Rectify } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 import { GeneralVar, OtVar } from "@ot-builder/variance";
 export namespace Fvar {
@@ -39,64 +38,7 @@ export namespace Fvar {
         ) {}
     }
 
-    export class Table implements Rectify.Axis.RectifiableT<Axis> {
-        public axes: Axis[] = [];
-        public instances: Instance[] = [];
-
-        // Rectification
-        public rectifyAxes(rectify: Rectify.Axis.RectifierT<Axis>) {
-            const axesRectifyResults: Map<Axis, Axis> = this.rectifyAxesImpl(rectify);
-            this.rectifyInstances(axesRectifyResults, rectify.addedAxes);
-        }
-
-        private rectifyAxesImpl(rectify: Rectify.Axis.RectifierT<Axis>) {
-            const axesRectifyResults: Map<Axis, Axis> = new Map();
-            for (const a of this.axes) {
-                const a1 = rectify.axis(a);
-                if (a1) axesRectifyResults.set(a, a1);
-            }
-            this.axes = [...axesRectifyResults.values(), ...rectify.addedAxes];
-            return axesRectifyResults;
-        }
-
-        private rectifyInstances(
-            axesRectifyResults: Map<Axis, Axis>,
-            addedAxes: ReadonlyArray<Axis>
-        ) {
-            const newInstances: Instance[] = [];
-            for (const instance of this.instances) {
-                const coordinates = instance.coordinates;
-                const coordinates1 = this.rectifyCoordinates(
-                    coordinates,
-                    axesRectifyResults,
-                    addedAxes
-                );
-                newInstances.push(
-                    new Instance(
-                        instance.subfamilyNameID,
-                        instance.flags,
-                        coordinates1,
-                        instance.postScriptNameID
-                    )
-                );
-            }
-            this.instances = newInstances;
-        }
-
-        private rectifyCoordinates(
-            coordinates: GeneralVar.Instance<Axis>,
-            axesRectifyResults: Map<Axis, Axis>,
-            addedAxes: ReadonlyArray<Axis>
-        ) {
-            if (!coordinates) return coordinates;
-
-            const coordinates1: Map<Axis, number> = new Map();
-            for (let [axis, val] of coordinates) {
-                const mapped = axesRectifyResults.get(axis);
-                if (mapped) coordinates1.set(axis, val);
-            }
-            for (const axis of addedAxes) coordinates1.set(axis, 0);
-            return coordinates1;
-        }
+    export class Table {
+        constructor(public axes: Axis[] = [], public instances: Instance[] = []) {}
     }
 }
