@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        on: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
+        os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
         node-version: [12.x, 13.x] # Current and LTS. No history versions
 
     steps:
