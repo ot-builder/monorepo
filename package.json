@@ -12,7 +12,10 @@
         "update:package.json": "ts-node scripts/update-package-json.ts",
         "create-package": "ts-node scripts/create-package.ts",
         "test": "jest",
-        "bump-ver": "lerna version --no-git-tag-version --no-push --force-publish --exact && npm run update:package.json && npm run update:tsconfig.json"
+        "bump-ver": "lerna version --no-git-tag-version --no-push --force-publish --exact && npm run update:package.json && npm run update:tsconfig.json",
+        "change": "beachball change",
+        "beachball:check": "beachball check",
+        "beachball:publish": "beachball publish"
     },
     "devDependencies": {
         "@types/node": "^12.7.5",
@@ -24,6 +27,7 @@
         "vrsource-tslint-rules": "^6.0.0",
         "tslint-lerna-rules": "^1.0.4",
         "prettier": "^1.15.2",
-        "prettier-tslint": "^0.4.0"
+        "prettier-tslint": "^0.4.0",
+        "beachball": "^1.16.0"
     }
 }
