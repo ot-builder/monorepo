@@ -1,3 +1,4 @@
+# Github Action for PR builds, including Master branch and other "official" branches
 name: PR Build
 
 on: [pull_request]
