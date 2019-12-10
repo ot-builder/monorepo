@@ -16,6 +16,7 @@ describe("GSUB Rectifier", () => {
 
         const chainingDup = correspondence.get(chaining)! as Ot.Gsub.Chaining;
         expect(chainingDup).toBeTruthy();
+        expect(chainingDup).not.toBe(chaining);
         expect(chainingDup.rules[0].applications[0].lookup).toBe(chainingDup);
     });
 });
