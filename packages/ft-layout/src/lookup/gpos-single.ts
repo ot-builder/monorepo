@@ -1,4 +1,4 @@
-import { Const } from "@ot-builder/prelude";
+import { Constant } from "@ot-builder/prelude";
 
 import { LayoutCommon } from "../common";
 
@@ -10,6 +10,6 @@ export class GposSingleLookupT<G, X> implements GposSinglePropT<G, X>, LookupT<G
     public adjustments: Map<G, LayoutCommon.Adjust.T<X>> = new Map();
 
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposSingle(Const(this));
+        return alg.gposSingle(Constant(this));
     }
 }

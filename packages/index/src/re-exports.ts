@@ -6,7 +6,7 @@ export {
     writeFont,
     writeSfntOtf
 } from "@ot-builder/io-bin-font";
-export { Access, Caster, Data, Rectify, Trace } from "@ot-builder/prelude";
+export { Access, Caster, Data, Rectify, Trace, Thunk, Delay, Constant } from "@ot-builder/prelude";
 export {
     rectifyFontCoords,
     rectifyFontGlyphs,

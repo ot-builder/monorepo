@@ -4,7 +4,7 @@ export interface Thunk<T> {
 export function Delay<T>(fn: () => T): Thunk<T> {
     return new ThunkImpl(fn);
 }
-export function Const<T>(x: T): Thunk<T> {
+export function Constant<T>(x: T): Thunk<T> {
     return { force: () => x };
 }
 
