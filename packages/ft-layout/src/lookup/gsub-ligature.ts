@@ -1,3 +1,5 @@
+import { Const } from "@ot-builder/prelude";
+
 import { GsubLigatureLookupEntryT, GsubLigaturePropT, LookupAlgT, LookupT } from "./general";
 
 export class GsubLigatureLookupT<G, X> implements GsubLigaturePropT<G, X>, LookupT<G, X> {
@@ -6,6 +8,6 @@ export class GsubLigatureLookupT<G, X> implements GsubLigaturePropT<G, X>, Looku
     public mapping: Array<GsubLigatureLookupEntryT<G>> = [];
 
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gsubLigature(this);
+        return alg.gsubLigature(Const(this));
     }
 }

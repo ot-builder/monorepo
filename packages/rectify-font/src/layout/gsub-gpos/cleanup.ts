@@ -7,13 +7,12 @@ import { LookupRemovableAlg } from "./lookup-removable-alg";
 export function cleanupGsubGposData<Table extends Ot.GsubGpos.Table>(
     table: Table,
     tableFactory: () => Table,
-    lookupCorrespondence: Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>,
-    extraLookups: Set<Ot.GsubGpos.Lookup>
+    lookupCorrespondence: Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>
 ) {
     const newTable = tableFactory();
     const removableAlg = new LookupRemovableAlg();
     let lookups: Ot.GsubGpos.Lookup[] = [];
-    for (const lookup of [...lookupCorrespondence.values(), ...extraLookups]) {
+    for (const lookup of [...lookupCorrespondence.values()]) {
         if (!lookup.acceptLookupAlgebra(removableAlg)) lookups.push(lookup);
     }
 

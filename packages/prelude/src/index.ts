@@ -6,3 +6,4 @@ export import Algebra = _Algebra;
 export { Caster } from "./caster";
 export { Rectify, Trace } from "./rectify";
 export { Access } from "./access";
+export { Thunk, Delay, Const } from "./thunk";

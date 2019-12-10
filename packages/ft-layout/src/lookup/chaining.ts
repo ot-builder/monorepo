@@ -1,3 +1,5 @@
+import { Delay } from "@ot-builder/prelude";
+
 import {
     ChainingApplicationT,
     ChainingRuleT,
@@ -17,10 +19,13 @@ export abstract class ForwardChainingLookupBaseT<G, X> {
         for (const rule of this.rules) {
             const applications1: ChainingApplicationT<E>[] = [];
             for (const app of rule.applications) {
-                applications1.push({
-                    at: app.at,
-                    lookup: app.lookup.acceptLookupAlgebra(alg)
-                });
+                const lookupE: E = alg.crossReference
+                    ? alg.crossReference(
+                          app.lookup,
+                          Delay(() => app.lookup.acceptLookupAlgebra(alg))
+                      )
+                    : app.lookup.acceptLookupAlgebra(alg);
+                applications1.push({ at: app.at, lookup: lookupE });
             }
             rules1.push({ ...rule, applications: applications1 });
         }
@@ -34,13 +39,13 @@ export abstract class ForwardChainingLookupBaseT<G, X> {
 export class GsubChainingLookupT<G, X> extends ForwardChainingLookupBaseT<G, X>
     implements ForwardChainingPropT<G, X, LookupT<G, X>>, LookupT<G, X> {
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gsubChaining(this.getProps(alg));
+        return alg.gsubChaining(Delay(() => this.getProps(alg)));
     }
 }
 
 export class GposChainingLookupT<G, X> extends ForwardChainingLookupBaseT<G, X>
     implements ForwardChainingPropT<G, X, LookupT<G, X>>, LookupT<G, X> {
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposChaining(this.getProps(alg));
+        return alg.gposChaining(Delay(() => this.getProps(alg)));
     }
 }

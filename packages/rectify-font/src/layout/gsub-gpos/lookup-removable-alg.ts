@@ -1,25 +1,33 @@
 import * as Ot from "@ot-builder/font";
+import { Thunk } from "@ot-builder/prelude";
 
 export class LookupRemovableAlg implements Ot.GsubGpos.LookupAlg<boolean> {
-    public gsubSingle(props: Ot.Gsub.SingleProp): boolean {
+    public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): boolean {
+        const props = thProps.force();
         return !props.mapping.size;
     }
-    public gsubMulti(props: Ot.Gsub.MultipleAlternateProp): boolean {
+    public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): boolean {
+        const props = thProps.force();
         return !props.mapping.size;
     }
-    public gsubAlternate(props: Ot.Gsub.MultipleAlternateProp): boolean {
+    public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): boolean {
+        const props = thProps.force();
         return !props.mapping.size;
     }
-    public gsubLigature(props: Ot.Gsub.LigatureProp): boolean {
+    public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): boolean {
+        const props = thProps.force();
         return !props.mapping.length;
     }
-    public gsubReverse(props: Ot.Gsub.ReverseSubProp): boolean {
+    public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): boolean {
+        const props = thProps.force();
         return !props.rules.length;
     }
-    public gposSingle(props: Ot.Gpos.SingleProp): boolean {
+    public gposSingle(thProps: Thunk<Ot.Gpos.SingleProp>): boolean {
+        const props = thProps.force();
         return !props.adjustments.size;
     }
-    public gposPair(props: Ot.Gpos.PairProp): boolean {
+    public gposPair(thProps: Thunk<Ot.Gpos.PairProp>): boolean {
+        const props = thProps.force();
         const cdFirst = props.adjustments.getXClassDef();
         const cdSecond = props.adjustments.getYClassDef();
         for (let c1 = 0; c1 < cdFirst.length; c1++) {
@@ -32,22 +40,28 @@ export class LookupRemovableAlg implements Ot.GsubGpos.LookupAlg<boolean> {
         }
         return true;
     }
-    public gposCursive(props: Ot.Gpos.CursiveProp): boolean {
+    public gposCursive(thProps: Thunk<Ot.Gpos.CursiveProp>): boolean {
+        const props = thProps.force();
         return !props.attachments.size;
     }
-    public gposMarkToBase(props: Ot.Gpos.MarkToBaseProp): boolean {
+    public gposMarkToBase(thProps: Thunk<Ot.Gpos.MarkToBaseProp>): boolean {
+        const props = thProps.force();
         return !props.marks.size || !props.bases.size;
     }
-    public gposMarkToMark(props: Ot.Gpos.MarkToMarkProp): boolean {
+    public gposMarkToMark(thProps: Thunk<Ot.Gpos.MarkToMarkProp>): boolean {
+        const props = thProps.force();
         return !props.marks.size || !props.baseMarks.size;
     }
-    public gposMarkToLigature(props: Ot.Gpos.MarkToLigatureProp): boolean {
+    public gposMarkToLigature(thProps: Thunk<Ot.Gpos.MarkToLigatureProp>): boolean {
+        const props = thProps.force();
         return !props.marks.size || !props.bases.size;
     }
-    public gsubChaining(props: Ot.GsubGpos.ChainingProp<boolean>): boolean {
+    public gsubChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<boolean>>): boolean {
+        const props = thProps.force();
         return !props.rules.length;
     }
-    public gposChaining(props: Ot.GsubGpos.ChainingProp<boolean>): boolean {
+    public gposChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<boolean>>): boolean {
+        const props = thProps.force();
         return !props.rules.length;
     }
 }
