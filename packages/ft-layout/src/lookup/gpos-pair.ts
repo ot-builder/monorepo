@@ -1,3 +1,5 @@
+import { Constant, Delay } from "@ot-builder/prelude";
+
 import { LayoutCommon } from "../common";
 import { DicingStore, DicingStoreImpl } from "../dicing-store";
 
@@ -9,6 +11,6 @@ export class GposPairLookupT<G, X> implements GposPairPropT<G, X>, LookupT<G, X>
     public ignoreGlyphs = new Set<G>();
     public adjustments: DicingStore<G, G, LayoutCommon.Adjust.PairT<X>> = new DicingStoreImpl();
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposPair(this);
+        return alg.gposPair(Constant(this));
     }
 }

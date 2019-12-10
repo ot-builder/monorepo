@@ -1,3 +1,5 @@
+import { Constant } from "@ot-builder/prelude";
+
 import {
     GposBaseRecordT,
     GposLigatureRecordT,
@@ -18,7 +20,7 @@ export class GposMarkToBaseLookupT<G, X> extends GposMarkLookupBaseT<G, X>
     public ignoreGlyphs = new Set<G>();
     public bases = new Map<G, GposBaseRecordT<X>>();
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposMarkToBase(this);
+        return alg.gposMarkToBase(Constant(this));
     }
 }
 export class GposMarkToMarkLookupT<G, X> extends GposMarkLookupBaseT<G, X>
@@ -27,7 +29,7 @@ export class GposMarkToMarkLookupT<G, X> extends GposMarkLookupBaseT<G, X>
     public ignoreGlyphs = new Set<G>();
     public baseMarks = new Map<G, GposBaseRecordT<X>>();
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposMarkToMark(this);
+        return alg.gposMarkToMark(Constant(this));
     }
 }
 export class GposMarkToLigatureLookupT<G, X> extends GposMarkLookupBaseT<G, X>
@@ -36,6 +38,6 @@ export class GposMarkToLigatureLookupT<G, X> extends GposMarkLookupBaseT<G, X>
     public ignoreGlyphs = new Set<G>();
     public bases = new Map<G, GposLigatureRecordT<X>>();
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gposMarkToLigature(this);
+        return alg.gposMarkToLigature(Constant(this));
     }
 }

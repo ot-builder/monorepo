@@ -1,3 +1,5 @@
+import { Constant } from "@ot-builder/prelude";
+
 import { GsubReverseRuleT, GsubReverseSingleSubPropT, LookupAlgT, LookupT } from "./general";
 
 export class GsubReverseSingleSubLookupT<G, X>
@@ -6,6 +8,6 @@ export class GsubReverseSingleSubLookupT<G, X>
     public ignoreGlyphs = new Set<G>();
     public rules: GsubReverseRuleT<G, Set<G>>[] = [];
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
-        return alg.gsubReverse(this);
+        return alg.gsubReverse(Constant(this));
     }
 }

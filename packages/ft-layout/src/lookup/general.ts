@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 
 import { LayoutCommon } from "../common";
 import { DicingStore } from "../dicing-store";
@@ -16,21 +16,25 @@ export interface LookupT<G, X> extends GeneralLookupT<G, X, LookupT<G, X>> {}
 
 /** General Lookup algebra */
 export interface LookupAlgT<G, X, E> {
-    gsubSingle(lookup: GsubSinglePropT<G, X>): E;
-    gsubMulti(lookup: GsubMultipleAlternatePropT<G, X>): E;
-    gsubAlternate(lookup: GsubMultipleAlternatePropT<G, X>): E;
-    gsubLigature(lookup: GsubLigaturePropT<G, X>): E;
-    gsubReverse(lookup: GsubReverseSingleSubPropT<G, X>): E;
+    gsubSingle(thProps: Thunk<GsubSinglePropT<G, X>>): E;
+    gsubMulti(thProps: Thunk<GsubMultipleAlternatePropT<G, X>>): E;
+    gsubAlternate(thProps: Thunk<GsubMultipleAlternatePropT<G, X>>): E;
+    gsubLigature(thProps: Thunk<GsubLigaturePropT<G, X>>): E;
+    gsubReverse(thProps: Thunk<GsubReverseSingleSubPropT<G, X>>): E;
 
-    gposSingle(lookup: GposSinglePropT<G, X>): E;
-    gposPair(lookup: GposPairPropT<G, X>): E;
-    gposCursive(lookup: GposCursivePropT<G, X>): E;
-    gposMarkToBase(lookup: GposMarkToBasePropT<G, X>): E;
-    gposMarkToMark(lookup: GposMarkToMarkPropT<G, X>): E;
-    gposMarkToLigature(lookup: GposMarkToLigaturePropT<G, X>): E;
+    gposSingle(thProps: Thunk<GposSinglePropT<G, X>>): E;
+    gposPair(thProps: Thunk<GposPairPropT<G, X>>): E;
+    gposCursive(thProps: Thunk<GposCursivePropT<G, X>>): E;
+    gposMarkToBase(thProps: Thunk<GposMarkToBasePropT<G, X>>): E;
+    gposMarkToMark(thProps: Thunk<GposMarkToMarkPropT<G, X>>): E;
+    gposMarkToLigature(thProps: Thunk<GposMarkToLigaturePropT<G, X>>): E;
 
-    gsubChaining(lookup: ForwardChainingPropT<G, X, E>): E;
-    gposChaining(lookup: ForwardChainingPropT<G, X, E>): E;
+    // Chaining lookup has cross-references, so we need this
+    crossReference?(source: object, thValue: Thunk<E>): E;
+    // For chaining lookup, we are not supplying the props directly. Instead, we supply
+    // its thunks so it made rectification of circular chaining lookups possible.
+    gsubChaining(thProps: Thunk<ForwardChainingPropT<G, X, E>>): E;
+    gposChaining(thProps: Thunk<ForwardChainingPropT<G, X, E>>): E;
 }
 
 export interface GsubSinglePropT<G, X> extends LookupPropT<G> {
