@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Add beachball into CI script",
+  "packageName": "@ot-builder/rectify-font",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "commit": "9edc6992dca9be5b89908403cd855782b3662614",
+  "date": "2019-12-10T07:57:03.703Z"
+}
