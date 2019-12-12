@@ -1,0 +1,37 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+import { optional } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Gasp} />
+
+### Constant <Decl s={Ot.Gasp.Tag} /> = `"gasp"`
+
+### Class <Decl s={Ot.Gasp.Table}/>
+
+#### Cosntructor 
+
+* <Method ctor s={Ot.Gasp.Table.cosntructor} args={{ranges:optional(array(Ot.Gasp.Range))}} />
+
+#### Properties
+
+* <Member s={Ot.Gasp.Table.ranges} type={array(Ot.Gasp.Range)} />
+
+### Class <Decl s={Ot.Gasp.Range} />
+
+#### Cosntructor
+
+* <Method ctor s={Ot.Gasp.Range.cosntructor} args={{maxPPEM: Ot.Var.Value, behavior:number}}/>
+
+#### Properties
+
+* <Member s={Ot.Gasp.Range.maxPPEM} type={Ot.Var.Value}/>
+* <Member s={Ot.Gasp.Range.behavior} type={number}/>
+
+### Enumeration <Decl s={Ot.Gasp.RangeBehavior} />
+
+* <Item s={Ot.Gasp.RangeBehavior.GridFit} /> = <code>0x0001</code>
+* <Item s={Ot.Gasp.RangeBehavior.DoGray} /> = <code>0x0002</code>
+* <Item s={Ot.Gasp.RangeBehavior.SymmetricGridFit} /> = <code>0x0004</code>
+* <Item s={Ot.Gasp.RangeBehavior.SymmetricSmoothing} /> = <code>0x0008</code>

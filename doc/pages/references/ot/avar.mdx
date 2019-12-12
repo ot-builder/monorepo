@@ -1,0 +1,21 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, map, array, Data, Ot, Tag } from "components/exports"
+import { optional, tuple } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Avar}/>
+
+### Cosntant <Decl s={Ot.Avar.Tag}/> = `"avar"`
+
+### Type <Decl s={Ot.Avar.SegmentMap}/> = <R s={array(tuple(number,number))}/>
+
+### Class <Decl s={Ot.Avar.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Avar.Table.constuctor} args={{segmentMaps: optional(map(Ot.Var.Axis, Ot.Avar.SegmentMap))}} />
+
+#### Properties
+
+* <Member s={Ot.Avar.Table.segmentMaps} type={map(Ot.Var.Axis, Ot.Avar.SegmentMap)}/>

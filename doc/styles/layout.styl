@@ -1,0 +1,68 @@
+@import './colors.styl';
+
+html, body
+    margin: 0;
+    padding: 0;
+
+main
+    display: flex;
+
+    > article
+        max-width: 54rem;
+        margin: 4rem 6rem;
+
+    > aside
+        flex: none;
+        margin: 4rem 3ch 0;
+        width: 12rem;
+        line-height: 1.5;
+
+        section.site-nav
+            padding-bottom: 0.75rem;
+
+        section.function-nav
+            border-top: 1px dotted black;
+            padding-top: 0.75rem;
+
+        .nav-list
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .nav-list
+                padding: 0 0 0 2ch;
+
+        h1
+            font-weight: 900;
+            font-size: 1rem;
+            margin: 0.75rem 0;
+
+        h4
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.375rem 0;
+
+li.nav-link
+    > .link-item
+        &::before
+            content: '+';
+            padding-right: 1ch;
+
+        &:not(:hover)
+            &::before
+                opacity: 0.3;
+
+            box-shadow: none;
+
+    &.current
+        > .link-item
+            font-weight: 600;
+
+            &::before
+                content: '>';
+                opacity: 1;
+                color: AccentColor;
+
+    &.fixed
+        > .link-item::before
+            content: '*';

@@ -1,0 +1,57 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl } from "components/tyfmt"
+import { Data, number } from "components/exports"
+import { either, app, tuple, extend } from "components/tycon"
+export default Layout
+
+# Prelude
+
+## Namespace <Decl s={Data}/>
+
+### Type <Decl s={Data.Maybe("T")}/>
+
+Defined as <R s={either(null,undefined,"T")} />.
+
+### Interface <Decl s={Data.OrderStoreFactory("T", extend("S",Data.OrderStore("T")))} />
+
+#### Methods
+
+* <Method s={Data.OrderStoreFactory.createStoreFromList} args={{init:app(`Iterable`,`T`)}} returns="S"/>
+
+### Interface <Decl s={Data.OrderStoreFactoryWithDefault("T", extend("S",Data.OrderStore("T")))} />
+
+#### Inherits
+
+* <R s={Data.OrderStoreFactory(`T`,`S`)} />
+
+#### Methods
+
+* <Method s={Data.OrderStoreFactoryWithDefault.createStoreFromSize} args={{count:number}} returns="S"/>
+
+### Interface <Decl s={Data.OrderStore("T")} />
+
+#### Methods
+
+* <Method s={Data.OrderStore.decideOrder} returns={Data.Order(`T`)}/>
+
+### Interface <Decl s={Data.Order("T")} />
+
+#### Properties
+
+* <Member readonly s={Data.Order.length} type={number} />
+
+#### Methods
+
+* <Method s={Data.Order.at} args={{index:number}} returns="T"/>
+
+    Get item at specific index. Should throw error when item is absent.
+
+* <Method s={Data.Order.tryAt} args={{index:number}} returns={Data.Maybe(`T`)}/>
+
+    Get item at specific index. Return `undefined` when item is absent.
+
+* <Method s={Data.Order.reverse} args={{item:`T`}} returns={number}/>
+* <Method s={Data.Order.tryReverse} args={{index:`T`}} returns={Data.Maybe(number)}/>
+* <Method s={Data.Order.tryReverseFallback(`F`)} args={{index:`T`,fallback:`F`}} returns={either(number,`F`)}/>
+* <Method s={Data.Order[`[Symbol.Iterator]`]} returns={app(`IterableIterator`,`T`)}/>
+* <Method s={Data.Order.entries} returns={app(`IterableIterator`,tuple(number,`T`))}/>

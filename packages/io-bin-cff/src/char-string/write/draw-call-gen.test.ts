@@ -37,16 +37,16 @@ test("Draw call generator test", () => {
 
     glyph.geometry = OtGlyph.ContourSet.create([
         [
-            new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner),
-            new OtGlyph.Point(2, 1, OtGlyph.PointType.Corner),
-            new OtGlyph.Point(2, 2, OtGlyph.PointType.Corner),
-            new OtGlyph.Point(1, 2, OtGlyph.PointType.Corner)
+            OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner),
+            OtGlyph.Point.create(2, 1, OtGlyph.PointType.Corner),
+            OtGlyph.Point.create(2, 2, OtGlyph.PointType.Corner),
+            OtGlyph.Point.create(1, 2, OtGlyph.PointType.Corner)
         ],
         [
-            new OtGlyph.Point(10, 10, OtGlyph.PointType.Corner),
-            new OtGlyph.Point(20, 10, OtGlyph.PointType.Corner),
-            new OtGlyph.Point(20, 20, OtGlyph.PointType.Lead),
-            new OtGlyph.Point(10, 20, OtGlyph.PointType.Follow)
+            OtGlyph.Point.create(10, 10, OtGlyph.PointType.Corner),
+            OtGlyph.Point.create(20, 10, OtGlyph.PointType.Corner),
+            OtGlyph.Point.create(20, 20, OtGlyph.PointType.Lead),
+            OtGlyph.Point.create(10, 20, OtGlyph.PointType.Follow)
         ]
     ]);
 

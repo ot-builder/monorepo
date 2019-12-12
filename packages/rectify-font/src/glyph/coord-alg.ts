@@ -12,7 +12,7 @@ export class RectifyGeomCoordAlg implements Ot.Glyph.GeometryAlg<null | Ot.Glyph
             const c1: Ot.Glyph.Contour = [];
             for (let zid = 0; zid < c.length; zid++) {
                 const z = c[zid];
-                c1[zid] = new Ot.Glyph.Point(this.rec.coord(z.x), this.rec.coord(z.y), z.kind);
+                c1[zid] = Ot.Glyph.Point.create(this.rec.coord(z.x), this.rec.coord(z.y), z.kind);
             }
             cs1.push(c1);
         }
@@ -44,7 +44,7 @@ export class RectifyHintCoordAlg implements Ot.Glyph.HintAlg<null | Ot.Glyph.Hin
     public empty() {
         return null;
     }
-    public ttfInstructions(tt: Ot.Glyph.TtInstructionProps) {
+    public ttInstructions(tt: Ot.Glyph.TtInstructionProps) {
         return Ot.Glyph.TtInstructionHint.create(tt.instructions);
     }
     public cffHint(ch: Ot.Glyph.CffHintProps) {

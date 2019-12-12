@@ -4,7 +4,7 @@ export namespace Maxp {
     export const Tag = "maxp";
 
     export class Table {
-        private constructor(public version: UInt32) {}
+        private constructor(public readonly version: UInt32) {}
         public numGlyphs: UInt16 = 0; // VOLATILE (somehow)
         public maxPoints: UInt16 = 0; // VOLATILE
         public maxContours: UInt16 = 0; // VOLATILE

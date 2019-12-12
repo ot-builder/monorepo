@@ -1,0 +1,19 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, string, array, Data, Ot, Tag } from "components/exports"
+import { optional, either, tuple } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Meta} />
+
+### Constant <Decl s={Ot.Meta.Tag} /> = `"meta"`
+
+### Class <Decl s={Ot.Meta.Table}/>
+
+#### Cosntructor 
+
+* <Method ctor s={Ot.Meta.Table.cosntructor} args={{data:optional(array(tuple(Tag, either(string, "Buffer"))))}}/>
+
+#### Properties
+
+* <Member s={Ot.Meta.Table.data} type={array(tuple(Tag, either(string, "Buffer")))} />

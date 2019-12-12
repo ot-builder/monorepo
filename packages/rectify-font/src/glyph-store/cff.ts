@@ -31,7 +31,7 @@ export function inPlaceRectifyCoordCffTable(
     rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
     table: Ot.Cff.Table
 ) {
-    inPlaceRectifyCoordFontDict(rec, table.fontDict);
+    inPlaceRectifyCoordFontDict(rec, table.topDict);
     if (table.fdArray) for (const fd of table.fdArray) inPlaceRectifyCoordFontDict(rec, fd);
 }
 

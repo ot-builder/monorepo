@@ -1,4 +1,4 @@
-import { Access, Data } from "@ot-builder/prelude";
+import { Data, Delay } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";
@@ -27,8 +27,8 @@ export class OtGlyphImpl implements OtGlyphInterface {
         return alg.glyph(
             this.horizontal,
             this.vertical,
-            geom && algGeom ? () => geom.acceptGeometryAlgebra(algGeom) : undefined,
-            hints && algHints ? () => hints.acceptHintAlgebra(algHints) : undefined
+            geom && algGeom ? Delay(() => geom.acceptGeometryAlgebra(algGeom)) : undefined,
+            hints && algHints ? Delay(() => hints.acceptHintAlgebra(algHints)) : undefined
         );
     }
 }

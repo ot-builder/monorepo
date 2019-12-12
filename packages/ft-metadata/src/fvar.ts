@@ -4,21 +4,22 @@ export namespace Fvar {
     export const Tag = "fvar";
 
     export enum AxisFlags {
+        Default = 0,
         Hidden = 1
     }
 
     export class Axis implements OtVar.Axis {
-        public tag: Tag;
-        public min: F16D16;
-        public default: F16D16;
-        public max: F16D16;
+        public readonly tag: Tag;
+        public readonly min: F16D16;
+        public readonly default: F16D16;
+        public readonly max: F16D16;
         constructor(
             tag: Tag,
             min: F16D16,
             defaultV: F16D16,
             max: F16D16,
-            public flags: AxisFlags,
-            public axisNameID: UInt16
+            public readonly flags: AxisFlags,
+            public readonly axisNameID: UInt16
         ) {
             this.tag = tag;
             this.min = min;
@@ -27,14 +28,16 @@ export namespace Fvar {
         }
     }
 
-    export enum InstanceFlags {}
+    export enum InstanceFlags {
+        Default = 0
+    }
 
     export class Instance {
         constructor(
-            public subfamilyNameID: number,
-            public flags: InstanceFlags = 0,
-            public coordinates: GeneralVar.Instance<Axis>,
-            public postScriptNameID?: number
+            public readonly subfamilyNameID: number,
+            public readonly flags: InstanceFlags,
+            public readonly coordinates: GeneralVar.Instance<Axis>,
+            public readonly postScriptNameID?: number
         ) {}
     }
 

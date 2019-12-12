@@ -2,7 +2,7 @@ import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Config } from "@ot-builder/cfg-log";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { TupleVariationGeometryClient, TupleVariationRead, TvdAccess } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -104,11 +104,11 @@ class VarPtrCollector implements OtGlyph.GlyphAlg<GlyphHolder, GeomHolder, void>
     public glyph(
         hMetric: OtGlyph.Metric,
         vMetric: OtGlyph.Metric,
-        fnGeom: Data.Maybe<() => GeomHolder>,
-        fnHints: Data.Maybe<() => void>
+        fnGeom: Data.Maybe<Thunk<GeomHolder>>,
+        fnHints: Data.Maybe<Thunk<void>>
     ) {
         const gh = new GlyphHolder();
-        if (fnGeom) gh.geometry = fnGeom();
+        if (fnGeom) gh.geometry = fnGeom.force();
         gh.hMetric = new HMetricHolder(hMetric);
         gh.vMetric = new VMetricHolder(vMetric);
         return gh;

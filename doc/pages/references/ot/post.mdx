@@ -1,0 +1,27 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+export default Layout
+
+# Namespace <Decl s={Ot.Post} />
+
+### Constant <Decl s={Ot.Post.Tag} /> = `"post"`
+
+### Class <Decl s={Ot.Post.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Post.Table.constructor} args={{majorVersion:number, minorVersion:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Post.Table.majorVersion} type={number} />
+* <Member readonly s={Ot.Post.Table.minorVersion} type={number} />
+* <Member s={Ot.Post.Table.italicAngle} type={number} />
+* <Member s={Ot.Post.Table.underlinePosition} type={Ot.Var.Value} />
+* <Member s={Ot.Post.Table.underlineThickness} type={Ot.Var.Value} />
+* <Member s={Ot.Post.Table.isFixedPitch} type={boolean} />
+* <Member s={Ot.Post.Table.minMemType42} type={number} />
+* <Member s={Ot.Post.Table.maxMemType42} type={number} />
+* <Member s={Ot.Post.Table.minMemType1} type={number} />
+* <Member s={Ot.Post.Table.maxMemType1} type={number} />

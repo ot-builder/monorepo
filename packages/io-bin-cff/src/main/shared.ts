@@ -30,7 +30,7 @@ import { CffFdSelect } from "../fd-select/io";
 import { Cff2IVS } from "../structs/cff2-ivs";
 
 function getCorrespondedPd(cff: Cff.Table, fdId: number) {
-    const fd = cff.fdArray ? cff.fdArray[fdId] || cff.fontDict : cff.fontDict;
+    const fd = cff.fdArray ? cff.fdArray[fdId] || cff.topDict : cff.topDict;
     return fd.privateDict;
 }
 
@@ -42,7 +42,7 @@ export function readCffCommon(
     gSubrs: Buffer[],
     axes?: Data.Maybe<Data.Order<OtVar.Axis>>
 ) {
-    cff.fontDict = topDict.fd;
+    cff.topDict = topDict.fd;
     if (topDict.cidROS) cff.cid = topDict.cidROS;
     if (axes && topDict.vVarStore) ctx.ivs = topDict.vVarStore.next(Cff2IVS, axes);
     if (topDict.vFDArray) cff.fdArray = topDict.vFDArray.next(CffFdArrayIo, ctx);
@@ -110,8 +110,8 @@ function readGlyph(
 }
 
 export function cffCleanupUnusedData(cff: Cff.Table) {
-    if (cff.fontDict && cff.fontDict.privateDict) {
-        cff.fontDict.privateDict.localSubroutines = null;
+    if (cff.topDict && cff.topDict.privateDict) {
+        cff.topDict.privateDict.localSubroutines = null;
     }
     if (cff.fdArray) {
         for (const fd of cff.fdArray) if (fd.privateDict) fd.privateDict.localSubroutines = null;
@@ -132,7 +132,7 @@ export function applyBuildResults(cff: Cff.Table, results: CharStringGlobalOptim
             setLocalSubrForFd(fd, lSubrs);
         }
     } else {
-        setLocalSubrForFd(cff.fontDict, results.localSubroutines[0] || []);
+        setLocalSubrForFd(cff.topDict, results.localSubroutines[0] || []);
     }
 }
 

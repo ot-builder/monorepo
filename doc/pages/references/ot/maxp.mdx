@@ -1,0 +1,43 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { Data, Ot, number } from "components/exports"
+import { readonly } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Maxp}/>
+
+### Constant <Decl s={Ot.Maxp.Tag}/> = "maxp"
+
+### Class <Decl s={Ot.Maxp.Table}/>
+
+#### Properties
+
+ * <Member readonly s={Ot.Maxp.Table.version} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.numGlyphs} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxPoints} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxContours} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxCompositePoints} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxCompositeContours} type={number} />
+ * <Member s={Ot.Maxp.Table.maxZones} type={number} />
+ * <Member s={Ot.Maxp.Table.maxTwilightPoints} type={number} />
+ * <Member s={Ot.Maxp.Table.maxStorage} type={number} />
+ * <Member s={Ot.Maxp.Table.maxFunctionDefs} type={number} />
+ * <Member s={Ot.Maxp.Table.maxInstructionDefs} type={number} />
+ * <Member s={Ot.Maxp.Table.maxStackElements} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxSizeOfInstructions} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxComponentElements} type={number} />
+ * <Member volatile s={Ot.Maxp.Table.maxComponentDepth} type={number} />
+
+#### Static Methods
+
+* <Method static s={Ot.Maxp.Table.FromVersion} args={{version:number}} returns={Ot.Maxp.Table}/>
+
+    Creates an Maxp table with given version.
+
+* <Method static s={Ot.Maxp.Table.TrueType} returns={Ot.Maxp.Table}/>
+
+    Creates an Maxp table with version `0x10000`, used by TrueType fonts.
+
+* <Method static s={Ot.Maxp.Table.Cff} returns={Ot.Maxp.Table}/>
+
+    Creates an Maxp table with version `0x5000`, used by CFF fonts.

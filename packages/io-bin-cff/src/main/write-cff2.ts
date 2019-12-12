@@ -57,7 +57,7 @@ function setupTopDict(
     ctx: CffWriteContext,
     axes?: Data.Maybe<Data.Order<OtVar.Axis>>
 ) {
-    const td: CffTopDictWrite = new CffTopDictWrite(cff.fontDict);
+    const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
     td.fgCharStrings = Frag.from(CffSubroutineIndex, charStringResults.charStrings, ctx);
     if (!cff.fdArray) throw Errors.Cff.ShouldHaveFdArray();
     td.fgFDArray = Frag.from(CffFdArrayIo, cff.fdArray, ctx);

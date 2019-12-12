@@ -38,7 +38,7 @@ test("GSUB/GPOS Contextual : Simple", () => {
         applications: [
             {
                 at: 0,
-                lookup: lOrd.at(0)
+                apply: lOrd.at(0)
             }
         ]
     });
@@ -54,7 +54,7 @@ test("GSUB/GPOS Contextual : Simple", () => {
         applications: [
             {
                 at: 0,
-                lookup: lOrd.at(1)
+                apply: lOrd.at(1)
             }
         ]
     });

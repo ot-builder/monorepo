@@ -59,8 +59,8 @@ function setupTopDict(
     charStringResults: CharStringGlobalOptimizeResult,
     ctx: CffWriteContext
 ) {
-    const td: CffTopDictWrite = new CffTopDictWrite(cff.fontDict);
-    td.cidROS = cff.cid;
+    const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
+    if (cff.cid) td.cidROS = cff.cid;
     td.fgCharStrings = Frag.from(CffSubroutineIndex, charStringResults.charStrings, ctx);
     if (cff.fdArray) td.fgFDArray = Frag.from(CffFdArrayIo, cff.fdArray, ctx);
     else td.fgFDArray = null;

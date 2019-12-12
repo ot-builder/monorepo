@@ -1,7 +1,7 @@
 import { Maybe } from "./maybe";
 
 export interface OrderStoreFactory<T, S extends OrderStore<T> = OrderStore<T>> {
-    createStoreFromList(initGlyphs: Iterable<T>): S;
+    createStoreFromList(init: Iterable<T>): S;
 }
 
 export interface OrderStoreFactoryWithDefault<T, S extends OrderStore<T> = OrderStore<T>>

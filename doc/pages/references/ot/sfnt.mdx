@@ -1,0 +1,17 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, map, Ot, Tag } from "components/exports"
+export default Layout
+
+# SFNT
+
+### Class <Decl s={Ot.Sfnt}/>
+
+#### Constructor
+
+* <Method s={Ot.Sfnt.constructor} args={{version:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Sfnt.version} type={number} />
+* <Member s={Ot.Sfnt.tables} type={map(Tag,"Buffer")} />

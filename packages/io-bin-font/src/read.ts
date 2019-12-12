@@ -1,5 +1,6 @@
 import { Config } from "@ot-builder/cfg-log";
 import * as Ot from "@ot-builder/font";
+import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readEncoding } from "@ot-builder/io-bin-encoding";
@@ -21,15 +22,15 @@ export function readFont<GS extends Data.OrderStore<Ot.Glyph>>(
     const md = readOtMetadata(sfnt, cfg);
     const names = readNames(sfnt);
 
-    let gOrd,
-        glyphs,
-        coGlyphs,
+    let gOrd: Data.Order<Ot.Glyph>,
+        glyphs: GS,
+        coGlyphs: TtfCoGlyphs | CffCoGlyphs,
         cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>> = null;
     if (sfnt.tables.has(Ot.Cff.Tag1) || sfnt.tables.has(Ot.Cff.Tag2)) {
         const r = readGlyphStore(sfnt, cfg, md, gsf, ReadCffGlyphs);
         gOrd = r.gOrd;
         glyphs = r.glyphs;
-        coGlyphs = r.coGlyphs;
+        coGlyphs = { cff: r.coGlyphs.cff };
         cffGlyphNaming = r.coGlyphs.cffGlyphNaming;
     } else {
         const r = readGlyphStore(sfnt, cfg, md, gsf, ReadTtfGlyphs);

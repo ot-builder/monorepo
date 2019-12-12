@@ -1,0 +1,108 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+import { annot, optional } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Fvar}/>
+
+## Foundation
+
+### Constant <Decl s={Ot.Fvar.Tag}/> = `"fvar"`
+
+### Class <Decl s={Ot.Fvar.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Fvar.Table.constructor} args={{axes:optional(array(Ot.Fvar.Axis)),  instances:optional(array(Ot.Fvar.Instance))}}/>
+
+    Create a new <R s={Ot.Fvar.Table}/>, and initialize their `axis` and `instances` property.
+
+#### Properties
+
+* <Member s={Ot.Fvar.Table.axes} type={array(Ot.Fvar.Axis)} />
+
+    Axis in this table.
+
+* <Member s={Ot.Fvar.Table.instances} type={array(Ot.Fvar.Instnace)} />
+
+    Named instances in this table.
+
+### Class <Decl s={Ot.Fvar.Axis}/>
+
+#### Implements
+
+* <R s={Ot.Var.Axis}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Fvar.Axis.constructor} args={{
+    tag: annot(Tag, "Axis Tag"),
+    min: annot(number, "Min value"),
+    default: annot(number, "Default value"),
+    max: annot(number, "Max value"),
+    flags: annot(Ot.Fvar.AxisFlags, "Flags"),
+    axisNameID: annot(number, "Name ID of this axis")
+}} />
+
+#### Properties
+
+* <Member readonly s={Ot.Fvar.Axis.tag} type={Tag}/>
+
+    Axis Tag
+
+* <Member readonly s={Ot.Fvar.Axis.min} type={number}/>
+
+    Min value
+
+* <Member readonly s={Ot.Fvar.Axis.default} type={number}/>
+
+    Default value
+
+* <Member readonly s={Ot.Fvar.Axis.max} type={number}/>
+
+    Max value
+
+* <Member readonly s={Ot.Fvar.Axis.flags} type={Ot.Fvar.AxisFlags}/>
+
+    Flags
+
+* <Member readonly s={Ot.Fvar.Axis.axisNameID} type={number}/>
+
+    Name ID of this axis
+
+### Class <Decl s={Ot.Fvar.Instance}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Fvar.Instance.constructor} args={{
+    subfamilyNameID: number,
+    flags: Ot.Fvar.InstanceFlags,
+    coordinates: Ot.Var.Instance,
+    postScriptNameID: optional(number)
+}} />
+
+#### Properties
+
+ * <Member s={Ot.Fvar.Instance.subfamilyNameID} type={number}/>
+ * <Member s={Ot.Fvar.Instance.flags} type={Ot.Fvar.InstanceFlags}/>
+ * <Member s={Ot.Fvar.Instance.coordinates} type={Ot.Var.Instance}/>
+ * <Member s={Ot.Fvar.Instance.postScriptNameID} type={optional(number)}/>
+
+## Axis and Instance flags
+
+### Enumeration <R s={Ot.Fvar.AxisFlags} />
+
+* <Item s={Ot.Fvar.AxisFlags.Default}/> = 1
+
+    A normal axis.
+
+* <Item s={Ot.Fvar.AxisFlags.Hidden}/> = 1
+
+    Axis is hidden.
+
+### Enumeration <R s={Ot.Fvar.InstanceFlags} />
+
+* <Item s={Ot.Fvar.InstanceFlags.Default}/> = 0
+
+    A normal instance.

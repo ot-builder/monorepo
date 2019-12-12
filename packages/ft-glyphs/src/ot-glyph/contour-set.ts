@@ -1,4 +1,4 @@
-import { Access, Caster } from "@ot-builder/prelude";
+import { Caster } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";

@@ -1,8 +1,8 @@
-import { Access, Caster, Data } from "@ot-builder/prelude";
+import { Access, Caster, Data, Thunk } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";
-import { Point as GlyphPoint, PointAttachment, PointRef } from "./point";
+import * as Lib_General_Point from "./point";
 import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
@@ -20,7 +20,7 @@ export namespace GeneralGlyph {
         roundXyToGrid: boolean;
         useMyMetrics: boolean;
         overlapCompound: boolean;
-        pointAttachment: Data.Maybe<PointAttachment>;
+        pointAttachment: Data.Maybe<Lib_General_Point.PointAttachment>;
     }
     export interface TtReferenceT<G, X> extends TtReferencePropsT<G, X>, GeometryT<G, X> {}
     export interface GeometryListT<G, X> extends GeometryT<G, X> {
@@ -47,7 +47,7 @@ export namespace GeneralGlyph {
         end: X;
     }
     export interface CffHintMaskT<X> {
-        at: PointRef;
+        at: Lib_General_Point.PointRef;
         maskH: Set<CffHintStemT<X>>;
         maskV: Set<CffHintStemT<X>>;
     }
@@ -61,7 +61,7 @@ export namespace GeneralGlyph {
 
     // Hint algebra
     export interface HintAlgT<X, E> {
-        ttfInstructions(g: TtInstructionPropsT<X>): E;
+        ttInstructions(g: TtInstructionPropsT<X>): E;
         cffHint(h: CffHintPropsT<X>): E;
     }
 
@@ -82,14 +82,16 @@ export namespace GeneralGlyph {
         glyph(
             horizontal: GlyphMetric.T<X>,
             vertical: GlyphMetric.T<X>,
-            fnGeometry: Data.Maybe<() => EG>,
-            fnHints: Data.Maybe<() => EH>
+            fnGeometry: Data.Maybe<Thunk<EG>>,
+            fnHints: Data.Maybe<Thunk<EH>>
         ): E;
     }
 
     // Re-exports
-    export import Point = GlyphPoint;
+    export import Point = Lib_General_Point.Point;
     export import Contour = GlyphContour;
     export import Metric = GlyphMetric;
     export import Transform2X3 = GlyphTransform2X3;
+
+    export import GlyphPointIDRefT = Lib_General_Point.GlyphPointIDRef;
 }

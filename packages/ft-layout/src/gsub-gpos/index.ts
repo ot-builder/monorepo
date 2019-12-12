@@ -13,7 +13,7 @@ import {
     ForwardChainingPropT,
     GposBaseRecordT,
     GposCursivePropT,
-    GposLigatureRecordT,
+    GposLigatureBaseRecordT,
     GposMarkRecordT,
     GposMarkToBasePropT,
     GposMarkToLigaturePropT,
@@ -25,7 +25,6 @@ import {
     GsubMultipleAlternatePropT,
     GsubReverseRuleT,
     GsubReverseSingleSubPropT,
-    GsubReverseSubstT,
     GsubSinglePropT,
     LookupAlgT,
     LookupPropT,
@@ -67,8 +66,8 @@ export namespace GsubGpos {
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
     export type ClassDef = LayoutCommon.ClassDef.T<OtGlyph>;
 
-    export type ChainingApplication = ChainingApplicationT<Lookup>;
-    export type ChainingRule = ChainingRuleT<Set<OtGlyph>, Lookup>;
+    export type ChainingApplication<E> = ChainingApplicationT<E>;
+    export type ChainingRule<E> = ChainingRuleT<Set<OtGlyph>, E>;
     export type ChainingClassRule = ChainingRuleT<number, Lookup>;
     export type ChainingLookup = ForwardChainingLookupBaseT<OtGlyph, OtVar.Value>;
     export type ChainingProp<E> = ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
@@ -116,11 +115,10 @@ export namespace Gsub {
 
     export type LigatureEntry = GsubLigatureLookupEntryT<OtGlyph>;
 
-    export type ChainingApplication = GsubGpos.ChainingApplication;
-    export type ChainingRule = GsubGpos.ChainingRule;
+    export type ChainingApplication<E> = GsubGpos.ChainingApplication<E>;
+    export type ChainingRule<E> = GsubGpos.ChainingRule<E>;
     export type ChainingClassRule = GsubGpos.ChainingClassRule;
 
-    export type ReverseRuleSubst = GsubReverseSubstT<OtGlyph>;
     export type ReverseRule = GsubReverseRuleT<OtGlyph, Set<OtGlyph>>;
 }
 
@@ -170,10 +168,10 @@ export namespace Gpos {
 
     export type MarkRecord = GposMarkRecordT<OtVar.Value>;
     export type BaseRecord = GposBaseRecordT<OtVar.Value>;
-    export type LigatureRecord = GposLigatureRecordT<OtVar.Value>;
+    export type LigatureBaseRecord = GposLigatureBaseRecordT<OtVar.Value>;
 
-    export type ChainingApplication = GsubGpos.ChainingApplication;
-    export type ChainingRule = GsubGpos.ChainingRule;
+    export type ChainingApplication<E> = GsubGpos.ChainingApplication<E>;
+    export type ChainingRule<E> = GsubGpos.ChainingRule<E>;
     export type ChainingClassRule = GsubGpos.ChainingClassRule;
 
     // Zeroes

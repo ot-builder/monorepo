@@ -1,13 +1,13 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ft-glyphs";
-import { CffCoGlyphs } from "@ot-builder/ft-glyphs/lib/store/cff";
+import { CffCoGlyphsWithNaming } from "@ot-builder/ft-glyphs/lib/store/cff";
 import { Cff1Io, Cff2Io, CffCfg } from "@ot-builder/io-bin-cff";
 
 import { ReadGlyphStoreImpl } from "../general/read";
 import { WriteGlyphStoreImpl } from "../general/write";
 
-export const ReadCffGlyphs: ReadGlyphStoreImpl<CffCfg, CffCoGlyphs> = {
+export const ReadCffGlyphs: ReadGlyphStoreImpl<CffCfg, CffCoGlyphsWithNaming> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {
         const bCff2 = sfnt.tables.get(Cff.Tag2);
         if (bCff2) return new BinaryView(bCff2).next(Cff2Io, cfg, gOrd, ctx.axes, ctx.coStat);
@@ -19,7 +19,7 @@ export const ReadCffGlyphs: ReadGlyphStoreImpl<CffCfg, CffCoGlyphs> = {
     }
 };
 
-export const WriteCffGlyphs: WriteGlyphStoreImpl<CffCfg, CffCoGlyphs> = {
+export const WriteCffGlyphs: WriteGlyphStoreImpl<CffCfg, CffCoGlyphsWithNaming> = {
     writeMetricVariance: true,
     writeGlyphs(sfnt, cfg, coGlyphs, gOrd, ctx) {
         const cff = coGlyphs.cff;

@@ -35,8 +35,8 @@ export const Os2Panose = {
 
 export const Os2TableIo = {
     read(view: BinaryView) {
-        const table = new Os2.Table();
-        table.version = view.uint16();
+        const version = view.uint16();
+        const table = new Os2.Table(version);
         table.xAvgCharWidth = view.int16();
         table.usWeightClass = view.uint16();
         table.usWidthClass = view.uint16();
@@ -66,16 +66,16 @@ export const Os2TableIo = {
         table.sTypoLineGap = view.int16();
         table.usWinAscent = view.uint16();
         table.usWinDescent = view.uint16();
-        if (table.version < 1) return table;
+        if (version < 1) return table;
         table.ulCodePageRange1 = view.uint32();
         table.ulCodePageRange2 = view.uint32();
-        if (table.version < 2) return table;
+        if (version < 2) return table;
         table.sxHeight = view.int16();
         table.sCapHeight = view.int16();
         table.usDefaultChar = view.uint16();
         table.usBreakChar = view.uint16();
         table.usMaxContext = view.uint16();
-        if (table.version < 5) return table;
+        if (version < 5) return table;
         table.usLowerOpticalPointSize = view.uint16();
         table.usUpperOpticalPointSize = view.uint16();
         return table;

@@ -86,7 +86,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
 
     let coordinates: Array<OtGlyph.Point> = [];
     for (let zid = 0; zid < flags.length; zid++) {
-        coordinates[zid] = new OtGlyph.Point(
+        coordinates[zid] = OtGlyph.Point.create(
             coordinatesX[zid] || 0,
             coordinatesY[zid] || 0,
             flags[zid] & SimpleGlyphFlag.ON_CURVE_POINT

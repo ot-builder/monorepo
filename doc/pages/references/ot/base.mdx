@@ -1,0 +1,80 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, map, set, array, iterable, Data, Ot, Tag } from "components/exports"
+import { optional, tuple, readonly } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Base}/>
+
+### Constant <Decl s={Ot.Base.Tag}/> = `"BASE"`
+
+### Class <Decl s={Ot.Base.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Base.Table.constructor}/>
+
+#### Properties
+
+* <Member s={Ot.Base.Table.horizontal} type={Data.Maybe(Ot.Base.AxisTable)}/>
+* <Member s={Ot.Base.Table.vertical} type={Data.Maybe(Ot.Base.AxisTable)}/>
+
+### Class <Decl s={Ot.Base.AxisTable}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Base.AxisTable.constructor}/>
+
+#### Properties
+
+* <Member s={Ot.Base.AxisTable.baselineTags} type={Data.Maybe(array(Tag))}/>
+* <Member s={Ot.Base.AxisTable.scripts} type={map(Tag, Ot.Base.Script)}/>
+
+### Class <Decl s={Ot.Base.Script}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Base.Script.constructor}/>
+
+#### Properties
+
+* <Member s={Ot.Base.Script.baseValues} type={Data.Maybe(Ot.Base.BaseValues)}/>
+* <Member s={Ot.Base.Script.defaultMinMax} type={Data.Maybe(Ot.Base.MinMaxTable)}/>
+* <Member s={Ot.Base.Script.baseLangSysRecords} type={Data.Maybe(map(Tag,Ot.Base.MinMaxTable))}/>
+
+### Class <Decl s={Ot.Base.BaseValues}/>
+
+#### Constructor
+
+* <Method long ctor s={Ot.Base.BaseValues.constructor} args={{defaultBaselineIndex:number,baseValues:map(Tag,Ot.Base.Coord)}}/>
+
+#### Properties
+
+* <Member s={Ot.Base.BaseValues.defaultBaselineIndex} type={number}/>
+* <Member s={Ot.Base.BaseValues.baseValues} type={map(Tag,Ot.Base.Coord)}/>
+
+### Class <Decl s={Ot.Base.MinMaxTable}/>
+
+#### Constructor
+
+* <Method long ctor s={Ot.Base.MinMaxTable.constructor} args={{defaultMinMax:Ot.Base.MinMaxValue,featMinMax:map(Tag,Ot.Base.MinMaxValue)}}/>
+
+#### Properties
+
+* <Member s={Ot.Base.MinMaxTable.defaultMinMax} type={Ot.Base.MinMaxValue}/>
+* <Member s={Ot.Base.MinMaxTable.featMinMax} type={map(Tag,Ot.Base.MinMaxValue)}/>
+
+### Datatype <Decl s={Ot.Base.Coord}/>
+
+#### Members
+
+* <Member readonly s={Ot.Base.Coord.at} type={Ot.Var.Value}/>
+* <Member readonly s={Ot.Base.Coord.pointAttachment} type={optional(Data.Maybe(Ot.Glyph.GlyphPointIDRef))}/>
+* <Member readonly s={Ot.Base.Coord.deviceDeltas} type={optional(Data.Maybe(readonly(array(number))))}/>
+
+### Datatype <Decl s={Ot.Base.MinMaxValue}/>
+
+#### Members
+
+* <Member readonly s={Ot.Base.MinMaxValue.minCoord} type={Data.Maybe(Ot.Base.Coord)}/>
+* <Member readonly s={Ot.Base.MinMaxValue.maxCoord} type={Data.Maybe(Ot.Base.Coord)}/>

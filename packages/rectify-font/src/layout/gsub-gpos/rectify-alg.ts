@@ -281,11 +281,11 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
         for (const rule of props.rules) {
             const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setAll);
             if (!match1 || !match1.length) continue;
-            const applications1: Ot.GsubGpos.ChainingApplication[] = [];
+            const applications1: Ot.GsubGpos.ChainingApplication<Ot.GsubGpos.Lookup>[] = [];
             for (const app of rule.applications) {
                 let lookup1: null | Ot.GsubGpos.Lookup = null;
-                app.lookup(repl => (lookup1 = repl.blank));
-                if (lookup1) applications1.push({ at: app.at, lookup: lookup1 });
+                app.apply(repl => (lookup1 = repl.blank));
+                if (lookup1) applications1.push({ at: app.at, apply: lookup1 });
             }
             if (!applications1.length) continue;
             ret.rules.push({
@@ -398,9 +398,9 @@ function rectifyBaseRecordAP(
 }
 function rectifyLigatureRecord(
     rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    mr: Ot.Gpos.LigatureRecord
+    mr: Ot.Gpos.LigatureBaseRecord
 ) {
-    const mr1: Ot.Gpos.LigatureRecord = { baseAnchors: [] };
+    const mr1: Ot.Gpos.LigatureBaseRecord = { baseAnchors: [] };
     for (let part = 0; part < mr.baseAnchors.length; part++) {
         mr1.baseAnchors[part] = [];
         for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
@@ -414,9 +414,9 @@ function rectifyLigatureRecord(
 function rectifyLigatureRecordAP(
     rec: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.LigatureRecord
+    mr: Ot.Gpos.LigatureBaseRecord
 ) {
-    const mr1: Ot.Gpos.LigatureRecord = { baseAnchors: [] };
+    const mr1: Ot.Gpos.LigatureBaseRecord = { baseAnchors: [] };
     for (let part = 0; part < mr.baseAnchors.length; part++) {
         mr1.baseAnchors[part] = [];
         for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {

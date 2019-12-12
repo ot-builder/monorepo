@@ -62,7 +62,7 @@ const BaseArray = {
 const LigatureAttach = {
     read(
         view: BinaryView,
-        bases: Map<OtGlyph, Gpos.LigatureRecord>,
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
         clsStart: number,
         clsCount: number,
         baseGlyph: OtGlyph,
@@ -87,7 +87,7 @@ const LigatureAttach = {
 const LigatureArray = {
     read(
         view: BinaryView,
-        bases: Map<OtGlyph, Gpos.LigatureRecord>,
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
         clsStart: number,
         clsCount: number,
         cov: number[],
@@ -131,7 +131,7 @@ class GposMarkReaderBase {
     protected readMarkToLigatureSubtable(
         view: BinaryView,
         marks: Map<OtGlyph, Gpos.MarkRecord>,
-        bases: Map<OtGlyph, Gpos.LigatureRecord>,
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
         ctx: SubtableReadingContext<GsubGpos.Lookup>
     ) {
         const format = view.uint16();

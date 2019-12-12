@@ -1,0 +1,314 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+export default Layout
+
+# Namespace <Decl s={Ot.Os2}/>
+
+## Primary Types
+
+### Constant <Decl s={Ot.Os2.Tag}/> = `"OS/2"`
+
+### Class <Decl s={Ot.Os2.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Os2.Table.constructor} args={{version:number}} />
+
+#### Properties
+
+Note: despite the table version, all the properties will be present. However, some of the properties may be ignored when building the font.
+
+* Version 0 and up
+    * <Member readonly s={Ot.Os2.Table.version} type={number}/>
+    * <Member s={Ot.Os2.Table.xAvgCharWidth} type={number}/>
+    * <Member s={Ot.Os2.Table.usWeightClass} type={number}/>
+    * <Member s={Ot.Os2.Table.usWidthClass} type={number}/>
+    * <Member s={Ot.Os2.Table.fsType} type={Ot.Os2.FsType}/>
+    * <Member s={Ot.Os2.Table.ySubscriptXSize} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySubscriptYSize} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySubscriptXOffset} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySubscriptYOffset} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySuperscriptXSize} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySuperscriptYSize} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySuperscriptXOffset} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.ySuperscriptYOffset} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.yStrikeoutSize} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.yStrikeoutPosition} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.sFamilyClass} type={number}/>
+    * <Member s={Ot.Os2.Table.panose} type={Ot.Os2.Panose}/>
+    * <Member s={Ot.Os2.Table.ulUnicodeRange1} type={number}/>
+    * <Member s={Ot.Os2.Table.ulUnicodeRange2} type={number}/>
+    * <Member s={Ot.Os2.Table.ulUnicodeRange3} type={number}/>
+    * <Member s={Ot.Os2.Table.ulUnicodeRange4} type={number}/>
+    * <Member s={Ot.Os2.Table.achVendID} type={Tag}/>
+    * <Member s={Ot.Os2.Table.fsSelection} type={Ot.Os2.FsSelection}/>
+    * <Member s={Ot.Os2.Table.usFirstCharIndex} type={number}/>
+    * <Member s={Ot.Os2.Table.usLastCharIndex} type={number}/>
+    * <Member s={Ot.Os2.Table.sTypoAscender} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.sTypoDescender} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.sTypoLineGap} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.usWinAscent} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.usWinDescent} type={Ot.Var.Value}/>
+* Version 1 and up
+    * <Member s={Ot.Os2.Table.ulCodePageRange1} type={number}/>
+    * <Member s={Ot.Os2.Table.ulCodePageRange2} type={number}/>
+* Version 4 and up
+    * <Member s={Ot.Os2.Table.sxHeight} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.sCapHeight} type={Ot.Var.Value}/>
+    * <Member s={Ot.Os2.Table.usDefaultChar} type={number}/>
+    * <Member s={Ot.Os2.Table.usBreakChar} type={number}/>
+    * <Member s={Ot.Os2.Table.usMaxContext} type={number}/>
+* Version 5 and up
+    * <Member s={Ot.Os2.Table.usLowerOpticalPointSize} type={number}/>
+    * <Member s={Ot.Os2.Table.usUpperOpticalPointSize} type={number}/>
+
+## Support Types
+
+### Class <Decl s={Ot.Os2.Panose}/>
+
+#### Properties
+
+* <Member s={Ot.Os2.Panose.bFamilyType} type={number}/>
+* <Member s={Ot.Os2.Panose.bSerifStyle} type={number}/>
+* <Member s={Ot.Os2.Panose.bWeight} type={number}/>
+* <Member s={Ot.Os2.Panose.bProportion} type={number}/>
+* <Member s={Ot.Os2.Panose.bContrast} type={number}/>
+* <Member s={Ot.Os2.Panose.bStrokeVariation} type={number}/>
+* <Member s={Ot.Os2.Panose.bArmStyle} type={number}/>
+* <Member s={Ot.Os2.Panose.bLetterform} type={number}/>
+* <Member s={Ot.Os2.Panose.bMidline} type={number}/>
+* <Member s={Ot.Os2.Panose.bXHeight} type={number}/>
+
+### Enumeration <Decl s={Ot.Os2.FsType}/>
+
+* <Item s={Ot.Os2.FsType.InstallableEmbedding}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.FsType.RestrictedLicense}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.FsType.PreviewPrintLicense}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.FsType.EditableEmbedding}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.FsType.Reserved4}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.FsType.Reserved5}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.FsType.Reserved6}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.FsType.Reserved7}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.FsType.NoSubsetting}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.FsType.BitmapEmbeddingOnly}/> = <NthBit n={9}/>
+
+### Enumeration <Decl s={Ot.Os2.FsSelection}/>
+
+* <Item s={Ot.Os2.FsSelection.ITALIC}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.FsSelection.UNDERSCORE}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.FsSelection.NEGATIVE}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.FsSelection.OUTLINED}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.FsSelection.STRIKEOUT}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.FsSelection.BOLD}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.FsSelection.REGULAR}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.FsSelection.USE_TYPO_METRICS}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.FsSelection.WWS}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.FsSelection.OBLIQUE}/> = <NthBit n={9}/>
+
+## Codepage and Unicode Range Enumerations
+
+### Enumeration <Decl s={Ot.Os2.CodePageRange1}/>
+
+* <Item s={Ot.Os2.CodePageRange1.CP1252}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1250}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1251}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1253}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1254}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1255}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1256}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1257}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1258}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi1}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi2}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi3}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi4}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi5}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi6}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.CodePageRange1.Ansi7}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.CodePageRange1.CP874}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.CodePageRange1.CP932}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.CodePageRange1.CP936}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.CodePageRange1.CP949}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.CodePageRange1.CP950}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.CodePageRange1.CP1361}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem1}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem2}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem3}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem4}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem5}/> = <NthBit n={26}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem6}/> = <NthBit n={27}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem7}/> = <NthBit n={28}/>
+* <Item s={Ot.Os2.CodePageRange1.MacRoman}/> = <NthBit n={29}/>
+* <Item s={Ot.Os2.CodePageRange1.Oem}/> = <NthBit n={30}/>
+* <Item s={Ot.Os2.CodePageRange1.Symbol}/> = <NthBit n={31}/>
+
+### Enumeration <Decl s={Ot.Os2.CodePageRange2}/>
+
+* <Item s={Ot.Os2.CodePageRange2.Oem8}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem9}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem10}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem11}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem12}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem13}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem14}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem15}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem16}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem17}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem18}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem19}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem20}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem21}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem22}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.CodePageRange2.Oem23}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.CodePageRange2.CP869}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.CodePageRange2.CP866}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.CodePageRange2.CP865}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.CodePageRange2.CP864}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.CodePageRange2.CP863}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.CodePageRange2.CP862}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.CodePageRange2.CP861}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.CodePageRange2.CP860}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.CodePageRange2.CP857}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.CodePageRange2.CP855}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.CodePageRange2.CP852}/> = <NthBit n={26}/>
+* <Item s={Ot.Os2.CodePageRange2.CP775}/> = <NthBit n={27}/>
+* <Item s={Ot.Os2.CodePageRange2.CP737}/> = <NthBit n={28}/>
+* <Item s={Ot.Os2.CodePageRange2.CP708}/> = <NthBit n={29}/>
+* <Item s={Ot.Os2.CodePageRange2.CP850}/> = <NthBit n={30}/>
+* <Item s={Ot.Os2.CodePageRange2.CP437}/> = <NthBit n={31}/>
+
+### Enumeration <Decl s={Ot.Os2.UnicodeRange1}/>
+
+* <Item s={Ot.Os2.UnicodeRange1.BasicLatin}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.UnicodeRange1.Latin1Supplement}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.UnicodeRange1.LatinExtendedA}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.UnicodeRange1.LatinExtendedB}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.UnicodeRange1.Phonetics}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.UnicodeRange1.SpacingModifiers}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.UnicodeRange1.CombiningDiacriticalMarks}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.UnicodeRange1.GreekAndCoptic}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.UnicodeRange1.Coptic}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.UnicodeRange1.Cyrillic}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.UnicodeRange1.Armenian}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.UnicodeRange1.Hebrew}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.UnicodeRange1.Vai}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.UnicodeRange1.Arabic}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.UnicodeRange1.NKo}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.UnicodeRange1.Devanagari}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.UnicodeRange1.Bengali}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.UnicodeRange1.Gurmukhi}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.UnicodeRange1.Gujarati}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.UnicodeRange1.Oriya}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.UnicodeRange1.Tamil}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.UnicodeRange1.Telugu}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.UnicodeRange1.Kannada}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.UnicodeRange1.Malayalam}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.UnicodeRange1.Thai}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.UnicodeRange1.Lao}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.UnicodeRange1.Georgian}/> = <NthBit n={26}/>
+* <Item s={Ot.Os2.UnicodeRange1.Balinese}/> = <NthBit n={27}/>
+* <Item s={Ot.Os2.UnicodeRange1.HangulJamo}/> = <NthBit n={28}/>
+* <Item s={Ot.Os2.UnicodeRange1.LatinExtendedAdditional}/> = <NthBit n={29}/>
+* <Item s={Ot.Os2.UnicodeRange1.GreekExtended}/> = <NthBit n={30}/>
+* <Item s={Ot.Os2.UnicodeRange1.Punctuations}/> = <NthBit n={31}/>
+
+### Enumeration <Decl s={Ot.Os2.UnicodeRange2}/>
+
+* <Item s={Ot.Os2.UnicodeRange2.SuperscriptsAndSubscripts}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.UnicodeRange2.CurrencySymbols}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.UnicodeRange2.CombiningDiacriticalMarksForSymbols}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.UnicodeRange2.LetterLikeSymbols}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.UnicodeRange2.NumberForms}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.UnicodeRange2.Arrows}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.UnicodeRange2.MathematicalOperators}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.UnicodeRange2.MiscellaneousTechnical}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.UnicodeRange2.ControlPictures}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.UnicodeRange2.OpticalCharacterRecognition}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.UnicodeRange2.EnclosedAlphanumerics}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.UnicodeRange2.BoxDrawing}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.UnicodeRange2.BlockElements}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.UnicodeRange2.GeometricShapes}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.UnicodeRange2.MiscellaneousSymbols}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.UnicodeRange2.Dingbats}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.UnicodeRange2.CJKSymbolsAndPunctuation}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.UnicodeRange2.Hiragana}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.UnicodeRange2.Katakana}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.UnicodeRange2.Bopomofo}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.UnicodeRange2.HangulCompatibilityJamo}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.UnicodeRange2.Phagspa}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.UnicodeRange2.EnclosedCJKLettersAndMonths}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.UnicodeRange2.CJKCompatibility}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.UnicodeRange2.HangulSyllables}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.UnicodeRange2.NonPlane0}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.UnicodeRange2.Phoenician}/> = <NthBit n={26}/>
+* <Item s={Ot.Os2.UnicodeRange2.CJKUnifiedIdeographs}/> = <NthBit n={27}/>
+* <Item s={Ot.Os2.UnicodeRange2.PrivateUseAreaP0}/> = <NthBit n={28}/>
+* <Item s={Ot.Os2.UnicodeRange2.CJKStrokes}/> = <NthBit n={29}/>
+* <Item s={Ot.Os2.UnicodeRange2.AlphabeticPresentationForms}/> = <NthBit n={30}/>
+* <Item s={Ot.Os2.UnicodeRange2.ArabicPresentationFormsA}/> = <NthBit n={31}/>
+
+### Enumeration <Decl s={Ot.Os2.UnicodeRange3}/>
+
+* <Item s={Ot.Os2.UnicodeRange3.CombiningHalfMarks}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.UnicodeRange3.VerticalFormsAndCJKCompatibilityForms}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.UnicodeRange3.SmallFormVariants}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.UnicodeRange3.ArabicPresentationFormsB}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.UnicodeRange3.HalfWidthAndFullWidthForms}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.UnicodeRange3.Specials}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.UnicodeRange3.Tibetan}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.UnicodeRange3.Syriac}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.UnicodeRange3.Thaana}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.UnicodeRange3.Sinhala}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.UnicodeRange3.Myanmar}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.UnicodeRange3.Ethiopic}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.UnicodeRange3.Cherokee}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.UnicodeRange3.UnifiedCanadianAboriginalSyllabics}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.UnicodeRange3.Ogham}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.UnicodeRange3.Runic}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.UnicodeRange3.Khmer}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.UnicodeRange3.Mongolian}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.UnicodeRange3.BraillePatterns}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.UnicodeRange3.YiSyllables}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.UnicodeRange3.Tagalog}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.UnicodeRange3.OldItalic}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.UnicodeRange3.Gothic}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.UnicodeRange3.Deseret}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.UnicodeRange3.MusicalSymbols}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.UnicodeRange3.MathematicalAlphanumericSymbols}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.UnicodeRange3.PrivateUseP15AndP16}/> = <NthBit n={26}/>
+* <Item s={Ot.Os2.UnicodeRange3.VariationSelectors}/> = <NthBit n={27}/>
+* <Item s={Ot.Os2.UnicodeRange3.Tags}/> = <NthBit n={28}/>
+* <Item s={Ot.Os2.UnicodeRange3.Limbu}/> = <NthBit n={29}/>
+* <Item s={Ot.Os2.UnicodeRange3.TaiLe}/> = <NthBit n={30}/>
+* <Item s={Ot.Os2.UnicodeRange3.NewTaiLue}/> = <NthBit n={31}/>
+
+### Enumeration <Decl s={Ot.Os2.UnicodeRange4}/>
+
+* <Item s={Ot.Os2.UnicodeRange4.Buginese}/> = <NthBit n={0}/>
+* <Item s={Ot.Os2.UnicodeRange4.Glagolitic}/> = <NthBit n={1}/>
+* <Item s={Ot.Os2.UnicodeRange4.Tifinagh}/> = <NthBit n={2}/>
+* <Item s={Ot.Os2.UnicodeRange4.YijingHexagramSymbols}/> = <NthBit n={3}/>
+* <Item s={Ot.Os2.UnicodeRange4.SylotiNagri}/> = <NthBit n={4}/>
+* <Item s={Ot.Os2.UnicodeRange4.LinearBSyllabaryIdeogramsAndAegeanNumbers}/> = <NthBit n={5}/>
+* <Item s={Ot.Os2.UnicodeRange4.AncientGreekNumbers}/> = <NthBit n={6}/>
+* <Item s={Ot.Os2.UnicodeRange4.Ugaritic}/> = <NthBit n={7}/>
+* <Item s={Ot.Os2.UnicodeRange4.OldPersian}/> = <NthBit n={8}/>
+* <Item s={Ot.Os2.UnicodeRange4.Shavian}/> = <NthBit n={9}/>
+* <Item s={Ot.Os2.UnicodeRange4.Osmanya}/> = <NthBit n={10}/>
+* <Item s={Ot.Os2.UnicodeRange4.CypriotSyllabary}/> = <NthBit n={11}/>
+* <Item s={Ot.Os2.UnicodeRange4.Kharoshthi}/> = <NthBit n={12}/>
+* <Item s={Ot.Os2.UnicodeRange4.TaiXuanJingSymbols}/> = <NthBit n={13}/>
+* <Item s={Ot.Os2.UnicodeRange4.Cuneiform}/> = <NthBit n={14}/>
+* <Item s={Ot.Os2.UnicodeRange4.CountingRodNumerals}/> = <NthBit n={15}/>
+* <Item s={Ot.Os2.UnicodeRange4.Sundanese}/> = <NthBit n={16}/>
+* <Item s={Ot.Os2.UnicodeRange4.Lepcha}/> = <NthBit n={17}/>
+* <Item s={Ot.Os2.UnicodeRange4.OlChiki}/> = <NthBit n={18}/>
+* <Item s={Ot.Os2.UnicodeRange4.Saurashtra}/> = <NthBit n={19}/>
+* <Item s={Ot.Os2.UnicodeRange4.KayahLi}/> = <NthBit n={20}/>
+* <Item s={Ot.Os2.UnicodeRange4.Rejang}/> = <NthBit n={21}/>
+* <Item s={Ot.Os2.UnicodeRange4.Cham}/> = <NthBit n={22}/>
+* <Item s={Ot.Os2.UnicodeRange4.AncientSymbols}/> = <NthBit n={23}/>
+* <Item s={Ot.Os2.UnicodeRange4.PhaistosDisc}/> = <NthBit n={24}/>
+* <Item s={Ot.Os2.UnicodeRange4.CarianAndLycian}/> = <NthBit n={25}/>
+* <Item s={Ot.Os2.UnicodeRange4.DominoAndMahjongTiles}/> = <NthBit n={26}/>

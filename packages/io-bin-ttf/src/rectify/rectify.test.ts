@@ -7,7 +7,7 @@ describe("GLYF data rectification", () => {
     test("Rectify point attachments", () => {
         const to = OtGlyph.create();
         to.geometry = OtGlyph.ContourSet.create([
-            [new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]
+            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)]
         ]);
         const from = OtGlyph.create();
         const ref1 = OtGlyph.TtReference.create(to, OtGlyph.Transform2X3.Neutral());
@@ -27,7 +27,7 @@ describe("GLYF data rectification", () => {
     test("Rectify point attachments, nested", () => {
         const sp = OtGlyph.create();
         sp.geometry = OtGlyph.ContourSet.create([
-            [new OtGlyph.Point(1, 1, OtGlyph.PointType.Corner)]
+            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)]
         ]);
         const spr = OtGlyph.create();
         spr.geometry = OtGlyph.GeometryList.create([

@@ -10,7 +10,7 @@ export namespace GposMarkToLigatureIdentity {
     function getOffset(
         component: number,
         mre: Data.Maybe<Gpos.MarkRecord>,
-        bre: Data.Maybe<Gpos.LigatureRecord>
+        bre: Data.Maybe<Gpos.LigatureBaseRecord>
     ) {
         let offsetX = OtVar.Ops.neutral;
         let offsetY = OtVar.Ops.neutral;

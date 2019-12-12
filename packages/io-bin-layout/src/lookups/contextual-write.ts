@@ -26,7 +26,7 @@ class ClassDefsAnalyzeState {
     public cdBacktrack: GsubGpos.ClassDef = new Map();
     public cdInput: GsubGpos.ClassDef = new Map();
     public cdLookAhead: GsubGpos.ClassDef = new Map();
-    public rules: Array<GsubGpos.ChainingRule> = [];
+    public rules: Array<GsubGpos.ChainingRule<GsubGpos.Lookup>> = [];
     public classRules: Map<number, Array<GsubGpos.ChainingClassRule>> = new Map();
     public lastFirstClass: number = 0;
     public maxFirstClass: number = 0;
@@ -66,7 +66,9 @@ class ClassDefsAnalyzeState {
         else return this.glyphSetCompatibleWithNewClassDef(gs, cd);
     }
 
-    private checkRuleCompatibility(rule: GsubGpos.ChainingRule): null | CompatibleRuleResult {
+    private checkRuleCompatibility(
+        rule: GsubGpos.ChainingRule<GsubGpos.Lookup>
+    ): null | CompatibleRuleResult {
         const cdBacktrack = new Map(this.cdBacktrack);
         const cdInput = new Map(this.cdInput);
         const cdLookAhead = new Map(this.cdLookAhead);
@@ -120,7 +122,10 @@ class ClassDefsAnalyzeState {
         );
     }
 
-    private addCompatibleRule(rule: GsubGpos.ChainingRule, comp: CompatibleRuleResult) {
+    private addCompatibleRule(
+        rule: GsubGpos.ChainingRule<GsubGpos.Lookup>,
+        comp: CompatibleRuleResult
+    ) {
         this.cdBacktrack = comp.cdBacktrack;
         this.cdInput = comp.cdInput;
         this.cdLookAhead = comp.cdLookAhead;
@@ -134,7 +139,7 @@ class ClassDefsAnalyzeState {
         this.ruleComplexity += this.compatibleRuleComplexity(comp);
     }
 
-    public tryAddRule(rule: GsubGpos.ChainingRule) {
+    public tryAddRule(rule: GsubGpos.ChainingRule<GsubGpos.Lookup>) {
         const comp = this.checkRuleCompatibility(rule);
         if (!comp) return false;
         if (0x8000 < this.estimateUpdatedSubtableSize(comp)) return false;
@@ -146,11 +151,11 @@ class ClassDefsAnalyzeState {
 const Application = Write(
     (
         frag,
-        apps: ReadonlyArray<GsubGpos.ChainingApplication>,
+        apps: ReadonlyArray<GsubGpos.ChainingApplication<GsubGpos.Lookup>>,
         crossRef: Data.Order<GsubGpos.Lookup>
     ) => {
         for (const app of apps) {
-            frag.uint16(app.at).uint16(crossRef.reverse(app.lookup));
+            frag.uint16(app.at).uint16(crossRef.reverse(app.apply));
         }
     }
 );
@@ -159,7 +164,7 @@ const CoverageRule = Write(
     (
         frag,
         isChaining: boolean,
-        rule: GsubGpos.ChainingRule,
+        rule: GsubGpos.ChainingRule<GsubGpos.Lookup>,
         ctx: SubtableWriteContext<GsubGpos.Lookup>
     ) => {
         frag.uint16(3);
@@ -258,7 +263,7 @@ abstract class ChainingContextualWriter
     public abstract canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup;
 
     private covSubtable(
-        rule: GsubGpos.ChainingRule,
+        rule: GsubGpos.ChainingRule<GsubGpos.Lookup>,
         isChaining: boolean,
         ctx: SubtableWriteContext<GsubGpos.Lookup>
     ) {
