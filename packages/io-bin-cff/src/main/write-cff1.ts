@@ -1,5 +1,4 @@
 import { Frag, Write } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { Errors } from "@ot-builder/errors";
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head } from "@ot-builder/ft-metadata";
@@ -24,7 +23,7 @@ export const WriteCff1 = Write(
         frag: Frag,
         cff: Cff.Table,
         gOrd: Data.Order<OtGlyph>,
-        cfg: Config<CffCfg>,
+        cfg: CffCfg,
         head: Head.Table,
         stat?: Data.Maybe<OtGlyph.Stat.Sink>
     ) => {

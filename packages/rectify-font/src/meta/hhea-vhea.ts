@@ -1,8 +1,9 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
+
+import { CoordRectifier } from "../interface";
 
 function inPlaceRectifyCoordHhea(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
+    rec: CoordRectifier,
     newTable: Ot.MetricHead.Table,
     table: Ot.MetricHead.Table
 ) {
@@ -27,19 +28,13 @@ function inPlaceRectifyCoordHhea(
     newTable.caretOffset = rec.coord(newTable.caretOffset);
 }
 
-export function rectifyCoordHhea(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    table: Ot.MetricHead.Table
-) {
+export function rectifyCoordHhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
     const newTable = new Ot.MetricHead.Hhea();
     inPlaceRectifyCoordHhea(rec, newTable, table);
     return newTable;
 }
 
-export function rectifyCoordVhea(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    table: Ot.MetricHead.Table
-) {
+export function rectifyCoordVhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
     const newTable = new Ot.MetricHead.Vhea();
     inPlaceRectifyCoordHhea(rec, newTable, table);
     return newTable;

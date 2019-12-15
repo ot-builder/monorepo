@@ -1,8 +1,14 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyGdefGlyphs(gdef: Ot.Gdef.Table, rec: Rectify.Glyph.RectifierT<Ot.Glyph>) {
+import {
+    CoordRectifier,
+    GlyphRectifier,
+    PointAttachmentRectifier,
+    PointAttachmentRectifyManner
+} from "../../interface";
+import { RectifyImpl } from "../../shared";
+
+export function rectifyGdefGlyphs(gdef: Ot.Gdef.Table, rec: GlyphRectifier) {
     const newTable = new Ot.Gdef.Table();
     if (gdef.glyphClassDef) {
         newTable.glyphClassDef = RectifyImpl.Glyph.mapSome(rec, gdef.glyphClassDef);
@@ -26,10 +32,7 @@ export function rectifyGdefGlyphs(gdef: Ot.Gdef.Table, rec: Rectify.Glyph.Rectif
     return newTable;
 }
 
-export function rectifyGdefCoords(
-    gdef: Ot.Gdef.Table,
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>
-) {
+export function rectifyGdefCoords(gdef: Ot.Gdef.Table, rec: CoordRectifier) {
     const newTable = new Ot.Gdef.Table();
     newTable.glyphClassDef = gdef.glyphClassDef;
     newTable.attachList = gdef.attachList;
@@ -45,10 +48,7 @@ export function rectifyGdefCoords(
     }
     return newTable;
 }
-export function rectifyGdefPointAttachment(
-    gdef: Ot.Gdef.Table,
-    rec: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>
-) {
+export function rectifyGdefPointAttachment(gdef: Ot.Gdef.Table, rec: PointAttachmentRectifier) {
     const newTable = new Ot.Gdef.Table();
     newTable.glyphClassDef = gdef.glyphClassDef;
     newTable.attachList = gdef.attachList;
@@ -60,43 +60,37 @@ export function rectifyGdefPointAttachment(
     return newTable;
 }
 
-function rectifyLigCaretCoord(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    lc: Ot.Gdef.LigCaret
-): Ot.Gdef.LigCaret {
+function rectifyLigCaretCoord(rec: CoordRectifier, lc: Ot.Gdef.LigCaret): Ot.Gdef.LigCaret {
     return { ...lc, x: rec.coord(lc.x) };
 }
 
-function rectifyLigCaretArrayCoord(
-    r: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    lcs: Ot.Gdef.LigCaret[]
-) {
+function rectifyLigCaretArrayCoord(r: CoordRectifier, lcs: Ot.Gdef.LigCaret[]) {
     return RectifyImpl.listSomeT(r, lcs, rectifyLigCaretCoord);
 }
 
 function rectifyLigCaretPointAttachment(
-    rectifier: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>,
+    rectifier: PointAttachmentRectifier,
     context: Ot.Glyph,
     lc: Ot.Gdef.LigCaret
 ): Ot.Gdef.LigCaret {
     if (!lc.pointAttachment) return lc;
 
-    const desired = rectifier.getGlyphPoint(context, lc.pointAttachment.pointIndex);
+    const desired = rectifier.getGlyphPoints(context)[lc.pointAttachment.pointIndex];
     if (!desired) return { ...lc, pointAttachment: null };
 
     const accept = rectifier.acceptOffset(desired, lc);
     if (accept.x) return lc;
 
     switch (rectifier.manner) {
-        case Rectify.PointAttach.Manner.TrustAttachment:
+        case PointAttachmentRectifyManner.TrustAttachment:
             return { ...lc, x: desired.x };
-        case Rectify.PointAttach.Manner.TrustCoordinate:
+        case PointAttachmentRectifyManner.TrustCoordinate:
             return { ...lc, pointAttachment: null };
     }
 }
 
 function rectifyLigCaretArrayPointAttachment(
-    rec: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>,
+    rec: PointAttachmentRectifier,
     g: Ot.Glyph,
     lcs: Ot.Gdef.LigCaret[]
 ) {
@@ -104,7 +98,7 @@ function rectifyLigCaretArrayPointAttachment(
 }
 
 function rectifyLigCaretListPointAttachment(
-    rec: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>,
+    rec: PointAttachmentRectifier,
     lcs: Ot.Gdef.LigCaretList
 ): Ot.Gdef.LigCaretList {
     return RectifyImpl.mapSome2T(rec, lcs, RectifyImpl.Id, rectifyLigCaretArrayPointAttachment);

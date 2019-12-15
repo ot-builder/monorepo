@@ -28,9 +28,6 @@
       "path": "../primitive/tsconfig.json"
     },
     {
-      "path": "../cfg-log/tsconfig.json"
-    },
-    {
       "path": "../variance/tsconfig.json"
     }
   ]

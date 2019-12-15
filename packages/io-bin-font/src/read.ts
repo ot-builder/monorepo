@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import * as Ot from "@ot-builder/font";
 import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
@@ -16,7 +15,7 @@ import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 export function readFont<GS extends Data.OrderStore<Ot.Glyph>>(
     sfnt: Sfnt,
     gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
-    partialConfig: Config<FontIoConfig>
+    partialConfig: FontIoConfig
 ): Ot.Font<GS> {
     const cfg = createConfig(partialConfig);
     const md = readOtMetadata(sfnt, cfg);
@@ -53,7 +52,7 @@ function nameGlyphs(
     gOrd: Data.Order<Ot.Glyph>,
     cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>>,
     encoding: Ot.Encoding,
-    cfg: Config<FontIoCfgFinal>
+    cfg: FontIoCfgFinal
 ) {
     const namingSource: Ot.GlyphNamingSource = {
         post: md.postGlyphNaming ? new PostGlyphNamingWrapper(md.postGlyphNaming, gOrd) : null,

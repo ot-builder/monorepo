@@ -1,5 +1,4 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import {
@@ -25,7 +24,7 @@ import { MvarTableIo, MvarTag } from "../mvar";
 import { Os2TableIo } from "../os2";
 import { PostAndNameIo } from "../post";
 
-export function readOtMetadata(sfnt: Sfnt, cfg: Config<FontMetadataCfg>): OtFontIoMetadata {
+export function readOtMetadata(sfnt: Sfnt, cfg: FontMetadataCfg): OtFontIoMetadata {
     const bHead = sfnt.tables.get(Head.Tag);
     if (!bHead) throw Errors.MissingKeyTable(Head.Tag);
     const head = new BinaryView(bHead).next(HeadIo);
@@ -67,11 +66,7 @@ export function readOtMetadata(sfnt: Sfnt, cfg: Config<FontMetadataCfg>): OtFont
     return md;
 }
 
-export function writeOtMetadata(
-    sink: SfntIoTableSink,
-    cfg: Config<FontMetadataCfg>,
-    md: OtFontIoMetadata
-) {
+export function writeOtMetadata(sink: SfntIoTableSink, cfg: FontMetadataCfg, md: OtFontIoMetadata) {
     if (md.fvar && md.avar) {
         sink.add(
             Avar.Tag,

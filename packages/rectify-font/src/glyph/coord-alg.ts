@@ -1,8 +1,9 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
+
+import { CoordRectifier } from "../interface";
 
 export class RectifyGeomCoordAlg implements Ot.Glyph.GeometryAlg<null | Ot.Glyph.Geometry> {
-    constructor(private readonly rec: Rectify.Coord.RectifierT<Ot.Var.Value>) {}
+    constructor(private readonly rec: CoordRectifier) {}
     public empty() {
         return null;
     }
@@ -39,7 +40,7 @@ export class RectifyGeomCoordAlg implements Ot.Glyph.GeometryAlg<null | Ot.Glyph
 }
 
 export class RectifyHintCoordAlg implements Ot.Glyph.HintAlg<null | Ot.Glyph.Hint> {
-    constructor(private readonly rec: Rectify.Coord.RectifierT<Ot.Var.Value>) {}
+    constructor(private readonly rec: CoordRectifier) {}
 
     public empty() {
         return null;

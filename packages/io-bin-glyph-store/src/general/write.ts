@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head, Maxp, OtFontMetadata } from "@ot-builder/ft-metadata";
@@ -21,7 +20,7 @@ export interface WriteGlyphStoreImpl<C, T> {
     readonly writeMetricVariance: boolean;
     writeGlyphs(
         sink: SfntIoTableSink,
-        cfg: Config<C>,
+        cfg: C,
         coGlyphs: T,
         gOrd: Data.Order<OtGlyph>,
         ctx: GlyphStoreWriteImplCtx
@@ -32,7 +31,7 @@ export function writeGlyphStore<C, T>(
     // out
     sink: SfntIoTableSink,
     // in
-    cfg: Config<C & GlyphStoreCfg>,
+    cfg: C & GlyphStoreCfg,
     // inOut
     md: OtFontMetadata,
     // in

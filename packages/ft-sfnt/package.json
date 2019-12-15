@@ -4,7 +4,6 @@
   "license": "MIT",
   "dependencies": {
     "@ot-builder/bin-composite-types": "0.2.0",
-    "@ot-builder/cfg-log": "0.2.0",
     "@ot-builder/prelude": "0.2.0",
     "@ot-builder/primitive": "0.2.0",
     "tslib": "^1.9.3"

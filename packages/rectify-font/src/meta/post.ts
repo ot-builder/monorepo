@@ -1,10 +1,8 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyCoordPost(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    table: Ot.Post.Table
-) {
+import { CoordRectifier } from "../interface";
+
+export function rectifyCoordPost(rec: CoordRectifier, table: Ot.Post.Table) {
     const newTable = new Ot.Post.Table(table.majorVersion, table.minorVersion);
     newTable.italicAngle = table.italicAngle;
     newTable.underlinePosition = rec.coord(table.underlinePosition);

@@ -1,5 +1,4 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { Cmap, OtEncoding } from "@ot-builder/ft-encoding";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";
@@ -16,7 +15,7 @@ import { Os2UnicodeRangeStat } from "../stat/os2-unicode-range";
 
 export function readEncoding(
     sfnt: Sfnt,
-    cfg: Config<EncodingCfg>,
+    cfg: EncodingCfg,
     gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ): OtEncoding {
@@ -26,7 +25,7 @@ export function readEncoding(
 }
 export function writeEncoding(
     out: SfntIoTableSink,
-    cfg: Config<EncodingCfg>,
+    cfg: EncodingCfg,
     encoding: OtEncoding,
     gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata

@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { Cff, OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -11,7 +10,7 @@ import { ReadCff1 } from "../main/read-cff1";
 function readCff1(file: string) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({ cff: DefaultCffCfgProps, fontMetadata: {} });
+    const cfg = { cff: DefaultCffCfgProps, fontMetadata: {} };
     const { head, maxp } = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const { cff } = new BinaryView(sfnt.tables.get(Cff.Tag1)!).next(

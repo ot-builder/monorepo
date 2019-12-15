@@ -1,6 +1,8 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/font";
-import { Data, Rectify } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
+
+import { AxisRectifier } from "../../interface";
+import { RectifyImpl } from "../../shared";
 
 import { LookupRemovableAlg } from "./lookup-removable-alg";
 
@@ -109,10 +111,7 @@ function cleanupFeatureVariation(
     else return { ...fv, substitutions: subst };
 }
 
-export function axesRectifyFeatureVariation(
-    rec: Rectify.Axis.RectifierT<Ot.Var.Axis>,
-    fv: Ot.GsubGpos.FeatureVariation
-) {
+export function axesRectifyFeatureVariation(rec: AxisRectifier, fv: Ot.GsubGpos.FeatureVariation) {
     fv.conditions = RectifyImpl.listSomeT(rec, fv.conditions, (r, c) => {
         const a1 = r.axis(c.axis);
         if (a1) return { ...c, axis: a1 };

@@ -1,5 +1,4 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -15,7 +14,7 @@ import { GlyfTableWrite } from "./write";
 function roundTripTest(file: string, padSpace: boolean) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({ fontMetadata: {} });
+    const cfg = { fontMetadata: {} };
     const { head, maxp } = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const gOrd = gs.decideOrder();

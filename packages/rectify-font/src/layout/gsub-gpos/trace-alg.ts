@@ -1,15 +1,16 @@
-import { TraceImpl } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/font";
-import { Thunk, Trace } from "@ot-builder/prelude";
+import { Thunk } from "@ot-builder/prelude";
 
-export function traceLayoutGlyphs(table: Ot.GsubGpos.Table): TraceProc {
+import { GlyphTraceProc } from "../../interface";
+import { TraceImpl } from "../../shared";
+
+export function traceLayoutGlyphs(table: Ot.GsubGpos.Table): GlyphTraceProc {
     const alg = new TraceGlyphAlg();
     return TraceImpl.Glyph.Seq(table.lookups.map(lookup => lookup.acceptLookupAlgebra(alg)));
 }
 
-type TraceProc = Trace.Glyph.ProcT<Ot.Glyph>;
-export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<TraceProc> {
-    public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): TraceProc {
+export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<GlyphTraceProc> {
+    public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): GlyphTraceProc {
         const props = thProps.force();
         return tracer => {
             for (const [src, dst] of props.mapping) {
@@ -17,7 +18,7 @@ export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<TraceProc> {
             }
         };
     }
-    public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): TraceProc {
+    public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): GlyphTraceProc {
         const props = thProps.force();
         return tracer => {
             for (const [src, dst] of props.mapping.entries()) {
@@ -25,10 +26,10 @@ export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<TraceProc> {
             }
         };
     }
-    public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): TraceProc {
+    public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): GlyphTraceProc {
         return this.gsubMulti(thProps);
     }
-    public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): TraceProc {
+    public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): GlyphTraceProc {
         const props = thProps.force();
         return tracer => {
             for (const { from, to } of props.mapping) {
@@ -38,7 +39,7 @@ export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<TraceProc> {
             }
         };
     }
-    public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): TraceProc {
+    public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): GlyphTraceProc {
         const props = thProps.force();
         return tracer => {
             for (const rule of props.rules) {
@@ -48,28 +49,28 @@ export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<TraceProc> {
             }
         };
     }
-    public gposSingle(): TraceProc {
+    public gposSingle(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposPair(): TraceProc {
+    public gposPair(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposCursive(): TraceProc {
+    public gposCursive(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposMarkToBase(): TraceProc {
+    public gposMarkToBase(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposMarkToMark(): TraceProc {
+    public gposMarkToMark(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposMarkToLigature(): TraceProc {
+    public gposMarkToLigature(): GlyphTraceProc {
         return tracer => {};
     }
-    public gsubChaining(): TraceProc {
+    public gsubChaining(): GlyphTraceProc {
         return tracer => {};
     }
-    public gposChaining(): TraceProc {
+    public gposChaining(): GlyphTraceProc {
         return tracer => {};
     }
 }

@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import { Errors } from "@ot-builder/errors";
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
@@ -136,7 +135,7 @@ export function applyBuildResults(cff: Cff.Table, results: CharStringGlobalOptim
     }
 }
 
-function getOptimizer(cfg: Config<CffCfg>, ctx: CffWriteContext, fdCount: number) {
+function getOptimizer(cfg: CffCfg, ctx: CffWriteContext, fdCount: number) {
     if (cfg.cff.doGlobalOptimization) {
         return CharStringGlobalOptSubrFactory.createOptimizer(ctx, fdCount);
     } else {
@@ -144,7 +143,7 @@ function getOptimizer(cfg: Config<CffCfg>, ctx: CffWriteContext, fdCount: number
     }
 }
 
-function getLocalOptimizers(cfg: Config<CffCfg>, ctx: CffWriteContext) {
+function getLocalOptimizers(cfg: CffCfg, ctx: CffWriteContext) {
     if (cfg.cff.doLocalOptimization) {
         return StandardDrawCallOptimizers(ctx);
     } else {
@@ -154,7 +153,7 @@ function getLocalOptimizers(cfg: Config<CffCfg>, ctx: CffWriteContext) {
 
 export function buildCharStrings(
     cff: Cff.Table,
-    cfg: Config<CffCfg>,
+    cfg: CffCfg,
     gOrd: Data.Order<OtGlyph>,
     ctx: CffWriteContext
 ) {

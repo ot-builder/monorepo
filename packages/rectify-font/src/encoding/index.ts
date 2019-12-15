@@ -1,7 +1,8 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyGlyphCmap(rec: Rectify.Glyph.RectifierT<Ot.Glyph>, table: Ot.Cmap.Table) {
+import { GlyphRectifier } from "../interface";
+
+export function rectifyGlyphCmap(rec: GlyphRectifier, table: Ot.Cmap.Table) {
     const newTable = new Ot.Cmap.Table();
     for (const [encoding, glyph] of table.unicode.entries()) {
         const g1 = rec.glyph(glyph);

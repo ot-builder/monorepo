@@ -1,13 +1,12 @@
 import * as Ot from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Fvar } from "@ot-builder/ft-metadata";
-import { Data, Rectify } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { Data } from "@ot-builder/prelude";
 
 import { inPlaceRectifyCoordCffTable } from "./glyph-store/cff";
 import { rectifyCoordCvtTable } from "./glyph-store/cvt";
 import { RectifyGeomCoordAlg, RectifyHintCoordAlg } from "./glyph/coord-alg";
-import { RectifyGeomPointAttachmentAlg } from "./glyph/point-attachment-alg";
+import { rectifyGlyphsPA } from "./glyph/point-attachment-alg";
+import { AxisRectifier, CoordRectifier, PointAttachmentRectifier } from "./interface";
 import { rectifyBaseTableCoord, rectifyBaseTablePointAttachment } from "./layout/base";
 import { rectifyGdefCoords, rectifyGdefPointAttachment } from "./layout/gdef";
 import { rectifyLayoutCoord, rectifyLayoutPointAttachment } from "./layout/gsub-gpos";
@@ -21,9 +20,9 @@ import { rectifyCoordPost } from "./meta/post";
 type OtGlyphStore = Data.OrderStore<OtGlyph>;
 
 export function rectifyFontCoords<GS extends OtGlyphStore>(
-    recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<OtVar.Value>,
-    recPA: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier,
+    recPA: PointAttachmentRectifier,
     font: Ot.Font<GS>
 ) {
     rectifyFontMetadata(recAxes, recCoord, font);
@@ -35,8 +34,8 @@ export function rectifyFontCoords<GS extends OtGlyphStore>(
 }
 
 function rectifyFontMetadata<GS extends OtGlyphStore>(
-    recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<OtVar.Value>,
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier,
     font: Ot.Font<GS>
 ) {
     if (font.fvar) font.fvar = rectifyAxisFvar(recAxes, font.fvar);
@@ -48,8 +47,8 @@ function rectifyFontMetadata<GS extends OtGlyphStore>(
     if (font.gasp) font.gasp = rectifyCoordGasp(recCoord, font.gasp);
 }
 function rectifyGlyphs<GS extends OtGlyphStore>(
-    recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<OtVar.Value>,
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier,
     font: Ot.Font<GS>
 ) {
     const gOrd = font.glyphs.decideOrder();
@@ -69,21 +68,10 @@ function rectifyGlyphs<GS extends OtGlyphStore>(
         };
     }
 }
-function rectifyGlyphsPA<GS extends OtGlyphStore>(
-    recPA: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
-    font: Ot.Font<GS>
-) {
-    const gOrd = font.glyphs.decideOrder();
 
-    for (const g of gOrd) {
-        if (g.geometry) {
-            g.geometry.acceptGeometryAlgebra(new RectifyGeomPointAttachmentAlg(recPA, g));
-        }
-    }
-}
 function rectifyCoGlyphs<GS extends OtGlyphStore>(
-    recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<OtVar.Value>,
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier,
     font: Ot.Font<GS>
 ) {
     if (Ot.Font.isCff(font)) {
@@ -93,8 +81,8 @@ function rectifyCoGlyphs<GS extends OtGlyphStore>(
     }
 }
 function rectifyLayout<GS extends OtGlyphStore>(
-    recAxes: Rectify.Axis.RectifierT<Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<OtVar.Value>,
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier,
     font: Ot.Font<GS>
 ) {
     if (font.gdef) {
@@ -111,7 +99,7 @@ function rectifyLayout<GS extends OtGlyphStore>(
     }
 }
 function rectifyLayoutPA<GS extends OtGlyphStore>(
-    recPA: Rectify.PointAttach.RectifierT<OtGlyph, OtVar.Value>,
+    recPA: PointAttachmentRectifier,
     font: Ot.Font<GS>
 ) {
     if (font.gdef) {

@@ -1,5 +1,4 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
-import { Data, Rectify } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";

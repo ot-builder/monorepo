@@ -1,5 +1,4 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data, Thunk } from "@ot-builder/prelude";
@@ -21,7 +20,7 @@ export const GvarTableRead = Read(
     (
         view,
         gOrd: Data.Order<OtGlyph>,
-        cfg: Config<TtfCfg>,
+        cfg: TtfCfg,
         ignore: GvarReadIgnore,
         axes: Data.Order<OtVar.Axis>
     ) => {
@@ -42,12 +41,7 @@ export const GvarTableRead = Read(
 );
 
 const GvarHeader = Read(
-    (
-        bp: BinaryView,
-        gOrd: Data.Order<OtGlyph>,
-        cfg: Config<TtfCfg>,
-        axes: Data.Order<OtVar.Axis>
-    ) => {
+    (bp: BinaryView, gOrd: Data.Order<OtGlyph>, cfg: TtfCfg, axes: Data.Order<OtVar.Axis>) => {
         const majorVersion = bp.uint16();
         const minorVersion = bp.uint16();
         const axisCount = bp.uint16();

@@ -1,5 +1,4 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Access, Data, Thunk } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
@@ -19,7 +18,7 @@ export const GvarTableWrite = Write(
     (
         frag,
         gOrd: Data.Order<OtGlyph>,
-        cfg: Config<TtfCfg>,
+        cfg: TtfCfg,
         axes: Data.Order<OtVar.Axis>,
         acEmpty?: Access<boolean>
     ) => {

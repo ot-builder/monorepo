@@ -1,21 +1,19 @@
-export * from "@ot-builder/cfg-log";
-export {
-    FontIoConfig,
-    readFont,
-    readSfntOtf,
-    writeFont,
-    writeSfntOtf
-} from "@ot-builder/io-bin-font";
-export { Access, Caster, Data, Rectify, Trace, Thunk, Delay, Constant } from "@ot-builder/prelude";
-export {
-    rectifyFontCoords,
-    rectifyFontGlyphs,
-    traceGlyphs,
-    visibleGlyphsFromUnicodeSet
-} from "@ot-builder/rectify-font";
+import * as FontIoLib from "@ot-builder/io-bin-font";
+import * as OtbPrimitive from "@ot-builder/primitive";
+import * as _Rectify from "@ot-builder/rectify-font";
+
+export { Access, Caster, Data, Thunk, Delay, Constant } from "@ot-builder/prelude";
+export import Rectify = _Rectify;
+
+export namespace FontIo {
+    export import FontIoConfig = FontIoLib.FontIoConfig;
+    export import readFont = FontIoLib.readFont;
+    export import readSfntOtf = FontIoLib.readSfntOtf;
+    export import writeFont = FontIoLib.writeFont;
+    export import writeSfntOtf = FontIoLib.writeSfntOtf;
+}
 
 // re-export primitive types from Primitive
-import * as OtbPrimitive from "@ot-builder/primitive";
 export type Tag = OtbPrimitive.Tag;
 export type UInt8 = OtbPrimitive.UInt8;
 export type UInt16 = OtbPrimitive.UInt16;

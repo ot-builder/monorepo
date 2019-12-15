@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import * as Ot from "@ot-builder/font";
 import { OtEncoding } from "@ot-builder/ft-encoding";
 import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
@@ -47,7 +46,7 @@ class WritePostNaming implements Data.Naming.Source<number> {
 
 export function writeFont<GS extends OtGlyphStore>(
     font: Ot.Font<GS>,
-    partialConfig: Config<FontIoConfig>
+    partialConfig: FontIoConfig
 ): Sfnt {
     const sfnt = new Sfnt(Ot.Font.isCff(font) ? 0x4f54544f : 0x00010000);
     const sink = new SfntIoTableSink(sfnt);

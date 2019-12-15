@@ -1,13 +1,14 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyAxisFvar(rec: Rectify.Axis.RectifierT<Ot.Fvar.Axis>, fvar: Ot.Fvar.Table) {
+import { AxisRectifier } from "../interface";
+
+export function rectifyAxisFvar(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
     const { axesRectifyResults, axes } = rectifyAxesImpl(rec, fvar);
     const instances = rectifyInstances(axesRectifyResults, rec.addedAxes, fvar);
     return new Ot.Fvar.Table(axes, instances);
 }
 
-function rectifyAxesImpl(rectify: Rectify.Axis.RectifierT<Ot.Fvar.Axis>, fvar: Ot.Fvar.Table) {
+function rectifyAxesImpl(rectify: AxisRectifier, fvar: Ot.Fvar.Table) {
     const axesRectifyResults: Map<Ot.Fvar.Axis, Ot.Fvar.Axis> = new Map();
     for (const a of fvar.axes) {
         const a1 = rectify.axis(a);

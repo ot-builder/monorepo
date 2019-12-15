@@ -1,4 +1,6 @@
-import { Rectify, Trace } from "@ot-builder/prelude";
+import * as Ot from "@ot-builder/font";
+
+import { CoordRectifier, GlyphRectifier, GlyphTraceProc } from "../interface";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {
@@ -141,77 +143,77 @@ export namespace RectifyImpl {
     }
 
     export namespace Glyph {
-        function single<G>(rectifier: Rectify.Glyph.RectifierT<G>, g: G) {
+        function single(rectifier: GlyphRectifier, g: Ot.Glyph) {
             return rectifier.glyph(g);
         }
-        export function setAll<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlySet<G>) {
+        export function setAll(rec: GlyphRectifier, gs: ReadonlySet<Ot.Glyph>) {
             return RectifyImpl.setAllT(rec, gs, single);
         }
-        export function setSome<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlySet<G>) {
+        export function setSome(rec: GlyphRectifier, gs: ReadonlySet<Ot.Glyph>) {
             return RectifyImpl.setSomeT(rec, gs, single);
         }
-        export function listAll<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+        export function listAll(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listAllT(rec, gs, single);
         }
-        export function listSome<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+        export function listSome(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listSomeT(rec, gs, single);
         }
-        export function listSparse<G>(rec: Rectify.Glyph.RectifierT<G>, gs: ReadonlyArray<G>) {
+        export function listSparse(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listSparseT(rec, gs, single);
         }
-        export function bimapAll<G>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, G>) {
+        export function bimapAll(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>) {
             return RectifyImpl.mapAllT(rec, gm, single, single);
         }
-        export function bimapSome<G>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, G>) {
+        export function bimapSome(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>) {
             return RectifyImpl.mapSomeT(rec, gm, single, single);
         }
-        export function mapAll<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, X>) {
+        export function mapAll<X>(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
             return RectifyImpl.mapAllT(rec, gm, single, (r, x) => x);
         }
-        export function mapSome<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<G, X>) {
+        export function mapSome<X>(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
             return RectifyImpl.mapSomeT(rec, gm, single, (r, x) => x);
         }
-        export function comapAll<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<X, G>) {
+        export function comapAll<X>(rec: GlyphRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
             return RectifyImpl.mapAllT(rec, gm, (r, x) => x, single);
         }
-        export function comapSome<G, X>(rec: Rectify.Glyph.RectifierT<G>, gm: ReadonlyMap<X, G>) {
+        export function comapSome<X>(rec: GlyphRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
             return RectifyImpl.mapSomeT(rec, gm, (r, x) => x, single);
         }
-        export function mapAllT<G, X>(
-            rec: Rectify.Glyph.RectifierT<G>,
-            gm: ReadonlyMap<G, X>,
-            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
+        export function mapAllT<X>(
+            rec: GlyphRectifier,
+            gm: ReadonlyMap<Ot.Glyph, X>,
+            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapAllT(rec, gm, single, fn);
         }
-        export function mapSomeT<G, X>(
-            rec: Rectify.Glyph.RectifierT<G>,
-            gm: ReadonlyMap<G, X>,
-            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
+        export function mapSomeT<X>(
+            rec: GlyphRectifier,
+            gm: ReadonlyMap<Ot.Glyph, X>,
+            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapSomeT(rec, gm, single, fn);
         }
-        export function comapAllT<G, X>(
-            rec: Rectify.Glyph.RectifierT<G>,
-            gm: ReadonlyMap<X, G>,
-            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
+        export function comapAllT<X>(
+            rec: GlyphRectifier,
+            gm: ReadonlyMap<X, Ot.Glyph>,
+            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapAllT(rec, gm, fn, single);
         }
-        export function comapSomeT<G, X>(
-            rec: Rectify.Glyph.RectifierT<G>,
-            gm: ReadonlyMap<X, G>,
-            fn: (rec: Rectify.Glyph.RectifierT<G>, x: X) => null | undefined | X
+        export function comapSomeT<X>(
+            rec: GlyphRectifier,
+            gm: ReadonlyMap<X, Ot.Glyph>,
+            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapSomeT(rec, gm, fn, single);
         }
     }
 
     export namespace Coord {
-        function single<X>(rec: Rectify.Coord.RectifierT<X>, x: X) {
+        function single(rec: CoordRectifier, x: Ot.Var.Value) {
             return rec.coord(x);
         }
-        export function list<X>(rec: Rectify.Coord.RectifierT<X>, arr: ReadonlyArray<X>) {
+        export function list(rec: CoordRectifier, arr: ReadonlyArray<Ot.Var.Value>) {
             return RectifyImpl.listSomeT(rec, arr, single);
         }
     }
@@ -270,10 +272,10 @@ export namespace RectifyImpl {
 }
 export namespace TraceImpl {
     export namespace Glyph {
-        export function Nop<G>(): Trace.Glyph.ProcT<G> {
+        export function Nop(): GlyphTraceProc {
             return tracer => {};
         }
-        export function Seq<G>(from: Iterable<Trace.Glyph.ProcT<G>>): Trace.Glyph.ProcT<G> {
+        export function Seq(from: Iterable<GlyphTraceProc>): GlyphTraceProc {
             return tracer => {
                 for (const proc of from) proc(tracer);
             };

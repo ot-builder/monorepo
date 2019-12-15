@@ -1,16 +1,17 @@
 import * as Ot from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data, Rectify } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 
 import { rectifyGlyphCmap } from "./encoding";
 import { inPlaceRectifyGlyphCffTable } from "./glyph-store/cff";
 import { RectifyGeomGlyphAlg } from "./glyph/glyph-alg";
+import { GlyphRectifier } from "./interface";
 import { rectifyBaseTableGlyphs } from "./layout/base";
 import { rectifyGdefGlyphs } from "./layout/gdef";
 import { rectifyLayoutGlyphs } from "./layout/gsub-gpos";
 
 function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
-    rec: Rectify.Glyph.RectifierT<OtGlyph>,
+    rec: GlyphRectifier,
     font: Ot.Font<GS>,
     gsf: Data.OrderStoreFactory<OtGlyph, GS>
 ) {
@@ -33,7 +34,7 @@ function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
 }
 
 export function rectifyFontGlyphs<GS extends Data.OrderStore<OtGlyph>>(
-    rec: Rectify.Glyph.RectifierT<OtGlyph>,
+    rec: GlyphRectifier,
     font: Ot.Font<GS>,
     gsf: Data.OrderStoreFactory<OtGlyph, GS>
 ) {

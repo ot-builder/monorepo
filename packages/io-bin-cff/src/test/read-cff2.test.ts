@@ -1,10 +1,8 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Cff, OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 
@@ -14,7 +12,7 @@ import { ReadCff2 } from "../main/read-cff2";
 function readCff2(file: string) {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.otf");
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({ cff: DefaultCffCfgProps, fontMetadata: {} });
+    const cfg = { cff: DefaultCffCfgProps, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
 

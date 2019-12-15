@@ -1,6 +1,13 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/font";
-import { Data, Delay, Rectify, Thunk } from "@ot-builder/prelude";
+import { Data, Delay, Thunk } from "@ot-builder/prelude";
+
+import {
+    CoordRectifier,
+    GlyphRectifier,
+    PointAttachmentRectifier,
+    PointAttachmentRectifyManner
+} from "../../interface";
+import { RectifyImpl } from "../../shared";
 
 interface Stub<L extends Ot.GsubGpos.Lookup> {
     blank: L;
@@ -36,9 +43,9 @@ export function rectifyLookupList(
 
 export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification> {
     constructor(
-        private readonly rg: Rectify.Glyph.RectifierT<Ot.Glyph>,
-        private readonly rc: Rectify.Coord.RectifierT<Ot.Var.Value>,
-        private readonly rap: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>
+        private readonly rg: GlyphRectifier,
+        private readonly rc: CoordRectifier,
+        private readonly rap: Data.Maybe<PointAttachmentRectifier>
     ) {}
 
     private _cache: Map<object, Rectification> = new Map();
@@ -300,7 +307,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
 // Helper functions
 
-function rectifyAdjustment(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, adj: Ot.Gpos.Adjustment) {
+function rectifyAdjustment(rec: CoordRectifier, adj: Ot.Gpos.Adjustment) {
     return {
         ...adj,
         dX: rec.coord(adj.dX),
@@ -309,37 +316,34 @@ function rectifyAdjustment(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, adj: Ot.
         dHeight: rec.coord(adj.dHeight)
     };
 }
-function rectifyAnchor(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, anc: Ot.Gpos.Anchor) {
+function rectifyAnchor(rec: CoordRectifier, anc: Ot.Gpos.Anchor) {
     return { ...anc, x: rec.coord(anc.x), y: rec.coord(anc.y) };
 }
 function rectifyAnchorAP(
-    rectifier: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
+    rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
     z: Ot.Gpos.Anchor
 ) {
     if (!rectifier || !z.attachToPoint) return z;
-    const desired = rectifier.getGlyphPoint(context, z.attachToPoint.pointIndex);
+    const desired = rectifier.getGlyphPoints(context)[z.attachToPoint.pointIndex];
     if (!desired) return { ...z, attachToPoint: null };
     const accept = rectifier.acceptOffset(desired, z);
     if (accept.x && accept.y) return z;
     switch (rectifier.manner) {
-        case Rectify.PointAttach.Manner.TrustAttachment:
+        case PointAttachmentRectifyManner.TrustAttachment:
             return { ...z, x: desired.x, y: desired.y };
-        case Rectify.PointAttach.Manner.TrustCoordinate:
+        case PointAttachmentRectifyManner.TrustCoordinate:
             return { ...z, attachToPoint: null };
     }
 }
-function rectifyAnchorPair(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    ap: Ot.Gpos.CursiveAnchorPair
-) {
+function rectifyAnchorPair(rec: CoordRectifier, ap: Ot.Gpos.CursiveAnchorPair) {
     return {
         entry: !ap.entry ? ap.entry : rectifyAnchor(rec, ap.entry),
         exit: !ap.exit ? ap.exit : rectifyAnchor(rec, ap.exit)
     };
 }
 function rectifyAnchorPairAP(
-    rectifier: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
+    rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
     ap: Ot.Gpos.CursiveAnchorPair
 ) {
@@ -348,7 +352,7 @@ function rectifyAnchorPairAP(
         exit: !ap.exit ? ap.exit : rectifyAnchorAP(rectifier, context, ap.exit)
     };
 }
-function rectifyMarkRecord(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, mr: Ot.Gpos.MarkRecord) {
+function rectifyMarkRecord(rec: CoordRectifier, mr: Ot.Gpos.MarkRecord) {
     const mr1: Ot.Gpos.MarkRecord = { markAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.markAnchors.length; clsAnchor++) {
         const a = mr.markAnchors[clsAnchor];
@@ -358,7 +362,7 @@ function rectifyMarkRecord(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, mr: Ot.G
     return mr1;
 }
 function rectifyMarkRecordAP(
-    rec: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
+    rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
     mr: Ot.Gpos.MarkRecord
 ) {
@@ -372,7 +376,7 @@ function rectifyMarkRecordAP(
     }
     return mr1;
 }
-function rectifyBaseRecord(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, mr: Ot.Gpos.BaseRecord) {
+function rectifyBaseRecord(rec: CoordRectifier, mr: Ot.Gpos.BaseRecord) {
     const mr1: Ot.Gpos.BaseRecord = { baseAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
         const a = mr.baseAnchors[clsAnchor];
@@ -382,7 +386,7 @@ function rectifyBaseRecord(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, mr: Ot.G
     return mr1;
 }
 function rectifyBaseRecordAP(
-    rec: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
+    rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
     mr: Ot.Gpos.BaseRecord
 ) {
@@ -396,10 +400,7 @@ function rectifyBaseRecordAP(
     }
     return mr1;
 }
-function rectifyLigatureRecord(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    mr: Ot.Gpos.LigatureBaseRecord
-) {
+function rectifyLigatureRecord(rec: CoordRectifier, mr: Ot.Gpos.LigatureBaseRecord) {
     const mr1: Ot.Gpos.LigatureBaseRecord = { baseAnchors: [] };
     for (let part = 0; part < mr.baseAnchors.length; part++) {
         mr1.baseAnchors[part] = [];
@@ -412,7 +413,7 @@ function rectifyLigatureRecord(
     return mr1;
 }
 function rectifyLigatureRecordAP(
-    rec: Data.Maybe<Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>>,
+    rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
     mr: Ot.Gpos.LigatureBaseRecord
 ) {
