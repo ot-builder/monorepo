@@ -4,7 +4,8 @@ name: PR Build
 on: [pull_request]
 
 jobs:
-  build:
+  pr-build:
+    name: PR Build
     runs-on: ${{ matrix.os }}
 
     strategy:

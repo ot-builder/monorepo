@@ -4,7 +4,8 @@ name: PR Change File Check
 on: [pull_request]
 
 jobs:
-  build:
+  pr-change-file-check:
+    name: PR Change File Check
     runs-on: ubuntu-latest
 
     strategy:
