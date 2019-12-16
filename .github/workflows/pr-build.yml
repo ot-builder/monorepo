@@ -24,11 +24,6 @@ jobs:
         npm run build
       env:
         CI: true
-    - name: Check change-file
-      run: |
-        npm run beachball:check
-      env:
-        CI: true
     - name: Unit test
       run: |
         npm run test
