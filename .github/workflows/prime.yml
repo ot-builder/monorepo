@@ -1,5 +1,5 @@
 # Github Action for prime builds, including Master branch and other "official" branches
-name: Prime build
+name: Prime
 
 on:
   push:
