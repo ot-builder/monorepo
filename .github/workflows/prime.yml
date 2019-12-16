@@ -1,5 +1,5 @@
 # Github Action for prime builds, including Master branch and other "official" branches
-name: Prime build
+name: Prime
 
 on:
   push:
@@ -8,7 +8,8 @@ on:
       - official/**
 
 jobs:
-  build:
+  prime-build:
+    name: Prime Build
     runs-on: ${{ matrix.os }}
 
     strategy:
