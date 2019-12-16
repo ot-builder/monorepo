@@ -5,10 +5,14 @@ import "../styles/index.styl";
 export const AsideNav = (props: { children: React.ReactNode }) => (
     <aside className="side">
         <section className="site-nav">
-            <h1>ot-builder</h1>
+            <h1>
+                <a className="nav-link" href="/index">
+                    ot-builder
+                </a>
+            </h1>
             <ul className="nav-list">
+                <NavLink dir="/tutorial/intro" href="/tutorial/intro" text="Introduction" />
                 <NavLink dir="/references" href="/references/index" text="API Reference" />
-                <NavLink dir="/tutorial" href="/tutorial/index" text="Tutorial" />
                 <NavLink href="https://github.com/ot-builder/ot-builder" text="Repository" />
             </ul>
         </section>
