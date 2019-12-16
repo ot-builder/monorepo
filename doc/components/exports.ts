@@ -44,6 +44,12 @@ setPage(Ot.GsubGpos, "Ot.Gsub-Gpos");
 setPage(Ot.Gsub, "Ot.Gsub-Gpos");
 setPage(Ot.Gpos, "Ot.Gsub-Gpos");
 
+export const FontIo = createTopLevelExport("FontIo");
+setPage(FontIo, "font-io");
+
+export const Rectify = createTopLevelExport("Rectify");
+setPage(Rectify);
+
 export const string = "string";
 export const number = "number";
 export const boolean = "boolean";

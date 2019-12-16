@@ -16,10 +16,6 @@ export interface CoordRectifier {
     cv(value: Ot.Var.Value): Ot.Var.Value;
 }
 
-export interface LookupRectifierT<L> {
-    lookup(l: L): null | undefined | L;
-}
-
 ////// "Point Attachment" rectifier
 export enum PointAttachmentRectifyManner {
     TrustAttachment,
@@ -27,14 +23,14 @@ export enum PointAttachmentRectifyManner {
 }
 export interface PointAttachmentRectifier {
     readonly manner: PointAttachmentRectifyManner;
-    getGlyphPoints(outerGlyph: Ot.Glyph): Data.XY<Ot.Var.Value>[];
     acceptOffset(
-        actual: Data.XYOptional<Ot.Var.Value>,
-        desired: Data.XYOptional<Ot.Var.Value>
+        actual: { x: Ot.Var.Value; y: Ot.Var.Value },
+        desired: { x: Ot.Var.Value; y: Ot.Var.Value }
     ): { x: boolean; y: boolean };
 }
 
 export interface GlyphTracer {
+    readonly size: number;
     has(glyph: Ot.Glyph): boolean;
     add(glyph: Ot.Glyph): void;
 }

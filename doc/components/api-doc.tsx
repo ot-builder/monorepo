@@ -18,6 +18,8 @@ export const ApiRefNavigation = () => {
             <ApiRefNavList>
                 <NavLink dir="/references/prelude" text="Prelude" />
                 <NavLink dir="/references/primitives" text="Primitives" />
+                <NavLink dir="/references/font-io" text="FontIo" />
+                <NavLink dir="/references/rectify" text="Rectify" />
             </ApiRefNavList>
             <h4>Ot</h4>
             <ApiRefNavList>

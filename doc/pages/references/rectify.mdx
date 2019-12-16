@@ -1,0 +1,70 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item } from "components/tyfmt"
+import { array, set, number, boolean, Data, Rectify, Ot } from "components/exports"
+import { pi, extend, optional, annot, either, readonly, record } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Rectify}/>
+
+## Glyph Rectification
+
+### Interface <Decl s={Rectify.GlyphRectifier}/>
+
+#### Methods
+
+* <Method s={Rectify.GlyphRectifier.glyph} args={{from:Ot.Glyph}} returns={either(null,undefined,Ot.Glyph)}/>
+
+### Function <Fn long s={Rectify.rectifyFontGlyphs(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{rec:annot(Rectify.GlyphRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process"),gsf:annot(Data.OrderStoreFactoryWithDefault(Ot.Glyph,"GS"),"Factory to create a glyph store")}} returns="void"/>
+
+## Axis, Coordinate and Point Attachment Rectification
+
+### Interface <Decl s={Rectify.AxisRectifier}/>
+
+#### Methods
+
+* <Method s={Rectify.AxisRectifier.axis} args={{from:Ot.Var.Axis}} returns={either(null,undefined,Ot.Fvar.Axis)}/>
+
+#### Properties
+
+* <Member readonly s={Rectify.AxisRectifier.addedAxes} type={readonly(array(Ot.Fvar.Axis))}/>
+
+### Interface <Decl s={Rectify.CoordRectifier}/>
+
+#### Methods
+
+* <Method s={Rectify.CoordRectifier.coord} args={{from:Ot.Var.Value}} returns={Ot.Var.Value}/>
+* <Method s={Rectify.CoordRectifier.cv} args={{from:Ot.Var.Value}} returns={Ot.Var.Value}/>
+
+### Interface <Decl s={Rectify.PointAttachmentRectifier}/>
+
+#### Methods
+
+* <Method long s={Rectify.PointAttachmentRectifier.acceptOffset} args={{actual:record({x:Ot.Var.Value,y:Ot.Var.Value}),desired:record({x:Ot.Var.Value,y:Ot.Var.Value})}} returns={record({x:boolean,y:boolean})}/>
+
+#### Properties
+
+* <Member readonly s={Rectify.PointAttachmentRectifier.manner} type={Rectify.PointAttachmentRectifyManner}/>
+
+### Enumeration <Decl s={Rectify.PointAttachmentRectifyManner}/>
+
+* <Item s={Rectify.PointAttachmentRectifyManner.TrustAttachment}/>
+* <Item s={Rectify.PointAttachmentRectifyManner.TrustCoordinate}/>
+
+### Function <Fn long s={Rectify.rectifyFontCoords(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+## Visible Glyph Tracing
+
+### Interface <Decl s={Rectify.GlyphTracer}/>
+
+#### Methods
+
+* <Method s={Rectify.GlyphTracer.has} args={{glyph:Ot.Glyph}} returns={boolean}/>
+* <Method s={Rectify.GlyphTracer.add} args={{glyph:Ot.Glyph}} returns="void"/>
+
+#### Properties
+
+* <Member readonly s={Rectify.GlyphTracer.size} type={number}/>
+
+### Function <Fn long s={Rectify.traceGlyphs(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{tracer:annot(Rectify.GlyphTracer,"The glyph tracer"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+### Function <Fn long s={Rectify.visibleGlyphsFromUnicodeSet(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{font:annot(Ot.Font("GS"),"The font to process"),unicodeSet:annot(record({has:pi({u:number},boolean)}),"The Unicode inclusion detector")}} returns={set(Ot.Glyph)}/>

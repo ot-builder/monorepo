@@ -1,4 +1,4 @@
-import { Access, Caster, Data, Thunk } from "@ot-builder/prelude";
+import { Caster, Data, Thunk } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";

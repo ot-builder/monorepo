@@ -75,10 +75,10 @@ function rectifyLigCaretPointAttachment(
 ): Ot.Gdef.LigCaret {
     if (!lc.pointAttachment) return lc;
 
-    const desired = rectifier.getGlyphPoints(context)[lc.pointAttachment.pointIndex];
+    const desired = RectifyImpl.getGlyphPoints(context)[lc.pointAttachment.pointIndex];
     if (!desired) return { ...lc, pointAttachment: null };
 
-    const accept = rectifier.acceptOffset(desired, lc);
+    const accept = rectifier.acceptOffset(desired, { x: lc.x, y: desired.y });
     if (accept.x) return lc;
 
     switch (rectifier.manner) {

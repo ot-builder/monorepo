@@ -325,7 +325,7 @@ function rectifyAnchorAP(
     z: Ot.Gpos.Anchor
 ) {
     if (!rectifier || !z.attachToPoint) return z;
-    const desired = rectifier.getGlyphPoints(context)[z.attachToPoint.pointIndex];
+    const desired = RectifyImpl.getGlyphPoints(context)[z.attachToPoint.pointIndex];
     if (!desired) return { ...z, attachToPoint: null };
     const accept = rectifier.acceptOffset(desired, z);
     if (accept.x && accept.y) return z;

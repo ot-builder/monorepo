@@ -30,12 +30,14 @@ function rectifyBaseCoordPointAttach(
 ): Ot.Base.Coord {
     if (!lc.pointAttachment) return lc;
 
-    const desired = rec.getGlyphPoints(lc.pointAttachment.glyph)[lc.pointAttachment.pointIndex];
+    const desired = RectifyImpl.getGlyphPoints(lc.pointAttachment.glyph)[
+        lc.pointAttachment.pointIndex
+    ];
     if (!desired) return { ...lc, pointAttachment: null };
 
     const accept = horizontal
-        ? rec.acceptOffset(desired, { y: lc.at })
-        : rec.acceptOffset(desired, { x: lc.at });
+        ? rec.acceptOffset(desired, { x: desired.x, y: lc.at })
+        : rec.acceptOffset(desired, { x: lc.at, y: desired.y });
     if (horizontal ? accept.y : accept.x) return lc;
 
     switch (rec.manner) {

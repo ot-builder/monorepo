@@ -1,6 +1,6 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl } from "components/tyfmt"
-import { Data, number } from "components/exports"
+import { Data, Caster, Thunk, number, string, array } from "components/exports"
 import { either, app, tuple, extend } from "components/tycon"
 export default Layout
 
@@ -8,9 +8,9 @@ export default Layout
 
 ## Namespace <Decl s={Data}/>
 
-### Type <Decl s={Data.Maybe("T")}/>
+### Type <Decl s={Data.Maybe("T")}/> = <R s={either(null,undefined,"T")} />.
 
-Defined as <R s={either(null,undefined,"T")} />.
+Represents an optional object. Frequently used in the rest parts of the `ot-builder`.
 
 ### Interface <Decl s={Data.OrderStoreFactory("T", extend("S",Data.OrderStore("T")))} />
 
@@ -55,3 +55,48 @@ Defined as <R s={either(null,undefined,"T")} />.
 * <Method s={Data.Order.tryReverseFallback(`F`)} args={{index:`T`,fallback:`F`}} returns={either(number,`F`)}/>
 * <Method s={Data.Order[`[Symbol.Iterator]`]} returns={app(`IterableIterator`,`T`)}/>
 * <Method s={Data.Order.entries} returns={app(`IterableIterator`,tuple(number,`T`))}/>
+
+### Interface <Decl s={Data.Naming.Source("G")}/>
+
+#### Methods
+
+* <Method s={Data.Naming.Source.getName} args={{item:"G"}} returns={either(undefined,null,string)}/>
+
+### Interface <Decl s={Data.Naming.IndexSource("G")}/>
+
+#### Methods
+
+* <Method s={Data.Naming.Source.getIndex} args={{item:"G"}} returns={either(undefined,null,number)}/>
+* <Method s={Data.Naming.Source.getVariantIndex} args={{item:"G"}} returns={either(undefined,null,array(number))}/>
+
+## Namespace <Decl s={Caster}/>
+
+### Class <Decl s={Caster.TypeID("T")}/>
+
+#### Constructor
+
+* <Method ctor s={Caster.TypeID.constructor} args={{id:string}}/>
+
+### Class <Decl s={Caster.IUnknown}/>
+
+#### Methods
+
+* <Method s={Caster.IUnknown.queryInterface("T")} args={{tid:Caster.TypeID("T")}} returns={either(undefined,"T")}/>
+
+### Class <Decl s={Caster.Sigma}/>
+
+#### Implements
+
+* <R s={Caster.IUnknown}/>
+
+#### Factory Methods
+
+* <Method static s={Caster.Sigma.create("T")} args={{tid:Caster.TypeID("T"),value:"T"}} returns={Caster.Sigma}/>
+
+## Thunks
+
+### Interface <Decl s={Thunk("T")}/>
+
+#### Methods
+
+* <Method s={Thunk.force} args={{}} returns={"T"}/>

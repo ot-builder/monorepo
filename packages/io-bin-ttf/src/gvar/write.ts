@@ -1,6 +1,7 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Access, Data, Thunk } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
@@ -20,7 +21,7 @@ export const GvarTableWrite = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
         axes: Data.Order<OtVar.Axis>,
-        acEmpty?: Access<boolean>
+        acEmpty?: ImpLib.Access<boolean>
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {

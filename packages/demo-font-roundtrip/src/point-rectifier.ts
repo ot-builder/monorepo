@@ -1,12 +1,7 @@
-import { Data, Ot, Rectify } from "ot-builder/src";
+import { Data, Ot, Rectify } from "ot-builder";
 
 export class StdPointAttachRectifier implements Rectify.PointAttachmentRectifier {
     constructor(readonly manner: Rectify.PointAttachmentRectifyManner, readonly error = 1 / 16) {}
-
-    public getGlyphPoints(g: Ot.Glyph) {
-        return Ot.GeometryHandler.stat(Ot.GeometryHandler.ListPoint, g.geometry);
-    }
-
     public acceptOffset(
         actual: Data.XYOptional<Ot.Var.Value>,
         desired: Data.XYOptional<Ot.Var.Value>

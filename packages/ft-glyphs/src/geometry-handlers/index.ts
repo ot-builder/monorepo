@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude/src";
+import { Data } from "@ot-builder/prelude";
 
 import { OtGlyph } from "../ot-glyph";
 

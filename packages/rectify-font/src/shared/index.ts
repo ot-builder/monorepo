@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+import { OtGeometryHandler } from "@ot-builder/ft-glyphs";
 
 import { CoordRectifier, GlyphRectifier, GlyphTraceProc } from "../interface";
 
@@ -268,6 +269,10 @@ export namespace RectifyImpl {
             if (!a1.length) return null;
             return a1;
         }
+    }
+
+    export function getGlyphPoints(g: Ot.Glyph) {
+        return OtGeometryHandler.stat(OtGeometryHandler.ListPoint, g.geometry);
     }
 }
 export namespace TraceImpl {

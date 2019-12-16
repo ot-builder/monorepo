@@ -31,8 +31,7 @@ export { OtGlyph as Glyph, GeneralGlyph } from "@ot-builder/ft-glyphs";
 export { Cff, Cvt, Fpgm, Prep } from "@ot-builder/ft-glyphs";
 export {
     OtGlyphNamingSource as GlyphNamingSource,
-    OtGlyphNamer as GlyphNamer,
-    OtGeometryHandler as GeometryHandler
+    OtGlyphNamer as GlyphNamer
 } from "@ot-builder/ft-glyphs";
 export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 export type ListGlyphStore = ImpLib.Order.ListStore<OtGlyph>;

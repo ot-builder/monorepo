@@ -447,3 +447,23 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 
  * <Member readonly s={Ot.Glyph.PointAttachment.inner} type={Ot.Glyph.PointIDRef} />
  * <Member readonly s={Ot.Glyph.PointAttachment.outer} type={Ot.Glyph.PointIDRef} />
+
+## Glyph Naming
+
+### Type <Decl s={Ot.GlyphNamingSource}/>
+
+#### Properties
+
+* <Member readonly s={Ot.GlyphNamingSource.post} type={Data.Maybe(Data.Naming.Source(Ot.Glyph))}/>
+* <Member readonly s={Ot.GlyphNamingSource.cff} type={Data.Maybe(Data.Naming.Source(Ot.Glyph))}/>
+* <Member readonly s={Ot.GlyphNamingSource.encoding} type={Data.Maybe(Data.Naming.IndexSource(Ot.Glyph))}/>
+
+### Interface <Decl s={Ot.GlyphNamer}/>
+
+#### Properties
+
+* <Method s={Ot.GlyphNamer.nameGlyph} args={{source:Ot.GlyphNamingSource,gid:number, glyph:Ot.Glyph}} returns={string}/>
+
+### Singleton <Decl s={Ot.StandardOtGlyphNamer}/>
+
+The default glyph namer, implements <R s={Ot.GlyphNamer}/>.

@@ -1,15 +1,16 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ft-metadata";
 import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
-import { Access, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export const MvarTag = "MVAR";
 
-class MvarPropAccess<Table, K extends keyof Table> implements Access<Table[K]> {
+class MvarPropAccess<Table, K extends keyof Table> implements ImpLib.Access<Table[K]> {
     constructor(private table: Table, private key: K) {}
     public get() {
         return this.table[this.key];
@@ -20,12 +21,12 @@ class MvarPropAccess<Table, K extends keyof Table> implements Access<Table[K]> {
 }
 
 interface MvarLensSource {
-    entries(): Iterable<[string, Access<OtVar.Value>]>;
+    entries(): Iterable<[string, ImpLib.Access<OtVar.Value>]>;
 }
 
 class HheaMvarLensSource implements MvarLensSource {
     constructor(private hhea: MetricHead.Table) {}
-    public *entries(): IterableIterator<[string, Access<OtVar.Value>]> {
+    public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         // yield ["????", new MvarPropAccess(this.hhea, "ascender")];
         // yield ["????", new MvarPropAccess(this.hhea, "descender")];
         // yield ["????", new MvarPropAccess(this.hhea, "lineGap")];
@@ -36,7 +37,7 @@ class HheaMvarLensSource implements MvarLensSource {
 }
 class VheaMvarLensSource implements MvarLensSource {
     constructor(private vhea: MetricHead.Table) {}
-    public *entries(): IterableIterator<[string, Access<OtVar.Value>]> {
+    public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["vasc", new MvarPropAccess(this.vhea, "ascender")];
         yield ["vdsc", new MvarPropAccess(this.vhea, "descender")];
         yield ["vlgp", new MvarPropAccess(this.vhea, "lineGap")];
@@ -47,14 +48,14 @@ class VheaMvarLensSource implements MvarLensSource {
 }
 class PostMvarLensSource implements MvarLensSource {
     constructor(private post: Post.Table) {}
-    public *entries(): IterableIterator<[string, Access<OtVar.Value>]> {
+    public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["unds", new MvarPropAccess(this.post, "underlineThickness")];
         yield ["undo", new MvarPropAccess(this.post, "underlinePosition")];
     }
 }
 class Os2MvarLensSource implements MvarLensSource {
     constructor(private os2: Os2.Table) {}
-    public *entries(): IterableIterator<[string, Access<OtVar.Value>]> {
+    public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["hasc", new MvarPropAccess(this.os2, "sTypoAscender")];
         yield ["hdsc", new MvarPropAccess(this.os2, "sTypoDescender")];
         yield ["hlgp", new MvarPropAccess(this.os2, "sTypoLineGap")];
@@ -76,14 +77,16 @@ class Os2MvarLensSource implements MvarLensSource {
 }
 class GaspMvarLensSource implements MvarLensSource {
     constructor(private gasp: Gasp.Table) {}
-    public *entries(): IterableIterator<[string, Access<OtVar.Value>]> {
+    public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         for (let ri = 0; ri < 10 && ri < this.gasp.ranges.length; ri++) {
             yield [`gsp${ri}`, new MvarPropAccess(this.gasp.ranges[ri], "maxPPEM")];
         }
     }
 }
 
-function* lensSourcesFromMd(md: OtFontMetadata): IterableIterator<[string, Access<OtVar.Value>]> {
+function* lensSourcesFromMd(
+    md: OtFontMetadata
+): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
     if (md.hhea) yield* new HheaMvarLensSource(md.hhea).entries();
     if (md.vhea) yield* new VheaMvarLensSource(md.vhea).entries();
     if (md.post) yield* new PostMvarLensSource(md.post).entries();
@@ -119,7 +122,12 @@ export const MvarTableIo = {
             }
         }
     },
-    write(frag: Frag, axes: Data.Order<OtVar.Axis>, md: OtFontMetadata, afEmpty?: Access<boolean>) {
+    write(
+        frag: Frag,
+        axes: Data.Order<OtVar.Axis>,
+        md: OtFontMetadata,
+        afEmpty?: ImpLib.Access<boolean>
+    ) {
         const ivs = WriteTimeIVS.create(OtVar.Create.MasterSet());
         const lenses = new Map(lensSourcesFromMd(md));
         let rec: [string, number, number][] = [];

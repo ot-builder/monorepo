@@ -102,15 +102,15 @@ const DeclHeaderImpl = (props: DeclHeaderImplProps) => {
     );
 };
 
-const DeclEnclosure = (long: boolean, e: React.ReactNode) =>
-    long ? (
-        <div className="api-doc-declaration">{e}</div>
-    ) : (
+const DeclEnclosure = (e: React.ReactNode, eRest?: React.ReactNode) => (
+    <>
         <span className="api-doc-declaration">{e}</span>
-    );
+        {eRest ? <div className="api-doc-declaration">{eRest}</div> : null}
+    </>
+);
 
 const TyDeclImpl = (props: TyDeclProps & { member: boolean }) =>
-    DeclEnclosure(false, <DeclHeader {...props} />);
+    DeclEnclosure(<DeclHeader {...props} />);
 
 const MemberDeclImpl = (props: MemberDeclProps & { member: boolean }) => {
     let ty = props.type;
@@ -120,7 +120,6 @@ const MemberDeclImpl = (props: MemberDeclProps & { member: boolean }) => {
         ty = ty.optional;
     }
     return DeclEnclosure(
-        false,
         <>
             <DeclHeader {...props} optional={props.optional || optional} />
             <span className="api-doc-delimiter">{":\u200B"}</span>
@@ -131,7 +130,6 @@ const MemberDeclImpl = (props: MemberDeclProps & { member: boolean }) => {
 
 const MethodDeclImpl = (props: MethodDeclProps & { member: boolean }) =>
     DeclEnclosure(
-        props.long,
         <>
             <DeclHeader {...props} />
             {FormatObjectImpl(
@@ -147,6 +145,6 @@ const MethodDeclImpl = (props: MethodDeclProps & { member: boolean }) =>
                     {FormatType(props.returns)}
                 </>
             ) : null}
-            {props.long ? FormatObjectImpl(props.args || {}, "", () => null, BlockEntry, "") : null}
-        </>
+        </>,
+        props.long ? FormatObjectImpl(props.args || {}, "", () => null, BlockEntry, "") : null
     );

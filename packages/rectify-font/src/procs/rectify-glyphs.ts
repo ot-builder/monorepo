@@ -1,22 +1,21 @@
 import * as Ot from "@ot-builder/font";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 
-import { rectifyGlyphCmap } from "./encoding";
-import { inPlaceRectifyGlyphCffTable } from "./glyph-store/cff";
-import { RectifyGeomGlyphAlg } from "./glyph/glyph-alg";
-import { GlyphRectifier } from "./interface";
-import { rectifyBaseTableGlyphs } from "./layout/base";
-import { rectifyGdefGlyphs } from "./layout/gdef";
-import { rectifyLayoutGlyphs } from "./layout/gsub-gpos";
+import { rectifyGlyphCmap } from "../encoding";
+import { inPlaceRectifyGlyphCffTable } from "../glyph-store/cff";
+import { RectifyGeomGlyphAlg } from "../glyph/glyph-alg";
+import { GlyphRectifier } from "../interface";
+import { rectifyBaseTableGlyphs } from "../layout/base";
+import { rectifyGdefGlyphs } from "../layout/gdef";
+import { rectifyLayoutGlyphs } from "../layout/gsub-gpos";
 
-function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
+function rectifyFontGlyphStore<GS extends Data.OrderStore<Ot.Glyph>>(
     rec: GlyphRectifier,
     font: Ot.Font<GS>,
-    gsf: Data.OrderStoreFactory<OtGlyph, GS>
+    gsf: Data.OrderStoreFactory<Ot.Glyph, GS>
 ) {
     const gOrd = font.glyphs.decideOrder();
-    const gList1: OtGlyph[] = [];
+    const gList1: Ot.Glyph[] = [];
     for (const g of gOrd) {
         const g1 = rec.glyph(g);
         if (g1) gList1.push(g1);
@@ -33,10 +32,10 @@ function rectifyFontGlyphStore<GS extends Data.OrderStore<OtGlyph>>(
     font.glyphs = glyphs1;
 }
 
-export function rectifyFontGlyphs<GS extends Data.OrderStore<OtGlyph>>(
+export function rectifyFontGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
     rec: GlyphRectifier,
     font: Ot.Font<GS>,
-    gsf: Data.OrderStoreFactory<OtGlyph, GS>
+    gsf: Data.OrderStoreFactory<Ot.Glyph, GS>
 ) {
     rectifyFontGlyphStore(rec, font, gsf);
     if (Ot.Font.isCff(font)) inPlaceRectifyGlyphCffTable(rec, font.cff);

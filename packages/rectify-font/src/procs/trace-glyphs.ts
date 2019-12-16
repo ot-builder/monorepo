@@ -1,9 +1,9 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
 
-import { traceGlyphDependents } from "./glyph/trace-alg";
-import { GlyphTracer } from "./interface";
-import { traceLayoutGlyphs } from "./layout/gsub-gpos/trace-alg";
+import { traceGlyphDependents } from "../glyph/trace-alg";
+import { GlyphTracer } from "../interface";
+import { traceLayoutGlyphs } from "../layout/gsub-gpos/trace-alg";
 
 function traceGlyphsImpl<GS extends Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,
@@ -16,10 +16,9 @@ function traceGlyphsImpl<GS extends Data.OrderStore<Ot.Glyph>>(
 }
 
 export function traceGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
-    font: Ot.Font<GS>,
-    init: Iterable<Ot.Glyph>
+    tracer: GlyphTracer,
+    font: Ot.Font<GS>
 ) {
-    const tracer = new Set<Ot.Glyph>(init);
     let sizeBefore = 0,
         sizeAfter = 0;
     do {

@@ -2,16 +2,10 @@ import * as FontIoLib from "@ot-builder/io-bin-font";
 import * as OtbPrimitive from "@ot-builder/primitive";
 import * as _Rectify from "@ot-builder/rectify-font";
 
-export { Access, Caster, Data, Thunk, Delay, Constant } from "@ot-builder/prelude";
+export { Caster, Data, Thunk } from "@ot-builder/prelude";
 export import Rectify = _Rectify;
 
-export namespace FontIo {
-    export import FontIoConfig = FontIoLib.FontIoConfig;
-    export import readFont = FontIoLib.readFont;
-    export import readSfntOtf = FontIoLib.readSfntOtf;
-    export import writeFont = FontIoLib.writeFont;
-    export import writeSfntOtf = FontIoLib.writeSfntOtf;
-}
+export import FontIo = FontIoLib;
 
 // re-export primitive types from Primitive
 export type Tag = OtbPrimitive.Tag;
