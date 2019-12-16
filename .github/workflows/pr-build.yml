@@ -18,15 +18,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Building
+    - name: NPM Setup
       run: |
         npm run boot
-        npm run build
       env:
         CI: true
-    - name: Check change-file
+    - name: Building
       run: |
-        npm run beachball:check
+        npm run build
       env:
         CI: true
     - name: Unit test
