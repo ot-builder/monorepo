@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import { DefaultEncodingCfg, EncodingCfg, EncodingCfgPt } from "@ot-builder/io-bin-encoding";
 import {
     CffCfg,
@@ -33,13 +32,13 @@ export type FontIoConfig = FontMetadataCfgPt &
     EncodingCfgPt &
     GlyphNamingCfgPt;
 
-export function createConfig(partial: Config<FontIoConfig>): Config<FontIoCfgFinal> {
-    return Config.create({
+export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
+    return {
         cff: { ...DefaultCffCfgProps, ...partial.cff },
         ttf: { ...DefaultTtfCfgProps, ...partial.ttf },
         fontMetadata: { ...DefaultFontMetadataCfgProps, ...partial.fontMetadata },
         glyphStore: { ...DefaultGlyphStoreCfgProps, ...partial.glyphStore },
         glyphNaming: { ...DefaultGlyphNamingCfgProps, ...partial.glyphNaming },
         encoding: { ...DefaultEncodingCfg, ...partial.encoding }
-    });
+    };
 }

@@ -1,0 +1,101 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item } from "components/tyfmt"
+import { string, boolean, number, array, map, Ot, Data, Thunk } from "components/exports"
+import { optional } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Cff} />
+
+## CFF(2) Table Types
+
+### Class <Decl s={Ot.Cff.Table} />
+
+#### Constructor
+
+* <Fn ctor s={Ot.Cff.Table.constructor} args={{version:number}}/>
+
+    Creates a CFF Table object with given version. Valid version numbers are `1` and `2`.
+
+#### Properties
+
+* <Member s={Ot.Cff.Table.postScriptFontName} type={string} />
+
+    The name of the font in PostScript. Valid in CFF1.
+
+* <Member s={Ot.Cff.Table.cid} type={Data.Maybe(Ot.Cff.CID)} />
+* <Member s={Ot.Cff.Table.topDict} type={Ot.Cff.FontDict} />
+* <Member s={Ot.Cff.Table.fdArray} type={Data.Maybe(array(Ot.Cff.FontDict))} />
+* <Member s={Ot.Cff.Table.fdSelect} type={Data.Maybe(map(Ot.Glyph,number))} />
+
+## Font Dict and Private Dict
+
+### Class <Decl s={Ot.Cff.FontDict}/>
+
+#### Constructor
+
+* <Fn ctor s={Ot.Cff.FontDict.constructor}/>
+
+#### Properties
+
+* PostScript font names
+    * <Member s={Ot.Cff.FontDict.version} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.notice} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.copyright} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.fullName} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.familyName} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.weight} type={Data.Maybe(string)}/>
+* CFF1 Properties
+    * <Member s={Ot.Cff.FontDict.isFixedPitch} type={boolean}/>
+    * <Member s={Ot.Cff.FontDict.italicAngle} type={number}/>
+    * <Member s={Ot.Cff.FontDict.underlinePosition} type={number}/>
+    * <Member s={Ot.Cff.FontDict.underlineThickness} type={number}/>
+    * <Member s={Ot.Cff.FontDict.paintType} type={number}/>
+    * <Member readonly s={Ot.Cff.FontDict.charStringType} type={number}/>
+    * <Member s={Ot.Cff.FontDict.strokeWidth} type={number}/>
+    * <Member s={Ot.Cff.FontDict.privateDict} type={Data.Maybe(Ot.Cff.PrivateDict)}/>
+    * <Member s={Ot.Cff.FontDict.fontMatrix} type={Data.Maybe(Ot.Glyph.Transform2X3)}/>
+* CID-specific properties
+    * <Member s={Ot.Cff.FontDict.cidFontName} type={Data.Maybe(string)}/>
+    * <Member s={Ot.Cff.FontDict.cidFontVersion} type={number}/>
+    * <Member s={Ot.Cff.FontDict.cidFontRevision} type={number}/>
+    * <Member s={Ot.Cff.FontDict.cidFontType} type={number}/>
+    * <Member s={Ot.Cff.FontDict.cidCount} type={number}/>
+
+### Class <Decl s={Ot.Cff.PrivateDict}/>
+
+#### Constructor
+
+* <Fn ctor s={Ot.Cff.PrivateDict.constructor}/>
+
+#### Properties
+
+* <Member s={Ot.Cff.PrivateDict.blueValues} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.otherBlues} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.familyBlues} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.familyOtherBlues} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.stemSnapH} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.stemSnapV} type={array(Ot.Var.Value)}/>
+* <Member s={Ot.Cff.PrivateDict.blueScale} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.blueShift} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.blueFuzz} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.stdHW} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.stdVW} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.languageGroup} type={number}/>
+* <Member s={Ot.Cff.PrivateDict.expansionFactor} type={Ot.Var.Value}/>
+* <Member s={Ot.Cff.PrivateDict.defaultWidthX} type={number}/>
+* <Member s={Ot.Cff.PrivateDict.nominalWidthX} type={number}/>
+
+## CID-specific Types
+
+### Class <Decl s={Ot.Cff.CID}/>
+
+#### Constructor
+
+* <Fn ctor s={Ot.Cff.CID.constructor}/>
+
+#### Properties
+
+* <Member s={Ot.Cff.CID.registry} type={string}/>
+* <Member s={Ot.Cff.CID.ordering} type={string}/>
+* <Member s={Ot.Cff.CID.supplement} type={string}/>
+* <Member s={Ot.Cff.CID.mapping} type={Data.Maybe(map(number,Ot.Glyph))}/>

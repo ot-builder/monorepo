@@ -1,7 +1,7 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
+import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Access, Data } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
@@ -19,9 +19,9 @@ export const GvarTableWrite = Write(
     (
         frag,
         gOrd: Data.Order<OtGlyph>,
-        cfg: Config<TtfCfg>,
+        cfg: TtfCfg,
         axes: Data.Order<OtVar.Axis>,
-        acEmpty?: Access<boolean>
+        acEmpty?: ImpLib.Access<boolean>
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {
@@ -100,10 +100,10 @@ class VarCollector implements OtGlyph.GlyphAlg<OtVar.Value[][]> {
     public glyph(
         hMetric: OtGlyph.Metric,
         vMetric: OtGlyph.Metric,
-        fnGeom: Data.Maybe<() => OtVar.Value[][]>,
-        fnHints: Data.Maybe<() => OtVar.Value[][]>
+        fnGeom: Data.Maybe<Thunk<OtVar.Value[][]>>,
+        fnHints: Data.Maybe<Thunk<OtVar.Value[][]>>
     ) {
-        const cs = [...(fnGeom ? fnGeom() : []), ...(fnHints ? fnHints() : [])];
+        const cs = [...(fnGeom ? fnGeom.force() : []), ...(fnHints ? fnHints.force() : [])];
         cs.push([hMetric.start, 0], [hMetric.end, 0]);
         cs.push([0, vMetric.start], [0, vMetric.end]);
         return cs;

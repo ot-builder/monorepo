@@ -1,22 +1,22 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
+
+import {
+    CoordRectifier,
+    GlyphRectifier,
+    PointAttachmentRectifier,
+    PointAttachmentRectifyManner
+} from "../../interface";
+import { RectifyImpl } from "../../shared";
 
 interface BaseRectifyFn {
     baseCoord(lc: Ot.Base.Coord): Ot.Base.Coord;
 }
 
-function rectifyBaseCoordCoord(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    lc: Ot.Base.Coord
-): Ot.Base.Coord {
+function rectifyBaseCoordCoord(rec: CoordRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
     return { ...lc, at: rec.coord(lc.at) };
 }
 
-function rectifyBaseCoordGlyph(
-    rec: Rectify.Glyph.RectifierT<Ot.Glyph>,
-    lc: Ot.Base.Coord
-): Ot.Base.Coord {
+function rectifyBaseCoordGlyph(rec: GlyphRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
     if (!lc.pointAttachment) return lc;
     const g1 = rec.glyph(lc.pointAttachment.glyph);
     if (!g1) return { ...lc, pointAttachment: null };
@@ -24,25 +24,27 @@ function rectifyBaseCoordGlyph(
 }
 
 function rectifyBaseCoordPointAttach(
-    rec: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>,
+    rec: PointAttachmentRectifier,
     lc: Ot.Base.Coord,
     horizontal: boolean
 ): Ot.Base.Coord {
     if (!lc.pointAttachment) return lc;
 
-    const desired = rec.getGlyphPoint(lc.pointAttachment.glyph, lc.pointAttachment.pointIndex);
+    const desired = RectifyImpl.getGlyphPoints(lc.pointAttachment.glyph)[
+        lc.pointAttachment.pointIndex
+    ];
     if (!desired) return { ...lc, pointAttachment: null };
 
     const accept = horizontal
-        ? rec.acceptOffset(desired, { y: lc.at })
-        : rec.acceptOffset(desired, { x: lc.at });
+        ? rec.acceptOffset(desired, { x: desired.x, y: lc.at })
+        : rec.acceptOffset(desired, { x: lc.at, y: desired.y });
     if (horizontal ? accept.y : accept.x) return lc;
 
     switch (rec.manner) {
-        case Rectify.PointAttach.Manner.TrustAttachment:
+        case PointAttachmentRectifyManner.TrustAttachment:
             if (horizontal) return { ...lc, at: desired.y };
             else return { ...lc, at: desired.x };
-        case Rectify.PointAttach.Manner.TrustCoordinate:
+        case PointAttachmentRectifyManner.TrustCoordinate:
             return { ...lc, pointAttachment: null };
     }
 }
@@ -94,27 +96,21 @@ function rectifyAxisTable(fn: BaseRectifyFn, at: Ot.Base.AxisTable) {
     return ret;
 }
 
-export function rectifyBaseTableCoord(
-    rec: Rectify.Coord.RectifierT<Ot.Var.Value>,
-    at: Ot.Base.Table
-) {
+export function rectifyBaseTableCoord(rec: CoordRectifier, at: Ot.Base.Table) {
     const ret = new Ot.Base.Table();
     const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordCoord(rec, c) };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);
     if (at.vertical) ret.vertical = rectifyAxisTable(fn, at.vertical);
     return ret;
 }
-export function rectifyBaseTableGlyphs(rec: Rectify.Glyph.RectifierT<Ot.Glyph>, at: Ot.Base.Table) {
+export function rectifyBaseTableGlyphs(rec: GlyphRectifier, at: Ot.Base.Table) {
     const ret = new Ot.Base.Table();
     const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordGlyph(rec, c) };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);
     if (at.vertical) ret.vertical = rectifyAxisTable(fn, at.vertical);
     return ret;
 }
-export function rectifyBaseTablePointAttachment(
-    rec: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>,
-    at: Ot.Base.Table
-) {
+export function rectifyBaseTablePointAttachment(rec: PointAttachmentRectifier, at: Ot.Base.Table) {
     const ret = new Ot.Base.Table();
     const fnH: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordPointAttach(rec, c, true) };
     const fnV: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordPointAttach(rec, c, false) };

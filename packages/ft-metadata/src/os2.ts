@@ -208,7 +208,7 @@ export namespace Os2 {
         Tifinagh = 1 << 2,
         YijingHexagramSymbols = 1 << 3,
         SylotiNagri = 1 << 4,
-        LinearBSyllabaryIdeogramsandAegeanNumbers = 1 << 5,
+        LinearBSyllabaryIdeogramsAndAegeanNumbers = 1 << 5,
         AncientGreekNumbers = 1 << 6,
         Ugaritic = 1 << 7,
         OldPersian = 1 << 8,
@@ -246,7 +246,7 @@ export namespace Os2 {
     }
 
     export class Table {
-        public version: UInt16 = 0;
+        constructor(public readonly version: UInt16) {}
         public xAvgCharWidth: Int16 = 0;
         public usWeightClass: UInt16 = 0;
         public usWidthClass: UInt16 = 0;

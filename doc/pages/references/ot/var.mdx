@@ -1,0 +1,130 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl } from "components/tyfmt"
+import { number, boolean, Data, Ot, Tag, array, map, iterable } from "components/exports"
+import { readonly, tuple, pi, annot, optional, either } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Var}/>
+
+## Foundation Types
+
+### Type <Decl s={Ot.Var.Value} />
+
+An opaque union type of `number` and an internal class implements a quantity that varies under OpenType Variation rules. Use <R s={Ot.Var.Ops}/> to create and manipulate them.
+
+### Interface <Decl s={Ot.Var.Axis} />
+
+Datatype representing an axis in a vaiable font.
+
+Class <R s={Ot.Fvar.Axis}/> in <R s={Ot.Fvar}/> implemented this and added extended members.
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.Axis.tag} type={Tag} />
+ * <Member readonly s={Ot.Var.Axis.min} type={number} />
+ * <Member readonly s={Ot.Var.Axis.default} type={number} />
+ * <Member readonly s={Ot.Var.Axis.max} type={number} />
+
+### Datatype <Decl s={Ot.Var.Instance} />
+
+Defined as <R s={Data.Maybe(readonly(map(Ot.Var.Axis,number)))} />.
+
+### Datatype <Decl s={Ot.Var.MasterDim} />
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.MasterDim.axis} type={Ot.Var.Axis} />
+ * <Member readonly s={Ot.Var.MasterDim.min} type={number} />
+ * <Member readonly s={Ot.Var.MasterDim.peak} type={number} />
+ * <Member readonly s={Ot.Var.MasterDim.max} type={number} />
+
+### Class <Decl s={Ot.Var.Master} />
+
+#### Factory Methods
+
+ * <Fn s={Ot.Var.Create.Master} args={{init:iterable(Ot.Var.MasterDim)}} returns={Ot.Var.Master} />
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.Master.regions} type={readonly(array(Ot.Var.MasterDim))} />
+
+#### Methods
+
+ * <Method s={Ot.Var.Master.evaluate} args={{instance:Ot.Var.Instance}} returns={number} />
+ * <Method s={Ot.Var.Master.getPeak} args={{}} returns={Ot.Var.Instance} />
+ * <Method s={Ot.Var.Master.isInvalid} args={{}} returns={boolean} />
+ * <Method s={Ot.Var.Master.isSimple} args={{}} returns={boolean} />
+
+### Class <Decl s={Ot.Var.MasterSet} />
+
+#### Factory Methods
+
+ * <Fn s={Ot.Var.Create.MasterSet} args={{}} returns={Ot.Var.MasterSet} />
+
+
+## Operations
+
+### Singleton <Decl s={Ot.Var.Ops}/>
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.Ops.neutral} type={number} />
+   
+   The identity of <R s={Ot.Var.Value}/>. Equal to 0.
+
+#### Vector space methods
+ * <Method s={Ot.Var.Ops.add} args={{x:Ot.Var.Value,y:Ot.Var.Value}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.negate} args={{x:Ot.Var.Value}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.minus} args={{x:Ot.Var.Value,y:Ot.Var.Value}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.scale} args={{scale:number,y:Ot.Var.Value}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.addScale} args={{x:Ot.Var.Value,scale:number,y:Ot.Var.Value}} returns={Ot.Var.Value} />
+
+#### Variation methods
+ * <Method s={Ot.Var.Ops.originOf} args={{x:Ot.Var.Value}} returns={number} />
+ * <Method s={Ot.Var.Ops.varianceOf} args={{x:Ot.Var.Value}} returns={iterable(tuple(Ot.Var.Master,number))} />
+ * <Method s={Ot.Var.Ops.removeOrigin} args={{x:Ot.Var.Value}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.evaluate} args={{x:Ot.Var.Value,instance:Ot.Var.Instance}} returns={number} />
+ * <Method s={Ot.Var.Ops.equal} args={{x:Ot.Var.Value,y:Ot.Var.Value,err:optional(number)}} returns={boolean} />
+ * <Method s={Ot.Var.Ops.sum} args={{ ["...xs"]:annot(array(either(Ot.Var.Value,tuple(number,Ot.Var.Value))),"Parts to sum up") }} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.Ops.isConstant} args={{x:Ot.Var.Value}} returns={boolean} />
+ * <Method s={Ot.Var.Ops.isZero} args={{x:Ot.Var.Value}} returns={boolean} />
+
+#### Value creation
+ * <Method s={Ot.Var.Ops.Creator} args={{ms:optional(Ot.Var.MasterSet)}} returns={Ot.Var.ValueCreator}/>
+
+
+
+### Class <Decl s={Ot.Var.ValueCreator}/>
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.ValueCreator.masterSet} type={Ot.Var.MasterSet} />
+
+#### Methods
+
+ * <Method s={Ot.Var.ValueCreator.create} args={{origin:optional(number),variance:optional(iterable(tuple(Ot.Var.Master,number)))}} returns={Ot.Var.Value} />
+ * <Method s={Ot.Var.ValueCreator.make} args={{['...xs']:array(either(Ot.Var.Value,tuple(Ot.Var.Master,number)))}} returns={Ot.Var.Value} />
+
+
+## Value Collection
+
+### Class <Decl s={Ot.Var.ValueCollector("D")}/> 
+
+#### Factory Methods
+
+ * <Fn s={Ot.Var.Create.ValueCollector('D')} args={{factory:Ot.Var.CollectedValueFactory("D")}} returns={Ot.Var.ValueCollector("D")}/>
+
+#### Properties
+
+ * <Member readonly s={Ot.Var.ValueCollector.size} type={number} />
+
+#### Methods
+
+ * <Method s={Ot.Var.ValueCollector.collect} args={{x:Ot.Var.Value}} returns="D" />
+ * <Method s={Ot.Var.ValueCollector.settleDown} args={{}} returns="void" />
+ * <Method s={Ot.Var.ValueCollector.resolveDeltas} args={{deltaMA:array(number)}} returns={array(number)} />
+ * <Method s={Ot.Var.ValueCollector.getMasterList} args={{}} returns={array(tuple(number,Ot.Var.Master))} />
+
+### Type <Decl s={Ot.Var.CollectedValueFactory("D")}/> 
+
+Defined as <R s={pi({col: Ot.Var.ValueCollector('D'),origin:number,deltaMA:array(number)},"D")}/>

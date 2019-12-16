@@ -4,8 +4,7 @@ import { OtVar } from "@ot-builder/variance";
 export namespace Post {
     export const Tag = "post";
     export class Table {
-        public majorVersion: UInt16 = 3;
-        public minorVersion: UInt16 = 0;
+        constructor(public readonly majorVersion: UInt16, public readonly minorVersion: UInt16) {}
         public italicAngle: F16D16 = 0;
         public underlinePosition: OtVar.Value = 0;
         public underlineThickness: OtVar.Value = 0;

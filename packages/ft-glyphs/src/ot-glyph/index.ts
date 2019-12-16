@@ -80,11 +80,20 @@ export namespace OtGlyph {
 
     // Point re-exports
     export import PointType = Lib_Point.PointType;
-    export import Point = Lib_Point.CPoint;
+    export type Point = GeneralGlyph.Point.T<OtVar.Value>;
+    export namespace Point {
+        export function create(
+            x: OtVar.Value,
+            y: OtVar.Value,
+            kind: number = PointType.Corner
+        ): Point {
+            return new Lib_Point.CPoint(x || 0, y || 0, kind);
+        }
+    }
     export import PointOps = Lib_Point.PointOps;
     export type Contour = GeneralGlyph.Contour.T<OtVar.Value>;
     export import PointIDRef = Lib_General_Point.PointIDRef;
-    export import GlyphPointIDRef = Lib_General_Point.GlyphPointIDRef;
+    export type GlyphPointIDRef = Lib_General_Point.GlyphPointIDRef<OtGlyph>;
     export import PointRef = Lib_General_Point.PointRef;
     export import PointRefW = Lib_General_Point.PointRefW;
     export import PointAttachment = Lib_General_Point.PointAttachment;

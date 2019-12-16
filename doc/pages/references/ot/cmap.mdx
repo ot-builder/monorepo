@@ -1,0 +1,60 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, map, array, iterable, Data, Ot, Tag } from "components/exports"
+import { optional, tuple } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Cmap} />
+
+## Table Types
+
+### Cosntant <Decl s={Ot.Cmap.Tag}/> = `"cmap"`
+
+### Class <Decl s={Ot.Cmap.Table} />
+
+#### Cosntructor
+
+* <Method ctor s={Ot.Cmap.Table.constructor} />
+
+#### Properties
+
+* <Member s={Ot.Cmap.Table.unicode} type={Ot.Cmap.EncodingMap} />
+* <Member s={Ot.Cmap.Table.vs} type={Ot.Cmap.VsEncodingMap} />
+
+## Encoding Map Types
+
+### Class <Decl s={Ot.Cmap.EncodingMap} />
+
+#### Factory Methods
+
+* <Fn long s={Ot.Cmap.createMapping} args={{init:optional(iterable(tuple(number,Ot.Glyph)))}} returns={Ot.Cmap.EncodingMap}/>
+
+#### Properties
+
+* <Member s={Ot.Cmap.EncodingMap.size} type={number} />
+
+#### Methods
+
+* <Method s={Ot.Cmap.EncodingMap.get} args={{code:number}} returns={Data.Maybe(Ot.Glyph)} />
+* <Method s={Ot.Cmap.EncodingMap.set} args={{code:number,glyph:Ot.Glyph}} returns="void" />
+* <Method s={Ot.Cmap.EncodingMap.delete} args={{code:number}} returns="void" />
+* <Method s={Ot.Cmap.EncodingMap.entries} returns={iterable(tuple(number,Ot.Glyph))} />
+
+
+### Class <Decl s={Ot.Cmap.VsEncodingMap} />
+
+#### Factory Methods
+
+* <Fn long s={Ot.Cmap.createVsMapping} args={{init:optional(iterable(tuple(number,number,Ot.Glyph)))}} returns={Ot.Cmap.VsEncodingMap}/>
+
+#### Properties
+
+* <Member s={Ot.Cmap.VsEncodingMap.size} type={number} />
+
+#### Methods
+
+* <Method s={Ot.Cmap.VsEncodingMap.get} args={{code:number,vs:number}} returns={Data.Maybe(Ot.Glyph)} />
+* <Method s={Ot.Cmap.VsEncodingMap.set} args={{code:number,vs:number,glyph:Ot.Glyph}} returns="void" />
+* <Method s={Ot.Cmap.VsEncodingMap.delete} args={{code:number,vs:number}} returns="void" />
+* <Method s={Ot.Cmap.VsEncodingMap.entries} returns={iterable(tuple(number,number,Ot.Glyph))} />
+

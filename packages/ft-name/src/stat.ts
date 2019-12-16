@@ -12,33 +12,33 @@ export namespace Stat {
     }
 
     export class NameAssignment {
-        constructor(public flags: UInt16, public valueNameID: UInt16) {}
+        constructor(public readonly flags: UInt16, public readonly valueNameID: UInt16) {}
     }
 
     export namespace AxisValue {
         export abstract class General {}
         export class Static extends General {
-            constructor(public axis: Axis, public readonly value: F16D16) {
+            constructor(public readonly axis: Axis, public readonly value: F16D16) {
                 super();
             }
         }
         export class Linked extends General {
-            constructor(public axis: Axis, public value: F16D16, public linkedValue: F16D16) {
+            constructor(public readonly axis: Axis, public readonly value: F16D16, public readonly linkedValue: F16D16) {
                 super();
             }
         }
         export class Variable extends General {
             constructor(
-                public axis: Axis,
-                public min: F16D16,
-                public nominal: F16D16,
-                public max: F16D16
+                public readonly axis: Axis,
+                public readonly min: F16D16,
+                public readonly nominal: F16D16,
+                public readonly max: F16D16
             ) {
                 super();
             }
         }
         export class PolyAxis extends General {
-            constructor(public assignments: [Axis, F16D16][]) {
+            constructor(public readonly assignments: [Axis, F16D16][]) {
                 super();
             }
         }

@@ -1,0 +1,108 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, string, array, Data, Ot, Tag } from "components/exports"
+import { optional, either, tuple } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Stat} />
+
+### Constant <Decl s={Ot.Stat.Tag} /> = `"STAT"`
+
+### Class <Decl s={Ot.Stat.Table}/>
+
+#### Cosntructor 
+
+* <Method long ctor s={Ot.Stat.Table.cosntructor} args={{designAxes:optional(array(Ot.Stat.Axis)),assignments:optional(array(tuple(Ot.Stat.AxisValue.General,Ot.Stat.NameAssignment))),elidedFallbackNameID:optional(number)}}/>
+
+#### Properties
+
+* <Member s={Ot.Stat.Table.designAxes} type={array(Ot.Stat.Axis)} />
+* <Member s={Ot.Stat.Table.assignments} type={array(tuple(Ot.Stat.AxisValue.General,Ot.Stat.NameAssignment))} />
+* <Member s={Ot.Stat.Table.elidedFallbackNameID} type={number} />
+
+### Class <Decl s={Ot.Stat.Axis} />
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.Axis.constructor} args={{tag:Tag,axisNameID:number,axisOrdering:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.Axis.tag} type={Tag}/>
+* <Member readonly s={Ot.Stat.Axis.axisNameID} type={number}/>
+* <Member readonly s={Ot.Stat.Axis.axisOrdering} type={number}/>
+
+### Class <Decl s={Ot.Stat.NameAssignment} />
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.NameAssignment.constructor} args={{flags:number,valueNameID:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.NameAssignment.flags} type={number}/>
+* <Member readonly s={Ot.Stat.NameAssignment.valueNameID} type={number}/>
+
+### Abstract Class <Decl s={Ot.Stat.AxisValue.General} />
+
+### Class <Decl s={Ot.Stat.AxisValue.Static} />
+
+#### Inherits
+
+* <R s={Ot.Stat.AxisValue.General}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.AxisValue.Static.constructor} args={{axis:Ot.Stat.Axis,value:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.AxisValue.Static.axis} type={Ot.Stat.Axis}/>
+* <Member readonly s={Ot.Stat.AxisValue.Static.value} type={number}/>
+
+### Class <Decl s={Ot.Stat.AxisValue.Linked} />
+
+#### Inherits
+
+* <R s={Ot.Stat.AxisValue.General}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.AxisValue.Linked.constructor} args={{axis:Ot.Stat.Axis,value:number,linkedValue:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.AxisValue.Linked.axis} type={Ot.Stat.Axis}/>
+* <Member readonly s={Ot.Stat.AxisValue.Linked.value} type={number}/>
+* <Member readonly s={Ot.Stat.AxisValue.Linked.linkedValue} type={number}/>
+
+### Class <Decl s={Ot.Stat.AxisValue.Variable} />
+
+#### Inherits
+
+* <R s={Ot.Stat.AxisValue.General}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.AxisValue.Variable.constructor} args={{axis:Ot.Stat.Axis,min:number,nominal:number,max:number}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.AxisValue.Variable.axis} type={Ot.Stat.Axis}/>
+* <Member readonly s={Ot.Stat.AxisValue.Variable.min} type={number}/>
+* <Member readonly s={Ot.Stat.AxisValue.Variable.nominal} type={number}/>
+* <Member readonly s={Ot.Stat.AxisValue.Variable.max} type={number}/>
+
+### Class <Decl s={Ot.Stat.AxisValue.PolyAxis} />
+
+#### Inherits
+
+* <R s={Ot.Stat.AxisValue.General}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Stat.AxisValue.PolyAxis.constructor} args={{assignments:array(tuple(Ot.Stat.Axis,number))}}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Stat.AxisValue.PolyAxis.assignments} type={array(tuple(Ot.Stat.Axis,number))}/>

@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -15,7 +14,7 @@ import { GlyfTag } from "./shared";
 test("Reading : TTF, static", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({ fontMetadata: {} });
+    const cfg = { fontMetadata: {} };
     const { head, maxp } = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const gOrd = gs.decideOrder();
@@ -33,28 +32,28 @@ test("Reading : TTF, static", () => {
         expect(outlines).toBeTruthy();
         expect(outlines.contours).toEqual([
             [
-                new OtGlyph.Point(80, 0, 0),
-                new OtGlyph.Point(500, 670, 0),
-                new OtGlyph.Point(560, 670, 0),
-                new OtGlyph.Point(140, 0, 0)
+                OtGlyph.Point.create(80, 0, 0),
+                OtGlyph.Point.create(500, 670, 0),
+                OtGlyph.Point.create(560, 670, 0),
+                OtGlyph.Point.create(140, 0, 0)
             ],
             [
-                new OtGlyph.Point(560, 0, 0),
-                new OtGlyph.Point(500, 0, 0),
-                new OtGlyph.Point(80, 670, 0),
-                new OtGlyph.Point(140, 670, 0)
+                OtGlyph.Point.create(560, 0, 0),
+                OtGlyph.Point.create(500, 0, 0),
+                OtGlyph.Point.create(80, 670, 0),
+                OtGlyph.Point.create(140, 670, 0)
             ],
             [
-                new OtGlyph.Point(140, 50, 0),
-                new OtGlyph.Point(500, 50, 0),
-                new OtGlyph.Point(500, 620, 0),
-                new OtGlyph.Point(140, 620, 0)
+                OtGlyph.Point.create(140, 50, 0),
+                OtGlyph.Point.create(500, 50, 0),
+                OtGlyph.Point.create(500, 620, 0),
+                OtGlyph.Point.create(140, 620, 0)
             ],
             [
-                new OtGlyph.Point(80, 0, 0),
-                new OtGlyph.Point(80, 670, 0),
-                new OtGlyph.Point(560, 670, 0),
-                new OtGlyph.Point(560, 0, 0)
+                OtGlyph.Point.create(80, 0, 0),
+                OtGlyph.Point.create(80, 670, 0),
+                OtGlyph.Point.create(560, 670, 0),
+                OtGlyph.Point.create(560, 0, 0)
             ]
         ]);
     }

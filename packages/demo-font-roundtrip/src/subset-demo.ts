@@ -1,6 +1,5 @@
 import * as fs from "fs";
-import * as Ob from "ot-builder";
-import { Ot, Rectify } from "ot-builder";
+import { Data, FontIo, Ot, Rectify } from "ot-builder";
 import * as path from "path";
 
 const file = process.argv[2];
@@ -9,40 +8,40 @@ const fileOut = process.argv[4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const cfg = Ob.Config.create<Ob.FontIoConfig>({});
+const cfg = <FontIo.FontIoConfig>{};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 console.log("demo start");
 
 const bufFont = fs.readFileSync(path.resolve(file));
-const font = Ob.readFont(Ob.readSfntOtf(bufFont), Ot.ListGlyphStoreFactory, cfg);
+const font = FontIo.readFont(FontIo.readSfntOtf(bufFont), Ot.ListGlyphStoreFactory, cfg);
 console.log("read complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 const rectifier = createSubsetRectifier(font, subsetText);
-Ob.rectifyFontGlyphs(rectifier, font, Ot.ListGlyphStoreFactory);
+Rectify.rectifyFontGlyphs(rectifier, font, Ot.ListGlyphStoreFactory);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 console.log("write start");
 
-const buf1 = Ob.writeSfntOtf(Ob.writeFont(font, cfg));
+const buf1 = FontIo.writeSfntOtf(FontIo.writeFont(font, cfg));
 fs.writeFileSync(path.resolve(fileOut), buf1);
 
 console.log("write complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createSubsetRectifier<GS extends Ob.Data.OrderStore<Ot.Glyph>>(
+function createSubsetRectifier<GS extends Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,
     text: string
-): Rectify.Glyph.RectifierT<Ot.Glyph> {
+): Rectify.GlyphRectifier {
     const codePointFilter =
         text === "*" ? { has: () => true } : new Set([...text].map(s => s.codePointAt(0)!));
-    const init = Ob.visibleGlyphsFromUnicodeSet(font, codePointFilter);
-    const collected = Ob.traceGlyphs(font, init);
+    const init = Rectify.visibleGlyphsFromUnicodeSet(font, codePointFilter);
+    const collected = Rectify.traceGlyphs(new Set(init), font);
     return {
         glyph(g: Ot.Glyph) {
             if (collected.has(g)) return g;

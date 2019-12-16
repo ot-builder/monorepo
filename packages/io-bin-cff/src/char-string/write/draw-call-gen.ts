@@ -1,5 +1,5 @@
 import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteContext } from "../../context/write";
@@ -32,11 +32,11 @@ class CffGlyphHandler implements OtGlyph.GlyphAlg<void> {
     public glyph(
         hMetric: OtGlyph.Metric,
         vMetric: OtGlyph.Metric,
-        fGeom: Data.Maybe<() => void>,
-        fHint: Data.Maybe<() => void>
+        fGeom: Data.Maybe<Thunk<void>>,
+        fHint: Data.Maybe<Thunk<void>>
     ) {
-        if (fHint) fHint();
-        if (fGeom) fGeom();
+        if (fHint) fHint.force();
+        if (fGeom) fGeom.force();
 
         if (this.widthHandler) {
             const width = OtVar.Ops.minus(hMetric.end, hMetric.start);
@@ -125,7 +125,7 @@ class CffHintHandler implements OtGlyph.HintAlg<void> {
     constructor(private readonly st: CffCodeGenState) {}
 
     public empty() {}
-    public ttfInstructions() {}
+    public ttInstructions() {}
     public cffHint(h: OtGlyph.CffHintProps) {
         const hasMask =
             (h.hintMasks.length || h.counterMasks.length) && (h.hStems.length || h.vStems.length);

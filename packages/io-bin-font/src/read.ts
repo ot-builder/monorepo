@@ -1,5 +1,5 @@
-import { Config } from "@ot-builder/cfg-log";
 import * as Ot from "@ot-builder/font";
+import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
 import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readEncoding } from "@ot-builder/io-bin-encoding";
@@ -15,34 +15,34 @@ import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 export function readFont<GS extends Data.OrderStore<Ot.Glyph>>(
     sfnt: Sfnt,
     gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
-    partialConfig: Config<FontIoConfig>
+    config: FontIoConfig = {}
 ): Ot.Font<GS> {
-    const cfg = createConfig(partialConfig);
-    const md = readOtMetadata(sfnt, cfg);
+    const fullCfg = createConfig(config);
+    const md = readOtMetadata(sfnt, fullCfg);
     const names = readNames(sfnt);
 
-    let gOrd,
-        glyphs,
-        coGlyphs,
+    let gOrd: Data.Order<Ot.Glyph>,
+        glyphs: GS,
+        coGlyphs: TtfCoGlyphs | CffCoGlyphs,
         cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>> = null;
     if (sfnt.tables.has(Ot.Cff.Tag1) || sfnt.tables.has(Ot.Cff.Tag2)) {
-        const r = readGlyphStore(sfnt, cfg, md, gsf, ReadCffGlyphs);
+        const r = readGlyphStore(sfnt, fullCfg, md, gsf, ReadCffGlyphs);
         gOrd = r.gOrd;
         glyphs = r.glyphs;
-        coGlyphs = r.coGlyphs;
+        coGlyphs = { cff: r.coGlyphs.cff };
         cffGlyphNaming = r.coGlyphs.cffGlyphNaming;
     } else {
-        const r = readGlyphStore(sfnt, cfg, md, gsf, ReadTtfGlyphs);
+        const r = readGlyphStore(sfnt, fullCfg, md, gsf, ReadTtfGlyphs);
         gOrd = r.gOrd;
         glyphs = r.glyphs;
         coGlyphs = r.coGlyphs;
     }
 
-    const encoding = readEncoding(sfnt, cfg, gOrd, md);
+    const encoding = readEncoding(sfnt, fullCfg, gOrd, md);
     const otl = readOtl(sfnt, gOrd, md);
 
     // Glyph name
-    nameGlyphs(md, gOrd, cffGlyphNaming, encoding, cfg);
+    nameGlyphs(md, gOrd, cffGlyphNaming, encoding, fullCfg);
 
     return { ...md, ...names, glyphs, ...coGlyphs, ...encoding, ...otl };
 }
@@ -52,14 +52,14 @@ function nameGlyphs(
     gOrd: Data.Order<Ot.Glyph>,
     cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>>,
     encoding: Ot.Encoding,
-    cfg: Config<FontIoCfgFinal>
+    cfg: FontIoCfgFinal
 ) {
     const namingSource: Ot.GlyphNamingSource = {
         post: md.postGlyphNaming ? new PostGlyphNamingWrapper(md.postGlyphNaming, gOrd) : null,
         cff: cffGlyphNaming,
         encoding: new CmapNameIndexSource(encoding)
     };
-    const namer = cfg.glyphNaming.Namer ? cfg.glyphNaming.Namer() : new StandardOtGlyphNamer();
+    const namer = cfg.glyphNaming.namer || new StandardOtGlyphNamer();
     for (let gid = 0; gid < gOrd.length; gid++) {
         const glyph = gOrd.at(gid);
         glyph.name = namer.nameGlyph(namingSource, gid, glyph);

@@ -1,10 +1,8 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Cff, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { Data } from "@ot-builder/prelude";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
 import { CffCfgProps, DefaultCffCfgProps } from "../cfg";
@@ -14,7 +12,7 @@ import { WriteCff2 } from "../main/write-cff2";
 function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({ cff: { ...DefaultCffCfgProps, ...override }, fontMetadata: {} });
+    const cfg = { cff: { ...DefaultCffCfgProps, ...override }, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
 

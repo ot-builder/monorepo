@@ -1,0 +1,81 @@
+import { Layout } from "components/api-doc"
+import { R, Fn, Member, Decl } from "components/tyfmt"
+import { Ot, Data } from "components/exports"
+import { optional, extend, guard } from "components/tycon"
+export default Layout
+
+# <R s={Ot.Font}/>
+
+## Font Type
+
+### Datatype <Decl s={Ot.Font("GS")}/>
+
+#### Type Parameter Requirements
+
+The type <R s={Ot.Font} /> is generic, and it supports any glyph store types (<R s="GS"/>) that can decide an order of glyphs (<R s={Data.Order(Ot.Glyph)}/>) by implementing <R s={Data.OrderStore(Ot.Glyph)} />. A pre-supplied implementation is <R s={Ot.ListGlyphStore} />. The factory creating <R s={Ot.ListGlyphStore} />'s is <R s={Ot.ListGlyphStoreFactory} />.
+
+An <R s={Ot.Font("GS")}/> could be either <R s={Ot.Font.Cff("GS")}/> or <R s={Ot.Font.Ttf("GS")}/>, depending on whether the `cff` property exists. When present, the font is considered CFF. Utility functions <R s={Ot.Font.isCff}/> and <R s={Ot.Font.isTtf}/> could be used to detect the types.
+
+#### Members
+
+* Glyph store
+    * <Member s={Ot.Font.glyphs} type="GS" />
+
+    The glyph store.
+
+* CFF-specfic
+    
+    * <Member s={Ot.Font.cff} type={Ot.Cff.Table} />
+
+* TrueType-specific
+
+    * <Member s={Ot.Font.fpgm} type={optional(Ot.Fpgm.Table)} />
+    * <Member s={Ot.Font.prep} type={optional(Ot.Prep.Table)} />
+    * <Member s={Ot.Font.cvt} type={optional(Ot.Cvt.Table)} />
+
+* Metadata
+
+    * <Member s={Ot.Font.head} type={Ot.Head.Table} />
+    * <Member s={Ot.Font.maxp} type={Ot.Maxp.Table} />
+    * <Member s={Ot.Font.fvar} type={optional(Ot.Fvar.Table)} />
+    * <Member s={Ot.Font.post} type={optional(Ot.Post.Table)} />
+    * <Member s={Ot.Font.os2} type={optional(Ot.Os2.Table)} />
+    * <Member s={Ot.Font.hhea} type={optional(Ot.MetricHead.Table)} />
+    * <Member s={Ot.Font.vhea} type={optional(Ot.MetricHead.Table)} />
+    * <Member s={Ot.Font.avar} type={optional(Ot.Avar.Table)} />
+    * <Member s={Ot.Font.gasp} type={optional(Ot.Gasp.Table)} />
+
+* Naming
+
+    * <Member s={Ot.Font.name} type={optional(Ot.Name.Table)} />
+    * <Member s={Ot.Font.meta} type={optional(Ot.Meta.Table)} />
+    * <Member s={Ot.Font.stat} type={optional(Ot.Stat.Table)} />
+
+* Encoding
+
+    * <Member s={Ot.Font.cmap} type={optional(Ot.Cmap.Table)} />
+
+* OpenType Layout
+
+    * <Member s={Ot.Font.gdef} type={optional(Ot.Gdef.Table)} />
+    * <Member s={Ot.Font.gsub} type={optional(Ot.Gsub.Table)} />
+    * <Member s={Ot.Font.gpos} type={optional(Ot.Gpos.Table)} />
+    * <Member s={Ot.Font.base} type={optional(Ot.Base.Table)} />
+
+### Type <Decl s={Ot.Font.Cff("GS")}/>
+
+CFF variant of <R s={Ot.Font("GS")} />. The property `cff` is guaranteed to be present.
+
+### Type <Decl s={Ot.Font.Ttf("GS")}/>
+
+TrueType variant of <R s={Ot.Font("GS")} />. Properties `fpgm`, `prep` and `cvt` may present.
+
+## Utility functions
+
+### Function <Fn s={Ot.Font.isCff(extend("GS",Data.Order(Ot.Glyph)))} args={{font:Ot.Font("GS")}} returns={guard("font",Ot.Font.Cff("GS"))} />
+
+Detects whether `font` is a CFF font.
+
+### Function <Fn s={Ot.Font.isTtf(extend("GS",Data.Order(Ot.Glyph)))} args={{font:Ot.Font("GS")}} returns={guard("font",Ot.Font.Ttf("GS"))} />
+
+Detects whether `font` is a TrueType font.

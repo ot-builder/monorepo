@@ -12,7 +12,7 @@ export interface GlyphStoreCfgPt {
 export const DefaultGlyphStoreCfgProps = { statOs2XAvgCharWidth: true };
 
 export interface GlyphNamingCfgProps {
-    Namer?: () => OtGlyphNamer;
+    namer?: OtGlyphNamer;
 }
 export interface GlyphNamingCfg {
     glyphNaming: GlyphNamingCfgProps;

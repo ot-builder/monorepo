@@ -5,10 +5,10 @@ export namespace Gasp {
     export const Tag = `gasp`;
 
     export enum RangeBehavior {
-        GASP_GRIDFIT = 0x0001,
-        GASP_DOGRAY = 0x0002,
-        GASP_SYMMETRIC_GRIDFIT = 0x0004,
-        GASP_SYMMETRIC_SMOOTHING = 0x0008
+        GridFit = 0x0001,
+        DoGray = 0x0002,
+        SymmetricGridFit = 0x0004,
+        SymmetricSmoothing = 0x0008
     }
 
     export class Range {

@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import * as Ot from "@ot-builder/font";
 import { OtEncoding } from "@ot-builder/ft-encoding";
 import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
@@ -47,25 +46,25 @@ class WritePostNaming implements Data.Naming.Source<number> {
 
 export function writeFont<GS extends OtGlyphStore>(
     font: Ot.Font<GS>,
-    partialConfig: Config<FontIoConfig>
+    config: FontIoConfig = {}
 ): Sfnt {
     const sfnt = new Sfnt(Ot.Font.isCff(font) ? 0x4f54544f : 0x00010000);
     const sink = new SfntIoTableSink(sfnt);
 
-    const cfg = createConfig(partialConfig);
+    const fullCfg = createConfig(config);
     const gOrd1 = font.glyphs.decideOrder();
 
     // Alias fonts
     const md = MD(font, new WritePostNaming(gOrd1));
     writeOtl(sink, OTL(font), gOrd1, md);
-    writeEncoding(sink, cfg, Encoding(font), gOrd1, md);
+    writeEncoding(sink, fullCfg, Encoding(font), gOrd1, md);
     if (Ot.Font.isCff(font)) {
-        writeGlyphStore(sink, cfg, md, CffCoGlyphs(font), gOrd1, WriteCffGlyphs);
+        writeGlyphStore(sink, fullCfg, md, CffCoGlyphs(font), gOrd1, WriteCffGlyphs);
     } else {
-        writeGlyphStore(sink, cfg, md, TtfCoGlyphs(font), gOrd1, WriteTtfGlyphs);
+        writeGlyphStore(sink, fullCfg, md, TtfCoGlyphs(font), gOrd1, WriteTtfGlyphs);
     }
     writeNames(sink, Names(font));
-    writeOtMetadata(sink, cfg, md);
+    writeOtMetadata(sink, fullCfg, md);
 
     return sfnt;
 }

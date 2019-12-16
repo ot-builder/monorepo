@@ -1,7 +1,6 @@
 import { Read } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Cff, CffCoGlyphs, OtGlyph } from "@ot-builder/ft-glyphs";
+import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 
 import { CffDeferIndex } from "../cff-index/view-list";
@@ -17,10 +16,10 @@ import { cffCleanupUnusedData, readCffCommon } from "./shared";
 export const ReadCff1 = Read(
     (
         view,
-        cfg: Config<CffCfg>,
+        cfg: CffCfg,
         gOrd: Data.Order<OtGlyph>,
         coStat?: Data.Maybe<OtGlyph.CoStat.Source>
-    ): CffCoGlyphs => {
+    ): CffCoGlyphsWithNaming => {
         const ctx = new CffReadContext(1, view.lift(0), coStat);
         if (!ctx.strings) throw Errors.Cff.ShouldHaveStrings();
 

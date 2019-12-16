@@ -1,7 +1,8 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyAxisAvar(rec: Rectify.Axis.RectifierT<Ot.Var.Axis>, avar: Ot.Avar.Table) {
+import { AxisRectifier } from "../interface";
+
+export function rectifyAxisAvar(rec: AxisRectifier, avar: Ot.Avar.Table) {
     let maps1: Map<Ot.Var.Axis, Ot.Avar.SegmentMap> = new Map();
     for (const [axis, sgm] of avar.segmentMaps) {
         const mappedAxis = rec.axis(axis);

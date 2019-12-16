@@ -1,0 +1,73 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { Data, Ot, number } from "components/exports"
+import { readonly } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Head}/>
+
+### Constant <Decl s={Ot.Head.Tag}/> = "head"
+
+### Class <Decl s={Ot.Head.Table}/>
+
+#### Constructor
+
+ * <Method ctor s={Ot.Head.Table.constructor} returns={Ot.Head.Table} />
+
+#### Properties
+
+ * <Member s={Ot.Head.Table.majorVersion} type={number} />
+ * <Member s={Ot.Head.Table.minorVersion} type={number} />
+ * <Member s={Ot.Head.Table.fontRevision} type={number} />
+ * <Member readonly s={Ot.Head.Table.checkSumAdjust} type={number} />
+ * <Member readonly s={Ot.Head.Table.magicNumber} type={number} />
+ * <Member s={Ot.Head.Table.flags} type={Ot.Head.Flags} />
+ * <Member s={Ot.Head.Table.unitsPerEm} type={number} />
+ * <Member s={Ot.Head.Table.created} type={number} />
+ * <Member s={Ot.Head.Table.modified} type={number} />
+ * <Member volatile s={Ot.Head.Table.xMin} type={number} />
+ * <Member volatile s={Ot.Head.Table.yMin} type={number} />
+ * <Member volatile s={Ot.Head.Table.xMax} type={number} />
+ * <Member volatile s={Ot.Head.Table.yMax} type={number} />
+ * <Member s={Ot.Head.Table.macStyle} type={Ot.Head.MacStyle} />
+ * <Member s={Ot.Head.Table.lowestRecPPEM} type={number} />
+ * <Member s={Ot.Head.Table.fontDirectionHint} type={Ot.Head.FontDirectionHint} />
+ * <Member volatile s={Ot.Head.Table.indexToLocFormat} type={number} />
+ * <Member s={Ot.Head.Table.glyphDataFormat} type={number} />
+
+### Enum <Decl s={Ot.Head.Flags} />
+
+ * <Item s={Ot.Head.Flags.BaseLineYAt0}/> = <NthBit n={0}/>
+ * <Item s={Ot.Head.Flags.LeftSidebearingAtX0}/> = <NthBit n={1}/>
+ * <Item s={Ot.Head.Flags.InstructionsMayDependOnPointSize}/> = <NthBit n={2}/>
+ * <Item s={Ot.Head.Flags.ForcePpemToBeInteger}/> = <NthBit n={3}/>
+ * <Item s={Ot.Head.Flags.InstructionMayAlterAdvanceWidth}/> = <NthBit n={4}/>
+ * <Item s={Ot.Head.Flags.IntendedToBeVertical}/> = <NthBit n={5}/>
+ * <Item s={Ot.Head.Flags.Reserved6}/> = <NthBit n={6}/>
+ * <Item s={Ot.Head.Flags.NeedComplexLayout}/> = <NthBit n={7}/>
+ * <Item s={Ot.Head.Flags.HasAATMetamorphism}/> = <NthBit n={8}/>
+ * <Item s={Ot.Head.Flags.HasStrongRightToLeft}/> = <NthBit n={9}/>
+ * <Item s={Ot.Head.Flags.HasIndicRearrangement}/> = <NthBit n={10}/>
+ * <Item s={Ot.Head.Flags.Compressed}/> = <NthBit n={11}/>
+ * <Item s={Ot.Head.Flags.Converted}/> = <NthBit n={12}/>
+ * <Item s={Ot.Head.Flags.OptimizedForClearType}/> = <NthBit n={13}/>
+ * <Item s={Ot.Head.Flags.LastResortFont}/> = <NthBit n={14}/>
+ * <Item s={Ot.Head.Flags.Reserved15}/> = <NthBit n={15}/>
+
+### Enum <Decl s={Ot.Head.MacStyle} />
+
+ * <Item s={Ot.Head.MacStyle.Bold} /> = <NthBit n={0}/>
+ * <Item s={Ot.Head.MacStyle.Italic} /> = <NthBit n={1}/>
+ * <Item s={Ot.Head.MacStyle.Underline} /> = <NthBit n={2}/>
+ * <Item s={Ot.Head.MacStyle.Outline} /> = <NthBit n={3}/>
+ * <Item s={Ot.Head.MacStyle.Shadow} /> = <NthBit n={4}/>
+ * <Item s={Ot.Head.MacStyle.Condensed} /> = <NthBit n={5}/>
+ * <Item s={Ot.Head.MacStyle.Extended} /> = <NthBit n={6}/>
+
+### Enum <Decl s={Ot.Head.FontDirectionHint} />
+
+ * <Item s={Ot.Head.FontDirectionHint.FullyMixed}/> = 0
+ * <Item s={Ot.Head.FontDirectionHint.OnlyStrongLTR}/> = 1
+ * <Item s={Ot.Head.FontDirectionHint.StrongLTROrNeutral}/> = 2
+ * <Item s={Ot.Head.FontDirectionHint.OnlyStrongRTL}/> = -1
+ * <Item s={Ot.Head.FontDirectionHint.StrongRTLOrNeutral}/> = -2

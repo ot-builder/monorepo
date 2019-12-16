@@ -1,5 +1,4 @@
-import { RectifyImpl } from "@ot-builder/common-impl";
-import { Data, Rectify } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
@@ -37,16 +36,16 @@ export namespace Cff {
         public ordering: string = "Identity";
         public supplement: number = 0;
         // Optional, only present in subset fonts
-        public mapping: null | Map<number, OtGlyph> = null;
+        public mapping: Data.Maybe<Map<number, OtGlyph>>;
     }
 
     export class FontDict {
-        public version: string | null = null;
-        public notice: string | null = null;
-        public copyright: string | null = null;
-        public fullName: string | null = null;
-        public familyName: string | null = null;
-        public weight: string | null = null;
+        public version: Data.Maybe<string>;
+        public notice: Data.Maybe<string>;
+        public copyright: Data.Maybe<string>;
+        public fullName: Data.Maybe<string>;
+        public familyName: Data.Maybe<string>;
+        public weight: Data.Maybe<string>;
         public isFixedPitch: boolean = false;
         public italicAngle: number = 0;
         public underlinePosition: number = -100;
@@ -55,11 +54,11 @@ export namespace Cff {
         public readonly charStringType: number = 2;
         public strokeWidth: number = 0;
 
-        public privateDict: PrivateDict | null = null;
-        public fontMatrix: OtGlyph.Transform2X3 | null = null;
+        public privateDict: Data.Maybe<PrivateDict>;
+        public fontMatrix: Data.Maybe<OtGlyph.Transform2X3>;
 
         // CID
-        public cidFontName: string | null = null;
+        public cidFontName: Data.Maybe<string>;
         public cidFontVersion: number = 0;
         public cidFontRevision: number = 0;
         public cidFontType: number = 0;
@@ -70,14 +69,16 @@ export namespace Cff {
     export class Table {
         constructor(public readonly version: number) {}
         public postScriptFontName: string = "";
-        public cid: CID | null = null;
-        public fontDict: FontDict = new FontDict();
-        public fdArray: FontDict[] | null = null;
-        public fdSelect: null | Map<OtGlyph, number> = null;
+        public cid: Data.Maybe<CID>;
+        public topDict: FontDict = new FontDict();
+        public fdArray: Data.Maybe<FontDict[]>;
+        public fdSelect: Data.Maybe<Map<OtGlyph, number>>;
     }
 }
 
 export interface CffCoGlyphs {
     cff: Cff.Table;
+}
+export interface CffCoGlyphsWithNaming extends CffCoGlyphs {
     cffGlyphNaming?: Data.Maybe<Data.Naming.Source<OtGlyph>>;
 }

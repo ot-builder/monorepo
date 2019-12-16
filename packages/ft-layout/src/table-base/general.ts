@@ -1,4 +1,4 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { GeneralGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 
@@ -36,7 +36,7 @@ export namespace GeneralBase {
     // Base coord
     export interface CoordT<G, X> {
         readonly at: X;
-        readonly pointAttachment?: Data.Maybe<OtGlyph.GlyphPointIDRef<G>>;
+        readonly pointAttachment?: Data.Maybe<GeneralGlyph.GlyphPointIDRefT<G>>;
         readonly deviceDeltas?: Data.Maybe<ReadonlyArray<number>>;
     }
 

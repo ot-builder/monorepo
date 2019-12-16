@@ -35,7 +35,7 @@ const Application = Read((view, siblings: Data.Order<GsubGpos.Lookup>) => {
     const glyphSequenceIndex = view.uint16();
     const lookupListIndex = view.uint16();
     const lookup = siblings.at(lookupListIndex);
-    return { at: glyphSequenceIndex, lookup } as GsubGpos.ChainingApplication;
+    return { at: glyphSequenceIndex, apply: lookup };
 });
 
 const IndividualClassRule = Read(
@@ -67,7 +67,7 @@ const IndividualClassRule = Read(
             lookAheadSequence = lookAheadIDs.map(n => srLookAhead.toGlyphSet(n, false));
             applicationCount = view.uint16();
         }
-        const rule: GsubGpos.ChainingRule = {
+        const rule: GsubGpos.ChainingRule<GsubGpos.Lookup> = {
             match: [...gssBacktrack, ...inputSequence, ...lookAheadSequence],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + inputSequence.length,
@@ -223,7 +223,7 @@ const SubtableFormat3 = Read(
             gssLookAhead = [];
         }
 
-        const rule: GsubGpos.ChainingRule = {
+        const rule: GsubGpos.ChainingRule<GsubGpos.Lookup> = {
             match: [...gssBacktrack, ...gssInput, ...gssLookAhead],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + gssInput.length,

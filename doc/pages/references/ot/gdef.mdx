@@ -1,0 +1,47 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, map, set, array, iterable, Data, Ot, Tag } from "components/exports"
+import { optional, tuple, readonly } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Gdef} />
+
+## Table Types
+
+### Constant <Decl s={Ot.Gdef.Tag}/> = `"GDEF"`
+
+### Class <Decl s={Ot.Gdef.Table} />
+
+#### Constructor
+
+* <Method ctor s={Ot.Gdef.Table.constructor} />
+
+#### Properties
+
+* <Member s={Ot.Gdef.Table.glyphClassDef} type={optional(Data.Maybe(Ot.Gdef.ClassDef))} />
+* <Member s={Ot.Gdef.Table.attachList} type={optional(Data.Maybe(Ot.Gdef.AttachPointList))} />
+* <Member s={Ot.Gdef.Table.ligCarets} type={optional(Data.Maybe(Ot.Gdef.LigCaretList))} />
+* <Member s={Ot.Gdef.Table.markAttachClassDef} type={optional(Data.Maybe(Ot.Gdef.ClassDef))} />
+* <Member s={Ot.Gdef.Table.markGlyphSets} type={optional(Data.Maybe(array(Ot.Gdef.Coverage)))} />
+
+## Coverages and ClassDefs
+
+### Type <Decl s={Ot.Gdef.Coverage}/> = <R s={set(Ot.Glyph)}/>
+### Type <Decl s={Ot.Gdef.ClassDef}/> = <R s={map(Ot.Glyph,number)}/>
+
+## Attach Points
+
+### Type <Decl s={Ot.Gdef.AttachPoints}/> = <R s={array(Ot.Glyph.PointIDRef)}/>
+### Type <Decl s={Ot.Gdef.AttachPointList}/> = <R s={map(Ot.Glyph,Ot.Gdef.AttachPoints)}/>
+
+## Ligature Carets
+
+### Datatype <Decl s={Ot.Gdef.LigCaret}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Gdef.LigCaret.x} type={Ot.Var.Value}/>
+* <Member readonly s={Ot.Gdef.LigCaret.xDevice} type={optional(Data.Maybe(readonly(array(number))))}/>
+* <Member readonly s={Ot.Gdef.LigCaret.pointAttachment} type={optional(Data.Maybe(Ot.Gdef.PointIDRef))}/>
+
+### Type <Decl s={Ot.Gdef.LigCaretList}/> = <R s={map(Ot.Glyph,array(Ot.Gdef.LigCaret))}/>

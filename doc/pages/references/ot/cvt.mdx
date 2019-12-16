@@ -1,0 +1,19 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+import { optional } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Cvt} />
+
+### Constant <Decl s={Ot.Cvt.Tag}/> = `"cvt "`
+
+### Class <Decl s={Ot.Cvt.Table} />
+
+#### Constructor
+
+* <Method s={Ot.Cvt.Table.constructor} args={{items:optional(array(Ot.Var.Value))}} />
+
+#### Properties
+
+* <Member s={Ot.Fpgm.Table.items} type={array(Ot.Var.Value)}/>

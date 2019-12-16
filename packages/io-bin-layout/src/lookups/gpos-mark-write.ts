@@ -61,7 +61,7 @@ const BaseArray = {
 function getLigatureAnchor(
     clsSubtable: number,
     component: number,
-    record: Gpos.LigatureRecord,
+    record: Gpos.LigatureBaseRecord,
     relocation: MarkClassRelocation
 ) {
     return (record.baseAnchors[component] || [])[relocation.reward[clsSubtable]];
@@ -70,7 +70,7 @@ function getLigatureAnchor(
 const LigatureArray = {
     write(
         frag: Frag,
-        axm: CovAuxMappingT<Gpos.LigatureRecord>,
+        axm: CovAuxMappingT<Gpos.LigatureBaseRecord>,
         relocation: MarkClassRelocation,
         ctx: SubtableWriteContext<GsubGpos.Lookup>
     ) {
@@ -217,7 +217,7 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
     }
 }
 
-class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureRecord> {
+class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBaseRecord> {
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -318,7 +318,7 @@ class GposMarkToBaseWriterBase {
     }
     protected createSubtableFragmentsForMarkLigature(
         marks: Map<OtGlyph, Gpos.MarkRecord>,
-        bases: Map<OtGlyph, Gpos.LigatureRecord>,
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
         ctx: SubtableWriteContext<GsubGpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);

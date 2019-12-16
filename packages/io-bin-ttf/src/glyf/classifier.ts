@@ -83,7 +83,7 @@ class HintClassifier implements OtGlyph.HintAlg<void> {
 
     public empty() {}
     public cffHint() {}
-    public ttfInstructions(tt: OtGlyph.TtInstructionProps) {
+    public ttInstructions(tt: OtGlyph.TtInstructionProps) {
         this.collectedInstructions = tt.instructions;
     }
 }

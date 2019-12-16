@@ -1,5 +1,4 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
@@ -20,10 +19,10 @@ import { GvarTableWrite } from "./write";
 function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTolerance = 1) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
-    const cfg = Config.create({
+    const cfg = {
         ttf: { ...DefaultTtfCfgProps, ...(override || {}) },
         fontMetadata: {}
-    });
+    };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);

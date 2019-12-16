@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gdef } from "@ot-builder/ft-layout";
@@ -14,7 +13,7 @@ describe("GDEF read", () => {
     function readGdef(file: string) {
         const bufFont = TestFont.get(file);
         const sfnt = new BinaryView(bufFont).next(SfntOtf);
-        const cfg = Config.create({ fontMetadata: {}, glyphStore: {} });
+        const cfg = { fontMetadata: {}, glyphStore: {} };
         const md = readOtMetadata(sfnt, cfg);
         const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
 

@@ -1,4 +1,4 @@
-import { Data, Rectify } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 
 import { EncodingMapImplT } from "./encoding-map-impl";
 import { VsEncodingMapImplT } from "./vs-encoding-map-impl";

@@ -53,11 +53,10 @@ export interface GsubLigaturePropT<G, X> extends LookupPropT<G> {
     mapping: Array<GsubLigatureLookupEntryT<G>>;
 }
 
-export type GsubReverseSubstT<G> = Map<G, G>;
 export interface GsubReverseRuleT<G, GS> {
     match: Array<GS>;
     doSubAt: number;
-    replacement: GsubReverseSubstT<G>;
+    replacement: Map<G, G>;
 }
 export interface GsubReverseSingleSubPropT<G, X> extends LookupPropT<G> {
     rules: GsubReverseRuleT<G, Set<G>>[];
@@ -83,7 +82,7 @@ export interface GposMarkRecordT<X> {
 export interface GposBaseRecordT<X> {
     baseAnchors: Array<Data.Maybe<LayoutCommon.Anchor.T<X>>>;
 }
-export interface GposLigatureRecordT<X> {
+export interface GposLigatureBaseRecordT<X> {
     baseAnchors: Array<Array<Data.Maybe<LayoutCommon.Anchor.T<X>>>>;
 }
 export interface GposMarkToBasePropT<G, X> extends LookupPropT<G> {
@@ -96,12 +95,12 @@ export interface GposMarkToMarkPropT<G, X> extends LookupPropT<G> {
 }
 export interface GposMarkToLigaturePropT<G, X> extends LookupPropT<G> {
     marks: Map<G, GposMarkRecordT<X>>;
-    bases: Map<G, GposLigatureRecordT<X>>;
+    bases: Map<G, GposLigatureBaseRecordT<X>>;
 }
 
 export interface ChainingApplicationT<E> {
     at: number;
-    lookup: E;
+    apply: E;
 }
 export interface ChainingRuleT<GS, E> {
     match: Array<GS>;

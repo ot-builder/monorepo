@@ -1,5 +1,11 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
+
+import {
+    AxisRectifier,
+    CoordRectifier,
+    GlyphRectifier,
+    PointAttachmentRectifier
+} from "../../interface";
 
 import { axesRectifyFeatureVariation, cleanupGsubGposData } from "./cleanup";
 import { RectifyGlyphCoordAlg, rectifyLookupList } from "./rectify-alg";
@@ -7,7 +13,7 @@ import { RectifyGlyphCoordAlg, rectifyLookupList } from "./rectify-alg";
 export function rectifyLayoutGlyphs<Table extends Ot.GsubGpos.Table>(
     table: Table,
     tableFactory: () => Table,
-    rec: Rectify.Glyph.RectifierT<Ot.Glyph>
+    rec: GlyphRectifier
 ) {
     const lookupCorrespondence = rectifyLookupList(
         table.lookups,
@@ -19,8 +25,8 @@ export function rectifyLayoutGlyphs<Table extends Ot.GsubGpos.Table>(
 export function rectifyLayoutCoord<Table extends Ot.GsubGpos.Table>(
     table: Table,
     tableFactory: () => Table,
-    recAxes: Rectify.Axis.RectifierT<Ot.Fvar.Axis>,
-    recCoord: Rectify.Coord.RectifierT<Ot.Var.Value>
+    recAxes: AxisRectifier,
+    recCoord: CoordRectifier
 ) {
     const lookupCorrespondence = rectifyLookupList(
         table.lookups,
@@ -35,7 +41,7 @@ export function rectifyLayoutCoord<Table extends Ot.GsubGpos.Table>(
 export function rectifyLayoutPointAttachment<Table extends Ot.GsubGpos.Table>(
     table: Table,
     tableFactory: () => Table,
-    recPA: Rectify.PointAttach.RectifierT<Ot.Glyph, Ot.Var.Value>
+    recPA: PointAttachmentRectifier
 ) {
     const lookupCorrespondence = rectifyLookupList(
         table.lookups,

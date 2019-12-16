@@ -1,0 +1,44 @@
+@import './colors';
+@import './fonts';
+
+.api-doc-link
+    &.anchor
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+
+.api-doc-delimiter
+    margin: 0 0.25em;
+    color: black;
+
+    .api-doc-declaration>&:first-child
+        margin-left: 0;
+
+    &+.api-doc-delimiter
+        margin-left: 0;
+
+.api-doc-declaration
+    font-weight: 400;
+
+    .api-doc-link.anchor
+        font-weight: 600;
+
+.api-doc-operator
+    font-weight: 600;
+
+.api-doc-function-arg
+    font-style: italic;
+
+.api-doc-method-param
+    padding-left: 2ch;
+
+    .api-doc-function-arg
+        font-weight: 600;
+
+.api-doc-ty-annotation
+    font-style: italic;
+    color: alpha(BodyTextColor, 50%);
+    margin-left: 1ch;
+
+.api-doc-link, .api-doc-primitive, .api-doc-function-arg
+    font-family: CodeText;

@@ -76,9 +76,9 @@ function nameGlyphPostVersion2(bp: BinaryView) {
 
 export const PostAndNameIo = {
     read(view: BinaryView) {
-        const table = new Post.Table();
-        table.majorVersion = view.uint16();
-        table.minorVersion = view.uint16();
+        const majorVersion = view.uint16();
+        const minorVersion = view.uint16();
+        const table = new Post.Table(majorVersion, minorVersion);
         table.italicAngle = view.next(F16D16);
         table.underlinePosition = view.int16();
         table.underlineThickness = view.int16();

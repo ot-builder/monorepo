@@ -2,7 +2,7 @@ import { Constant } from "@ot-builder/prelude";
 
 import {
     GposBaseRecordT,
-    GposLigatureRecordT,
+    GposLigatureBaseRecordT,
     GposMarkRecordT,
     GposMarkToBasePropT,
     GposMarkToLigaturePropT,
@@ -36,7 +36,7 @@ export class GposMarkToLigatureLookupT<G, X> extends GposMarkLookupBaseT<G, X>
     implements GposMarkToLigaturePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;
     public ignoreGlyphs = new Set<G>();
-    public bases = new Map<G, GposLigatureRecordT<X>>();
+    public bases = new Map<G, GposLigatureBaseRecordT<X>>();
     public acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E {
         return alg.gposMarkToLigature(Constant(this));
     }

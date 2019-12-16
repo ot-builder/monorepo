@@ -65,7 +65,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         this.cx = OtVar.Ops.add(this.cx, x);
         this.cy = OtVar.Ops.add(this.cy, y);
         // console.log(`CXY`, this.cx, this.cy);
-        this.currentContour.push(new OtGlyph.Point(this.cx, this.cy, OtGlyph.PointType.Corner));
+        this.currentContour.push(OtGlyph.Point.create(this.cx, this.cy, OtGlyph.PointType.Corner));
     }
 
     public curveTo(
@@ -86,9 +86,9 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         this.cx = cx3;
         this.cy = cy3;
         // console.log(`CXY`, this.cx, this.cy);
-        this.currentContour.push(new OtGlyph.Point(cx1, cy1, OtGlyph.PointType.Lead));
-        this.currentContour.push(new OtGlyph.Point(cx2, cy2, OtGlyph.PointType.Follow));
-        this.currentContour.push(new OtGlyph.Point(cx3, cy3, OtGlyph.PointType.Corner));
+        this.currentContour.push(OtGlyph.Point.create(cx1, cy1, OtGlyph.PointType.Lead));
+        this.currentContour.push(OtGlyph.Point.create(cx2, cy2, OtGlyph.PointType.Follow));
+        this.currentContour.push(OtGlyph.Point.create(cx3, cy3, OtGlyph.PointType.Corner));
     }
 
     public getRandom() {

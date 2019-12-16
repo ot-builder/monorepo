@@ -1,9 +1,9 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
 
-export function rectifyCoordOs2(rec: Rectify.Coord.RectifierT<Ot.Var.Value>, table: Ot.Os2.Table) {
-    const newTable = new Ot.Os2.Table();
-    newTable.version = table.version;
+import { CoordRectifier } from "../interface";
+
+export function rectifyCoordOs2(rec: CoordRectifier, table: Ot.Os2.Table) {
+    const newTable = new Ot.Os2.Table(table.version);
     newTable.xAvgCharWidth = table.xAvgCharWidth;
     newTable.usWeightClass = table.usWeightClass;
     newTable.usWidthClass = table.usWidthClass;

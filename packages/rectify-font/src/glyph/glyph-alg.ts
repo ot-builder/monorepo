@@ -1,8 +1,9 @@
 import * as Ot from "@ot-builder/font";
-import { Rectify } from "@ot-builder/prelude";
+
+import { GlyphRectifier } from "../interface";
 
 export class RectifyGeomGlyphAlg implements Ot.Glyph.GeometryAlg<null | Ot.Glyph.Geometry> {
-    constructor(private readonly rec: Rectify.Glyph.RectifierT<Ot.Glyph>) {}
+    constructor(private readonly rec: GlyphRectifier) {}
     public empty() {
         return null;
     }

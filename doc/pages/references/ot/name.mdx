@@ -1,0 +1,30 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, string, array, Data, Ot, Tag } from "components/exports"
+import { either } from "components/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Name} />
+
+### Constant <Decl s={Ot.Name.Tag} /> = `"name"`
+
+### Class <Decl s={Ot.Name.Table}/>
+
+#### Cosntructor 
+
+* <Method ctor s={Ot.Name.Table.cosntructor} />
+
+#### Properties
+
+* <Member s={Ot.Name.Table.records} type={array(Ot.Name.Record)} />
+* <Member s={Ot.Name.Table.langTagMap} type={Data.Maybe(array(string))} />
+
+### Datatype <Decl s={Ot.Name.Record} />
+
+#### Members
+
+* <Member readonly s={Ot.Name.Record.platformID} type={number}/>
+* <Member readonly s={Ot.Name.Record.encodingID} type={number}/>
+* <Member readonly s={Ot.Name.Record.languageID} type={number}/>
+* <Member readonly s={Ot.Name.Record.nameID} type={number}/>
+* <Member readonly s={Ot.Name.Record.value} type={either(string,"Buffer")}/>

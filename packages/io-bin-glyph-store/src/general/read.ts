@@ -1,4 +1,3 @@
-import { Config } from "@ot-builder/cfg-log";
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Head, Maxp, OtFontIoMetadata } from "@ot-builder/ft-metadata";
@@ -20,17 +19,12 @@ export type GlyphStoreReadImplCtx = {
 };
 
 export interface ReadGlyphStoreImpl<C, T> {
-    readGlyphs(
-        sfnt: Sfnt,
-        cfg: Config<C>,
-        gOrd: Data.Order<OtGlyph>,
-        ctx: GlyphStoreReadImplCtx
-    ): T;
+    readGlyphs(sfnt: Sfnt, cfg: C, gOrd: Data.Order<OtGlyph>, ctx: GlyphStoreReadImplCtx): T;
 }
 
 export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
     sfnt: Sfnt,
-    cfg: Config<C & GlyphStoreCfg>,
+    cfg: C & GlyphStoreCfg,
     md: OtFontIoMetadata,
     gsf: Data.OrderStoreFactoryWithDefault<OtGlyph, S>,
     cb: ReadGlyphStoreImpl<C, T>

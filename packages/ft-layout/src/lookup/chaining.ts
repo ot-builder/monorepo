@@ -21,11 +21,11 @@ export abstract class ForwardChainingLookupBaseT<G, X> {
             for (const app of rule.applications) {
                 const lookupE: E = alg.crossReference
                     ? alg.crossReference(
-                          app.lookup,
-                          Delay(() => app.lookup.acceptLookupAlgebra(alg))
+                          app.apply,
+                          Delay(() => app.apply.acceptLookupAlgebra(alg))
                       )
-                    : app.lookup.acceptLookupAlgebra(alg);
-                applications1.push({ at: app.at, lookup: lookupE });
+                    : app.apply.acceptLookupAlgebra(alg);
+                applications1.push({ at: app.at, apply: lookupE });
             }
             rules1.push({ ...rule, applications: applications1 });
         }
