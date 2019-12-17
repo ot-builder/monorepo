@@ -5,3 +5,5 @@ tmp
 packages/*/lib
 .cache
 doc/build
+doc/out
+.doc-deploy
