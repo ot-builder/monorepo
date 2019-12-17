@@ -18,7 +18,8 @@
         "beachball:publish": "beachball publish",
         "docs:dev": "cd doc && next",
         "docs:build": "cd doc && next build",
-        "docs:start": "cd doc && next start"
+        "docs:start": "cd doc && next start",
+        "docs:deploy": "ts-node scripts/deploy-documents.ts"
     },
     "devDependencies": {
         "@mdx-js/loader": "^1.5.1",
@@ -39,6 +40,9 @@
         "ts-node": "^8.3.0",
         "tslint-lerna-rules": "^1.0.4",
         "typescript": "^3.7.0",
-        "vrsource-tslint-rules": "^6.0.0"
+        "vrsource-tslint-rules": "^6.0.0",
+        "fs-extra": "^8.1.0",
+        "@types/fs-extra": "^8.0.1",
+        "@types/rimraf": "^2.0.3"
     }
 }
