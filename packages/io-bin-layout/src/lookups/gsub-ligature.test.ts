@@ -20,7 +20,7 @@ describe("GSUB ligature lookup handler", () => {
     };
 
     test("Exhaustive", () => {
-        const lookup = new Gsub.Ligature();
+        const lookup = Gsub.Ligature.create();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.push({
                 from: [
@@ -35,7 +35,7 @@ describe("GSUB ligature lookup handler", () => {
     });
 
     test("Many overlapping", () => {
-        const lookup = new Gsub.Ligature();
+        const lookup = Gsub.Ligature.create();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.push({
                 from: [

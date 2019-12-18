@@ -65,7 +65,7 @@ const gpos: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.
 export const GposTableIo = {
     read(view: BinaryView, trc: TableReadContext) {
         const o = view.next(GsubGposTable, gpos, trc);
-        return new Gpos.Table(o.scripts, o.features, o.lookups, o.featureVariations);
+        return Gpos.Table.create(o.scripts, o.features, o.lookups, o.featureVariations);
     },
     write(frag: Frag, table: Gpos.Table, twc: TableWriteContext) {
         return frag.push(GsubGposTable, table, gpos, twc);

@@ -1,8 +1,7 @@
 import { Constant } from "@ot-builder/prelude";
 
-import { LayoutCommon } from "../common";
-
-import { GposSinglePropT, LookupAlgT, LookupT } from "./general";
+import { LayoutCommon } from "../../common";
+import { GposSinglePropT, LookupAlgT, LookupT } from "../general/lookup";
 
 export class GposSingleLookupT<G, X> implements GposSinglePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;

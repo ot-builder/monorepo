@@ -119,26 +119,31 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 ### Constant <Decl s={Ot.Gsub.Tag}/> = `"GSUB"`
 
-### Class <Decl s={Ot.Gsub.Table} />
+### Type <Decl s={Ot.Gsub.Table} />
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.GsubGpos.Table}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.Table.constructor}/>
+* <Method static long s={Ot.Gsub.Table.create} args={{
+    scripts:optional(map(Tag,Ot.GsubGpos.Script)),
+    features:optional(array(Ot.GsubGpos.Feature)),
+    lookups:optional(array(Ot.GsubGpos.Lookup)),
+    featureVariations:optional(Data.Maybe(Ot.GsubGpos.FeatureVariation)),
+    }}/>
 
-### Class <Decl s={Ot.Gsub.Single}/>
+### Type <Decl s={Ot.Gsub.Single}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gsub.SingleProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.Single.constructor}/>
+* <Method static s={Ot.Gsub.Single.create}/>
 
 ### Datatype <Decl s={Ot.Gsub.SingleProp}/>
 
@@ -150,27 +155,31 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 * <Member s={Ot.Gsub.SingleProp.mapping} type={map(Ot.Glyph, Ot.Glyph)}/>
 
-### Class <Decl s={Ot.Gsub.Multiple}/>
+### Type <Decl s={Ot.Gsub.Multiple}/>
 
-#### Implements
+<R s={Ot.Gsub.Multiple}/> is structurally identical to <R s={Ot.Gsub.Alternate}/>. However their <code>acceptLookupAlgebra</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Multiple}/> responds to <code>gsubMulti</code>, while <R s={Ot.Gsub.Alternate}/> responds to <code>gsubAlternate</code>.
 
-* <R s={Ot.Gsub.MultipleAlternateProp}/>
-* <R s={Ot.GsubGpos.Lookup}/>
-
-#### Constructor
-
-* <Method ctor s={Ot.Gsub.Multiple.constructor}/>
-
-### Class <Decl s={Ot.Gsub.Alternate}/>
-
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gsub.MultipleAlternateProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.Alternate.constructor}/>
+* <Method static s={Ot.Gsub.Multiple.create}/>
+
+### Type <Decl s={Ot.Gsub.Alternate}/>
+
+<R s={Ot.Gsub.Alternate}/> is structurally identical to <R s={Ot.Gsub.Multiple}/>. However their <code>acceptLookupAlgebra</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Multiple}/> responds to <code>gsubMulti</code>, while <R s={Ot.Gsub.Alternate}/> responds to <code>gsubAlternate</code>.
+
+#### Inherits
+
+* <R s={Ot.Gsub.MultipleAlternateProp}/>
+* <R s={Ot.GsubGpos.Lookup}/>
+
+#### Factory Methods
+
+* <Method static s={Ot.Gsub.Alternate.create}/>
 
 ### Datatype <Decl s={Ot.Gsub.MultipleAlternateProp}/>
 
@@ -182,16 +191,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 * <Member s={Ot.Gsub.MultipleAlternateProp.mapping} type={map(Ot.Glyph, readonly(array(Ot.Glyph)))}/>
 
-### Class <Decl s={Ot.Gsub.Ligature}/>
+### Type <Decl s={Ot.Gsub.Ligature}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gsub.LigatureProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.Ligature.constructor}/>
+* <Method static s={Ot.Gsub.Ligature.create}/>
 
 ### Datatype <Decl s={Ot.Gsub.LigatureProp}/>
 
@@ -210,27 +219,29 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 * <Member readonly s={Ot.Gsub.LigatureEntry.from} type={readonly(array(Ot.Glyph))}/>
 * <Member readonly s={Ot.Gsub.LigatureEntry.to} type={Ot.Glyph}/>
 
-### Class <Decl s={Ot.Gsub.Chaining}/>
+### Type <Decl s={Ot.Gsub.Chaining}/>
 
-#### Implements
+<R s={Ot.Gsub.Chaining}/> is structurally identical to <R s={Ot.Gpos.Chaining}/>. However their <code>acceptLookupAlgebra</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Chaining}/> responds to <code>gsubChaining</code>, while <R s={Ot.Gpos.Chaining}/> responds to <code>gposChaining</code>.
+
+#### Inherits
 
 * <R s={Ot.GsubGpos.ChainingProp(Ot.GsubGpos.Lookup)}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.Chaining.constructor}/>
+* <Method static s={Ot.Gsub.Chaining.create}/>
 
-### Class <Decl s={Ot.Gsub.ReverseSub}/>
+### Type <Decl s={Ot.Gsub.ReverseSub}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gsub.ReverseSubProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gsub.ReverseSub.constructor}/>
+* <Method static s={Ot.Gsub.ReverseSub.create}/>
 
 ### Datatype <Decl s={Ot.Gsub.ReverseSubProp}/>
 
@@ -256,26 +267,31 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 ### Constant <Decl s={Ot.Gpos.Tag}/> = `"GPOS"`
 
-### Class <Decl s={Ot.Gpos.Table} />
+### Type <Decl s={Ot.Gpos.Table} />
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.GsubGpos.Table}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.Table.constructor}/>
+* <Method static long s={Ot.Gsub.Table.create} args={{
+    scripts:optional(map(Tag,Ot.GsubGpos.Script)),
+    features:optional(array(Ot.GsubGpos.Feature)),
+    lookups:optional(array(Ot.GsubGpos.Lookup)),
+    featureVariations:optional(Data.Maybe(Ot.GsubGpos.FeatureVariation)),
+    }}/>
 
-### Class <Decl s={Ot.Gpos.Single}/>
+### Type <Decl s={Ot.Gpos.Single}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.SingleProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.Single.constructor}/>
+* <Method static s={Ot.Gpos.Single.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.SingleProp}/>
 
@@ -287,16 +303,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 * <Member s={Ot.Gpos.SingleProp.adjustments} type={map(Ot.Glyph, Ot.Gpos.Adjustment)}/>
 
-### Class <Decl s={Ot.Gpos.Pair}/>
+### Type <Decl s={Ot.Gpos.Pair}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.PairProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.Pair.constructor}/>
+* <Method static s={Ot.Gpos.Pair.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.PairProp}/>
 
@@ -308,16 +324,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 * <Member s={Ot.Gpos.PairProp.adjustments} type={Ot.DicingStore(Ot.Glyph,Ot.Glyph,Ot.Gpos.AdjustmentPair)}/>
 
-### Class <Decl s={Ot.Gpos.Cursive}/>
+### Type <Decl s={Ot.Gpos.Cursive}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.CursiveProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.Cursive.constructor}/>
+* <Method static s={Ot.Gpos.Cursive.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.CursiveProp}/>
 
@@ -329,16 +345,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 
 * <Member s={Ot.Gpos.CursiveProp.attachments} type={map(Ot.Glyph,Ot.Gpos.CursiveAnchorPair)}/>
 
-### Class <Decl s={Ot.Gpos.MarkToBase}/>
+### Type <Decl s={Ot.Gpos.MarkToBase}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.MarkToBaseProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.MarkToBase.constructor}/>
+* <Method static s={Ot.Gpos.MarkToBase.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.MarkToBaseProp}/>
 
@@ -351,16 +367,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 * <Member s={Ot.Gpos.MarkToBaseProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToBaseProp.bases} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Class <Decl s={Ot.Gpos.MarkToLigature}/>
+### Type <Decl s={Ot.Gpos.MarkToLigature}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.MarkToLigatureProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.MarkToLigature.constructor}/>
+* <Method static s={Ot.Gpos.MarkToLigature.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.MarkToLigatureProp}/>
 
@@ -373,16 +389,16 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 * <Member s={Ot.Gpos.MarkToLigatureProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToLigatureProp.bases} type={map(Ot.Glyph,Ot.Gpos.LigatureBaseRecord)}/>
 
-### Class <Decl s={Ot.Gpos.MarkToMark}/>
+### Type <Decl s={Ot.Gpos.MarkToMark}/>
 
-#### Implements
+#### Inherits
 
 * <R s={Ot.Gpos.MarkToMarkProp}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.MarkToMark.constructor}/>
+* <Method static s={Ot.Gpos.MarkToMark.create}/>
 
 ### Datatype <Decl s={Ot.Gpos.MarkToMarkProp}/>
 
@@ -395,16 +411,18 @@ Aliased as <Decl s={Ot.Gsub.LookupAlg("E")}/>, <Decl s={Ot.Gpos.LookupAlg("E")}/
 * <Member s={Ot.Gpos.MarkToMarkProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToMarkProp.baseMarks} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Class <Decl s={Ot.Gpos.Chaining}/>
+### Type <Decl s={Ot.Gpos.Chaining}/>
 
-#### Implements
+<R s={Ot.Gpos.Chaining}/> is structurally identical to <R s={Ot.Gsub.Chaining}/>. However their <code>acceptLookupAlgebra</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Chaining}/> responds to <code>gsubChaining</code>, while <R s={Ot.Gpos.Chaining}/> responds to <code>gposChaining</code>.
+
+#### Inherits
 
 * <R s={Ot.GsubGpos.ChainingProp(Ot.GsubGpos.Lookup)}/>
 * <R s={Ot.GsubGpos.Lookup}/>
 
-#### Constructor
+#### Factory Methods
 
-* <Method ctor s={Ot.Gpos.Chaining.constructor}/>
+* <Method static s={Ot.Gpos.Chaining.create}/>
 
 
 

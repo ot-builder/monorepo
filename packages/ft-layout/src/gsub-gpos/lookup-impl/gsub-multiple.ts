@@ -1,6 +1,6 @@
 import { Constant } from "@ot-builder/prelude";
 
-import { GsubMultipleAlternatePropT, LookupAlgT, LookupT } from "./general";
+import { GsubMultipleAlternatePropT, LookupAlgT, LookupT } from "../general/lookup";
 
 export class GsubMultipleLookupBaseT<G, X> {
     public mapping: Map<G, ReadonlyArray<G>> = new Map();

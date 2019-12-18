@@ -24,7 +24,7 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
         const variation = SetupVariation();
         const { bold, wide } = variation.masters;
 
-        const lookup = new Gpos.MarkToBase();
+        const lookup = Gpos.MarkToBase.create();
         const gidMaxMark = 0x100;
         for (let gid = 0; gid < gidMaxMark; gid++) {
             lookup.marks.set(gOrd.at(gid), {

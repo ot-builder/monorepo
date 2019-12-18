@@ -1,6 +1,11 @@
 import { Constant } from "@ot-builder/prelude";
 
-import { GsubReverseRuleT, GsubReverseSingleSubPropT, LookupAlgT, LookupT } from "./general";
+import {
+    GsubReverseRuleT,
+    GsubReverseSingleSubPropT,
+    LookupAlgT,
+    LookupT
+} from "../general/lookup";
 
 export class GsubReverseSingleSubLookupT<G, X>
     implements GsubReverseSingleSubPropT<G, X>, LookupT<G, X> {

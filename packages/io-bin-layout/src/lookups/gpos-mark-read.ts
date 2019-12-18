@@ -149,7 +149,7 @@ class GposMarkReaderBase {
 export class GposMarkToBaseReader extends GposMarkReaderBase
     implements LookupReader<GsubGpos.Lookup, Gpos.MarkToBase> {
     public createLookup() {
-        return new Gpos.MarkToBase();
+        return Gpos.MarkToBase.create();
     }
     public parseSubtable(
         view: BinaryView,
@@ -162,7 +162,7 @@ export class GposMarkToBaseReader extends GposMarkReaderBase
 export class GposMarkToLigatureReader extends GposMarkReaderBase
     implements LookupReader<GsubGpos.Lookup, Gpos.MarkToLigature> {
     public createLookup() {
-        return new Gpos.MarkToLigature();
+        return Gpos.MarkToLigature.create();
     }
     public parseSubtable(
         view: BinaryView,
@@ -175,7 +175,7 @@ export class GposMarkToLigatureReader extends GposMarkReaderBase
 export class GposMarkToMarkReader extends GposMarkReaderBase
     implements LookupReader<GsubGpos.Lookup, Gpos.MarkToMark> {
     public createLookup() {
-        return new Gpos.MarkToMark();
+        return Gpos.MarkToMark.create();
     }
     public parseSubtable(
         view: BinaryView,

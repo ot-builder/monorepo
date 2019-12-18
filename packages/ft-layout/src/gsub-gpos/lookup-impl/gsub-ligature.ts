@@ -1,6 +1,11 @@
 import { Constant } from "@ot-builder/prelude";
 
-import { GsubLigatureLookupEntryT, GsubLigaturePropT, LookupAlgT, LookupT } from "./general";
+import {
+    GsubLigatureLookupEntryT,
+    GsubLigaturePropT,
+    LookupAlgT,
+    LookupT
+} from "../general/lookup";
 
 export class GsubLigatureLookupT<G, X> implements GsubLigaturePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;

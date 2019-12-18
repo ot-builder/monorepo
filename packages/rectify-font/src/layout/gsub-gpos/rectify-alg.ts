@@ -65,7 +65,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.Single(),
+            blank: Ot.Gsub.Single.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -76,7 +76,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.Multiple(),
+            blank: Ot.Gsub.Multiple.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -91,7 +91,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.Alternate(),
+            blank: Ot.Gsub.Alternate.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -106,7 +106,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.Ligature(),
+            blank: Ot.Gsub.Ligature.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -125,7 +125,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.ReverseSub(),
+            blank: Ot.Gsub.ReverseSub.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -141,7 +141,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposSingle(thProps: Thunk<Ot.Gpos.SingleProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.Single(),
+            blank: Ot.Gpos.Single.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -154,7 +154,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposPair(thProps: Thunk<Ot.Gpos.PairProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.Pair(),
+            blank: Ot.Gpos.Pair.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -179,7 +179,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposCursive(thProps: Thunk<Ot.Gpos.CursiveProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.Cursive(),
+            blank: Ot.Gpos.Cursive.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -195,7 +195,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposMarkToBase(thProps: Thunk<Ot.Gpos.MarkToBaseProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.MarkToBase(),
+            blank: Ot.Gpos.MarkToBase.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -217,7 +217,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposMarkToMark(thProps: Thunk<Ot.Gpos.MarkToMarkProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.MarkToMark(),
+            blank: Ot.Gpos.MarkToMark.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -239,7 +239,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gposMarkToLigature(thProps: Thunk<Ot.Gpos.MarkToLigatureProp>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.MarkToLigature(),
+            blank: Ot.Gpos.MarkToLigature.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -262,7 +262,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
 
     public gsubChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<Rectification>>): Rectification {
         return Rectification({
-            blank: new Ot.Gsub.Chaining(),
+            blank: Ot.Gsub.Chaining.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -272,7 +272,7 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
     }
     public gposChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<Rectification>>): Rectification {
         return Rectification({
-            blank: new Ot.Gpos.Chaining(),
+            blank: Ot.Gpos.Chaining.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);

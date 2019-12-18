@@ -44,10 +44,10 @@ export function rectifyFontGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
         font.gdef = rectifyGdefGlyphs(font.gdef, rec);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutGlyphs(font.gsub, () => new Ot.Gsub.Table(), rec);
+        font.gsub = rectifyLayoutGlyphs(font.gsub, Ot.Gsub.Table.create, rec);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutGlyphs(font.gpos, () => new Ot.Gpos.Table(), rec);
+        font.gpos = rectifyLayoutGlyphs(font.gpos, Ot.Gpos.Table.create, rec);
     }
     if (font.base) {
         font.base = rectifyBaseTableGlyphs(rec, font.base);

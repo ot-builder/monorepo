@@ -24,7 +24,7 @@ describe("GPOS mark-to-ligature lookup handler", () => {
         const variation = SetupVariation();
         const { bold, wide } = variation.masters;
 
-        const lookup = new Gpos.MarkToLigature();
+        const lookup = Gpos.MarkToLigature.create();
         const gidMaxMark = 0x100;
         for (let gid = 0; gid < gidMaxMark; gid++) {
             lookup.marks.set(gOrd.at(gid), {

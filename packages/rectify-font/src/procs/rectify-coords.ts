@@ -64,10 +64,10 @@ function rectifyLayout<GS extends OtGlyphStore>(
         font.gdef = rectifyGdefCoords(font.gdef, recCoord);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutCoord(font.gsub, () => new Ot.Gsub.Table(), recAxes, recCoord);
+        font.gsub = rectifyLayoutCoord(font.gsub, Ot.Gsub.Table.create, recAxes, recCoord);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutCoord(font.gpos, () => new Ot.Gpos.Table(), recAxes, recCoord);
+        font.gpos = rectifyLayoutCoord(font.gpos, Ot.Gpos.Table.create, recAxes, recCoord);
     }
     if (font.base) {
         font.base = rectifyBaseTableCoord(recCoord, font.base);
@@ -81,10 +81,10 @@ function rectifyLayoutPA<GS extends OtGlyphStore>(
         font.gdef = rectifyGdefPointAttachment(font.gdef, recPA);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutPointAttachment(font.gsub, () => new Ot.Gsub.Table(), recPA);
+        font.gsub = rectifyLayoutPointAttachment(font.gsub, Ot.Gsub.Table.create, recPA);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutPointAttachment(font.gpos, () => new Ot.Gpos.Table(), recPA);
+        font.gpos = rectifyLayoutPointAttachment(font.gpos, Ot.Gpos.Table.create, recPA);
     }
     if (font.base) {
         font.base = rectifyBaseTablePointAttachment(recPA, font.base);

@@ -5,7 +5,7 @@ import { RectifyGlyphCoordAlg, rectifyLookupList } from "./rectify-alg";
 describe("GSUB Rectifier", () => {
     test("Rectify circular link", () => {
         const a = Ot.Glyph.create();
-        const chaining = new Ot.Gsub.Chaining();
+        const chaining = Ot.Gsub.Chaining.create();
         chaining.rules.push({
             match: [new Set([a])],
             inputBegins: 0,

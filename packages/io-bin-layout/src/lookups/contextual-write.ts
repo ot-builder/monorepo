@@ -1,6 +1,6 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
@@ -11,6 +11,8 @@ import {
 } from "../gsub-gpos-shared/general";
 import { Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
+
+import { LookupIsGposChainingAlg, LookupIsGsubChainingAlg } from "./lookup-type-alg";
 
 type CompatibleRuleResult = {
     cdBacktrack: GsubGpos.ClassDef;
@@ -344,7 +346,7 @@ export class GsubChainingContextualWriter extends ChainingContextualWriter {
         return this.useChainingLookup(lookup) ? 6 : 5;
     }
     public canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup {
-        return l instanceof Gsub.Chaining;
+        return l.acceptLookupAlgebra(LookupIsGsubChainingAlg);
     }
 }
 export class GposChainingContextualWriter extends ChainingContextualWriter {
@@ -352,6 +354,6 @@ export class GposChainingContextualWriter extends ChainingContextualWriter {
         return this.useChainingLookup(lookup) ? 8 : 7;
     }
     public canBeUsed(l: GsubGpos.Lookup): l is GsubGpos.ChainingLookup {
-        return l instanceof Gpos.Chaining;
+        return l.acceptLookupAlgebra(LookupIsGposChainingAlg);
     }
 }

@@ -13,6 +13,7 @@ import {
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
+import { LookupIsGsubAlternateAlg, LookupIsGsubMultiAlg } from "./lookup-type-alg";
 import { SimpleGidArray } from "./shared-types";
 
 const SubtableFormat1 = {
@@ -29,7 +30,10 @@ const SubtableFormat1 = {
         for (const gid of cov) {
             const pSubst = view.ptr16();
             const substituteGlyphIDs = pSubst.next(SimpleGidArray);
-            lookup.mapping.set(ctx.gOrd.at(gid), substituteGlyphIDs.map(g => ctx.gOrd.at(g)));
+            lookup.mapping.set(
+                ctx.gOrd.at(gid),
+                substituteGlyphIDs.map(g => ctx.gOrd.at(g))
+            );
         }
     },
     write(
@@ -44,7 +48,10 @@ const SubtableFormat1 = {
         for (let to of values) {
             const fSeq = frag.ptr16New();
             fSeq.uint16(to.length);
-            fSeq.array(UInt16, to.map(g => ctx.gOrd.reverse(g)));
+            fSeq.array(
+                UInt16,
+                to.map(g => ctx.gOrd.reverse(g))
+            );
         }
     }
 };
@@ -104,19 +111,19 @@ class GsubMultiAlternateWriterBase {
 export class GsubMultiReader extends GsubMultiAlternateReaderBase
     implements LookupReader<GsubGpos.Lookup, Gsub.Multiple> {
     public createLookup() {
-        return new Gsub.Multiple();
+        return Gsub.Multiple.create();
     }
 }
 export class GsubAlternateReader extends GsubMultiAlternateReaderBase
     implements LookupReader<GsubGpos.Lookup, Gsub.Alternate> {
     public createLookup() {
-        return new Gsub.Alternate();
+        return Gsub.Alternate.create();
     }
 }
 export class GsubMultiWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<GsubGpos.Lookup, Gsub.Multiple> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Multiple {
-        return l instanceof Gsub.Multiple;
+        return l.acceptLookupAlgebra(LookupIsGsubMultiAlg);
     }
     public getLookupType() {
         return 2;
@@ -125,7 +132,7 @@ export class GsubMultiWriter extends GsubMultiAlternateWriterBase
 export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<GsubGpos.Lookup, Gsub.Alternate> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Alternate {
-        return l instanceof Gsub.Alternate;
+        return l.acceptLookupAlgebra(LookupIsGsubAlternateAlg);
     }
     public getLookupType() {
         return 3;

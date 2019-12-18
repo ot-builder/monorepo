@@ -13,6 +13,8 @@ import {
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
+import { LookupIsGsubLigatureAlg } from "./lookup-type-alg";
+
 const SubtableFormat1 = {
     read(
         view: BinaryView,
@@ -73,7 +75,7 @@ const SubtableFormat1 = {
 
 export class GsubLigatureReader implements LookupReader<GsubGpos.Lookup, Gsub.Ligature> {
     public createLookup() {
-        return new Gsub.Ligature();
+        return Gsub.Ligature.create();
     }
 
     public parseSubtable(
@@ -114,7 +116,7 @@ class State {
 
 export class GsubLigatureWriter implements LookupWriter<GsubGpos.Lookup, Gsub.Ligature> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Ligature {
-        return l instanceof Gsub.Ligature;
+        return l.acceptLookupAlgebra(LookupIsGsubLigatureAlg);
     }
     public getLookupType() {
         return 4;

@@ -1,9 +1,8 @@
 import { Constant, Delay } from "@ot-builder/prelude";
 
-import { LayoutCommon } from "../common";
-import { DicingStore, DicingStoreImpl } from "../dicing-store";
-
-import { GposPairPropT, LookupAlgT, LookupT } from "./general";
+import { LayoutCommon } from "../../common";
+import { DicingStore, DicingStoreImpl } from "../../dicing-store";
+import { GposPairPropT, LookupAlgT, LookupT } from "../general/lookup";
 
 // We use a "flat" representation to record all the kerning data here
 export class GposPairLookupT<G, X> implements GposPairPropT<G, X>, LookupT<G, X> {

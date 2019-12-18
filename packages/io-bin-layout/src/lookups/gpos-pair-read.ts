@@ -60,7 +60,7 @@ const SubtableFormat2 = {
 
 export class GposPairReader implements LookupReader<GsubGpos.Lookup, Gpos.Pair> {
     public createLookup() {
-        return new Gpos.Pair();
+        return Gpos.Pair.create();
     }
     public parseSubtable(
         view: BinaryView,
