@@ -9,7 +9,7 @@ import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./test-u
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();
 
-const ll = [new Gsub.Single(), new Gsub.Single(), new Gsub.Single()];
+const ll = [Gsub.Single.create(), Gsub.Single.create(), Gsub.Single.create()];
 const lOrd = ImpLib.Order.fromList(`Lookups`, ll);
 
 const roundtripConfig: LookupRoundTripConfig<Gsub.ReverseSub> = {
@@ -23,7 +23,7 @@ const roundtripConfig: LookupRoundTripConfig<Gsub.ReverseSub> = {
 };
 
 test("GSUB Reverse sub : Simple", () => {
-    const lookup = new Gsub.ReverseSub();
+    const lookup = Gsub.ReverseSub.create();
     lookup.rules.push({
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         doSubAt: 0,

@@ -9,7 +9,7 @@ import {
     GposMarkToMarkPropT,
     LookupAlgT,
     LookupT
-} from "./general";
+} from "../general/lookup";
 
 export class GposMarkLookupBaseT<G, X> {
     public marks = new Map<G, GposMarkRecordT<X>>();

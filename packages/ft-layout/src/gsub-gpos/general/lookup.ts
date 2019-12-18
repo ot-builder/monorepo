@@ -1,7 +1,7 @@
 import { Data, Thunk } from "@ot-builder/prelude";
 
-import { LayoutCommon } from "../common";
-import { DicingStore } from "../dicing-store";
+import { LayoutCommon } from "../../common";
+import { DicingStore } from "../../dicing-store";
 
 /** General lookup type */
 export interface GeneralLookupT<G, X, L> extends LookupPropT<G> {

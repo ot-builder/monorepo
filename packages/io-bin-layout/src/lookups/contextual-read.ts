@@ -270,7 +270,7 @@ export class GsubContextualReader extends ChainingContextualReader {
         super(false);
     }
     public createLookup() {
-        return new Gsub.Chaining();
+        return Gsub.Chaining.create();
     }
 }
 export class GsubChainingReader extends ChainingContextualReader {
@@ -278,7 +278,7 @@ export class GsubChainingReader extends ChainingContextualReader {
         super(true);
     }
     public createLookup() {
-        return new Gsub.Chaining();
+        return Gsub.Chaining.create();
     }
 }
 export class GposContextualReader extends ChainingContextualReader {
@@ -286,7 +286,7 @@ export class GposContextualReader extends ChainingContextualReader {
         super(false);
     }
     public createLookup() {
-        return new Gpos.Chaining();
+        return Gpos.Chaining.create();
     }
 }
 export class GposChainingReader extends ChainingContextualReader {
@@ -294,6 +294,6 @@ export class GposChainingReader extends ChainingContextualReader {
         super(true);
     }
     public createLookup() {
-        return new Gpos.Chaining();
+        return Gpos.Chaining.create();
     }
 }

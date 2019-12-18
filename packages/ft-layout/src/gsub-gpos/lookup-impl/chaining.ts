@@ -6,7 +6,7 @@ import {
     ForwardChainingPropT,
     LookupAlgT,
     LookupT
-} from "./general";
+} from "../general/lookup";
 
 export abstract class ForwardChainingLookupBaseT<G, X> {
     public rightToLeft = false;

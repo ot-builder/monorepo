@@ -14,6 +14,8 @@ import {
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
 
+import { LookupIsGposCursiveAlg } from "./lookup-type-alg";
+
 const SubtableFormat1 = {
     read(view: BinaryView, lookup: Gpos.Cursive, context: SubtableReadingContext<GsubGpos.Lookup>) {
         const format = view.uint16();
@@ -46,7 +48,7 @@ const SubtableFormat1 = {
 
 export class GposCursiveReader implements LookupReader<GsubGpos.Lookup, Gpos.Cursive> {
     public createLookup() {
-        return new Gpos.Cursive();
+        return Gpos.Cursive.create();
     }
 
     public parseSubtable(
@@ -83,7 +85,7 @@ class State {
 
 export class GposCursiveWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Cursive> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gpos.Cursive {
-        return l instanceof Gpos.Cursive;
+        return l.acceptLookupAlgebra(LookupIsGposCursiveAlg);
     }
     public getLookupType() {
         return 3;

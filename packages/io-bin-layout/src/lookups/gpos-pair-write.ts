@@ -10,10 +10,11 @@ import { GposAdjustment } from "../shared/gpos-adjust";
 
 import { ClassMatrix } from "./kern-analyzer/class-matrix";
 import { analyzeOutlier, OutlierTree, shareColumns } from "./kern-analyzer/outliers";
+import { LookupIsGposPairAlg } from "./lookup-type-alg";
 
 export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gpos.Pair {
-        return l instanceof Gpos.Pair;
+        return l.acceptLookupAlgebra(LookupIsGposPairAlg);
     }
     public getLookupType() {
         return 2;

@@ -8,6 +8,12 @@ import { LookupWriter, SubtableSizeLimit, SubtableWriteContext } from "../gsub-g
 import { CovAuxMappingT, CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
 
+import {
+    LookupIsGposMarkToBaseAlg,
+    LookupIsGposMarkToLigatureAlg,
+    LookupIsGposMarkToMarkAlg
+} from "./lookup-type-alg";
+
 type SingleMarkRecord<G> = {
     glyph: G;
     class: number;
@@ -335,7 +341,7 @@ class GposMarkToBaseWriterBase {
 export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToBase> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToBase {
-        return l instanceof Gpos.MarkToBase;
+        return l.acceptLookupAlgebra(LookupIsGposMarkToBaseAlg);
     }
     public getLookupType() {
         return 4;
@@ -350,7 +356,7 @@ export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
 export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToLigature> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToLigature {
-        return l instanceof Gpos.MarkToLigature;
+        return l.acceptLookupAlgebra(LookupIsGposMarkToLigatureAlg);
     }
     public getLookupType() {
         return 5;
@@ -365,7 +371,7 @@ export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
 export class GposMarkToMarkWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToMark> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToMark {
-        return l instanceof Gpos.MarkToMark;
+        return l.acceptLookupAlgebra(LookupIsGposMarkToMarkAlg);
     }
     public getLookupType() {
         return 6;

@@ -20,7 +20,7 @@ describe("GSUB multi/alternate lookup handler", () => {
     };
 
     test("Exhaustive", () => {
-        const lookup = new Gsub.Multiple();
+        const lookup = Gsub.Multiple.create();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.set(gOrd.at(gid), [
                 gOrd.at((gid + 0x30) % gOrd.length),
@@ -32,7 +32,7 @@ describe("GSUB multi/alternate lookup handler", () => {
     });
 
     test("Simple", () => {
-        const lookup = new Gsub.Multiple();
+        const lookup = Gsub.Multiple.create();
         for (let gid = 0; gid < gOrd.length / 4; gid++) {
             lookup.mapping.set(gOrd.at(gid), [
                 gOrd.at((gid + 0x30) % gOrd.length),

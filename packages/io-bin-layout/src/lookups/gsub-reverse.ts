@@ -11,6 +11,7 @@ import {
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
+import { LookupIsGsubReverseAlg } from "./lookup-type-alg";
 import { SimpleCoverageArray } from "./shared-types";
 
 const SubtableFormat1 = {
@@ -59,7 +60,7 @@ const SubtableFormat1 = {
 
 export class GsubReverseReader implements LookupReader<GsubGpos.Lookup, Gsub.ReverseSub> {
     public createLookup() {
-        return new Gsub.ReverseSub();
+        return Gsub.ReverseSub.create();
     }
     public parseSubtable(
         view: BinaryView,
@@ -79,7 +80,7 @@ export class GsubReverseReader implements LookupReader<GsubGpos.Lookup, Gsub.Rev
 
 export class GsubReverseWriter implements LookupWriter<GsubGpos.Lookup, Gsub.ReverseSub> {
     public canBeUsed(l: GsubGpos.Lookup): l is Gsub.ReverseSub {
-        return l instanceof Gsub.ReverseSub;
+        return l.acceptLookupAlgebra(LookupIsGsubReverseAlg);
     }
     public getLookupType() {
         return 8;

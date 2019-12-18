@@ -1,6 +1,6 @@
 import { Constant } from "@ot-builder/prelude";
 
-import { GsubSinglePropT, LookupAlgT, LookupT } from "./general";
+import { GsubSinglePropT, LookupAlgT, LookupT } from "../general/lookup";
 
 export class GsubSingleLookupT<G, X> implements GsubSinglePropT<G, X>, LookupT<G, X> {
     public rightToLeft = false;
