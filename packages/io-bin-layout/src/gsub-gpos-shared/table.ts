@@ -9,11 +9,11 @@ import { OtVar } from "@ot-builder/variance";
 
 import { OtlStat } from "../stat";
 
-import { FeatureList } from "./feature-list";
-import { FeatureVariations } from "./feature-variation";
+import { CFeatureList } from "./feature-list";
+import { CFeatureVariations } from "./feature-variation";
 import { LookupReaderFactory, LookupWriterFactory } from "./general";
-import { LookupReadContext, ReadLookupList } from "./read-lookup-list";
-import { ScriptList } from "./script-lang";
+import { CReadLookupList, LookupReadContext } from "./read-lookup-list";
+import { CScriptList } from "./script-lang";
 import { setLookupTricks } from "./trick";
 import { LookupWriteContext, WriteLookupList } from "./write-lookup-list";
 
@@ -33,8 +33,8 @@ export interface TableWriteContext {
     stat?: Data.Maybe<OtlStat>;
 }
 
-export const GsubGposTable = {
-    read(view: BinaryView, lrf: LookupReaderFactory<GsubGpos.Lookup>, trc: TableReadContext) {
+export class CGsubGposTable<L extends GsubGpos.LookupProp> {
+    public read(view: BinaryView, lrf: LookupReaderFactory<L>, trc: TableReadContext) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("Table", majorVersion, minorVersion, [1, 0], [1, 1]);
@@ -45,35 +45,41 @@ export const GsubGposTable = {
         const vFeatureVariation = minorVersion > 0 ? view.ptr32Nullable() : null;
 
         const lrc: LookupReadContext = { ...trc };
-        const lookups = vLookupList.next(ReadLookupList, lrf, lrc);
+        const lookups = vLookupList.next(new CReadLookupList<L>(), lrf, lrc);
         const lOrd = ImpLib.Order.fromList(`Lookups`, lookups);
-        const features = vFeatureList.next(FeatureList, lOrd);
+        const features = vFeatureList.next(new CFeatureList<L>(), lOrd);
         const fOrd = ImpLib.Order.fromList(`Features`, features);
-        const scripts = vScriptList.next(ScriptList, fOrd);
+        const scripts = vScriptList.next(new CScriptList<L>(), fOrd);
 
         const featureVariations =
             vFeatureVariation && trc.axes && trc.axes.length
-                ? vFeatureVariation.next(FeatureVariations, trc.axes, fOrd, lOrd)
+                ? vFeatureVariation.next(new CFeatureVariations<L>(), trc.axes, fOrd, lOrd)
                 : null;
 
         return { scripts, features, lookups, featureVariations };
-    },
-    write(
+    }
+    public write(
         frag: Frag,
-        table: GsubGpos.Table,
-        lwf: LookupWriterFactory<GsubGpos.Lookup>,
+        table: GsubGpos.Table<L>,
+        lwf: LookupWriterFactory<L>,
         twc: TableWriteContext
     ) {
-        const lwc: LookupWriteContext = { ...twc, tricks: setLookupTricks(table) };
+        const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
         const lOrd = ImpLib.Order.fromList(`Lookups`, table.lookups);
-        const fFeatures = Frag.solidFrom(FeatureList, table.features, lOrd);
+        const fFeatures = Frag.solidFrom(new CFeatureList<L>(), table.features, lOrd);
         const fOrd = ImpLib.Order.fromList(`Features`, table.features);
-        const fScripts = Frag.solidFrom(ScriptList, table.scripts, fOrd);
+        const fScripts = Frag.solidFrom(new CScriptList<L>(), table.scripts, fOrd);
         const fFeatureVariations =
             !table.featureVariations || !twc.axes || !twc.axes.length
                 ? null
-                : Frag.solidFrom(FeatureVariations, table.featureVariations, twc.axes, fOrd, lOrd);
+                : Frag.solidFrom(
+                      new CFeatureVariations<L>(),
+                      table.featureVariations,
+                      twc.axes,
+                      fOrd,
+                      lOrd
+                  );
 
         // Write it!
         const minorVersion = fFeatureVariations ? 1 : 0;
@@ -83,4 +89,4 @@ export const GsubGposTable = {
         frag.ptr16(fLookups);
         if (minorVersion) frag.ptr32(fFeatureVariations);
     }
-};
+}

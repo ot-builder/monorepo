@@ -16,7 +16,7 @@ export interface LookupReadContext {
     ivs?: Data.Maybe<ReadTimeIVS>;
 }
 
-class CReadLookupList {
+export class CReadLookupList<L extends GsubGpos.LookupProp> {
     private readExtensionSubtables(subtableViews: BinaryView[]) {
         let extensionLookupType: undefined | number = undefined;
         let realSubtables: BinaryView[] = [];
@@ -82,7 +82,7 @@ class CReadLookupList {
         }
     }
 
-    private applyIgnoreSet<L extends GsubGpos.Lookup>(
+    private applyIgnoreSet(
         lookup: L,
         flags: number,
         markFilteringSet: Data.Maybe<number>,
@@ -97,14 +97,10 @@ class CReadLookupList {
         if (ignores.size) lookup.ignoreGlyphs = ignores;
     }
 
-    public read(
-        view: BinaryView,
-        lrf: LookupReaderFactory<GsubGpos.Lookup>,
-        lrc: LookupReadContext
-    ) {
+    public read(view: BinaryView, lrf: LookupReaderFactory<L>, lrc: LookupReadContext) {
         const lookupCount = view.uint16();
-        let lookups: GsubGpos.Lookup[] = [];
-        let readers: LookupReader<GsubGpos.Lookup, any>[] = [];
+        let lookups: L[] = [];
+        let readers: LookupReader<L, any>[] = [];
         let subtables: BinaryView[][] = [];
         for (let lid = 0; lid < lookupCount; lid++) {
             const vLookup = view.ptr16();
@@ -151,5 +147,3 @@ class CReadLookupList {
         return lookups;
     }
 }
-
-export const ReadLookupList = new CReadLookupList();

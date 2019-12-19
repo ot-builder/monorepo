@@ -11,7 +11,7 @@ describe("GPOS mark-to-base lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gpos.MarkToBase> = {
+    const roundtripConfig: LookupRoundTripConfig<Gpos.Lookup, Gpos.MarkToBase> = {
         gOrd,
         writer: () => new GposMarkToBaseWriter(),
         reader: () => new GposMarkToBaseReader(),

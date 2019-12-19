@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ft-layout";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
@@ -8,7 +8,7 @@ import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
 
 const SubtableFormat1 = {
-    read(view: BinaryView, lookup: Gpos.Pair, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gpos.Pair, context: SubtableReadingContext<Gpos.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`PairPosFormat1`, format, 1);
         const cov = view.next(Ptr16GidCoverage);
@@ -33,7 +33,7 @@ const SubtableFormat1 = {
 };
 
 const SubtableFormat2 = {
-    read(view: BinaryView, lookup: Gpos.Pair, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gpos.Pair, context: SubtableReadingContext<Gpos.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`PairPosFormat2`, format, 2);
         const cov = view.next(Ptr16GidCoverage);
@@ -58,14 +58,14 @@ const SubtableFormat2 = {
     }
 };
 
-export class GposPairReader implements LookupReader<GsubGpos.Lookup, Gpos.Pair> {
+export class GposPairReader implements LookupReader<Gpos.Lookup, Gpos.Pair> {
     public createLookup() {
         return Gpos.Pair.create();
     }
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Pair,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {

@@ -1,16 +1,14 @@
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Tag } from "@ot-builder/primitive";
 
-import { SubtableWriteTrick } from "./general";
-
-export function setLookupTricks(table: GsubGpos.Table) {
-    const tricks: Map<GsubGpos.Lookup, number> = new Map();
+export function setLookupTricks<L>(table: GsubGpos.Table<L>) {
+    const tricks: Map<L, number> = new Map();
     return tricks;
 }
 
-function setLookupTrickByFeatureTag(
-    table: GsubGpos.Table,
-    tricks: Map<GsubGpos.Lookup, number>,
+function setLookupTrickByFeatureTag<L>(
+    table: GsubGpos.Table<L>,
+    tricks: Map<L, number>,
     tagSet: Set<Tag>,
     trick: number
 ) {
@@ -28,11 +26,7 @@ function setLookupTrickByFeatureTag(
     }
 }
 
-function setTricksForLookupSet(
-    tricks: Map<GsubGpos.Lookup, number>,
-    lookups: Iterable<GsubGpos.Lookup>,
-    trick: number
-) {
+function setTricksForLookupSet<L>(tricks: Map<L, number>, lookups: Iterable<L>, trick: number) {
     for (const lookup of lookups) {
         tricks.set(lookup, (tricks.get(lookup) || 0) | trick);
     }

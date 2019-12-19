@@ -1,10 +1,14 @@
 import { Frag } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { LookupWriter, SubtableSizeLimit, SubtableWriteContext } from "../gsub-gpos-shared/general";
+import {
+    LookupWriter,
+    SubtableSizeLimit,
+    SubtableWriteContext
+} from "../gsub-gpos-shared/general";
 import { CovAuxMappingT, CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
 
@@ -29,7 +33,7 @@ const MarkArray = {
         frag: Frag,
         axm: CovAuxMappingT<SingleMarkRecord<OtGlyph>>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         frag.uint16(axm.length); // markCount
         for (const [gid, smr] of axm) {
@@ -52,7 +56,7 @@ const BaseArray = {
         frag: Frag,
         axm: CovAuxMappingT<Gpos.BaseRecord>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         frag.uint16(axm.length);
         for (const [gid, br] of axm) {
@@ -78,7 +82,7 @@ const LigatureArray = {
         frag: Frag,
         axm: CovAuxMappingT<Gpos.LigatureBaseRecord>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         frag.uint16(axm.length);
         for (const [gid, br] of axm) {
@@ -210,7 +214,7 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
             return [...upper.autoBisect(limit, d + 1), ...lower.autoBisect(limit, d + 1)];
         }
     }
-    public write(frag: Frag, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const axmMarks = this.getMarkAxm(ctx.gOrd);
         const axmBases = CovUtils.auxMapFromMapExcl(this.bases, ctx.gOrd, this.exclude);
 
@@ -269,7 +273,7 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
             return [...upper.autoBisect(limit), ...lower.autoBisect(limit)];
         }
     }
-    public write(frag: Frag, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const axmMarks = this.getMarkAxm(ctx.gOrd);
         const axmBases = CovUtils.auxMapFromMapExcl(this.bases, ctx.gOrd, this.exclude);
 
@@ -311,7 +315,7 @@ class GposMarkToBaseWriterBase {
     protected createSubtableFragmentsForMarkBase(
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.BaseRecord>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);
         let plans: MarkBaseWritePlan[] = [];
@@ -325,7 +329,7 @@ class GposMarkToBaseWriterBase {
     protected createSubtableFragmentsForMarkLigature(
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);
         let plans: MarkLigatureWritePlan[] = [];
@@ -339,46 +343,46 @@ class GposMarkToBaseWriterBase {
 }
 
 export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
-    implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToBase> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToBase {
-        return l.acceptLookupAlgebra(LookupIsGposMarkToBaseAlg);
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToBase {
+        return l.apply(LookupIsGposMarkToBaseAlg);
     }
     public getLookupType() {
         return 4;
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToBase,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         return this.createSubtableFragmentsForMarkBase(lookup.marks, lookup.bases, ctx);
     }
 }
 export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
-    implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToLigature> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToLigature {
-        return l.acceptLookupAlgebra(LookupIsGposMarkToLigatureAlg);
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToLigature {
+        return l.apply(LookupIsGposMarkToLigatureAlg);
     }
     public getLookupType() {
         return 5;
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToLigature,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         return this.createSubtableFragmentsForMarkLigature(lookup.marks, lookup.bases, ctx);
     }
 }
 export class GposMarkToMarkWriter extends GposMarkToBaseWriterBase
-    implements LookupWriter<GsubGpos.Lookup, Gpos.MarkToMark> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.MarkToMark {
-        return l.acceptLookupAlgebra(LookupIsGposMarkToMarkAlg);
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToMark {
+        return l.apply(LookupIsGposMarkToMarkAlg);
     }
     public getLookupType() {
         return 6;
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToMark,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         return this.createSubtableFragmentsForMarkBase(lookup.marks, lookup.baseMarks, ctx);
     }

@@ -174,14 +174,14 @@ function processGlyph(
     if (gs.processed.has(glyph)) return;
 
     if (glyph.geometry) {
-        glyph.geometry = glyph.geometry.acceptGeometryAlgebra(
+        glyph.geometry = glyph.geometry.apply(
             new OtGhRectifyGeomPointAttachmentAlg(recCoord, recPA, gs)
         )({
             points: []
         });
     }
     if (glyph.hints) {
-        glyph.hints = glyph.hints.acceptHintAlgebra(new RectifyHintCoordAlg(recCoord));
+        glyph.hints = glyph.hints.apply(new RectifyHintCoordAlg(recCoord));
     }
     glyph.horizontal = {
         start: recCoord.coord(glyph.horizontal.start),

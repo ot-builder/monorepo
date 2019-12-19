@@ -12,7 +12,7 @@ describe("GSUB single lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gsub.Single> = {
+    const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Single> = {
         gOrd,
         writer: () => new GsubSingleWriter(),
         reader: () => new GsubSingleReader(),

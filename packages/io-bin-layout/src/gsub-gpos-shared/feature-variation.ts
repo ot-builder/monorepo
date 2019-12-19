@@ -6,42 +6,41 @@ import { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16, UInt32 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
-import { FeatureTable } from "./feature-list";
+import { CFeatureTable } from "./feature-list";
 
-type Feature = GsubGpos.Feature;
-type Lookup = GsubGpos.Lookup;
+type Feature<L> = GsubGpos.Feature<L>;
 type Condition = GsubGpos.FeatureVariationCondition;
-type FeatureVariation = GsubGpos.FeatureVariation;
+type FeatureVariation<L> = GsubGpos.FeatureVariation<L>;
 
-const FeatureTableSubstitution = {
-    read(view: BinaryView, fOrd: Data.Order<Feature>, lOrd: Data.Order<Lookup>) {
+class CFeatureTableSubstitution<L> {
+    public read(view: BinaryView, fOrd: Data.Order<Feature<L>>, lOrd: Data.Order<L>) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("FeatureTableSubstitution", majorVersion, minorVersion, [1, 0]);
-        const subst = new Map<Feature, Feature>();
+        const subst = new Map<Feature<L>, Feature<L>>();
         const count = view.uint16();
         for (let iFs = 0; iFs < count; iFs++) {
             const feature = fOrd.at(view.uint16());
-            const altFeature = view.ptr32().next(FeatureTable, lOrd, feature.tag);
+            const altFeature = view.ptr32().next(new CFeatureTable<L>(), lOrd, feature.tag);
             subst.set(feature, altFeature);
         }
         return subst;
-    },
-    write(
+    }
+    public write(
         frag: Frag,
-        subst: ReadonlyMap<Feature, Feature>,
-        fOrd: Data.Order<Feature>,
-        lOrd: Data.Order<Lookup>
+        subst: ReadonlyMap<Feature<L>, Feature<L>>,
+        fOrd: Data.Order<Feature<L>>,
+        lOrd: Data.Order<L>
     ) {
         frag.uint16(1)
             .uint16(0)
             .uint16(subst.size);
         for (const [from, to] of subst) {
             frag.uint16(fOrd.reverse(from));
-            frag.ptr32New().push(FeatureTable, to, lOrd);
+            frag.ptr32New().push(new CFeatureTable<L>(), to, lOrd);
         }
     }
-};
+}
 
 const ConditionTable = {
     read(view: BinaryView, axes: Data.Order<OtVar.Axis>): Condition {
@@ -62,50 +61,52 @@ const ConditionTable = {
 const Ptr32Condition = NonNullablePtr32(ConditionTable);
 const ConditionSet = SimpleArray(UInt16, Ptr32Condition);
 
-const FeatureVariationRecord = {
-    read(
+class CFeatureVariationRecord<L> {
+    public read(
         view: BinaryView,
         axes: Data.Order<OtVar.Axis>,
-        fOrd: Data.Order<Feature>,
-        lOrd: Data.Order<Lookup>
-    ): FeatureVariation {
+        fOrd: Data.Order<Feature<L>>,
+        lOrd: Data.Order<L>
+    ): FeatureVariation<L> {
         const conditions = view.ptr32().next(ConditionSet, axes);
-        const substitutions = view.ptr32().next(FeatureTableSubstitution, fOrd, lOrd);
+        const substitutions = view.ptr32().next(new CFeatureTableSubstitution<L>(), fOrd, lOrd);
         return { conditions, substitutions };
-    },
-    write(
+    }
+    public write(
         frag: Frag,
-        fv: FeatureVariation,
+        fv: FeatureVariation<L>,
         axes: Data.Order<OtVar.Axis>,
-        fOrd: Data.Order<Feature>,
-        lOrd: Data.Order<Lookup>
+        fOrd: Data.Order<Feature<L>>,
+        lOrd: Data.Order<L>
     ) {
         frag.ptr32New().push(ConditionSet, fv.conditions, axes);
-        frag.ptr32New().push(FeatureTableSubstitution, fv.substitutions, fOrd, lOrd);
+        frag.ptr32New().push(new CFeatureTableSubstitution<L>(), fv.substitutions, fOrd, lOrd);
     }
-};
-const FeatureVariationRecordList = SimpleArray(UInt32, FeatureVariationRecord);
+}
+function CFeatureVariationRecordList<L>() {
+    return SimpleArray(UInt32, new CFeatureVariationRecord<L>());
+}
 
-export const FeatureVariations = {
-    read(
+export class CFeatureVariations<L> {
+    public read(
         view: BinaryView,
         axes: Data.Order<OtVar.Axis>,
-        fOrd: Data.Order<Feature>,
-        lOrd: Data.Order<Lookup>
+        fOrd: Data.Order<Feature<L>>,
+        lOrd: Data.Order<L>
     ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("FeatureTableSubstitution", majorVersion, minorVersion, [1, 0]);
-        return view.next(FeatureVariationRecordList, axes, fOrd, lOrd);
-    },
-    write(
+        return view.next(CFeatureVariationRecordList<L>(), axes, fOrd, lOrd);
+    }
+    public write(
         frag: Frag,
-        fv: readonly FeatureVariation[],
+        fv: readonly FeatureVariation<L>[],
         axes: Data.Order<OtVar.Axis>,
-        fOrd: Data.Order<Feature>,
-        lOrd: Data.Order<Lookup>
+        fOrd: Data.Order<Feature<L>>,
+        lOrd: Data.Order<L>
     ) {
         frag.uint16(1).uint16(0);
-        frag.push(FeatureVariationRecordList, fv, axes, fOrd, lOrd);
+        frag.push(CFeatureVariationRecordList<L>(), fv, axes, fOrd, lOrd);
     }
-};
+}

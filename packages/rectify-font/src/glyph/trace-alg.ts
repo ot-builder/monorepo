@@ -7,7 +7,7 @@ export function traceGlyphDependents(g: Ot.Glyph): GlyphTraceProc {
     return tracer => {
         if (!tracer.has(g)) return;
         if (!g.geometry) return;
-        return g.geometry.acceptGeometryAlgebra(new TraceGlyphsAlg())(tracer);
+        return g.geometry.apply(new TraceGlyphsAlg())(tracer);
     };
 }
 
@@ -31,7 +31,7 @@ function RefProc(target: Ot.Glyph) {
         if (tracer.has(target)) return;
         tracer.add(target);
         if (target.geometry) {
-            target.geometry.acceptGeometryAlgebra(new TraceGlyphsAlg())(tracer);
+            target.geometry.apply(new TraceGlyphsAlg())(tracer);
         }
     };
 }

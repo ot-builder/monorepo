@@ -5,10 +5,10 @@ import { GsubGpos } from "@ot-builder/ft-layout";
 import { LookupCtx, StdCompare } from "../../compar-util";
 
 export namespace ChainingLookupIdentity {
-    function ruleMatch(
-        bmg: LookupCtx<OtGlyph, GsubGpos.Lookup>,
-        rExp: GsubGpos.ChainingRule<GsubGpos.Lookup>,
-        rAct: GsubGpos.ChainingRule<GsubGpos.Lookup>
+    function ruleMatch<L>(
+        bmg: LookupCtx<OtGlyph, L>,
+        rExp: GsubGpos.ChainingRule<L>,
+        rAct: GsubGpos.ChainingRule<L>
     ) {
         if (rExp.match.length !== rAct.match.length) return false;
         if (rExp.inputBegins !== rAct.inputBegins) return false;
@@ -28,10 +28,10 @@ export namespace ChainingLookupIdentity {
         }
         return true;
     }
-    function testSingle(
-        bmg: LookupCtx<OtGlyph, GsubGpos.Lookup>,
-        expected: GsubGpos.ChainingLookup,
-        actual: GsubGpos.ChainingLookup
+    function testSingle<L>(
+        bmg: LookupCtx<OtGlyph, L>,
+        expected: GsubGpos.ChainingProp<L>,
+        actual: GsubGpos.ChainingProp<L>
     ) {
         for (const rExp of expected.rules) {
             let foundMatchRule = false;

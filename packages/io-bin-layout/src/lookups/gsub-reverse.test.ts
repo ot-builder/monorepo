@@ -12,7 +12,7 @@ const gOrd = gStore.decideOrder();
 const ll = [Gsub.Single.create(), Gsub.Single.create(), Gsub.Single.create()];
 const lOrd = ImpLib.Order.fromList(`Lookups`, ll);
 
-const roundtripConfig: LookupRoundTripConfig<Gsub.ReverseSub> = {
+const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.ReverseSub> = {
     gOrd,
     lOrd,
     writer: () => new GsubReverseWriter(),

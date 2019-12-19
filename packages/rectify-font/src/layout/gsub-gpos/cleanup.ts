@@ -4,25 +4,22 @@ import { Data } from "@ot-builder/prelude";
 import { AxisRectifier } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
-import { LookupRemovableAlg } from "./lookup-removable-alg";
-
-export function cleanupGsubGposData<Table extends Ot.GsubGpos.Table>(
+export function cleanupGsubGposData<L, Table extends Ot.GsubGpos.Table<L>>(
     table: Table,
-    tableFactory: () => Table,
-    lookupCorrespondence: Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>
+    newTable: Table,
+    lookupCorrespondence: Map<L, L>,
+    fnRemovable: (lookup: L) => boolean
 ) {
-    const newTable = tableFactory();
-    const removableAlg = new LookupRemovableAlg();
-    let lookups: Ot.GsubGpos.Lookup[] = [];
+    let lookups: L[] = [];
     for (const lookup of [...lookupCorrespondence.values()]) {
-        if (!lookup.acceptLookupAlgebra(removableAlg)) lookups.push(lookup);
+        if (!fnRemovable(lookup)) lookups.push(lookup);
     }
 
     newTable.lookups = lookups;
     const lookupSet = new Set(lookups);
     if (!lookupSet.size) return null;
 
-    let featureCorrespondence: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature> = new Map();
+    let featureCorrespondence: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>> = new Map();
     newTable.features = RectifyImpl.Elim.listSomeT(
         table.features,
         cleanupFeature,
@@ -54,13 +51,13 @@ export function cleanupGsubGposData<Table extends Ot.GsubGpos.Table>(
     return newTable;
 }
 
-function cleanupFeature(
-    ft: Ot.GsubGpos.Feature,
-    lookupCorrespondence: Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>,
-    ls: ReadonlySet<Ot.GsubGpos.Lookup>,
-    featureCorrespondence: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature>,
+function cleanupFeature<L>(
+    ft: Ot.GsubGpos.Feature<L>,
+    lookupCorrespondence: Map<L, L>,
+    ls: ReadonlySet<L>,
+    featureCorrespondence: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>>,
     keepEmptyFeature: boolean
-): null | Ot.GsubGpos.Feature {
+): null | Ot.GsubGpos.Feature<L> {
     const l1 = RectifyImpl.Elim.listSome(
         ft.lookups.map(l => lookupCorrespondence.get(l)),
         ls
@@ -71,10 +68,10 @@ function cleanupFeature(
     return ft1;
 }
 
-function cleanupLanguage(
-    la: Data.Maybe<Ot.GsubGpos.Language>,
-    fs: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature>
-): null | Ot.GsubGpos.Language {
+function cleanupLanguage<L>(
+    la: Data.Maybe<Ot.GsubGpos.Language<L>>,
+    fs: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>>
+): null | Ot.GsubGpos.Language<L> {
     if (!la) return null;
     const requiredFeature1 = RectifyImpl.Elim.findInMap(la.requiredFeature, fs);
     const features1 = RectifyImpl.Elim.listSomeT(la.features, f =>
@@ -84,24 +81,24 @@ function cleanupLanguage(
     return { requiredFeature: requiredFeature1, features: features1 };
 }
 
-function cleanupScript(
-    sc: Ot.GsubGpos.Script,
-    fs: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature>
-): null | Ot.GsubGpos.Script {
+function cleanupScript<L>(
+    sc: Ot.GsubGpos.Script<L>,
+    fs: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>>
+): null | Ot.GsubGpos.Script<L> {
     const defaultLanguage = cleanupLanguage(sc.defaultLanguage, fs);
     const languages = RectifyImpl.Elim.comapSomeT(sc.languages, cleanupLanguage, fs);
     if (!defaultLanguage && !languages.size) return null;
     else return { defaultLanguage, languages };
 }
 
-function cleanupFeatureVariation(
-    fv: Ot.GsubGpos.FeatureVariation,
-    lookupCorrespondence: Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>,
-    ls: ReadonlySet<Ot.GsubGpos.Lookup>,
-    featureCorrespondence: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature>,
-    fs: ReadonlySet<Ot.GsubGpos.Feature>
-): null | Ot.GsubGpos.FeatureVariation {
-    let subst: Map<Ot.GsubGpos.Feature, Ot.GsubGpos.Feature> = new Map();
+function cleanupFeatureVariation<L>(
+    fv: Ot.GsubGpos.FeatureVariation<L>,
+    lookupCorrespondence: Map<L, L>,
+    ls: ReadonlySet<L>,
+    featureCorrespondence: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>>,
+    fs: ReadonlySet<Ot.GsubGpos.Feature<L>>
+): null | Ot.GsubGpos.FeatureVariation<L> {
+    let subst: Map<Ot.GsubGpos.Feature<L>, Ot.GsubGpos.Feature<L>> = new Map();
     for (const [from, to] of fv.substitutions) {
         const from1 = RectifyImpl.Elim.findInSet(from, fs);
         const to1 = cleanupFeature(to, lookupCorrespondence, ls, featureCorrespondence, true);
@@ -111,7 +108,10 @@ function cleanupFeatureVariation(
     else return { ...fv, substitutions: subst };
 }
 
-export function axesRectifyFeatureVariation(rec: AxisRectifier, fv: Ot.GsubGpos.FeatureVariation) {
+export function axesRectifyFeatureVariation<L>(
+    rec: AxisRectifier,
+    fv: Ot.GsubGpos.FeatureVariation<L>
+) {
     fv.conditions = RectifyImpl.listSomeT(rec, fv.conditions, (r, c) => {
         const a1 = r.axis(c.axis);
         if (a1) return { ...c, axis: a1 };

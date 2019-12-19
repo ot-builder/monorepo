@@ -27,8 +27,8 @@ export class OtGlyphImpl implements OtGlyphInterface {
         return alg.glyph(
             this.horizontal,
             this.vertical,
-            geom && algGeom ? Delay(() => geom.acceptGeometryAlgebra(algGeom)) : undefined,
-            hints && algHints ? Delay(() => hints.acceptHintAlgebra(algHints)) : undefined
+            geom && algGeom ? Delay(() => geom.apply(algGeom)) : undefined,
+            hints && algHints ? Delay(() => hints.apply(algHints)) : undefined
         );
     }
 }

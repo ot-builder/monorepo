@@ -1,7 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import { Thunk } from "@ot-builder/prelude";
 
-export class LookupRemovableAlg implements Ot.GsubGpos.LookupAlg<boolean> {
+export class CLookupRemovableAlg
+    implements Ot.Gsub.LookupAlg<boolean>, Ot.Gpos.LookupAlg<boolean> {
     public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): boolean {
         const props = thProps.force();
         return !props.mapping.size;
@@ -65,3 +66,5 @@ export class LookupRemovableAlg implements Ot.GsubGpos.LookupAlg<boolean> {
         return !props.rules.length;
     }
 }
+
+export const LookupRemovableAlg = new CLookupRemovableAlg();

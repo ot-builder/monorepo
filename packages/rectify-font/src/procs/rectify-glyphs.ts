@@ -7,7 +7,7 @@ import { RectifyGeomGlyphAlg } from "../glyph/glyph-alg";
 import { GlyphRectifier } from "../interface";
 import { rectifyBaseTableGlyphs } from "../layout/base";
 import { rectifyGdefGlyphs } from "../layout/gdef";
-import { rectifyLayoutGlyphs } from "../layout/gsub-gpos";
+import { rectifyGposGlyphs, rectifyGsubGlyphs } from "../layout/gsub-gpos";
 
 function rectifyFontGlyphStore<GS extends Data.OrderStore<Ot.Glyph>>(
     rec: GlyphRectifier,
@@ -24,7 +24,7 @@ function rectifyFontGlyphStore<GS extends Data.OrderStore<Ot.Glyph>>(
     const alg = new RectifyGeomGlyphAlg(rec);
     for (const g1 of gList1) {
         if (g1.geometry) {
-            g1.geometry = g1.geometry.acceptGeometryAlgebra(alg);
+            g1.geometry = g1.geometry.apply(alg);
         }
     }
 
@@ -44,10 +44,10 @@ export function rectifyFontGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
         font.gdef = rectifyGdefGlyphs(font.gdef, rec);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutGlyphs(font.gsub, Ot.Gsub.Table.create, rec);
+        font.gsub = rectifyGsubGlyphs(font.gsub, rec);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutGlyphs(font.gpos, Ot.Gpos.Table.create, rec);
+        font.gpos = rectifyGposGlyphs(font.gpos, rec);
     }
     if (font.base) {
         font.base = rectifyBaseTableGlyphs(rec, font.base);

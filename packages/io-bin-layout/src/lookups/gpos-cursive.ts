@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -17,7 +17,7 @@ import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
 import { LookupIsGposCursiveAlg } from "./lookup-type-alg";
 
 const SubtableFormat1 = {
-    read(view: BinaryView, lookup: Gpos.Cursive, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gpos.Cursive, context: SubtableReadingContext<Gpos.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`CursivePosFormat1`, format, 1);
         const coverage = view.ptr16().next(GidCoverage);
@@ -32,7 +32,7 @@ const SubtableFormat1 = {
     write(
         frag: Frag,
         mapping: Map<OtGlyph, Gpos.CursiveAnchorPair>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
@@ -46,7 +46,7 @@ const SubtableFormat1 = {
     }
 };
 
-export class GposCursiveReader implements LookupReader<GsubGpos.Lookup, Gpos.Cursive> {
+export class GposCursiveReader implements LookupReader<Gpos.Lookup, Gpos.Cursive> {
     public createLookup() {
         return Gpos.Cursive.create();
     }
@@ -54,7 +54,7 @@ export class GposCursiveReader implements LookupReader<GsubGpos.Lookup, Gpos.Cur
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Cursive,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -83,23 +83,20 @@ class State {
     }
 }
 
-export class GposCursiveWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Cursive> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.Cursive {
-        return l.acceptLookupAlgebra(LookupIsGposCursiveAlg);
+export class GposCursiveWriter implements LookupWriter<Gpos.Lookup, Gpos.Cursive> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.Cursive {
+        return l.apply(LookupIsGposCursiveAlg);
     }
     public getLookupType() {
         return 3;
     }
 
-    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<Gpos.Lookup>) {
         if (!state.mapping.size) return;
         frags.push(Frag.from(SubtableFormat1, state.mapping, ctx));
     }
 
-    public createSubtableFragments(
-        lookup: Gpos.Cursive,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
-    ) {
+    public createSubtableFragments(lookup: Gpos.Cursive, ctx: SubtableWriteContext<Gpos.Lookup>) {
         let state = new State();
         let frags: Frag[] = [];
         for (const [from, to] of lookup.attachments) {

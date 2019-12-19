@@ -40,6 +40,6 @@ export class OtGhPointAlg<PS extends PointSink> implements OtGlyph.GeometryAlg<v
         const plRef = new OtGhPointAlg(
             this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, ref.transform))
         );
-        if (ref.to.geometry) ref.to.geometry.acceptGeometryAlgebra(plRef);
+        if (ref.to.geometry) ref.to.geometry.apply(plRef);
     }
 }

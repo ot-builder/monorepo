@@ -1,22 +1,22 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ft-layout";
 
 import { LookupReader, LookupReaderFactory, LookupWriter, LookupWriterFactory } from "./general";
-import { ReadLookupList } from "./read-lookup-list";
+import { CReadLookupList } from "./read-lookup-list";
 import { WriteLookupList } from "./write-lookup-list";
 
-class MockLookup implements GsubGpos.Lookup {
+class MockLookup implements Gsub.Lookup {
     public rightToLeft = false;
     public ignoreGlyphs = null;
     constructor(public count: number) {}
-    public acceptLookupAlgebra<E>(alg: GsubGpos.LookupAlg<E>): E {
+    public apply<E>(alg: Gsub.LookupAlg<E>): E {
         throw new Error("not implemented");
     }
 }
 
-class MockLookupReader implements LookupReader<GsubGpos.Lookup, MockLookup> {
+class MockLookupReader implements LookupReader<Gsub.Lookup, MockLookup> {
     public createLookup() {
         return new MockLookup(0);
     }
@@ -28,7 +28,7 @@ class MockLookupReader implements LookupReader<GsubGpos.Lookup, MockLookup> {
         lookup.count = count;
     }
 }
-class MockLookupReaderFactory implements LookupReaderFactory<GsubGpos.Lookup> {
+class MockLookupReaderFactory implements LookupReaderFactory<Gsub.Lookup> {
     public createReader(format: number) {
         switch (format) {
             case 1:
@@ -41,8 +41,8 @@ class MockLookupReaderFactory implements LookupReaderFactory<GsubGpos.Lookup> {
         return format === 0x10;
     }
 }
-class MockLookupWriter implements LookupWriter<GsubGpos.Lookup, MockLookup> {
-    public canBeUsed(lookup: GsubGpos.Lookup): lookup is MockLookup {
+class MockLookupWriter implements LookupWriter<Gsub.Lookup, MockLookup> {
+    public canBeUsed(lookup: Gsub.Lookup): lookup is MockLookup {
         return lookup instanceof MockLookup;
     }
     public getLookupType() {
@@ -54,7 +54,7 @@ class MockLookupWriter implements LookupWriter<GsubGpos.Lookup, MockLookup> {
         return [frag];
     }
 }
-class MockLookupWriterFactory implements LookupWriterFactory<GsubGpos.Lookup> {
+class MockLookupWriterFactory implements LookupWriterFactory<Gsub.Lookup> {
     public extendedFormat = 0x10;
     public writers = () => [new MockLookupWriter()];
 }
@@ -67,7 +67,9 @@ describe("Lookup list writer", () => {
         const bufLookupList = Frag.pack(Frag.from(WriteLookupList, ls, lwf, { gOrd }));
 
         const lrf = new MockLookupReaderFactory();
-        const ls1 = new BinaryView(bufLookupList).next(ReadLookupList, lrf, { gOrd });
+        const ls1 = new BinaryView(bufLookupList).next(new CReadLookupList<Gsub.Lookup>(), lrf, {
+            gOrd
+        });
         expect(ls1).toEqual(ls);
     }
 

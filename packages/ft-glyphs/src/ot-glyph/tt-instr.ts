@@ -10,7 +10,7 @@ export class TtInstructionHintImpl implements GeneralGlyph.HintT<OtVar.Value> {
     public queryInterface<U>(tid: Caster.TypeID<U>): undefined | U {
         return Caster.StandardQueryInterface(this, tid, TID_TtInstructionHint);
     }
-    public acceptHintAlgebra<E>(alg: GeneralGlyph.HintAlgT<OtVar.Value, E>): E {
+    public apply<E>(alg: GeneralGlyph.HintAlgT<OtVar.Value, E>): E {
         return alg.ttInstructions(this);
     }
 }

@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -17,7 +17,7 @@ import { GposAdjustment } from "../shared/gpos-adjust";
 import { LookupIsGposSingleAlg } from "./lookup-type-alg";
 
 const SubtableFormat1 = {
-    read(view: BinaryView, lookup: Gpos.Single, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gpos.Single, context: SubtableReadingContext<Gpos.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`SinglePosFormat1`, format, 1);
         const coverage = view.ptr16().next(GidCoverage);
@@ -33,7 +33,7 @@ const SubtableFormat1 = {
         frag: Frag,
         adj: Gpos.Adjustment,
         data: number[],
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const fmt = GposAdjustment.decideFormat(adj);
         frag.uint16(1);
@@ -44,7 +44,7 @@ const SubtableFormat1 = {
 };
 
 const SubtableFormat2 = {
-    read(view: BinaryView, lookup: Gpos.Single, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gpos.Single, context: SubtableReadingContext<Gpos.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`SinglePosFormat2`, format, 2);
 
@@ -65,7 +65,7 @@ const SubtableFormat2 = {
         data: [number, Gpos.Adjustment][],
         fmt: number,
         flat: boolean,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         frag.uint16(2);
         frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), !!flat);
@@ -75,14 +75,14 @@ const SubtableFormat2 = {
     }
 };
 
-export class GposSingleReader implements LookupReader<GsubGpos.Lookup, Gpos.Single> {
+export class GposSingleReader implements LookupReader<Gpos.Lookup, Gpos.Single> {
     public createLookup() {
         return Gpos.Single.create();
     }
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Single,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -100,11 +100,7 @@ export class GposSingleReader implements LookupReader<GsubGpos.Lookup, Gpos.Sing
 
 class GsubSingleWriterState {
     public mappings: Map<string, [Gpos.Adjustment, number[]]> = new Map();
-    public addRecord(
-        gid: number,
-        adj: Gpos.Adjustment,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
-    ) {
+    public addRecord(gid: number, adj: Gpos.Adjustment, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const h = GposAdjustment.hash(adj, ctx.ivs);
         if (!h) return; // omit 0
         let a = this.mappings.get(h);
@@ -126,9 +122,9 @@ class GsubSingleWriterState {
     }
 }
 
-export class GposSingleWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Single> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.Single {
-        return l.acceptLookupAlgebra(LookupIsGposSingleAlg);
+export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.Single {
+        return l.apply(LookupIsGposSingleAlg);
     }
     public getLookupType() {
         return 1;
@@ -154,7 +150,7 @@ export class GposSingleWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Sing
         frags: Frag[],
         forceFormat2Cov: boolean,
         jagged: [number, Gpos.Adjustment][],
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const { fmt, data } = this.pickJaggedData(jagged);
         frags.push(Frag.from(SubtableFormat2, data, fmt, forceFormat2Cov, ctx));
@@ -165,17 +161,14 @@ export class GposSingleWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Sing
         frags: Frag[],
         adj: Gpos.Adjustment,
         gids: number[],
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const data = CovUtils.sortGidList([...gids].slice(0, SubtableSizeLimit / UInt16.size));
         frags.push(Frag.from(SubtableFormat1, adj, data, ctx));
         return data.length;
     }
 
-    public createSubtableFragments(
-        lookup: Gpos.Single,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
-    ) {
+    public createSubtableFragments(lookup: Gpos.Single, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
         const forceFormat2 = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverageForSingleLookup);
         const st = new GsubSingleWriterState();

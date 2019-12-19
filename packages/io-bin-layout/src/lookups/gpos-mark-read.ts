@@ -1,7 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ft-layout";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { Ptr16GidCoverage } from "../shared/coverage";
@@ -13,7 +13,7 @@ const MarkArray = {
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         clsStart: number,
         cov: number[],
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const markCount = view.uint16();
         Assert.SizeMatch(`MarkArray::markCount`, markCount, cov.length);
@@ -40,7 +40,7 @@ const BaseArray = {
         clsStart: number,
         clsCount: number,
         cov: number[],
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const baseCount = view.uint16();
         Assert.SizeMatch(`BaseArray::baseCount`, baseCount, cov.length);
@@ -66,7 +66,7 @@ const LigatureAttach = {
         clsStart: number,
         clsCount: number,
         baseGlyph: OtGlyph,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const componentCount = view.uint16();
         for (let componentID = 0; componentID < componentCount; componentID++) {
@@ -91,7 +91,7 @@ const LigatureArray = {
         clsStart: number,
         clsCount: number,
         cov: number[],
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const baseCount = view.uint16();
         Assert.SizeMatch(`BaseArray::baseCount`, baseCount, cov.length);
@@ -116,7 +116,7 @@ class GposMarkReaderBase {
         view: BinaryView,
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.BaseRecord>,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MarkBasePosFormat1`, format, 1);
@@ -132,7 +132,7 @@ class GposMarkReaderBase {
         view: BinaryView,
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MarkLigPosFormat1`, format, 1);
@@ -147,40 +147,40 @@ class GposMarkReaderBase {
 }
 
 export class GposMarkToBaseReader extends GposMarkReaderBase
-    implements LookupReader<GsubGpos.Lookup, Gpos.MarkToBase> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToBase> {
     public createLookup() {
         return Gpos.MarkToBase.create();
     }
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToBase,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToBaseSubtable(view, lookup.marks, lookup.bases, ctx);
     }
 }
 export class GposMarkToLigatureReader extends GposMarkReaderBase
-    implements LookupReader<GsubGpos.Lookup, Gpos.MarkToLigature> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToLigature> {
     public createLookup() {
         return Gpos.MarkToLigature.create();
     }
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToLigature,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToLigatureSubtable(view, lookup.marks, lookup.bases, ctx);
     }
 }
 export class GposMarkToMarkReader extends GposMarkReaderBase
-    implements LookupReader<GsubGpos.Lookup, Gpos.MarkToMark> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToMark> {
     public createLookup() {
         return Gpos.MarkToMark.create();
     }
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToMark,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToBaseSubtable(view, lookup.marks, lookup.baseMarks, ctx);
     }

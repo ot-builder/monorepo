@@ -1,22 +1,20 @@
 import { Caster, Data } from "@ot-builder/prelude";
 import { F2D14, Tag } from "@ot-builder/primitive";
 
-import { LookupT } from "./lookup";
-
-export interface FeatureT<G, X> {
+export interface FeatureT<G, X, L> {
     tag: Tag;
-    lookups: Array<LookupT<G, X>>;
+    lookups: Array<L>;
     params?: Data.Maybe<Caster.Sigma>;
 }
 
-export interface LanguageT<G, X> {
-    requiredFeature: Data.Maybe<FeatureT<G, X>>;
-    features: Array<FeatureT<G, X>>;
+export interface LanguageT<G, X, L> {
+    requiredFeature: Data.Maybe<FeatureT<G, X, L>>;
+    features: Array<FeatureT<G, X, L>>;
 }
 
-export interface ScriptT<G, X> {
-    defaultLanguage: Data.Maybe<LanguageT<G, X>>;
-    languages: Map<Tag, LanguageT<G, X>>;
+export interface ScriptT<G, X, L> {
+    defaultLanguage: Data.Maybe<LanguageT<G, X, L>>;
+    languages: Map<Tag, LanguageT<G, X, L>>;
 }
 
 export interface AxisRangeConditionT<A> {
@@ -25,14 +23,14 @@ export interface AxisRangeConditionT<A> {
     max: F2D14;
 }
 export type FeatureVariationConditionT<A> = AxisRangeConditionT<A>;
-export interface FeatureVariationT<A, G, X> {
+export interface FeatureVariationT<A, G, X, L> {
     conditions: Array<FeatureVariationConditionT<A>>;
-    substitutions: Map<FeatureT<G, X>, FeatureT<G, X>>;
+    substitutions: Map<FeatureT<G, X, L>, FeatureT<G, X, L>>;
 }
 
-export interface TableT<A, G, X> {
-    scripts: Map<Tag, ScriptT<G, X>>;
-    features: Array<FeatureT<G, X>>;
-    lookups: LookupT<G, X>[];
-    featureVariations: Data.Maybe<Array<FeatureVariationT<A, G, X>>>;
+export interface TableT<A, G, X, L> {
+    scripts: Map<Tag, ScriptT<G, X, L>>;
+    features: Array<FeatureT<G, X, L>>;
+    lookups: L[];
+    featureVariations: Data.Maybe<Array<FeatureVariationT<A, G, X, L>>>;
 }

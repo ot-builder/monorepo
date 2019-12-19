@@ -10,7 +10,7 @@ describe("GSUB ligature lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gsub.Ligature> = {
+    const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Ligature> = {
         gOrd,
         writer: () => new GsubLigatureWriter(),
         reader: () => new GsubLigatureReader(),
