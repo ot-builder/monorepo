@@ -21,13 +21,13 @@ export namespace GsubGpos {
     export import General = GeneralGsubGpos;
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table<L> = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, L>;
-    export type Feature<L> = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, L>;
-    export type Language<L> = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, L>;
-    export type Script<L> = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, L>;
+    export type TableT<L> = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, L>;
+    export type FeatureT<L> = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, L>;
+    export type LanguageT<L> = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, L>;
+    export type ScriptT<L> = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, L>;
     export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
     export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation<L> = GeneralGsubGpos.FeatureVariationT<
+    export type FeatureVariationT<L> = GeneralGsubGpos.FeatureVariationT<
         OtVar.Axis,
         OtGlyph,
         OtVar.Value,
@@ -50,20 +50,15 @@ export namespace Gsub {
 
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
+    export type Table = GsubGpos.TableT<Lookup>;
     export const Table = CreateTable<Lookup>();
     export type Lookup = GeneralLookup.GsubLookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, Lookup>;
-    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, Lookup>;
-    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, Lookup>;
-    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
-        OtVar.Axis,
-        OtGlyph,
-        OtVar.Value,
-        Lookup
-    >;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type AxisRangeCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
     // Lookup classes
     export type Single = Lookup & SingleProp;
@@ -109,20 +104,15 @@ export namespace Gpos {
 
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, Lookup>;
+    export type Table = GsubGpos.TableT<Lookup>;
     export const Table = CreateTable<Lookup>();
     export type Lookup = GeneralLookup.GposLookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, Lookup>;
-    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, Lookup>;
-    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, Lookup>;
-    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
-        OtVar.Axis,
-        OtGlyph,
-        OtVar.Value,
-        Lookup
-    >;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type AxisRangeCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
     // Lookup classes
     export type Single = Lookup & SingleProp;

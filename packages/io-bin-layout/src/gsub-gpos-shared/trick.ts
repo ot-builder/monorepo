@@ -1,13 +1,13 @@
 import { GsubGpos } from "@ot-builder/ft-layout";
 import { Tag } from "@ot-builder/primitive";
 
-export function setLookupTricks<L>(table: GsubGpos.Table<L>) {
+export function setLookupTricks<L>(table: GsubGpos.TableT<L>) {
     const tricks: Map<L, number> = new Map();
     return tricks;
 }
 
 function setLookupTrickByFeatureTag<L>(
-    table: GsubGpos.Table<L>,
+    table: GsubGpos.TableT<L>,
     tricks: Map<L, number>,
     tagSet: Set<Tag>,
     trick: number

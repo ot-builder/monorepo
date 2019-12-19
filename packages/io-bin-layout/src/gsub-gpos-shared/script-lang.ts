@@ -4,9 +4,9 @@ import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 
-type Feature<L> = GsubGpos.Feature<L>;
-type LangSys<L> = GsubGpos.Language<L>;
-type Script<L> = GsubGpos.Script<L>;
+type Feature<L> = GsubGpos.FeatureT<L>;
+type LangSys<L> = GsubGpos.LanguageT<L>;
+type Script<L> = GsubGpos.ScriptT<L>;
 
 class CLangSysTable<L> {
     public read(view: BinaryView, fOrd: Data.Order<Feature<L>>): LangSys<L> {

@@ -60,7 +60,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
     }
     public write(
         frag: Frag,
-        table: GsubGpos.Table<L>,
+        table: GsubGpos.TableT<L>,
         lwf: LookupWriterFactory<L>,
         twc: TableWriteContext
     ) {

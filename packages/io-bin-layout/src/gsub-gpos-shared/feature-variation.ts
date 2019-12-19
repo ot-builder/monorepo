@@ -8,9 +8,9 @@ import { OtVar } from "@ot-builder/variance";
 
 import { CFeatureTable } from "./feature-list";
 
-type Feature<L> = GsubGpos.Feature<L>;
+type Feature<L> = GsubGpos.FeatureT<L>;
 type Condition = GsubGpos.FeatureVariationCondition;
-type FeatureVariation<L> = GsubGpos.FeatureVariation<L>;
+type FeatureVariation<L> = GsubGpos.FeatureVariationT<L>;
 
 class CFeatureTableSubstitution<L> {
     public read(view: BinaryView, fOrd: Data.Order<Feature<L>>, lOrd: Data.Order<L>) {
