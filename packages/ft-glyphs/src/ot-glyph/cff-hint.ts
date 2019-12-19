@@ -25,7 +25,7 @@ export class CffHintImpl implements GeneralGlyph.HintT<OtVar.Value> {
         return Caster.StandardQueryInterface(this, tid, TID_CffHint);
     }
 
-    public acceptHintAlgebra<E>(alg: GeneralGlyph.HintAlgT<OtVar.Value, E>): E {
+    public apply<E>(alg: GeneralGlyph.HintAlgT<OtVar.Value, E>): E {
         return alg.cffHint(this);
     }
 }

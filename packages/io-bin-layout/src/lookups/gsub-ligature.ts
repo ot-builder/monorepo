@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -16,11 +16,7 @@ import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { LookupIsGsubLigatureAlg } from "./lookup-type-alg";
 
 const SubtableFormat1 = {
-    read(
-        view: BinaryView,
-        lookup: Gsub.Ligature,
-        context: SubtableReadingContext<GsubGpos.Lookup>
-    ) {
+    read(view: BinaryView, lookup: Gsub.Ligature, context: SubtableReadingContext<Gsub.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`LigatureSubstFormat1`, format, 1);
 
@@ -50,7 +46,7 @@ const SubtableFormat1 = {
     write(
         frag: Frag,
         mapping: Map<OtGlyph, LigatureCont[]>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
@@ -73,7 +69,7 @@ const SubtableFormat1 = {
     }
 };
 
-export class GsubLigatureReader implements LookupReader<GsubGpos.Lookup, Gsub.Ligature> {
+export class GsubLigatureReader implements LookupReader<Gsub.Lookup, Gsub.Ligature> {
     public createLookup() {
         return Gsub.Ligature.create();
     }
@@ -81,7 +77,7 @@ export class GsubLigatureReader implements LookupReader<GsubGpos.Lookup, Gsub.Li
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Ligature,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -114,21 +110,18 @@ class State {
     }
 }
 
-export class GsubLigatureWriter implements LookupWriter<GsubGpos.Lookup, Gsub.Ligature> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Ligature {
-        return l.acceptLookupAlgebra(LookupIsGsubLigatureAlg);
+export class GsubLigatureWriter implements LookupWriter<Gsub.Lookup, Gsub.Ligature> {
+    public canBeUsed(l: Gsub.Lookup): l is Gsub.Ligature {
+        return l.apply(LookupIsGsubLigatureAlg);
     }
     public getLookupType() {
         return 4;
     }
-    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<Gsub.Lookup>) {
         if (!state.mapping.size) return;
         frags.push(Frag.from(SubtableFormat1, state.mapping, ctx));
     }
-    public createSubtableFragments(
-        lookup: Gsub.Ligature,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
-    ) {
+    public createSubtableFragments(lookup: Gsub.Ligature, ctx: SubtableWriteContext<Gsub.Lookup>) {
         let state = new State();
         let frags: Frag[] = [];
         // Iterate the path map using post-root order to make sure that longer ligatures

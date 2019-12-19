@@ -12,7 +12,7 @@ describe("GPOS pair lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gpos.Pair> = {
+    const roundtripConfig: LookupRoundTripConfig<Gpos.Lookup, Gpos.Pair> = {
         gOrd,
         writer: () => new GposPairWriter(),
         reader: () => new GposPairReader(),

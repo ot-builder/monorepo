@@ -8,18 +8,28 @@ export interface LookupPropT<G> {
     rightToLeft: boolean;
     ignoreGlyphs: Data.Maybe<Set<G>>;
 }
-export interface LookupT<G, X> extends LookupPropT<G> {
-    acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E;
+export interface GsubLookupT<G, X> extends LookupPropT<G> {
+    apply<E>(alg: GsubLookupAlgT<G, X, E>): E;
+}
+export interface GposLookupT<G, X> extends LookupPropT<G> {
+    apply<E>(alg: GposLookupAlgT<G, X, E>): E;
 }
 
 /** General Lookup algebra */
-export interface LookupAlgT<G, X, E> {
+export interface GsubLookupAlgT<G, X, E> {
     gsubSingle(thProps: Thunk<GsubSinglePropT<G, X>>): E;
     gsubMulti(thProps: Thunk<GsubMultipleAlternatePropT<G, X>>): E;
     gsubAlternate(thProps: Thunk<GsubMultipleAlternatePropT<G, X>>): E;
     gsubLigature(thProps: Thunk<GsubLigaturePropT<G, X>>): E;
     gsubReverse(thProps: Thunk<GsubReverseSingleSubPropT<G, X>>): E;
 
+    // Chaining lookup has cross-references, so we need this
+    crossReference?(source: object, thValue: Thunk<E>): E;
+    // For chaining lookup, we are not supplying the props directly. Instead, we supply
+    // its thunks so it made rectification of circular chaining lookups possible.
+    gsubChaining(thProps: Thunk<ForwardChainingPropT<G, X, E>>): E;
+}
+export interface GposLookupAlgT<G, X, E> {
     gposSingle(thProps: Thunk<GposSinglePropT<G, X>>): E;
     gposPair(thProps: Thunk<GposPairPropT<G, X>>): E;
     gposCursive(thProps: Thunk<GposCursivePropT<G, X>>): E;
@@ -31,9 +41,9 @@ export interface LookupAlgT<G, X, E> {
     crossReference?(source: object, thValue: Thunk<E>): E;
     // For chaining lookup, we are not supplying the props directly. Instead, we supply
     // its thunks so it made rectification of circular chaining lookups possible.
-    gsubChaining(thProps: Thunk<ForwardChainingPropT<G, X, E>>): E;
     gposChaining(thProps: Thunk<ForwardChainingPropT<G, X, E>>): E;
 }
+export interface LookupAlgT<G, X, E> extends GsubLookupAlgT<G, X, E>, GposLookupAlgT<G, X, E> {}
 
 export interface GsubSinglePropT<G, X> extends LookupPropT<G> {
     mapping: Map<G, G>;

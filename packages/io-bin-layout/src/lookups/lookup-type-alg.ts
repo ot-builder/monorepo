@@ -1,6 +1,6 @@
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { Gpos, Gsub } from "@ot-builder/ft-layout";
 
-const LookupAlgBase: GsubGpos.LookupAlg<boolean> = {
+const LookupAlgBase: Gsub.LookupAlg<boolean> & Gpos.LookupAlg<boolean> = {
     gsubSingle: () => false,
     gsubMulti: () => false,
     gsubAlternate: () => false,

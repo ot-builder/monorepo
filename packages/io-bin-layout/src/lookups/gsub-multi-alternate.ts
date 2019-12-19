@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -20,7 +20,7 @@ const SubtableFormat1 = {
     read(
         view: BinaryView,
         lookup: Gsub.Multiple | Gsub.Alternate,
-        ctx: SubtableReadingContext<GsubGpos.Lookup>
+        ctx: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MultipleSubst / AlternateSubst`, format, 1);
@@ -39,7 +39,7 @@ const SubtableFormat1 = {
     write(
         frag: Frag,
         mapping: Map<OtGlyph, ReadonlyArray<OtGlyph>>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
         frag.uint16(1);
@@ -60,7 +60,7 @@ class GsubMultiAlternateReaderBase {
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Multiple | Gsub.Alternate,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -87,13 +87,13 @@ class State {
 }
 
 class GsubMultiAlternateWriterBase {
-    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<Gsub.Lookup>) {
         if (!state.mapping.size) return;
         frags.push(Frag.from(SubtableFormat1, state.mapping, ctx));
     }
     public createSubtableFragments(
         lookup: Gsub.Multiple | Gsub.Alternate,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         let state = new State();
         let frags: Frag[] = [];
@@ -109,30 +109,30 @@ class GsubMultiAlternateWriterBase {
 }
 
 export class GsubMultiReader extends GsubMultiAlternateReaderBase
-    implements LookupReader<GsubGpos.Lookup, Gsub.Multiple> {
+    implements LookupReader<Gsub.Lookup, Gsub.Multiple> {
     public createLookup() {
         return Gsub.Multiple.create();
     }
 }
 export class GsubAlternateReader extends GsubMultiAlternateReaderBase
-    implements LookupReader<GsubGpos.Lookup, Gsub.Alternate> {
+    implements LookupReader<Gsub.Lookup, Gsub.Alternate> {
     public createLookup() {
         return Gsub.Alternate.create();
     }
 }
 export class GsubMultiWriter extends GsubMultiAlternateWriterBase
-    implements LookupWriter<GsubGpos.Lookup, Gsub.Multiple> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Multiple {
-        return l.acceptLookupAlgebra(LookupIsGsubMultiAlg);
+    implements LookupWriter<Gsub.Lookup, Gsub.Multiple> {
+    public canBeUsed(l: Gsub.Lookup): l is Gsub.Multiple {
+        return l.apply(LookupIsGsubMultiAlg);
     }
     public getLookupType() {
         return 2;
     }
 }
 export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
-    implements LookupWriter<GsubGpos.Lookup, Gsub.Alternate> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Alternate {
-        return l.acceptLookupAlgebra(LookupIsGsubAlternateAlg);
+    implements LookupWriter<Gsub.Lookup, Gsub.Alternate> {
+    public canBeUsed(l: Gsub.Lookup): l is Gsub.Alternate {
+        return l.apply(LookupIsGsubAlternateAlg);
     }
     public getLookupType() {
         return 3;

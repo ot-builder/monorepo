@@ -11,7 +11,7 @@ describe("GPOS mark-to-ligature lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gpos.MarkToLigature> = {
+    const roundtripConfig: LookupRoundTripConfig<Gpos.Lookup, Gpos.MarkToLigature> = {
         gOrd,
         writer: () => new GposMarkToLigatureWriter(),
         reader: () => new GposMarkToLigatureReader(),

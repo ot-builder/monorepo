@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ft-layout";
 
 import {
     LookupReader,
@@ -8,7 +8,7 @@ import {
     LookupWriter,
     LookupWriterFactory
 } from "../gsub-gpos-shared/general";
-import { GsubGposTable, TableReadContext, TableWriteContext } from "../gsub-gpos-shared/table";
+import { CGsubGposTable, TableReadContext, TableWriteContext } from "../gsub-gpos-shared/table";
 import { GsubChainingReader, GsubContextualReader } from "../lookups/contextual-read";
 import { GsubChainingContextualWriter } from "../lookups/contextual-write";
 import { GsubLigatureReader, GsubLigatureWriter } from "../lookups/gsub-ligature";
@@ -21,10 +21,10 @@ import {
 import { GsubReverseReader, GsubReverseWriter } from "../lookups/gsub-reverse";
 import { GsubSingleReader, GsubSingleWriter } from "../lookups/gsub-single";
 
-const gsub: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.Lookup> = {
+const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> = {
     extendedFormat: 7,
     isExtendedFormat: x => x === 7,
-    createReader(x: number): LookupReader<GsubGpos.Lookup, any> {
+    createReader(x: number): LookupReader<Gsub.Lookup, any> {
         switch (x) {
             case 1:
                 return new GsubSingleReader();
@@ -44,7 +44,7 @@ const gsub: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.
                 throw Errors.FormatNotSupported(`GSUB lookup`, x);
         }
     },
-    *writers(): IterableIterator<LookupWriter<GsubGpos.Lookup, any>> {
+    *writers(): IterableIterator<LookupWriter<Gsub.Lookup, any>> {
         yield new GsubSingleWriter();
         yield new GsubMultiWriter();
         yield new GsubAlternateWriter();
@@ -56,10 +56,10 @@ const gsub: LookupReaderFactory<GsubGpos.Lookup> & LookupWriterFactory<GsubGpos.
 
 export const GsubTableIo = {
     read(view: BinaryView, trc: TableReadContext) {
-        const o = view.next(GsubGposTable, gsub, trc);
+        const o = view.next(new CGsubGposTable<Gsub.Lookup>(), gsub, trc);
         return Gsub.Table.create(o.scripts, o.features, o.lookups, o.featureVariations);
     },
     write(frag: Frag, table: Gsub.Table, twc: TableWriteContext) {
-        return frag.push(GsubGposTable, table, gsub, twc);
+        return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, gsub, twc);
     }
 };

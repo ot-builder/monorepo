@@ -12,9 +12,7 @@ export class ContourSetImpl implements GeneralGlyph.ContourSetT<OtGlyphInterface
     public queryInterface<U>(tid: Caster.TypeID<U>): undefined | U {
         return Caster.StandardQueryInterface(this, tid, TID_ContourSet);
     }
-    public acceptGeometryAlgebra<E>(
-        alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>
-    ): E {
+    public apply<E>(alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>): E {
         return alg.contourSet(this);
     }
 }

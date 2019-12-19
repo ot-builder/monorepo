@@ -21,17 +21,17 @@ export namespace GsubGpos {
     export import General = GeneralGsubGpos;
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value>;
-    export type Lookup = GeneralLookup.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
-    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
-    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
+    export type TableT<L> = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, L>;
+    export type FeatureT<L> = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, L>;
+    export type LanguageT<L> = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, L>;
+    export type ScriptT<L> = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, L>;
     export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
     export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
+    export type FeatureVariationT<L> = GeneralGsubGpos.FeatureVariationT<
         OtVar.Axis,
         OtGlyph,
-        OtVar.Value
+        OtVar.Value,
+        L
     >;
 
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
@@ -39,12 +39,10 @@ export namespace GsubGpos {
 
     export type ChainingApplication<E> = GeneralLookup.ChainingApplicationT<E>;
     export type ChainingRule<E> = GeneralLookup.ChainingRuleT<Set<OtGlyph>, E>;
-    export type ChainingClassRule = GeneralLookup.ChainingRuleT<number, Lookup>;
-    export type ChainingLookup = Lookup & ChainingProp<Lookup>;
+    export type ChainingClassRule<E> = GeneralLookup.ChainingRuleT<number, E>;
     export type ChainingProp<E> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
 
     export type LookupProp = GeneralLookup.LookupPropT<OtGlyph>;
-    export type LookupAlg<E> = GeneralLookup.LookupAlgT<OtGlyph, OtVar.Value, E>;
 }
 
 export namespace Gsub {
@@ -52,19 +50,15 @@ export namespace Gsub {
 
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value>;
-    export const Table = CreateTable;
-    export type Lookup = GeneralLookup.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
-    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
-    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
-    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
-        OtVar.Axis,
-        OtGlyph,
-        OtVar.Value
-    >;
+    export type Table = GsubGpos.TableT<Lookup>;
+    export const Table = CreateTable<Lookup>();
+    export type Lookup = GeneralLookup.GsubLookupT<OtGlyph, OtVar.Value>;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type AxisRangeCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
     // Lookup classes
     export type Single = Lookup & SingleProp;
@@ -98,9 +92,11 @@ export namespace Gsub {
 
     export type ChainingApplication<E> = GsubGpos.ChainingApplication<E>;
     export type ChainingRule<E> = GsubGpos.ChainingRule<E>;
-    export type ChainingClassRule = GsubGpos.ChainingClassRule;
+    export type ChainingClassRule = GsubGpos.ChainingClassRule<Lookup>;
 
     export type ReverseRule = GeneralLookup.GsubReverseRuleT<OtGlyph, Set<OtGlyph>>;
+
+    export type LookupAlg<E> = GeneralLookup.GsubLookupAlgT<OtGlyph, OtVar.Value, E>;
 }
 
 export namespace Gpos {
@@ -108,19 +104,15 @@ export namespace Gpos {
 
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type Table = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value>;
-    export const Table = CreateTable;
-    export type Lookup = GeneralLookup.LookupT<OtGlyph, OtVar.Value>;
-    export type Feature = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value>;
-    export type Language = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value>;
-    export type Script = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value>;
-    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariation = GeneralGsubGpos.FeatureVariationT<
-        OtVar.Axis,
-        OtGlyph,
-        OtVar.Value
-    >;
+    export type Table = GsubGpos.TableT<Lookup>;
+    export const Table = CreateTable<Lookup>();
+    export type Lookup = GeneralLookup.GposLookupT<OtGlyph, OtVar.Value>;
+    export type Feature = GsubGpos.FeatureT<Lookup>;
+    export type Language = GsubGpos.LanguageT<Lookup>;
+    export type Script = GsubGpos.ScriptT<Lookup>;
+    export type AxisRangeCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
+    export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
     // Lookup classes
     export type Single = Lookup & SingleProp;
@@ -161,9 +153,11 @@ export namespace Gpos {
 
     export type ChainingApplication<E> = GsubGpos.ChainingApplication<E>;
     export type ChainingRule<E> = GsubGpos.ChainingRule<E>;
-    export type ChainingClassRule = GsubGpos.ChainingClassRule;
+    export type ChainingClassRule = GsubGpos.ChainingClassRule<Lookup>;
 
     // Zeroes
     export const ZeroAdjustment: Adjustment = { dX: 0, dY: 0, dWidth: 0, dHeight: 0 };
     export const ZeroAdjustmentPair: AdjustmentPair = [ZeroAdjustment, ZeroAdjustment];
+
+    export type LookupAlg<E> = GeneralLookup.GposLookupAlgT<OtGlyph, OtVar.Value, E>;
 }

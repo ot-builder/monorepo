@@ -10,7 +10,7 @@ describe("GPOS cursive lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gpos.Cursive> = {
+    const roundtripConfig: LookupRoundTripConfig<Gpos.Lookup, Gpos.Cursive> = {
         gOrd,
         writer: () => new GposCursiveWriter(),
         reader: () => new GposCursiveReader(),

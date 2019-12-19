@@ -2,7 +2,6 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -11,23 +10,20 @@ import { OtVar } from "@ot-builder/variance";
 import { LookupReader, LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { EmptyStat } from "../stat";
 
-export interface LookupRoundTripConfig<C extends GsubGpos.Lookup> {
+export interface LookupRoundTripConfig<L, C extends L> {
     gOrd: Data.Order<OtGlyph>;
-    reader: (type: number) => LookupReader<GsubGpos.Lookup, C>;
-    writer: () => LookupWriter<GsubGpos.Lookup, C>;
-    lOrd?: Data.Order<GsubGpos.Lookup>;
+    reader: (type: number) => LookupReader<L, C>;
+    writer: () => LookupWriter<L, C>;
+    lOrd?: Data.Order<L>;
     trick?: number;
-    validate(gOrd: Data.Order<OtGlyph>, lOrd: Data.Order<GsubGpos.Lookup>, a: C, b: C): void;
+    validate(gOrd: Data.Order<OtGlyph>, lOrd: Data.Order<L>, a: C, b: C): void;
     variation?: Data.Maybe<TestVariation>;
 }
 
-export function LookupRoundTripTest<C extends GsubGpos.Lookup>(
-    expected: C,
-    cfg: LookupRoundTripConfig<C>
-) {
+export function LookupRoundTripTest<L, C extends L>(expected: C, cfg: LookupRoundTripConfig<L, C>) {
     const lOrd = cfg.lOrd || ImpLib.Order.fromList(`Lookups`, []);
     const writer = cfg.writer();
-    const swc: SubtableWriteContext<GsubGpos.Lookup> = {
+    const swc: SubtableWriteContext<L> = {
         gOrd: cfg.gOrd,
         crossReferences: lOrd,
         trick: cfg.trick || 0,

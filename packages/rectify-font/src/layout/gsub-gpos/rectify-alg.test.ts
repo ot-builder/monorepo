@@ -1,6 +1,7 @@
 import * as Ot from "@ot-builder/font";
+import { Delay } from "@ot-builder/prelude";
 
-import { RectifyGlyphCoordAlg, rectifyLookupList } from "./rectify-alg";
+import { RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify-alg";
 
 describe("GSUB Rectifier", () => {
     test("Rectify circular link", () => {
@@ -12,7 +13,11 @@ describe("GSUB Rectifier", () => {
             inputEnds: 1,
             applications: [{ at: 0, apply: chaining }] // Circular
         });
-        const correspondence = rectifyLookupList([chaining], createDuplicateAlg());
+        const correspondence = rectifyLookupList(
+            [chaining],
+            createDuplicateAlg(),
+            fnApplyGsubLookup
+        );
 
         const chainingDup = correspondence.get(chaining)! as Ot.Gsub.Chaining;
         expect(chainingDup).toBeTruthy();
@@ -22,5 +27,11 @@ describe("GSUB Rectifier", () => {
 });
 
 function createDuplicateAlg() {
-    return new RectifyGlyphCoordAlg({ glyph: g => g }, { coord: x => x, cv: x => x }, null);
+    return new RectifyGsubGlyphCoordAlg({ glyph: g => g }, { coord: x => x, cv: x => x }, null);
+}
+function fnApplyGsubLookup(lookup: Ot.Gsub.Lookup, alg: RectifyGsubGlyphCoordAlg) {
+    return alg.crossReference(
+        lookup,
+        Delay(() => lookup.apply(alg))
+    );
 }

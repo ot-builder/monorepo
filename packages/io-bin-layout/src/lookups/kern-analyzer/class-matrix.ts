@@ -1,5 +1,5 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { DicingStore, Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { DicingStore, Gpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { SubtableWriteContext } from "../../gsub-gpos-shared/general";
@@ -87,7 +87,7 @@ export class ClassMatrix<G> {
 
     public static analyze(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         return AnalyzeClassMatrixImpl.main(ds, ctx);
     }
@@ -102,10 +102,7 @@ namespace AnalyzeClassMatrixImpl {
         public adjList: Gpos.AdjustmentPair[] = [Gpos.ZeroAdjustmentPair];
         private hCache: Map<string, number> = new Map();
         private nn = 1;
-        public put(
-            adj: Data.Maybe<Gpos.AdjustmentPair>,
-            ctx: SubtableWriteContext<GsubGpos.Lookup>
-        ) {
+        public put(adj: Data.Maybe<Gpos.AdjustmentPair>, ctx: SubtableWriteContext<Gpos.Lookup>) {
             if (!adj) return 0;
 
             const h = GposAdjustment.hashPair(adj, ctx.ivs);
@@ -130,7 +127,7 @@ namespace AnalyzeClassMatrixImpl {
         coiFirst: ClassOrderItem<G>[],
         coiSecond: ClassOrderItem<G>[],
         ds: DicingStore<G, G, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const cFirst: G[][] = [];
         const cSecond: G[][] = [];
@@ -150,7 +147,7 @@ namespace AnalyzeClassMatrixImpl {
         return new ClassMatrix(cFirst, cSecond, new AdjStore(mat, alloc.adjList));
     }
 
-    function padNeutrals(cc: OtGlyph[][], ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    function padNeutrals(cc: OtGlyph[][], ctx: SubtableWriteContext<Gpos.Lookup>) {
         let sCov: Set<OtGlyph> = new Set();
         for (const gc of cc) if (gc) for (const x of gc) sCov.add(x);
         let outside: OtGlyph[] = [];
@@ -165,7 +162,7 @@ namespace AnalyzeClassMatrixImpl {
 
     export function main(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const _cFirst = ds.getXClassDef();
         const _cSecond = ds.getYClassDef();

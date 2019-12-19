@@ -1,5 +1,5 @@
 import * as Ot from "@ot-builder/font";
-import { Data, Delay, Thunk } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 
 import {
     CoordRectifier,
@@ -9,74 +9,91 @@ import {
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
-interface Stub<L extends Ot.GsubGpos.Lookup> {
-    blank: L;
-    fill(dst: L): void;
-}
-type Rectification = <R>(cont: <L extends Ot.GsubGpos.Lookup>(repl: Stub<L>) => R) => R;
-function Rectification<L extends Ot.GsubGpos.Lookup>(cr: Stub<L>): Rectification {
-    return cont => cont(cr);
-}
+export type RStub<C> = { demand: C; fill(dst: C): void };
+export type RProc<L> = <R>(cont: <C extends L>(repl: RStub<C>) => R) => R;
 
-export function rectifyLookupList(
-    lookups: Ot.GsubGpos.Lookup[],
-    alg: RectifyGlyphCoordAlg
-): Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup> {
-    const replicateProcedures: Rectification[] = [];
+export function rectifyLookupList<L, A>(
+    lookups: L[],
+    alg: A,
+    app: (lookup: L, alg: A) => RProc<L>
+): Map<L, L> {
+    const replicateProcedures: RProc<L>[] = [];
     for (let lid = 0; lid < lookups.length; lid++) {
         const lookup = lookups[lid];
-        const proc = alg.crossReference(
-            lookup,
-            Delay(() => lookup.acceptLookupAlgebra(alg))
-        );
-        replicateProcedures[lid] = proc;
+        replicateProcedures[lid] = app(lookup, alg);
     }
     for (let lid = 0; lid < lookups.length; lid++) {
-        replicateProcedures[lid](repl => repl.fill(repl.blank));
+        replicateProcedures[lid](repl => repl.fill(repl.demand));
     }
-    const result = new Map<Ot.GsubGpos.Lookup, Ot.GsubGpos.Lookup>();
+    const result = new Map<L, L>();
     for (let lid = 0; lid < lookups.length; lid++) {
-        replicateProcedures[lid](repl => result.set(lookups[lid], repl.blank));
+        replicateProcedures[lid](repl => result.set(lookups[lid], repl.demand));
     }
     return result;
 }
 
-export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification> {
+class RectifyGsubGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
     constructor(
-        private readonly rg: GlyphRectifier,
-        private readonly rc: CoordRectifier,
-        private readonly rap: Data.Maybe<PointAttachmentRectifier>
+        protected readonly rg: GlyphRectifier,
+        protected readonly rc: CoordRectifier,
+        protected readonly rap: Data.Maybe<PointAttachmentRectifier>
     ) {}
 
-    private _cache: Map<object, Rectification> = new Map();
-    public crossReference(a: object, thValue: Thunk<Rectification>) {
+    protected _cache: Map<object, RProc<L>> = new Map();
+    public crossReference(a: object, thValue: Thunk<RProc<L>>) {
         const existing = this._cache.get(a);
         if (existing) return existing;
-
         const novel = thValue.force();
         this._cache.set(a, novel);
         return novel;
     }
 
-    private setMeta(props: Ot.GsubGpos.LookupProp, ret: Ot.GsubGpos.Lookup) {
+    protected setMeta(props: Ot.GsubGpos.LookupProp, ret: Ot.GsubGpos.LookupProp) {
         ret.rightToLeft = props.rightToLeft;
         ret.ignoreGlyphs = RectifyImpl.Glyph.setSome(this.rg, props.ignoreGlyphs || new Set());
     }
 
-    public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.Single.create(),
+    protected processChainingRules(
+        props: Ot.GsubGpos.ChainingProp<RProc<L>>,
+        ret: Ot.GsubGpos.ChainingProp<L>
+    ) {
+        ret.rules = [];
+        for (const rule of props.rules) {
+            const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setAll);
+            if (!match1 || !match1.length) continue;
+            const applications1: Ot.GsubGpos.ChainingApplication<L>[] = [];
+            for (const app of rule.applications) {
+                let lookup1: null | L = null;
+                app.apply(repl => (lookup1 = repl.demand));
+                if (lookup1) applications1.push({ at: app.at, apply: lookup1 });
+            }
+            ret.rules.push({
+                match: match1,
+                applications: applications1,
+                inputBegins: rule.inputBegins,
+                inputEnds: rule.inputEnds
+            });
+        }
+    }
+}
+
+export class RectifyGsubGlyphCoordAlg extends RectifyGsubGlyphCoordAlgBase<Ot.Gsub.Lookup>
+    implements Ot.Gsub.LookupAlg<RProc<Ot.Gsub.Lookup>> {
+    public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.Single> = {
+            demand: Ot.Gsub.Single.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
                 ret.mapping = RectifyImpl.Glyph.bimapSome(this.rg, props.mapping);
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.Multiple.create(),
+    public gsubMulti(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.Multiple> = {
+            demand: Ot.Gsub.Multiple.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -86,12 +103,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     RectifyImpl.Glyph.listAll
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.Alternate.create(),
+    public gsubAlternate(thProps: Thunk<Ot.Gsub.MultipleAlternateProp>): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.Alternate> = {
+            demand: Ot.Gsub.Alternate.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -101,12 +119,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     RectifyImpl.Glyph.listAll
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.Ligature.create(),
+    public gsubLigature(thProps: Thunk<Ot.Gsub.LigatureProp>): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.Ligature> = {
+            demand: Ot.Gsub.Ligature.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -120,12 +139,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                 }
                 ret.mapping = mapping1;
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.ReverseSub.create(),
+    public gsubReverse(thProps: Thunk<Ot.Gsub.ReverseSubProp>): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.ReverseSub> = {
+            demand: Ot.Gsub.ReverseSub.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -136,25 +156,45 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     else return { ...rule, match: match1, replacement: replace1 };
                 });
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposSingle(thProps: Thunk<Ot.Gpos.SingleProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.Single.create(),
+    public gsubChaining(
+        thProps: Thunk<Ot.GsubGpos.ChainingProp<RProc<Ot.Gsub.Lookup>>>
+    ): RProc<Ot.Gsub.Lookup> {
+        const stub: RStub<Ot.Gsub.Chaining> = {
+            demand: Ot.Gsub.Chaining.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
-                ret.adjustments = RectifyImpl.Glyph.mapSomeT(this.rg, props.adjustments, (rec, x) =>
-                    rectifyAdjustment(this.rc, x)
+                this.processChainingRules(props, ret);
+            }
+        };
+        return cont => cont(stub);
+    }
+}
+export class RectifyGposGlyphCoordAlg extends RectifyGsubGlyphCoordAlgBase<Ot.Gpos.Lookup>
+    implements Ot.Gpos.LookupAlg<RProc<Ot.Gpos.Lookup>> {
+    public gposSingle(thProps: Thunk<Ot.Gpos.SingleProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.Single> = {
+            demand: Ot.Gpos.Single.create(),
+            fill: ret => {
+                const props = thProps.force();
+                this.setMeta(props, ret);
+                ret.adjustments = RectifyImpl.Glyph.mapSomeT(
+                    this.rg,
+                    props.adjustments,
+                    (rec, x) => rectifyAdjustment(this.rc, x)
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposPair(thProps: Thunk<Ot.Gpos.PairProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.Pair.create(),
+    public gposPair(thProps: Thunk<Ot.Gpos.PairProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.Pair> = {
+            demand: Ot.Gpos.Pair.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -166,7 +206,9 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                         if (adj == null) continue;
                         const cFirst1 = RectifyImpl.Glyph.listSome(this.rg, cdFirst[c1]);
                         const cSecond1 = RectifyImpl.Glyph.listSome(this.rg, cdSecond[c2]);
-                        if (!cFirst1 || !cFirst1.length || !cSecond1 || !cSecond1.length) continue;
+                        if (!cFirst1 || !cFirst1.length || !cSecond1 || !cSecond1.length) {
+                            continue;
+                        }
                         ret.adjustments.set(new Set(cFirst1), new Set(cSecond1), [
                             rectifyAdjustment(this.rc, adj[0]),
                             rectifyAdjustment(this.rc, adj[1])
@@ -174,12 +216,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     }
                 }
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposCursive(thProps: Thunk<Ot.Gpos.CursiveProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.Cursive.create(),
+    public gposCursive(thProps: Thunk<Ot.Gpos.CursiveProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.Cursive> = {
+            demand: Ot.Gpos.Cursive.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -190,12 +233,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x))
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposMarkToBase(thProps: Thunk<Ot.Gpos.MarkToBaseProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.MarkToBase.create(),
+    public gposMarkToBase(thProps: Thunk<Ot.Gpos.MarkToBaseProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.MarkToBase> = {
+            demand: Ot.Gpos.MarkToBase.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -212,12 +256,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposMarkToMark(thProps: Thunk<Ot.Gpos.MarkToMarkProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.MarkToMark.create(),
+    public gposMarkToMark(thProps: Thunk<Ot.Gpos.MarkToMarkProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.MarkToMark> = {
+            demand: Ot.Gpos.MarkToMark.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -234,12 +279,13 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                     (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gposMarkToLigature(thProps: Thunk<Ot.Gpos.MarkToLigatureProp>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.MarkToLigature.create(),
+    public gposMarkToLigature(thProps: Thunk<Ot.Gpos.MarkToLigatureProp>): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.MarkToLigature> = {
+            demand: Ot.Gpos.MarkToLigature.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
@@ -257,56 +303,26 @@ export class RectifyGlyphCoordAlg implements Ot.GsubGpos.LookupAlg<Rectification
                         rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x))
                 );
             }
-        });
+        };
+        return cont => cont(stub);
     }
 
-    public gsubChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<Rectification>>): Rectification {
-        return Rectification({
-            blank: Ot.Gsub.Chaining.create(),
+    public gposChaining(
+        thProps: Thunk<Ot.GsubGpos.ChainingProp<RProc<Ot.Gpos.Lookup>>>
+    ): RProc<Ot.Gpos.Lookup> {
+        const stub: RStub<Ot.Gpos.Chaining> = {
+            demand: Ot.Gpos.Chaining.create(),
             fill: ret => {
                 const props = thProps.force();
                 this.setMeta(props, ret);
                 this.processChainingRules(props, ret);
             }
-        });
-    }
-    public gposChaining(thProps: Thunk<Ot.GsubGpos.ChainingProp<Rectification>>): Rectification {
-        return Rectification({
-            blank: Ot.Gpos.Chaining.create(),
-            fill: ret => {
-                const props = thProps.force();
-                this.setMeta(props, ret);
-                this.processChainingRules(props, ret);
-            }
-        });
-    }
-    private processChainingRules(
-        props: Ot.GsubGpos.ChainingProp<Rectification>,
-        ret: Ot.GsubGpos.ChainingLookup
-    ) {
-        ret.rules = [];
-        for (const rule of props.rules) {
-            const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setAll);
-            if (!match1 || !match1.length) continue;
-            const applications1: Ot.GsubGpos.ChainingApplication<Ot.GsubGpos.Lookup>[] = [];
-            for (const app of rule.applications) {
-                let lookup1: null | Ot.GsubGpos.Lookup = null;
-                app.apply(repl => (lookup1 = repl.blank));
-                if (lookup1) applications1.push({ at: app.at, apply: lookup1 });
-            }
-            if (!applications1.length) continue;
-            ret.rules.push({
-                match: match1,
-                applications: applications1,
-                inputBegins: rule.inputBegins,
-                inputEnds: rule.inputEnds
-            });
-        }
+        };
+        return cont => cont(stub);
     }
 }
 
 // Helper functions
-
 function rectifyAdjustment(rec: CoordRectifier, adj: Ot.Gpos.Adjustment) {
     return {
         ...adj,

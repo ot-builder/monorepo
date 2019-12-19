@@ -20,11 +20,11 @@ import {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-export interface LookupWriteContext {
+export interface LookupWriteContext<L> {
     gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<WriteTimeIVS>;
-    tricks?: Data.Maybe<Map<GsubGpos.Lookup, number>>;
+    tricks?: Data.Maybe<Map<L, number>>;
     stat?: Data.Maybe<OtlStat>;
 }
 
@@ -47,7 +47,7 @@ interface SubtableBlob {
 
 const SizeOfExtSubtable = UInt16.size * 2 + UInt32.size;
 
-class LookupListWriter {
+class LookupListWriter<L extends GsubGpos.LookupProp> {
     /** Measure lookup header size without extension -- used when writing headers */
     private measureHeaderSize(h: LookupHeader) {
         return (
@@ -67,10 +67,10 @@ class LookupListWriter {
     private subtableBlobHash: Map<string, SubtableBlob> = new Map();
 
     public pushLookup(
-        lookup: GsubGpos.Lookup,
-        lwf: LookupWriterFactory<GsubGpos.Lookup>,
+        lookup: L,
+        lwf: LookupWriterFactory<L>,
         gdef: Data.Maybe<Gdef.Table>,
-        context: SubtableWriteContext<GsubGpos.Lookup>
+        context: SubtableWriteContext<L>
     ) {
         const { flags, markFilteringSet } = this.getIgnoreFlags(lookup, gdef);
         for (const writer of lwf.writers()) {
@@ -88,7 +88,7 @@ class LookupListWriter {
         }
     }
 
-    private getIgnoreFlags(lookup: GsubGpos.Lookup, gdef: Data.Maybe<Gdef.Table>) {
+    private getIgnoreFlags(lookup: L, gdef: Data.Maybe<Gdef.Table>) {
         const ignore = decideIgnoreFlags(lookup.ignoreGlyphs, gdef) || {
             ignoreBaseGlyphs: false,
             ignoreLigatures: false,
@@ -201,7 +201,7 @@ class LookupListWriter {
         return headerOffsets;
     }
 
-    public write(frag: Frag, lwf: LookupWriterFactory<GsubGpos.Lookup>) {
+    public write(frag: Frag, lwf: LookupWriterFactory<L>) {
         const hps = this.getHeaderPointersSize();
         const hts = this.getHeaderTotalSize();
         const ho = this.getHeaderOffsets(hps);
@@ -250,26 +250,24 @@ class LookupListWriter {
     }
 }
 
-export const WriteLookupList = Write(
-    (
-        frag: Frag,
-        lookups: GsubGpos.Lookup[],
-        lwf: LookupWriterFactory<GsubGpos.Lookup>,
-        lwc: LookupWriteContext
-    ) => {
-        const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
-        const llw = new LookupListWriter();
-        for (const lookup of lookups) {
-            const trick = lwc.tricks ? lwc.tricks.get(lookup) || 0 : 0;
-            llw.pushLookup(lookup, lwf, lwc.gdef, {
-                trick,
-                gOrd: lwc.gOrd,
-                crossReferences,
-                ivs: lwc.ivs,
-                stat: lwc.stat || new EmptyStat()
-            });
-        }
-        llw.stabilize();
-        frag.push(llw, lwf);
+export const WriteLookupList = Write(function<L extends GsubGpos.LookupProp>(
+    frag: Frag,
+    lookups: L[],
+    lwf: LookupWriterFactory<L>,
+    lwc: LookupWriteContext<L>
+) {
+    const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
+    const llw = new LookupListWriter();
+    for (const lookup of lookups) {
+        const trick = lwc.tricks ? lwc.tricks.get(lookup) || 0 : 0;
+        llw.pushLookup(lookup, lwf, lwc.gdef, {
+            trick,
+            gOrd: lwc.gOrd,
+            crossReferences,
+            ivs: lwc.ivs,
+            stat: lwc.stat || new EmptyStat()
+        });
     }
-);
+    llw.stabilize();
+    frag.push(llw, lwf);
+});

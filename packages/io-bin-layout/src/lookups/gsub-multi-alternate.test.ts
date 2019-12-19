@@ -10,7 +10,7 @@ describe("GSUB multi/alternate lookup handler", () => {
     for (let gid = 0; gid < gStore.items.length; gid++) gStore.items[gid].name = "glyph" + gid;
     const gOrd = gStore.decideOrder();
 
-    const roundtripConfig: LookupRoundTripConfig<Gsub.Multiple> = {
+    const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Multiple> = {
         gOrd,
         writer: () => new GsubMultiWriter(),
         reader: () => new GsubMultiReader(),

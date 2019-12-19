@@ -11,8 +11,8 @@ export class GlyphClassifier {
 
         const algGeom = new GeometryClassifier();
         const algHint = new HintClassifier();
-        if (g.geometry) g.geometry.acceptGeometryAlgebra(algGeom);
-        if (g.hints) g.hints.acceptHintAlgebra(algHint);
+        if (g.geometry) g.geometry.apply(algGeom);
+        if (g.hints) g.hints.apply(algHint);
 
         if (!algGeom.hasContours && !algGeom.hasReference) {
             return new SpaceGlyph(gid, g.horizontal, g.vertical);

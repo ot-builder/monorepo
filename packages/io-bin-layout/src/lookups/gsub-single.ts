@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ft-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -16,7 +16,7 @@ import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { LookupIsGsubSingleAlg } from "./lookup-type-alg";
 
 const SubtableFormat1 = {
-    read(view: BinaryView, lookup: Gsub.Single, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gsub.Single, context: SubtableReadingContext<Gsub.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`SingleSubstFormat1`, format, 1);
         const coverage = view.ptr16().next(GidCoverage);
@@ -35,7 +35,7 @@ const SubtableFormat1 = {
 };
 
 const SubtableFormat2 = {
-    read(view: BinaryView, lookup: Gsub.Single, context: SubtableReadingContext<GsubGpos.Lookup>) {
+    read(view: BinaryView, lookup: Gsub.Single, context: SubtableReadingContext<Gsub.Lookup>) {
         const format = view.uint16();
         Assert.FormatSupported(`SingleSubstFormat2`, format, 2);
 
@@ -58,7 +58,7 @@ const SubtableFormat2 = {
     }
 };
 
-export class GsubSingleReader implements LookupReader<GsubGpos.Lookup, Gsub.Single> {
+export class GsubSingleReader implements LookupReader<Gsub.Lookup, Gsub.Single> {
     public createLookup() {
         return Gsub.Single.create();
     }
@@ -66,7 +66,7 @@ export class GsubSingleReader implements LookupReader<GsubGpos.Lookup, Gsub.Sing
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Single,
-        context: SubtableReadingContext<GsubGpos.Lookup>
+        context: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -105,9 +105,9 @@ class GsubSingleWriterState {
     }
 }
 
-export class GsubSingleWriter implements LookupWriter<GsubGpos.Lookup, Gsub.Single> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gsub.Single {
-        return l.acceptLookupAlgebra(LookupIsGsubSingleAlg);
+export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> {
+    public canBeUsed(l: Gsub.Lookup): l is Gsub.Single {
+        return l.apply(LookupIsGsubSingleAlg);
     }
     public getLookupType() {
         return 1;
@@ -127,10 +127,7 @@ export class GsubSingleWriter implements LookupWriter<GsubGpos.Lookup, Gsub.Sing
         return data.length;
     }
 
-    public createSubtableFragments(
-        lookup: Gsub.Single,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>
-    ) {
+    public createSubtableFragments(lookup: Gsub.Single, ctx: SubtableWriteContext<Gsub.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
         const forceFormat2 = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverageForSingleLookup);
         const st = new GsubSingleWriterState();

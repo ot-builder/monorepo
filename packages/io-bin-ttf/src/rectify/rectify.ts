@@ -14,7 +14,7 @@ function rectifyGlyph(glyph: OtGlyph, gs: Set<OtGlyph>) {
     if (gs.has(glyph)) return;
 
     if (glyph.geometry) {
-        glyph.geometry = glyph.geometry.acceptGeometryAlgebra(new AttachmentPointToCoordAlg(gs))({
+        glyph.geometry = glyph.geometry.apply(new AttachmentPointToCoordAlg(gs))({
             points: []
         });
     }

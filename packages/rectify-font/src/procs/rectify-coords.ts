@@ -8,7 +8,12 @@ import { rectifyGlyphsCoordPA } from "../glyph/point-attachment-alg";
 import { AxisRectifier, CoordRectifier, PointAttachmentRectifier } from "../interface";
 import { rectifyBaseTableCoord, rectifyBaseTablePointAttachment } from "../layout/base";
 import { rectifyGdefCoords, rectifyGdefPointAttachment } from "../layout/gdef";
-import { rectifyLayoutCoord, rectifyLayoutPointAttachment } from "../layout/gsub-gpos";
+import {
+    rectifyGposCoord,
+    rectifyGposPointAttachment,
+    rectifyGsubCoord,
+    rectifyGsubPointAttachment
+} from "../layout/gsub-gpos";
 import { rectifyAxisAvar } from "../meta/avar";
 import { rectifyAxisFvar } from "../meta/fvar";
 import { rectifyCoordGasp } from "../meta/gasp";
@@ -64,10 +69,10 @@ function rectifyLayout<GS extends OtGlyphStore>(
         font.gdef = rectifyGdefCoords(font.gdef, recCoord);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutCoord(font.gsub, Ot.Gsub.Table.create, recAxes, recCoord);
+        font.gsub = rectifyGsubCoord(font.gsub, recAxes, recCoord);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutCoord(font.gpos, Ot.Gpos.Table.create, recAxes, recCoord);
+        font.gpos = rectifyGposCoord(font.gpos, recAxes, recCoord);
     }
     if (font.base) {
         font.base = rectifyBaseTableCoord(recCoord, font.base);
@@ -81,10 +86,10 @@ function rectifyLayoutPA<GS extends OtGlyphStore>(
         font.gdef = rectifyGdefPointAttachment(font.gdef, recPA);
     }
     if (font.gsub) {
-        font.gsub = rectifyLayoutPointAttachment(font.gsub, Ot.Gsub.Table.create, recPA);
+        font.gsub = rectifyGsubPointAttachment(font.gsub, recPA);
     }
     if (font.gpos) {
-        font.gpos = rectifyLayoutPointAttachment(font.gpos, Ot.Gpos.Table.create, recPA);
+        font.gpos = rectifyGposPointAttachment(font.gpos, recPA);
     }
     if (font.base) {
         font.base = rectifyBaseTablePointAttachment(recPA, font.base);

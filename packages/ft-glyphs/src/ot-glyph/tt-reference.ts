@@ -20,9 +20,7 @@ export class TtReferenceImpl implements GeneralGlyph.TtReferenceT<OtGlyphInterfa
     public queryInterface<U>(tid: Caster.TypeID<U>): undefined | U {
         return Caster.StandardQueryInterface(this, tid, TID_TtReference);
     }
-    public acceptGeometryAlgebra<E>(
-        alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>
-    ): E {
+    public apply<E>(alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>): E {
         return alg.ttReference(this);
     }
 }

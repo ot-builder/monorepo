@@ -12,9 +12,9 @@ import { ClassMatrix } from "./kern-analyzer/class-matrix";
 import { analyzeOutlier, OutlierTree, shareColumns } from "./kern-analyzer/outliers";
 import { LookupIsGposPairAlg } from "./lookup-type-alg";
 
-export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> {
-    public canBeUsed(l: GsubGpos.Lookup): l is Gpos.Pair {
-        return l.acceptLookupAlgebra(LookupIsGposPairAlg);
+export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
+    public canBeUsed(l: Gpos.Lookup): l is Gpos.Pair {
+        return l.apply(LookupIsGposPairAlg);
     }
     public getLookupType() {
         return 2;
@@ -23,7 +23,7 @@ export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> 
     private writeOutliers(
         results: Frag[],
         dt: OutlierTree<OtGlyph>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>,
+        ctx: SubtableWriteContext<Gpos.Lookup>,
         depth: number
     ) {
         if (!dt.size) return;
@@ -55,7 +55,7 @@ export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> 
     private writeClasses(
         results: Frag[],
         cm: ClassMatrix<OtGlyph>,
-        ctx: SubtableWriteContext<GsubGpos.Lookup>,
+        ctx: SubtableWriteContext<Gpos.Lookup>,
         depth: number
     ) {
         const measure = cm.measure();
@@ -90,7 +90,7 @@ export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> 
         }
     }
 
-    public createSubtableFragments(lookup: Gpos.Pair, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    public createSubtableFragments(lookup: Gpos.Pair, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const cm = ClassMatrix.analyze(lookup.adjustments, ctx);
         const outliers = analyzeOutlier(cm);
         let frags: Frag[] = [];
@@ -102,7 +102,7 @@ export class GposPairWriter implements LookupWriter<GsubGpos.Lookup, Gpos.Pair> 
 
 // Structs
 const SubtableFormat1 = {
-    write(frag: Frag, dt: OutlierTree<OtGlyph>, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    write(frag: Frag, dt: OutlierTree<OtGlyph>, ctx: SubtableWriteContext<Gpos.Lookup>) {
         let plans: [number, Gpos.AdjustmentPair][][] = [];
         let format1 = 0;
         let format2 = 0;
@@ -141,7 +141,7 @@ const SubtableFormat1 = {
 };
 
 const SubtableFormat2 = {
-    write(frag: Frag, cm: ClassMatrix<OtGlyph>, ctx: SubtableWriteContext<GsubGpos.Lookup>) {
+    write(frag: Frag, cm: ClassMatrix<OtGlyph>, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const fcm = FinalClassMatrix.fromClassMatrix(cm);
         if (!fcm.covGlyphSet.size) return;
 

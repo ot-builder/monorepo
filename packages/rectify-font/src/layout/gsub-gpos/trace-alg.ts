@@ -4,12 +4,18 @@ import { Thunk } from "@ot-builder/prelude";
 import { GlyphTraceProc } from "../../interface";
 import { TraceImpl } from "../../shared";
 
-export function traceLayoutGlyphs(table: Ot.GsubGpos.Table): GlyphTraceProc {
+export function traceGsub(table: Ot.Gsub.Table): GlyphTraceProc {
     const alg = new TraceGlyphAlg();
-    return TraceImpl.Glyph.Seq(table.lookups.map(lookup => lookup.acceptLookupAlgebra(alg)));
+    return TraceImpl.Glyph.Seq(table.lookups.map(lookup => lookup.apply(alg)));
 }
 
-export class TraceGlyphAlg implements Ot.GsubGpos.LookupAlg<GlyphTraceProc> {
+export function traceGpos(table: Ot.Gpos.Table): GlyphTraceProc {
+    const alg = new TraceGlyphAlg();
+    return TraceImpl.Glyph.Seq(table.lookups.map(lookup => lookup.apply(alg)));
+}
+
+export class TraceGlyphAlg
+    implements Ot.Gsub.LookupAlg<GlyphTraceProc>, Ot.Gpos.LookupAlg<GlyphTraceProc> {
     public gsubSingle(thProps: Thunk<Ot.Gsub.SingleProp>): GlyphTraceProc {
         const props = thProps.force();
         return tracer => {
