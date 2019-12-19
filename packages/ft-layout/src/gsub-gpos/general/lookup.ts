@@ -4,15 +4,13 @@ import { LayoutCommon } from "../../common";
 import { DicingStore } from "../../dicing-store";
 
 /** General lookup type */
-export interface GeneralLookupT<G, X, L> extends LookupPropT<G> {
-    acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E;
-}
-
 export interface LookupPropT<G> {
     rightToLeft: boolean;
     ignoreGlyphs: Data.Maybe<Set<G>>;
 }
-export interface LookupT<G, X> extends GeneralLookupT<G, X, LookupT<G, X>> {}
+export interface LookupT<G, X> extends LookupPropT<G> {
+    acceptLookupAlgebra<E>(alg: LookupAlgT<G, X, E>): E;
+}
 
 /** General Lookup algebra */
 export interface LookupAlgT<G, X, E> {
