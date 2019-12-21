@@ -9,14 +9,21 @@ export interface DicingStore<X, Y, D> {
     getYClassDef(): Y[][];
     entries(): IterableIterator<[X, Y, Data.Maybe<D>]>;
 
-    set(x: Set<X>, y: Set<Y>, v: D): void;
-    setIfAbsent(x: Set<X>, y: Set<Y>, v: D): void;
-    update(mdfX: Set<X>, mdfY: Set<Y>, fn: (original: Data.Maybe<D>) => Data.Maybe<D>): void;
+    set(x: Iterable<X>, y: Iterable<Y>, v: D): void;
+    setIfAbsent(x: Iterable<X>, y: Iterable<Y>, v: D): void;
+    update(
+        mdfX: Iterable<X>,
+        mdfY: Iterable<Y>,
+        fn: (original: Data.Maybe<D>) => Data.Maybe<D>
+    ): void;
 }
 
 export class DicingStoreImpl<X, Y, D> {
     private clsDefX: Map<X, number> = new Map();
+    private coClsDefX: X[][] = [];
     private clsDefY: Map<Y, number> = new Map();
+    private coClsDefY: Y[][] = [];
+
     private dataMatrix: Data.Maybe<D>[][] = [];
 
     private getData(kx: number, ky: number): Data.Maybe<D> {
@@ -28,42 +35,53 @@ export class DicingStoreImpl<X, Y, D> {
         this.dataMatrix[kx][ky] = d;
     }
 
-    private getDicingPlan<X>(cd: Map<X, number>, mdf: Set<X>) {
-        let newClassElements: X[] = [];
-        let inSet: X[][] = [];
-        let outSet: X[][] = [];
-        for (const x of mdf) if (!cd.has(x)) newClassElements.push(x);
-        for (const [x, cl] of cd) {
-            let a = mdf.has(x) ? inSet : outSet;
-            if (!a[cl]) a[cl] = [];
-            a[cl].push(x);
-        }
-        const clsCount = Math.max(inSet.length, outSet.length);
-        let clsNew = clsCount;
+    private getDicingPlan<X>(coCd: X[][], mdf: Set<X>) {
         let plans: DicingPlan<X>[] = [];
-        for (let cl = 0; cl < clsCount; cl++) {
-            if (!inSet[cl] || !inSet[cl].length) continue;
-            if (outSet[cl] && outSet[cl].length) {
-                plans.push({ cls: clsNew++, from: cl, items: inSet[cl], inSet: true });
-                plans.push({ cls: cl, from: cl, items: null, inSet: false });
-            } else {
-                plans.push({ cls: cl, from: cl, items: null, inSet: true });
+        let inSet: X[];
+        let outSet: X[];
+        let clsNew = coCd.length;
+        for (let cl = 0; cl < coCd.length; cl++) {
+            inSet = [];
+            outSet = [];
+            let kg = coCd[cl];
+            if (!kg || !kg.length) continue;
+            for (const g of kg) {
+                if (mdf.has(g)) {
+                    inSet.push(g);
+                    mdf.delete(g);
+                } else {
+                    outSet.push(g);
+                }
+            }
+            if (inSet.length) {
+                if (outSet.length) {
+                    plans.push({ cls: clsNew++, from: cl, items: inSet, inSet: true });
+                    plans.push({ cls: cl, from: cl, items: outSet, inSet: false });
+                } else {
+                    plans.push({ cls: cl, from: cl, items: null, inSet: true });
+                }
             }
         }
-        if (newClassElements.length) {
-            plans.push({ cls: clsNew++, from: null, items: newClassElements, inSet: true });
-        }
+        if (mdf.size) plans.push({ cls: clsNew++, from: null, items: [...mdf], inSet: true });
         return plans;
     }
 
-    public update(mdfX: Set<X>, mdfY: Set<Y>, fn: (original: Data.Maybe<D>) => Data.Maybe<D>) {
-        const planX = this.getDicingPlan(this.clsDefX, mdfX);
-        const planY = this.getDicingPlan(this.clsDefY, mdfY);
+    public update(
+        mdfX: Iterable<X>,
+        mdfY: Iterable<Y>,
+        fn: (original: Data.Maybe<D>) => Data.Maybe<D>
+    ) {
+        const planX = this.getDicingPlan(this.coClsDefX, new Set(mdfX));
+        const planY = this.getDicingPlan(this.coClsDefY, new Set(mdfY));
         for (let px of planX) {
-            if (px.items) for (const x of px.items) this.clsDefX.set(x, px.cls);
+            if (!px.items) continue;
+            this.coClsDefX[px.cls] = px.items;
+            if (px.inSet) for (const x of px.items) this.clsDefX.set(x, px.cls);
         }
         for (let py of planY) {
-            if (py.items) for (const y of py.items) this.clsDefY.set(y, py.cls);
+            if (!py.items) continue;
+            this.coClsDefY[py.cls] = py.items;
+            if (py.inSet) for (const y of py.items) this.clsDefY.set(y, py.cls);
         }
         for (let px of planX) {
             for (let py of planY) {
@@ -122,10 +140,10 @@ export class DicingStoreImpl<X, Y, D> {
         }
     }
 
-    public set(x: Set<X>, y: Set<Y>, v: D) {
+    public set(x: Iterable<X>, y: Iterable<Y>, v: D) {
         this.update(x, y, () => v);
     }
-    public setIfAbsent(x: Set<X>, y: Set<Y>, v: D) {
+    public setIfAbsent(x: Iterable<X>, y: Iterable<Y>, v: D) {
         this.update(x, y, orig => (orig == null ? v : orig));
     }
 }

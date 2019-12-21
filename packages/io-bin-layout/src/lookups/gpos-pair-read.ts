@@ -46,10 +46,12 @@ const SubtableFormat2 = {
 
         for (const gid of cov) ClassDefUtil.padClass0(cd1, context.gOrd.at(gid));
         for (const g of context.gOrd) ClassDefUtil.padClass0(cd2, g);
+        const scd1 = ClassDefUtil.SplitClassDef(cd1);
+        const scd2 = ClassDefUtil.SplitClassDef(cd2);
         for (let c1 = 0; c1 < class1Count; c1++) {
-            const gs1 = new Set(ClassDefUtil.GlyphMatchingClass(cd1, c1));
+            const gs1 = scd1[c1] || [];
             for (let c2 = 0; c2 < class2Count; c2++) {
-                const gs2 = new Set(ClassDefUtil.GlyphMatchingClass(cd2, c2));
+                const gs2 = scd2[c2] || [];
                 const value1 = view.next(GposAdjustment, valueFormat1, context.ivs);
                 const value2 = view.next(GposAdjustment, valueFormat2, context.ivs);
                 lookup.adjustments.setIfAbsent(gs1, gs2, [value1, value2]);

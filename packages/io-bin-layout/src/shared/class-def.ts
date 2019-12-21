@@ -9,8 +9,13 @@ export namespace ClassDefUtil {
     export function padClass0(cd: LayoutCommon.ClassDef.T<OtGlyph>, g: OtGlyph) {
         if (!cd.has(g)) cd.set(g, 0);
     }
-    export function* GlyphMatchingClass(cd: LayoutCommon.ClassDef.T<OtGlyph>, k: number) {
-        for (const [g, cls] of cd) if (cls === k) yield g;
+    export function SplitClassDef<G>(cd: LayoutCommon.ClassDef.T<G>) {
+        let ans: G[][] = [];
+        for (const [g, cl] of cd) {
+            if (!ans[cl]) ans[cl] = [];
+            ans[cl].push(g);
+        }
+        return ans;
     }
     export function getClassCount<G>(cd: LayoutCommon.ClassDef.T<G>) {
         let mc = 1;
