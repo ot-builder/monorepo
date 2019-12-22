@@ -23,6 +23,7 @@ export const MetricHeadIo = {
         table._reserved1 = view.int16();
         table._reserved2 = view.int16();
         table._reserved3 = view.int16();
+        const _metricDataFormat = view.uint16();
         table.numberOfLongMetrics = view.uint16();
 
         return table;
