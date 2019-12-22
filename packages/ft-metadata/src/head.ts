@@ -41,8 +41,10 @@ export namespace Head {
     }
 
     export class Table {
-        public majorVersion: UInt16 = 0x1;
-        public minorVersion: UInt16 = 0;
+        constructor(
+            public readonly majorVersion: UInt16 = 0x1,
+            public readonly minorVersion: UInt16 = 0
+        ) {}
         public fontRevision: F16D16 = 0;
         public readonly checkSumAdjust: UInt32 = 0;
         public readonly magicNumber: UInt32 = 0x5f0f3cf5;

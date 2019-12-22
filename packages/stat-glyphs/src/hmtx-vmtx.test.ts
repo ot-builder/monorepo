@@ -4,8 +4,8 @@ import { HmtxStat } from "./hmtx";
 import { VmtxStat } from "./vmtx";
 
 test("HMTX-VMTX stat test", () => {
-    const hhea = new MetricHead.Hhea();
-    const vhea = new MetricHead.Vhea();
+    const hhea = new MetricHead.Hhea(1, 0);
+    const vhea = new MetricHead.Vhea(1, 0);
     const statH = new HmtxStat(hhea, new Head.Table());
     const statV = new VmtxStat(vhea, null, statH);
     statV.setMetric(

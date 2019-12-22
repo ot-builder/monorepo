@@ -1,7 +1,7 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
 import { Data, Ot, number } from "components/exports"
-import { readonly } from "components/tycon"
+import { readonly, optional } from "components/tycon"
 export default Layout
 
 # Namespace <Decl s={Ot.Head}/>
@@ -12,12 +12,14 @@ export default Layout
 
 #### Constructor
 
- * <Method ctor s={Ot.Head.Table.constructor} returns={Ot.Head.Table} />
+ * <Method ctor s={Ot.Head.Table.constructor} args={{majorVersion:optional(number),minorVersion:optional(number)}} />
+
+    Creates an <R s={Ot.Head.Table}/> with given version. Defaults to `(1, 0)`.
 
 #### Properties
 
- * <Member s={Ot.Head.Table.majorVersion} type={number} />
- * <Member s={Ot.Head.Table.minorVersion} type={number} />
+ * <Member readonly s={Ot.Head.Table.majorVersion} type={number} />
+ * <Member readonly s={Ot.Head.Table.minorVersion} type={number} />
  * <Member s={Ot.Head.Table.fontRevision} type={number} />
  * <Member readonly s={Ot.Head.Table.checkSumAdjust} type={number} />
  * <Member readonly s={Ot.Head.Table.magicNumber} type={number} />
