@@ -199,7 +199,7 @@ export const ObjectComma = (key: string) => (
 export const InlineEntry = (key: string, suffix: string, el: TyRep) => (
     <span key={"item-" + key}>
         <span className="api-doc-function-arg">{key}</span>
-        {suffix ? <span className="api-doc-delimiter">{suffix}</span> : null}
+        {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
         <span className="api-doc-delimiter">{":"}</span>
         {FormatType(el)}
     </span>
@@ -208,7 +208,7 @@ export const BlockEntry = (key: string, suffix: string, el: TyRep) => (
     <div className="api-doc-method-param" key={"item-" + key}>
         <span className="api-doc-sub-item-indicator parameter">· </span>
         <span className="api-doc-function-arg">{key}</span>
-        {suffix ? <span className="api-doc-delimiter">{suffix}</span> : null}
+        {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
         <span className="api-doc-delimiter">{":"}</span>
         {FormatType(el, true)}
     </div>
@@ -216,7 +216,7 @@ export const BlockEntry = (key: string, suffix: string, el: TyRep) => (
 export const OnlyKeys = (key: string, suffix: string, el: TyRep) => (
     <span key={"item-" + key}>
         <span className="api-doc-function-arg">{key}</span>
-        {suffix ? <span className="api-doc-delimiter">{suffix}</span> : null}
+        {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
     </span>
 );
 
@@ -264,7 +264,9 @@ function translateUrlImpl(exp: TyExport, orig: TyExport) {
     const pp = getPagePath(exp);
     if (pp) {
         return (
-            `/references/` + toPagePath(getPagePath(exp)) + ("#" + toItemHash(getDisplayPath(orig)))
+            `/references/` +
+            toPagePath(getPagePath(exp)) +
+            ("#" + toItemHash(getDisplayPath(orig)))
         );
     }
 

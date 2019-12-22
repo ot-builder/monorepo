@@ -95,7 +95,7 @@ const DeclHeaderImpl = (props: DeclHeaderImplProps) => {
 
     return (
         <>
-            {prefix ? <span className="api-doc-operator">{prefix}</span> : null}
+            {prefix ? <span className="api-doc-decl-prefix">{prefix}</span> : null}
             <RenderRef anchor dependent={dependent} s={symbol} />
             {suffix ? <span className="api-doc-delimiter api-doc-operator">{suffix}</span> : null}
         </>

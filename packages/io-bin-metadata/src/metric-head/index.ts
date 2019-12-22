@@ -4,10 +4,11 @@ import { OtVar } from "@ot-builder/variance";
 
 export const MetricHeadIo = {
     ...Read((view, vertical: boolean) => {
-        const table: MetricHead.Table = vertical ? new MetricHead.Vhea() : new MetricHead.Hhea();
-
-        table.majorVersion = view.uint16();
-        table.minorVersion = view.uint16();
+        const majorVersion = view.uint16();
+        const minorVersion = view.uint16();
+        const table: MetricHead.Table = vertical
+            ? new MetricHead.Vhea(majorVersion, minorVersion)
+            : new MetricHead.Hhea(majorVersion, minorVersion);
         table.ascender = view.int16();
         table.descender = view.int16();
         table.lineGap = view.int16();
@@ -22,7 +23,6 @@ export const MetricHeadIo = {
         table._reserved1 = view.int16();
         table._reserved2 = view.int16();
         table._reserved3 = view.int16();
-        table.metricDataFormat = view.int16();
         table.numberOfLongMetrics = view.uint16();
 
         return table;

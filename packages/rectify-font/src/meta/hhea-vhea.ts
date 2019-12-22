@@ -7,8 +7,6 @@ function inPlaceRectifyCoordHhea(
     newTable: Ot.MetricHead.Table,
     table: Ot.MetricHead.Table
 ) {
-    newTable.majorVersion = table.majorVersion;
-    newTable.minorVersion = table.minorVersion;
     newTable.advanceMax = table.advanceMax;
     newTable.minStartSideBearing = table.minStartSideBearing;
     newTable.minEndSideBearing = table.minEndSideBearing;
@@ -17,7 +15,6 @@ function inPlaceRectifyCoordHhea(
     newTable._reserved1 = table._reserved1;
     newTable._reserved2 = table._reserved2;
     newTable._reserved3 = table._reserved3;
-    newTable.metricDataFormat = table.metricDataFormat;
     newTable.numberOfLongMetrics = table.numberOfLongMetrics;
 
     newTable.ascender = rec.coord(newTable.ascender);
@@ -29,13 +26,13 @@ function inPlaceRectifyCoordHhea(
 }
 
 export function rectifyCoordHhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
-    const newTable = new Ot.MetricHead.Hhea();
+    const newTable = new Ot.MetricHead.Hhea(table.majorVersion, table.minorVersion);
     inPlaceRectifyCoordHhea(rec, newTable, table);
     return newTable;
 }
 
 export function rectifyCoordVhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
-    const newTable = new Ot.MetricHead.Vhea();
+    const newTable = new Ot.MetricHead.Vhea(table.majorVersion, table.minorVersion);
     inPlaceRectifyCoordHhea(rec, newTable, table);
     return newTable;
 }

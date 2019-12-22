@@ -1,6 +1,7 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
 import { number, boolean, array, Data, Ot, Tag } from "components/exports"
+import { optional } from "components/tycon"
 export default Layout
 
 # Namespace <Decl s={Ot.MetricHead}/>
@@ -13,15 +14,15 @@ export default Layout
 #### Properties
 
  * <Member readonly s={Ot.MetricHead.Table.isVertical} type={boolean} />
- * <Member s={Ot.MetricHead.Table.majorVersion} type={number} />
- * <Member s={Ot.MetricHead.Table.minorVersion} type={number} />
+ * <Member readonly s={Ot.MetricHead.Table.majorVersion} type={number} />
+ * <Member readonly s={Ot.MetricHead.Table.minorVersion} type={number} />
  * <Member s={Ot.MetricHead.Table.ascender} type={Ot.Var.Value} />
  * <Member s={Ot.MetricHead.Table.descender} type={Ot.Var.Value} />
  * <Member s={Ot.MetricHead.Table.lineGap} type={Ot.Var.Value} />
  * <Member s={Ot.MetricHead.Table.advanceMax} type={number} />
- * <Member s={Ot.MetricHead.Table.minStartSideBearing} type={number} />
- * <Member s={Ot.MetricHead.Table.minEndSideBearing} type={number} />
- * <Member s={Ot.MetricHead.Table.maxExtent} type={number} />
+ * <Member volatile s={Ot.MetricHead.Table.minStartSideBearing} type={number} />
+ * <Member volatile s={Ot.MetricHead.Table.minEndSideBearing} type={number} />
+ * <Member volatile s={Ot.MetricHead.Table.maxExtent} type={number} />
  * <Member s={Ot.MetricHead.Table.caretSlopeRise} type={Ot.Var.Value} />
  * <Member s={Ot.MetricHead.Table.caretSlopeRun} type={Ot.Var.Value} />
  * <Member s={Ot.MetricHead.Table.caretOffset} type={Ot.Var.Value} />
@@ -29,19 +30,29 @@ export default Layout
  * <Member s={Ot.MetricHead.Table._reserved1} type={number} />
  * <Member s={Ot.MetricHead.Table._reserved2} type={number} />
  * <Member s={Ot.MetricHead.Table._reserved3} type={number} />
- * <Member s={Ot.MetricHead.Table.metricDataFormat} type={number} />
- * <Member s={Ot.MetricHead.Table.numberOfLongMetrics} type={number} />
+ * <Member readonly s={Ot.MetricHead.Table.metricDataFormat} type={number} />
+ * <Member volatile s={Ot.MetricHead.Table.numberOfLongMetrics} type={number} />
 
-### Class <Decl s={Ot.MetricHead.Hhea}/> extends <R s={Ot.MetricHead.Table}/>
+### Class <Decl s={Ot.MetricHead.Hhea}/> 
 
-#### Cosntructor
+#### Inherits
 
- * <Method ctor s={Ot.MetricHead.Hhea.constructor} returns={Ot.MetricHead.Hhea}/>
-
-### Class <Decl s={Ot.MetricHead.Vhea}/> extends <R s={Ot.MetricHead.Table}/>
+* <R s={Ot.MetricHead.Table}/>
 
 #### Cosntructor
 
- * <Method ctor s={Ot.MetricHead.Vhea.constructor} returns={Ot.MetricHead.Vhea}/>
+* <Method ctor s={Ot.MetricHead.Hhea.constructor} args={{majorVersion:optional(number),minorVersion:optional(number)}}/>
 
+    In current OpenType specification, the only valid combination of `(majorVersion, minorVersion)` is `(1, 0)`. Defaults to `(1, 0)`.
 
+### Class <Decl s={Ot.MetricHead.Vhea}/> 
+
+#### Inherits
+
+* <R s={Ot.MetricHead.Table}/>
+
+#### Cosntructor
+
+* <Method ctor s={Ot.MetricHead.Vhea.constructor} args={{majorVersion:optional(number),minorVersion:optional(number)}}/>
+
+    In current OpenType specification, the valid combinations of `(majorVersion, minorVersion)` are `(1, 0)` and `(1, 0x1000)`. Defaults to `(1, 0)`.

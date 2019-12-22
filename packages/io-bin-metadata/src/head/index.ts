@@ -5,9 +5,9 @@ import { F16D16 } from "@ot-builder/primitive";
 
 export const HeadIo = {
     ...Read<Head.Table>(view => {
-        const head = new Head.Table();
-        head.majorVersion = view.uint16();
-        head.minorVersion = view.uint16();
+        const majorVersion = view.uint16();
+        const minorVersion = view.uint16();
+        const head = new Head.Table(majorVersion, minorVersion);
         head.fontRevision = view.next(F16D16);
         const _checkSumAdjust = view.uint32(); // pass, Head.Table::checkSumAdjust is read-only
         const _magicNumber = view.uint32(); // pass, Head.Table::magicNumber is read-only
