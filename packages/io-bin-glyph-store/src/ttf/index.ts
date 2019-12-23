@@ -26,12 +26,18 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         const loca = new BinaryView(bLoca).next(Loca.Io, ctx.head, ctx.maxp);
         const glyf = new BinaryView(bGlyf).next(Glyf.Read, loca, gOrd, ctx.coStat);
         const bGvar = sfnt.tables.get(Gvar.Tag);
-        if (ctx.axes && bGvar) {
+        if (ctx.designSpace && bGvar) {
             const gvarIgnore = {
                 horizontalMetric: ctx.hMetricVariable,
                 verticalMetric: ctx.vMetricVariable
             };
-            const gvar = new BinaryView(bGvar).next(Gvar.Read, gOrd, cfg, gvarIgnore, ctx.axes);
+            const gvar = new BinaryView(bGvar).next(
+                Gvar.Read,
+                gOrd,
+                cfg,
+                gvarIgnore,
+                ctx.designSpace
+            );
         }
         rectifyGlyphOrder(gOrd);
         // Co-glyphs
@@ -44,7 +50,9 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         if (bCvt) {
             cog.cvt = new BinaryView(bCvt).next(CvtIo);
             const bCvar = sfnt.tables.get(Cvt.TagVar);
-            if (ctx.axes && bCvar) new BinaryView(bCvar).next(CvarIo, cog.cvt, ctx.axes);
+            if (ctx.designSpace && bCvar) {
+                new BinaryView(bCvar).next(CvarIo, cog.cvt, ctx.designSpace);
+            }
         }
 
         return cog;
@@ -53,9 +61,9 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
 export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
     writeMetricVariance: true,
     writeGlyphs(sfnt, cfg, coGlyphs, gOrd, ctx) {
-        if (ctx.axes && coGlyphs.cvt) {
+        if (ctx.designSpace && coGlyphs.cvt) {
             const afEmpty = new ImpLib.State<boolean>(false);
-            const bCvar = Frag.packFrom(CvarIo, coGlyphs.cvt, ctx.axes, afEmpty);
+            const bCvar = Frag.packFrom(CvarIo, coGlyphs.cvt, ctx.designSpace, afEmpty);
             sfnt.add(Cvt.TagVar, bCvar, afEmpty);
         }
 
@@ -63,9 +71,9 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         if (coGlyphs.fpgm) sfnt.add(Fpgm.Tag, Frag.packFrom(FpgmIo, coGlyphs.fpgm));
         if (coGlyphs.prep) sfnt.add(Prep.Tag, Frag.packFrom(PrepIo, coGlyphs.prep));
 
-        if (ctx.axes) {
+        if (ctx.designSpace) {
             const afEmpty = new ImpLib.State<boolean>(false);
-            const bGvar = Frag.packFrom(Gvar.Write, gOrd, cfg, ctx.axes, afEmpty);
+            const bGvar = Frag.packFrom(Gvar.Write, gOrd, cfg, ctx.designSpace, afEmpty);
             sfnt.add(Gvar.Tag, bGvar, afEmpty);
         }
         const loca1: Loca.Table = { glyphOffsets: [] };

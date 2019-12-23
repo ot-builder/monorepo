@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "Split Ot.Var.Dim from Ot.Fvar.Axis",
+  "packageName": "@ot-builder/ft-layout",
+  "email": "belleve@typeof.net",
+  "commit": "b5433a84f1f70ffafb069d353783af447bba2949",
+  "date": "2019-12-23T06:33:50.583Z"
+}

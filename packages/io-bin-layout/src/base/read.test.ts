@@ -16,10 +16,14 @@ describe("BASE read", () => {
         const sfnt = new BinaryView(bufFont).next(SfntOtf);
         const cfg = { fontMetadata: {}, glyphStore: {} };
         const md = readOtMetadata(sfnt, cfg);
-        const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
+        const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
 
         const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
-        const base = new BinaryView(sfnt.tables.get(Base.Tag)!).next(BaseTableIo, gOrd, axes);
+        const base = new BinaryView(sfnt.tables.get(Base.Tag)!).next(
+            BaseTableIo,
+            gOrd,
+            designSpace
+        );
         return { base };
     }
 

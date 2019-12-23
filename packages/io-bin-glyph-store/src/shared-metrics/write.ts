@@ -14,16 +14,16 @@ export function writeHMetrics(
     hhea: Data.Maybe<MetricHead.Table>,
     statHmtx: Data.Maybe<HmtxStat>,
     gOrd: Data.Order<OtGlyph>,
-    axes: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     if (!hhea || !statHmtx) return;
 
     sink.add(MetricBasic.TagHmtx, Frag.pack(Frag.from(MetricBasicIo, statHmtx.hmtx, hhea, gOrd)));
-    if (axes && writeMetricVariance && statHmtx.hvar) {
+    if (designSpace && writeMetricVariance && statHmtx.hvar) {
         const hvarEmpty = new ImpLib.State(true);
         sink.add(
             MetricVariance.TagHvar,
-            Frag.pack(Frag.from(MetricVarianceIo, statHmtx.hvar, axes, hvarEmpty)),
+            Frag.pack(Frag.from(MetricVarianceIo, statHmtx.hvar, designSpace, hvarEmpty)),
             hvarEmpty
         );
     }
@@ -35,17 +35,17 @@ export function writeVMetrics(
     vhea: Data.Maybe<MetricHead.Table>,
     statVmtx: VmtxStat | null,
     gOrd: Data.Order<OtGlyph>,
-    axes: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     if (!vhea || !statVmtx) return;
 
     sink.add(MetricBasic.TagVmtx, Frag.pack(Frag.from(MetricBasicIo, statVmtx.vmtx, vhea, gOrd)));
     sink.add(Vorg.Tag, Frag.pack(Frag.from(VorgIo, statVmtx.vorg)));
-    if (axes && writeMetricVariance && statVmtx.vvar) {
+    if (designSpace && writeMetricVariance && statVmtx.vvar) {
         const vvarEmpty = new ImpLib.State(true);
         sink.add(
             MetricVariance.TagVvar,
-            Frag.pack(Frag.from(MetricVarianceIo, statVmtx.vvar, axes, vvarEmpty)),
+            Frag.pack(Frag.from(MetricVarianceIo, statVmtx.vvar, designSpace, vvarEmpty)),
             vvarEmpty
         );
     }

@@ -1,6 +1,6 @@
 import { VectorSpace } from "@ot-builder/prelude/lib/algebra";
 
-import { VarianceAxis } from "../interface/axis";
+import { VarianceDim } from "../interface/dimension";
 import { VarianceInstance } from "../interface/instance";
 import { VarianceMaster, VarianceMasterSet } from "../interface/master";
 import { VariableCreator, VariableOps } from "../interface/value";
@@ -9,16 +9,16 @@ import { OtVarMaster } from "./master";
 import { OtVarMasterSet } from "./master-set";
 import { OtVarValueC } from "./value";
 
-export type OtVarValue<A extends VarianceAxis, M extends VarianceMaster<A>> =
+export type OtVarValue<A extends VarianceDim, M extends VarianceMaster<A>> =
     | number
     | OtVarValueC<A, M>;
 
 type MasterSetFactory<
-    A extends VarianceAxis,
+    A extends VarianceDim,
     M extends VarianceMaster<A>
 > = () => VarianceMasterSet<A, M>;
 
-class OtVarCreatorImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
+class OtVarCreatorImpl<A extends VarianceDim, M extends VarianceMaster<A>>
     implements VariableCreator<A, M, OtVarValue<A, M>> {
     constructor(
         public readonly masterSet: VarianceMasterSet<A, M>,
@@ -39,7 +39,7 @@ class OtVarCreatorImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
     }
 }
 
-class OrVarOpsImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
+class OrVarOpsImpl<A extends VarianceDim, M extends VarianceMaster<A>>
     implements VariableOps<A, M, OtVarValue<A, M>> {
     constructor(private readonly masterSetFactory: MasterSetFactory<A, M>) {}
 
@@ -124,7 +124,7 @@ class OrVarOpsImpl<A extends VarianceAxis, M extends VarianceMaster<A>>
 }
 
 export const OtVarOps: VariableOps<
-    VarianceAxis,
-    OtVarMaster<VarianceAxis>,
-    OtVarValue<VarianceAxis, OtVarMaster<VarianceAxis>>
+    VarianceDim,
+    OtVarMaster<VarianceDim>,
+    OtVarValue<VarianceDim, OtVarMaster<VarianceDim>>
 > = new OrVarOpsImpl(() => new OtVarMasterSet());

@@ -18,7 +18,7 @@ export interface ScriptT<G, X, L> {
 }
 
 export interface AxisRangeConditionT<A> {
-    axis: A;
+    dim: A;
     min: F2D14;
     max: F2D14;
 }

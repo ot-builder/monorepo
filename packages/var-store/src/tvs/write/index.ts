@@ -13,7 +13,7 @@ import { iupOptimize } from "./iup-optimize";
 import { MasterToTupleConverter, TupleAllocator } from "./tuple-allocator";
 
 export interface TupleVariationBuildContext {
-    readonly axes: Data.Order<OtVar.Axis>;
+    readonly designSpace: OtVar.DesignSpace;
     readonly tupleAllocator?: TupleAllocator;
     readonly forceEmbedPeak?: boolean;
     readonly forceIntermediate?: boolean;
@@ -29,7 +29,7 @@ export const TupleVariationWriteOpt = WriteOpt(
     (source: TupleVariationBuildSource, ctx: TupleVariationBuildContext) => {
         const col = new TvsCollector(OtVar.Create.MasterSet());
         const data = collectDeltaData(col, source.dimensions, source.data);
-        const tuc = new MasterToTupleConverter(ctx.axes, !!ctx.forceIntermediate);
+        const tuc = new MasterToTupleConverter(ctx.designSpace, !!ctx.forceIntermediate);
 
         const knownMasters: [number, OtVar.Master][] = col.getMasterList();
         if (!knownMasters.length) return null;
@@ -81,7 +81,8 @@ function writeBlob(
     if (ctx.iupTolerance) {
         let resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
-            (resOpt.bufBody.byteLength <= result.bufBody.byteLength || result.hasNonIntegerDelta) &&
+            (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
+                result.hasNonIntegerDelta) &&
             !resOpt.hasNonIntegerDelta
         ) {
             result = resOpt;
@@ -197,9 +198,9 @@ function writeTupleVariationHeader(
     const fPrivatePoints = embedPointIndex ? TvhFlags.PRIVATE_POINT_NUMBERS : 0;
 
     frag.uint16(fPrivatePoints | fEmbedPeak | fIntermediate | peakTupleID);
-    if (fEmbedPeak) frag.arrayN(F2D14, ctx.axes.length, peak);
-    if (fIntermediate) frag.arrayN(F2D14, ctx.axes.length, min!);
-    if (fIntermediate) frag.arrayN(F2D14, ctx.axes.length, max!);
+    if (fEmbedPeak) frag.arrayN(F2D14, ctx.designSpace.length, peak);
+    if (fIntermediate) frag.arrayN(F2D14, ctx.designSpace.length, min!);
+    if (fIntermediate) frag.arrayN(F2D14, ctx.designSpace.length, max!);
 
     return { frag, fPrivatePoints };
 }

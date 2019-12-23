@@ -2,7 +2,7 @@ import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { GeneralVar, GeneralVarInternalImpl } from "@ot-builder/variance";
 
-export class ReadTimeIVD<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
+export class ReadTimeIVD<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     constructor(operator: GeneralVar.Ops<A, M, X>, masterSet: GeneralVar.MasterSet<A, M>) {
         this.valueCreator = operator.Creator(masterSet);
     }
@@ -11,7 +11,7 @@ export class ReadTimeIVD<A extends GeneralVar.Axis, M extends GeneralVar.Master<
     public valueCreator: GeneralVar.ValueCreator<A, M, X>;
 }
 
-export class CReadTimeIVS<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
+export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     constructor(private readonly operator: GeneralVar.Ops<A, M, X>) {}
     public knownMasters: M[] = [];
     public itemVariationData: ReadTimeIVD<A, M, X>[] = [];
@@ -116,7 +116,7 @@ export class WriteTimeIVDBlossomAllocator
 }
 
 export class WriteTimeIVCollector<
-    A extends GeneralVar.Axis,
+    A extends GeneralVar.Dim,
     M extends GeneralVar.Master<A>,
     X
 > extends GeneralVarInternalImpl.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
@@ -153,7 +153,7 @@ export class WriteTimeIVCollector<
     }
 }
 
-export class DelayDeltaValue<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
+export class DelayDeltaValue<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     constructor(
         private col: GeneralVar.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>>,
         public origin: number,
@@ -164,7 +164,7 @@ export class DelayDeltaValue<A extends GeneralVar.Axis, M extends GeneralVar.Mas
     }
 }
 
-export class GeneralWriteTimeIVStore<A extends GeneralVar.Axis, M extends GeneralVar.Master<A>, X> {
+export class GeneralWriteTimeIVStore<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     private pmBlossom: ImpLib.PathMap<number, WriteTimeIVDBlossom>;
     private acBlossom: WriteTimeIVDBlossomAllocator;
     private acIVD: WriteTimeIVDAllocator;

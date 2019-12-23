@@ -1,21 +1,21 @@
-import { VarianceAxis } from "../interface/axis";
+import { VarianceDim } from "../interface/dimension";
 import { VarianceInstance, VarianceInstanceTupleW } from "../interface/instance";
 import { VarianceMaster } from "../interface/master";
 
-export interface OtVarMasterDim<A extends VarianceAxis> {
-    readonly axis: A;
+export interface OtVarMasterDim<A extends VarianceDim> {
+    readonly dim: A;
     readonly min: number;
     readonly peak: number;
     readonly max: number;
 }
 
-function axisRegionIsInvalid<A extends VarianceAxis>(ar: OtVarMasterDim<A>) {
+function axisRegionIsInvalid<A extends VarianceDim>(ar: OtVarMasterDim<A>) {
     return ar.min > ar.peak || ar.peak > ar.max || (ar.min < 0 && ar.max > 0 && ar.peak !== 0);
 }
-function axisRegionIsNeutral<A extends VarianceAxis>(ar: OtVarMasterDim<A>) {
+function axisRegionIsNeutral<A extends VarianceDim>(ar: OtVarMasterDim<A>) {
     return axisRegionIsInvalid(ar) || ar.peak === 0;
 }
-function axisRegionIsSimple<A extends VarianceAxis>(ar: OtVarMasterDim<A>) {
+function axisRegionIsSimple<A extends VarianceDim>(ar: OtVarMasterDim<A>) {
     return (
         axisRegionIsNeutral(ar) ||
         (ar.peak > 0 && ar.max === ar.peak && ar.min === 0) ||
@@ -23,7 +23,7 @@ function axisRegionIsSimple<A extends VarianceAxis>(ar: OtVarMasterDim<A>) {
     );
 }
 
-function evaluateAxis<A extends VarianceAxis>(ar: OtVarMasterDim<A>, instanceCoordinate: number) {
+function evaluateAxis<A extends VarianceDim>(ar: OtVarMasterDim<A>, instanceCoordinate: number) {
     if (axisRegionIsInvalid(ar)) return 1;
     else if (ar.peak === 0) return 1;
     else if (instanceCoordinate < ar.min || instanceCoordinate > ar.max) return 0;
@@ -35,11 +35,13 @@ function evaluateAxis<A extends VarianceAxis>(ar: OtVarMasterDim<A>, instanceCoo
     }
 }
 
-export class OtVarMaster<A extends VarianceAxis> implements VarianceMaster<A> {
+export class OtVarMaster<A extends VarianceDim> implements VarianceMaster<A> {
     public readonly regions: readonly OtVarMasterDim<A>[];
 
-    constructor(init: Iterable<OtVarMasterDim<A>>) {
-        this.regions = [...init];
+    constructor(init: Iterable<null | undefined | OtVarMasterDim<A>>) {
+        let regions: OtVarMasterDim<A>[] = [];
+        for (const r of init) if (r) regions.push(r);
+        this.regions = regions;
     }
 
     /**
@@ -48,7 +50,7 @@ export class OtVarMaster<A extends VarianceAxis> implements VarianceMaster<A> {
     public getPeak() {
         const inst: VarianceInstanceTupleW<A> = new Map();
         for (const ar of this.regions) {
-            inst.set(ar.axis, ar.peak);
+            inst.set(ar.dim, ar.peak);
         }
         return inst;
     }
@@ -62,7 +64,7 @@ export class OtVarMaster<A extends VarianceAxis> implements VarianceMaster<A> {
         if (this.isInvalid()) return 0;
         let w = 1;
         for (const ar of this.regions) {
-            const iv = instance ? instance.get(ar.axis) || 0 : 0;
+            const iv = instance ? instance.get(ar.dim) || 0 : 0;
             w *= evaluateAxis(ar, iv);
         }
         return w;
@@ -92,13 +94,13 @@ export class OtVarMaster<A extends VarianceAxis> implements VarianceMaster<A> {
             if (axisRegionIsSimple(ar)) {
                 if (ar.peak === 0) continue;
                 s += s ? " | " : "";
-                if (ar.peak === 1) s += `${ar.axis.tag} +`;
-                else if (ar.peak === -1) s += `${ar.axis.tag} -`;
-                else if (ar.peak > 0) s += `${ar.axis.tag} +${ar.peak}`;
-                else if (ar.peak < 0) s += `${ar.axis.tag} -${-ar.peak}`;
+                if (ar.peak === 1) s += `${ar.dim.tag} +`;
+                else if (ar.peak === -1) s += `${ar.dim.tag} -`;
+                else if (ar.peak > 0) s += `${ar.dim.tag} +${ar.peak}`;
+                else if (ar.peak < 0) s += `${ar.dim.tag} -${-ar.peak}`;
             } else {
                 s += s ? " | " : "";
-                s += `${ar.axis.tag} [${ar.min} ${ar.peak} ${ar.max}]`;
+                s += `${ar.dim.tag} [${ar.min} ${ar.peak} ${ar.max}]`;
             }
         }
         return `{${s}}`;

@@ -12,7 +12,11 @@ import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 import { BaseCoord, Ptr16BaseCoord, Ptr16BaseCoordNullable } from "./coord";
 
 export const BaseTableIo = {
-    read(view: BinaryView, gOrd: Data.Order<OtGlyph>, axes?: Data.Maybe<Data.Order<OtVar.Axis>>) {
+    read(
+        view: BinaryView,
+        gOrd: Data.Order<OtGlyph>,
+        designSpace?: Data.Maybe<OtVar.DesignSpace>
+    ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("BASETable", majorVersion, minorVersion, [1, 0], [1, 1]);
@@ -21,7 +25,7 @@ export const BaseTableIo = {
         let ivs: null | ReadTimeIVS = null;
         if (minorVersion === 1) {
             const pIVS = view.ptr32Nullable();
-            if (pIVS && axes) ivs = ReadTimeIVS.read(pIVS, axes);
+            if (pIVS && designSpace) ivs = ReadTimeIVS.read(pIVS, designSpace);
         }
 
         const base = new Base.Table();
@@ -33,16 +37,18 @@ export const BaseTableIo = {
         frag: Frag,
         table: Base.Table,
         gOrd: Data.Order<OtGlyph>,
-        axes?: Data.Maybe<Data.Order<OtVar.Axis>>
+        designSpace?: Data.Maybe<OtVar.DesignSpace>
     ) {
-        const ivs: null | WriteTimeIVS = axes ? WriteTimeIVS.create(new OtVarMasterSet()) : null;
+        const ivs: null | WriteTimeIVS = designSpace
+            ? WriteTimeIVS.create(new OtVarMasterSet())
+            : null;
         frag.uint16(1);
         const hMinorVersion = frag.reserve(UInt16);
         frag.push(Ptr16AxisTableNullable, table.horizontal, gOrd, ivs);
         frag.push(Ptr16AxisTableNullable, table.vertical, gOrd, ivs);
-        if (axes && ivs && !ivs.isEmpty()) {
+        if (designSpace && ivs && !ivs.isEmpty()) {
             hMinorVersion.fill(1);
-            frag.ptr32New().push(WriteTimeIVS, ivs, axes);
+            frag.ptr32New().push(WriteTimeIVS, ivs, designSpace);
         } else {
             hMinorVersion.fill(0);
         }

@@ -16,7 +16,7 @@ export const ReadCff2 = Read(
         view,
         cfg: CffCfg,
         gOrd: Data.Order<OtGlyph>,
-        axes?: Data.Maybe<Data.Order<OtVar.Axis>>,
+        designSpace?: Data.Maybe<OtVar.DesignSpace>,
         coStat?: Data.Maybe<OtGlyph.CoStat.Source>
     ): CffCoGlyphsWithNaming => {
         const ctx = new CffReadContext(2, view.lift(0), coStat);
@@ -26,7 +26,7 @@ export const ReadCff2 = Read(
         const topDict = view.next(CffTopDictIo, ctx, header.topDictLength);
         const gSubrs = view.next(CffSubroutineIndex, ctx);
 
-        readCffCommon(cff, gOrd, topDict, ctx, gSubrs, axes);
+        readCffCommon(cff, gOrd, topDict, ctx, gSubrs, designSpace);
 
         cffCleanupUnusedData(cff);
 

@@ -28,11 +28,13 @@ export default Layout
 
     Named instances in this table.
 
+#### Methods
+
+* <Member s={Ot.Fvar.Table.getDesignSpace} returns={Ot.Var.DesignSpace} />
+
+    Returns a <R s={Ot.Var.DesignSpace}/> determined by this table.
+
 ### Class <Decl s={Ot.Fvar.Axis}/>
-
-#### Implements
-
-* <R s={Ot.Var.Axis}/>
 
 #### Constructor
 
@@ -47,21 +49,9 @@ export default Layout
 
 #### Properties
 
-* <Member readonly s={Ot.Fvar.Axis.tag} type={Tag}/>
+* <Member readonly s={Ot.Fvar.Axis.dim} type={Ot.Var.Dim}/>
 
-    Axis Tag
-
-* <Member readonly s={Ot.Fvar.Axis.min} type={number}/>
-
-    Min value
-
-* <Member readonly s={Ot.Fvar.Axis.default} type={number}/>
-
-    Default value
-
-* <Member readonly s={Ot.Fvar.Axis.max} type={number}/>
-
-    Max value
+    The corresponded Dimension of this axis.
 
 * <Member readonly s={Ot.Fvar.Axis.flags} type={Ot.Fvar.AxisFlags}/>
 

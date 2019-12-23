@@ -12,7 +12,7 @@ import { writeHMetrics, writeVMetrics } from "../shared-metrics/write";
 export type GlyphStoreWriteImplCtx = {
     head: Head.Table;
     maxp: Maxp.Table;
-    axes?: Data.Maybe<Data.Order<OtVar.Axis>>;
+    designSpace?: Data.Maybe<OtVar.DesignSpace>;
     stat: OtGlyph.Stat.Sink;
 };
 
@@ -40,7 +40,7 @@ export function writeGlyphStore<C, T>(
     cb: WriteGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, os2, hhea, vhea } = md;
-    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
+    const designSpace = fvar ? fvar.getDesignSpace() : null;
     // stat stages
     const statHead = new HeadExtendStat(head);
     const statMaxp = new MaxpStat(maxp, statHead);
@@ -54,10 +54,10 @@ export function writeGlyphStore<C, T>(
 
     // Build glyphs and co-glyphs
     stat.setNumGlyphs(gOrd.length);
-    cb.writeGlyphs(sink, cfg, coGlyphs, gOrd, { head, maxp, axes, stat });
+    cb.writeGlyphs(sink, cfg, coGlyphs, gOrd, { head, maxp, designSpace: designSpace, stat });
     stat.settle();
 
     // Write metrics
-    writeHMetrics(sink, cb.writeMetricVariance, hhea, statHmtx, gOrd, axes);
-    writeVMetrics(sink, cb.writeMetricVariance, vhea, statVmtx, gOrd, axes);
+    writeHMetrics(sink, cb.writeMetricVariance, hhea, statHmtx, gOrd, designSpace);
+    writeVMetrics(sink, cb.writeMetricVariance, vhea, statVmtx, gOrd, designSpace);
 }

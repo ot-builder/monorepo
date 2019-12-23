@@ -14,25 +14,25 @@ function cvtRoundTipLoop(file: string) {
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = { fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
+    const designSpace = fvar ? fvar.getDesignSpace() : null;
 
     const cvt = new BinaryView(sfnt.tables.get(Cvt.Tag)!).next(CvtIo);
-    if (axes) {
+    if (designSpace) {
         const bCvar = sfnt.tables.get(Cvt.TagVar);
-        if (bCvar) new BinaryView(bCvar).next(CvarIo, cvt, axes);
+        if (bCvar) new BinaryView(bCvar).next(CvarIo, cvt, designSpace);
     }
     const cvtBuf = Frag.packFrom(CvtIo, cvt);
 
     let cvarBuf = null;
-    if (axes) {
+    if (designSpace) {
         const sfEmpty = new ImpLib.State<boolean>(false);
-        cvarBuf = Frag.packFrom(CvarIo, cvt, axes, sfEmpty);
+        cvarBuf = Frag.packFrom(CvarIo, cvt, designSpace, sfEmpty);
         if (sfEmpty.get()) cvarBuf = null;
     }
 
     const cvt2 = new BinaryView(cvtBuf).next(CvtIo);
-    if (axes && cvarBuf) {
-        new BinaryView(cvarBuf).next(CvarIo, cvt2, axes);
+    if (designSpace && cvarBuf) {
+        new BinaryView(cvarBuf).next(CvarIo, cvt2, designSpace);
     }
     CvtIdentity.test(EmptyCtx.create(), cvt, cvt2);
 }

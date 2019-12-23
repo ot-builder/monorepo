@@ -4,12 +4,12 @@ import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export const Cff2IVS = {
-    ...Read((view, axes: Data.Order<OtVar.Axis>) => {
+    ...Read((view, designSpace: OtVar.DesignSpace) => {
         view.uint16(); // IVS length -- not used
-        return view.liftRelative(0).next(ReadTimeIVS, axes);
+        return view.liftRelative(0).next(ReadTimeIVS, designSpace);
     }),
-    ...Write((frag, ivs: WriteTimeIVS, axes: Data.Order<OtVar.Axis>) => {
-        const bContent = Frag.pack(Frag.from(WriteTimeIVS, ivs, axes));
+    ...Write((frag, ivs: WriteTimeIVS, designSpace: OtVar.DesignSpace) => {
+        const bContent = Frag.pack(Frag.from(WriteTimeIVS, ivs, designSpace));
         frag.uint16(bContent.byteLength).bytes(bContent);
     })
 };

@@ -4,29 +4,29 @@ import { OtVar } from "@ot-builder/variance";
 
 import { ReadTimeIVS, WriteTimeIVS } from "./impl";
 
-const Wght: OtVar.Axis = {
+const Wght: OtVar.Dim = {
     tag: "wght",
     min: 100,
     default: 400,
     max: 900
 };
-const Wdth: OtVar.Axis = {
+const Wdth: OtVar.Dim = {
     tag: "wdth",
     min: 25,
     default: 100,
     max: 200
 };
 const Bold = OtVar.Create.Master([
-    { axis: Wght, min: 0, peak: 1, max: 1 },
-    { axis: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
 const Wide = OtVar.Create.Master([
-    { axis: Wght, min: -1, peak: 0, max: 1 },
-    { axis: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wght, min: -1, peak: 0, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 const Corner = OtVar.Create.Master([
-    { axis: Wght, min: 0, peak: 1, max: 1 },
-    { axis: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("IVS roundtrip -- Traditional", () => {
@@ -43,8 +43,12 @@ test("IVS roundtrip -- Traditional", () => {
         ImpLib.Order.fromList("Axes", [Wght, Wdth])
     );
 
-    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(true);
-    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 150], [Wide, 200]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(
+        true
+    );
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 150], [Wide, 200]))).toBe(
+        true
+    );
     expect(OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 100], [Wide, 0]))).toBe(true);
     expect(
         OtVar.Ops.equal(ivs1.queryValue(2, 0), cr.make(0, [Bold, -10], [Wide, 20], [Corner, 3]))

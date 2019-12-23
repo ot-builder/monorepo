@@ -51,36 +51,29 @@ export function readOtMetadata(sfnt: Sfnt, cfg: FontMetadataCfg): OtFontIoMetada
     const os2 = bOs2 ? new BinaryView(bOs2).next(Os2TableIo) : null;
 
     const bAvar = sfnt.tables.get(Avar.Tag);
-    const avar =
-        bAvar && fvar
-            ? new BinaryView(bAvar).next(AvarIo, ImpLib.Order.fromList(`Axes`, fvar.axes))
-            : null;
+    const avar = bAvar && fvar ? new BinaryView(bAvar).next(AvarIo, fvar.getDesignSpace()) : null;
 
     const md = { head, maxp, fvar, hhea, vhea, post, postGlyphNaming, os2, avar };
 
     const bMvar = sfnt.tables.get(MvarTag);
     if (fvar && bMvar) {
-        new BinaryView(bMvar).next(MvarTableIo, ImpLib.Order.fromList(`Axes`, fvar.axes), md);
+        new BinaryView(bMvar).next(MvarTableIo, fvar.getDesignSpace(), md);
     }
 
     return md;
 }
 
-export function writeOtMetadata(sink: SfntIoTableSink, cfg: FontMetadataCfg, md: OtFontIoMetadata) {
+export function writeOtMetadata(
+    sink: SfntIoTableSink,
+    cfg: FontMetadataCfg,
+    md: OtFontIoMetadata
+) {
     if (md.fvar && md.avar) {
-        sink.add(
-            Avar.Tag,
-            Frag.packFrom(AvarIo, md.avar, ImpLib.Order.fromList(`Axes`, md.fvar.axes))
-        );
+        sink.add(Avar.Tag, Frag.packFrom(AvarIo, md.avar, md.fvar.getDesignSpace()));
     }
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
-        const bMvar = Frag.packFrom(
-            MvarTableIo,
-            ImpLib.Order.fromList(`Axes`, md.fvar.axes),
-            md,
-            sfEmpty
-        );
+        const bMvar = Frag.packFrom(MvarTableIo, md.fvar.getDesignSpace(), md, sfEmpty);
         sink.add(MvarTag, bMvar, sfEmpty);
     }
     if (md.os2) sink.add(Os2.Tag, Frag.packFrom(Os2TableIo, md.os2));

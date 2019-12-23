@@ -22,12 +22,12 @@ import { LookupWriteContext, WriteLookupList } from "./write-lookup-list";
 export interface TableReadContext {
     gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
-    axes?: Data.Maybe<Data.Order<OtVar.Axis>>;
+    designSpace?: Data.Maybe<OtVar.DesignSpace>;
     ivs?: Data.Maybe<ReadTimeIVS>;
 }
 export interface TableWriteContext {
     gOrd: Data.Order<OtGlyph>;
-    axes?: Data.Maybe<Data.Order<OtVar.Axis>>;
+    designSpace?: Data.Maybe<OtVar.DesignSpace>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<WriteTimeIVS>;
     stat?: Data.Maybe<OtlStat>;
@@ -52,8 +52,8 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         const scripts = vScriptList.next(new CScriptList<L>(), fOrd);
 
         const featureVariations =
-            vFeatureVariation && trc.axes && trc.axes.length
-                ? vFeatureVariation.next(new CFeatureVariations<L>(), trc.axes, fOrd, lOrd)
+            vFeatureVariation && trc.designSpace && trc.designSpace.length
+                ? vFeatureVariation.next(new CFeatureVariations<L>(), trc.designSpace, fOrd, lOrd)
                 : null;
 
         return { scripts, features, lookups, featureVariations };
@@ -71,12 +71,12 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         const fOrd = ImpLib.Order.fromList(`Features`, table.features);
         const fScripts = Frag.solidFrom(new CScriptList<L>(), table.scripts, fOrd);
         const fFeatureVariations =
-            !table.featureVariations || !twc.axes || !twc.axes.length
+            !table.featureVariations || !twc.designSpace || !twc.designSpace.length
                 ? null
                 : Frag.solidFrom(
                       new CFeatureVariations<L>(),
                       table.featureVariations,
-                      twc.axes,
+                      twc.designSpace,
                       fOrd,
                       lOrd
                   );

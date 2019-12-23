@@ -6,17 +6,17 @@ import { TestFont } from "@ot-builder/test-util";
 
 import { FvarIo } from "../fvar";
 
-import { AvarIo } from ".";
+import { AvarIo } from "./index";
 
 function AvarRoundtrip(file: string) {
     const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
-    const axes = ImpLib.Order.fromList(`Axes`, fvar.axes);
+    const designSpace = fvar.getDesignSpace();
 
-    const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(AvarIo, axes);
-    const bufAvar1 = Frag.packFrom(AvarIo, avar, axes);
-    const avar2 = new BinaryView(bufAvar1).next(AvarIo, axes);
+    const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(AvarIo, designSpace);
+    const bufAvar1 = Frag.packFrom(AvarIo, avar, designSpace);
+    const avar2 = new BinaryView(bufAvar1).next(AvarIo, designSpace);
 
     expect(avar2).toEqual(avar);
 }

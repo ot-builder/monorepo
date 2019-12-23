@@ -10,7 +10,7 @@ import { inferDeltas, TvdAccess } from "../shared/iup";
 import { DeltaRun, PointCount, PointNumberRun } from "../shared/runs";
 
 export interface TupleVariationSource {
-    readonly axes: Data.Order<OtVar.Axis>;
+    readonly designSpace: OtVar.DesignSpace;
     readonly sharedTuples: ReadonlyArray<ReadonlyArray<number>>;
 }
 
@@ -30,7 +30,9 @@ export const TupleVariationRead = Read(
     (view: BinaryView, client: TupleVariationGeometryClient, vsr: TupleVariationSource) => {
         const dimensions = client.dimensions;
         let totalPoints = 0;
-        for (const c of client.contours) totalPoints += ImpLib.Arith.rowCount(c, client.dimensions);
+        for (const c of client.contours) {
+            totalPoints += ImpLib.Arith.rowCount(c, client.dimensions);
+        }
 
         const _tupleVariationCount = view.uint16();
         const vwData = view.ptr16();
@@ -76,24 +78,28 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
 
     const peakTuple =
         _tupleIndex & TvhFlags.EMBEDDED_PEAK_TUPLE
-            ? view.array(vsr.axes.length, F2D14)
+            ? view.array(vsr.designSpace.length, F2D14)
             : vsr.sharedTuples[_tupleIndex & TvhFlags.TUPLE_INDEX_MASK];
     if (!peakTuple) {
         throw Errors.Variation.MissingPeakTuple();
     }
     const startTuple =
-        _tupleIndex & TvhFlags.INTERMEDIATE_REGION ? view.array(vsr.axes.length, F2D14) : null;
+        _tupleIndex & TvhFlags.INTERMEDIATE_REGION
+            ? view.array(vsr.designSpace.length, F2D14)
+            : null;
     const endTuple =
-        _tupleIndex & TvhFlags.INTERMEDIATE_REGION ? view.array(vsr.axes.length, F2D14) : null;
+        _tupleIndex & TvhFlags.INTERMEDIATE_REGION
+            ? view.array(vsr.designSpace.length, F2D14)
+            : null;
 
     const dims: OtVar.MasterDim[] = [];
-    for (let aid = 0; aid < vsr.axes.length; aid++) {
-        const axis = vsr.axes.at(aid);
+    for (let aid = 0; aid < vsr.designSpace.length; aid++) {
+        const dim = vsr.designSpace.at(aid);
         const peak = peakTuple[aid];
         const mDim: OtVar.MasterDim =
             startTuple && endTuple
-                ? { axis, min: startTuple[aid], peak: peak, max: endTuple[aid] }
-                : createMasterDimFromPeak(axis, peak);
+                ? { dim: dim, min: startTuple[aid], peak: peak, max: endTuple[aid] }
+                : createMasterDimFromPeak(dim, peak);
         dims.push(mDim);
     }
     return {
@@ -103,10 +109,10 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
     };
 });
 
-function createMasterDimFromPeak(axis: OtVar.Axis, peak: number): OtVar.MasterDim {
-    if (peak > 0) return { axis, min: 0, peak, max: peak };
-    else if (peak < 0) return { axis, min: peak, peak, max: 0 };
-    else return { axis, min: 0, peak: 0, max: 0 };
+function createMasterDimFromPeak(dim: OtVar.Dim, peak: number): OtVar.MasterDim {
+    if (peak > 0) return { dim: dim, min: 0, peak, max: peak };
+    else if (peak < 0) return { dim: dim, min: peak, peak, max: 0 };
+    else return { dim: dim, min: 0, peak: 0, max: 0 };
 }
 
 function Iota(a: number, b: number) {

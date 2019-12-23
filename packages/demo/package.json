@@ -1,5 +1,5 @@
 {
-  "name": "@ot-builder/demo-font-roundtrip",
+  "name": "@ot-builder/demo",
   "private": true,
   "dependencies": {
     "ot-builder": "0.2.0",

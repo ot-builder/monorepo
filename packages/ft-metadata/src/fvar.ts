@@ -1,5 +1,7 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
-import { GeneralVar, OtVar } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
+
 export namespace Fvar {
     export const Tag = "fvar";
 
@@ -8,11 +10,8 @@ export namespace Fvar {
         Hidden = 1
     }
 
-    export class Axis implements OtVar.Axis {
-        public readonly tag: Tag;
-        public readonly min: F16D16;
-        public readonly default: F16D16;
-        public readonly max: F16D16;
+    export class Axis {
+        public dim: OtVar.Dim;
         constructor(
             tag: Tag,
             min: F16D16,
@@ -21,10 +20,7 @@ export namespace Fvar {
             public readonly flags: AxisFlags,
             public readonly axisNameID: UInt16
         ) {
-            this.tag = tag;
-            this.min = min;
-            this.default = defaultV;
-            this.max = max;
+            this.dim = { tag, min, default: defaultV, max };
         }
     }
 
@@ -36,12 +32,18 @@ export namespace Fvar {
         constructor(
             public readonly subfamilyNameID: number,
             public readonly flags: InstanceFlags,
-            public readonly coordinates: GeneralVar.Instance<Axis>,
+            public readonly coordinates: OtVar.Instance,
             public readonly postScriptNameID?: number
         ) {}
     }
 
     export class Table {
         constructor(public axes: Axis[] = [], public instances: Instance[] = []) {}
+        public getDesignSpace() {
+            return ImpLib.Order.fromList(
+                "DesignSpace",
+                this.axes.map(a => a.dim)
+            );
+        }
     }
 }

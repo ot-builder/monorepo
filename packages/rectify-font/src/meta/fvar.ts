@@ -3,8 +3,8 @@ import * as Ot from "@ot-builder/font";
 import { AxisRectifier } from "../interface";
 
 export function rectifyAxisFvar(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
-    const { axesRectifyResults, axes } = rectifyAxesImpl(rec, fvar);
-    const instances = rectifyInstances(axesRectifyResults, rec.addedAxes, fvar);
+    const axes = rectifyAxesImpl(rec, fvar);
+    const instances = rectifyInstances(rec, rec.addedAxes, fvar);
     return new Ot.Fvar.Table(axes, instances);
 }
 
@@ -15,18 +15,18 @@ function rectifyAxesImpl(rectify: AxisRectifier, fvar: Ot.Fvar.Table) {
         if (a1) axesRectifyResults.set(a, a1);
     }
     const axes = [...axesRectifyResults.values(), ...rectify.addedAxes];
-    return { axes, axesRectifyResults };
+    return axes;
 }
 
 function rectifyInstances(
-    axesRectifyResults: Map<Ot.Fvar.Axis, Ot.Fvar.Axis>,
+    rec: AxisRectifier,
     addedAxes: ReadonlyArray<Ot.Fvar.Axis>,
     fvar: Ot.Fvar.Table
 ) {
     const newInstances: Ot.Fvar.Instance[] = [];
     for (const instance of fvar.instances) {
         const coordinates = instance.coordinates;
-        const coordinates1 = rectifyCoordinates(coordinates, axesRectifyResults, addedAxes);
+        const coordinates1 = rectifyCoordinates(coordinates, rec, addedAxes);
         newInstances.push(
             new Ot.Fvar.Instance(
                 instance.subfamilyNameID,
@@ -40,17 +40,17 @@ function rectifyInstances(
 }
 
 function rectifyCoordinates(
-    coordinates: Ot.GeneralVar.Instance<Ot.Fvar.Axis>,
-    axesRectifyResults: Map<Ot.Fvar.Axis, Ot.Fvar.Axis>,
+    coordinates: Ot.Var.Instance,
+    rec: AxisRectifier,
     addedAxes: ReadonlyArray<Ot.Fvar.Axis>
 ) {
     if (!coordinates) return coordinates;
 
-    const coordinates1: Map<Ot.Fvar.Axis, number> = new Map();
-    for (let [axis, val] of coordinates) {
-        const mapped = axesRectifyResults.get(axis);
-        if (mapped) coordinates1.set(axis, val);
+    const coordinates1: Map<Ot.Var.Dim, number> = new Map();
+    for (let [d, val] of coordinates) {
+        const mapped = rec.dim(d);
+        if (mapped) coordinates1.set(d, val);
     }
-    for (const axis of addedAxes) coordinates1.set(axis, 0);
+    for (const axis of addedAxes) coordinates1.set(axis.dim, 0);
     return coordinates1;
 }

@@ -21,14 +21,14 @@ export namespace GsubGpos {
     export import General = GeneralGsubGpos;
     export import FeatureParams = FeatureParamLib.FeatureParams;
 
-    export type TableT<L> = GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, L>;
+    export type TableT<L> = GeneralGsubGpos.TableT<OtVar.Dim, OtGlyph, OtVar.Value, L>;
     export type FeatureT<L> = GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, L>;
     export type LanguageT<L> = GeneralGsubGpos.LanguageT<OtGlyph, OtVar.Value, L>;
     export type ScriptT<L> = GeneralGsubGpos.ScriptT<OtGlyph, OtVar.Value, L>;
-    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
-    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Axis>;
+    export type AxisRangeCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Dim>;
+    export type FeatureVariationCondition = GeneralGsubGpos.AxisRangeConditionT<OtVar.Dim>;
     export type FeatureVariationT<L> = GeneralGsubGpos.FeatureVariationT<
-        OtVar.Axis,
+        OtVar.Dim,
         OtGlyph,
         OtVar.Value,
         L

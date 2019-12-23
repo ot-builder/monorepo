@@ -13,7 +13,7 @@ import { LigCaretList } from "./lig-caret-list";
 import { MarkGlyphSets } from "./mark-glyph-sets";
 
 export const GdefTableIo = {
-    ...Read((view, gOrd: Data.Order<OtGlyph>, axes: Data.Maybe<Data.Order<OtVar.Axis>>) => {
+    ...Read((view, gOrd: Data.Order<OtGlyph>, designSpace: Data.Maybe<OtVar.DesignSpace>) => {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported(`GDEF`, majorVersion, minorVersion, [1, 0], [1, 2], [1, 3]);
@@ -25,7 +25,7 @@ export const GdefTableIo = {
         let pMarkGlyphSetsDef = minorVersion >= 2 ? view.ptr16Nullable() : null;
         let pIVS = minorVersion >= 3 ? view.ptr32Nullable() : null;
 
-        const ivs = pIVS && axes ? pIVS.next(ReadTimeIVS, axes) : null;
+        const ivs = pIVS && designSpace ? pIVS.next(ReadTimeIVS, designSpace) : null;
         const gdef = new Gdef.Table();
         gdef.glyphClassDef = pGlyphClassDef ? pGlyphClassDef.next(ClassDef, gOrd) : null;
         gdef.attachList = pAttachList ? pAttachList.next(GdefAttachmentPointList, gOrd) : null;
@@ -33,7 +33,9 @@ export const GdefTableIo = {
         gdef.markAttachClassDef = pMarkAttachClassDef
             ? pMarkAttachClassDef.next(ClassDef, gOrd)
             : null;
-        gdef.markGlyphSets = pMarkGlyphSetsDef ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd) : null;
+        gdef.markGlyphSets = pMarkGlyphSetsDef
+            ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd)
+            : null;
 
         return { gdef, ivs };
     }),
@@ -44,7 +46,7 @@ export const GdefTableIo = {
             gdef: Gdef.Table,
             gOrd: Data.Order<OtGlyph>,
             ivs: Data.Maybe<WriteTimeIVS>,
-            axes: Data.Maybe<Data.Order<OtVar.Axis>>
+            designSpace: Data.Maybe<OtVar.DesignSpace>
         ) => {
             const fClassDef = gdef.glyphClassDef
                 ? Frag.from(ClassDef, gdef.glyphClassDef, gOrd)
@@ -61,7 +63,10 @@ export const GdefTableIo = {
             const fMarkGlyphSets = gdef.markGlyphSets
                 ? Frag.from(MarkGlyphSets, gdef.markGlyphSets, gOrd)
                 : null;
-            const fIVS = !ivs || !axes || ivs.isEmpty() ? null : Frag.from(WriteTimeIVS, ivs, axes);
+            const fIVS =
+                !ivs || !designSpace || ivs.isEmpty()
+                    ? null
+                    : Frag.from(WriteTimeIVS, ivs, designSpace);
 
             let minorVersion = 3;
             if (!fIVS) minorVersion = 2;

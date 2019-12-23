@@ -11,7 +11,7 @@ export function readHMetric(
     sfnt: Sfnt,
     maxp: Maxp.Table,
     hhea: Data.Maybe<MetricHead.Table>,
-    axes: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     const bHmtx = sfnt.tables.get(MetricBasic.TagHmtx);
     const bHvar = sfnt.tables.get(MetricVariance.TagHvar);
@@ -20,7 +20,9 @@ export function readHMetric(
 
     const hmtx = new BinaryView(bHmtx).next(MetricBasicIo, hhea, maxp);
     const hvar =
-        axes && bHvar ? new BinaryView(bHvar).next(MetricVarianceIo, maxp, axes, false) : null;
+        designSpace && bHvar
+            ? new BinaryView(bHvar).next(MetricVarianceIo, maxp, designSpace, false)
+            : null;
     return { hhea, hmtx, hvar };
 }
 
@@ -28,7 +30,7 @@ export function readVMetric(
     sfnt: Sfnt,
     maxp: Maxp.Table,
     vhea: Data.Maybe<MetricHead.Table>,
-    axes: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     const bVmtx = sfnt.tables.get(MetricBasic.TagVmtx);
     const bVvar = sfnt.tables.get(MetricVariance.TagVvar);
@@ -38,6 +40,8 @@ export function readVMetric(
     const vmtx = new BinaryView(bVmtx).next(MetricBasicIo, vhea, maxp);
     const vorg = bVorg ? new BinaryView(bVorg).next(VorgIo) : null;
     const vvar =
-        axes && bVvar ? new BinaryView(bVvar).next(MetricVarianceIo, maxp, axes, true) : null;
+        designSpace && bVvar
+            ? new BinaryView(bVvar).next(MetricVarianceIo, maxp, designSpace, true)
+            : null;
     return { vhea, vmtx, vvar, vorg };
 }

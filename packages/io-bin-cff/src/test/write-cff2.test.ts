@@ -14,7 +14,7 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = { cff: { ...DefaultCffCfgProps, ...override }, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
+    const designSpace = fvar ? fvar.getDesignSpace() : null;
 
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
 
@@ -23,14 +23,19 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
         ReadCff2,
         cfg,
         gs.decideOrder(),
-        axes
+        designSpace
     );
     const timeRead = new Date();
-    const bufCff = Frag.pack(Frag.from(WriteCff2, cff, gs.decideOrder(), cfg, head, axes));
+    const bufCff = Frag.pack(Frag.from(WriteCff2, cff, gs.decideOrder(), cfg, head, designSpace));
     const timeWritten = new Date();
 
     const gs1 = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
-    const { cff: cff1 } = new BinaryView(bufCff).next(ReadCff2, cfg, gs1.decideOrder(), axes);
+    const { cff: cff1 } = new BinaryView(bufCff).next(
+        ReadCff2,
+        cfg,
+        gs1.decideOrder(),
+        designSpace
+    );
 
     GlyphIdentity.testStore(gs, gs1, GlyphIdentity.CompareMode.RemoveCycle);
 

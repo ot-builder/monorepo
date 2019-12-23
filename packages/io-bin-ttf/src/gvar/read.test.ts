@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -34,10 +33,10 @@ test("Reading : TTF, variable", () => {
         gOrd,
         cfg,
         {},
-        ImpLib.Order.fromList("Axes", fvar!.axes)
+        fvar!.getDesignSpace()
     );
-    const thin = OtVar.Create.Master([{ axis: fvar!.axes[0], min: -1, peak: -1, max: 0 }]);
-    const bold = OtVar.Create.Master([{ axis: fvar!.axes[0], min: 0, peak: +1, max: +1 }]);
+    const thin = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: -1, peak: -1, max: 0 }]);
+    const bold = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: 0, peak: +1, max: +1 }]);
     const cr = OtVar.Ops.Creator();
     rectifyGlyphOrder(gOrd);
     {
@@ -65,9 +64,9 @@ test("Reading : TTF, variable", () => {
         const diacritic = geom.items[1] as OtGlyph.TtReference;
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));
-        expect(OtVar.Ops.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))).toBe(
-            true
-        );
+        expect(
+            OtVar.Ops.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))
+        ).toBe(true);
         expect(OtVar.Ops.equal(diacritic.transform.dy, 0)).toBe(true);
     }
 });

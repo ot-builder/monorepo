@@ -18,9 +18,9 @@ export function CreateTable<L>() {
             features: Array<GeneralGsubGpos.FeatureT<OtGlyph, OtVar.Value, L>> = [],
             lookups: Array<L> = [],
             featureVariations: Data.Maybe<
-                Array<GeneralGsubGpos.FeatureVariationT<OtVar.Axis, OtGlyph, OtVar.Value, L>>
+                Array<GeneralGsubGpos.FeatureVariationT<OtVar.Dim, OtGlyph, OtVar.Value, L>>
             > = undefined
-        ): GeneralGsubGpos.TableT<OtVar.Axis, OtGlyph, OtVar.Value, L> {
+        ): GeneralGsubGpos.TableT<OtVar.Dim, OtGlyph, OtVar.Value, L> {
             return new TableImpl(scripts, features, lookups, featureVariations);
         }
     };

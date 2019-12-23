@@ -7,7 +7,8 @@ export interface GlyphRectifier {
 }
 
 export interface AxisRectifier {
-    axis(axis: Ot.Var.Axis): null | undefined | Ot.Fvar.Axis;
+    dim(dim: Ot.Var.Dim): null | undefined | Ot.Var.Dim;
+    axis(axis: Ot.Fvar.Axis): null | undefined | Ot.Fvar.Axis;
     readonly addedAxes: ReadonlyArray<Ot.Fvar.Axis>;
 }
 

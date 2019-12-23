@@ -1,18 +1,18 @@
 import { ImpLib } from "@ot-builder/common-impl";
 
-import { VarianceAxis } from "../interface/axis";
+import { VarianceDim } from "../interface/dimension";
 import { VarianceMasterSet } from "../interface/master";
 
 import { OtVarMaster } from "./master";
 
 type VRStep = [number, number, number];
 
-type VRCRecord<A extends VarianceAxis> = {
+type VRCRecord<A extends VarianceDim> = {
     readonly master: OtVarMaster<A>;
     readonly index: number;
 };
 
-export class OtVarMasterSet<A extends VarianceAxis>
+export class OtVarMasterSet<A extends VarianceDim>
     implements VarianceMasterSet<A, OtVarMaster<A>> {
     private nAxes: number = 0;
     private axisMap: WeakMap<A, number> = new WeakMap();
@@ -32,7 +32,7 @@ export class OtVarMasterSet<A extends VarianceAxis>
     private getStepNumbers(master: OtVarMaster<A>) {
         const steps: (undefined | VRStep)[] = [];
         for (const region of master.regions) {
-            const aid = this.putAxis(region.axis);
+            const aid = this.putAxis(region.dim);
             steps[aid] = [region.min, region.peak, region.max];
         }
         const stepNumbers: number[] = [];

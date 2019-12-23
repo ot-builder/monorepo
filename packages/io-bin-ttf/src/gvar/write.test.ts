@@ -1,5 +1,4 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -24,7 +23,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         fontMetadata: {}
     };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
+    const designSpace = fvar ? fvar.getDesignSpace() : null;
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const gOrd = gs.decideOrder();
     const loca = new BinaryView(sfnt.tables.get(LocaTag)!).next(LocaTableIo, head, maxp);
@@ -34,13 +33,13 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         gOrd,
         new OtGlyph.CoStat.Forward()
     );
-    if (axes) {
+    if (designSpace) {
         const gvar = new BinaryView(sfnt.tables.get(GvarTag)!).next(
             GvarTableRead,
             gOrd,
             cfg,
             {},
-            axes
+            designSpace
         );
     }
     rectifyGlyphOrder(gOrd);
@@ -49,7 +48,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
     const loca1: LocaTable = { glyphOffsets: [] };
     const stat = new OtGlyph.Stat.Forward();
     let gvarBuf: null | Buffer = null;
-    if (axes) gvarBuf = Frag.packFrom(GvarTableWrite, gOrd1, cfg, axes);
+    if (designSpace) gvarBuf = Frag.packFrom(GvarTableWrite, gOrd1, cfg, designSpace);
 
     const bufGlyf = Frag.packFrom(GlyfTableWrite, gOrd1, loca1, stat);
     expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
@@ -65,8 +64,8 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         gOrd2,
         new OtGlyph.CoStat.Forward()
     );
-    if (axes && gvarBuf) {
-        const gvar2 = new BinaryView(gvarBuf).next(GvarTableRead, gOrd2, cfg, {}, axes);
+    if (designSpace && gvarBuf) {
+        const gvar2 = new BinaryView(gvarBuf).next(GvarTableRead, gOrd2, cfg, {}, designSpace);
     }
     rectifyGlyphOrder(gOrd2);
 

@@ -113,8 +113,8 @@ export function axesRectifyFeatureVariation<L>(
     fv: Ot.GsubGpos.FeatureVariationT<L>
 ) {
     fv.conditions = RectifyImpl.listSomeT(rec, fv.conditions, (r, c) => {
-        const a1 = r.axis(c.axis);
-        if (a1) return { ...c, axis: a1 };
+        const a1 = r.dim(c.dim);
+        if (a1) return { ...c, dim: a1 };
         else return null;
     });
 }
