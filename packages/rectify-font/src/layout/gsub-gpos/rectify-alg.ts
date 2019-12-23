@@ -39,7 +39,7 @@ class RectifyGsubGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
         protected readonly rap: Data.Maybe<PointAttachmentRectifier>
     ) {}
 
-    protected _cache: Map<object, RProc<L>> = new Map();
+    protected _cache: WeakMap<object, RProc<L>> = new Map();
     public crossReference(a: object, thValue: Thunk<RProc<L>>) {
         const existing = this._cache.get(a);
         if (existing) return existing;

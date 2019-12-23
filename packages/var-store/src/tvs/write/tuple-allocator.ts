@@ -1,5 +1,4 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -39,7 +38,7 @@ export interface AxesTuples {
 
 export class MasterToTupleConverter {
     constructor(private designSpace: OtVar.DesignSpace, private forceKeepMinMax: boolean) {}
-    private cache: Map<OtVar.Master, AxesTuples> = new Map();
+    private cache: WeakMap<OtVar.Master, AxesTuples> = new Map();
     private getTuplesImpl(master: OtVar.Master): AxesTuples {
         const start = [],
             peak = [],

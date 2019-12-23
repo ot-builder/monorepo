@@ -1,4 +1,4 @@
-import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
+import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Int16, Int8, UInt16, UInt8 } from "@ot-builder/primitive";
 

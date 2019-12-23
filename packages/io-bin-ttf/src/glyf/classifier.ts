@@ -4,7 +4,7 @@ import { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
     constructor(private gOrd: Data.Order<OtGlyph>) {}
-    public cache: Map<OtGlyph, SpaceGlyph> = new Map();
+    public cache: WeakMap<OtGlyph, SpaceGlyph> = new Map();
 
     private classifyImpl(g: OtGlyph): SpaceGlyph {
         const gid = this.gOrd.reverse(g);

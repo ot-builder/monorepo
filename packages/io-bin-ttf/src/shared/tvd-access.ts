@@ -7,7 +7,7 @@ export abstract class CumulativeTvd {
     private valueCreator: OtVar.ValueCreator;
     private pending: [OtVar.Master, number][] = [];
     public addDelta(master: OtVar.Master, delta: number) {
-        this.pending.push([master, delta]);
+        if (delta) this.pending.push([master, delta]);
     }
     protected collectTo(v: OtVar.Value) {
         if (!this.pending.length) return v;
