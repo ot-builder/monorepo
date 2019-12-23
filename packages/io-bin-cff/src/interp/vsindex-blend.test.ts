@@ -28,23 +28,23 @@ class MockInterpreter extends CffInterp.Interpreter {
 }
 
 const Axes = TestVariance.createWellKnownAxes();
-const Bold = OtVar.Create.Master([{ axis: Axes.wght, min: 0, peak: 1, max: 1 }]);
-const Wide = OtVar.Create.Master([{ axis: Axes.wdth, min: 0, peak: 1, max: 1 }]);
+const Bold = OtVar.Create.Master([{ dim: Axes.wght, min: 0, peak: 1, max: 1 }]);
+const Wide = OtVar.Create.Master([{ dim: Axes.wdth, min: 0, peak: 1, max: 1 }]);
 
 function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
-    const boldOnly = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
+    const boldOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
         OtVar.Ops,
         OtVar.Create.MasterSet()
     );
     boldOnly.masterIDs = [0];
-    const wideOnly = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
+    const wideOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
         OtVar.Ops,
         OtVar.Create.MasterSet()
     );
     wideOnly.masterIDs = [1];
-    const boldAndWide = new ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value>(
+    const boldAndWide = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
         OtVar.Ops,
         OtVar.Create.MasterSet()
     );

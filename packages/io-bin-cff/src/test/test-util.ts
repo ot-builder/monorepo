@@ -26,7 +26,9 @@ export function singleGlyphCodeGenRoundTrip(
     fvar?: Fvar.Table
 ) {
     const wCtx = new CffWriteContext(cffVersion, 1000, !!fvar);
-    const drawCalls = [...cffOptimizeDrawCall(codeGenGlyph(wCtx, 0, glyph), optimizationCtr(wCtx))];
+    const drawCalls = [
+        ...cffOptimizeDrawCall(codeGenGlyph(wCtx, 0, glyph), optimizationCtr(wCtx))
+    ];
     const irSeq = Mir.toInterpIrSeq(CffDrawCall.charStringSeqToMir(wCtx, drawCalls));
     const frag = new Frag();
     const encoder = new CharStringEncoder(frag);
@@ -35,9 +37,9 @@ export function singleGlyphCodeGenRoundTrip(
 
     let rIVS: null | ReadTimeIVS;
     if (fvar) {
-        const axes = ImpLib.Order.fromList("Axes", fvar.axes);
-        const bIVS = Frag.pack(new Frag().push(WriteTimeIVS, wCtx.ivs!, axes));
-        rIVS = new BinaryView(bIVS).next(ReadTimeIVS, axes);
+        const designSpace = fvar.getDesignSpace();
+        const bIVS = Frag.pack(new Frag().push(WriteTimeIVS, wCtx.ivs!, designSpace));
+        rIVS = new BinaryView(bIVS).next(ReadTimeIVS, designSpace);
     } else {
         rIVS = null;
     }
@@ -45,7 +47,12 @@ export function singleGlyphCodeGenRoundTrip(
     const glyph1 = OtGlyph.create();
     const gb = new CffGlyphBuilder(glyph1);
     const st = new CffCharStringInterpStateImpl(rIVS);
-    interpretCharString(buf, st, { global: [], local: [], defaultWidthX: 0, nominalWidthX: 0 }, gb);
+    interpretCharString(
+        buf,
+        st,
+        { global: [], local: [], defaultWidthX: 0, nominalWidthX: 0 },
+        gb
+    );
     gb.endChar();
 
     GlyphIdentity.test(

@@ -39,11 +39,11 @@ export function readCffCommon(
     topDict: CffTopDictRead,
     ctx: CffReadContext,
     gSubrs: Buffer[],
-    axes?: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace?: Data.Maybe<OtVar.DesignSpace>
 ) {
     cff.topDict = topDict.fd;
     if (topDict.cidROS) cff.cid = topDict.cidROS;
-    if (axes && topDict.vVarStore) ctx.ivs = topDict.vVarStore.next(Cff2IVS, axes);
+    if (designSpace && topDict.vVarStore) ctx.ivs = topDict.vVarStore.next(Cff2IVS, designSpace);
     if (topDict.vFDArray) cff.fdArray = topDict.vFDArray.next(CffFdArrayIo, ctx);
     if (topDict.vFDSelect) {
         cff.fdSelect = new Map<OtGlyph, number>();

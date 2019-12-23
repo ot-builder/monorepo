@@ -4,7 +4,7 @@ import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export class CffStackMachine {
-    public ivd: ReadTimeIVD<OtVar.Axis, OtVar.Master, OtVar.Value> | null = null;
+    public ivd: ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
     public vms = OtVar.Create.MasterSet();
     private varCreator = OtVar.Ops.Creator(this.vms);

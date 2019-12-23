@@ -20,12 +20,12 @@ export const GvarTableWrite = Write(
         frag,
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         acEmpty?: ImpLib.Access<boolean>
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {
-            axes,
+            designSpace: designSpace,
             tupleAllocator: ta,
             iupTolerance: cfg.ttf.gvarOptimizeTolerance
         };
@@ -56,7 +56,7 @@ export const GvarTableWrite = Write(
         const sharedTuples = [...ta.storage()];
         const bSharedTuples = new Frag();
         for (const tuple of sharedTuples) {
-            for (let aid = 0; aid < axes.length; aid++) {
+            for (let aid = 0; aid < designSpace.length; aid++) {
                 bSharedTuples.push(F2D14, tuple[aid] || 0);
             }
         }
@@ -64,7 +64,7 @@ export const GvarTableWrite = Write(
         // Entire table
         frag.uint16(1)
             .uint16(0)
-            .uint16(axes.length)
+            .uint16(designSpace.length)
             .uint16(sharedTuples.length)
             .ptr32(bSharedTuples)
             .uint16(gOrd.length);

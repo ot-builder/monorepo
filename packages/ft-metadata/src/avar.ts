@@ -6,6 +6,6 @@ export namespace Avar {
     export type SegmentMap = [number, number][];
 
     export class Table {
-        constructor(public segmentMaps: Map<OtVar.Axis, SegmentMap> = new Map()) {}
+        constructor(public segmentMaps: Map<OtVar.Dim, SegmentMap> = new Map()) {}
     }
 }

@@ -25,16 +25,16 @@ export function writeOtl(
     md: OtFontMetadata
 ) {
     let { gsub, gpos, gdef } = otl;
-    const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
+    const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
     const ivs = md.fvar ? WriteTimeIVS.create(new OtVarMasterSet()) : null;
     if (ivs && !gdef) gdef = new Gdef.Table();
     const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
 
-    const twc: TableWriteContext = { gOrd, gdef, axes, ivs, stat };
+    const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
     if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, twc));
     if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, twc));
-    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, gOrd, ivs, axes));
+    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, gOrd, ivs, designSpace));
     stat.settle();
 
-    if (otl.base) outSink.add(Base.Tag, Frag.packFrom(BaseTableIo, otl.base, gOrd, axes));
+    if (otl.base) outSink.add(Base.Tag, Frag.packFrom(BaseTableIo, otl.base, gOrd, designSpace));
 }

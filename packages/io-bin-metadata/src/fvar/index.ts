@@ -2,6 +2,7 @@ import { Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Fvar } from "@ot-builder/ft-metadata";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
+import { OtVar } from "@ot-builder/variance";
 
 import { FvarReadContext } from "./context";
 
@@ -15,7 +16,14 @@ const AxisRecord = {
         const flags = view.uint16();
         const axisNameID = view.uint16();
 
-        const rawAxis = new Fvar.Axis(axisTag, minValue, defaultValue, maxValue, flags, axisNameID);
+        const rawAxis = new Fvar.Axis(
+            axisTag,
+            minValue,
+            defaultValue,
+            maxValue,
+            flags,
+            axisNameID
+        );
         if (ctx && ctx.mapAxis) {
             return ctx.mapAxis(rawAxis, index);
         } else {
@@ -23,10 +31,10 @@ const AxisRecord = {
         }
     }),
     ...Write((frag, axis: Fvar.Axis) => {
-        frag.push(Tag, axis.tag);
-        frag.push(F16D16, axis.min);
-        frag.push(F16D16, axis.default);
-        frag.push(F16D16, axis.max);
+        frag.push(Tag, axis.dim.tag);
+        frag.push(F16D16, axis.dim.min);
+        frag.push(F16D16, axis.dim.default);
+        frag.push(F16D16, axis.dim.max);
         frag.uint16(axis.flags);
         frag.uint16(axis.axisNameID);
     })
@@ -39,9 +47,9 @@ const InstanceRecord = {
     ...Read((view, axes: Fvar.Axis[], hasPostNameID: boolean) => {
         const subfamilyNameID = view.uint16();
         const flags = view.uint16();
-        const coordinates = new Map<Fvar.Axis, number>();
+        const coordinates = new Map<OtVar.Dim, number>();
         for (const [p, index] of view.repeat(axes.length)) {
-            coordinates.set(axes[index], view.next(F16D16));
+            coordinates.set(axes[index].dim, view.next(F16D16));
         }
         const postScriptNameID = hasPostNameID ? view.uint16() : undefined;
 
@@ -51,7 +59,7 @@ const InstanceRecord = {
         frag.uint16(inst.subfamilyNameID);
         frag.uint16(inst.flags);
         for (const axis of axes) {
-            frag.push(F16D16, inst.coordinates ? inst.coordinates.get(axis) || 0 : 0);
+            frag.push(F16D16, inst.coordinates ? inst.coordinates.get(axis.dim) || 0 : 0);
         }
         if (hasPostNameID) frag.uint16(inst.postScriptNameID || 0);
     })

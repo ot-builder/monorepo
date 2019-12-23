@@ -43,17 +43,17 @@ class CFeatureTableSubstitution<L> {
 }
 
 const ConditionTable = {
-    read(view: BinaryView, axes: Data.Order<OtVar.Axis>): Condition {
+    read(view: BinaryView, designSpace: OtVar.DesignSpace): Condition {
         const format = view.uint16();
         Assert.FormatSupported(`ConditionTable`, format, 1);
-        const axis = axes.at(view.uint16());
+        const dim = designSpace.at(view.uint16());
         const min = view.next(F2D14);
         const max = view.next(F2D14);
-        return { axis, min, max };
+        return { dim, min, max };
     },
-    write(frag: Frag, condition: Condition, axes: Data.Order<OtVar.Axis>) {
+    write(frag: Frag, condition: Condition, designSpace: OtVar.DesignSpace) {
         frag.uint16(1)
-            .uint16(axes.reverse(condition.axis))
+            .uint16(designSpace.reverse(condition.dim))
             .push(F2D14, condition.min)
             .push(F2D14, condition.max);
     }
@@ -64,22 +64,22 @@ const ConditionSet = SimpleArray(UInt16, Ptr32Condition);
 class CFeatureVariationRecord<L> {
     public read(
         view: BinaryView,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
         lOrd: Data.Order<L>
     ): FeatureVariation<L> {
-        const conditions = view.ptr32().next(ConditionSet, axes);
+        const conditions = view.ptr32().next(ConditionSet, designSpace);
         const substitutions = view.ptr32().next(new CFeatureTableSubstitution<L>(), fOrd, lOrd);
         return { conditions, substitutions };
     }
     public write(
         frag: Frag,
         fv: FeatureVariation<L>,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
         lOrd: Data.Order<L>
     ) {
-        frag.ptr32New().push(ConditionSet, fv.conditions, axes);
+        frag.ptr32New().push(ConditionSet, fv.conditions, designSpace);
         frag.ptr32New().push(new CFeatureTableSubstitution<L>(), fv.substitutions, fOrd, lOrd);
     }
 }
@@ -90,23 +90,23 @@ function CFeatureVariationRecordList<L>() {
 export class CFeatureVariations<L> {
     public read(
         view: BinaryView,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
         lOrd: Data.Order<L>
     ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("FeatureTableSubstitution", majorVersion, minorVersion, [1, 0]);
-        return view.next(CFeatureVariationRecordList<L>(), axes, fOrd, lOrd);
+        return view.next(CFeatureVariationRecordList<L>(), designSpace, fOrd, lOrd);
     }
     public write(
         frag: Frag,
         fv: readonly FeatureVariation<L>[],
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
         lOrd: Data.Order<L>
     ) {
         frag.uint16(1).uint16(0);
-        frag.push(CFeatureVariationRecordList<L>(), fv, axes, fOrd, lOrd);
+        frag.push(CFeatureVariationRecordList<L>(), fv, designSpace, fOrd, lOrd);
     }
 }

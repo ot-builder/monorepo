@@ -17,15 +17,19 @@ describe("GDEF write", () => {
         const sfnt = new BinaryView(bufFont).next(SfntOtf);
         const cfg = { fontMetadata: {}, glyphStore: {} };
         const md = readOtMetadata(sfnt, cfg);
-        const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
+        const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
 
         const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
-        const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(GdefTableIo, gOrd, axes);
+        const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(
+            GdefTableIo,
+            gOrd,
+            designSpace
+        );
 
         const ivsW = WriteTimeIVS.create(OtVar.Create.MasterSet());
-        const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, axes));
+        const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, designSpace));
 
-        const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, axes);
+        const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, designSpace);
 
         GdefIdentity.test(BimapCtx.from(gOrd, gOrd), gdefDat.gdef, gdefDat2.gdef);
     }

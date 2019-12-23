@@ -12,28 +12,32 @@ export default Layout
 
 An opaque union type of `number` and an internal class implements a quantity that varies under OpenType Variation rules. Use <R s={Ot.Var.Ops}/> to create and manipulate them.
 
-### Interface <Decl s={Ot.Var.Axis} />
+### Interface <Decl s={Ot.Var.Dim} />
 
-Datatype representing an axis in a vaiable font.
+Datatype representing a “variation dimension” in a vaiable font.
 
-Class <R s={Ot.Fvar.Axis}/> in <R s={Ot.Fvar}/> implemented this and added extended members.
+Class <R s={Ot.Fvar.Axis}/> in <R s={Ot.Fvar}/> contains such dimension object, with extra properties for naming, identification, etc.
 
 #### Properties
 
- * <Member readonly s={Ot.Var.Axis.tag} type={Tag} />
- * <Member readonly s={Ot.Var.Axis.min} type={number} />
- * <Member readonly s={Ot.Var.Axis.default} type={number} />
- * <Member readonly s={Ot.Var.Axis.max} type={number} />
+ * <Member readonly s={Ot.Var.Dim.tag} type={Tag} />
+ * <Member readonly s={Ot.Var.Dim.min} type={number} />
+ * <Member readonly s={Ot.Var.Dim.default} type={number} />
+ * <Member readonly s={Ot.Var.Dim.max} type={number} />
+
+### Type <Decl s={Ot.Var.DesignSpace} />
+
+Aliased to <R s={Data.Order(Ot.Var.Dim)}/>.
 
 ### Datatype <Decl s={Ot.Var.Instance} />
 
-Defined as <R s={Data.Maybe(readonly(map(Ot.Var.Axis,number)))} />.
+Defined as <R s={Data.Maybe(readonly(map(Ot.Var.Dim,number)))} />.
 
 ### Datatype <Decl s={Ot.Var.MasterDim} />
 
 #### Properties
 
- * <Member readonly s={Ot.Var.MasterDim.axis} type={Ot.Var.Axis} />
+ * <Member readonly s={Ot.Var.MasterDim.dim} type={Ot.Var.Dim} />
  * <Member readonly s={Ot.Var.MasterDim.min} type={number} />
  * <Member readonly s={Ot.Var.MasterDim.peak} type={number} />
  * <Member readonly s={Ot.Var.MasterDim.max} type={number} />

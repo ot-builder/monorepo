@@ -12,12 +12,9 @@ test("Reading : AVAR", () => {
     const bufFont = TestFont.get("AdobeVFPrototype.ttf");
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
-    const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(
-        AvarIo,
-        ImpLib.Order.fromList(`Axes`, fvar.axes)
-    );
+    const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(AvarIo, fvar.getDesignSpace());
     const [wght, cntr] = fvar.axes;
-    expect(avar.segmentMaps.get(wght)).toEqual([
+    expect(avar.segmentMaps.get(wght.dim)).toEqual([
         [-1, -1],
         [-7731 / 16384, -4853 / 8192],
         [0, 0],
@@ -26,7 +23,7 @@ test("Reading : AVAR", () => {
         [9967 / 16384, 11821 / 16384],
         [1, 1]
     ]);
-    expect(avar.segmentMaps.get(cntr)).toEqual([
+    expect(avar.segmentMaps.get(cntr.dim)).toEqual([
         [-1, -1],
         [0, 0],
         [1, 1]

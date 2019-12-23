@@ -45,17 +45,18 @@ console.log("write complete");
 
 function createAxisRectifier(): Rectify.AxisRectifier {
     return {
+        dim: a => null,
         axis: a => null,
         addedAxes: []
     };
 }
-function normalize(axis: Ot.Var.Axis, userValue: number) {
-    if (userValue < axis.min) userValue = axis.min;
-    if (userValue > axis.max) userValue = axis.max;
-    if (userValue < axis.default) {
-        return -(axis.default - userValue) / (axis.default - axis.min);
-    } else if (userValue > axis.default) {
-        return (userValue - axis.default) / (axis.max - axis.default);
+function normalize(dim: Ot.Var.Dim, userValue: number) {
+    if (userValue < dim.min) userValue = dim.min;
+    if (userValue > dim.max) userValue = dim.max;
+    if (userValue < dim.default) {
+        return -(dim.default - userValue) / (dim.default - dim.min);
+    } else if (userValue > dim.default) {
+        return (userValue - dim.default) / (dim.max - dim.default);
     } else {
         return 0;
     }
@@ -63,7 +64,7 @@ function normalize(axis: Ot.Var.Axis, userValue: number) {
 function parseInstance(axes: Iterable<Ot.Fvar.Axis>, strInstance: string) {
     const seg = strInstance.split(/[,;]/g);
     if (!seg.length) return null;
-    const instance: Map<Ot.Fvar.Axis, number> = new Map();
+    const instance: Map<Ot.Var.Dim, number> = new Map();
     for (const s of seg) {
         const parts = s.split("=").map(s => s.trim());
         if (parts.length !== 2) continue;
@@ -71,8 +72,8 @@ function parseInstance(axes: Iterable<Ot.Fvar.Axis>, strInstance: string) {
             val = parseFloat(parts[1]);
         if (!isFinite(val)) continue;
         for (const a of axes) {
-            if (a.tag === axisTag) {
-                instance.set(a, normalize(a, val));
+            if (a.dim.tag === axisTag) {
+                instance.set(a.dim, normalize(a.dim, val));
             }
         }
     }

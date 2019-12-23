@@ -14,14 +14,14 @@ function readCff2(file: string) {
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = { cff: DefaultCffCfgProps, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
-    const axes = fvar ? ImpLib.Order.fromList("Axes", fvar.axes) : null;
+    const designSpace = fvar ? fvar.getDesignSpace() : null;
 
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
     const { cff } = new BinaryView(sfnt.tables.get(Cff.Tag2)!).next(
         ReadCff2,
         cfg,
         gs.decideOrder(),
-        axes
+        designSpace
     );
     return { gs, cff };
 }

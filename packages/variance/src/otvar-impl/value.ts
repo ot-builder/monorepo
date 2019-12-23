@@ -1,10 +1,10 @@
 import * as util from "util";
 
-import { VarianceAxis } from "../interface/axis";
+import { VarianceDim } from "../interface/dimension";
 import { VarianceInstance } from "../interface/instance";
 import { VarianceMaster, VarianceMasterSet } from "../interface/master";
 
-export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
+export class OtVarValueC<A extends VarianceDim, M extends VarianceMaster<A>> {
     /** delta values */
     private readonly deltaValues: number[] = [];
 
@@ -98,7 +98,7 @@ export class OtVarValueC<A extends VarianceAxis, M extends VarianceMaster<A>> {
         return "{" + this.toString() + "}";
     }
 
-    public static Create<A extends VarianceAxis, M extends VarianceMaster<A>>(
+    public static Create<A extends VarianceDim, M extends VarianceMaster<A>>(
         masterSet: VarianceMasterSet<A, M>,
         origin: number,
         variance: Iterable<[M, number]>

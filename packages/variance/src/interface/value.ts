@@ -1,13 +1,13 @@
 import { VectorSpace } from "@ot-builder/prelude/lib/algebra";
 
-import { VarianceAxis } from "./axis";
+import { VarianceDim } from "./dimension";
 import { VarianceInstance } from "./instance";
 import { VarianceMaster, VarianceMasterSet } from "./master";
 
 /**
  * VariableOps<A,M,X> contains various methods to manipulate variable values (X)
  */
-export interface VariableOps<A extends VarianceAxis, M extends VarianceMaster<A>, X>
+export interface VariableOps<A extends VarianceDim, M extends VarianceMaster<A>, X>
     extends VectorSpace<X, number> {
     originOf(x: X): number;
     varianceOf(x: X): Iterable<[M, number]>;
@@ -21,7 +21,7 @@ export interface VariableOps<A extends VarianceAxis, M extends VarianceMaster<A>
     Creator(ms?: VarianceMasterSet<A, M>): VariableCreator<A, M, X>;
 }
 
-export interface VariableCreator<A extends VarianceAxis, M extends VarianceMaster<A>, X> {
+export interface VariableCreator<A extends VarianceDim, M extends VarianceMaster<A>, X> {
     readonly masterSet: VarianceMasterSet<A, M>;
     create(origin?: number, variance?: Iterable<[M, number]>): X;
     make(...xs: (X | [M, number])[]): X;

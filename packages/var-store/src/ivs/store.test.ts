@@ -2,37 +2,37 @@ import { OtVar } from "@ot-builder/variance";
 
 import { WriteTimeIVS } from "./impl";
 
-const Wght: OtVar.Axis = {
+const Wght: OtVar.Dim = {
     tag: "wght",
     min: 100,
     default: 400,
     max: 900
 };
-const Wdth: OtVar.Axis = {
+const Wdth: OtVar.Dim = {
     tag: "wdth",
     min: 25,
     default: 100,
     max: 200
 };
 const Bold = OtVar.Create.Master([
-    { axis: Wght, min: 0, peak: 1, max: 1 },
-    { axis: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
 const Bold1 = OtVar.Create.Master([
-    { axis: Wght, min: 0, peak: 1, max: 1 },
-    { axis: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
 const Bold2 = OtVar.Create.Master([
-    { axis: Wdth, min: -1, peak: 0, max: 1 },
-    { axis: Wght, min: 0, peak: 1, max: 1 }
+    { dim: Wdth, min: -1, peak: 0, max: 1 },
+    { dim: Wght, min: 0, peak: 1, max: 1 }
 ]);
 const Wide = OtVar.Create.Master([
-    { axis: Wght, min: -1, peak: 0, max: 1 },
-    { axis: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wght, min: -1, peak: 0, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 const Corner = OtVar.Create.Master([
-    { axis: Wght, min: 0, peak: 1, max: 1 },
-    { axis: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("Write time IVS : Value management", () => {

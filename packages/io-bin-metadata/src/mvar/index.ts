@@ -3,7 +3,6 @@ import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ft-metadata";
 import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
-import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -95,20 +94,24 @@ function* lensSourcesFromMd(
 }
 
 export const MvarTableIo = {
-    read(view: BinaryView, axes: Data.Order<OtVar.Axis>, md: OtFontMetadata) {
+    read(view: BinaryView, designSpace: OtVar.DesignSpace, md: OtFontMetadata) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("MvarTable", majorVersion, minorVersion, [1, 0]);
         const reserved = view.uint16();
 
         const valueRecordSize = view.uint16();
-        Assert.SizeMatch("MvarTable::valueRecordSize", valueRecordSize, Tag.size + UInt16.size * 2);
+        Assert.SizeMatch(
+            "MvarTable::valueRecordSize",
+            valueRecordSize,
+            Tag.size + UInt16.size * 2
+        );
 
         const valueRecordCount = view.uint16();
         const pIVS = view.ptr16Nullable();
         if (!pIVS) return;
 
-        const ivs = pIVS.next(ReadTimeIVS, axes);
+        const ivs = pIVS.next(ReadTimeIVS, designSpace);
         const lenses = new Map(lensSourcesFromMd(md));
         for (let rid = 0; rid < valueRecordCount; rid++) {
             const tag = view.next(Tag);
@@ -124,7 +127,7 @@ export const MvarTableIo = {
     },
     write(
         frag: Frag,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         md: OtFontMetadata,
         afEmpty?: ImpLib.Access<boolean>
     ) {
@@ -142,7 +145,7 @@ export const MvarTableIo = {
             .uint16(Tag.size + UInt16.size * 2)
             .uint16(rec.length);
         if (rec.length) {
-            frag.ptr16(Frag.solidFrom(WriteTimeIVS, ivs, axes));
+            frag.ptr16(Frag.solidFrom(WriteTimeIVS, ivs, designSpace));
             for (const [tag, outer, inner] of rec) {
                 frag.push(Tag, tag)
                     .uint16(outer)

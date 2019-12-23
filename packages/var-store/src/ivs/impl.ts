@@ -14,13 +14,13 @@ import {
 } from "./general";
 
 const RegionList = {
-    ...Read((vw: BinaryView, axes: Data.Order<OtVar.Axis>, ivs: ReadTimeIVS) => {
+    ...Read((vw: BinaryView, designSpace: OtVar.DesignSpace, ivs: ReadTimeIVS) => {
         const axisCount = vw.uint16();
         Assert.Variation.AxesCountMatch(
             "IVS::VariationRegionList::axisCount",
             axisCount,
             "fvar::axisCount",
-            axes.length
+            designSpace.length
         );
         const regionCount = vw.uint16();
 
@@ -30,26 +30,26 @@ const RegionList = {
                 const min = pAxis.next(F2D14);
                 const peak = pAxis.next(F2D14);
                 const max = pAxis.next(F2D14);
-                spans.push({ axis: axes.at(axisIndex), min, peak, max });
+                spans.push({ dim: designSpace.at(axisIndex), min, peak, max });
             }
             ivs.knownMasters.push(OtVar.Create.Master(spans));
         }
     }),
-    ...Write((fr, regions: ReadonlyArray<OtVar.Master>, axes: Data.Order<OtVar.Axis>) => {
-        fr.uint16(axes.length); // axesCount
+    ...Write((fr, regions: ReadonlyArray<OtVar.Master>, ds: OtVar.DesignSpace) => {
+        fr.uint16(ds.length); // axesCount
         fr.uint16(regions.length);
         for (const region of ImpLib.Iterators.ToCount(
             regions,
             regions.length,
             OtVar.Create.Master([])
         )) {
-            const m: Map<OtVar.Axis, OtVar.MasterDim> = new Map();
+            const m: Map<OtVar.Dim, OtVar.MasterDim> = new Map();
             for (const dim of region.regions) {
-                m.set(dim.axis, dim);
+                m.set(dim.dim, dim);
             }
-            for (const axis of axes) {
-                const dim = m.get(axis);
-                fr.array(F2D14, [dim ? dim.min : -1, dim ? dim.peak : 0, dim ? dim.max : 1]);
+            for (const dim of ds) {
+                const mDim = m.get(dim);
+                fr.array(F2D14, [mDim ? mDim.min : -1, mDim ? mDim.peak : 0, mDim ? mDim.max : 1]);
             }
         }
     })
@@ -93,7 +93,11 @@ const IVD = {
         fr.uint16(regionIndexCount);
         fr.arrayNF(UInt16, regionIndexCount, ivd.masterIDs, 0);
         for (const deltas of ImpLib.Iterators.ToCount(deltaMatrix, deltaMatrix.length, [])) {
-            for (const [delta, dim] of ImpLib.Iterators.ToCountIndex(deltas, regionIndexCount, 0)) {
+            for (const [delta, dim] of ImpLib.Iterators.ToCountIndex(
+                deltas,
+                regionIndexCount,
+                0
+            )) {
                 if (dim < shortDeltaCount) fr.int16(delta);
                 else fr.int8(delta);
             }
@@ -101,19 +105,19 @@ const IVD = {
     })
 };
 
-export type ReadTimeIVS = CReadTimeIVS<OtVar.Axis, OtVar.Master, OtVar.Value>;
+export type ReadTimeIVS = CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>;
 export const ReadTimeIVS = {
     Create() {
-        return new CReadTimeIVS<OtVar.Axis, OtVar.Master, OtVar.Value>(OtVar.Ops);
+        return new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>(OtVar.Ops);
     },
-    ...Read((vw, axes: Data.Order<OtVar.Axis>) => {
+    ...Read((vw, designSpace: OtVar.DesignSpace) => {
         const format = vw.uint16();
         if (format !== 1) throw Errors.FormatNotSupported("IVS", format);
 
-        const ivs = new CReadTimeIVS<OtVar.Axis, OtVar.Master, OtVar.Value>(OtVar.Ops);
+        const ivs = new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>(OtVar.Ops);
 
         const pRegionList = vw.ptr32();
-        pRegionList.next(RegionList, axes, ivs);
+        pRegionList.next(RegionList, designSpace, ivs);
 
         const ivdCount = vw.uint16();
         for (const [pIVDOffset] of vw.repeat(ivdCount)) {
@@ -125,20 +129,20 @@ export const ReadTimeIVS = {
     })
 };
 
-export type WriteTimeDelayValue = DelayDeltaValue<OtVar.Axis, OtVar.Master, OtVar.Value>;
+export type WriteTimeDelayValue = DelayDeltaValue<OtVar.Dim, OtVar.Master, OtVar.Value>;
 
-export type WriteTimeIVS = GeneralWriteTimeIVStore<OtVar.Axis, OtVar.Master, OtVar.Value>;
+export type WriteTimeIVS = GeneralWriteTimeIVStore<OtVar.Dim, OtVar.Master, OtVar.Value>;
 export const WriteTimeIVS = {
     create(ms: OtVar.MasterSet) {
         return new GeneralWriteTimeIVStore(OtVar.Ops, ms, 0xfff0);
     },
-    ...Write((frag, ivs: WriteTimeIVS, axes: Data.Order<OtVar.Axis>) => {
+    ...Write((frag, ivs: WriteTimeIVS, designSpace: OtVar.DesignSpace) => {
         const masterList: OtVar.Master[] = [];
         for (let [m, id] of ivs.masters()) masterList[id] = m;
 
         const fr = new Frag();
         fr.uint16(1);
-        fr.ptr32New().push(RegionList, masterList, axes);
+        fr.ptr32New().push(RegionList, masterList, designSpace);
         const ivdList = [...ivs.ivdList()];
         fr.uint16(ivdList.length);
         for (const ivd of ivdList) {

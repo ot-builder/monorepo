@@ -24,15 +24,15 @@ export const WriteCff2 = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: CffCfg,
         head: Head.Table,
-        axes?: Data.Maybe<Data.Order<OtVar.Axis>>,
+        designSpace?: Data.Maybe<OtVar.DesignSpace>,
         stat?: Data.Maybe<OtGlyph.Stat.Sink>
     ) => {
         cffCleanupUnusedData(cff);
 
-        const ctx = new CffWriteContext(cff.version, head.unitsPerEm, !!axes, stat);
+        const ctx = new CffWriteContext(cff.version, head.unitsPerEm, !!designSpace, stat);
         const charStringResults = buildCharStrings(cff, cfg, gOrd, ctx);
 
-        const td: CffTopDictWrite = setupTopDict(cff, gOrd, charStringResults, ctx, axes);
+        const td: CffTopDictWrite = setupTopDict(cff, gOrd, charStringResults, ctx, designSpace);
 
         const fgTop = Frag.from(CffTopDictIo, td, ctx, undefined);
 
@@ -54,7 +54,7 @@ function setupTopDict(
     gOrd: Data.Order<OtGlyph>,
     charStringResults: CharStringGlobalOptimizeResult,
     ctx: CffWriteContext,
-    axes?: Data.Maybe<Data.Order<OtVar.Axis>>
+    designSpace?: Data.Maybe<OtVar.DesignSpace>
 ) {
     const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
     td.fgCharStrings = Frag.from(CffSubroutineIndex, charStringResults.charStrings, ctx);
@@ -62,7 +62,7 @@ function setupTopDict(
     td.fgFDArray = Frag.from(CffFdArrayIo, cff.fdArray, ctx);
     if (cff.fdSelect) td.fgFDSelect = Frag.from(CffFdSelect, getRevFdSelect(cff, gOrd), ctx);
     else td.fgFDSelect = null;
-    if (ctx.ivs && axes) td.fgVarStore = Frag.from(Cff2IVS, ctx.ivs, axes);
+    if (ctx.ivs && designSpace) td.fgVarStore = Frag.from(Cff2IVS, ctx.ivs, designSpace);
     else td.fgVarStore = null;
     return td;
 }

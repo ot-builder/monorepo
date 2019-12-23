@@ -2,7 +2,7 @@ import { ImpLib } from "@ot-builder/common-impl";
 import { GeneralVarInternalImpl, OtVar } from "@ot-builder/variance";
 
 export class TvsCollector extends GeneralVarInternalImpl.ValueCollector<
-    OtVar.Axis,
+    OtVar.Dim,
     OtVar.Master,
     OtVar.Value,
     DelayDeltaValue

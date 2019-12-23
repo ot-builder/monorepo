@@ -2,7 +2,6 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { Cvt } from "@ot-builder/ft-glyphs";
-import { Data } from "@ot-builder/prelude";
 import {
     TupleVariationBuildContext,
     TupleVariationBuildSource,
@@ -16,23 +15,23 @@ import { OtVar } from "@ot-builder/variance";
 import { CumulativeTvd } from "../shared/tvd-access";
 
 export const CvarIo = {
-    read(view: BinaryView, cvt: Cvt.Table, axes: Data.Order<OtVar.Axis>) {
+    read(view: BinaryView, cvt: Cvt.Table, designSpace: OtVar.DesignSpace) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("CvarTable", majorVersion, minorVersion, [1, 0]);
 
         const client = new CvtTvhClient(cvt);
-        view.next(TupleVariationRead, client, { axes, sharedTuples: [] });
+        view.next(TupleVariationRead, client, { designSpace, sharedTuples: [] });
     },
     write(
         frag: Frag,
         cvt: Cvt.Table,
-        axes: Data.Order<OtVar.Axis>,
+        designSpace: OtVar.DesignSpace,
         acEmpty?: ImpLib.Access<boolean>
     ) {
         frag.uint16(1).uint16(0);
         const context: TupleVariationBuildContext = {
-            axes,
+            designSpace: designSpace,
             forceEmbedPeak: true // This is CVAR so force embedding
         };
         const source = new CvtTupleVariationSource(cvt);

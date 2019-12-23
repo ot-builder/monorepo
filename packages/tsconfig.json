@@ -94,7 +94,7 @@
       "path": "./index/tsconfig.json"
     },
     {
-      "path": "./demo-font-roundtrip/tsconfig.json"
+      "path": "./demo/tsconfig.json"
     }
   ]
 }

@@ -15,10 +15,14 @@ describe("GDEF read", () => {
         const sfnt = new BinaryView(bufFont).next(SfntOtf);
         const cfg = { fontMetadata: {}, glyphStore: {} };
         const md = readOtMetadata(sfnt, cfg);
-        const axes = md.fvar ? ImpLib.Order.fromList("Axes", md.fvar.axes) : null;
+        const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
 
         const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
-        const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(GdefTableIo, gOrd, axes);
+        const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(
+            GdefTableIo,
+            gOrd,
+            designSpace
+        );
 
         return { gOrd, gdef: gdefDat.gdef, ivs: gdefDat.ivs };
     }

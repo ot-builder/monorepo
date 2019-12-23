@@ -10,7 +10,7 @@ test("Reading : FVAR", () => {
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
     expect(fvar.axes.length).toBe(1);
-    expect(fvar.axes[0].tag).toBe("wght");
+    expect(fvar.axes[0].dim.tag).toBe("wght");
     expect(fvar.instances.length).toBe(6);
-    expect(fvar.instances[0].coordinates!.get(fvar.axes[0])).toBe(200);
+    expect(fvar.instances[0].coordinates!.get(fvar.axes[0].dim)).toBe(200);
 });

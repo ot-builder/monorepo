@@ -1,16 +1,16 @@
-import { VarianceAxis } from "../interface/axis";
+import { VarianceDim } from "../interface/dimension";
 import { VarianceMaster, VarianceMasterSet } from "../interface/master";
 import { VariableOps } from "../interface/value";
 
 export type GeneralCollectedValueFactory<
-    A extends VarianceAxis,
+    A extends VarianceDim,
     M extends VarianceMaster<A>,
     X,
     D
 > = (col: GeneralVariableValueCollector<A, M, X, D>, origin: number, deltaMA: number[]) => D;
 
 export class GeneralVariableValueCollector<
-    A extends VarianceAxis,
+    A extends VarianceDim,
     M extends VarianceMaster<A>,
     X,
     D

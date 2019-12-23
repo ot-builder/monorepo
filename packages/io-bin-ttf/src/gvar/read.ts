@@ -3,7 +3,11 @@ import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data, Thunk } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
-import { TupleVariationGeometryClient, TupleVariationRead, TvdAccess } from "@ot-builder/var-store";
+import {
+    TupleVariationGeometryClient,
+    TupleVariationRead,
+    TvdAccess
+} from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { TtfCfg } from "../cfg";
@@ -22,9 +26,9 @@ export const GvarTableRead = Read(
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
         ignore: GvarReadIgnore,
-        axes: Data.Order<OtVar.Axis>
+        designSpace: OtVar.DesignSpace
     ) => {
-        const header = view.next(GvarHeader, gOrd, cfg, axes);
+        const header = view.next(GvarHeader, gOrd, cfg, designSpace);
 
         for (let gid = 0; gid < gOrd.length; gid++) {
             const glyph = gOrd.at(gid);
@@ -33,7 +37,7 @@ export const GvarTableRead = Read(
             if (dataOffset === nextDataOffset) continue;
             const ptr = header.glyphVariationDataArray.lift(dataOffset);
             ptr.next(TupleVariationRead, new GlyphTvhClient(glyph, ignore), {
-                axes,
+                designSpace,
                 sharedTuples: header.sharedTuples
             });
         }
@@ -41,7 +45,12 @@ export const GvarTableRead = Read(
 );
 
 const GvarHeader = Read(
-    (bp: BinaryView, gOrd: Data.Order<OtGlyph>, cfg: TtfCfg, axes: Data.Order<OtVar.Axis>) => {
+    (
+        bp: BinaryView,
+        gOrd: Data.Order<OtGlyph>,
+        cfg: TtfCfg,
+        designSpace: OtVar.DesignSpace
+    ) => {
         const majorVersion = bp.uint16();
         const minorVersion = bp.uint16();
         const axisCount = bp.uint16();
@@ -52,14 +61,14 @@ const GvarHeader = Read(
         const glyphVariationDataArray = bp.ptr32();
 
         Assert.SubVersionSupported("GvarHeader", majorVersion, minorVersion, [1, 0]);
-        Assert.SizeMatch("GvarHeader::axisCount", axisCount, axes.length);
+        Assert.SizeMatch("GvarHeader::axisCount", axisCount, designSpace.length);
         if (!cfg.ttf.gvarRead_permissiveGlyphCount) {
             Assert.SizeMatch("GvarHeader::glyphCount", glyphCount, gOrd.length);
         }
 
         const sharedTuples: number[][] = [];
         for (let tid = 0; tid < sharedTupleCount; tid++) {
-            sharedTuples[tid] = bpSharedTuples.array(axes.length, F2D14);
+            sharedTuples[tid] = bpSharedTuples.array(designSpace.length, F2D14);
         }
 
         const glyphVariationDataOffsets: number[] = [];

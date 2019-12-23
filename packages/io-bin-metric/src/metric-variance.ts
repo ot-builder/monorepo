@@ -91,7 +91,7 @@ const DeltaMapping = Write((frag, map: IndexMapping[]) => {
 });
 
 export const MetricVarianceIo = {
-    ...Read((view, maxp: Maxp.Table, axes: Data.Order<OtVar.Axis>, isVertical: boolean) => {
+    ...Read((view, maxp: Maxp.Table, designSpace: OtVar.DesignSpace, isVertical: boolean) => {
         const mv = new MetricVariance.Table(isVertical);
         for (let gid = 0; gid < maxp.numGlyphs; gid++) {
             mv.measures[gid] = new MetricVariance.Measure();
@@ -102,7 +102,7 @@ export const MetricVarianceIo = {
         Assert.SubVersionSupported("HMTX/VMTX", majorVersion, minorVersion, [1, 0]);
 
         const pIVS = view.ptr32();
-        const ivs = pIVS.next(ReadTimeIVS, axes);
+        const ivs = pIVS.next(ReadTimeIVS, designSpace);
 
         // Mapping list
         const vAdvance = view.ptr32Nullable();
@@ -131,18 +131,18 @@ export const MetricVarianceIo = {
         (
             frag,
             mv: MetricVariance.Table,
-            axes: Data.Order<OtVar.Axis>,
+            designSpace: OtVar.DesignSpace,
             pEmpty?: Data.Maybe<ImpLib.Access<boolean>>
         ) => {
             // No axes present in font, reject
-            if (!axes.length) throw Errors.Variation.NoAxes();
+            if (!designSpace.length) throw Errors.Variation.NoAxes();
             Assert.NoGap("HVAR/VVAR measures", mv.measures);
 
             const ms = OtVar.Create.MasterSet();
             const ivs = WriteTimeIVS.create(ms);
             const mFallback = OtVar.Create.Master([
                 {
-                    axis: axes.at(0),
+                    dim: designSpace.at(0),
                     min: 0,
                     peak: 1,
                     max: 1
@@ -154,7 +154,10 @@ export const MetricVarianceIo = {
             let originMap: IndexMapping[] = [];
             for (let gid = 0; gid < mv.measures.length; gid++) {
                 if (!OtVar.Ops.isConstant(mv.measures[gid].advance)) empty = false;
-                advanceMap[gid] = ivs.valueToInnerOuterIDForce(mv.measures[gid].advance, mFallback);
+                advanceMap[gid] = ivs.valueToInnerOuterIDForce(
+                    mv.measures[gid].advance,
+                    mFallback
+                );
             }
             if (mv.isVertical) {
                 for (let gid = 0; gid < mv.measures.length; gid++) {
@@ -169,7 +172,7 @@ export const MetricVarianceIo = {
             if (pEmpty) pEmpty.set(empty);
 
             frag.uint16(1).uint16(0); // Format
-            frag.ptr32(Frag.from(WriteTimeIVS, ivs, axes)); // itemVariationStoreOffset
+            frag.ptr32(Frag.from(WriteTimeIVS, ivs, designSpace)); // itemVariationStoreOffset
             frag.ptr32(Frag.from(DeltaMapping, advanceMap)); // Advance mappings
             frag.ptr32(null); // LSB/RSB/TSB/BSB mappings are always set to empty
             frag.ptr32(null); // due to the limitation of OTVAR variation (no min/max functions)

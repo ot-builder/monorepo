@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Fvar } from "@ot-builder/ft-metadata";
+import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
 
 import { FvarIo } from ".";

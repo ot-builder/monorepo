@@ -38,16 +38,16 @@ export interface AxesTuples {
 }
 
 export class MasterToTupleConverter {
-    constructor(private axes: Data.Order<OtVar.Axis>, private forceKeepMinMax: boolean) {}
+    constructor(private designSpace: OtVar.DesignSpace, private forceKeepMinMax: boolean) {}
     private cache: Map<OtVar.Master, AxesTuples> = new Map();
     private getTuplesImpl(master: OtVar.Master): AxesTuples {
         const start = [],
             peak = [],
             end = [];
         let isIntermediate = false;
-        for (const axis of this.axes) {
+        for (const dim of this.designSpace) {
             let md: OtVar.MasterDim | null = null;
-            for (const dim of master.regions) if (dim.axis === axis) md = dim;
+            for (const masterDim of master.regions) if (masterDim.dim === dim) md = masterDim;
             if (md) {
                 start.push(F2D14.from(md.min));
                 peak.push(F2D14.from(md.peak));
