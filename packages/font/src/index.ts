@@ -6,14 +6,18 @@ import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { OtNameData } from "@ot-builder/ft-name";
 import { Data } from "@ot-builder/prelude";
 
-export type Font<GS extends Data.OrderStore<OtGlyph>> = Font.Cff<GS> | Font.Ttf<GS>;
+export type Font<GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>> =
+    | Font.Cff<GS>
+    | Font.Ttf<GS>;
 export namespace Font {
     // TypeDefs
     type OtFontShared = OtFontMetadata & OtEncoding & OtFontLayoutData & OtNameData;
-    export type Cff<GS extends Data.OrderStore<OtGlyph>> = OtFontShared &
-        CffCoGlyphs & { glyphs: GS };
-    export type Ttf<GS extends Data.OrderStore<OtGlyph>> = OtFontShared &
-        TtfCoGlyphs & { glyphs: GS };
+    export type Cff<
+        GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>
+    > = OtFontShared & CffCoGlyphs & { glyphs: GS };
+    export type Ttf<
+        GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>
+    > = OtFontShared & TtfCoGlyphs & { glyphs: GS };
 
     export function isCff<GS extends Data.OrderStore<OtGlyph>>(font: Font<GS>): font is Cff<GS> {
         return !!(font as any).cff;

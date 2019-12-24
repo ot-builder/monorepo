@@ -10,4 +10,5 @@ export const pi = (a: { [key: string]: TyRep }, b: TyRep): TyRep => ({ takes: a,
 export const record = (a: { [key: string]: TyRep }): TyRep => ({ object: a });
 export const annot = (ts: TyRep, s: string): TyRep => ({ rawType: ts, annotation: s });
 export const extend = (a: TyRep, b: TyRep): TyRep => ({ operator: "extends", left: a, right: b });
+export const defaultTo = (a: TyRep, b: TyRep): TyRep => ({ operator: "=", left: a, right: b });
 export const guard = (a: TyRep, b: TyRep): TyRep => ({ operator: "is", left: a, right: b });

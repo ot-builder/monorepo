@@ -1,5 +1,5 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
+import { UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 export namespace Fvar {
@@ -11,17 +11,11 @@ export namespace Fvar {
     }
 
     export class Axis {
-        public dim: OtVar.Dim;
         constructor(
-            tag: Tag,
-            min: F16D16,
-            defaultV: F16D16,
-            max: F16D16,
+            public readonly dim: OtVar.Dim,
             public readonly flags: AxisFlags,
             public readonly axisNameID: UInt16
-        ) {
-            this.dim = { tag, min, default: defaultV, max };
-        }
+        ) {}
     }
 
     export enum InstanceFlags {

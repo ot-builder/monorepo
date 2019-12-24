@@ -37,7 +37,7 @@ test("Reading : TTF, variable", () => {
     );
     const thin = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: -1, peak: -1, max: 0 }]);
     const bold = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: 0, peak: +1, max: +1 }]);
-    const cr = OtVar.Ops.Creator();
+    const cr = OtVar.Create.ValueFactory();
     rectifyGlyphOrder(gOrd);
     {
         const notDef = gOrd.at(0);

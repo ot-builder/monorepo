@@ -1,7 +1,11 @@
 import { Data, Ot, Rectify } from "ot-builder";
 
 export class StdPointAttachRectifier implements Rectify.PointAttachmentRectifier {
-    constructor(readonly manner: Rectify.PointAttachmentRectifyManner, readonly error = 1 / 16) {}
+    constructor(
+        readonly manner: Rectify.PointAttachmentRectifyManner = Rectify
+            .PointAttachmentRectifyManner.TrustAttachment,
+        readonly error = 1 / 16
+    ) {}
     public acceptOffset(
         actual: Data.XYOptional<Ot.Var.Value>,
         desired: Data.XYOptional<Ot.Var.Value>

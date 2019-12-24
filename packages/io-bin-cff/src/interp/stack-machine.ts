@@ -7,7 +7,7 @@ export class CffStackMachine {
     public ivd: ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
     public vms = OtVar.Create.MasterSet();
-    private varCreator = OtVar.Ops.Creator(this.vms);
+    private varCreator = OtVar.Create.ValueFactory(this.vms);
 
     constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
         if (ivs) this.ivd = ivs.tryGetIVD(0);
@@ -18,7 +18,9 @@ export class CffStackMachine {
     }
 
     public args(count: number) {
-        if (this.stack.length < count) throw Errors.Cff.StackInsufficient(this.stack.length, count);
+        if (this.stack.length < count) {
+            throw Errors.Cff.StackInsufficient(this.stack.length, count);
+        }
         return this.stack.splice(this.stack.length - count, count);
     }
     public allArgs(minCount: number = 0) {

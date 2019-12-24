@@ -29,6 +29,7 @@ export const GvarTableRead = Read(
         designSpace: OtVar.DesignSpace
     ) => {
         const header = view.next(GvarHeader, gOrd, cfg, designSpace);
+        const ms = OtVar.Create.MasterSet();
 
         for (let gid = 0; gid < gOrd.length; gid++) {
             const glyph = gOrd.at(gid);
@@ -36,7 +37,7 @@ export const GvarTableRead = Read(
             const nextDataOffset = header.glyphVariationDataOffsets[gid + 1];
             if (dataOffset === nextDataOffset) continue;
             const ptr = header.glyphVariationDataArray.lift(dataOffset);
-            ptr.next(TupleVariationRead, new GlyphTvhClient(glyph, ignore), {
+            ptr.next(TupleVariationRead, new GlyphTvhClient(ms, glyph, ignore), {
                 designSpace,
                 sharedTuples: header.sharedTuples
             });
@@ -45,12 +46,7 @@ export const GvarTableRead = Read(
 );
 
 const GvarHeader = Read(
-    (
-        bp: BinaryView,
-        gOrd: Data.Order<OtGlyph>,
-        cfg: TtfCfg,
-        designSpace: OtVar.DesignSpace
-    ) => {
+    (bp: BinaryView, gOrd: Data.Order<OtGlyph>, cfg: TtfCfg, designSpace: OtVar.DesignSpace) => {
         const majorVersion = bp.uint16();
         const minorVersion = bp.uint16();
         const axisCount = bp.uint16();
@@ -86,8 +82,7 @@ const GvarHeader = Read(
 );
 
 class GlyphTvhClient implements TupleVariationGeometryClient {
-    constructor(private glyph: OtGlyph, ignore: GvarReadIgnore) {
-        const ms = OtVar.Create.MasterSet();
+    constructor(ms: OtVar.MasterSet, private glyph: OtGlyph, ignore: GvarReadIgnore) {
         this.glyphHolder = glyph.acceptGlyphAlgebra(new VarPtrCollector());
         this.contours = this.glyphHolder.tvdAccesses(ms, ignore);
     }

@@ -28,12 +28,8 @@ export interface VarianceMasterSet<A extends VarianceDim, M extends VarianceMast
     extends Iterable<[M, number]> {
     /** Size of master set */
     readonly size: number;
-
-    /**
-     * Get or push a master to the master set.
-     * Return undefined if master is invalid (i.e., neutral)
-     * Otherwise a result containing consolidated master and its index
-     * @param master Master to process
-     */
+    /** Query the records and return the index and corresponding collected masters, or `undefined` if the master is not recorded. */
+    get(master: M): VarianceMasterCollectResult<A, M> | undefined;
+    /** Query the records and return the index and corresponding collected masters, or add it into the record if it is not collected. Returns `undefined` when the master is considered invalid. */
     getOrPush(master: M): VarianceMasterCollectResult<A, M> | undefined;
 }

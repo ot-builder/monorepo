@@ -12,7 +12,14 @@ import {
     VarianceMasterSet
 } from "./interface/master";
 import { VariableCreator, VariableOps } from "./interface/value";
-import { OtVarMaster, OtVarMasterDim, OtVarMasterSet, OtVarOps, OtVarValue } from "./otvar-impl";
+import {
+    OtVarCreatorImpl,
+    OtVarMaster,
+    OtVarMasterDim,
+    OtVarMasterSet,
+    OtVarOps,
+    OtVarValue
+} from "./otvar-impl";
 
 export namespace GeneralVar {
     export type Dim = VarianceDim;
@@ -23,7 +30,7 @@ export namespace GeneralVar {
         M extends Master<A>
     > = VarianceMasterCollectResult<A, M>;
     export type Ops<A extends Dim, M extends Master<A>, X> = VariableOps<A, M, X>;
-    export type ValueCreator<A extends Dim, M extends Master<A>, X> = VariableCreator<A, M, X>;
+    export type ValueFactory<A extends Dim, M extends Master<A>, X> = VariableCreator<A, M, X>;
     export type ValueCollector<
         A extends VarianceDim,
         M extends VarianceMaster<A>,
@@ -47,9 +54,9 @@ export namespace OtVar {
     export type Master = OtVarMaster<Dim>;
     export type Instance = VarianceInstance<Dim>;
     export type Value = OtVarValue<Dim, Master>;
-    export type MasterSet = OtVarMasterSet<Dim>;
+    export type MasterSet = VarianceMasterSet<Dim, Master>;
     export type Ops = VariableOps<Dim, Master, Value>;
-    export type ValueCreator = VariableCreator<Dim, Master, Value>;
+    export type ValueFactory = VariableCreator<Dim, Master, Value>;
     export type ValueCollector<D> = GeneralVariableValueCollector<Dim, Master, Value, D>;
     export type CollectedValueFactory<D> = GeneralCollectedValueFactory<Dim, Master, Value, D>;
 
@@ -64,6 +71,9 @@ export namespace OtVar {
         }
         export function ValueCollector<D>(dvf: CollectedValueFactory<D>): ValueCollector<D> {
             return new GeneralVariableValueCollector(Ops, MasterSet(), dvf);
+        }
+        export function ValueFactory(ms?: MasterSet): ValueFactory {
+            return new OtVarCreatorImpl(ms || MasterSet(), OtVarOps);
         }
     }
 }

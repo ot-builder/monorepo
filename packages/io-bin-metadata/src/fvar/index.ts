@@ -17,10 +17,7 @@ const AxisRecord = {
         const axisNameID = view.uint16();
 
         const rawAxis = new Fvar.Axis(
-            axisTag,
-            minValue,
-            defaultValue,
-            maxValue,
+            { tag: axisTag, min: minValue, default: defaultValue, max: maxValue },
             flags,
             axisNameID
         );

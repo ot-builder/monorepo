@@ -14,11 +14,9 @@ export interface VariableOps<A extends VarianceDim, M extends VarianceMaster<A>,
     removeOrigin(x: X): X;
     evaluate(a: X, instance: VarianceInstance<A>): number;
     equal(a: X, b: X, err?: number): boolean;
-    sum(...xs: (X | [number, X])[]): X;
+    sum(...xs: X[]): X;
     isConstant(x: X): boolean;
     isZero(x: X): boolean;
-
-    Creator(ms?: VarianceMasterSet<A, M>): VariableCreator<A, M, X>;
 }
 
 export interface VariableCreator<A extends VarianceDim, M extends VarianceMaster<A>, X> {

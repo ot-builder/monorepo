@@ -35,18 +35,15 @@ function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
     const boldOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Ops,
-        OtVar.Create.MasterSet()
+        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
     );
     boldOnly.masterIDs = [0];
     const wideOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Ops,
-        OtVar.Create.MasterSet()
+        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
     );
     wideOnly.masterIDs = [1];
     const boldAndWide = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Ops,
-        OtVar.Create.MasterSet()
+        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
     );
     boldAndWide.masterIDs = [0, 1];
     ivs.itemVariationData = [boldOnly, wideOnly, boldAndWide];
@@ -61,7 +58,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend", () => {
-        const cr = OtVar.Ops.Creator();
+        const cr = OtVar.Create.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 1).operator(CffOperator.Blend);
@@ -72,7 +69,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend of multiple arguments", () => {
-        const cr = OtVar.Ops.Creator();
+        const cr = OtVar.Create.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 3, 4, 2).operator(CffOperator.Blend);
@@ -84,7 +81,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle VSIndex", () => {
-        const cr = OtVar.Ops.Creator();
+        const cr = OtVar.Create.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);
@@ -97,7 +94,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend chaining", () => {
-        const cr = OtVar.Ops.Creator();
+        const cr = OtVar.Create.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);

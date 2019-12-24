@@ -17,8 +17,9 @@ export class OtVarMasterSet<A extends VarianceDim>
     private nAxes: number = 0;
     private axisMap: WeakMap<A, number> = new WeakMap();
 
-    private nMasters: number = 0;
+    private masterList: VRCRecord<A>[] = [];
     private masterMap = new ImpLib.PathMapImpl<number, VRCRecord<A>>();
+    private masterMapCache = new WeakMap<OtVarMaster<A>, VRCRecord<A>>();
 
     constructor() {}
 
@@ -58,8 +59,8 @@ export class OtVarMasterSet<A extends VarianceDim>
         const existing = lens.get();
         if (existing) return existing;
 
-        const record = { master: master, index: this.nMasters };
-        this.nMasters += 1;
+        const record = { master: master, index: this.masterList.length };
+        this.masterList[record.index] = record;
         lens.set(record);
         return record;
     }
@@ -69,15 +70,21 @@ export class OtVarMasterSet<A extends VarianceDim>
         else return this.getImpl(master);
     }
     public getOrPush(master: OtVarMaster<A>) {
-        if (master.isInvalid()) return undefined;
-        else return this.getOrPutImpl(master);
+        if (master.isInvalid()) {
+            return undefined;
+        } else {
+            const cached = this.masterMapCache.get(master);
+            if (cached) return cached;
+
+            const put = this.getOrPutImpl(master);
+            this.masterMapCache.set(master, put);
+            return put;
+        }
     }
     get size() {
-        return this.nMasters;
+        return this.masterList.length;
     }
     public *[Symbol.iterator](): IterableIterator<[OtVarMaster<A>, number]> {
-        for (const item of this.masterMap.values()) {
-            yield [item.master, item.index];
-        }
+        for (const item of this.masterList) yield [item.master, item.index];
     }
 }
