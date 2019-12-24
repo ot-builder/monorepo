@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "Optimize API for ValueFactory",
+  "packageName": "@ot-builder/io-bin-glyph-store",
+  "email": "belleve@typeof.net",
+  "commit": "0a05d93c618a76de89cfbf8ee53bd1a3081e0ffa",
+  "date": "2019-12-24T10:05:22.012Z"
+}
