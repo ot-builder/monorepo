@@ -83,7 +83,7 @@ export function SetupVariation() {
     };
     const ms = OtVar.Create.MasterSet();
     const ivs = WriteTimeIVS.create(ms);
-    const cr = OtVar.Ops.Creator(ms);
+    const cr = OtVar.Create.ValueFactory(ms);
     const create = (...xs: (number | [OtVar.Master, number])[]) => cr.make(...xs);
     return { designSpace: ds, masters, ivs, masterSet: ms, create };
 }

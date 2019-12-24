@@ -56,7 +56,7 @@ export class MasterProcessor {
 
 export class ValueProcessor {
     constructor(private readonly mp: MasterProcessor) {}
-    private cr = Ot.Var.Ops.Creator();
+    private cr = Ot.Var.Create.ValueFactory();
 
     public toArrayRep(v: Ot.Var.Value) {
         let variances = Array.from(Ot.Var.Ops.varianceOf(v));

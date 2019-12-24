@@ -18,7 +18,7 @@ type MasterSetFactory<
     M extends VarianceMaster<A>
 > = () => VarianceMasterSet<A, M>;
 
-class OtVarCreatorImpl<A extends VarianceDim, M extends VarianceMaster<A>>
+export class OtVarCreatorImpl<A extends VarianceDim, M extends VarianceMaster<A>>
     implements VariableCreator<A, M, OtVarValue<A, M>> {
     constructor(
         public readonly masterSet: VarianceMasterSet<A, M>,
@@ -102,12 +102,9 @@ class OrVarOpsImpl<A extends VarianceDim, M extends VarianceMaster<A>>
         }
         return true;
     }
-    public sum(...xs: (OtVarValue<A, M> | [number, OtVarValue<A, M>])[]) {
+    public sum(...xs: OtVarValue<A, M>[]) {
         let s: OtVarValue<A, M> = 0;
-        for (const x of xs) {
-            if (Array.isArray(x)) s = this.addScale(s, x[0], x[1]);
-            else s = this.add(s, x);
-        }
+        for (const x of xs) s = this.add(s, x);
         return s;
     }
     public isConstant(x: OtVarValue<A, M>) {

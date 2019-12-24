@@ -1,7 +1,6 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
@@ -57,7 +56,7 @@ const RegionList = {
 
 const IVD = {
     ...Read(vw => {
-        const ivd = new ReadTimeIVD(OtVar.Ops, OtVar.Create.MasterSet());
+        const ivd = new ReadTimeIVD(OtVar.Create.ValueFactory(OtVar.Create.MasterSet()));
         const itemCount = vw.uint16();
         const shortDeltaCount = vw.uint16();
         const regionIndexCount = vw.uint16();
@@ -108,13 +107,13 @@ const IVD = {
 export type ReadTimeIVS = CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>;
 export const ReadTimeIVS = {
     Create() {
-        return new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>(OtVar.Ops);
+        return new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>();
     },
     ...Read((vw, designSpace: OtVar.DesignSpace) => {
         const format = vw.uint16();
         if (format !== 1) throw Errors.FormatNotSupported("IVS", format);
 
-        const ivs = new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>(OtVar.Ops);
+        const ivs = new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>();
 
         const pRegionList = vw.ptr32();
         pRegionList.next(RegionList, designSpace, ivs);

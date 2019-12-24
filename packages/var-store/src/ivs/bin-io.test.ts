@@ -31,7 +31,7 @@ const Corner = OtVar.Create.Master([
 
 test("IVS roundtrip -- Traditional", () => {
     const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Ops.Creator(mc);
+    const cr = OtVar.Create.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
@@ -57,7 +57,7 @@ test("IVS roundtrip -- Traditional", () => {
 
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Ops.Creator(mc);
+    const cr = OtVar.Create.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();
     col.collect(cr.make(100, [Bold, 150], [Wide, 100]));

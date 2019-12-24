@@ -3,16 +3,16 @@ import { Errors } from "@ot-builder/errors";
 import { GeneralVar, GeneralVarInternalImpl } from "@ot-builder/variance";
 
 export class ReadTimeIVD<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
-    constructor(operator: GeneralVar.Ops<A, M, X>, masterSet: GeneralVar.MasterSet<A, M>) {
-        this.valueCreator = operator.Creator(masterSet);
+    constructor(cr: GeneralVar.ValueFactory<A, M, X>) {
+        this.valueCreator = cr;
     }
     public masterIDs: number[] = [];
     public deltas: number[][] = [];
-    public valueCreator: GeneralVar.ValueCreator<A, M, X>;
+    public valueCreator: GeneralVar.ValueFactory<A, M, X>;
 }
 
 export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
-    constructor(private readonly operator: GeneralVar.Ops<A, M, X>) {}
+    constructor() {}
     public knownMasters: M[] = [];
     public itemVariationData: ReadTimeIVD<A, M, X>[] = [];
 
