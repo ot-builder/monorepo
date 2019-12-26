@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "CFF code cleanup",
+  "packageName": "@ot-builder/io-bin-cff",
+  "email": "belleve@typeof.net",
+  "commit": "e75186667fdb291d72d8ec3fe07800992ad41f8c",
+  "date": "2019-12-26T06:12:04.838Z"
+}

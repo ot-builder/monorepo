@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { Cff, OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
@@ -10,7 +9,7 @@ import { DefaultCffCfgProps } from "../cfg";
 import { ReadCff2 } from "../main/read-cff2";
 
 function readCff2(file: string) {
-    const bufFont = TestFont.get("SourceSerifVariable-Roman.otf");
+    const bufFont = TestFont.get(file);
     const sfnt = new BinaryView(bufFont).next(SfntOtf);
     const cfg = { cff: DefaultCffCfgProps, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);

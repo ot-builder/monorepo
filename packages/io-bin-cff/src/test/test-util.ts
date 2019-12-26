@@ -1,8 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Fvar } from "@ot-builder/ft-metadata";
-import { Data } from "@ot-builder/prelude";
 import { GlyphIdentity } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 

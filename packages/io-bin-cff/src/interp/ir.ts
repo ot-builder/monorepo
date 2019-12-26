@@ -50,7 +50,10 @@ export namespace CffInterp {
         }
     }
 
-    export abstract class IrSource {
-        public abstract next(): IR | null;
+    export interface IrSource {
+        next(): IR | null;
+    }
+    export interface IrFlagPuller {
+        pullFlags(n: number): number[];
     }
 }

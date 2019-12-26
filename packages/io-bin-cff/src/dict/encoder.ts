@@ -1,6 +1,5 @@
 import { Frag, FragPointerEmbedding } from "@ot-builder/bin-util";
 import { Data } from "@ot-builder/prelude";
-import { F16D16 } from "@ot-builder/primitive";
 
 import { CffInterp } from "../interp/ir";
 import { CffOperator } from "../interp/operator";
