@@ -1,4 +1,4 @@
-import { Frag, Read, Write } from "@ot-builder/bin-util";
+import { Frag, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 
 import { CffWriteContext } from "../context/write";

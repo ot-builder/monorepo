@@ -4,13 +4,12 @@ import { F16D16 } from "@ot-builder/primitive";
 
 import { CffInterp } from "./ir";
 
-abstract class BinaryIrSource extends CffInterp.IrSource {
+abstract class BinaryIrSource implements CffInterp.IrSource {
     protected view: BinaryView;
     private startCursor: number;
     private endCursor: number;
 
     constructor(rawView: BinaryView, size: number) {
-        super();
         this.view = rawView.liftRelative(0);
         rawView.bytes(size);
         this.startCursor = this.view.cursor;
@@ -19,6 +18,7 @@ abstract class BinaryIrSource extends CffInterp.IrSource {
     protected eof(): boolean {
         return this.view.cursor >= this.endCursor;
     }
+    public abstract next(): CffInterp.IR | null;
 }
 
 function parseCffShortInt(view: BinaryView, leadByte: number) {
@@ -79,7 +79,7 @@ export class CffDictIrSource extends BinaryIrSource {
     }
 }
 
-export class CharStringIrSource extends BinaryIrSource {
+export class CharStringIrSource extends BinaryIrSource implements CffInterp.IrFlagPuller {
     public next() {
         if (this.eof()) return null;
         const leadByte = this.view.uint8();
@@ -111,7 +111,7 @@ export class CharStringIrSource extends BinaryIrSource {
         return CffInterp.operator(opCode);
     }
 
-    public pullMasks(stemCount: number) {
+    public pullFlags(stemCount: number) {
         const maskLength = (stemCount + 7) >> 3;
         const mask: number[] = [];
         for (let byte = 0; byte < maskLength; byte++) {

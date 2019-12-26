@@ -1,6 +1,5 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffInterp } from "../../interp/ir";
@@ -41,7 +40,7 @@ export interface CffCharStringDataSink {
 
 export class CffCharStringInterpreter extends CffInterp.Interpreter {
     constructor(
-        private readonly fnPullFlags: () => number[],
+        private readonly irSource: CffInterp.IrFlagPuller,
         private readonly state: CffStackMachine & CffCharStringInterpState,
         private readonly subroutines: CffSubroutineSource,
         private readonly sink: CffCharStringDataSink
@@ -57,7 +56,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     public halt = false;
     public end = false;
 
-    protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
+    protected doOperator(opCode: number) {
         this.state.log += CharStringOperator[opCode] + " ";
         switch (opCode) {
             // Variation
@@ -78,8 +77,10 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             case CharStringOperator.HintMask:
             case CharStringOperator.CntrMask:
                 this.doStemHint(this.sink.stemQuantity > 0, this.state.allArgs());
-                const flags = this.fnPullFlags();
-                return this.sink.addHintMask(opCode === CharStringOperator.CntrMask, flags);
+                return this.sink.addHintMask(
+                    opCode === CharStringOperator.CntrMask,
+                    this.irSource.pullFlags(this.sink.stemQuantity)
+                );
 
             case CharStringOperator.RMoveTo:
             case CharStringOperator.HMoveTo:
@@ -610,12 +611,7 @@ export function callCharString(
 ) {
     st.log += "{ ";
     const irSource = new CharStringIrSource(new BinaryView(buf), buf.byteLength);
-    const interp = new CffCharStringInterpreter(
-        () => irSource.pullMasks(ds.stemQuantity) || [],
-        st,
-        ss,
-        ds
-    );
+    const interp = new CffCharStringInterpreter(irSource, st, ss, ds);
     while (!interp.halt) {
         const ir = irSource.next();
         if (!ir) break;
