@@ -3,7 +3,7 @@ import { Name } from "@ot-builder/ft-name";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
 
-import { NameIo } from ".";
+import { NameIo } from "./index";
 
 test("Read-write roundtrip : name", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");

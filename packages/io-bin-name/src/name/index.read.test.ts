@@ -3,7 +3,7 @@ import { Name } from "@ot-builder/ft-name";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
 
-import { NameIo } from ".";
+import { NameIo } from "./index";
 
 test("Reading : name", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
@@ -13,7 +13,12 @@ test("Reading : name", () => {
         if (r.platformID === 3 && r.encodingID === 1 && r.languageID === 1033 && r.nameID === 1) {
             expect(r.value).toBe(`Source Serif Variable`);
         }
-        if (r.platformID === 3 && r.encodingID === 1 && r.languageID === 1033 && r.nameID === 270) {
+        if (
+            r.platformID === 3 &&
+            r.encodingID === 1 &&
+            r.languageID === 1033 &&
+            r.nameID === 270
+        ) {
             expect(r.value).toBe(`SourceSerifRoman-Black`);
         }
     }
