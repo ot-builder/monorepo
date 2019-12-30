@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Add META table unit test",
+  "packageName": "@ot-builder/io-bin-name",
+  "email": "belleve@typeof.net",
+  "commit": "a4b1aa776d38cab4d3cc121c15a060c7a5e0ee46",
+  "date": "2019-12-30T00:36:28.358Z"
+}
