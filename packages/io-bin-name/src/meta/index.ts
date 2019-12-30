@@ -2,7 +2,6 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Meta } from "@ot-builder/ft-name";
 import { Tag } from "@ot-builder/primitive";
-import { fdatasync } from "fs";
 import * as iconv from "iconv-lite";
 
 export const MetaTableIo = {
@@ -30,7 +29,7 @@ const DataMap = {
         const vwData = view.ptr32();
         const dataLength = view.uint32();
         if (KnownTextTags.has(tag)) {
-            return [tag, iconv.decode(vwData.bytes(dataLength), "utf8")];
+            return [tag, iconv.decode(vwData.bytes(dataLength), KnownTextTags.get(tag)!)];
         } else {
             return [tag, vwData.bytes(dataLength)];
         }
@@ -39,7 +38,7 @@ const DataMap = {
         frag.push(Tag, tag);
         const fData = frag.ptr32New();
         if (typeof data === "string") {
-            const bufData = iconv.encode(data, "utf8");
+            const bufData = iconv.encode(data, KnownTextTags.get(tag) || "utf8");
             fData.bytes(bufData);
             frag.uint32(bufData.byteLength);
         } else {
@@ -49,7 +48,7 @@ const DataMap = {
     }
 };
 
-const KnownTextTags = new Set([
-    `dlng`, // Design languages
-    `slng` // Supported languages
+const KnownTextTags = new Map([
+    [`dlng`, `utf8`], // Design languages
+    [`slng`, `utf8`] // Supported languages
 ]);
