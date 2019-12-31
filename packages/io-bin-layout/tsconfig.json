@@ -31,9 +31,6 @@
       "path": "../variance/tsconfig.json"
     },
     {
-      "path": "../ft-metadata/tsconfig.json"
-    },
-    {
       "path": "../ft-glyphs/tsconfig.json"
     },
     {
@@ -47,6 +44,9 @@
     },
     {
       "path": "../ft-sfnt/tsconfig.json"
+    },
+    {
+      "path": "../ft-metadata/tsconfig.json"
     },
     {
       "path": "../var-store/tsconfig.json"

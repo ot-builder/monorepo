@@ -1,14 +1,6 @@
 {
   "name": "@ot-builder/demo",
   "private": true,
-  "dependencies": {
-    "ot-builder": "0.2.0",
-    "tslib": "^1.9.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "jest": "^24.8.0"
-  },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -21,5 +13,13 @@
     "lib/**/*.js",
     "lib/**/*.json",
     "lib/**/*.d.ts"
-  ]
+  ],
+  "dependencies": {
+    "ot-builder": "0.2.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
+  }
 }

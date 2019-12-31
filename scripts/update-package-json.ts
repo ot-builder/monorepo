@@ -38,5 +38,16 @@ for (const packageName of packages) {
         packageJSONData.publishConfig = { access: "public" };
     }
 
+    const deps = packageJSONData.dependencies || {};
+    delete packageJSONData.dependencies;
+    packageJSONData.dependencies = deps;
+
+    const devDeps = {
+        ...(packageJSONData.devDependencies || {}),
+        ...(packageJSONData.__devDependencies || {})
+    };
+    delete packageJSONData.devDependencies;
+    packageJSONData.devDependencies = devDeps;
+
     fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
 }

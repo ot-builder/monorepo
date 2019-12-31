@@ -10,10 +10,10 @@
   },
   "references": [
     {
-      "path": "../errors/tsconfig.json"
+      "path": "../prelude/tsconfig.json"
     },
     {
-      "path": "../prelude/tsconfig.json"
+      "path": "../errors/tsconfig.json"
     },
     {
       "path": "../bin-util/tsconfig.json"
@@ -29,9 +29,6 @@
     },
     {
       "path": "../variance/tsconfig.json"
-    },
-    {
-      "path": "../ft-metadata/tsconfig.json"
     }
   ]
 }

@@ -25,9 +25,6 @@
       "path": "./variance/tsconfig.json"
     },
     {
-      "path": "./ft-metadata/tsconfig.json"
-    },
-    {
       "path": "./ft-glyphs/tsconfig.json"
     },
     {
@@ -37,16 +34,13 @@
       "path": "./ft-layout/tsconfig.json"
     },
     {
-      "path": "./ft-name/tsconfig.json"
-    },
-    {
-      "path": "./standard-glyph-namer/tsconfig.json"
-    },
-    {
       "path": "./ft-sfnt/tsconfig.json"
     },
     {
       "path": "./test-util/tsconfig.json"
+    },
+    {
+      "path": "./ft-metadata/tsconfig.json"
     },
     {
       "path": "./var-store/tsconfig.json"
@@ -73,7 +67,10 @@
       "path": "./io-bin-glyph-store/tsconfig.json"
     },
     {
-      "path": "./font/tsconfig.json"
+      "path": "./ft-name/tsconfig.json"
+    },
+    {
+      "path": "./standard-glyph-namer/tsconfig.json"
     },
     {
       "path": "./io-bin-encoding/tsconfig.json"
@@ -83,6 +80,9 @@
     },
     {
       "path": "./io-bin-name/tsconfig.json"
+    },
+    {
+      "path": "./font/tsconfig.json"
     },
     {
       "path": "./io-bin-font/tsconfig.json"

@@ -2,19 +2,6 @@
   "name": "@ot-builder/ft-metadata",
   "description": "",
   "license": "MIT",
-  "dependencies": {
-    "@ot-builder/bin-composite-types": "0.2.0",
-    "@ot-builder/common-impl": "0.2.0",
-    "@ot-builder/errors": "0.2.0",
-    "@ot-builder/prelude": "0.2.0",
-    "@ot-builder/primitive": "0.2.0",
-    "@ot-builder/variance": "0.2.0",
-    "tslib": "^1.9.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "jest": "^24.8.0"
-  },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -30,5 +17,16 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@ot-builder/common-impl": "0.2.0",
+    "@ot-builder/prelude": "0.2.0",
+    "@ot-builder/primitive": "0.2.0",
+    "@ot-builder/variance": "0.2.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
   }
 }
