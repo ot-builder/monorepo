@@ -2,8 +2,23 @@
   "name": "@ot-builder/io-bin-ttf",
   "description": "",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
+  "version": "0.2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "lib/**/*.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "0.2.0",
     "@ot-builder/bin-util": "0.2.0",
     "@ot-builder/common-impl": "0.2.0",
     "@ot-builder/errors": "0.2.0",
@@ -23,21 +38,5 @@
     "@ot-builder/test-util": "0.2.0",
     "@types/jest": "^24.0.15",
     "jest": "^24.8.0"
-  },
-  "scripts": {
-    "build": "tsc -b ./tsconfig.package.json",
-    "clean": "rimraf lib .cache",
-    "test": "jest --passWithNoTests"
-  },
-  "version": "0.2.0",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "files": [
-    "lib/**/*.js",
-    "lib/**/*.json",
-    "lib/**/*.d.ts"
-  ],
-  "publishConfig": {
-    "access": "public"
   }
 }

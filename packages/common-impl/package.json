@@ -1,14 +1,6 @@
 {
   "name": "@ot-builder/common-impl",
   "version": "0.2.0",
-  "dependencies": {
-    "@ot-builder/prelude": "0.2.0",
-    "tslib": "^1.9.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "jest": "^24.8.0"
-  },
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -23,5 +15,13 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@ot-builder/prelude": "0.2.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
   }
 }
