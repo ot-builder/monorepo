@@ -34,6 +34,32 @@ jobs:
         npm run test
       env:
         CI: true
+  
+  production-build:
+    name: PR Production Build
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
+        node-version: [12.x, 13.x] # Current and LTS. No history versions
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: NPM Setup
+      run: |
+        npm run boot:prod
+      env:
+        CI: true
+    - name: Building
+      run: |
+        npm run build:prod
+      env:
+        CI: true
 
   pr-change-file-check:
     name: PR Change File Check
