@@ -45,8 +45,8 @@ export class OtVarMaster<A extends VarianceDim> implements VarianceMaster<A> {
     }
 
     /**
-     * Return the peak instance
-     */
+    * Return the peak instance
+    */
     public getPeak() {
         const inst: VarianceInstanceTupleW<A> = new Map();
         for (const ar of this.regions) {
@@ -56,10 +56,10 @@ export class OtVarMaster<A extends VarianceDim> implements VarianceMaster<A> {
     }
 
     /**
-     * Weight an instance under this master
-     * If the master is invalid always return 0
-     * @param instance instance to weight
-     */
+    * Weight an instance under this master
+    * If the master is invalid always return 0
+    * @param instance instance to weight
+    */
     public evaluate(instance: VarianceInstance<A>) {
         if (this.isInvalid()) return 0;
         let w = 1;
@@ -71,9 +71,9 @@ export class OtVarMaster<A extends VarianceDim> implements VarianceMaster<A> {
     }
 
     /**
-     * Whether a master is invalid.
-     * OTVar says that every master must have 0 at origin (null instance)
-     */
+    * Whether a master is invalid.
+    * OTVar says that every master must have 0 at origin (null instance)
+    */
     public isInvalid() {
         for (const ar of this.regions.values()) {
             if (!axisRegionIsNeutral(ar)) return false;

@@ -10,49 +10,49 @@
   },
   "references": [
     {
-      "path": "../prelude/tsconfig.prod.json"
+    "path": "../prelude/tsconfig.prod.json"
     },
     {
-      "path": "../errors/tsconfig.prod.json"
+    "path": "../errors/tsconfig.prod.json"
     },
     {
-      "path": "../bin-util/tsconfig.prod.json"
+    "path": "../bin-util/tsconfig.prod.json"
     },
     {
-      "path": "../bin-composite-types/tsconfig.prod.json"
+    "path": "../bin-composite-types/tsconfig.prod.json"
     },
     {
-      "path": "../common-impl/tsconfig.prod.json"
+    "path": "../common-impl/tsconfig.prod.json"
     },
     {
-      "path": "../primitive/tsconfig.prod.json"
+    "path": "../primitive/tsconfig.prod.json"
     },
     {
-      "path": "../variance/tsconfig.prod.json"
+    "path": "../variance/tsconfig.prod.json"
     },
     {
-      "path": "../ft-glyphs/tsconfig.prod.json"
+    "path": "../ft-glyphs/tsconfig.prod.json"
     },
     {
-      "path": "../ft-encoding/tsconfig.prod.json"
+    "path": "../ft-encoding/tsconfig.prod.json"
     },
     {
-      "path": "../ft-layout/tsconfig.prod.json"
+    "path": "../ft-layout/tsconfig.prod.json"
     },
     {
-      "path": "../ft-metadata/tsconfig.prod.json"
+    "path": "../ft-metadata/tsconfig.prod.json"
     },
     {
-      "path": "../ft-name/tsconfig.prod.json"
+    "path": "../ft-name/tsconfig.prod.json"
     },
     {
-      "path": "../standard-glyph-namer/tsconfig.prod.json"
+    "path": "../standard-glyph-namer/tsconfig.prod.json"
     },
     {
-      "path": "../ft-sfnt/tsconfig.prod.json"
+    "path": "../ft-sfnt/tsconfig.prod.json"
     },
     {
-      "path": "../font/tsconfig.prod.json"
+    "path": "../font/tsconfig.prod.json"
     }
   ],
   "include": [

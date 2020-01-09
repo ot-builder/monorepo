@@ -43,12 +43,12 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
                     gid % 2
                         ? [{ x: -gid, y: -gid }, null]
                         : [
-                              null,
-                              {
-                                  x: variation.create([bold, Math.round(gid / 8)]),
-                                  y: variation.create([wide, Math.round(gid / 8)])
-                              }
-                          ]
+                            null,
+                            {
+                                x: variation.create([bold, Math.round(gid / 8)]),
+                                y: variation.create([wide, Math.round(gid / 8)])
+                            }
+                        ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

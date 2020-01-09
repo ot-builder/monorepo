@@ -46,9 +46,9 @@ export class GsubChainingLookupT<G, X> extends ChainingLookupBaseT<G, X, GsubLoo
             this.getPropsImpl(a =>
                 alg.crossReference
                     ? alg.crossReference(
-                          a,
-                          Delay(() => a.apply(alg))
-                      )
+                        a,
+                        Delay(() => a.apply(alg))
+                    )
                     : a.apply(alg)
             )
         );
@@ -66,9 +66,9 @@ export class GposChainingLookupT<G, X> extends ChainingLookupBaseT<G, X, GposLoo
             this.getPropsImpl(a =>
                 alg.crossReference
                     ? alg.crossReference(
-                          a,
-                          Delay(() => a.apply(alg))
-                      )
+                        a,
+                        Delay(() => a.apply(alg))
+                    )
                     : a.apply(alg)
             )
         );

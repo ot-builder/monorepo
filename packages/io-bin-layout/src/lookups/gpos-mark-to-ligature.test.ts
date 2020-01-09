@@ -52,13 +52,13 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 baseAnchors:
                     gid % 2
                         ? [
-                              [null, { x: 1 + gid, y: 1 + gid }],
-                              [{ x: -gid, y: -gid }, null]
-                          ]
+                            [null, { x: 1 + gid, y: 1 + gid }],
+                            [{ x: -gid, y: -gid }, null]
+                        ]
                         : [
-                              [{ x: 1 + gid, y: 1 + gid }, null],
-                              [null, { x: -gid, y: -gid }]
-                          ]
+                            [{ x: 1 + gid, y: 1 + gid }, null],
+                            [null, { x: -gid, y: -gid }]
+                        ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);
