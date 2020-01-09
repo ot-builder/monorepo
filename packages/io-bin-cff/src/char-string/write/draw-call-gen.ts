@@ -285,7 +285,7 @@ export function codeGenGlyph(
     const st = new CffCodeGenState();
     const wh: null | AdvanceWidthHandler =
         wCtx.version > 1 ? null : pd || { defaultWidthX: 0, nominalWidthX: 0 };
-    glyph.acceptGlyphAlgebra(new CffGlyphHandler(wh, st));
+    glyph.apply(new CffGlyphHandler(wh, st));
 
     const calls = st.getDrawCalls(wCtx);
     const gStat = st.getStat();

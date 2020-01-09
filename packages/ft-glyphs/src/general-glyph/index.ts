@@ -8,7 +8,7 @@ import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 export namespace GeneralGlyph {
     // Geometry
     export interface GeometryT<G, X> extends Caster.IUnknown {
-        apply<E>(alg: GeometryAlgT<G, X, E>): E;
+        readonly apply: <E>(alg: GeometryAlgT<G, X, E>) => E;
     }
     export interface ContourSetPropsT<G, X> {
         contours: Contour.T<X>[];
@@ -36,7 +36,7 @@ export namespace GeneralGlyph {
 
     // Hint type
     export interface HintT<X> extends Caster.IUnknown {
-        apply<E>(alg: HintAlgT<X, E>): E;
+        readonly apply: <E>(alg: HintAlgT<X, E>) => E;
     }
     export interface TtInstructionPropsT<X> {
         instructions: Buffer;
@@ -72,7 +72,7 @@ export namespace GeneralGlyph {
         geometry: Data.Maybe<GeometryT<G, X>>;
         hints?: Data.Maybe<HintT<X>>;
 
-        acceptGlyphAlgebra<E, EG, EH>(alg: GlyphAlgT<G, X, E, EG, EH>): E;
+        readonly apply: <E, EG, EH>(alg: GlyphAlgT<G, X, E, EG, EH>) => E;
     }
 
     // Glyph algebra

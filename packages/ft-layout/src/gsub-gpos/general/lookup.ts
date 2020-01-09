@@ -9,10 +9,10 @@ export interface LookupPropT<G> {
     ignoreGlyphs: Data.Maybe<Set<G>>;
 }
 export interface GsubLookupT<G, X> extends LookupPropT<G> {
-    apply<E>(alg: GsubLookupAlgT<G, X, E>): E;
+    readonly apply: <E>(alg: GsubLookupAlgT<G, X, E>) => E;
 }
 export interface GposLookupT<G, X> extends LookupPropT<G> {
-    apply<E>(alg: GposLookupAlgT<G, X, E>): E;
+    readonly apply: <E>(alg: GposLookupAlgT<G, X, E>) => E;
 }
 
 /** General Lookup algebra */
