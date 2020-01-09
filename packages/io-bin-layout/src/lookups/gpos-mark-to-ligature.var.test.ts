@@ -42,25 +42,25 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 baseAnchors:
                     gid % 2
                         ? [
-                              [null, { x: 1 + gid, y: 1 + gid }],
-                              [
-                                  {
-                                      x: variation.create(-1, [bold, Math.round(gid / 8)]),
-                                      y: variation.create(-1, [wide, Math.round(-gid / 8)])
-                                  },
-                                  null
-                              ]
-                          ]
+                            [null, { x: 1 + gid, y: 1 + gid }],
+                            [
+                                {
+                                    x: variation.create(-1, [bold, Math.round(gid / 8)]),
+                                    y: variation.create(-1, [wide, Math.round(-gid / 8)])
+                                },
+                                null
+                            ]
+                        ]
                         : [
-                              [
-                                  {
-                                      x: variation.create(1, [bold, Math.round(gid / 8)]),
-                                      y: variation.create(1, [wide, Math.round(-gid / 8)])
-                                  },
-                                  null
-                              ],
-                              [null, { x: -gid, y: -gid }]
-                          ]
+                            [
+                                {
+                                    x: variation.create(1, [bold, Math.round(gid / 8)]),
+                                    y: variation.create(1, [wide, Math.round(-gid / 8)])
+                                },
+                                null
+                            ],
+                            [null, { x: -gid, y: -gid }]
+                        ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

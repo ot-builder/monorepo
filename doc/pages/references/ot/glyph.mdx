@@ -28,35 +28,35 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
  * <Fn s={Ot.Glyph.create}/>
 
-   Create a blank <R s={Ot.Glyph}/> with default implementation.
+    Create a blank <R s={Ot.Glyph}/> with default implementation.
 
 #### Properties
 
  * <Member s={Ot.Glyph.name} type={Data.Maybe(string)}/>
 
-   The glyph name. Optional.
+    The glyph name. Optional.
 
  * <Member s={Ot.Glyph.geometry} type={Data.Maybe(Ot.Glyph.Geometry)}/>
 
-   The geometry. Optional. When absent, the glyph is considered a space.
+    The geometry. Optional. When absent, the glyph is considered a space.
 
  * <Member s={Ot.Glyph.hints} type={Data.Maybe(Ot.Glyph.Hints)}/>
 
-   The hints. Optional.
+    The hints. Optional.
 
  * <Member s={Ot.Glyph.horizontal} type={Data.Maybe(Ot.Glyph.Metric)}/>
 
-   The horizontal metric.
+    The horizontal metric.
 
  * <Member s={Ot.Glyph.vertical} type={Data.Maybe(Ot.Glyph.Metric)}/>
 
-   The vertical metric.
+    The vertical metric.
 
 #### Methods
 
  * <Method s={Ot.Glyph.apply('E', 'EG', 'EH')} args={{alg:Ot.Glyph.GlyphAlg('E', 'EG', 'EH')}} returns="E"/>
 
-   Accepts a <R s={Ot.Glyph.GlyphAlg} /> and return the results.
+    Accepts a <R s={Ot.Glyph.GlyphAlg} /> and return the results.
 
 ### Interface <Decl s={Ot.Glyph.GlyphAlg('E', 'EG = E', 'EH = E')} />
 
@@ -81,11 +81,11 @@ Defines a metric advance of a glyph.
 
  * <Member readonly s={Ot.Glyph.Metric.start} type={Ot.Var.Value} />
 
-   Start coordiante.
+    Start coordiante.
 
  * <Member readonly s={Ot.Glyph.Metric.end} type={Ot.Var.Value} />
 
-   End coordinate.
+    End coordinate.
 
 ## Geometry
 
@@ -127,7 +127,7 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
  * <Fn s={Ot.Glyph.ContourSet.create} args={{}} returns={Ot.Glyph.ContourSet}/>
 
-   Creates an <R s={Ot.Glyph.ContourSet}/> with default implementation.
+    Creates an <R s={Ot.Glyph.ContourSet}/> with default implementation.
 
 ### Interface <Decl s={Ot.Glyph.ContourSetProps}/>
 
@@ -135,7 +135,7 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
  * <Member s={Ot.Glyph.ContourSetProps.contours} type={array((Ot.Glyph.Contour))} />
 
-   The contour set, being a nested array of control knots.
+    The contour set, being a nested array of control knots.
 
 ### Type <Decl s={Ot.Glyph.TtReference}/>
 
@@ -152,11 +152,11 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 #### Factory Methods
 
  * <Fn long s={Ot.Glyph.TtReference.create} args={{
-   to: annot(Ot.Glyph,"Target glyph"),
-   transform: annot(Ot.Glyph.Transform2X3,"Transform of this reference")
+    to: annot(Ot.Glyph,"Target glyph"),
+    transform: annot(Ot.Glyph.Transform2X3,"Transform of this reference")
   }} returns={Ot.Glyph.TtReference}/>
 
-   Creates an <R s={Ot.Glyph.TrReference}/> with default implementation.
+    Creates an <R s={Ot.Glyph.TrReference}/> with default implementation.
 
 ### Interface <Decl s={Ot.Glyph.TtReferenceProps}/>
 
@@ -164,27 +164,27 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
  * <Member s={Ot.Glyph.TtReferenceProps.to} type={Ot.Glyph} />
 
-   The target glyph.
+    The target glyph.
 
  * <Member s={Ot.Glyph.TtReferenceProps.transform} type={Ot.Glyph.Transform2X3} />
 
-   The transform being applied.
+    The transform being applied.
 
  * <Member s={Ot.Glyph.TtReferenceProps.roundXyToGrid} type={boolean} />
 
-   Whether to round to grid.
+    Whether to round to grid.
 
  * <Member s={Ot.Glyph.TtReferenceProps.useMyMetrics} type={boolean} />
 
-   If set, this forces the advance width and left sidebearing for the composite to be equal to those from this original glyph. This works for hinted and unhinted characters.
+    If set, this forces the advance width and left sidebearing for the composite to be equal to those from this original glyph. This works for hinted and unhinted characters.
 
  * <Member s={Ot.Glyph.TtReferenceProps.overlapCompound} type={boolean} />
 
-   If set, the components of the glyph containing this reference overlap.
+    If set, the components of the glyph containing this reference overlap.
 
  * <Member s={Ot.Glyph.TtReferenceProps.pointAttachment} type={Data.Maybe(Ot.Glyph.PointAttachment)} />
 
-   When present, this reference follows TrueType's point-attachment rules.
+    When present, this reference follows TrueType's point-attachment rules.
 
 ### Type <Decl s={Ot.Glyph.GeometryList}/>
 
@@ -201,13 +201,13 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
  * <Fn s={Ot.Glyph.GeometryList.create} args={{items:optional(array(Ot.Glyph.Geometry))}} returns={Ot.Glyph.GeometryList}/>
 
-   Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
+    Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
 
 #### Properties
 
  * <Member s={Ot.Glyph.GeometryList.items} type={array(Ot.Glyph.Geometry)}/>
 
-   The sub geometries inside.
+    The sub geometries inside.
 
 ## Hints
 
@@ -221,7 +221,7 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
  * <Method s={Ot.Glyph.Hint.apply("E")} args={{alg:Ot.Glyph.HintAlg("E")}} returns="E"/>
 
-   Accepts a <R s={Ot.Glyph.HintAlg("E")} /> algebra to this hint, and return the result.
+    Accepts a <R s={Ot.Glyph.HintAlg("E")} /> algebra to this hint, and return the result.
 
 ### Interface <Decl s={Ot.Glyph.HintAlg("E")} />
 
@@ -247,7 +247,7 @@ The object algebra of processing hints.
 #### Factory Methods
  * <Fn s={Ot.Glyph.TtInstructionHint.create} args={{instructions:"Buffer"}} returns={Ot.Glyph.TtInstructionHint}/>
 
-   Creates an <R s={Ot.Glyph.TtInstructionHint} /> from a given instruction buffer.
+    Creates an <R s={Ot.Glyph.TtInstructionHint} /> from a given instruction buffer.
 
 ### Interface <Decl s={Ot.Glyph.TtInstructionProps} />
 
@@ -255,7 +255,7 @@ The object algebra of processing hints.
 
  * <Member s={Ot.Glyph.TtInstructionProps.instructions} type="Buffer"/>
 
-   The buffer containing the TrueType instructions.
+    The buffer containing the TrueType instructions.
 
 ### Type <Decl s={Ot.Glyph.CffHint} />
 
@@ -273,7 +273,7 @@ The object algebra of processing hints.
 
  * <Fn s={Ot.Glyph.CffHint.create} args={{}} returns={Ot.Glyph.CffHint} />
 
-   Create an empty <R s={Ot.Glyph.CffHint} />.
+    Create an empty <R s={Ot.Glyph.CffHint} />.
 
 ### Interface <Decl s={Ot.Glyph.CffHintProps} />
 
@@ -281,19 +281,19 @@ The object algebra of processing hints.
 
  * <Member s={Ot.Glyph.CffHintProps.hStems} type={Ot.Glyph.CffHintStem}/>
 
-   The horizontal stems.
+    The horizontal stems.
 
  * <Member s={Ot.Glyph.CffHintProps.vStems} type={Ot.Glyph.CffHintStem}/>
 
-   The vertical stems.
+    The vertical stems.
 
  * <Member s={Ot.Glyph.CffHintProps.hintMasks} type={Ot.Glyph.CffHintMask}/>
 
-   The hint masks.
+    The hint masks.
 
  * <Member s={Ot.Glyph.CffHintProps.counterMasks} type={Ot.Glyph.CffHintMask}/>
 
-   The contour masks.
+    The contour masks.
 
 ### Datatype <Decl s={Ot.Glyph.CffHintStem} />
 
@@ -301,17 +301,17 @@ The object algebra of processing hints.
 
  * <Member s={Ot.Glyph.CffHintStem.start} type={Ot.Var}/>
 
-   Start coordinate of this hint stem.
+    Start coordinate of this hint stem.
 
  * <Member s={Ot.Glyph.CffHintStem.end} type={Ot.Var}/>
 
-   End coordinate of this hint stem.
+    End coordinate of this hint stem.
 
 #### Factory Methods
 
  * <Fn s={Ot.Glyph.CffHint.createStem} args={{start:Ot.Var.Value,end:Ot.Var.Value}} returns={Ot.Glyph.CffHintStem} />
 
-   Create a <R s={Ot.Glyph.CffHintStem} />.
+    Create a <R s={Ot.Glyph.CffHintStem} />.
 
 ### Datatype <Decl s={Ot.Glyph.CffHintMask} />
 
@@ -319,15 +319,15 @@ The object algebra of processing hints.
 
  * <Member s={Ot.Glyph.CffHintMask.at} type={set(Ot.Glyph.PointRef)}/>
 
-   The point reference right before this hint mask take effect.
+    The point reference right before this hint mask take effect.
 
  * <Member s={Ot.Glyph.CffHintMask.maskH} type={set(Ot.Glyph.CffHintStem)}/>
 
-   Horizontal stems needed to be enabled.
+    Horizontal stems needed to be enabled.
 
  * <Member s={Ot.Glyph.CffHintMask.maskH} type={set(Ot.Glyph.CffHintStem)}/>
 
-   Vertical stems needed to be enabled.
+    Vertical stems needed to be enabled.
 
 #### Factory Methods
 
@@ -335,9 +335,9 @@ The object algebra of processing hints.
     at:annot(Ot.Glyph.PointRef, "Point reference right before this mask"),
     maskH:annot(set(Ot.Glyph.CffHintStem), "Horizontal stems to be enabled"),
     maskV:annot(set(Ot.Glyph.CffHintStem), "Vertical stems to be enabled")
-   }} returns={Ot.Glyph.CffHintMask} />
+    }} returns={Ot.Glyph.CffHintMask} />
 
-   Create a <R s={Ot.Glyph.CffHintMask} />.
+    Create a <R s={Ot.Glyph.CffHintMask} />.
 
 ## Support Types
 
@@ -352,24 +352,24 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 #### Factory Methods
 
  * <Method long static s={Ot.Glyph.Point.create} args={{
-   x: annot(Ot.Var.Value,"X Coordinate"),
-   y: annot(Ot.Var.Value,"Y coordinate"),
-   kind: optional(annot(Ot.Glyph.PointType,"Point Type"))
+    x: annot(Ot.Var.Value,"X Coordinate"),
+    y: annot(Ot.Var.Value,"Y coordinate"),
+    kind: optional(annot(Ot.Glyph.PointType,"Point Type"))
   }} returns={Ot.Glyph.Point}/>
 
 #### Properties
 
  * <Member readonly s={Ot.Glyph.Point.x} type={Ot.Var.Value} />
 
-   X coordinate.
+    X coordinate.
 
  * <Member readonly s={Ot.Glyph.Point.y} type={Ot.Var.Value} />
 
-   Y coordinate.
+    Y coordinate.
 
  * <Member readonly s={Ot.Glyph.Point.kind} type={Ot.Glyph.PointType} />
 
-   Point type.
+    Point type.
 
 ### Singleton <Decl s={Ot.Glyph.PointOps}/>
 
@@ -377,7 +377,7 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 
  * <Member readonly s={Ot.Glyph.PointOps.neutral} type={number} />
 
-   The identity of <R s={Ot.Glyph.Point}/>. Equal to 0.
+    The identity of <R s={Ot.Glyph.Point}/>. Equal to 0.
 
 #### Methods
  * <Method s={Ot.Glyph.PointOps.add} args={{x:Ot.Glyph.Point,y:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
@@ -398,29 +398,29 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
  * <Member readonly s={Ot.Glyph.Transform2X3.yx} type={number} />
  * <Member readonly s={Ot.Glyph.Transform2X3.yy} type={number} />
 
-   2×3 transformation entries.
+    2×3 transformation entries.
 
  * <Member readonly s={Ot.Glyph.Transform2X3.scaledOffset} type={Data.Maybe(boolean)} />
 
-   Whether the offset is scaled.
+    Whether the offset is scaled.
 
 ### Enumeration <Decl s={Ot.Glyph.PointType}/>
 
  * <Item s={Ot.Glyph.PointType.Corner} /> = 0
 
-   This point is corner point.
+    This point is corner point.
 
  * <Item s={Ot.Glyph.PointType.Lead} /> = 1
 
-   This point is the first control point of a cubic Beizer curve.
+    This point is the first control point of a cubic Beizer curve.
 
  * <Item s={Ot.Glyph.PointType.Follow} /> = 2
 
-   This point is the second control point of a cubic Beizer curve.
+    This point is the second control point of a cubic Beizer curve.
 
  * <Item s={Ot.Glyph.PointType.Quad} /> = 3
 
-   This point is an off-curve control point in a quadratic contour, as in TrueType.
+    This point is an off-curve control point in a quadratic contour, as in TrueType.
 
 ### Datatype <Decl s={Ot.Glyph.PointRef} />
 

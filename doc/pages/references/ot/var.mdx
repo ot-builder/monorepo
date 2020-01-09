@@ -79,7 +79,7 @@ A master set collects masters and associates an unique number to masters that ar
 * <Method s={Ot.Var.MasterSet.get} args={{master:Ot.Var.Master}} returns={either(undefined, record({index:number,master:Ot.Var.Master}))}/>
 
   Query the records and return the index and corresponding collected masters, or `undefined` if the master is not recorded.
- 
+
 * <Method s={Ot.Var.MasterSet.getOrPush} args={{master:Ot.Var.Master}} returns={either(undefined, record({index:number,master:Ot.Var.Master}))}/>
 
   Query the records and return the index and corresponding collected masters, or add it into the record if it is not collected. Returns `undefined` when the master is considered invalid.
@@ -92,8 +92,8 @@ A master set collects masters and associates an unique number to masters that ar
 #### Properties
 
  * <Member readonly s={Ot.Var.Ops.neutral} type={number} />
-   
-   The identity of <R s={Ot.Var.Value}/>. Equal to 0.
+
+    The identity of <R s={Ot.Var.Value}/>. Equal to 0.
 
 #### Vector space methods
  * <Method s={Ot.Var.Ops.add} args={{x:Ot.Var.Value,y:Ot.Var.Value}} returns={Ot.Var.Value} />
@@ -131,7 +131,7 @@ A master set collects masters and associates an unique number to masters that ar
 
 ## Value Collection
 
-### Class <Decl s={Ot.Var.ValueCollector("D")}/> 
+### Class <Decl s={Ot.Var.ValueCollector("D")}/>
 
 #### Factory Methods
 
@@ -148,6 +148,6 @@ A master set collects masters and associates an unique number to masters that ar
  * <Method s={Ot.Var.ValueCollector.resolveDeltas} args={{deltaMA:array(number)}} returns={array(number)} />
  * <Method s={Ot.Var.ValueCollector.getMasterList} args={{}} returns={array(tuple(number,Ot.Var.Master))} />
 
-### Type <Decl s={Ot.Var.CollectedValueFactory("D")}/> 
+### Type <Decl s={Ot.Var.CollectedValueFactory("D")}/>
 
 Defined as <R s={pi({col: Ot.Var.ValueCollector('D'),origin:number,deltaMA:array(number)},"D")}/>

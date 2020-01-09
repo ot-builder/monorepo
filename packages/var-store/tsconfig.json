@@ -10,37 +10,37 @@
   },
   "references": [
     {
-      "path": "../errors/tsconfig.json"
+    "path": "../errors/tsconfig.json"
     },
     {
-      "path": "../prelude/tsconfig.json"
+    "path": "../prelude/tsconfig.json"
     },
     {
-      "path": "../bin-util/tsconfig.json"
+    "path": "../bin-util/tsconfig.json"
     },
     {
-      "path": "../bin-composite-types/tsconfig.json"
+    "path": "../bin-composite-types/tsconfig.json"
     },
     {
-      "path": "../common-impl/tsconfig.json"
+    "path": "../common-impl/tsconfig.json"
     },
     {
-      "path": "../primitive/tsconfig.json"
+    "path": "../primitive/tsconfig.json"
     },
     {
-      "path": "../variance/tsconfig.json"
+    "path": "../variance/tsconfig.json"
     },
     {
-      "path": "../ft-glyphs/tsconfig.json"
+    "path": "../ft-glyphs/tsconfig.json"
     },
     {
-      "path": "../ft-encoding/tsconfig.json"
+    "path": "../ft-encoding/tsconfig.json"
     },
     {
-      "path": "../ft-layout/tsconfig.json"
+    "path": "../ft-layout/tsconfig.json"
     },
     {
-      "path": "../test-util/tsconfig.json"
+    "path": "../test-util/tsconfig.json"
     }
   ]
 }

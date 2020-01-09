@@ -10,7 +10,7 @@
   },
   "references": [
     {
-      "path": "../prelude/tsconfig.prod.json"
+    "path": "../prelude/tsconfig.prod.json"
     }
   ],
   "include": [
