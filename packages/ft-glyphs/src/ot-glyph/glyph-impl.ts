@@ -16,7 +16,7 @@ export class OtGlyphImpl implements OtGlyphInterface {
     public geometry: Data.Maybe<GeneralGlyph.GeometryT<OtGlyphInterface, OtVar.Value>> = null;
     public hints: Data.Maybe<GeneralGlyph.HintT<OtVar.Value>> = null;
 
-    public acceptGlyphAlgebra<E, EG, EH>(
+    public apply<E, EG, EH>(
         alg: GeneralGlyph.GlyphAlgT<OtGlyphInterface, OtVar.Value, E, EG, EH>
     ): E {
         const geom = this.geometry;

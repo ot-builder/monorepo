@@ -83,7 +83,7 @@ const GvarHeader = Read(
 
 class GlyphTvhClient implements TupleVariationGeometryClient {
     constructor(ms: OtVar.MasterSet, private glyph: OtGlyph, ignore: GvarReadIgnore) {
-        this.glyphHolder = glyph.acceptGlyphAlgebra(new VarPtrCollector());
+        this.glyphHolder = glyph.apply(new VarPtrCollector());
         this.contours = this.glyphHolder.tvdAccesses(ms, ignore);
     }
     public readonly dimensions = 2;

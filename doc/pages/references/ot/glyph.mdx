@@ -54,7 +54,7 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
 #### Methods
 
- * <Method s={Ot.Glyph.acceptGlyphAlgebra('E', 'EG', 'EH')} args={{alg:Ot.Glyph.GlyphAlg('E', 'EG', 'EH')}} returns="E"/>
+ * <Method s={Ot.Glyph.apply('E', 'EG', 'EH')} args={{alg:Ot.Glyph.GlyphAlg('E', 'EG', 'EH')}} returns="E"/>
 
    Accepts a <R s={Ot.Glyph.GlyphAlg} /> and return the results.
 
@@ -218,9 +218,9 @@ A generic abstract factory or an object algebra about processing glyph geometrie
  * <R s={Caster.IUnknown} />
 
 #### Methods
- 
+
  * <Method s={Ot.Glyph.Hint.apply("E")} args={{alg:Ot.Glyph.HintAlg("E")}} returns="E"/>
-   
+
    Accepts a <R s={Ot.Glyph.HintAlg("E")} /> algebra to this hint, and return the result.
 
 ### Interface <Decl s={Ot.Glyph.HintAlg("E")} />
@@ -280,7 +280,7 @@ The object algebra of processing hints.
 #### Properties
 
  * <Member s={Ot.Glyph.CffHintProps.hStems} type={Ot.Glyph.CffHintStem}/>
-   
+
    The horizontal stems.
 
  * <Member s={Ot.Glyph.CffHintProps.vStems} type={Ot.Glyph.CffHintStem}/>
@@ -300,7 +300,7 @@ The object algebra of processing hints.
 #### Properties
 
  * <Member s={Ot.Glyph.CffHintStem.start} type={Ot.Var}/>
-   
+
    Start coordinate of this hint stem.
 
  * <Member s={Ot.Glyph.CffHintStem.end} type={Ot.Var}/>
@@ -318,11 +318,11 @@ The object algebra of processing hints.
 #### Properties
 
  * <Member s={Ot.Glyph.CffHintMask.at} type={set(Ot.Glyph.PointRef)}/>
-   
+
    The point reference right before this hint mask take effect.
 
  * <Member s={Ot.Glyph.CffHintMask.maskH} type={set(Ot.Glyph.CffHintStem)}/>
-   
+
    Horizontal stems needed to be enabled.
 
  * <Member s={Ot.Glyph.CffHintMask.maskH} type={set(Ot.Glyph.CffHintStem)}/>
@@ -376,7 +376,7 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 #### Properties
 
  * <Member readonly s={Ot.Glyph.PointOps.neutral} type={number} />
-   
+
    The identity of <R s={Ot.Glyph.Point}/>. Equal to 0.
 
 #### Methods
@@ -409,7 +409,7 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
  * <Item s={Ot.Glyph.PointType.Corner} /> = 0
 
    This point is corner point.
-   
+
  * <Item s={Ot.Glyph.PointType.Lead} /> = 1
 
    This point is the first control point of a cubic Beizer curve.

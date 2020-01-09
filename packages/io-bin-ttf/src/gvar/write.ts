@@ -90,7 +90,7 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
     public readonly data: OtVar.Value[][];
 
     constructor(glyph: OtGlyph) {
-        this.data = glyph.acceptGlyphAlgebra(new VarCollector());
+        this.data = glyph.apply(new VarCollector());
     }
 }
 
