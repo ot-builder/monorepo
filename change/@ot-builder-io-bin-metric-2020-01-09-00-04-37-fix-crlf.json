@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Fix all CRLF",
+  "packageName": "@ot-builder/io-bin-metric",
+  "email": "belleve@typeof.net",
+  "commit": "b62d3ac2cac20f161c931c4a466c1f6c97e00451",
+  "date": "2020-01-09T08:04:33.124Z"
+}
