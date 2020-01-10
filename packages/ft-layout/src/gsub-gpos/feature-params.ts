@@ -1,14 +1,14 @@
-import { Caster } from "@ot-builder/prelude";
+import { Sigma } from "@ot-builder/prelude";
 
 export namespace FeatureParams {
     export interface StylisticSet {
         readonly uiNameID: number;
     }
-    export const TID_StylisticSet = new Caster.TypeID<StylisticSet>(
+    export const TID_StylisticSet = new Sigma.TypeID<StylisticSet>(
         "OTB::FeatureParams::StylisticSet"
     );
 
-    const _tagToTypeIDMap: { [tag: string]: undefined | Caster.TypeID<any> } = {};
+    const _tagToTypeIDMap: { [tag: string]: undefined | Sigma.TypeID<any> } = {};
 
     // ss01 -- ss20
     _tagToTypeIDMap["ss01"] = TID_StylisticSet;
@@ -33,6 +33,6 @@ export namespace FeatureParams {
     _tagToTypeIDMap["ss20"] = TID_StylisticSet;
 
     export const tagToTypeIDMap: {
-        readonly [tag: string]: undefined | Caster.TypeID<any>;
+        readonly [tag: string]: undefined | Sigma.TypeID<any>;
     } = _tagToTypeIDMap;
 }

@@ -1,4 +1,4 @@
-import { Caster, Data, Thunk } from "@ot-builder/prelude";
+import { Data, Thunk } from "@ot-builder/prelude";
 
 import { Contour as GlyphContour } from "./contour";
 import { Metric as GlyphMetric } from "./metric";
@@ -7,7 +7,7 @@ import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
     // Geometry
-    export interface GeometryT<G, X> extends Caster.IUnknown {
+    export interface GeometryT<G, X> {
         readonly apply: <E>(alg: GeometryAlgT<G, X, E>) => E;
     }
     export interface ContourSetPropsT<G, X> {
@@ -35,7 +35,7 @@ export namespace GeneralGlyph {
     }
 
     // Hint type
-    export interface HintT<X> extends Caster.IUnknown {
+    export interface HintT<X> {
         readonly apply: <E>(alg: HintAlgT<X, E>) => E;
     }
     export interface TtInstructionPropsT<X> {

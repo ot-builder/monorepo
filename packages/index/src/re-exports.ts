@@ -2,7 +2,7 @@ import * as FontIoLib from "@ot-builder/io-bin-font";
 import * as OtbPrimitive from "@ot-builder/primitive";
 import * as _Rectify from "@ot-builder/rectify-font";
 
-export { Caster, Data, Thunk } from "@ot-builder/prelude";
+export { Sigma, Data, Thunk } from "@ot-builder/prelude";
 export import Rectify = _Rectify;
 
 export import FontIo = FontIoLib;

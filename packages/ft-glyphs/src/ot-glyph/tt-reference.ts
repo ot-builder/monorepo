@@ -1,11 +1,10 @@
-import { Caster, Data } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { GeneralGlyph } from "../general-glyph";
 import { PointAttachment } from "../general-glyph/point";
 
 import { OtGlyphInterface } from "./glyph-interface";
-import { TID_TtReference } from "./type-id";
 
 export class TtReferenceImpl implements GeneralGlyph.TtReferenceT<OtGlyphInterface, OtVar.Value> {
     constructor(
@@ -17,9 +16,6 @@ export class TtReferenceImpl implements GeneralGlyph.TtReferenceT<OtGlyphInterfa
     public overlapCompound = false;
     public pointAttachment: Data.Maybe<PointAttachment> = null;
 
-    public queryInterface<U>(tid: Caster.TypeID<U>): undefined | U {
-        return Caster.StandardQueryInterface(this, tid, TID_TtReference);
-    }
     public apply<E>(alg: GeneralGlyph.GeometryAlgT<OtGlyphInterface, OtVar.Value, E>): E {
         return alg.ttReference(this);
     }
