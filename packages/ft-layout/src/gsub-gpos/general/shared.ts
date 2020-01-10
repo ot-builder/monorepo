@@ -1,10 +1,10 @@
-import { Caster, Data } from "@ot-builder/prelude";
+import { Data, Sigma } from "@ot-builder/prelude";
 import { F2D14, Tag } from "@ot-builder/primitive";
 
 export interface FeatureT<G, X, L> {
     tag: Tag;
     lookups: Array<L>;
-    params?: Data.Maybe<Caster.Sigma>;
+    params?: Data.Maybe<Sigma.DependentPair>;
 }
 
 export interface LanguageT<G, X, L> {

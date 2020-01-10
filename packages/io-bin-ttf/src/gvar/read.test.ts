@@ -2,7 +2,7 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { TestFont } from "@ot-builder/test-util";
+import { GlyphToInitialUtil, TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 
 import { DefaultTtfCfgProps } from "../cfg";
@@ -56,7 +56,9 @@ test("Reading : TTF, variable", () => {
     {
         const g300 = gOrd.at(300);
         expect(g300.geometry).toBeTruthy();
-        expect(g300.geometry!.queryInterface(OtGlyph.TID_GeometryList)).toBeTruthy();
+        expect(g300.geometry!.apply(GlyphToInitialUtil.GeometryToInitial).type).toBe(
+            GlyphToInitialUtil.InitialGeometryType.GeometryList
+        );
 
         const geom = g300.geometry as OtGlyph.GeometryList;
         expect(geom.items.length).toBe(2);

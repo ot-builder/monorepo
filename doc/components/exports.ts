@@ -2,8 +2,8 @@ import { createTopLevelExport, setPage, TyRep } from "./tyrep";
 
 export const Data = createTopLevelExport("Data");
 setPage(Data, "Prelude");
-export const Caster = createTopLevelExport("Caster");
-setPage(Caster, "Prelude");
+export const Sigma = createTopLevelExport("Sigma");
+setPage(Sigma, "Prelude");
 export const Thunk = createTopLevelExport("Thunk");
 setPage(Thunk, "Prelude");
 export const Tag = createTopLevelExport("Tag");

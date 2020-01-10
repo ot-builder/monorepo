@@ -3,6 +3,18 @@ import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { FastMatch } from "./fast-match";
+import {
+    GeometryToInitial,
+    HintsToInitial,
+    InitialContourSet,
+    InitialGeometry,
+    InitialGeometryList,
+    InitialGeometryType,
+    InitialHints,
+    InitialHintType,
+    InitialTtInstr,
+    InitialTtReference
+} from "./glyph-to-initial-util";
 
 export namespace GlyphIdentity {
     export enum CompareMode {
@@ -31,15 +43,7 @@ export namespace GlyphIdentity {
             FastMatch.otvar(actual.vertical.end, expected.vertical.end, "VM end");
         }
         testGeometry(expected.geometry, actual.geometry, mode, tolerance, place);
-        if (mode & CompareMode.CompareInstructions) {
-            if (expected.hints && expected.hints.queryInterface(OtGlyph.TID_TtInstructionHint)) {
-                expect(actual.hints).toBeTruthy();
-                expect(actual.hints!.queryInterface(OtGlyph.TID_TtInstructionHint)).toBeTruthy();
-                expect((expected.hints! as OtGlyph.TtInstructionHint).instructions).toEqual(
-                    (actual.hints! as OtGlyph.TtInstructionHint).instructions
-                );
-            }
-        }
+        testHints(expected.hints, actual.hints, mode, tolerance, place);
     }
 
     function testGeometry(
@@ -52,33 +56,48 @@ export namespace GlyphIdentity {
         if (!geomE && !geomA) return;
         expect(!!geomE).toBe(!!geomA);
 
-        if (geomE!.queryInterface(OtGlyph.TID_ContourSet)) {
-            expect(geomA!.queryInterface(OtGlyph.TID_ContourSet)).toBeTruthy();
-            testContours(
-                geomE as OtGlyph.ContourSet,
-                geomA as OtGlyph.ContourSet,
-                !!(mode & CompareMode.RemoveCycle),
-                tolerance,
-                place
-            );
-        } else if (geomE!.queryInterface(OtGlyph.TID_GeometryList)) {
-            expect(geomA!.queryInterface(OtGlyph.TID_GeometryList)).toBeTruthy();
-            testGeometryList(
-                geomE as OtGlyph.GeometryList,
-                geomA as OtGlyph.GeometryList,
-                mode,
-                tolerance
-            );
-        } else if (geomE!.queryInterface(OtGlyph.TID_TtReference)) {
-            expect(geomA!.queryInterface(OtGlyph.TID_TtReference)).toBeTruthy();
-            testReference(
-                geomE as OtGlyph.TtReference,
-                geomA as OtGlyph.TtReference,
-                mode,
-                tolerance
-            );
-        } else {
-            throw new TypeError("Unknown geometry type");
+        const initGeomE = geomE!.apply(GeometryToInitial);
+        const initGeomA = geomA!.apply(GeometryToInitial);
+
+        return testInitGeometry(initGeomE, initGeomA, mode, tolerance, place);
+    }
+
+    function testInitGeometry(
+        geomE: InitialGeometry,
+        geomA: InitialGeometry,
+        mode: CompareMode = 0,
+        tolerance = 1,
+        place = ""
+    ) {
+        switch (geomE.type) {
+            case InitialGeometryType.ContourSet: {
+                expect(geomA.type).toBe(InitialGeometryType.ContourSet);
+                return testContours(
+                    (geomE as InitialContourSet).leaf,
+                    (geomA as InitialContourSet).leaf,
+                    !!(mode & CompareMode.RemoveCycle),
+                    tolerance,
+                    place
+                );
+            }
+            case InitialGeometryType.TtReference: {
+                expect(geomA.type).toBe(InitialGeometryType.TtReference);
+                return testReference(
+                    (geomE as InitialTtReference).leaf,
+                    (geomA as InitialTtReference).leaf,
+                    mode,
+                    tolerance
+                );
+            }
+            case InitialGeometryType.GeometryList: {
+                expect(geomA.type).toBe(InitialGeometryType.GeometryList);
+                return testGeometryList(
+                    (geomE as InitialGeometryList).children,
+                    (geomA as InitialGeometryList).children,
+                    mode,
+                    tolerance
+                );
+            }
         }
     }
 
@@ -109,8 +128,8 @@ export namespace GlyphIdentity {
     }
 
     function testContours(
-        expected: OtGlyph.ContourSet,
-        actual: OtGlyph.ContourSet,
+        expected: OtGlyph.ContourSetProps,
+        actual: OtGlyph.ContourSetProps,
         handleCycle: boolean,
         tolerance: number,
         place = ""
@@ -146,22 +165,22 @@ export namespace GlyphIdentity {
     }
 
     function testGeometryList(
-        expected: OtGlyph.GeometryList,
-        actual: OtGlyph.GeometryList,
+        expected: InitialGeometry[],
+        actual: InitialGeometry[],
         tolerance: number,
         mode: number
     ) {
-        expect(expected.items.length).toBe(actual.items.length);
-        for (let rid = 0; rid < expected.items.length; rid++) {
-            const expectedItem = expected.items[rid];
-            const actualItem = actual.items[rid];
-            testGeometry(expectedItem, actualItem, mode, tolerance);
+        expect(expected.length).toBe(actual.length);
+        for (let rid = 0; rid < expected.length; rid++) {
+            const expectedItem = expected[rid];
+            const actualItem = actual[rid];
+            testInitGeometry(expectedItem, actualItem, mode, tolerance);
         }
     }
 
     function testReference(
-        expected: OtGlyph.TtReference,
-        actual: OtGlyph.TtReference,
+        expected: OtGlyph.TtReferenceProps,
+        actual: OtGlyph.TtReferenceProps,
         tolerance: number,
         mode: number
     ) {
@@ -175,5 +194,38 @@ export namespace GlyphIdentity {
         FastMatch.exactly(expected.transform.scaledOffset, actual.transform.scaledOffset);
         FastMatch.exactly(expected.useMyMetrics, actual.useMyMetrics);
         FastMatch.exactly(expected.roundXyToGrid, actual.roundXyToGrid);
+    }
+
+    function testHints(
+        hintE: Data.Maybe<OtGlyph.Hint>,
+        hintA: Data.Maybe<OtGlyph.Hint>,
+        mode: CompareMode = 0,
+        tolerance = 1,
+        place = ""
+    ) {
+        if (!(mode & CompareMode.CompareInstructions)) return;
+        if (!hintE && !hintA) return;
+        expect(!!hintE).toBe(!!hintA);
+
+        const initHintE = hintE!.apply(HintsToInitial);
+        const initHintA = hintA!.apply(HintsToInitial);
+        testInitialHints(initHintE, initHintA, mode, tolerance, place);
+    }
+
+    function testInitialHints(
+        hintE: InitialHints,
+        hintA: InitialHints,
+        mode: CompareMode = 0,
+        tolerance = 1,
+        place = ""
+    ) {
+        switch (hintE.type) {
+            case InitialHintType.TtInstr:
+                expect(hintA.type).toBe(InitialHintType.TtInstr);
+                expect((hintE as InitialTtInstr).leaf.instructions).toEqual(
+                    (hintA as InitialTtInstr).leaf.instructions
+                );
+                return;
+        }
     }
 }

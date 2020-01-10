@@ -1,6 +1,6 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl } from "components/tyfmt"
-import { Data, Caster, Thunk, number, string, array } from "components/exports"
+import { Data, Sigma, Thunk, number, string, array } from "components/exports"
 import { either, app, tuple, extend } from "components/tycon"
 export default Layout
 
@@ -71,29 +71,38 @@ Represents an optional object. Frequently used in the rest parts of the `ot-buil
 * <Method s={Data.Naming.Source.getIndex} args={{item:"G"}} returns={either(undefined,null,number)}/>
 * <Method s={Data.Naming.Source.getVariantIndex} args={{item:"G"}} returns={either(undefined,null,array(number))}/>
 
-## Namespace <Decl s={Caster}/>
+## Namespace <Decl s={Sigma}/>
 
-### Class <Decl s={Caster.TypeID("T")}/>
+### Class <Decl s={Sigma.TypeID("T")}/>
 
 #### Constructor
 
-* <Method ctor s={Caster.TypeID.constructor} args={{id:string}}/>
+* <Method ctor s={Sigma.TypeID.constructor} args={{id:string}}/>
 
-### Class <Decl s={Caster.IUnknown}/>
+### Class <Decl s={Sigma.DependentPair}/>
 
-#### Methods
+#### Method
 
-* <Method s={Caster.IUnknown.queryInterface("T")} args={{tid:Caster.TypeID("T")}} returns={either(undefined,"T")}/>
+* <Method s={Sigma.DependentPair.cast("T")} args={{expected:Sigma.TypeID("T")}} returns={either(undefined,"T")}/>
 
-### Class <Decl s={Caster.Sigma}/>
-
-#### Implements
-
-* <R s={Caster.IUnknown}/>
+  Query the corresponded value part of a <R s={Sigma.DependentPair}/>. Return the value if the type ID paramater matches.
 
 #### Factory Methods
 
-* <Method static s={Caster.Sigma.create("T")} args={{tid:Caster.TypeID("T"),value:"T"}} returns={Caster.Sigma}/>
+* <Method static s={Sigma.DependentPair.create("T")} args={{tid:Sigma.TypeID("T"),value:"T"}} returns={Sigma.DependentPair}/>
+
+### Class <Decl s={Sigma.PropertyBag}/>
+
+#### Constructor
+
+* <Method ctor s={Sigma.PropertyBag.constructor}/>
+
+#### Method
+
+* <Method s={Sigma.PropertyBag.get("T")} args={{tid:Sigma.TypeID("T")}} returns={either(undefined,"T")}/>
+* <Method s={Sigma.PropertyBag.set("T")} args={{tid:Sigma.TypeID("T"),value:"T"}} returns={"void"}/>
+* <Method s={Sigma.PropertyBag.delete("T")} args={{tid:Sigma.TypeID("T")}} returns={"void"}/>
+* <Method s={Sigma.PropertyBag.entries} returns={app("IterableIterator",Sigma.DependentPair)}/>
 
 ## Thunks
 

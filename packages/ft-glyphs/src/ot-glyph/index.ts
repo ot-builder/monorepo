@@ -13,7 +13,6 @@ import * as Lib_Point from "./point";
 import { OtGlyphStat } from "./stat";
 import { TtInstructionHintImpl } from "./tt-instr";
 import { TtReferenceImpl } from "./tt-reference";
-import * as TypeID from "./type-id";
 
 export type OtGlyph = OtGlyphInterface;
 export namespace OtGlyph {
@@ -62,7 +61,11 @@ export namespace OtGlyph {
         export function createStem(start: OtVar.Value, end: OtVar.Value): CffHintStem {
             return new CffHintStemImpl(start, end);
         }
-        export function createMask(at: PointRef, maskH: Set<CffHintStem>, maskV: Set<CffHintStem>) {
+        export function createMask(
+            at: PointRef,
+            maskH: Set<CffHintStem>,
+            maskV: Set<CffHintStem>
+        ) {
             return new CffHintMaskImpl(at, maskH, maskV);
         }
     }
@@ -113,10 +116,4 @@ export namespace OtGlyph {
     // Stat
     export import Stat = OtGlyphStat;
     export import CoStat = OtGlyphCoStat;
-    export const TID_Glyph = TypeID.TID_Glyph;
-    export const TID_ContourSet = TypeID.TID_ContourSet;
-    export const TID_GeometryList = TypeID.TID_GeometryList;
-    export const TID_TtReference = TypeID.TID_TtReference;
-    export const TID_TtInstructionHint = TypeID.TID_TtInstructionHint;
-    export const TID_CffHint = TypeID.TID_CffHint;
 }

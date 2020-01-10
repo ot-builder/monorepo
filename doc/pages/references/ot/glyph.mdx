@@ -1,6 +1,6 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl, Item } from "components/tyfmt"
-import { string, boolean, number, array, set, Ot, Data, Thunk, Caster } from "components/exports"
+import { string, boolean, number, array, set, Ot, Data, Thunk } from "components/exports"
 import { optional, all, pi, annot } from "components/tycon"
 export default Layout
 
@@ -91,10 +91,6 @@ Defines a metric advance of a glyph.
 
 ### Interface <Decl s={Ot.Glyph.Geometry}/>
 
-#### Inherits
-
- * <R s={Caster.IUnknown} />
-
 #### Methods
 
  * <Method s={Ot.Glyph.Geometry.apply("E")} args={{alg: Ot.Glyph.GeometryAlg("E")}} returns="E"/>
@@ -113,14 +109,9 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
 ### Type <Decl s={Ot.Glyph.ContourSet}/>
 
-#### Type ID
-
- * <Decl s={Ot.Glyph.TID_ContourSet}/>
-
 #### Inherits
 
  * <R s={Ot.Glyph.Geometry} />
- * <R s={Caster.Unknown}/>
  * <R s={Ot.Glyph.ContourSetProps} />
 
 #### Factory Methods
@@ -139,14 +130,9 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
 ### Type <Decl s={Ot.Glyph.TtReference}/>
 
-#### Type ID
-
- * <Decl s={Ot.Glyph.TID_TtReference}/>
-
 #### Inherits
 
  * <R s={Ot.Glyph.Geometry} />
- * <R s={Caster.Unknown}/>
  * <R s={Ot.Glyph.TtReferenceProps} />
 
 #### Factory Methods
@@ -188,14 +174,9 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
 ### Type <Decl s={Ot.Glyph.GeometryList}/>
 
-#### Type ID
-
- * <Decl s={Ot.Glyph.TID_GeometryList}/>
-
 #### Inherits
 
  * <R s={Ot.Glyph.Geometry} />
- * <R s={Caster.Unknown}/>
 
 #### Factory Methods
 
@@ -212,10 +193,6 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 ## Hints
 
 ### Interface <Decl s={Ot.Glyph.Hint} />
-
-#### Inherits
-
- * <R s={Caster.IUnknown} />
 
 #### Methods
 
@@ -234,14 +211,9 @@ The object algebra of processing hints.
 
 ### Type <Decl s={Ot.Glyph.TtInstructionHint} />
 
-#### Type ID
-
- * <Decl s={Ot.Glyph.TID_TtInstructionHint}/>
-
 #### Inherits
 
  * <R s={Ot.Glyph.Hint} />
- * <R s={Caster.Unknown}/>
  * <R s={Ot.Glyph.TtInstructionProps} />
 
 #### Factory Methods
@@ -259,14 +231,9 @@ The object algebra of processing hints.
 
 ### Type <Decl s={Ot.Glyph.CffHint} />
 
-#### Type ID
-
- * <Decl s={Ot.Glyph.TID_CffHint}/>
-
 #### Inherits
 
  * <R s={Ot.Glyph.Hint} />
- * <R s={Caster.Unknown}/>
  * <R s={Ot.Glyph.CffHintProps} />
 
 #### Factory Methods

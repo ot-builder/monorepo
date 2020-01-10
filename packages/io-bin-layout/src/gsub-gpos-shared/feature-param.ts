@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { GsubGpos } from "@ot-builder/ft-layout";
-import { Caster, Data } from "@ot-builder/prelude";
+import { Data, Sigma } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 
 export const FeatureParams = {
@@ -9,20 +9,20 @@ export const FeatureParams = {
         if (
             GsubGpos.FeatureParams.tagToTypeIDMap[tag] === GsubGpos.FeatureParams.TID_StylisticSet
         ) {
-            return Caster.Sigma.create(
+            return Sigma.DependentPair.create(
                 GsubGpos.FeatureParams.TID_StylisticSet,
                 view.next(FeatureParamStylisticSet)
             );
         }
         return undefined;
     },
-    writeOpt(fp: Data.Maybe<Caster.Sigma>, tag: Tag) {
+    writeOpt(fp: Data.Maybe<Sigma.DependentPair>, tag: Tag) {
         if (!fp) return null;
         const tagDrivenTypeID = GsubGpos.FeatureParams.tagToTypeIDMap[tag];
         if (!tagDrivenTypeID) return null;
-        const fpTag = fp.queryInterface(tagDrivenTypeID);
+        const fpTag = fp.cast(tagDrivenTypeID);
         if (!fpTag) return null;
-        const fpSS = fp.queryInterface(GsubGpos.FeatureParams.TID_StylisticSet);
+        const fpSS = fp.cast(GsubGpos.FeatureParams.TID_StylisticSet);
         if (fpSS) return Frag.from(FeatureParamStylisticSet, fpSS);
         return null;
     }
