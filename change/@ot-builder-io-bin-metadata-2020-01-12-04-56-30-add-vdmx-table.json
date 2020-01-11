@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "add VDMX table",
+  "packageName": "@ot-builder/io-bin-metadata",
+  "email": "c@cyano.cn",
+  "commit": "95aed413de05aa79c5d6158faf0d534127ef30c3",
+  "date": "2020-01-11T20:56:30.612Z"
+}
