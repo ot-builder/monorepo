@@ -13,7 +13,6 @@ import {
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
-import { LookupIsGsubAlternateAlg, LookupIsGsubMultiAlg } from "./lookup-type-alg";
 import { SimpleGidArray } from "./shared-types";
 
 const SubtableFormat1 = {
@@ -123,7 +122,7 @@ export class GsubAlternateReader extends GsubMultiAlternateReaderBase
 export class GsubMultiWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Multiple> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Multiple {
-        return l.apply(LookupIsGsubMultiAlg);
+        return l.type === Gsub.LookupType.Multi;
     }
     public getLookupType() {
         return 2;
@@ -132,7 +131,7 @@ export class GsubMultiWriter extends GsubMultiAlternateWriterBase
 export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Alternate> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Alternate {
-        return l.apply(LookupIsGsubAlternateAlg);
+        return l.type === Gsub.LookupType.Alternate;
     }
     public getLookupType() {
         return 3;

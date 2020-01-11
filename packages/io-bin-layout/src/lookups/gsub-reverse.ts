@@ -11,7 +11,6 @@ import {
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
-import { LookupIsGsubReverseAlg } from "./lookup-type-alg";
 import { SimpleCoverageArray } from "./shared-types";
 
 const SubtableFormat1 = {
@@ -84,7 +83,7 @@ export class GsubReverseReader implements LookupReader<Gsub.Lookup, Gsub.Reverse
 
 export class GsubReverseWriter implements LookupWriter<Gsub.Lookup, Gsub.ReverseSub> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.ReverseSub {
-        return l.apply(LookupIsGsubReverseAlg);
+        return l.type === Gsub.LookupType.Reverse;
     }
     public getLookupType() {
         return 8;

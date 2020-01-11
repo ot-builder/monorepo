@@ -1,7 +1,7 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Data, Thunk } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import {
     TupleVariationGeometryClient,
@@ -83,7 +83,7 @@ const GvarHeader = Read(
 
 class GlyphTvhClient implements TupleVariationGeometryClient {
     constructor(ms: OtVar.MasterSet, private glyph: OtGlyph, ignore: GvarReadIgnore) {
-        this.glyphHolder = glyph.apply(new VarPtrCollector());
+        this.glyphHolder = new VarPtrCollector().process(glyph);
         this.contours = this.glyphHolder.tvdAccesses(ms, ignore);
     }
     public readonly dimensions = 2;
@@ -96,32 +96,27 @@ class GlyphTvhClient implements TupleVariationGeometryClient {
     }
 }
 
-class VarPtrCollector implements OtGlyph.GlyphAlg<GlyphHolder, GeomHolder, void> {
-    public geometryAlgebra = new GeomVarPtrCollector();
-    public hintAlgebra = null;
-    public glyph(
-        hMetric: OtGlyph.Metric,
-        vMetric: OtGlyph.Metric,
-        fnGeom: Data.Maybe<Thunk<GeomHolder>>,
-        fnHints: Data.Maybe<Thunk<void>>
-    ) {
+class VarPtrCollector {
+    public process(glyph: OtGlyph) {
         const gh = new GlyphHolder();
-        if (fnGeom) gh.geometry = fnGeom.force();
-        gh.hMetric = new HMetricHolder(hMetric);
-        gh.vMetric = new VMetricHolder(vMetric);
+        if (glyph.geometry) gh.geometry = new GeomVarPtrCollector().process(glyph.geometry);
+        gh.hMetric = new HMetricHolder(glyph.horizontal);
+        gh.vMetric = new VMetricHolder(glyph.vertical);
         return gh;
     }
 }
 
-class GeomVarPtrCollector implements OtGlyph.GeometryAlg<GeomHolder> {
-    public contourSet(cs: OtGlyph.ContourSetProps) {
-        return new ContourHolder(cs);
-    }
-    public geometryList(parts: GeomHolder[]) {
-        return new GeometryListHolder(parts);
-    }
-    public ttReference(ref: OtGlyph.TtReferenceProps) {
-        return new TtReferenceHolder(ref);
+class GeomVarPtrCollector {
+    public process(geom: OtGlyph.Geometry) {
+        switch (geom.type) {
+            case OtGlyph.GeometryType.ContourSet:
+                return new ContourHolder(geom);
+            case OtGlyph.GeometryType.TtReference:
+                return new TtReferenceHolder(geom);
+            case OtGlyph.GeometryType.GeometryList:
+                const parts: GeomHolder[] = geom.items.map(item => this.process(item.ref));
+                return new GeometryListHolder(parts);
+        }
     }
 }
 

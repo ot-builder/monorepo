@@ -1,21 +1,15 @@
 import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { CaseCreator, CaseType } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
+import { DicingStoreImpl } from "../dicing-store";
 
-import { CreateTable, Creator } from "./factories";
+import { CreateTable } from "./factories";
 import * as FeatureParamLib from "./feature-params";
 import * as GeneralLookup from "./general/lookup";
+import * as LT from "./general/lookup-type";
 import * as GeneralGsubGpos from "./general/shared";
-import * as LibChaining from "./lookup-impl/chaining";
-import * as LibGposCursive from "./lookup-impl/gpos-cursive";
-import * as LibGposMark from "./lookup-impl/gpos-mark";
-import * as LibGposPair from "./lookup-impl/gpos-pair";
-import * as LibGposSingle from "./lookup-impl/gpos-single";
-import * as LibGsubLigature from "./lookup-impl/gsub-ligature";
-import * as LibGsubMultiAlt from "./lookup-impl/gsub-multiple";
-import * as LibGsubReverse from "./lookup-impl/gsub-reverse";
-import * as LibGsubSingle from "./lookup-impl/gsub-single";
 
 export namespace GsubGpos {
     export import General = GeneralGsubGpos;
@@ -43,6 +37,7 @@ export namespace GsubGpos {
     export type ChainingProp<E> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
 
     export type LookupProp = GeneralLookup.LookupPropT<OtGlyph>;
+    export import LookupType = LT;
 }
 
 export namespace Gsub {
@@ -52,7 +47,6 @@ export namespace Gsub {
 
     export type Table = GsubGpos.TableT<Lookup>;
     export const Table = CreateTable<Lookup>();
-    export type Lookup = GeneralLookup.GsubLookupT<OtGlyph, OtVar.Value>;
     export type Feature = GsubGpos.FeatureT<Lookup>;
     export type Language = GsubGpos.LanguageT<Lookup>;
     export type Script = GsubGpos.ScriptT<Lookup>;
@@ -60,29 +54,52 @@ export namespace Gsub {
     export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
     export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
-    // Lookup classes
-    export type Single = Lookup & SingleProp;
-    export const Single = Creator<Single>(LibGsubSingle.GsubSingleLookupT);
-    export type Multiple = Lookup & MultipleAlternateProp;
-    export const Multiple = Creator<Multiple>(LibGsubMultiAlt.GsubMultipleLookupT);
-    export type Alternate = Lookup & MultipleAlternateProp;
-    export const Alternate = Creator<Alternate>(LibGsubMultiAlt.GsubAlternateLookupT);
-    export type Ligature = Lookup & LigatureProp;
-    export const Ligature = Creator<Ligature>(LibGsubLigature.GsubLigatureLookupT);
-    export type Chaining = Lookup & ChainingProp<Lookup>;
-    export const Chaining = Creator<Chaining>(LibChaining.GsubChainingLookupT);
-    export type ReverseSub = Lookup & ReverseSubProp;
-    export const ReverseSub = Creator<ReverseSub>(LibGsubReverse.GsubReverseSingleSubLookupT);
-
-    // Data props
     export type SingleProp = GeneralLookup.GsubSinglePropT<OtGlyph, OtVar.Value>;
+    export type Single = CaseType<typeof LT.Gsub.Single, SingleProp>;
+    export const Single = CaseCreator<typeof LT.Gsub.Single, SingleProp>(LT.Gsub.Single, () => ({
+        mapping: new Map()
+    }));
+
     export type MultipleAlternateProp = GeneralLookup.GsubMultipleAlternatePropT<
         OtGlyph,
         OtVar.Value
     >;
+    export type Multiple = CaseType<typeof LT.Gsub.Multi, MultipleAlternateProp>;
+    export const Multiple = CaseCreator<typeof LT.Gsub.Multi, MultipleAlternateProp>(
+        LT.Gsub.Multi,
+        () => ({ mapping: new Map() })
+    );
+    export type Alternate = CaseType<typeof LT.Gsub.Alternate, MultipleAlternateProp>;
+    export const Alternate = CaseCreator<typeof LT.Gsub.Alternate, MultipleAlternateProp>(
+        LT.Gsub.Alternate,
+        () => ({ mapping: new Map() })
+    );
+
     export type LigatureProp = GeneralLookup.GsubLigaturePropT<OtGlyph, OtVar.Value>;
-    export type ChainingProp<E> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
+    export type Ligature = CaseType<typeof LT.Gsub.Ligature, LigatureProp>;
+    export const Ligature = CaseCreator<typeof LT.Gsub.Ligature, LigatureProp>(
+        LT.Gsub.Ligature,
+        () => ({ mapping: [] })
+    );
+
+    export type ChainingProp<L> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, L>;
+    export type ChainingT<L> = CaseType<typeof LT.Gsub.Chaining, ChainingProp<L>>;
+    export type Chaining = ChainingT<{ ref: Lookup }>;
+    export const Chaining = CaseCreator<typeof LT.Gsub.Chaining, ChainingProp<{ ref: Lookup }>>(
+        LT.Gsub.Chaining,
+        () => ({ rules: [] })
+    );
+
     export type ReverseSubProp = GeneralLookup.GsubReverseSingleSubPropT<OtGlyph, OtVar.Value>;
+    export type ReverseSub = CaseType<typeof LT.Gsub.Reverse, ReverseSubProp>;
+    export const ReverseSub = CaseCreator<typeof LT.Gsub.Reverse, ReverseSubProp>(
+        LT.Gsub.Reverse,
+        () => ({ rules: [] })
+    );
+
+    export type LookupT<L> = Single | Multiple | Alternate | Ligature | ChainingT<L> | ReverseSub;
+    export type Lookup = LookupT<{ ref: Lookup }>;
+    export import LookupType = LT.Gsub;
 
     // Lookup-internal data types
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
@@ -95,8 +112,6 @@ export namespace Gsub {
     export type ChainingClassRule = GsubGpos.ChainingClassRule<Lookup>;
 
     export type ReverseRule = GeneralLookup.GsubReverseRuleT<OtGlyph, Set<OtGlyph>>;
-
-    export type LookupAlg<E> = GeneralLookup.GsubLookupAlgT<OtGlyph, OtVar.Value, E>;
 }
 
 export namespace Gpos {
@@ -106,7 +121,6 @@ export namespace Gpos {
 
     export type Table = GsubGpos.TableT<Lookup>;
     export const Table = CreateTable<Lookup>();
-    export type Lookup = GeneralLookup.GposLookupT<OtGlyph, OtVar.Value>;
     export type Feature = GsubGpos.FeatureT<Lookup>;
     export type Language = GsubGpos.LanguageT<Lookup>;
     export type Script = GsubGpos.ScriptT<Lookup>;
@@ -114,29 +128,64 @@ export namespace Gpos {
     export type FeatureVariationCondition = GsubGpos.AxisRangeCondition;
     export type FeatureVariation = GsubGpos.FeatureVariationT<Lookup>;
 
-    // Lookup classes
-    export type Single = Lookup & SingleProp;
-    export const Single = Creator<Single>(LibGposSingle.GposSingleLookupT);
-    export type Pair = Lookup & PairProp;
-    export const Pair = Creator<Pair>(LibGposPair.GposPairLookupT);
-    export type Cursive = Lookup & CursiveProp;
-    export const Cursive = Creator<Cursive>(LibGposCursive.GposCursiveLookupT);
-    export type MarkToBase = Lookup & MarkToBaseProp;
-    export const MarkToBase = Creator<MarkToBase>(LibGposMark.GposMarkToBaseLookupT);
-    export type MarkToLigature = Lookup & MarkToLigatureProp;
-    export const MarkToLigature = Creator<MarkToLigature>(LibGposMark.GposMarkToLigatureLookupT);
-    export type MarkToMark = Lookup & MarkToMarkProp;
-    export const MarkToMark = Creator<MarkToMark>(LibGposMark.GposMarkToMarkLookupT);
-    export type Chaining = Lookup & ChainingProp<Lookup>;
-    export const Chaining = Creator<Chaining>(LibChaining.GposChainingLookupT);
-
     export type SingleProp = GeneralLookup.GposSinglePropT<OtGlyph, OtVar.Value>;
+    export type Single = CaseType<typeof LT.Gpos.Single, SingleProp>;
+    export const Single = CaseCreator<typeof LT.Gpos.Single, SingleProp>(LT.Gpos.Single, () => ({
+        adjustments: new Map()
+    }));
+
     export type PairProp = GeneralLookup.GposPairPropT<OtGlyph, OtVar.Value>;
+    export type Pair = CaseType<typeof LT.Gpos.Pair, PairProp>;
+    export const Pair = CaseCreator<typeof LT.Gpos.Pair, PairProp>(LT.Gpos.Pair, () => ({
+        adjustments: new DicingStoreImpl()
+    }));
+
     export type CursiveProp = GeneralLookup.GposCursivePropT<OtGlyph, OtVar.Value>;
+    export type Cursive = CaseType<typeof LT.Gpos.Cursive, CursiveProp>;
+    export const Cursive = CaseCreator<typeof LT.Gpos.Cursive, CursiveProp>(
+        LT.Gpos.Cursive,
+        () => ({
+            attachments: new Map()
+        })
+    );
+
     export type MarkToBaseProp = GeneralLookup.GposMarkToBasePropT<OtGlyph, OtVar.Value>;
+    export type MarkToBase = CaseType<typeof LT.Gpos.MarkToBase, MarkToBaseProp>;
+    export const MarkToBase = CaseCreator<typeof LT.Gpos.MarkToBase, MarkToBaseProp>(
+        LT.Gpos.MarkToBase,
+        () => ({ marks: new Map(), bases: new Map() })
+    );
     export type MarkToLigatureProp = GeneralLookup.GposMarkToLigaturePropT<OtGlyph, OtVar.Value>;
+    export type MarkToLigature = CaseType<typeof LT.Gpos.MarkToLigature, MarkToLigatureProp>;
+    export const MarkToLigature = CaseCreator<typeof LT.Gpos.MarkToLigature, MarkToLigatureProp>(
+        LT.Gpos.MarkToLigature,
+        () => ({ marks: new Map(), bases: new Map() })
+    );
     export type MarkToMarkProp = GeneralLookup.GposMarkToMarkPropT<OtGlyph, OtVar.Value>;
-    export type ChainingProp<E> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, E>;
+    export type MarkToMark = CaseType<typeof LT.Gpos.MarkToMark, MarkToMarkProp>;
+    export const MarkToMark = CaseCreator<typeof LT.Gpos.MarkToMark, MarkToMarkProp>(
+        LT.Gpos.MarkToMark,
+        () => ({ marks: new Map(), baseMarks: new Map() })
+    );
+
+    export type ChainingProp<L> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, L>;
+    export type ChainingT<L> = CaseType<typeof LT.Gpos.Chaining, ChainingProp<L>>;
+    export type Chaining = ChainingT<{ ref: Lookup }>;
+    export const Chaining = CaseCreator<typeof LT.Gpos.Chaining, ChainingProp<{ ref: Lookup }>>(
+        LT.Gpos.Chaining,
+        () => ({ rules: [] })
+    );
+
+    export type LookupT<L> =
+        | Single
+        | Pair
+        | Cursive
+        | MarkToBase
+        | MarkToMark
+        | MarkToLigature
+        | ChainingT<L>;
+    export type Lookup = LookupT<{ ref: Lookup }>;
+    export import LookupType = LT.Gpos;
 
     // Lookup-internal data type aliases
     export type Coverage = LayoutCommon.Coverage.T<OtGlyph>;
@@ -158,6 +207,4 @@ export namespace Gpos {
     // Zeroes
     export const ZeroAdjustment: Adjustment = { dX: 0, dY: 0, dWidth: 0, dHeight: 0 };
     export const ZeroAdjustmentPair: AdjustmentPair = [ZeroAdjustment, ZeroAdjustment];
-
-    export type LookupAlg<E> = GeneralLookup.GposLookupAlgT<OtGlyph, OtVar.Value, E>;
 }

@@ -5,3 +5,4 @@ export import Data = _Data;
 export import Algebra = _Algebra;
 export { Sigma } from "./sigma";
 export { Thunk, Delay, Constant } from "./thunk";
+export * from "./case";

@@ -1,7 +1,7 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl, Item } from "components/tyfmt"
 import { string, boolean, number, array, set, Ot, Data, Thunk } from "components/exports"
-import { optional, all, pi, annot } from "components/tycon"
+import { optional, all, pi, annot, record } from "components/tycon"
 export default Layout
 
 # <Decl s={Ot.Glyph}/>
@@ -58,19 +58,6 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
     Accepts a <R s={Ot.Glyph.GlyphAlg} /> and return the results.
 
-### Interface <Decl s={Ot.Glyph.GlyphAlg('E', 'EG = E', 'EH = E')} />
-
-A generic abstract factory or an object algebra about processing glyphs.
-
-#### Properties
-
-* <Member s={Ot.Glyph.GlyphAlg.geometryAlgebra} type={Data.Maybe(Ot.Glyph.GeometryAlg('EG'))} />
-* <Member s={Ot.Glyph.GlyphAlg.hintAlgebra} type={Data.Maybe(Ot.Glyph.HintAlg('EH'))} />
-
-#### Methods
-
- * <Method long s={Ot.Glyph.GlyphAlg.glyph} args={{horizontal:Ot.Glyph.Metric,vertical:Ot.Glyph.Metric,thGeometry:Data.Maybe(Thunk("EG")),thHints:Data.Maybe(Thunk("EH"))}} returns="E" />
-
 ## Metrics
 
 ### Type <Decl s={Ot.Glyph.Metric}/>
@@ -91,27 +78,27 @@ Defines a metric advance of a glyph.
 
 ### Interface <Decl s={Ot.Glyph.Geometry}/>
 
-#### Methods
+Defined as <R s={Ot.Glyph.GeometryT(record({ref:Ot.Glyph.Geometry}))}/>
 
- * <Method s={Ot.Glyph.Geometry.apply("E")} args={{alg: Ot.Glyph.GeometryAlg("E")}} returns="E"/>
+### Interface <Decl s={Ot.Glyph.GeometryT("E")}/>
 
-  Applies an <R s={Ot.Glyph.GeometryAlg("E")}/> algebra to this geometry, and return the results.
+Defines as the union of the following cases.
 
-### Interface <Decl s={Ot.Glyph.GeometryAlg("E")}/>
+ * <R s={Ot.Glyph.ContourSet}/>
+ * <R s={Ot.Glyph.TtReference}/>
+ * <R s={Ot.Glyph.GeometryListT("E")}/>
 
-A generic abstract factory or an object algebra about processing glyph geometries.
+#### Properties
 
-#### Methods
+ * <Member readonly s={Ot.Glyph.GeometryT.type} type={"unique symbol"} />
 
- * <Method s={Ot.Glyph.GeometryAlg.contourSet} args={{csProps: Ot.Glyph.ContourSetProps}} returns="E"/>
- * <Method s={Ot.Glyph.GeometryAlg.ttReference} args={{refProps: Ot.Glyph.TtReferenceProps}} returns="E"/>
- * <Method s={Ot.Glyph.GeometryAlg.geometryList} args={{parts: array("E")}} returns="E"/>
+   The type tag of this hint object.
 
-### Type <Decl s={Ot.Glyph.ContourSet}/>
+
+### Case Type <Decl s={Ot.Glyph.ContourSet}/> | type = <R s={Ot.Glyph.GeometryType.ContourSet}/>
 
 #### Inherits
 
- * <R s={Ot.Glyph.Geometry} />
  * <R s={Ot.Glyph.ContourSetProps} />
 
 #### Factory Methods
@@ -128,11 +115,10 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
     The contour set, being a nested array of control knots.
 
-### Type <Decl s={Ot.Glyph.TtReference}/>
+### Case Type <Decl s={Ot.Glyph.TtReference}/> | type = <R s={Ot.Glyph.GeometryType.TtReference}/>
 
 #### Inherits
 
- * <R s={Ot.Glyph.Geometry} />
  * <R s={Ot.Glyph.TtReferenceProps} />
 
 #### Factory Methods
@@ -174,9 +160,7 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
 ### Type <Decl s={Ot.Glyph.GeometryList}/>
 
-#### Inherits
-
- * <R s={Ot.Glyph.Geometry} />
+Defined as <R s={Ot.Glyph.GeometryListT(record({ref:Ot.Glyph.Geometry}))}/>
 
 #### Factory Methods
 
@@ -184,42 +168,49 @@ A generic abstract factory or an object algebra about processing glyph geometrie
 
     Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
 
+### Case Type <Decl s={Ot.Glyph.GeometryListT("E")}/> | type = <R s={Ot.Glyph.GeometryType.GeometryList}/>
+
+#### Inherits
+
+ * <R s={Ot.Glyph.GeometryListProps("E")} />
+
+### Type <Decl s={Ot.Glyph.GeometryListProps("E")}/>
+
 #### Properties
 
- * <Member s={Ot.Glyph.GeometryList.items} type={array(Ot.Glyph.Geometry)}/>
+ * <Member s={Ot.Glyph.GeometryList.items} type={array("E")}/>
 
-    The sub geometries inside.
+    The sub items inside.
+
+
+
+
 
 ## Hints
 
 ### Interface <Decl s={Ot.Glyph.Hint} />
 
-#### Methods
+Defines as the union of the following cases.
 
- * <Method s={Ot.Glyph.Hint.apply("E")} args={{alg:Ot.Glyph.HintAlg("E")}} returns="E"/>
+ * <R s={Ot.Glyph.TtInstruction}/>
+ * <R s={Ot.Glyph.CffHint}/>
 
-    Accepts a <R s={Ot.Glyph.HintAlg("E")} /> algebra to this hint, and return the result.
+#### Properties
 
-### Interface <Decl s={Ot.Glyph.HintAlg("E")} />
+ * <Member readonly s={Ot.Glyph.Hint.type} type={"unique symbol"} />
 
-The object algebra of processing hints.
+   The type tag of this hint object.
 
-#### Methods
-
- * <Method s={Ot.Glyph.HintAlg.ttInstructions} args={{props:Ot.Glyph.TtInstructionProps}} returns="E"/>
- * <Method s={Ot.Glyph.HintAlg.cffHint} args={{props:Ot.Glyph.CffHintProps}} returns="E"/>
-
-### Type <Decl s={Ot.Glyph.TtInstructionHint} />
+### Type <Decl s={Ot.Glyph.TtInstruction} /> | type = <R s={Ot.Glyph.HintType.TtInstruction}/>
 
 #### Inherits
 
- * <R s={Ot.Glyph.Hint} />
  * <R s={Ot.Glyph.TtInstructionProps} />
 
 #### Factory Methods
- * <Fn s={Ot.Glyph.TtInstructionHint.create} args={{instructions:"Buffer"}} returns={Ot.Glyph.TtInstructionHint}/>
+ * <Fn s={Ot.Glyph.TtInstruction.create} args={{instructions:"Buffer"}} />
 
-    Creates an <R s={Ot.Glyph.TtInstructionHint} /> from a given instruction buffer.
+    Creates an <R s={Ot.Glyph.TtInstruction} /> from a given instruction buffer.
 
 ### Interface <Decl s={Ot.Glyph.TtInstructionProps} />
 
@@ -229,11 +220,10 @@ The object algebra of processing hints.
 
     The buffer containing the TrueType instructions.
 
-### Type <Decl s={Ot.Glyph.CffHint} />
+### Type <Decl s={Ot.Glyph.CffHint} /> | type = <R s={Ot.Glyph.HintType.CffHint}/>
 
 #### Inherits
 
- * <R s={Ot.Glyph.Hint} />
  * <R s={Ot.Glyph.CffHintProps} />
 
 #### Factory Methods

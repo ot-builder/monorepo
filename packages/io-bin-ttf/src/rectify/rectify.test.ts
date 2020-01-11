@@ -19,7 +19,7 @@ describe("GLYF data rectification", () => {
         rectifyGlyphOrder(gOrd);
 
         // Geometry is changed after rectification
-        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1] as OtGlyph.TtReference;
+        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1].ref as OtGlyph.TtReference;
         expect(ref2a.transform.dx).toBe(-1);
         expect(ref2a.transform.dy).toBe(-1);
     });
@@ -52,7 +52,7 @@ describe("GLYF data rectification", () => {
         rectifyGlyphOrder(gOrd);
 
         // Geometry is changed after rectification
-        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1] as OtGlyph.TtReference;
+        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1].ref as OtGlyph.TtReference;
         expect(ref2a.transform.dx).toBe(6);
         expect(ref2a.transform.dy).toBe(6);
     });
@@ -74,8 +74,8 @@ describe("GLYF data rectification", () => {
         rectifyGlyphOrder(gOrd);
 
         // Geometry is changed after rectification
-        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1] as OtGlyph.TtReference;
-        const ref3a = (from.geometry as OtGlyph.GeometryList).items[2] as OtGlyph.TtReference;
+        const ref2a = (from.geometry as OtGlyph.GeometryList).items[1].ref as OtGlyph.TtReference;
+        const ref3a = (from.geometry as OtGlyph.GeometryList).items[2].ref as OtGlyph.TtReference;
         expect(ref2a.transform.dx).toBe(0), expect(ref2a.transform.dy).toBe(1);
         expect(ref3a.transform.dx).toBe(0), expect(ref3a.transform.dy).toBe(2);
     });

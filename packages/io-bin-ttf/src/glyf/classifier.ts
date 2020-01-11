@@ -11,8 +11,8 @@ export class GlyphClassifier {
 
         const algGeom = new GeometryClassifier();
         const algHint = new HintClassifier();
-        if (g.geometry) g.geometry.apply(algGeom);
-        if (g.hints) g.hints.apply(algHint);
+        if (g.geometry) algGeom.process(g.geometry);
+        if (g.hints) algHint.process(g.hints);
 
         if (!algGeom.hasContours && !algGeom.hasReference) {
             return new SpaceGlyph(gid, g.horizontal, g.vertical);
@@ -48,7 +48,7 @@ export class GlyphClassifier {
     }
 }
 
-class GeometryClassifier implements OtGlyph.GeometryAlg<void> {
+class GeometryClassifier {
     public hasReference = false;
     public allReference = true;
     public hasContours = false;
@@ -57,15 +57,27 @@ class GeometryClassifier implements OtGlyph.GeometryAlg<void> {
     public collectedContourSets: OtGlyph.ContourSet[] = [];
     public collectedReferences: OtGlyph.TtReference[] = [];
 
-    public begin() {}
-    public end() {}
-    public empty() {}
+    public process(g: OtGlyph.Geometry) {
+        switch (g.type) {
+            case OtGlyph.GeometryType.ContourSet:
+                return this.contourSet(g);
+            case OtGlyph.GeometryType.TtReference:
+                return this.ttReference(g);
+            case OtGlyph.GeometryType.GeometryList:
+                return this.geometryList(g);
+        }
+    }
+
     public contourSet(csProps: OtGlyph.ContourSetProps) {
         this.hasContours = true;
         this.allReference = false;
         this.collectedContourSets.push(OtGlyph.ContourSet.create(csProps.contours));
     }
-    public geometryList() {}
+    public geometryList(glProps: OtGlyph.GeometryListProps<{ ref: OtGlyph.Geometry }>) {
+        for (const entry of glProps.items) {
+            this.process(entry.ref);
+        }
+    }
     public ttReference(refProps: OtGlyph.TtReferenceProps) {
         this.hasReference = true;
         this.allContours = false;
@@ -78,13 +90,14 @@ class GeometryClassifier implements OtGlyph.GeometryAlg<void> {
     }
 }
 
-class HintClassifier implements OtGlyph.HintAlg<void> {
+class HintClassifier {
     public collectedInstructions: Buffer = Buffer.alloc(0);
 
-    public empty() {}
-    public cffHint() {}
-    public ttInstructions(tt: OtGlyph.TtInstructionProps) {
-        this.collectedInstructions = tt.instructions;
+    public process(h: OtGlyph.Hint) {
+        switch (h.type) {
+            case OtGlyph.HintType.TtInstruction:
+                this.collectedInstructions = h.instructions;
+        }
     }
 }
 

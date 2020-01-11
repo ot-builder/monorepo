@@ -2,11 +2,20 @@ import * as Ot from "@ot-builder/font";
 
 import { GlyphRectifier } from "../interface";
 
-export class RectifyGeomGlyphAlg implements Ot.Glyph.GeometryAlg<null | Ot.Glyph.Geometry> {
+export class RectifyGeomGlyphAlg {
     constructor(private readonly rec: GlyphRectifier) {}
-    public empty() {
-        return null;
+    public process(geom: null | Ot.Glyph.Geometry): null | Ot.Glyph.Geometry {
+        if (!geom) return null;
+        switch (geom.type) {
+            case Ot.Glyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case Ot.Glyph.GeometryType.GeometryList:
+                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+            case Ot.Glyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+        }
     }
+
     public contourSet(cs: Ot.Glyph.ContourSetProps) {
         return Ot.Glyph.ContourSet.create(cs.contours);
     }

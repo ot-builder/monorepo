@@ -4,13 +4,7 @@ import { Tag } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import * as GeneralGsubGpos from "./general/shared";
-import { TableImpl } from "./shared-impl";
 
-export function Creator<T, A extends [] = []>(cls: {
-    new (...args: A): T;
-}): { create(...args: A): T } {
-    return { create: (...args: A): T => new cls(...args) };
-}
 export function CreateTable<L>() {
     return {
         create: function createTable(
@@ -24,4 +18,13 @@ export function CreateTable<L>() {
             return new TableImpl(scripts, features, lookups, featureVariations);
         }
     };
+}
+
+class TableImpl<A, G, X, L> implements GeneralGsubGpos.TableT<A, G, X, L> {
+    constructor(
+        public scripts: Map<Tag, GeneralGsubGpos.ScriptT<G, X, L>>,
+        public features: Array<GeneralGsubGpos.FeatureT<G, X, L>>,
+        public lookups: L[],
+        public featureVariations: Data.Maybe<Array<GeneralGsubGpos.FeatureVariationT<A, G, X, L>>>
+    ) {}
 }
