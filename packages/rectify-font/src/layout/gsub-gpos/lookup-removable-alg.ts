@@ -3,31 +3,31 @@ import * as Ot from "@ot-builder/font";
 export class CLookupRemovableAlg {
     public process(lookup: Ot.Gsub.Lookup | Ot.Gpos.Lookup): boolean {
         switch (lookup.type) {
-            case Ot.Gsub.LookupType.GsubSingle:
+            case Ot.Gsub.LookupType.Single:
                 return this.gsubSingle(lookup);
-            case Ot.Gsub.LookupType.GsubMulti:
+            case Ot.Gsub.LookupType.Multi:
                 return this.gsubMulti(lookup);
-            case Ot.Gsub.LookupType.GsubAlternate:
+            case Ot.Gsub.LookupType.Alternate:
                 return this.gsubAlternate(lookup);
-            case Ot.Gsub.LookupType.GsubLigature:
+            case Ot.Gsub.LookupType.Ligature:
                 return this.gsubLigature(lookup);
-            case Ot.Gsub.LookupType.GsubChaining:
+            case Ot.Gsub.LookupType.Chaining:
                 return this.gsubChaining(lookup);
-            case Ot.Gsub.LookupType.GsubReverse:
+            case Ot.Gsub.LookupType.Reverse:
                 return this.gsubReverse(lookup);
-            case Ot.Gpos.LookupType.GposSingle:
+            case Ot.Gpos.LookupType.Single:
                 return this.gposSingle(lookup);
-            case Ot.Gpos.LookupType.GposPair:
+            case Ot.Gpos.LookupType.Pair:
                 return this.gposPair(lookup);
-            case Ot.Gpos.LookupType.GposCursive:
+            case Ot.Gpos.LookupType.Cursive:
                 return this.gposCursive(lookup);
-            case Ot.Gpos.LookupType.GposMarkToBase:
+            case Ot.Gpos.LookupType.MarkToBase:
                 return this.gposMarkToBase(lookup);
-            case Ot.Gpos.LookupType.GposMarkToLigature:
+            case Ot.Gpos.LookupType.MarkToLigature:
                 return this.gposMarkToLigature(lookup);
-            case Ot.Gpos.LookupType.GposMarkToMark:
+            case Ot.Gpos.LookupType.MarkToMark:
                 return this.gposMarkToMark(lookup);
-            case Ot.Gpos.LookupType.GposChaining:
+            case Ot.Gpos.LookupType.Chaining:
                 return this.gposChaining(lookup);
         }
     }

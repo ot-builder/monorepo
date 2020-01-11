@@ -353,7 +353,7 @@ export class GsubChainingContextualWriter extends ChainingContextualWriter<
         return this.useChainingLookup(lookup) ? 6 : 5;
     }
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Chaining {
-        return l.type === Gsub.LookupType.GsubChaining;
+        return l.type === Gsub.LookupType.Chaining;
     }
 }
 export class GposChainingContextualWriter extends ChainingContextualWriter<
@@ -364,6 +364,6 @@ export class GposChainingContextualWriter extends ChainingContextualWriter<
         return this.useChainingLookup(lookup) ? 8 : 7;
     }
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Chaining {
-        return l.type === Gpos.LookupType.GposChaining;
+        return l.type === Gpos.LookupType.Chaining;
     }
 }

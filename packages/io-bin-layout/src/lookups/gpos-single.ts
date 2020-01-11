@@ -122,7 +122,7 @@ class GsubSingleWriterState {
 
 export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Single {
-        return l.type === Gpos.LookupType.GposSingle;
+        return l.type === Gpos.LookupType.Single;
     }
     public getLookupType() {
         return 1;

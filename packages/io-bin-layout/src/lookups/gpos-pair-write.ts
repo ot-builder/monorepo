@@ -13,7 +13,7 @@ import { analyzeOutlier, OutlierTree, shareColumns } from "./kern-analyzer/outli
 
 export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Pair {
-        return l.type === Gpos.LookupType.GposPair;
+        return l.type === Gpos.LookupType.Pair;
     }
     public getLookupType() {
         return 2;

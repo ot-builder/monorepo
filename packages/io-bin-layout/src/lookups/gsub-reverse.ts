@@ -83,7 +83,7 @@ export class GsubReverseReader implements LookupReader<Gsub.Lookup, Gsub.Reverse
 
 export class GsubReverseWriter implements LookupWriter<Gsub.Lookup, Gsub.ReverseSub> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.ReverseSub {
-        return l.type === Gsub.LookupType.GsubReverse;
+        return l.type === Gsub.LookupType.Reverse;
     }
     public getLookupType() {
         return 8;

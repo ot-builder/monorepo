@@ -110,7 +110,7 @@ class State {
 
 export class GsubLigatureWriter implements LookupWriter<Gsub.Lookup, Gsub.Ligature> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Ligature {
-        return l.type === Gsub.LookupType.GsubLigature;
+        return l.type === Gsub.LookupType.Ligature;
     }
     public getLookupType() {
         return 4;

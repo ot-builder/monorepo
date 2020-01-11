@@ -16,14 +16,14 @@ export function traceGpos(table: Ot.Gpos.Table): GlyphTraceProc {
 class ItTraceGlyph<E> {
     public process(lookup: Ot.Gsub.LookupT<E> | Ot.Gpos.LookupT<E>): GlyphTraceProc {
         switch (lookup.type) {
-            case Ot.Gsub.LookupType.GsubSingle:
+            case Ot.Gsub.LookupType.Single:
                 return this.gsubSingle(lookup);
-            case Ot.Gsub.LookupType.GsubMulti:
-            case Ot.Gsub.LookupType.GsubAlternate:
+            case Ot.Gsub.LookupType.Multi:
+            case Ot.Gsub.LookupType.Alternate:
                 return this.gsubMulti(lookup);
-            case Ot.Gsub.LookupType.GsubLigature:
+            case Ot.Gsub.LookupType.Ligature:
                 return this.gsubLigature(lookup);
-            case Ot.Gsub.LookupType.GsubReverse:
+            case Ot.Gsub.LookupType.Reverse:
                 return this.gsubReverse(lookup);
             default:
                 return tracer => {};

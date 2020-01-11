@@ -122,7 +122,7 @@ export class GsubAlternateReader extends GsubMultiAlternateReaderBase
 export class GsubMultiWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Multiple> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Multiple {
-        return l.type === Gsub.LookupType.GsubMulti;
+        return l.type === Gsub.LookupType.Multi;
     }
     public getLookupType() {
         return 2;
@@ -131,7 +131,7 @@ export class GsubMultiWriter extends GsubMultiAlternateWriterBase
 export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Alternate> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Alternate {
-        return l.type === Gsub.LookupType.GsubAlternate;
+        return l.type === Gsub.LookupType.Alternate;
     }
     public getLookupType() {
         return 3;

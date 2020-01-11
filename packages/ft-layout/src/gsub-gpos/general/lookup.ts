@@ -1,4 +1,4 @@
-import { Data, Thunk } from "@ot-builder/prelude";
+import { Data } from "@ot-builder/prelude";
 
 import { LayoutCommon } from "../../common";
 import { DicingStore } from "../../dicing-store";

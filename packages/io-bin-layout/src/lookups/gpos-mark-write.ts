@@ -339,7 +339,7 @@ class GposMarkToBaseWriterBase {
 export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToBase {
-        return l.type === Gpos.LookupType.GposMarkToBase;
+        return l.type === Gpos.LookupType.MarkToBase;
     }
     public getLookupType() {
         return 4;
@@ -354,7 +354,7 @@ export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
 export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToLigature {
-        return l.type === Gpos.LookupType.GposMarkToLigature;
+        return l.type === Gpos.LookupType.MarkToLigature;
     }
     public getLookupType() {
         return 5;
@@ -369,7 +369,7 @@ export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
 export class GposMarkToMarkWriter extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToMark {
-        return l.type === Gpos.LookupType.GposMarkToMark;
+        return l.type === Gpos.LookupType.MarkToMark;
     }
     public getLookupType() {
         return 6;

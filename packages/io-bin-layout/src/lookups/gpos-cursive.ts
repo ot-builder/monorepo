@@ -83,7 +83,7 @@ class State {
 
 export class GposCursiveWriter implements LookupWriter<Gpos.Lookup, Gpos.Cursive> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Cursive {
-        return l.type === Gpos.LookupType.GposCursive;
+        return l.type === Gpos.LookupType.Cursive;
     }
     public getLookupType() {
         return 3;

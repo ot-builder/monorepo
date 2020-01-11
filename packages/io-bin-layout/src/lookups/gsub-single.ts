@@ -105,7 +105,7 @@ class GsubSingleWriterState {
 
 export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Single {
-        return l.type === Gsub.LookupType.GsubSingle;
+        return l.type === Gsub.LookupType.Single;
     }
     public getLookupType() {
         return 1;
