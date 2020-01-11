@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "Remove tagless final in geometry types",
+  "packageName": "@ot-builder/prelude",
+  "email": "belleve@typeof.net",
+  "commit": "387c57526cf16b43358aeae719fd2f0d54c311d6",
+  "date": "2020-01-11T08:07:28.786Z"
+}
