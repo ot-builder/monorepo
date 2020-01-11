@@ -3,7 +3,7 @@ import { Data } from "@ot-builder/prelude";
 
 import { traceGlyphDependents } from "../glyph/trace-alg";
 import { GlyphTracer } from "../interface";
-import { traceGpos, traceGsub } from "../layout/gsub-gpos/trace-alg";
+import { traceGpos, traceGsub } from "../layout/gsub-gpos/trace";
 
 function traceGlyphsImpl<GS extends Data.OrderStore<Ot.Glyph>>(
     font: Ot.Font<GS>,

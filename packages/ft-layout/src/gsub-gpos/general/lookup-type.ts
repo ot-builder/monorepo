@@ -1,0 +1,13 @@
+export const GsubSingle: unique symbol = Symbol();
+export const GsubMulti: unique symbol = Symbol();
+export const GsubAlternate: unique symbol = Symbol();
+export const GsubLigature: unique symbol = Symbol();
+export const GsubChaining: unique symbol = Symbol();
+export const GsubReverse: unique symbol = Symbol();
+export const GposSingle: unique symbol = Symbol();
+export const GposPair: unique symbol = Symbol();
+export const GposCursive: unique symbol = Symbol();
+export const GposMarkToBase: unique symbol = Symbol();
+export const GposMarkToLigature: unique symbol = Symbol();
+export const GposMarkToMark: unique symbol = Symbol();
+export const GposChaining: unique symbol = Symbol();

@@ -10,29 +10,19 @@ import {
 
 import { axesRectifyFeatureVariation, cleanupGsubGposData } from "./cleanup";
 import { LookupRemovableAlg } from "./lookup-removable-alg";
-import {
-    RectifyGposGlyphCoordAlg,
-    RectifyGsubGlyphCoordAlg,
-    rectifyLookupList
-} from "./rectify-alg";
+import { RectifyGposGlyphCoordAlg, RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify";
 
 function fnApplyGsubLookup(lookup: Ot.Gsub.Lookup, alg: RectifyGsubGlyphCoordAlg) {
-    return alg.crossReference(
-        lookup,
-        Delay(() => lookup.apply(alg))
-    );
+    return alg.process(lookup);
 }
 function fnGsubLookupRemovable(lookup: Ot.Gsub.Lookup) {
-    return lookup.apply(LookupRemovableAlg);
+    return LookupRemovableAlg.process(lookup);
 }
 function fnApplyGposLookup(lookup: Ot.Gpos.Lookup, alg: RectifyGposGlyphCoordAlg) {
-    return alg.crossReference(
-        lookup,
-        Delay(() => lookup.apply(alg))
-    );
+    return alg.process(lookup);
 }
 function fnGposLookupRemovable(lookup: Ot.Gpos.Lookup) {
-    return lookup.apply(LookupRemovableAlg);
+    return LookupRemovableAlg.process(lookup);
 }
 
 export function rectifyGsubGlyphs(table: Ot.Gsub.Table, rec: GlyphRectifier) {

@@ -1,22 +1,19 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gsub } from "@ot-builder/ft-layout";
+import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
 
 import { LookupReader, LookupReaderFactory, LookupWriter, LookupWriterFactory } from "./general";
 import { CReadLookupList } from "./read-lookup-list";
 import { WriteLookupList } from "./write-lookup-list";
 
-class MockLookup implements Gsub.Lookup {
+class MockLookup implements GsubGpos.LookupProp {
     public rightToLeft = false;
     public ignoreGlyphs = null;
     constructor(public count: number) {}
-    public apply<E>(alg: Gsub.LookupAlg<E>): E {
-        throw new Error("not implemented");
-    }
 }
 
-class MockLookupReader implements LookupReader<Gsub.Lookup, MockLookup> {
+class MockLookupReader implements LookupReader<GsubGpos.LookupProp, MockLookup> {
     public createLookup() {
         return new MockLookup(0);
     }
@@ -28,7 +25,7 @@ class MockLookupReader implements LookupReader<Gsub.Lookup, MockLookup> {
         lookup.count = count;
     }
 }
-class MockLookupReaderFactory implements LookupReaderFactory<Gsub.Lookup> {
+class MockLookupReaderFactory implements LookupReaderFactory<GsubGpos.LookupProp> {
     public createReader(format: number) {
         switch (format) {
             case 1:
@@ -41,8 +38,8 @@ class MockLookupReaderFactory implements LookupReaderFactory<Gsub.Lookup> {
         return format === 0x10;
     }
 }
-class MockLookupWriter implements LookupWriter<Gsub.Lookup, MockLookup> {
-    public canBeUsed(lookup: Gsub.Lookup): lookup is MockLookup {
+class MockLookupWriter implements LookupWriter<GsubGpos.LookupProp, MockLookup> {
+    public canBeUsed(lookup: GsubGpos.LookupProp): lookup is MockLookup {
         return lookup instanceof MockLookup;
     }
     public getLookupType() {

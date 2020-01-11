@@ -6,11 +6,6 @@ import { OtVar } from "@ot-builder/variance";
 import * as GeneralGsubGpos from "./general/shared";
 import { TableImpl } from "./shared-impl";
 
-export function Creator<T, A extends [] = []>(cls: {
-    new (...args: A): T;
-}): { create(...args: A): T } {
-    return { create: (...args: A): T => new cls(...args) };
-}
 export function CreateTable<L>() {
     return {
         create: function createTable(
@@ -22,6 +17,15 @@ export function CreateTable<L>() {
             > = undefined
         ): GeneralGsubGpos.TableT<OtVar.Dim, OtGlyph, OtVar.Value, L> {
             return new TableImpl(scripts, features, lookups, featureVariations);
+        }
+    };
+}
+
+export type CaseType<Tag, Props> = { type: Tag } & Props;
+export function CaseCreator<Tag, Props>(tag: Tag, defaultProps: () => Props) {
+    return {
+        create(props?: Props): CaseType<Tag, Props> {
+            return { type: tag, ...(props || defaultProps()) };
         }
     };
 }
