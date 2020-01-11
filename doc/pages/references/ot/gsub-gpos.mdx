@@ -1,7 +1,7 @@
 import { Layout } from "components/api-doc"
 import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
 import { number, boolean, map, set, array, iterable, Data, Ot, Tag, Sigma, Thunk } from "components/exports"
-import { app, optional, tuple, readonly, pi } from "components/tycon"
+import { app, optional, tuple, readonly, pi, record } from "components/tycon"
 export default Layout
 
 # Gsub and Gpos
@@ -105,39 +105,34 @@ Defined as <R s={Ot.GsubGpos.FeatureT(Ot.Gsub.Lookup)}/>
 
 Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gsub.Lookup)}/>
 
-### Interface <Decl s={Ot.Gsub.Lookup} />
+### Type <Decl s={Ot.Gsub.Lookup} />
 
-#### Inherits
+Defined as <R s={Ot.Gsub.LookupT(record({ref:Ot.Gsub.Lookup}))}/>
 
-* <R s={Ot.GsubGpos.LookupProp} />
+### Type <Decl s={Ot.Gsub.LookupT("E")} />
 
-#### Methods
+Defined as a union of the following cases:
 
-* <Method s={Ot.Gsub.Lookup.apply("E")} args={{alg:Ot.Gsub.LookupAlg("E")}} returns="E"/>
+* <R s={Ot.Gsub.Single}/>
+* <R s={Ot.Gsub.Multiple}/>
+* <R s={Ot.Gsub.Alternate}/>
+* <R s={Ot.Gsub.Ligature}/>
+* <R s={Ot.Gsub.ChainingT("E")}/>
+* <R s={Ot.Gsub.ReverseSub}/>
 
-### Interface <Decl s={Ot.Gsub.LookupAlg("E")}/>
+#### Properties
 
-#### Methods
+* <Member readonly s={Ot.Gsub.LookupT.type} type="unique symbol"/>
 
-* <Method s={Ot.GsubGpos.LookupAlg.gsubSingle} args={{thProps:Thunk(Ot.Gsub.SingleProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gsubMulti} args={{thProps:Thunk(Ot.Gsub.MultipleAlternateProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gsubAlternate} args={{thProps:Thunk(Ot.Gsub.MultipleAlternateProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gsubLigature} args={{thProps:Thunk(Ot.Gsub.LigatureProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gsubChaining} args={{thProps:Thunk(Ot.GsubGpos.ChainingProp("E"))}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gsubReverse} args={{thProps:Thunk(Ot.Gsub.ReverseSubProp)}} returns="E"/>
-* <Method optional s={Ot.GsubGpos.LookupAlg.crossReference} args={{source:"object",thValue:Thunk("E")}} returns="E"/>
-
-
-### Type <Decl s={Ot.Gsub.Single}/>
+### Case Type <Decl s={Ot.Gsub.Single}/> | type = <R s={Ot.Gsub.LookupType.Single}/>
 
 #### Inherits
 
 * <R s={Ot.Gsub.SingleProp}/>
-* <R s={Ot.Gsub.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Single.create}/>
+* <Method static s={Ot.Gsub.Single.create} args={{props:optional(Ot.Gsub.SingleProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.SingleProp}/>
 
@@ -149,31 +144,25 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gsub.Lookup)}/>
 
 * <Member s={Ot.Gsub.SingleProp.mapping} type={map(Ot.Glyph, Ot.Glyph)}/>
 
-### Type <Decl s={Ot.Gsub.Multiple}/>
-
-<R s={Ot.Gsub.Multiple}/> is structurally identical to <R s={Ot.Gsub.Alternate}/>. However their <code>apply</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Multiple}/> responds to <code>gsubMulti</code>, while <R s={Ot.Gsub.Alternate}/> responds to <code>gsubAlternate</code>.
+### Case Type <Decl s={Ot.Gsub.Multiple}/> | type = <R s={Ot.Gsub.LookupType.Multiple}/>
 
 #### Inherits
 
 * <R s={Ot.Gsub.MultipleAlternateProp}/>
-* <R s={Ot.Gsub.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Multiple.create}/>
+* <Method static s={Ot.Gsub.Multiple.create} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
 
-### Type <Decl s={Ot.Gsub.Alternate}/>
-
-<R s={Ot.Gsub.Alternate}/> is structurally identical to <R s={Ot.Gsub.Multiple}/>. However their <code>apply</code> implementation responds to different methods in the <R s={Ot.GsubGpos.LookupAlg}/>: <R s={Ot.Gsub.Multiple}/> responds to <code>gsubMulti</code>, while <R s={Ot.Gsub.Alternate}/> responds to <code>gsubAlternate</code>.
+### Case Type <Decl s={Ot.Gsub.Alternate}/> | type = <R s={Ot.Gsub.LookupType.Alternate}/>
 
 #### Inherits
 
 * <R s={Ot.Gsub.MultipleAlternateProp}/>
-* <R s={Ot.Gsub.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Alternate.create}/>
+* <Method static s={Ot.Gsub.Alternate.create} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.MultipleAlternateProp}/>
 
@@ -185,16 +174,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gsub.Lookup)}/>
 
 * <Member s={Ot.Gsub.MultipleAlternateProp.mapping} type={map(Ot.Glyph, readonly(array(Ot.Glyph)))}/>
 
-### Type <Decl s={Ot.Gsub.Ligature}/>
+### Case Type <Decl s={Ot.Gsub.Ligature}/> | type = <R s={Ot.Gsub.LookupType.Ligature}/>
 
 #### Inherits
 
 * <R s={Ot.Gsub.LigatureProp}/>
-* <R s={Ot.Gsub.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Ligature.create}/>
+* <Method static s={Ot.Gsub.Ligature.create}  args={{props:optional(Ot.Gsub.LigatureProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.LigatureProp}/>
 
@@ -215,25 +203,27 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gsub.Lookup)}/>
 
 ### Type <Decl s={Ot.Gsub.Chaining}/>
 
-#### Inherits
-
-* <R s={Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup)}/>
-* <R s={Ot.Gsub.Lookup}/>
+Defined as <R s = {Ot.Gsub.ChainingT(record({ref:Ot.Gsub.Lookup}))}/>.
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Chaining.create}/>
+* <Method static s={Ot.Gsub.Chaining.create} args={{props:optional(Ot.GsubGpos.ChainingProp(record({ref:Ot.Gsub.Lookup})))}}/>
 
-### Type <Decl s={Ot.Gsub.ReverseSub}/>
+### Case Type <Decl s={Ot.Gsub.ChainingT("E")}/> | type = <R s={Ot.Gsub.LookupType.Chaining}/>
+
+#### Inherits
+
+* <R s={Ot.GsubGpos.ChainingProp("E")}/>
+
+### Case Type <Decl s={Ot.Gsub.ReverseSub}/> | type = <R s={Ot.Gsub.LookupType.ReverseSub}/>
 
 #### Inherits
 
 * <R s={Ot.Gsub.ReverseSubProp}/>
-* <R s={Ot.Gsub.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.ReverseSub.create}/>
+* <Method static s={Ot.Gsub.ReverseSub.create} args={{props:optional(Ot.Gsub.ReverseSubProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.ReverseSubProp}/>
 
@@ -292,40 +282,35 @@ Defined as <R s={Ot.GsubGpos.FeatureT(Ot.Gpos.Lookup)}/>
 
 Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
-### Interface <Decl s={Ot.Gpos.Lookup} />
+### Type <Decl s={Ot.Gpos.Lookup} />
 
-#### Inherits
+Defined as <R s={Ot.Gpos.LookupT(record({ref:Ot.Gpos.Lookup}))}/>
 
-* <R s={Ot.GsubGpos.LookupProp} />
+### Type <Decl s={Ot.Gpos.LookupT("E")} />
 
-#### Methods
+Defined as a union of the following cases:
 
-* <Method s={Ot.Gpos.Lookup.apply("E")} args={{alg:Ot.Gpos.LookupAlg("E")}} returns="E"/>
+* <R s={Ot.Gpos.Single}/>
+* <R s={Ot.Gpos.Pair}/>
+* <R s={Ot.Gpos.Cursive}/>
+* <R s={Ot.Gpos.MarkToBase}/>
+* <R s={Ot.Gpos.MarkToLigature}/>
+* <R s={Ot.Gpos.MarkToMark}/>
+* <R s={Ot.Gpos.ChainingT("E")}/>
 
-### Interface <Decl s={Ot.Gpos.LookupAlg("E")}/>
+#### Properties
 
-#### Methods
+* <Member readonly s={Ot.Gsub.LookupT.type} type="unique symbol"/>
 
-* <Method s={Ot.GsubGpos.LookupAlg.gposSingle} args={{thProps:Thunk(Ot.Gpos.SingleProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposPair} args={{thProps:Thunk(Ot.Gpos.PairProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposCursive} args={{thProps:Thunk(Ot.Gpos.CursiveProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposMarkToBase} args={{thProps:Thunk(Ot.Gpos.MarkToBaseProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposMarkToLigature} args={{thProps:Thunk(Ot.Gpos.MarkToLigatureProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposMarkToMark} args={{thProps:Thunk(Ot.Gpos.MarkToMarkProp)}} returns="E"/>
-* <Method s={Ot.GsubGpos.LookupAlg.gposChaining} args={{thProps:Thunk(Ot.GsubGpos.ChainingProp("E"))}} returns="E"/>
-* <Method optional s={Ot.GsubGpos.LookupAlg.crossReference} args={{source:"object",thValue:Thunk("E")}} returns="E"/>
-
-
-### Type <Decl s={Ot.Gpos.Single}/>
+### Case Type <Decl s={Ot.Gpos.Single}/> | type = <R s={Ot.Gpos.LookupType.Multiple}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.SingleProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.Single.create}/>
+* <Method static s={Ot.Gpos.Single.create} args={{props:optional(Ot.Gpos.SingleProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.SingleProp}/>
 
@@ -337,16 +322,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
 * <Member s={Ot.Gpos.SingleProp.adjustments} type={map(Ot.Glyph, Ot.Gpos.Adjustment)}/>
 
-### Type <Decl s={Ot.Gpos.Pair}/>
+### Case Type <Decl s={Ot.Gpos.Pair}/> | type = <R s={Ot.Gpos.LookupType.Pair}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.PairProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.Pair.create}/>
+* <Method static s={Ot.Gpos.Pair.create} args={{props:optional(Ot.Gpos.PairProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.PairProp}/>
 
@@ -358,16 +342,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
 * <Member s={Ot.Gpos.PairProp.adjustments} type={Ot.DicingStore(Ot.Glyph,Ot.Glyph,Ot.Gpos.AdjustmentPair)}/>
 
-### Type <Decl s={Ot.Gpos.Cursive}/>
+### Case Type <Decl s={Ot.Gpos.Cursive}/> | type = <R s={Ot.Gpos.LookupType.Cursive}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.CursiveProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.Cursive.create}/>
+* <Method static s={Ot.Gpos.Cursive.create} args={{props:optional(Ot.Gpos.CursiveProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.CursiveProp}/>
 
@@ -379,16 +362,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
 * <Member s={Ot.Gpos.CursiveProp.attachments} type={map(Ot.Glyph,Ot.Gpos.CursiveAnchorPair)}/>
 
-### Type <Decl s={Ot.Gpos.MarkToBase}/>
+### Case Type <Decl s={Ot.Gpos.MarkToBase}/> | type = <R s={Ot.Gpos.LookupType.MarkToBase}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.MarkToBaseProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.MarkToBase.create}/>
+* <Method static s={Ot.Gpos.MarkToBase.create} args={{props:optional(Ot.Gpos.MarkToBaseProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToBaseProp}/>
 
@@ -401,16 +383,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 * <Member s={Ot.Gpos.MarkToBaseProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToBaseProp.bases} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Type <Decl s={Ot.Gpos.MarkToLigature}/>
+### Case Type <Decl s={Ot.Gpos.MarkToLigature}/> | type = <R s={Ot.Gpos.LookupType.MarkToLigature}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.MarkToLigatureProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.MarkToLigature.create}/>
+* <Method static s={Ot.Gpos.MarkToLigature.create} args={{props:optional(Ot.Gpos.MarkToLigatureProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToLigatureProp}/>
 
@@ -423,16 +404,15 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 * <Member s={Ot.Gpos.MarkToLigatureProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToLigatureProp.bases} type={map(Ot.Glyph,Ot.Gpos.LigatureBaseRecord)}/>
 
-### Type <Decl s={Ot.Gpos.MarkToMark}/>
+### Case Type <Decl s={Ot.Gpos.MarkToMark}/> | type = <R s={Ot.Gpos.LookupType.MarkToMark}/>
 
 #### Inherits
 
 * <R s={Ot.Gpos.MarkToMarkProp}/>
-* <R s={Ot.Gpos.Lookup}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.MarkToMark.create}/>
+* <Method static s={Ot.Gpos.MarkToMark.create} args={{props:optional(Ot.Gpos.MarkToMarkProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToMarkProp}/>
 
@@ -447,14 +427,17 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
 ### Type <Decl s={Ot.Gpos.Chaining}/>
 
-#### Inherits
-
-* <R s={Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup)}/>
-* <R s={Ot.Gpos.Lookup}/>
+Defined as <R s={Ot.Gpos.ChainingT(record({ref:Ot.Gpos.Lookup}))}/>.
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.Chaining.create}/>
+* <Method static s={Ot.Gpos.Chaining.create}  args={{props:optional(Ot.GsubGpos.ChainingProp(record({ref:Ot.Gpos.Lookup})))}}/>
+
+### Case Type <Decl s={Ot.Gpos.ChainingT("E")}/> | type = <R s={Ot.Gpos.LookupType.Chaining}/>
+
+#### Inherits
+
+* <R s={Ot.GsubGpos.ChainingProp("E")}/>
 
 
 
