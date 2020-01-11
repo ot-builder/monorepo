@@ -44,6 +44,8 @@ setPage(Ot.GsubGpos, "Ot.Gsub-Gpos");
 setPage(Ot.Gsub, "Ot.Gsub-Gpos");
 setPage(Ot.Gpos, "Ot.Gsub-Gpos");
 
+setPage(Ot.Vdmx);
+
 export const FontIo = createTopLevelExport("FontIo");
 setPage(FontIo, "font-io");
 

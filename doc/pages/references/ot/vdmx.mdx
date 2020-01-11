@@ -1,0 +1,45 @@
+import { Layout } from "components/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "components/tyfmt"
+import { number, array, map, Ot, Tag } from "components/exports"
+export default Layout
+
+# Namespace <Decl s={Ot.Vdmx}/>
+
+## Table Types
+
+### Constant <Decl s={Ot.Vdmx.Tag}/> = `"VDMX"`
+
+### Class <Decl s={Ot.Vdmx.Table}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Vdmx.Table.constructor} args={{version:number}} />
+
+#### Properties
+
+* <Member s={Ot.Vdmx.Table.records} type={array(VdmxRecord)}/>
+
+## Support Types
+
+### Class <Decl s={Ot.Vdmx.RatioRange}/>
+
+#### Properties
+
+* <Member s={Ot.Vdmx.RatioRange.bCharSet} type={number}/>
+* <Member s={Ot.Vdmx.RatioRange.xRatio} type={number}/>
+* <Member s={Ot.Vdmx.RatioRange.yStartRatio} type={number}/>
+* <Member s={Ot.Vdmx.RatioRange.yEndRatio} type={number}/>
+
+### Class <Decl s={Ot.Vdmx.VTableRecord}/>
+
+#### Properties
+
+* <Member s={Ot.Vdmx.VTableRecord.yMax} type={number}/>
+* <Member s={Ot.Vdmx.VTableRecord.yMin} type={number}/>
+
+### Class <Decl s={Ot.Vdmx.VdmxRecord}/>
+
+#### Properties
+
+* <Member s={Ot.Vdmx.VdmxRecord.RatioRange} type={Ot.Vdmx.RatioRange}/>
+* <Member s={Ot.Vdmx.VdmxRecord.entries} type={map(number,Ot.Vdmx.VTableRecord)}/>
