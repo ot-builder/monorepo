@@ -1,7 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Vdmx } from "@ot-builder/ft-metadata";
 import { UInt16 } from "@ot-builder/primitive";
-import { GposPairLookupIdentity } from '@ot-builder/test-util/src/layout-identity/lookup/gpos-pair';
 
 export const VdmxRatioRange = {
     read(bp: BinaryView) {
