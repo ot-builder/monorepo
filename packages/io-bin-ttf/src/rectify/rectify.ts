@@ -14,9 +14,8 @@ function rectifyGlyph(glyph: OtGlyph, gs: Set<OtGlyph>) {
     if (gs.has(glyph)) return;
 
     if (glyph.geometry) {
-        glyph.geometry = glyph.geometry.apply(new AttachmentPointToCoordAlg(gs))({
-            points: []
-        });
+        const alg = new AttachmentPointToCoordAlg(gs);
+        glyph.geometry = alg.process(glyph.geometry)({ points: [] });
     }
 
     gs.add(glyph);
@@ -27,16 +26,27 @@ interface PointAttachmentHandlerState {
 }
 type PointAttachmentHandler = (st: PointAttachmentHandlerState) => OtGlyph.Geometry;
 
-class AttachmentPointToCoordAlg implements OtGlyph.GeometryAlg<PointAttachmentHandler> {
+class AttachmentPointToCoordAlg {
     constructor(private readonly gs: Set<OtGlyph>) {}
-    public contourSet(cs: OtGlyph.ContourSetProps) {
+
+    public process(geom: OtGlyph.Geometry): PointAttachmentHandler {
+        switch (geom.type) {
+            case OtGlyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case OtGlyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+            case OtGlyph.GeometryType.GeometryList:
+                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+        }
+    }
+    public contourSet(cs: OtGlyph.ContourSetProps): PointAttachmentHandler {
         return (st: PointAttachmentHandlerState) => {
             const g = OtGlyph.ContourSet.create(cs.contours);
             for (const c of g.contours) for (const z of c) st.points.push(z);
             return g;
         };
     }
-    public geometryList(processes: PointAttachmentHandler[]) {
+    public geometryList(processes: PointAttachmentHandler[]): PointAttachmentHandler {
         return (st: PointAttachmentHandlerState) => {
             let children: OtGlyph.Geometry[] = [];
             for (const proc of processes) {
@@ -46,7 +56,7 @@ class AttachmentPointToCoordAlg implements OtGlyph.GeometryAlg<PointAttachmentHa
         };
     }
 
-    public ttReference(ref: OtGlyph.TtReferenceProps) {
+    public ttReference(ref: OtGlyph.TtReferenceProps): PointAttachmentHandler {
         return (st: PointAttachmentHandlerState) => {
             rectifyGlyph(ref.to, this.gs);
             let tfm = ref.transform;

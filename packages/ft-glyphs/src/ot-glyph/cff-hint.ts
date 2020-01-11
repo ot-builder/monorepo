@@ -13,13 +13,3 @@ export class CffHintMaskImpl {
         public maskV: Set<GeneralGlyph.CffHintStemT<OtVar.Value>>
     ) {}
 }
-export class CffHintImpl implements GeneralGlyph.HintT<OtVar.Value> {
-    public hStems: GeneralGlyph.CffHintStemT<OtVar.Value>[] = [];
-    public vStems: GeneralGlyph.CffHintStemT<OtVar.Value>[] = [];
-    public hintMasks: GeneralGlyph.CffHintMaskT<OtVar.Value>[] = [];
-    public counterMasks: GeneralGlyph.CffHintMaskT<OtVar.Value>[] = [];
-
-    public apply<E>(alg: GeneralGlyph.HintAlgT<OtVar.Value, E>): E {
-        return alg.cffHint(this);
-    }
-}

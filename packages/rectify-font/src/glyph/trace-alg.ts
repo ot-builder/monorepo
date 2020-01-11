@@ -7,15 +7,22 @@ export function traceGlyphDependents(g: Ot.Glyph): GlyphTraceProc {
     return tracer => {
         if (!tracer.has(g)) return;
         if (!g.geometry) return;
-        return g.geometry.apply(new TraceGlyphsAlg())(tracer);
+        return new TraceGlyphsAlg().process(g.geometry)(tracer);
     };
 }
 
-class TraceGlyphsAlg implements Ot.Glyph.GeometryAlg<GlyphTraceProc> {
-    public empty() {
-        return TraceImpl.Glyph.Nop();
+class TraceGlyphsAlg {
+    public process(geom: Ot.Glyph.Geometry): GlyphTraceProc {
+        switch (geom.type) {
+            case Ot.Glyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case Ot.Glyph.GeometryType.GeometryList:
+                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+            case Ot.Glyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+        }
     }
-    public contourSet() {
+    public contourSet(geom: Ot.Glyph.ContourSetProps) {
         return TraceImpl.Glyph.Nop();
     }
     public geometryList(children: GlyphTraceProc[]) {
@@ -31,7 +38,7 @@ function RefProc(target: Ot.Glyph) {
         if (tracer.has(target)) return;
         tracer.add(target);
         if (target.geometry) {
-            target.geometry.apply(new TraceGlyphsAlg())(tracer);
+            new TraceGlyphsAlg().process(target.geometry)(tracer);
         }
     };
 }

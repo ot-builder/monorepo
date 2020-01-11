@@ -16,13 +16,23 @@ interface PointAttachmentHandlerState {
 }
 type PointAttachmentHandler = (st: PointAttachmentHandlerState) => Ot.Glyph.Geometry;
 
-export class OtGhRectifyGeomPointAttachmentAlg
-    implements Ot.Glyph.GeometryAlg<PointAttachmentHandler> {
+export class OtGhRectifyGeomPointAttachmentAlg {
     constructor(
         private readonly recCoord: CoordRectifier,
         private readonly recPA: PointAttachmentRectifier,
         private readonly context: PointAttachmentGlobalState
     ) {}
+
+    public process(geom: Ot.Glyph.Geometry): PointAttachmentHandler {
+        switch (geom.type) {
+            case Ot.Glyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case Ot.Glyph.GeometryType.GeometryList:
+                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+            case Ot.Glyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+        }
+    }
 
     public contourSet(cs: Ot.Glyph.ContourSetProps) {
         return (st: PointAttachmentHandlerState) => {
@@ -125,11 +135,20 @@ export class OtGhRectifyGeomPointAttachmentAlg
     }
 }
 
-class RectifyHintCoordAlg implements Ot.Glyph.HintAlg<Ot.Glyph.Hint> {
+class RectifyHintCoordAlg {
     constructor(private readonly rec: CoordRectifier) {}
 
+    public process(geom: Ot.Glyph.Hint): Ot.Glyph.Hint {
+        switch (geom.type) {
+            case Ot.Glyph.HintType.TtInstruction:
+                return this.ttInstructions(geom);
+            case Ot.Glyph.HintType.CffHint:
+                return this.cffHint(geom);
+        }
+    }
+
     public ttInstructions(tt: Ot.Glyph.TtInstructionProps): Ot.Glyph.Hint {
-        return Ot.Glyph.TtInstructionHint.create(tt.instructions);
+        return Ot.Glyph.TtInstruction.create(tt.instructions);
     }
     public cffHint(ch: Ot.Glyph.CffHintProps): Ot.Glyph.Hint {
         const stemHMap = new Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>();
@@ -174,14 +193,11 @@ function processGlyph(
     if (gs.processed.has(glyph)) return;
 
     if (glyph.geometry) {
-        glyph.geometry = glyph.geometry.apply(
-            new OtGhRectifyGeomPointAttachmentAlg(recCoord, recPA, gs)
-        )({
-            points: []
-        });
+        const alg = new OtGhRectifyGeomPointAttachmentAlg(recCoord, recPA, gs);
+        glyph.geometry = alg.process(glyph.geometry)({ points: [] });
     }
     if (glyph.hints) {
-        glyph.hints = glyph.hints.apply(new RectifyHintCoordAlg(recCoord));
+        glyph.hints = new RectifyHintCoordAlg(recCoord).process(glyph.hints);
     }
     glyph.horizontal = {
         start: recCoord.coord(glyph.horizontal.start),

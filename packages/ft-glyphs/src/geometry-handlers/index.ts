@@ -17,7 +17,7 @@ export namespace OtGeometryHandler {
         ...gs: Data.Maybe<OtGlyph.Geometry>[]
     ): T {
         const sink = new cls();
-        for (const g of gs) if (g) g.apply(sink);
+        for (const g of gs) if (g) sink.process(g);
         return sink.getResult();
     }
 }

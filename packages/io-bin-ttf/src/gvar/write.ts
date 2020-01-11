@@ -90,29 +90,26 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
     public readonly data: OtVar.Value[][];
 
     constructor(glyph: OtGlyph) {
-        this.data = glyph.apply(new VarCollector());
+        this.data = [
+            ...(glyph.geometry ? new GeomVarCollector().process(glyph.geometry) : []),
+            [glyph.horizontal.start, 0],
+            [glyph.horizontal.end, 0],
+            [0, glyph.vertical.start],
+            [0, glyph.vertical.end]
+        ];
     }
 }
 
-class VarCollector implements OtGlyph.GlyphAlg<OtVar.Value[][]> {
-    public geometryAlgebra = new GeomVarCollector();
-    public hintAlgebra = null;
-    public glyph(
-        hMetric: OtGlyph.Metric,
-        vMetric: OtGlyph.Metric,
-        fnGeom: Data.Maybe<Thunk<OtVar.Value[][]>>,
-        fnHints: Data.Maybe<Thunk<OtVar.Value[][]>>
-    ) {
-        const cs = [...(fnGeom ? fnGeom.force() : []), ...(fnHints ? fnHints.force() : [])];
-        cs.push([hMetric.start, 0], [hMetric.end, 0]);
-        cs.push([0, vMetric.start], [0, vMetric.end]);
-        return cs;
-    }
-}
-
-class GeomVarCollector implements OtGlyph.GeometryAlg<OtVar.Value[][]> {
-    public empty() {
-        return [];
+class GeomVarCollector {
+    public process(geom: OtGlyph.Geometry): OtVar.Value[][] {
+        switch (geom.type) {
+            case OtGlyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case OtGlyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+            case OtGlyph.GeometryType.GeometryList:
+                return this.geometryList(geom);
+        }
     }
     public contourSet(cs: OtGlyph.ContourSetProps) {
         let collected: OtVar.Value[][] = [];
@@ -125,9 +122,10 @@ class GeomVarCollector implements OtGlyph.GeometryAlg<OtVar.Value[][]> {
         }
         return collected;
     }
-    public geometryList(parts: OtVar.Value[][][]) {
+    public geometryList(geom: OtGlyph.GeometryListProps<{ ref: OtGlyph.Geometry }>) {
         let collected: OtVar.Value[][] = [];
-        for (const sub of parts) {
+        for (const entry of geom.items) {
+            const sub = this.process(entry.ref);
             for (const x of sub) collected.push(x);
         }
         return collected;

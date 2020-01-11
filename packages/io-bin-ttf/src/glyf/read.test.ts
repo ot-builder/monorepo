@@ -2,7 +2,7 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
-import { GlyphToInitialUtil, TestFont } from "@ot-builder/test-util";
+import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 
 import { rectifyGlyphOrder } from "../rectify/rectify";
@@ -61,15 +61,13 @@ test("Reading : TTF, static", () => {
         const g300 = gOrd.at(300);
         expect(g300.geometry).toBeTruthy();
 
-        expect(g300.geometry!.apply(GlyphToInitialUtil.GeometryToInitial).type).toBe(
-            GlyphToInitialUtil.InitialGeometryType.GeometryList
-        );
+        expect(g300.geometry!.type).toBe(OtGlyph.GeometryType.GeometryList);
 
         const geom = g300.geometry as OtGlyph.GeometryList;
         expect(geom.items.length).toBe(2);
 
-        const base = geom.items[0] as OtGlyph.TtReference;
-        const diacritic = geom.items[1] as OtGlyph.TtReference;
+        const base = geom.items[0].ref as OtGlyph.TtReference;
+        const diacritic = geom.items[1].ref as OtGlyph.TtReference;
 
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));

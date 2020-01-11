@@ -3,18 +3,6 @@ import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { FastMatch } from "./fast-match";
-import {
-    GeometryToInitial,
-    HintsToInitial,
-    InitialContourSet,
-    InitialGeometry,
-    InitialGeometryList,
-    InitialGeometryType,
-    InitialHints,
-    InitialHintType,
-    InitialTtInstr,
-    InitialTtReference
-} from "./glyph-to-initial-util";
 
 export namespace GlyphIdentity {
     export enum CompareMode {
@@ -56,44 +44,41 @@ export namespace GlyphIdentity {
         if (!geomE && !geomA) return;
         expect(!!geomE).toBe(!!geomA);
 
-        const initGeomE = geomE!.apply(GeometryToInitial);
-        const initGeomA = geomA!.apply(GeometryToInitial);
-
-        return testInitGeometry(initGeomE, initGeomA, mode, tolerance, place);
+        return testInitGeometry(geomE!, geomA!, mode, tolerance, place);
     }
 
     function testInitGeometry(
-        geomE: InitialGeometry,
-        geomA: InitialGeometry,
+        geomE: OtGlyph.Geometry,
+        geomA: OtGlyph.Geometry,
         mode: CompareMode = 0,
         tolerance = 1,
         place = ""
     ) {
         switch (geomE.type) {
-            case InitialGeometryType.ContourSet: {
-                expect(geomA.type).toBe(InitialGeometryType.ContourSet);
+            case OtGlyph.GeometryType.ContourSet: {
+                expect(geomA.type).toBe(OtGlyph.GeometryType.ContourSet);
                 return testContours(
-                    (geomE as InitialContourSet).leaf,
-                    (geomA as InitialContourSet).leaf,
+                    geomE as OtGlyph.ContourSet,
+                    geomA as OtGlyph.ContourSet,
                     !!(mode & CompareMode.RemoveCycle),
                     tolerance,
                     place
                 );
             }
-            case InitialGeometryType.TtReference: {
-                expect(geomA.type).toBe(InitialGeometryType.TtReference);
+            case OtGlyph.GeometryType.TtReference: {
+                expect(geomA.type).toBe(OtGlyph.GeometryType.TtReference);
                 return testReference(
-                    (geomE as InitialTtReference).leaf,
-                    (geomA as InitialTtReference).leaf,
+                    geomE as OtGlyph.TtReference,
+                    geomA as OtGlyph.TtReference,
                     mode,
                     tolerance
                 );
             }
-            case InitialGeometryType.GeometryList: {
-                expect(geomA.type).toBe(InitialGeometryType.GeometryList);
+            case OtGlyph.GeometryType.GeometryList: {
+                expect(geomA.type).toBe(OtGlyph.GeometryType.GeometryList);
                 return testGeometryList(
-                    (geomE as InitialGeometryList).children,
-                    (geomA as InitialGeometryList).children,
+                    geomE as OtGlyph.GeometryList,
+                    geomA as OtGlyph.GeometryList,
                     mode,
                     tolerance
                 );
@@ -165,15 +150,15 @@ export namespace GlyphIdentity {
     }
 
     function testGeometryList(
-        expected: InitialGeometry[],
-        actual: InitialGeometry[],
+        expected: OtGlyph.GeometryList,
+        actual: OtGlyph.GeometryList,
         tolerance: number,
         mode: number
     ) {
-        expect(expected.length).toBe(actual.length);
-        for (let rid = 0; rid < expected.length; rid++) {
-            const expectedItem = expected[rid];
-            const actualItem = actual[rid];
+        expect(expected.items.length).toBe(actual.items.length);
+        for (let rid = 0; rid < expected.items.length; rid++) {
+            const expectedItem = expected.items[rid].ref;
+            const actualItem = actual.items[rid].ref;
             testInitGeometry(expectedItem, actualItem, mode, tolerance);
         }
     }
@@ -207,23 +192,21 @@ export namespace GlyphIdentity {
         if (!hintE && !hintA) return;
         expect(!!hintE).toBe(!!hintA);
 
-        const initHintE = hintE!.apply(HintsToInitial);
-        const initHintA = hintA!.apply(HintsToInitial);
-        testInitialHints(initHintE, initHintA, mode, tolerance, place);
+        testInitialHints(hintE!, hintA!, mode, tolerance, place);
     }
 
     function testInitialHints(
-        hintE: InitialHints,
-        hintA: InitialHints,
+        hintE: OtGlyph.Hint,
+        hintA: OtGlyph.Hint,
         mode: CompareMode = 0,
         tolerance = 1,
         place = ""
     ) {
         switch (hintE.type) {
-            case InitialHintType.TtInstr:
-                expect(hintA.type).toBe(InitialHintType.TtInstr);
-                expect((hintE as InitialTtInstr).leaf.instructions).toEqual(
-                    (hintA as InitialTtInstr).leaf.instructions
+            case OtGlyph.HintType.TtInstruction:
+                expect(hintA.type).toBe(OtGlyph.HintType.TtInstruction);
+                expect((hintE as OtGlyph.TtInstruction).instructions).toEqual(
+                    (hintA as OtGlyph.TtInstruction).instructions
                 );
                 return;
         }

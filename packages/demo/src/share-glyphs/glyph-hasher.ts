@@ -77,14 +77,24 @@ export class GlyphHasher {
         hrMetrics.numbers(this.session.vp.toArrayRep(glyph.horizontal.end));
         hrMetrics.numbers(this.session.vp.toArrayRep(glyph.vertical.start));
         hrMetrics.numbers(this.session.vp.toArrayRep(glyph.vertical.end));
-        hr.include(glyph.geometry ? glyph.geometry.apply(geomAlg) : geomAlg.empty());
-        hr.include(glyph.hints ? glyph.hints.apply(hintAlg) : hintAlg.empty());
+        hr.include(glyph.geometry ? geomAlg.process(glyph.geometry) : geomAlg.empty());
+        hr.include(glyph.hints ? hintAlg.process(glyph.hints) : hintAlg.empty());
         return hr;
     }
 }
 
-class HashGeometry implements Ot.Glyph.GeometryAlg<HashRep> {
+class HashGeometry {
     constructor(private readonly gh: GlyphHasher, private readonly vp: ValueProcessor) {}
+    public process(geom: Ot.Glyph.Geometry): HashRep {
+        switch (geom.type) {
+            case Ot.Glyph.GeometryType.ContourSet:
+                return this.contourSet(geom);
+            case Ot.Glyph.GeometryType.GeometryList:
+                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+            case Ot.Glyph.GeometryType.TtReference:
+                return this.ttReference(geom);
+        }
+    }
     public empty() {
         const hr = new Hasher();
         hr.string("Empty");
@@ -115,8 +125,8 @@ class HashGeometry implements Ot.Glyph.GeometryAlg<HashRep> {
         hr.numbers(this.vp.toArrayRep(ref.transform.dy));
         hr.flag(
             !!ref.transform.scaledOffset,
-            ref.useMyMetrics,
-            ref.overlapCompound,
+            !!ref.useMyMetrics,
+            !!ref.overlapCompound,
             !!ref.pointAttachment
         );
         if (ref.pointAttachment) {
@@ -136,8 +146,16 @@ class HashGeometry implements Ot.Glyph.GeometryAlg<HashRep> {
     }
 }
 
-class HashHinting implements Ot.Glyph.HintAlg<HashRep> {
+class HashHinting {
     constructor(private readonly gh: GlyphHasher, private readonly vp: ValueProcessor) {}
+    public process(geom: Ot.Glyph.Hint): HashRep {
+        switch (geom.type) {
+            case Ot.Glyph.HintType.TtInstruction:
+                return this.ttInstructions(geom);
+            case Ot.Glyph.HintType.CffHint:
+                return this.cffHint(geom);
+        }
+    }
     public empty() {
         const hr = new Hasher();
         hr.string("Empty");

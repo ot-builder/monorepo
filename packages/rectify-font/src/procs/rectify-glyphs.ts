@@ -24,7 +24,7 @@ function rectifyFontGlyphStore<GS extends Data.OrderStore<Ot.Glyph>>(
     const alg = new RectifyGeomGlyphAlg(rec);
     for (const g1 of gList1) {
         if (g1.geometry) {
-            g1.geometry = g1.geometry.apply(alg);
+            g1.geometry = new RectifyGeomGlyphAlg(rec).process(g1.geometry);
         }
     }
 

@@ -7,41 +7,25 @@ import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
     // Geometry
-    export interface GeometryT<G, X> {
-        readonly apply: <E>(alg: GeometryAlgT<G, X, E>) => E;
-    }
     export interface ContourSetPropsT<G, X> {
         contours: Contour.T<X>[];
     }
-    export interface ContourSetT<G, X> extends ContourSetPropsT<G, X>, GeometryT<G, X> {}
     export interface TtReferencePropsT<G, X> {
         to: G;
         transform: Transform2X3.T<X>;
-        roundXyToGrid: boolean;
-        useMyMetrics: boolean;
-        overlapCompound: boolean;
-        pointAttachment: Data.Maybe<Lib_General_Point.PointAttachment>;
+        roundXyToGrid?: boolean;
+        useMyMetrics?: boolean;
+        overlapCompound?: boolean;
+        pointAttachment?: Data.Maybe<Lib_General_Point.PointAttachment>;
     }
-    export interface TtReferenceT<G, X> extends TtReferencePropsT<G, X>, GeometryT<G, X> {}
-    export interface GeometryListT<G, X> extends GeometryT<G, X> {
-        items: GeometryT<G, X>[];
-    }
-
-    // Geometry algebra
-    export interface GeometryAlgT<G, X, E> {
-        contourSet(g: ContourSetPropsT<G, X>): E;
-        ttReference(g: TtReferencePropsT<G, X>): E;
-        geometryList(parts: E[]): E;
+    export interface GeometryListPropsT<G, X, E> {
+        items: E[];
     }
 
-    // Hint type
-    export interface HintT<X> {
-        readonly apply: <E>(alg: HintAlgT<X, E>) => E;
-    }
+    // Hint
     export interface TtInstructionPropsT<X> {
         instructions: Buffer;
     }
-    export interface TtInstructionHintT<X> extends TtInstructionPropsT<X>, HintT<X> {}
     export interface CffHintStemT<X> {
         start: X;
         end: X;
@@ -56,35 +40,6 @@ export namespace GeneralGlyph {
         vStems: CffHintStemT<X>[];
         hintMasks: CffHintMaskT<X>[];
         counterMasks: CffHintMaskT<X>[];
-    }
-    export interface CffHintT<X> extends CffHintPropsT<X>, HintT<X> {}
-
-    // Hint algebra
-    export interface HintAlgT<X, E> {
-        ttInstructions(g: TtInstructionPropsT<X>): E;
-        cffHint(h: CffHintPropsT<X>): E;
-    }
-
-    // Glyph types
-    export interface GlyphT<G, X> {
-        horizontal: GlyphMetric.T<X>;
-        vertical: GlyphMetric.T<X>;
-        geometry: Data.Maybe<GeometryT<G, X>>;
-        hints?: Data.Maybe<HintT<X>>;
-
-        readonly apply: <E, EG, EH>(alg: GlyphAlgT<G, X, E, EG, EH>) => E;
-    }
-
-    // Glyph algebra
-    export interface GlyphAlgT<G, X, E, EG = E, EH = E> {
-        geometryAlgebra: Data.Maybe<GeometryAlgT<G, X, EG>>;
-        hintAlgebra: Data.Maybe<HintAlgT<X, EH>>;
-        glyph(
-            horizontal: GlyphMetric.T<X>,
-            vertical: GlyphMetric.T<X>,
-            fnGeometry: Data.Maybe<Thunk<EG>>,
-            fnHints: Data.Maybe<Thunk<EH>>
-        ): E;
     }
 
     // Re-exports

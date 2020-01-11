@@ -3,8 +3,10 @@ import { OtGlyph } from "../ot-glyph";
 export interface PointSink {
     addControlKnot(knot: OtGlyph.Point): void;
 }
-
-export interface StatGeometryAlg<T> extends OtGlyph.GeometryAlg<void> {
+export interface GeometryProcessor {
+    process(geometryList: OtGlyph.Geometry): void;
+}
+export interface StatGeometryAlg<T> extends GeometryProcessor {
     getResult(): T;
 }
 export interface StatGeometryAlgClass<T> {
@@ -25,21 +27,29 @@ export class PointTransformer<PS extends PointSink> {
         return new PointTransformer<PS>(this.ps, z => tf(tf1(z)));
     }
 }
-export class OtGhPointAlg<PS extends PointSink> implements OtGlyph.GeometryAlg<void> {
+export class OtGhPointAlg<PS extends PointSink> implements GeometryProcessor {
     constructor(protected readonly acc: PointTransformer<PS>) {}
-    public empty() {}
-    public contourSet(cs: OtGlyph.ContourSetProps) {
-        for (const c of cs.contours) {
-            for (const z of c) {
-                this.acc.addControlKnot(z);
-            }
+
+    public process(geom: OtGlyph.Geometry) {
+        switch (geom.type) {
+            case OtGlyph.GeometryType.ContourSet:
+                for (const c of geom.contours) {
+                    for (const z of c) {
+                        this.acc.addControlKnot(z);
+                    }
+                }
+                break;
+            case OtGlyph.GeometryType.TtReference:
+                const plRef = new OtGhPointAlg(
+                    this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, geom.transform))
+                );
+                if (geom.to.geometry) plRef.process(geom.to.geometry);
+                break;
+            case OtGlyph.GeometryType.GeometryList:
+                for (const item of geom.items) {
+                    this.process(item.ref);
+                }
+                break;
         }
-    }
-    public geometryList(parts: void[]) {}
-    public ttReference(ref: OtGlyph.TtReferenceProps) {
-        const plRef = new OtGhPointAlg(
-            this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, ref.transform))
-        );
-        if (ref.to.geometry) ref.to.geometry.apply(plRef);
     }
 }
