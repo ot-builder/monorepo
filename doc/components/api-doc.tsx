@@ -35,6 +35,7 @@ export const ApiRefNavigation = () => {
                 <NavLink dir="/references/ot/metric-head" text="Ot.MetricHead" />
                 <NavLink dir="/references/ot/avar" text="Ot.Avar" />
                 <NavLink dir="/references/ot/gasp" text="Ot.Gasp" />
+                <NavLink dir="/references/ot/vdmx" text="Ot.Vdmx" />
                 <NavLink dir="/references/ot/cff" text="Ot.Cff" />
                 <NavLink dir="/references/ot/fpgm" text="Ot.Fpgm" />
                 <NavLink dir="/references/ot/prep" text="Ot.Prep" />
