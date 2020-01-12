@@ -51,6 +51,7 @@
 * Make a pull request:
 
   * Run `npm run change` to create change files. The change files will decide the version of next publish and create change logs automatically.
+  * Run `npm run lint` to check your code style.
   * Send pull request to `ot-builder` repository.
 
 ## Project Structure

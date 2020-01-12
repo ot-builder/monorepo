@@ -87,7 +87,7 @@ jobs:
         CI: true
 
   pr-lint:
-    name: PR Change File Check
+    name: PR Lint
     runs-on: ubuntu-latest
 
     strategy:
