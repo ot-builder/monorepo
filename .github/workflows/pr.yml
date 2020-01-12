@@ -27,6 +27,7 @@ jobs:
     - name: Building
       run: |
         npm run build
+        npm run lint
       env:
         CI: true
     - name: Unit test
@@ -83,32 +84,6 @@ jobs:
     - name: Check change-file
       run: |
         npm run beachball:check
-      env:
-        CI: true
-
-  pr-lint:
-    name: PR Lint
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x] # Current and LTS. No history versions
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: NPM Setup
-      run: |
-        npm run boot
-      env:
-        CI: true
-    - name: Lint
-      run: |
-        npm run build
-        npm run lint
       env:
         CI: true
 

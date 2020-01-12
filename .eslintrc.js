@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "import", "monorepo"],
+    plugins: ["@typescript-eslint", "import", "monorepo-cop"],
     ignorePatterns: ["node_modules", "packages/*/lib", "coverage"],
     extends: [
         "eslint:recommended",
@@ -9,7 +9,8 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:import/typescript"
+        "plugin:import/typescript",
+        "plugin:monorepo-cop/recommended"
     ],
     rules: {
         "@typescript-eslint/no-use-before-define": "off",
@@ -26,6 +27,6 @@ module.exports = {
         "@typescript-eslint/camelcase": ["error", { allow: ["^Lib_", "^TID_", "^TAG_"] }],
         "import/order": "warn",
         "import/no-extraneous-dependencies": "error",
-        "monorepo/no-relative-import": "error"
+        "import/newline-after-import": ["error", { count: 1 }]
     }
 };

@@ -8,7 +8,7 @@ export const VdmxRatioRange = {
             bCharSet: bp.uint8(),
             xRatio: bp.uint8(),
             yStartRatio: bp.uint8(),
-            yEndRatio: bp.uint8(),
+            yEndRatio: bp.uint8()
         };
     },
 
@@ -31,7 +31,7 @@ export const VdmxGroup = {
             const yPelHeight = bp.uint16();
             entries.set(yPelHeight, {
                 yMax: bp.int16(),
-                yMin: bp.int16(),
+                yMin: bp.int16()
             });
         }
         return entries;
@@ -52,7 +52,7 @@ export const VdmxGroup = {
             b.int16(entry[1].yMin);
         }
     }
-}
+};
 
 export const VdmxTableIo = {
     read(view: BinaryView) {
@@ -82,18 +82,17 @@ export const VdmxTableIo = {
         frag.uint16(numRatios);
 
         const groups = new Array<Frag>();
-        for (let record of table.records) {
+        for (const record of table.records) {
             frag.push(VdmxRatioRange, record.ratioRange);
             groups.push(Frag.from(VdmxGroup, record.entries));
         }
 
         const headerSize = frag.size + UInt16.size * numRatios;
         const groupPack = Frag.packMany(groups);
-        for (const offset of groupPack.rootOffsets)
-            frag.uint16(offset + headerSize);
+        for (const offset of groupPack.rootOffsets) frag.uint16(offset + headerSize);
         frag.bytes(groupPack.buffer);
 
         const numRecs = new Set(groupPack.rootOffsets).size;
         numRecsReserve.fill(numRecs);
     }
-}
+};

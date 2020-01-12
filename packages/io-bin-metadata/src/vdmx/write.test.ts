@@ -2,9 +2,7 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Vdmx } from "@ot-builder/ft-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
-import { VdmxTableIo, VdmxRatioRange } from ".";
-import * as fs from "fs";
-import * as path from "path";
+import { VdmxRatioRange, VdmxTableIo } from ".";
 
 test("Writing : VDMX", () => {
     const bufFont = TestFont.get("vdmx.ttf");
