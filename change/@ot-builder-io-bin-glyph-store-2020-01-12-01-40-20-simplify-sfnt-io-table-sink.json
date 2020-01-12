@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Simplify SfntIoTableSink interface",
+  "packageName": "@ot-builder/io-bin-glyph-store",
+  "email": "belleve@typeof.net",
+  "commit": "ffd651bf72abb2fee43f6feafef85f97e516a3b9",
+  "date": "2020-01-12T09:40:19.222Z"
+}
