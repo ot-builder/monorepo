@@ -29,9 +29,4 @@ test("Writing : VDMX", () => {
     const group1Offset = bp.uint16();
     const group2Offset = bp.uint16();
     expect(group0Offset).toBe(group2Offset);
-
-    // sfnt.tables.set(Vdmx.Tag, frVdmxPack);
-    // const frag = new Frag();
-    // frag.push(SfntOtf, sfnt);
-    // fs.writeFileSync(path.resolve(__dirname, "../../../../test-fonts/vdmx-rebuilt.ttf"), frag.getDataBuffer());
 });

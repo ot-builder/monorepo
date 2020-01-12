@@ -3,25 +3,25 @@ import { UInt8, Int16, UInt16 } from "@ot-builder/primitive";
 export namespace Vdmx {
     export const Tag = "VDMX";
 
-    export class RatioRange {
-        bCharSet: UInt8 = 0;
-        xRatio: UInt8 = 0;
-        yStartRatio: UInt8 = 0;
-        yEndRatio: UInt8 = 0;
+    export interface RatioRange {
+        readonly bCharSet: UInt8;
+        readonly xRatio: UInt8;
+        readonly yStartRatio: UInt8;
+        readonly yEndRatio: UInt8;
     }
 
-    export class VTableRecord {
-        yMax: Int16 = 0;
-        yMin: Int16 = 0;
+    export interface VTableRecord {
+        readonly yMax: Int16;
+        readonly yMin: Int16;
     }
 
     export class VdmxRecord {
-        ratioRange: RatioRange = new RatioRange();
+        ratioRange: RatioRange = { bCharSet: 0, xRatio: 0, yStartRatio: 0, yEndRatio: 0 };
         entries: Map<UInt16, VTableRecord> = new Map();
     }
 
     export class Table {
         constructor(public readonly version: UInt16 = 1) { }
-        records: Array<VdmxRecord> = new Array();
+        records: Array<VdmxRecord> = [];
     }
 }

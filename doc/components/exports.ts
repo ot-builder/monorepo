@@ -26,6 +26,7 @@ setPage(Ot.Os2);
 setPage(Ot.MetricHead, "Ot.Metric-Head");
 setPage(Ot.Avar);
 setPage(Ot.Gasp);
+setPage(Ot.Vdmx);
 
 setPage(Ot.Cff);
 setPage(Ot.Fpgm);
@@ -43,8 +44,6 @@ setPage(Ot.Base);
 setPage(Ot.GsubGpos, "Ot.Gsub-Gpos");
 setPage(Ot.Gsub, "Ot.Gsub-Gpos");
 setPage(Ot.Gpos, "Ot.Gsub-Gpos");
-
-setPage(Ot.Vdmx);
 
 export const FontIo = createTopLevelExport("FontIo");
 setPage(FontIo, "font-io");

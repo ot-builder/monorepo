@@ -4,12 +4,12 @@ import { UInt16 } from "@ot-builder/primitive";
 
 export const VdmxRatioRange = {
     read(bp: BinaryView) {
-        const r = new Vdmx.RatioRange();
-        r.bCharSet = bp.uint8();
-        r.xRatio = bp.uint8();
-        r.yStartRatio = bp.uint8();
-        r.yEndRatio = bp.uint8();
-        return r;
+        return {
+            bCharSet: bp.uint8(),
+            xRatio: bp.uint8(),
+            yStartRatio: bp.uint8(),
+            yEndRatio: bp.uint8(),
+        };
     },
 
     write(b: Frag, r: Vdmx.RatioRange) {
@@ -27,31 +27,29 @@ export const VdmxGroup = {
         bp.uint8(); // skip `startsz`
         bp.uint8(); // skip `endsz`
 
-        for (var i = 0; i < recs; i++) {
+        for (let recIndex = 0; recIndex < recs; recIndex++) {
             const yPelHeight = bp.uint16();
-            const record = new Vdmx.VTableRecord();
-            record.yMax = bp.int16();
-            record.yMin = bp.int16();
-            entries.set(yPelHeight, record);
+            entries.set(yPelHeight, {
+                yMax: bp.int16(),
+                yMin: bp.int16(),
+            });
         }
         return entries;
     },
 
     write(b: Frag, entries: Map<UInt16, Vdmx.VTableRecord>) {
         const recs = entries.size;
-        const sorted = [...entries.keys()].sort((a, b) => a - b);
-        const startsz = sorted[0] || 0;
-        const endsz = sorted[recs - 1] || 0;
+        const sorted = [...entries].sort((a, b) => a[0] - b[0]);
+        const startsz = recs ? sorted[0][0] : 0;
+        const endsz = recs ? sorted[recs - 1][0] : 0;
         b.uint16(recs);
         b.uint8(startsz);
         b.uint8(endsz);
 
-        for (var i = 0; i < recs; i++) {
-            const yPelHeight = sorted[i];
-            const record = entries.get(yPelHeight)!;
-            b.uint16(yPelHeight);
-            b.int16(record.yMax);
-            b.int16(record.yMin);
+        for (const entry of sorted) {
+            b.uint16(entry[0]); // yPelHeight
+            b.int16(entry[1].yMax);
+            b.int16(entry[1].yMin);
         }
     }
 }
@@ -60,42 +58,41 @@ export const VdmxTableIo = {
     read(view: BinaryView) {
         const version = view.uint16();
         const table = new Vdmx.Table(version);
-
         view.uint16(); // skip `numRecs`
         const numRatios = view.uint16();
 
-        for (var i = 0; i < numRatios; i++) {
+        for (let ratioIndex = 0; ratioIndex < numRatios; ratioIndex++) {
             const ratio = view.next(VdmxRatioRange);
             const group = new Vdmx.VdmxRecord();
             group.ratioRange = ratio;
             table.records.push(group);
         }
 
-        for (var i = 0; i < numRatios; i++) {
+        for (let groupIndex = 0; groupIndex < numRatios; groupIndex++) {
             const entries = view.ptr16().next(VdmxGroup);
-            table.records[i].entries = entries;
+            table.records[groupIndex].entries = entries;
         }
         return table;
     },
 
     write(frag: Frag, table: Vdmx.Table) {
         const numRatios = table.records.length;
-
         frag.uint16(table.version);
         const numRecsReserve = frag.reserve(UInt16);
         frag.uint16(numRatios);
 
-        for (var i = 0; i < numRatios; i++) {
-            frag.push(VdmxRatioRange, table.records[i].ratioRange);
+        const groups = new Array<Frag>();
+        for (let record of table.records) {
+            frag.push(VdmxRatioRange, record.ratioRange);
+            groups.push(Frag.from(VdmxGroup, record.entries));
         }
 
-        const groups = new Array<Frag>();
-        for (var i = 0; i < numRatios; i++) {
-            const group = frag.ptr16New();
-            group.push(VdmxGroup, table.records[i].entries);
-            groups.push(group);
-        }
+        const headerSize = frag.size + UInt16.size * numRatios;
         const groupPack = Frag.packMany(groups);
+        for (const offset of groupPack.rootOffsets)
+            frag.uint16(offset + headerSize);
+        frag.bytes(groupPack.buffer);
+
         const numRecs = new Set(groupPack.rootOffsets).size;
         numRecsReserve.fill(numRecs);
     }

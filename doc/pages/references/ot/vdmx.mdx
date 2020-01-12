@@ -21,25 +21,25 @@ export default Layout
 
 ## Support Types
 
-### Class <Decl s={Ot.Vdmx.RatioRange}/>
-
-#### Properties
-
-* <Member s={Ot.Vdmx.RatioRange.bCharSet} type={number}/>
-* <Member s={Ot.Vdmx.RatioRange.xRatio} type={number}/>
-* <Member s={Ot.Vdmx.RatioRange.yStartRatio} type={number}/>
-* <Member s={Ot.Vdmx.RatioRange.yEndRatio} type={number}/>
-
-### Class <Decl s={Ot.Vdmx.VTableRecord}/>
-
-#### Properties
-
-* <Member s={Ot.Vdmx.VTableRecord.yMax} type={number}/>
-* <Member s={Ot.Vdmx.VTableRecord.yMin} type={number}/>
-
 ### Class <Decl s={Ot.Vdmx.VdmxRecord}/>
 
 #### Properties
 
-* <Member s={Ot.Vdmx.VdmxRecord.RatioRange} type={Ot.Vdmx.RatioRange}/>
+* <Member s={Ot.Vdmx.VdmxRecord.ratioRange} type={Ot.Vdmx.RatioRange}/>
 * <Member s={Ot.Vdmx.VdmxRecord.entries} type={map(number,Ot.Vdmx.VTableRecord)}/>
+
+### Interface <Decl s={Ot.Vdmx.RatioRange}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Vdmx.RatioRange.bCharSet} type={number}/>
+* <Member readonly s={Ot.Vdmx.RatioRange.xRatio} type={number}/>
+* <Member readonly s={Ot.Vdmx.RatioRange.yStartRatio} type={number}/>
+* <Member readonly s={Ot.Vdmx.RatioRange.yEndRatio} type={number}/>
+
+### Interface <Decl s={Ot.Vdmx.VTableRecord}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Vdmx.VTableRecord.yMax} type={number}/>
+* <Member readonly s={Ot.Vdmx.VTableRecord.yMin} type={number}/>
