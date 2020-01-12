@@ -26,6 +26,7 @@ setPage(Ot.Os2);
 setPage(Ot.MetricHead, "Ot.Metric-Head");
 setPage(Ot.Avar);
 setPage(Ot.Gasp);
+setPage(Ot.Vdmx);
 
 setPage(Ot.Cff);
 setPage(Ot.Fpgm);

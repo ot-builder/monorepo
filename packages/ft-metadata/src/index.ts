@@ -8,6 +8,7 @@ import { Maxp } from "./maxp";
 import { MetricHead } from "./metric-head";
 import { Os2 } from "./os2";
 import { Post } from "./post";
+import { Vdmx } from "./vdmx";
 
 export * from "./fvar";
 export * from "./head";
@@ -17,6 +18,7 @@ export * from "./post";
 export * from "./metric-head";
 export * from "./avar";
 export * from "./gasp";
+export * from "./vdmx";
 
 export interface OtFontMetadata {
     head: Head.Table;
@@ -28,6 +30,7 @@ export interface OtFontMetadata {
     vhea?: Data.Maybe<MetricHead.Table>;
     avar?: Data.Maybe<Avar.Table>;
     gasp?: Data.Maybe<Gasp.Table>;
+    vdmx?: Data.Maybe<Vdmx.Table>;
 }
 
 export interface OtFontIoMetadata extends OtFontMetadata {
