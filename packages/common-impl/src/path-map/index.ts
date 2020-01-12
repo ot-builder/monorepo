@@ -52,7 +52,7 @@ class PathMapLensImpl<Step, Value> implements PathMapLens<Step, Value> {
             return existing;
         }
     }
-    public getOrAlloc<R extends any[] = []>(alloc: Allocator<Value, R>, ...r: R) {
+    public getOrAlloc<R extends unknown[] = []>(alloc: Allocator<Value, R>, ...r: R) {
         const existing = this.current.value;
         if (existing === undefined) {
             const value = alloc.next(...r);

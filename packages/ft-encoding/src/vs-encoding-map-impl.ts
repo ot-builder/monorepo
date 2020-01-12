@@ -34,7 +34,7 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G> {
     }
     public delete(code: number, vs: number) {
         this.sizeCache = undefined;
-        let blossom = this.mapping.get(vs);
+        const blossom = this.mapping.get(vs);
         if (blossom) {
             blossom.delete(code);
             if (!blossom.size) this.mapping.delete(vs);

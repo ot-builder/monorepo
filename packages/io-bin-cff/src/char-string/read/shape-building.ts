@@ -23,8 +23,8 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         }
     }
     public addHintMask(isCounterMask: boolean, flags: number[]) {
-        let ssHorizontal = new Set<OtGlyph.CffHintStem>();
-        let ssVertical = new Set<OtGlyph.CffHintStem>();
+        const ssHorizontal = new Set<OtGlyph.CffHintStem>();
+        const ssVertical = new Set<OtGlyph.CffHintStem>();
         for (let sid = 0; sid < this.stemQuantity; sid++) {
             const masked = flags[sid];
             if (sid < this.hints.hStems.length) {

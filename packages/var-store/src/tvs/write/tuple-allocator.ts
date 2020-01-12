@@ -11,7 +11,7 @@ export class TupleAllocator {
     private size = 0;
 
     public allocate(tuple: F2D14[]) {
-        let existing = this.store.get(tuple);
+        const existing = this.store.get(tuple);
         if (existing) {
             return existing;
         } else {
@@ -22,7 +22,7 @@ export class TupleAllocator {
     }
 
     public *storage() {
-        let a: F2D14[][] = [];
+        const a: F2D14[][] = [];
         for (const ts of this.store.values()) {
             a[ts.index] = ts.tuple;
         }

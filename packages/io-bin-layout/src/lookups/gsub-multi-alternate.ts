@@ -44,7 +44,7 @@ const SubtableFormat1 = {
         frag.uint16(1);
         frag.push(Ptr16GidCoverage, gidList);
         frag.uint16(values.length);
-        for (let to of values) {
+        for (const to of values) {
             const fSeq = frag.ptr16New();
             fSeq.uint16(to.length);
             fSeq.array(
@@ -95,7 +95,7 @@ class GsubMultiAlternateWriterBase {
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         let state = new State();
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
         for (const [from, to] of lookup.mapping) {
             if (state.tryAddMapping(from, to)) continue;
             this.flush(frags, state, ctx);

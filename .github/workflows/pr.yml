@@ -34,7 +34,7 @@ jobs:
         npm run test
       env:
         CI: true
-  
+
   production-build:
     name: PR Production Build
     runs-on: ${{ matrix.os }}
@@ -83,6 +83,31 @@ jobs:
     - name: Check change-file
       run: |
         npm run beachball:check
+      env:
+        CI: true
+
+  pr-lint:
+    name: PR Change File Check
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x] # Current and LTS. No history versions
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: NPM Setup
+      run: |
+        npm run boot
+      env:
+        CI: true
+    - name: Check change-file
+      run: |
+        npm run lint
       env:
         CI: true
 

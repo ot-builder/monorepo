@@ -13,14 +13,14 @@ export class StandardOtGlyphNamer implements OtGlyphNamer {
         }
 
         let suffix = 2;
-        do {
+        for (;;) {
             const amendedName = name + "." + suffix;
             if (!this.existingNames.has(amendedName)) {
                 this.existingNames.add(amendedName);
                 return name;
             }
             suffix += 1;
-        } while (true);
+        }
     }
     private nameByPost(source: OtGlyphNamingSource, gid: number, glyph: OtGlyph) {
         if (!source.post) return null;

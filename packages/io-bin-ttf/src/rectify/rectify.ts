@@ -4,7 +4,7 @@ import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
-    let gs = new Set<OtGlyph>();
+    const gs = new Set<OtGlyph>();
     for (const glyph of gOrd) {
         rectifyGlyph(glyph, gs);
     }
@@ -48,7 +48,7 @@ class AttachmentPointToCoordAlg {
     }
     public geometryList(processes: PointAttachmentHandler[]): PointAttachmentHandler {
         return (st: PointAttachmentHandlerState) => {
-            let children: OtGlyph.Geometry[] = [];
+            const children: OtGlyph.Geometry[] = [];
             for (const proc of processes) {
                 children.push(proc(st));
             }
@@ -60,7 +60,7 @@ class AttachmentPointToCoordAlg {
         return (st: PointAttachmentHandlerState) => {
             rectifyGlyph(ref.to, this.gs);
             let tfm = ref.transform;
-            let innerPoints = OtGeometryHandler.stat(OtGeometryHandler.ListPoint, ref.to.geometry);
+            const innerPoints = OtGeometryHandler.stat(OtGeometryHandler.ListPoint, ref.to.geometry);
             if (ref.pointAttachment) {
                 const zOut = st.points[ref.pointAttachment.outer.pointIndex];
                 const zIn = innerPoints[ref.pointAttachment.inner.pointIndex];

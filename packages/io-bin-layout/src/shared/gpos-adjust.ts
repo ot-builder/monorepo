@@ -1,3 +1,4 @@
+import * as crypto from "crypto";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Gpos, LayoutCommon } from "@ot-builder/ft-layout";
@@ -5,7 +6,6 @@ import { Data } from "@ot-builder/prelude";
 import { Int16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
-import * as crypto from "crypto";
 
 import { Ptr16DeviceTable } from "./device-table";
 
@@ -191,7 +191,7 @@ export const GposAdjustment = {
 };
 
 function BufFromInt(x: number) {
-    let buf = Buffer.allocUnsafe(4);
+    const buf = Buffer.allocUnsafe(4);
     buf.writeUInt32BE(x, 0);
     return buf;
 }

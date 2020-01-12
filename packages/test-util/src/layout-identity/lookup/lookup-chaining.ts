@@ -15,7 +15,7 @@ export namespace ChainingLookupIdentity {
         if (rExp.inputEnds !== rAct.inputEnds) return false;
         if (rExp.applications.length !== rAct.applications.length) return false;
 
-        for (let [sa, sb] of ImpLib.Iterators.ZipWithIndex(rExp.match, rAct.match)) {
+        for (const [sa, sb] of ImpLib.Iterators.ZipWithIndex(rExp.match, rAct.match)) {
             for (const g of sa) if (!sb.has(bmg.glyphs.forward(g))) return false;
             for (const g of sb) if (!sa.has(bmg.glyphs.reward(g))) return false;
         }

@@ -64,15 +64,8 @@ export namespace OtGlyphStat {
         x3: number,
         y3: number
     ) {
-        let tValues = [],
-            a,
-            b,
-            c,
-            t,
-            t1,
-            t2,
-            b2ac,
-            sqrtB2AC;
+        const tValues: number[] = [];
+        let a, b, c, t, t1, t2, b2ac, sqrtB2AC;
         for (let extremaIndex = 0; extremaIndex < 2; ++extremaIndex) {
             if (extremaIndex === 0) {
                 b = 6 * x0 - 12 * x1 + 6 * x2;

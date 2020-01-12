@@ -43,8 +43,8 @@ const PascalString = {
 
 function nameGlyphPostVersion2(bp: BinaryView) {
     const numGlyphs = bp.uint16();
-    let glyphNameIDList = [];
-    let extraGlyphNameMap = new Map<number, string>();
+    const glyphNameIDList = [];
+    const extraGlyphNameMap = new Map<number, string>();
     let maxNewGlyphNameID = -1;
     for (let gid = 0; gid < numGlyphs; gid++) {
         glyphNameIDList[gid] = bp.uint16();
@@ -60,7 +60,7 @@ function nameGlyphPostVersion2(bp: BinaryView) {
         }
     }
 
-    let glyphNames = new Map<number, string>();
+    const glyphNames = new Map<number, string>();
 
     for (let gid = 0; gid < numGlyphs; gid++) {
         const nameID = glyphNameIDList[gid];
@@ -130,8 +130,8 @@ const PostVersion2NameList = Write(
     (frag: Frag, glyphCount: number, nameSource: Data.Naming.Source<number>) => {
         frag.uint16(glyphCount);
         // Collect "new" glyph names
-        let glyphNameMap = new Map<string, number>(coMacGlyphNames);
-        let newGlyphNames: string[] = [];
+        const glyphNameMap = new Map<string, number>(coMacGlyphNames);
+        const newGlyphNames: string[] = [];
         // glyphNameIndex
         for (let gid = 0; gid < glyphCount; gid++) {
             const glyphName = nameSource.getName(gid);

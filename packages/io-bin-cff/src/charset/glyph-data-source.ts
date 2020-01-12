@@ -28,7 +28,7 @@ export class CffCidCharSetSource implements CffCharSetDataSource {
         private readonly cidMap: Data.Maybe<Map<number, OtGlyph>>
     ) {}
     public getMappingList() {
-        let results: number[] = [];
+        const results: number[] = [];
         if (!this.cidMap) {
             for (let gid = 0; gid < this.gOrd.length; gid++) {
                 results.push(gid);

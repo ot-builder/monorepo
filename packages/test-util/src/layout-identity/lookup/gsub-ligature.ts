@@ -56,7 +56,7 @@ export namespace GsubLigatureLookupIdentity {
         processed: Set<number>,
         mappings: ReadonlyArray<Gsub.LigatureEntry>
     ) {
-        let results: Gsub.LigatureEntry[] = [];
+        const results: Gsub.LigatureEntry[] = [];
         for (let rid = 0; rid < mappings.length; rid++) {
             if (processed.has(rid)) continue;
             const initial = mappings[rid].from[0];

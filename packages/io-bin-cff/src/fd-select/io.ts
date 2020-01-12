@@ -57,7 +57,7 @@ class FdSelectFormat34WriteState {
     }
     public flush() {
         this.frag.push(this.wGid, this.ranges.length);
-        for (let [gid, fdId] of this.ranges) {
+        for (const [gid, fdId] of this.ranges) {
             this.frag.push(this.wGid, gid);
             this.frag.push(this.wFdId, fdId);
         }
@@ -69,7 +69,7 @@ const FdSelectFormat34 = {
     ...Read((view, rGid: Read<number>, rFdId: Read<number>, sink: CffFdSelectSink) => {
         const nGlyphs = sink.getGlyphCount();
         const nRanges = view.next(rGid);
-        let st = new FdSelectFormat34ReadState(sink);
+        const st = new FdSelectFormat34ReadState(sink);
         for (let ixRange = 0; ixRange < nRanges; ixRange++) {
             const gid = view.next(rGid);
             const fdId = view.next(rFdId);

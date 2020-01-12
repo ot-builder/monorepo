@@ -103,7 +103,7 @@ export class HmtxCoStat implements OtGlyph.CoStat.Source {
                 start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.hvar.measures[gid].start));
             }
         }
-        let end: OtVar.Value = OtVar.Ops.add(
+        const end: OtVar.Value = OtVar.Ops.add(
             start,
             OtVar.Ops.add(
                 this.hmtx.measures[gid].advance,

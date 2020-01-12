@@ -38,17 +38,18 @@ function parseCffShortInt(view: BinaryView, leadByte: number) {
 export class CffDictIrSource extends BinaryIrSource {
     protected cffDictNibbles() {
         // CFF nibbles
-        let nibs: number[] = [];
-        while (true) {
-            let b = this.view.uint8();
-            let nib0 = b >> 4,
+        const nibs: number[] = [];
+        for (;;) {
+            const b = this.view.uint8();
+            const nib0 = b >> 4,
                 nib1 = b & 0xf;
             if (nib0 !== 0xf) nibs.push(nib0);
             if (nib1 !== 0xf) nibs.push(nib1);
             if (nib0 === 0xf || nib1 === 0xf) break;
         }
         let s = "";
-        let chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ".", "e", "e-", "reserved", "-", "endOfNumber"];
+        // prettier-ignore
+        const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ".", "e", "e-", "reserved", "-", "endOfNumber"];
         for (let nibIndex = 0; nibIndex < nibs.length; nibIndex++) {
             s += chars[nibs[nibIndex]];
         }

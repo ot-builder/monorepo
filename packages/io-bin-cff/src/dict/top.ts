@@ -43,13 +43,14 @@ export class CffTopDictInterpreter extends CffFontDictInterpreterBase
             case CffOperator.Encoding:
                 this.st.pop(); // Ignore
                 break;
-            case CffOperator.ROS:
+            case CffOperator.ROS: {
                 const cid = new Cff.CID();
                 cid.supplement = OtVar.Ops.originOf(this.st.pop());
                 cid.ordering = this.popString();
                 cid.registry = this.popString();
                 this.td.cidROS = cid;
                 break;
+            }
             default:
                 return super.doOperator(opCode, flags);
         }

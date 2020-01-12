@@ -39,7 +39,7 @@ export class OtVarMaster<A extends VarianceDim> implements VarianceMaster<A> {
     public readonly regions: readonly OtVarMasterDim<A>[];
 
     constructor(init: Iterable<null | undefined | OtVarMasterDim<A>>) {
-        let regions: OtVarMasterDim<A>[] = [];
+        const regions: OtVarMasterDim<A>[] = [];
         for (const r of init) if (r) regions.push(r);
         this.regions = regions;
     }

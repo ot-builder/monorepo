@@ -192,11 +192,11 @@ class CmapFormat4Writer {
     }
 
     private collectArrays() {
-        let endCode: UInt16[] = [];
-        let startCode: UInt16[] = [];
-        let idDelta: Int16[] = [];
-        let idRangeOffset: UInt16[] = [];
-        let glyphIdArray: UInt16[] = [];
+        const endCode: UInt16[] = [];
+        const startCode: UInt16[] = [];
+        const idDelta: Int16[] = [];
+        const idRangeOffset: UInt16[] = [];
+        const glyphIdArray: UInt16[] = [];
 
         for (let rid = 0; rid < this.runs.length; rid++) {
             const run = this.runs[rid];

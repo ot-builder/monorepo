@@ -47,7 +47,7 @@ const NameRecord = {
         frag.uint16(rec.nameID);
         let buf: null | Buffer = null;
         if (typeof rec.value === "string") {
-            let enc = SupportedEncoding(rec.platformID, rec.encodingID);
+            const enc = SupportedEncoding(rec.platformID, rec.encodingID);
             if (enc) buf = iconv.encode(rec.value, enc);
         } else {
             buf = rec.value;
@@ -66,7 +66,7 @@ const LangTagRecord = {
         return iconv.decode(buf, `utf16-be`);
     },
     write(frag: Frag, ltr: string, alloc: NameOffsetAllocator) {
-        let buf = iconv.encode(ltr, `utf16-be`);
+        const buf = iconv.encode(ltr, `utf16-be`);
         frag.uint16(buf.byteLength);
         frag.uint16(alloc.add(buf));
     }

@@ -126,7 +126,7 @@ export class UnicodeVS implements SubtableHandler {
             if (glyph !== DefaultGlyph) {
                 cmap.vs.set(code, sel, glyph);
             } else {
-                let defaultG = cmap.unicode.get(code);
+                const defaultG = cmap.unicode.get(code);
                 if (defaultG) cmap.vs.set(code, sel, defaultG);
             }
         }

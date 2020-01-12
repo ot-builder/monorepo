@@ -11,12 +11,12 @@ function ByPlatform(a: SubtableAssignment, b: SubtableAssignment) {
 }
 
 export const WriteCmap = Write((frag, cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) => {
-    let assignments: SubtableAssignment[] = [];
+    const assignments: SubtableAssignment[] = [];
     for (const handlerF of SubtableHandlers) {
         const handler = handlerF();
         const fgSubtable = handler.writeOpt(cmap, gOrd);
         if (fgSubtable) {
-            let handlerAsg = handler.createAssignments(fgSubtable);
+            const handlerAsg = handler.createAssignments(fgSubtable);
             for (const asg of handlerAsg) assignments.push(asg);
         }
     }

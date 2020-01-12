@@ -1,28 +1,28 @@
+import * as crypto from "crypto";
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
-import * as crypto from "crypto";
 
 import { Sized } from "./binary-view";
 import { BufferWriter } from "./buffer-writer";
 import { SizeofUInt16, SizeofUInt32 } from "./primitive-types";
 
-export interface Write<T, A extends any[] = []> {
+export interface Write<T, A extends unknown[] = []> {
     write(target: Frag, t: T, ...args: A): void;
 }
-export interface WriteOpt<T, A extends any[] = []> {
+export interface WriteOpt<T, A extends unknown[] = []> {
     writeOpt(t: T, ...args: A): Data.Maybe<Frag>;
 }
-export function Write<T, A extends any[] = []>(
+export function Write<T, A extends unknown[] = []>(
     proc: (frag: Frag, t: T, ...args: A) => void
 ): Write<T, A> {
     return { write: proc };
 }
-export function WriteOpt<T, A extends any[] = []>(
+export function WriteOpt<T, A extends unknown[] = []>(
     proc: (t: T, ...args: A) => Data.Maybe<Frag>
 ): WriteOpt<T, A> {
     return { writeOpt: proc };
 }
-export interface FragHole<T, A extends any[] = []> {
+export interface FragHole<T, A extends unknown[] = []> {
     fill(p: T, ...args: A): void;
 }
 
@@ -75,7 +75,7 @@ export class Frag {
     get size() {
         return this.bw.length;
     }
-    public push<T, A extends any[], TW extends T, AW extends A>(
+    public push<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         obj: TW,
         ...args: AW
@@ -83,29 +83,29 @@ export class Frag {
         builder.write(this, obj, ...args);
         return this;
     }
-    public array<T, A extends any[], TW extends T, AW extends A>(
+    public array<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         objects: readonly TW[],
         ...args: AW
     ) {
-        for (let obj of objects) {
+        for (const obj of objects) {
             builder.write(this, obj, ...args);
         }
         return this;
     }
-    public arrayN<T, A extends any[], TW extends T, AW extends A>(
+    public arrayN<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         count: number,
         objects: readonly TW[],
         ...args: AW
     ) {
         for (let index = 0; index < count; index++) {
-            let obj = objects[index];
+            const obj = objects[index];
             builder.write(this, obj, ...args);
         }
         return this;
     }
-    public arrayNF<T, A extends any[], TW extends T, AW extends A>(
+    public arrayNF<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         count: number,
         objects: readonly (TW | undefined)[],
@@ -119,18 +119,16 @@ export class Frag {
         }
         return this;
     }
-    public reserve<T, A extends any[], TW extends T, AW extends A>(
+    public reserve<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A> & Sized
     ): FragHole<T, A> {
-        const self = this;
         const offset = this.bw.currentOffset;
-        // Fill 0
-        for (let mu = 0; mu < builder.size; mu++) this.uint8(0);
+        for (let mu = 0; mu < builder.size; mu++) this.uint8(0); // Fill 0
         return {
-            fill(obj: TW, ...args: AW) {
-                const curOffset = self.bw.seek(offset);
-                self.push<T, A, TW, AW>(builder, obj, ...args);
-                self.bw.seek(curOffset);
+            fill: (obj: TW, ...args: AW) => {
+                const curOffset = this.bw.seek(offset);
+                this.push<T, A, TW, AW>(builder, obj, ...args);
+                this.bw.seek(curOffset);
             }
         };
     }
@@ -239,21 +237,21 @@ export class Frag {
     }
 
     // Generic initializer
-    public static from<T, A extends any[], TW extends T, AW extends A>(
+    public static from<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         t: TW,
         ...a: AW
     ) {
         return new Frag().push<T, A, TW, AW>(builder, t, ...a);
     }
-    public static packFrom<T, A extends any[], TW extends T, AW extends A>(
+    public static packFrom<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         t: TW,
         ...a: AW
     ) {
         return Frag.pack(new Frag().push<T, A, TW, AW>(builder, t, ...a));
     }
-    public static solidFrom<T, A extends any[], TW extends T, AW extends A>(
+    public static solidFrom<T, A extends unknown[], TW extends T, AW extends A>(
         builder: Write<T, A>,
         t: TW,
         ...a: AW
@@ -289,7 +287,10 @@ export class Frag {
     }
 }
 
-function byRank<F>([, rank1, index1]: [F, number, number], [, rank2, index2]: [F, number, number]) {
+function byRank<F>(
+    [, rank1, index1]: [F, number, number],
+    [, rank2, index2]: [F, number, number]
+) {
     return rank1 - rank2 || index1 - index2;
 }
 
@@ -350,7 +351,7 @@ class Packing {
 
     private allocateOffsets(root: Frag) {
         const sorted = new Sorter().sort(root);
-        let offsets = new Map<Frag, number>();
+        const offsets = new Map<Frag, number>();
         let currentOffset = 0;
         for (const b of sorted) {
             offsets.set(b, currentOffset);
@@ -375,10 +376,10 @@ class Packing {
         do {
             overflows = 0;
             offsets = this.allocateOffsets(root);
-            for (let frag of offsets.keys()) {
-                for (let ptr of frag.pointers) {
-                    let targetValue = this.getPointerOffset(offsets, frag, ptr);
-                    let maxPtrValue = ptr.size === 4 ? 0x100000000 : 0x10000;
+            for (const frag of offsets.keys()) {
+                for (const ptr of frag.pointers) {
+                    const targetValue = this.getPointerOffset(offsets, frag, ptr);
+                    const maxPtrValue = ptr.size === 4 ? 0x100000000 : 0x10000;
                     if (targetValue < 0 || (ptr.to && targetValue === 0)) {
                         throw Errors.Binary.PointerUnderflow();
                     }
@@ -415,10 +416,10 @@ class Packing {
 
     private serialize(offsets: Map<Frag, number>) {
         const b = new BufferWriter();
-        for (let [block, offset] of offsets) {
+        for (const [block, offset] of offsets) {
             b.seek(offset);
             b.bytes(block.getDataBuffer());
-            for (let ptr of block.pointers) {
+            for (const ptr of block.pointers) {
                 this.writePointer(b, offset, ptr, this.getPointerOffset(offsets, block, ptr));
             }
         }

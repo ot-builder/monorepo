@@ -10,10 +10,10 @@
   },
   "references": [
     {
-    "path": "../errors/tsconfig.prod.json"
+      "path": "../errors/tsconfig.prod.json"
     },
     {
-    "path": "../prelude/tsconfig.prod.json"
+      "path": "../prelude/tsconfig.prod.json"
     }
   ],
   "include": [

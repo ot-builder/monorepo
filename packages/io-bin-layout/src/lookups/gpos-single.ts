@@ -109,7 +109,7 @@ class GsubSingleWriterState {
         a[1].push(gid);
     }
     public collectJagged(singleSubtable: boolean) {
-        let out: [number, Gpos.Adjustment][] = [];
+        const out: [number, Gpos.Adjustment][] = [];
         for (const [h, [adj, gids]] of this.mappings) {
             if (singleSubtable || gids.length < 8) {
                 this.mappings.delete(h);
@@ -134,7 +134,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         let size = 0,
             picks = 0;
         for (const [gid, adj] of jagged) {
-            let dSize = UInt16.size + GposAdjustment.measure(adj, fmt);
+            const dSize = UInt16.size + GposAdjustment.measure(adj, fmt);
             if (size + dSize > SubtableSizeLimit) break;
             size += dSize;
             picks += 1;
@@ -173,7 +173,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         for (const [from, to] of lookup.adjustments) {
             st.addRecord(ctx.gOrd.reverse(from), to, ctx);
         }
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
 
         // jagged
         const jagged = st.collectJagged(singleLookup);

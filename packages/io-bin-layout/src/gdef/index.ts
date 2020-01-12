@@ -18,12 +18,12 @@ export const GdefTableIo = {
         const minorVersion = view.uint16();
         Assert.SubVersionSupported(`GDEF`, majorVersion, minorVersion, [1, 0], [1, 2], [1, 3]);
 
-        let pGlyphClassDef = view.ptr16Nullable();
-        let pAttachList = view.ptr16Nullable();
-        let pLigCaretList = view.ptr16Nullable();
-        let pMarkAttachClassDef = view.ptr16Nullable();
-        let pMarkGlyphSetsDef = minorVersion >= 2 ? view.ptr16Nullable() : null;
-        let pIVS = minorVersion >= 3 ? view.ptr32Nullable() : null;
+        const pGlyphClassDef = view.ptr16Nullable();
+        const pAttachList = view.ptr16Nullable();
+        const pLigCaretList = view.ptr16Nullable();
+        const pMarkAttachClassDef = view.ptr16Nullable();
+        const pMarkGlyphSetsDef = minorVersion >= 2 ? view.ptr16Nullable() : null;
+        const pIVS = minorVersion >= 3 ? view.ptr32Nullable() : null;
 
         const ivs = pIVS && designSpace ? pIVS.next(ReadTimeIVS, designSpace) : null;
         const gdef = new Gdef.Table();

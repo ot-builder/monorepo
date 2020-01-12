@@ -92,7 +92,7 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
     public createSubtableFragments(lookup: Gpos.Pair, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const cm = ClassMatrix.analyze(lookup.adjustments, ctx);
         const outliers = analyzeOutlier(cm);
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
         this.writeOutliers(frags, outliers, ctx, 0);
         this.writeClasses(frags, cm, ctx, 0);
         return frags.filter(f => f.size > 0); // Remove empty fragments
@@ -102,7 +102,7 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
 // Structs
 const SubtableFormat1 = {
     write(frag: Frag, dt: OutlierTree<OtGlyph>, ctx: SubtableWriteContext<Gpos.Lookup>) {
-        let plans: [number, Gpos.AdjustmentPair][][] = [];
+        const plans: [number, Gpos.AdjustmentPair][][] = [];
         let format1 = 0;
         let format2 = 0;
         for (const [g1, m] of dt.mapping) {
@@ -119,7 +119,7 @@ const SubtableFormat1 = {
             }
         }
 
-        let cov: number[] = [];
+        const cov: number[] = [];
         frag.uint16(1);
         const fCoverage = frag.ptr16New();
         frag.uint16(format1).uint16(format2);
@@ -194,9 +194,9 @@ class FinalClassMatrix {
     }
 
     private static getClassRelocationM(cc: OtGlyph[][]) {
-        let cc1 = cc.map((gs, cl) => [cl, gs] as [number, OtGlyph[]]);
+        const cc1 = cc.map((gs, cl) => [cl, gs] as [number, OtGlyph[]]);
         cc1.sort((a, b) => b[1].length - a[1].length);
-        let forward: number[] = [];
+        const forward: number[] = [];
         let clf = 0;
         for (const [cl, gs] of cc1) {
             if (gs && gs.length) {

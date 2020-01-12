@@ -10,7 +10,7 @@ export namespace ClassDefUtil {
         if (!cd.has(g)) cd.set(g, 0);
     }
     export function SplitClassDef<G>(cd: LayoutCommon.ClassDef.T<G>) {
-        let ans: G[][] = [];
+        const ans: G[][] = [];
         for (const [g, cl] of cd) {
             if (!ans[cl]) ans[cl] = [];
             ans[cl].push(g);
@@ -27,14 +27,14 @@ export namespace ClassDefUtil {
 export const ClassDef = {
     read(view: BinaryView, gOrd: Data.Order<OtGlyph>) {
         const gidCD = view.next(GidClassDef);
-        let mapping: LayoutCommon.ClassDef.T<OtGlyph> = new Map();
+        const mapping: LayoutCommon.ClassDef.T<OtGlyph> = new Map();
         for (const [gid, cls] of gidCD) {
             mapping.set(gOrd.at(gid), cls);
         }
         return mapping;
     },
     write(frag: Frag, cd: Iterable<[OtGlyph, number]>, gOrd: Data.Order<OtGlyph>) {
-        let gidMap: [number, number][] = [];
+        const gidMap: [number, number][] = [];
         for (const [glyph, cls] of cd) {
             gidMap.push([gOrd.reverse(glyph), cls]);
         }
@@ -86,8 +86,8 @@ const OtGidClassDefFormat1 = {
     }),
     ...WriteOpt((mapping: Iterable<[number, number]>) => {
         let minGID: number | null = null,
-            maxGID: number | null = null,
-            clsMap: Map<number, number> = new Map();
+            maxGID: number | null = null;
+        const clsMap: Map<number, number> = new Map();
         for (const [gid, cl] of mapping) {
             if (minGID == null || gid < minGID) minGID = gid;
             if (maxGID == null || gid > maxGID) maxGID = gid;
@@ -95,7 +95,7 @@ const OtGidClassDefFormat1 = {
         }
         if (minGID == null || maxGID == null) return null;
 
-        let f = new Frag();
+        const f = new Frag();
         f.uint16(1);
         f.uint16(minGID);
         f.uint16(maxGID - minGID + 1);

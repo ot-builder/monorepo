@@ -69,7 +69,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
             if (org == null) this.vorg.vertOriginYMetrics[gid] = this.vorg.defaultVertOriginY;
         }
 
-        let freq: number[] = [];
+        const freq: number[] = [];
         for (let gid = 0; gid < this.vorg.vertOriginYMetrics.length; gid++) {
             const org = this.vorg.vertOriginYMetrics[gid];
             if (org == null || org < 0) continue;
@@ -79,7 +79,10 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
             maxFreqVorg = 0;
         for (let org = 0; org < freq.length; org++) {
             const f = freq[org] || 0;
-            if (f >= maxFreq) maxFreqVorg = org;
+            if (f >= maxFreq) {
+                maxFreqVorg = org;
+                maxFreq = f;
+            }
         }
         this.vorg.defaultVertOriginY = maxFreqVorg;
         for (let gid = 0; gid < this.vorg.vertOriginYMetrics.length; gid++) {
@@ -118,7 +121,7 @@ export class VmtxCoStat implements OtGlyph.CoStat.Source {
         if (this.vvar) {
             start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.vvar.measures[gid].start));
         }
-        let end: OtVar.Value = OtVar.Ops.minus(
+        const end: OtVar.Value = OtVar.Ops.minus(
             start,
             OtVar.Ops.add(
                 this.vmtx.measures[gid].advance,

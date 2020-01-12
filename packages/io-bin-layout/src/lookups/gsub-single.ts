@@ -92,7 +92,7 @@ class GsubSingleWriterState {
         arr.push([from, to]);
     }
     public collectJagged(singleLookup: boolean) {
-        let out: [number, number][] = [];
+        const out: [number, number][] = [];
         for (const [diff, pairs] of this.mappings) {
             if (singleLookup || pairs.length < 8) {
                 this.mappings.delete(diff);
@@ -132,7 +132,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         for (const [from, to] of lookup.mapping) {
             st.addGidDiff(ctx.gOrd.reverse(from), ctx.gOrd.reverse(to));
         }
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
 
         // jagged
         const jagged = st.collectJagged(singleLookup);

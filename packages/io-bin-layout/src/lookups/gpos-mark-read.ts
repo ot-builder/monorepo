@@ -18,7 +18,7 @@ const MarkArray = {
         const markCount = view.uint16();
         Assert.SizeMatch(`MarkArray::markCount`, markCount, cov.length);
 
-        for (let gidMark of cov) {
+        for (const gidMark of cov) {
             const markClass = view.uint16();
             const markAnchor = view.next(Ptr16GposAnchor, ctx.ivs);
 

@@ -64,7 +64,7 @@ const IVD = {
             ivd.masterIDs[index] = p.uint16();
         }
         for (const [p, jItem] of vw.repeat(itemCount)) {
-            let deltas = [];
+            const deltas = [];
             for (let jDelta = 0; jDelta < regionIndexCount; jDelta++) {
                 if (jDelta < shortDeltaCount) deltas[jDelta] = p.int16();
                 else deltas[jDelta] = p.int8();
@@ -77,7 +77,7 @@ const IVD = {
         const regionIndexCount = ivd.masterIDs.length;
         let shortDeltaCount = 0;
 
-        let deltaMatrix: number[][] = [];
+        const deltaMatrix: number[][] = [];
 
         for (const [deltas, innerID] of ivd.entries()) {
             for (let mid = shortDeltaCount; mid < regionIndexCount; mid++) {
@@ -137,7 +137,7 @@ export const WriteTimeIVS = {
     },
     ...Write((frag, ivs: WriteTimeIVS, designSpace: OtVar.DesignSpace) => {
         const masterList: OtVar.Master[] = [];
-        for (let [m, id] of ivs.masters()) masterList[id] = m;
+        for (const [m, id] of ivs.masters()) masterList[id] = m;
 
         const fr = new Frag();
         fr.uint16(1);

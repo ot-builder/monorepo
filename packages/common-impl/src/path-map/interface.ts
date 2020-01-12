@@ -24,13 +24,13 @@ export interface PathMapLens<Step, Value> {
     get(): Value | undefined;
     set(value: Value): void;
     getOrPut(value: Value): Value;
-    getOrAlloc<R extends any[] = []>(alloc: Allocator<Value, R>, ...r: R): Value;
+    getOrAlloc<R extends unknown[] = []>(alloc: Allocator<Value, R>, ...r: R): Value;
     advance(step: Step): boolean;
     focusGet(steps: Iterable<Step>): boolean;
     advanceCreate(step: Step): void;
     focus(steps: Iterable<Step>): void;
 }
 
-export interface Allocator<A, R extends any[] = []> {
+export interface Allocator<A, R extends unknown[] = []> {
     next(...args: R): A;
 }

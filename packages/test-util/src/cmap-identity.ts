@@ -12,7 +12,5 @@ export namespace CmapIdentity {
             expect(b.vs.get(code, selector)).toBe(bim.forward(glyph));
         }
     }
-
-    // tslint:disable-next-line: ext-variable-name
     export const test = StdCompare(testSingle);
 }

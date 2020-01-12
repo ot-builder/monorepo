@@ -22,7 +22,7 @@ export class ClassMatrix<G> {
     ) {}
 
     public derive() {
-        let copy = new ClassMatrix<G>([], [], this.adjStore);
+        const copy = new ClassMatrix<G>([], [], this.adjStore);
         for (const c of this.cSecond) copy.cSecond.push([...c]);
         return copy;
     }
@@ -148,9 +148,9 @@ namespace AnalyzeClassMatrixImpl {
     }
 
     function padNeutrals(cc: OtGlyph[][], ctx: SubtableWriteContext<Gpos.Lookup>) {
-        let sCov: Set<OtGlyph> = new Set();
+        const sCov: Set<OtGlyph> = new Set();
         for (const gc of cc) if (gc) for (const x of gc) sCov.add(x);
-        let outside: OtGlyph[] = [];
+        const outside: OtGlyph[] = [];
         for (const g of ctx.gOrd) if (!sCov.has(g)) outside.push(g);
         const coi: ClassOrderItem<OtGlyph>[] = [[-1, outside]]; // temporary class "-1" for outsiders
         for (let c = 0; c < cc.length; c++) {
@@ -273,14 +273,14 @@ namespace BisectClassMatrixImpl {
         cm: ClassMatrix<G>,
         allowUneven: boolean
     ): [ClassMatrix<G>, ClassMatrix<G>] {
-        let cm1 = cm.derive();
-        let cm2 = cm.derive();
+        const cm1 = cm.derive();
+        const cm2 = cm.derive();
 
         const c1MinNonZero = findRowWithMinNonZero(cm);
         if (c1MinNonZero < 0) return bisectClassMatrixEvenly(cm);
 
-        let c1DiffArray: number[] = [],
-            sumDiff = 0,
+        const c1DiffArray: number[] = [];
+        let sumDiff = 0,
             nDiff = 0;
 
         for (let c1 = 0; c1 < cm.cFirst.length; c1++) {
@@ -328,8 +328,8 @@ namespace BisectClassMatrixImpl {
     }
 
     function bisectClassMatrixEvenly<G>(cm: ClassMatrix<G>): [ClassMatrix<G>, ClassMatrix<G>] {
-        let upperHalf = cm.derive();
-        let lowerHalf = cm.derive();
+        const upperHalf = cm.derive();
+        const lowerHalf = cm.derive();
 
         const effectiveClasses = cm.getEffectiveFirstClasses();
 

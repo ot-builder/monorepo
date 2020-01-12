@@ -61,22 +61,23 @@ class FlagShrinker {
 
 // TODO: could we optimize MORE?
 function collectSimpleGlyphOutlineData(sg: SimpleGlyph) {
-    let endPtsOfContours = -1,
-        endPtsOfContoursArray = [];
+    let endPtsOfContours = -1;
+    const endPtsOfContoursArray = [];
     const shrinker = new FlagShrinker();
-    let fragX = new Frag();
-    let fragY = new Frag();
+    const fragX = new Frag();
+    const fragY = new Frag();
 
     let cx = 0,
         cy = 0;
     for (const geom of sg.outlines) {
-        for (let contour of geom.contours) {
+        for (const contour of geom.contours) {
             endPtsOfContours += contour.length;
             endPtsOfContoursArray.push(endPtsOfContours);
             for (const z of contour) {
                 const px = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(z.x));
                 const py = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(z.y));
-                let flag = z.kind === OtGlyph.PointType.Corner ? SimpleGlyphFlag.ON_CURVE_POINT : 0;
+                let flag =
+                    z.kind === OtGlyph.PointType.Corner ? SimpleGlyphFlag.ON_CURVE_POINT : 0;
 
                 flag |= FlagShrinker.decideAndWrite(
                     px - cx,
@@ -220,7 +221,7 @@ export const GlyfTableWrite = Write(
         for (const glyph of gOrd) {
             const cg = classifier.classify(glyph);
             cg.stat(stat);
-            let fGlyph = new Frag();
+            const fGlyph = new Frag();
             if (cg instanceof SimpleGlyph) {
                 fGlyph.push(SimpleGlyphData, cg);
             } else if (cg instanceof CompositeGlyph) {

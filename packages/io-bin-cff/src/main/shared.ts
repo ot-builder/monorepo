@@ -179,7 +179,7 @@ export function buildCharStrings(
 
 export function getRevFdSelect(cff: Cff.Table, gOrd: Data.Order<OtGlyph>) {
     if (!cff.fdSelect) return [];
-    let results: number[] = [];
+    const results: number[] = [];
     for (let gid = 0; gid < gOrd.length; gid++) {
         const fdId = cff.fdSelect.get(gOrd.at(gid)) || 0;
         results[gid] = fdId;

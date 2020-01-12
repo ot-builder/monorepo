@@ -29,6 +29,7 @@ import { GposSingleReader, GposSingleWriter } from "../lookups/gpos-single";
 const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> = {
     extendedFormat: 9,
     isExtendedFormat: x => x === 9,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(x: number): LookupReader<Gpos.Lookup, any> {
         switch (x) {
             case 1:
@@ -51,6 +52,7 @@ const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> 
                 throw Errors.FormatNotSupported(`GSUB lookup`, x);
         }
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     *writers(): IterableIterator<LookupWriter<Gpos.Lookup, any>> {
         yield new GposSingleWriter();
         yield new GposPairWriter();

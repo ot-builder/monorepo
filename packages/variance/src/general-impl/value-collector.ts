@@ -38,7 +38,7 @@ export class GeneralVariableValueCollector<
 
     public collect(x: X) {
         const origin = this.op.originOf(x);
-        let deltaMA: number[] = [];
+        const deltaMA: number[] = [];
         for (const [master, delta] of this.op.varianceOf(x)) {
             if (!delta) continue;
             const index = this.addMaster(master);
@@ -53,7 +53,7 @@ export class GeneralVariableValueCollector<
     }
 
     public resolveDeltas(dma: number[]) {
-        let deltas: number[] = [];
+        const deltas: number[] = [];
         for (let mu = 0; mu < this.relocation.length; mu++) {
             deltas[mu] = dma[this.relocation[mu]] || 0;
         }

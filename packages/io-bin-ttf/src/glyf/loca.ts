@@ -13,7 +13,7 @@ export const LocaTableIo = {
     read(view: BinaryView, head: Head.Table, maxp: Maxp.Table): LocaTable {
         const indexToLocFormat = head.indexToLocFormat;
         const numGlyphs = maxp.numGlyphs;
-        let offsets: number[] = [];
+        const offsets: number[] = [];
 
         for (let gid = 0; gid <= numGlyphs; gid++) {
             if (indexToLocFormat === 0) {

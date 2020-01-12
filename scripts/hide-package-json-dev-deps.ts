@@ -9,7 +9,7 @@ const packages = fs
     .readdirSync(packagesRoot)
     .filter(item => fs.lstatSync(path.join(packagesRoot, item)).isDirectory());
 
-let sInternalPackageNames: Set<string> = new Set();
+const sInternalPackageNames: Set<string> = new Set();
 
 for (const packageName of packages) {
     const packageJSONPath = path.join(packagesRoot, packageName, "package.json");

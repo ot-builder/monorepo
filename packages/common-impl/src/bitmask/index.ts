@@ -2,14 +2,14 @@ export type BitMask = boolean[];
 export type ReadonlyBitMask = ReadonlyArray<boolean>;
 export namespace BitMask {
     export function Falses(n: number) {
-        let mask: BitMask = [];
+        const mask: BitMask = [];
         for (let id = 0; id < n; id++) {
             mask[id] = false;
         }
         return mask;
     }
     export function Trues(n: number) {
-        let mask: BitMask = [];
+        const mask: BitMask = [];
         for (let id = 0; id < n; id++) {
             mask[id] = true;
         }
@@ -34,7 +34,7 @@ export namespace BitMask {
         return allTrueN(mask.length, mask);
     }
     export function toIndexes(mask: ReadonlyBitMask) {
-        let a: number[] = [];
+        const a: number[] = [];
         for (let id = 0; id < mask.length; id++) {
             if (mask[id]) a.push(id);
         }

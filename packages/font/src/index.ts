@@ -20,6 +20,7 @@ export namespace Font {
     > = OtFontShared & TtfCoGlyphs & { glyphs: GS };
 
     export function isCff<GS extends Data.OrderStore<OtGlyph>>(font: Font<GS>): font is Cff<GS> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return !!(font as any).cff;
     }
     export function isTtf<GS extends Data.OrderStore<OtGlyph>>(font: Font<GS>): font is Ttf<GS> {

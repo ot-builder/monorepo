@@ -55,7 +55,7 @@ export function FormatTupleImpl(
     braceRight: null | string,
     delimType?: string
 ) {
-    let items: React.ReactNode[] = [];
+    const items: React.ReactNode[] = [];
     let started = false;
     let id = 0;
     for (const part of at) {
@@ -85,7 +85,7 @@ export function FormatObjectImpl(
     wrapElement: (key: string, suffix: string, el: TyRep) => React.ReactNode,
     braceRight: null | string
 ) {
-    let items: React.ReactNode[] = [];
+    const items: React.ReactNode[] = [];
     let started = false;
     for (const key in at) {
         if (started) items.push(delim(key));
@@ -282,7 +282,7 @@ function translateExportHash(exp: TyExport) {
 }
 export function translateExportDisplayName(base: TyExport, obj: TyExport, dependent?: boolean) {
     const objPath = getDisplayPath(obj);
-    let display = objPath;
+    const display = objPath;
     if (dependent && base) {
         const prefix = getDisplayPath(base);
         if (display.slice(0, prefix.length) === prefix) {

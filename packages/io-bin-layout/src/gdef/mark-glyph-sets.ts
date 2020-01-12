@@ -13,7 +13,7 @@ export const MarkGlyphSets = {
         const format = view.uint16();
         Assert.FormatSupported("MarkGlyphSetsTable::markGlyphSetTableFormat", format, 1);
         const count = view.uint16();
-        let ans: MarkGlyphSets = [];
+        const ans: MarkGlyphSets = [];
         for (let item = 0; item < count; item++) {
             ans[item] = CovUtils.glyphSetFromGidList(view.ptr32().next(GidCoverage), gOrd);
         }

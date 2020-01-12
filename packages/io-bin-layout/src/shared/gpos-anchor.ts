@@ -29,8 +29,8 @@ export const GposAnchor = {
                 attachToPoint: { pointIndex: bp.uint16() }
             };
         } else if (format === 3) {
-            let x: OtVar.Value = bp.int16();
-            let y: OtVar.Value = bp.int16();
+            const x: OtVar.Value = bp.int16();
+            const y: OtVar.Value = bp.int16();
             const xDD = bp.next(Ptr16DeviceTable, ivs);
             const yDD = bp.next(Ptr16DeviceTable, ivs);
             return {

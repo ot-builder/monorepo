@@ -3,7 +3,7 @@ import * as Ot from "@ot-builder/font";
 import { AxisRectifier } from "../interface";
 
 export function rectifyAxisAvar(rec: AxisRectifier, avar: Ot.Avar.Table) {
-    let maps1: Map<Ot.Var.Dim, Ot.Avar.SegmentMap> = new Map();
+    const maps1: Map<Ot.Var.Dim, Ot.Avar.SegmentMap> = new Map();
     for (const [dim, sgm] of avar.segmentMaps) {
         const mappedDim = rec.dim(dim);
         if (mappedDim) maps1.set(mappedDim, sgm);

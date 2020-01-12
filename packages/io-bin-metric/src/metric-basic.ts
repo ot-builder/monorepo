@@ -10,7 +10,7 @@ export const MetricBasicIo = {
 
         let lastAdvance = 0;
         for (let gid = 0; gid < maxp.numGlyphs; gid++) {
-            let m = new MetricBasic.Measure();
+            const m = new MetricBasic.Measure();
             if (gid < hea.numberOfLongMetrics) {
                 m.advance = view.uint16();
                 m.startSideBearing = view.int16();

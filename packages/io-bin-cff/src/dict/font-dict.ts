@@ -118,13 +118,13 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
                 break;
 
             // Private dict
-            case CffOperator.Private:
+            case CffOperator.Private: {
                 const [vvSize, vvOffset] = this.st.args(2);
                 this.fd.privateDict = this.ctx.vwCffTable
                     .lift(OtVar.Ops.originOf(vvOffset))
                     .next(CffPrivateDictIo, this.ctx, OtVar.Ops.originOf(vvSize));
                 break;
-
+            }
             default:
                 throw Errors.Cff.OperatorNotSupported(opCode);
         }

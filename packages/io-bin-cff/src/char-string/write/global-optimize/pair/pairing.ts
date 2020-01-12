@@ -241,7 +241,7 @@ export class Session<K> {
         this.collectBuckets();
         let count = this.buckets.length - 1;
         while (count > 1) {
-            let dig = this.getEntry(count);
+            const dig = this.getEntry(count);
             if (!dig) {
                 count--;
                 continue;
@@ -255,7 +255,7 @@ export class Session<K> {
     }
 
     public inputToRule<RN, RI>(input: Input<K>, rb: RuleBuilder<K, RN, RI>) {
-        let parts: K[] = [];
+        const parts: K[] = [];
         let sen = input.sentinel.next;
         while (sen && sen !== input.sentinel) {
             parts.push(sen.ir);

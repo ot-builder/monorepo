@@ -77,9 +77,11 @@ export class Fixed implements Sized, Read<number, []>, Write<number, []>, Ranged
                 bb.uint16(this.toUInt(n));
                 break;
             case 3:
-                const iv = this.toUInt(n);
-                bb.uint8((iv >>> 16) & 0xff);
-                bb.uint16(iv & 0xffff);
+                {
+                    const iv = this.toUInt(n);
+                    bb.uint8((iv >>> 16) & 0xff);
+                    bb.uint16(iv & 0xffff);
+                }
                 break;
             case 4:
                 bb.uint32(this.toUInt(n));

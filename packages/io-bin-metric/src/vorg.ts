@@ -11,7 +11,7 @@ export const VorgIo = {
 
         vorg.defaultVertOriginY = view.int16();
         const numVertOriginYMetrics = view.uint16();
-        for (let [p] of view.repeat(numVertOriginYMetrics)) {
+        for (const [p] of view.repeat(numVertOriginYMetrics)) {
             const gid = p.uint16();
             const y = p.int16();
             vorg.vertOriginYMetrics[gid] = y;
@@ -24,7 +24,7 @@ export const VorgIo = {
         frag.int16(vorg.defaultVertOriginY);
 
         // collect entries and write
-        let entries: [number, number][] = [];
+        const entries: [number, number][] = [];
         for (let gid = 0; gid < vorg.vertOriginYMetrics.length; gid++) {
             const entry = vorg.vertOriginYMetrics[gid];
             if (entry != null) entries.push([gid, entry]);

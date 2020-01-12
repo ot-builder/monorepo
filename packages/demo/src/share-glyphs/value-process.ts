@@ -13,7 +13,7 @@ export class DimMapper {
         return aid;
     }
     public alias(dim: Ot.Var.Dim, existing: Ot.Var.Dim) {
-        let aid = this.mapping.get(existing);
+        const aid = this.mapping.get(existing);
         if (aid == null) return this.put(dim);
         this.mapping.set(dim, aid);
         return aid;
@@ -27,7 +27,7 @@ export class MasterProcessor {
     constructor(private readonly dm: DimMapper) {}
 
     public toArrayRep(master: Ot.Var.Master) {
-        let steps: (undefined | [number, number, number])[] = [];
+        const steps: (undefined | [number, number, number])[] = [];
         for (const region of master.regions) {
             const aid = this.dm.put(region.dim);
             steps[aid] = [region.min, region.peak, region.max];
@@ -40,7 +40,7 @@ export class MasterProcessor {
         return stepNumbers;
     }
     public toUniqueMaster(master: Ot.Var.Master) {
-        let steps: (undefined | Ot.Var.MasterDim)[] = [];
+        const steps: (undefined | Ot.Var.MasterDim)[] = [];
         for (const region of master.regions) {
             const aid = this.dm.put(region.dim);
             steps[aid] = {
@@ -59,10 +59,10 @@ export class ValueProcessor {
     private cr = Ot.Var.Create.ValueFactory();
 
     public toArrayRep(v: Ot.Var.Value) {
-        let variances = Array.from(Ot.Var.Ops.varianceOf(v));
-        let rep: number[] = [Ot.Var.Ops.originOf(v)];
-        let varianceReps: number[][] = [];
-        for (let [master, delta] of variances) {
+        const variances = Array.from(Ot.Var.Ops.varianceOf(v));
+        const rep: number[] = [Ot.Var.Ops.originOf(v)];
+        const varianceReps: number[][] = [];
+        for (const [master, delta] of variances) {
             if (!delta) continue;
             const rep = this.mp.toArrayRep(master);
             varianceReps.push([delta, rep.length, ...rep]);
@@ -81,7 +81,7 @@ export class ValueProcessor {
         if (Ot.Var.Ops.isConstant(v)) return v;
         const origin = Ot.Var.Ops.originOf(v);
         const variance: [Ot.Var.Master, number][] = [];
-        for (let [master, delta] of Ot.Var.Ops.varianceOf(v)) {
+        for (const [master, delta] of Ot.Var.Ops.varianceOf(v)) {
             if (delta) {
                 variance.push([this.mp.toUniqueMaster(master), delta]);
             }

@@ -34,7 +34,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         if (!knownMasters.length) return null;
         if (knownMasters.length > TvhSetFlags.COUNT_MASK) throw Errors.Variation.TooManyMasters();
 
-        let blobResults: BlobWriteResult[] = [];
+        const blobResults: BlobWriteResult[] = [];
         for (const [mid, master] of knownMasters) {
             blobResults.push(writeBlob(source, ctx, tuc, data, mid, master));
         }
@@ -78,7 +78,7 @@ function writeBlob(
 ): BlobWriteResult {
     let result = writeBlobImpl(source, ctx, tuc, data, mid, master, 0);
     if (ctx.iupTolerance) {
-        let resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
+        const resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
             (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
                 result.hasNonIntegerDelta) &&
@@ -151,9 +151,9 @@ function decidePointsAndDeltas(
     mid: number,
     tolerance: number
 ) {
-    let mask: boolean[] = [];
-    let deltas: number[] = [];
-    let coords: number[] = [];
+    const mask: boolean[] = [];
+    const deltas: number[] = [];
+    const coords: number[] = [];
     let hasNonIntegerDelta = false;
     for (let cid = 0; cid < data.length; cid++) {
         const contourCoords: number[] = [];
@@ -170,7 +170,7 @@ function decidePointsAndDeltas(
             mask.push(!!counterMask[zid]);
             if (counterMask[zid]) {
                 for (let dim = 0; dim < source.dimensions; dim++) {
-                    let delta = contourDeltas[ImpLib.Arith.d2(source.dimensions, zid, dim)];
+                    const delta = contourDeltas[ImpLib.Arith.d2(source.dimensions, zid, dim)];
                     if (Math.round(delta) !== delta) hasNonIntegerDelta = true;
                 }
             }

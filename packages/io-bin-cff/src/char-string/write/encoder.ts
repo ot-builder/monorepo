@@ -46,7 +46,7 @@ export class CharStringEncoder extends CffInterp.Encoder<Frag> {
         if (flags) {
             let maskByte: number = 0;
             let bits: number = 0;
-            for (let bit of flags) {
+            for (const bit of flags) {
                 maskByte = (maskByte << 1) | (bit ? 1 : 0);
                 bits++;
                 if (bits === 8) {
@@ -93,7 +93,7 @@ export class CharStringEncoder extends CffInterp.Encoder<Frag> {
         if (flags) {
             let maskByte: number = 0;
             let bits: number = 0;
-            for (let bit of flags) {
+            for (const bit of flags) {
                 maskByte = (maskByte << 1) | (bit ? 1 : 0);
                 bits++;
                 if (bits === 8) {

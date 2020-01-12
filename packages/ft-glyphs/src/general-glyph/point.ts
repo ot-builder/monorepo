@@ -43,8 +43,8 @@ export namespace Point {
         }
         public applyTransform(a: T<X>, t: Transform2X3.T<X>) {
             if (t.scaledOffset) {
-                let x0 = this.vsX.add(a.x, t.dx);
-                let y0 = this.vsX.add(a.y, t.dy);
+                const x0 = this.vsX.add(a.x, t.dx);
+                const y0 = this.vsX.add(a.y, t.dy);
                 return this.factory.create(
                     this.vsX.addScale(this.vsX.scale(t.xx, x0), t.yx, y0),
                     this.vsX.addScale(this.vsX.scale(t.xy, x0), t.yy, y0),

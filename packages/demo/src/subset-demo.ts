@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { Data, FontIo, Ot, Rectify } from "ot-builder";
 import * as path from "path";
+import { Data, FontIo, Ot, Rectify } from "ot-builder";
 
 const file = process.argv[2];
 const subsetText = process.argv[3];
@@ -8,7 +8,7 @@ const fileOut = process.argv[4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const cfg = <FontIo.FontIoConfig>{};
+const cfg = {} as FontIo.FontIoConfig;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

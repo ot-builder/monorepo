@@ -24,9 +24,9 @@ export class DelayDeltaValue {
 }
 
 export function collectDeltaData(mc: TvsCollector, dimensions: number, data: OtVar.Value[][]) {
-    let ans: DelayDeltaValue[][] = [];
+    const ans: DelayDeltaValue[][] = [];
     for (const contour of data) {
-        let z: DelayDeltaValue[] = [];
+        const z: DelayDeltaValue[] = [];
         const n = ImpLib.Arith.rowCount(contour, dimensions);
         for (let zid = 0; zid < n; zid++) {
             for (let dim = 0; dim < dimensions; dim++) {

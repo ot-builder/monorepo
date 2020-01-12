@@ -19,7 +19,7 @@ export interface LookupReadContext {
 export class CReadLookupList<L extends GsubGpos.LookupProp> {
     private readExtensionSubtables(subtableViews: BinaryView[]) {
         let extensionLookupType: undefined | number = undefined;
-        let realSubtables: BinaryView[] = [];
+        const realSubtables: BinaryView[] = [];
         for (const vSubTable of subtableViews) {
             const format = vSubTable.uint16();
             Assert.FormatSupported("ExtensionSubstFormat::format", format, 1);
@@ -99,9 +99,10 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
 
     public read(view: BinaryView, lrf: LookupReaderFactory<L>, lrc: LookupReadContext) {
         const lookupCount = view.uint16();
-        let lookups: L[] = [];
-        let readers: LookupReader<L, any>[] = [];
-        let subtables: BinaryView[][] = [];
+        const lookups: L[] = [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const readers: LookupReader<L, any>[] = [];
+        const subtables: BinaryView[][] = [];
         for (let lid = 0; lid < lookupCount; lid++) {
             const vLookup = view.ptr16();
 

@@ -203,10 +203,10 @@ const UnicodeRanges: [number, number, number, number][] = [
 let FastMasks: null | number[][] = null;
 function ensureFastMasks(): number[][] {
     if (FastMasks) return FastMasks;
-    let masks: number[][] = [[], [], [], []];
+    const masks: number[][] = [[], [], [], []];
     for (const [item, bit, start, end] of UnicodeRanges) {
         for (let u = start; u <= end; u++) {
-            let a = masks[item];
+            const a = masks[item];
             a[u] = (1 << bit) | (a[u] || 0);
         }
     }
