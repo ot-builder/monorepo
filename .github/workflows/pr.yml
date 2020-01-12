@@ -105,8 +105,9 @@ jobs:
         npm run boot
       env:
         CI: true
-    - name: Check change-file
+    - name: Lint
       run: |
+        npm run build
         npm run lint
       env:
         CI: true
