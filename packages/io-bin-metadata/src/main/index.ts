@@ -74,7 +74,7 @@ export function writeOtMetadata(
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(MvarTableIo, md.fvar.getDesignSpace(), md, sfEmpty);
-        sink.add(MvarTag, bMvar, sfEmpty);
+        if (!sfEmpty.get()) sink.add(MvarTag, bMvar);
     }
     if (md.os2) sink.add(Os2.Tag, Frag.packFrom(Os2TableIo, md.os2));
     if (md.post) {

@@ -64,7 +64,7 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         if (ctx.designSpace && coGlyphs.cvt) {
             const afEmpty = new ImpLib.State<boolean>(false);
             const bCvar = Frag.packFrom(CvarIo, coGlyphs.cvt, ctx.designSpace, afEmpty);
-            sfnt.add(Cvt.TagVar, bCvar, afEmpty);
+            if (!afEmpty.get()) sfnt.add(Cvt.TagVar, bCvar);
         }
 
         if (coGlyphs.cvt) sfnt.add(Cvt.Tag, Frag.packFrom(CvtIo, coGlyphs.cvt));
@@ -74,7 +74,7 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         if (ctx.designSpace) {
             const afEmpty = new ImpLib.State<boolean>(false);
             const bGvar = Frag.packFrom(Gvar.Write, gOrd, cfg, ctx.designSpace, afEmpty);
-            sfnt.add(Gvar.Tag, bGvar, afEmpty);
+            if (!afEmpty.get()) sfnt.add(Gvar.Tag, bGvar);
         }
         const loca1: Loca.Table = { glyphOffsets: [] };
         const bufGlyf = Frag.packFrom(Glyf.Write, gOrd, loca1, ctx.stat);

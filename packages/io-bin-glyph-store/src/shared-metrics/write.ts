@@ -21,11 +21,8 @@ export function writeHMetrics(
     sink.add(MetricBasic.TagHmtx, Frag.pack(Frag.from(MetricBasicIo, statHmtx.hmtx, hhea, gOrd)));
     if (designSpace && writeMetricVariance && statHmtx.hvar) {
         const hvarEmpty = new ImpLib.State(true);
-        sink.add(
-            MetricVariance.TagHvar,
-            Frag.pack(Frag.from(MetricVarianceIo, statHmtx.hvar, designSpace, hvarEmpty)),
-            hvarEmpty
-        );
+        const buf = Frag.packFrom(MetricVarianceIo, statHmtx.hvar, designSpace, hvarEmpty);
+        if (!hvarEmpty.get()) sink.add(MetricVariance.TagHvar, buf);
     }
 }
 
@@ -43,10 +40,7 @@ export function writeVMetrics(
     sink.add(Vorg.Tag, Frag.pack(Frag.from(VorgIo, statVmtx.vorg)));
     if (designSpace && writeMetricVariance && statVmtx.vvar) {
         const vvarEmpty = new ImpLib.State(true);
-        sink.add(
-            MetricVariance.TagVvar,
-            Frag.pack(Frag.from(MetricVarianceIo, statVmtx.vvar, designSpace, vvarEmpty)),
-            vvarEmpty
-        );
+        const buf = Frag.packFrom(MetricVarianceIo, statVmtx.vvar, designSpace, vvarEmpty);
+        if (!vvarEmpty.get()) sink.add(MetricVariance.TagVvar, buf);
     }
 }
