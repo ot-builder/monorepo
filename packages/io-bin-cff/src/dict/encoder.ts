@@ -51,8 +51,8 @@ export class DictEncoder extends CffInterp.Encoder<Frag> {
 
     private encodeReal(val: number) {
         // Value is float
-        let nibbles: number[] = [];
-        let valStr = this.shortToString(val);
+        const nibbles: number[] = [];
+        const valStr = this.shortToString(val);
         for (let digit = 0; digit < valStr.length; ) {
             const cur = valStr.charCodeAt(digit);
             const next = digit < valStr.length - 1 ? valStr.charCodeAt(digit + 1) : 0;
@@ -94,7 +94,7 @@ export class DictEncoder extends CffInterp.Encoder<Frag> {
         if (flags) {
             let maskByte: number = 0;
             let bits: number = 0;
-            for (let bit of flags) {
+            for (const bit of flags) {
                 maskByte = (maskByte << 1) | (bit ? 1 : 0);
                 bits++;
                 if (bits === 8) {

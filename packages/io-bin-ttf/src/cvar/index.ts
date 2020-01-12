@@ -57,7 +57,7 @@ class CvtTvhClient implements TupleVariationGeometryClient {
     public readonly contours: TvdAccess<OtVar.Master>[][];
 
     private createContours(ms: OtVar.MasterSet, cvt: Cvt.Table) {
-        let cs: TvdAccess<OtVar.Master>[][] = [];
+        const cs: TvdAccess<OtVar.Master>[][] = [];
         for (let cvtId = 0; cvtId < cvt.items.length; cvtId++) {
             cs.push([new CvtTvdAccess(ms, cvt, cvtId)]);
         }
@@ -81,7 +81,7 @@ class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
 
 class CvtTupleVariationSource implements TupleVariationBuildSource {
     constructor(cvt: Cvt.Table) {
-        let cs: OtVar.Value[][] = [];
+        const cs: OtVar.Value[][] = [];
         for (const entry of cvt.items) cs.push([entry]);
         this.data = cs;
     }

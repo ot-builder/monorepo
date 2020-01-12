@@ -10,8 +10,8 @@ export class StdPointAttachRectifier implements Rectify.PointAttachmentRectifier
         actual: Data.XYOptional<Ot.Var.Value>,
         desired: Data.XYOptional<Ot.Var.Value>
     ) {
-        let xSame = Ot.Var.Ops.equal(actual.x || 0, desired.x || 0, this.error);
-        let ySame = Ot.Var.Ops.equal(actual.y || 0, desired.y || 0, this.error);
+        const xSame = Ot.Var.Ops.equal(actual.x || 0, desired.x || 0, this.error);
+        const ySame = Ot.Var.Ops.equal(actual.y || 0, desired.y || 0, this.error);
         return { x: xSame, y: ySame };
     }
 }

@@ -112,7 +112,7 @@ class GeomVarCollector {
         }
     }
     public contourSet(cs: OtGlyph.ContourSetProps) {
-        let collected: OtVar.Value[][] = [];
+        const collected: OtVar.Value[][] = [];
         for (const c of cs.contours) {
             const items: OtVar.Value[] = [];
             for (const z of c) {
@@ -123,7 +123,7 @@ class GeomVarCollector {
         return collected;
     }
     public geometryList(geom: OtGlyph.GeometryListProps<{ ref: OtGlyph.Geometry }>) {
-        let collected: OtVar.Value[][] = [];
+        const collected: OtVar.Value[][] = [];
         for (const entry of geom.items) {
             const sub = this.process(entry.ref);
             for (const x of sub) collected.push(x);

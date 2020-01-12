@@ -32,24 +32,27 @@ export class OtGhPointAlg<PS extends PointSink> implements GeometryProcessor {
 
     public process(geom: OtGlyph.Geometry) {
         switch (geom.type) {
-            case OtGlyph.GeometryType.ContourSet:
+            case OtGlyph.GeometryType.ContourSet: {
                 for (const c of geom.contours) {
                     for (const z of c) {
                         this.acc.addControlKnot(z);
                     }
                 }
                 break;
-            case OtGlyph.GeometryType.TtReference:
+            }
+            case OtGlyph.GeometryType.TtReference: {
                 const plRef = new OtGhPointAlg(
                     this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, geom.transform))
                 );
                 if (geom.to.geometry) plRef.process(geom.to.geometry);
                 break;
-            case OtGlyph.GeometryType.GeometryList:
+            }
+            case OtGlyph.GeometryType.GeometryList: {
                 for (const item of geom.items) {
                     this.process(item.ref);
                 }
                 break;
+            }
         }
     }
 }

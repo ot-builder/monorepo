@@ -13,7 +13,7 @@ export class ListStoreFactoryWithDefault<T> extends ListStoreFactory<T>
         super(sourceKind);
     }
     public createStoreFromSize(count: number) {
-        let gs: T[] = [];
+        const gs: T[] = [];
         for (let gid = 0; gid < count; gid++) gs[gid] = this.create();
         return this.createStoreFromList(gs);
     }
@@ -47,7 +47,7 @@ class ListOrder<T> implements Data.Order<T> {
         return this.items[gid];
     }
     public at(gid: number) {
-        let g = this.items[gid];
+        const g = this.items[gid];
         if (!g) throw new RangeError(`Missing Item in ${this.sourceKind}`);
         else return g;
     }
@@ -62,7 +62,7 @@ class ListOrder<T> implements Data.Order<T> {
     }
     public tryReverseFallback<F>(g: Data.Maybe<T>, fallback: F) {
         if (g == null) return fallback;
-        let gid = this.revMap.get(g);
+        const gid = this.revMap.get(g);
         if (gid == null) return fallback;
         else return gid;
     }

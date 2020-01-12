@@ -147,8 +147,8 @@ class CffHintHandler {
     private pushStemList(op: CharStringOperator, stemList: ReadonlyArray<OtGlyph.CffHintStem>) {
         if (!stemList.length) return;
         let current: OtVar.Value = 0;
-        let args: OtVar.Value[] = [];
-        for (let s of stemList) {
+        const args: OtVar.Value[] = [];
+        for (const s of stemList) {
             const arg1 = OtVar.Ops.minus(s.start, current);
             const arg2 = OtVar.Ops.minus(s.end, s.start);
             current = s.end;

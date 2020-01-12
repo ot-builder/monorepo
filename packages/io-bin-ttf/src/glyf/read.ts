@@ -7,10 +7,10 @@ import { LocaTable } from "./loca";
 import { ComponentFlag, SimpleGlyphFlag } from "./shared";
 
 const PointFlags = Read((view, numberOfCoordinates: number) => {
-    let flags: number[] = [];
+    const flags: number[] = [];
     let ixFlag = 0;
     while (ixFlag < numberOfCoordinates) {
-        let flag = view.uint8();
+        const flag = view.uint8();
         flags.push(flag);
         ixFlag++;
 
@@ -28,9 +28,9 @@ const PointFlags = Read((view, numberOfCoordinates: number) => {
 });
 
 const XCoordinates = Read((view, flags: number[]) => {
-    let coordinatesX: Array<number> = [];
+    const coordinatesX: Array<number> = [];
     let prevX = 0;
-    for (let flag of flags) {
+    for (const flag of flags) {
         let x = 0;
 
         // Pos 1
@@ -54,9 +54,9 @@ const XCoordinates = Read((view, flags: number[]) => {
 });
 
 const YCoordinates = Read((view, flags: number[]) => {
-    let coordinatesY: Array<number> = [];
+    const coordinatesY: Array<number> = [];
     let prevY = 0;
-    for (let flag of flags) {
+    for (const flag of flags) {
         let y = 0;
 
         if (flag & SimpleGlyphFlag.Y_SHORT_VECTOR) {
@@ -84,7 +84,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
     const coordinatesX = view.next(XCoordinates, flags);
     const coordinatesY = view.next(YCoordinates, flags);
 
-    let coordinates: Array<OtGlyph.Point> = [];
+    const coordinates: Array<OtGlyph.Point> = [];
     for (let zid = 0; zid < flags.length; zid++) {
         coordinates[zid] = OtGlyph.Point.create(
             coordinatesX[zid] || 0,
@@ -95,7 +95,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
         );
     }
 
-    let contours: Array<Array<OtGlyph.Point>> = [];
+    const contours: Array<Array<OtGlyph.Point>> = [];
     if (coordinates.length) {
         for (let m = 0; m < endPtsOfContours.length; m++) {
             contours.push(
@@ -157,7 +157,7 @@ const ComponentTransformMatrix = Read((view, flags: number) => {
 });
 
 const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
-    let references: OtGlyph.TtReference[] = [];
+    const references: OtGlyph.TtReference[] = [];
     let instructions: Data.Maybe<Buffer> = null;
 
     let flags = 0;
@@ -165,8 +165,8 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
     // Read one reference
     do {
         flags = view.uint16();
-        let glyphIndex = view.uint16();
-        let subGlyf = gOrd.at(glyphIndex);
+        const glyphIndex = view.uint16();
+        const subGlyf = gOrd.at(glyphIndex);
 
         const [arg1, arg2] = view.next(ComponentArgs, flags);
         const { scaleX, scaleY, scale01, scale10 } = view.next(ComponentTransformMatrix, flags);
@@ -195,7 +195,7 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
     } while (ComponentFlag.MORE_COMPONENTS & flags);
 
     if (ComponentFlag.WE_HAVE_INSTRUCTIONS & flags) {
-        let length = view.uint16();
+        const length = view.uint16();
         instructions = view.bytes(length);
     }
     return { references, instructions };
@@ -207,7 +207,7 @@ export const GlyfTableRead = Read(
             const glyph = gOrd.at(gid);
             const offset = loca.glyphOffsets[gid];
             const nextOffset = loca.glyphOffsets[gid + 1];
-            let bound: OtGlyph.Stat.BoundingBox = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
+            const bound: OtGlyph.Stat.BoundingBox = { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
             if (nextOffset > offset) {
                 const vGlyph = view.lift(offset);
                 const numberOfContours = vGlyph.int16();

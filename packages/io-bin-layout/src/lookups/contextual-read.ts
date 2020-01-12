@@ -52,7 +52,7 @@ class CIndividualClassRule<L> {
         siblings: Data.Order<L>
     ) {
         let gssBacktrack: Array<Set<OtGlyph>> = [];
-        let inputSequence: Array<Set<OtGlyph>> = [startGlyphs];
+        const inputSequence: Array<Set<OtGlyph>> = [startGlyphs];
         let lookAheadSequence: Array<Set<OtGlyph>> = [];
         let applicationCount = 0;
         if (isChaining) {
@@ -207,7 +207,7 @@ class SubtableFormat3<L> {
         Assert.FormatSupported(`[Chain]ContextSubstFormat3`, format, 3);
 
         let gssBacktrack: Array<Set<OtGlyph>>;
-        let gssInput: Array<Set<OtGlyph>> = [];
+        const gssInput: Array<Set<OtGlyph>> = [];
         let gssLookAhead: Array<Set<OtGlyph>>;
         let applicationCount = 0;
 

@@ -27,16 +27,18 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
 
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
-            case CffOperator.VsIndex:
+            case CffOperator.VsIndex: {
                 const vsIndex = this.st.doVsIndex();
                 this.result.inheritedVsIndex = vsIndex;
                 return vsIndex;
+            }
             case CffOperator.Blend:
                 return this.st.doBlend();
-            case CffOperator.Subrs:
+            case CffOperator.Subrs: {
                 const vwPrivateSubrs = this.viewDict.lift(OtVar.Ops.originOf(this.st.pop()));
                 this.result.localSubroutines = vwPrivateSubrs.next(CffSubroutineIndex, this.ctx);
                 break;
+            }
             case CffOperator.BlueValues:
                 this.result.blueValues = this.st.accumulate(this.st.allArgs());
                 break;
@@ -96,7 +98,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
     private *emitDeltas(vs: OtVar.Value[], op: CffOperator) {
         if (!vs.length) return;
         let a: OtVar.Value = 0;
-        let deltas: OtVar.Value[] = [];
+        const deltas: OtVar.Value[] = [];
         for (const v of vs) {
             const d = OtVar.Ops.minus(v, a);
             deltas.push(d);

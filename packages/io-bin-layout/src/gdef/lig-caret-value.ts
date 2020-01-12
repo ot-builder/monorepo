@@ -54,7 +54,7 @@ const CaretValueFormat3 = {
         const format = view.uint16();
         if (format !== 3) throw Errors.Unreachable();
         let x: OtVar.Value = view.int16();
-        let dd = view.next(Ptr16DeviceTable, ivs);
+        const dd = view.next(Ptr16DeviceTable, ivs);
         x = OtVar.Ops.add(x, dd ? dd.variation : 0);
         return { x: x, xDevice: dd ? dd.deviceDeltas : undefined } as Gdef.LigCaret;
     }),

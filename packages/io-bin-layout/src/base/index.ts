@@ -79,7 +79,7 @@ const Ptr16AxisTableNullable = NullablePtr16(AxisTable);
 const BaseTagList = {
     read(view: BinaryView) {
         const baseTagCount = view.uint16();
-        let tags: Tag[] = [];
+        const tags: Tag[] = [];
         for (let tid = 0; tid < baseTagCount; tid++) tags[tid] = view.next(Tag);
         return tags;
     },

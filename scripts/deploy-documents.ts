@@ -1,7 +1,7 @@
 import * as CP from "child_process";
-import * as FS from "fs-extra";
 import * as OS from "os";
 import * as Path from "path";
+import * as FS from "fs-extra";
 import * as RimRaf from "rimraf";
 
 const OsSuffix = OS.platform() === "win32" ? ".cmd" : "";
@@ -68,7 +68,7 @@ function Git(...args: string[]) {
 
 function Spawn(command: string, args: string[], options: CP.SpawnOptions) {
     return new Promise(function(resolve, reject) {
-        let cp = CP.spawn(command, args, options);
+        const cp = CP.spawn(command, args, options);
 
         cp.on("error", reject).on("close", function(code) {
             if (code === 0) {

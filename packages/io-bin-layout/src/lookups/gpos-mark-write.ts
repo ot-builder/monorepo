@@ -109,13 +109,13 @@ abstract class MarkWritePlanBase<G, B> {
     }
 
     private getMarkPlanRelocation(plan: SingleMarkRecord<G>[]): MarkClassRelocation {
-        let hasCls: number[] = [];
+        const hasCls: number[] = [];
         for (const record of plan) {
             hasCls[record.class] = (hasCls[record.class] || 0) + 1;
         }
-        let newCls = 0,
-            relocation: number[] = [],
-            revRelocation: number[] = [];
+        let newCls = 0;
+        const relocation: number[] = [];
+        const revRelocation: number[] = [];
         for (let cls = 0; cls < hasCls.length; cls++) {
             if (hasCls[cls]) {
                 relocation[cls] = newCls;
@@ -141,9 +141,9 @@ abstract class MarkWritePlanBase<G, B> {
     protected bisectImplByBases<R>(
         derive: (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>) => R
     ): [R, R] {
-        let excludeUpper: Set<G> = new Set(),
-            excludeLower: Set<G> = new Set(),
-            nth = 0;
+        const excludeUpper: Set<G> = new Set(),
+            excludeLower: Set<G> = new Set();
+        let nth = 0;
         for (const [g, br] of this.bases) {
             if (this.exclude.has(g)) {
                 excludeUpper.add(g);
@@ -282,9 +282,9 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
 
 class GposMarkToBaseWriterBase {
     private getMarkPlans<G>(marks: Map<G, Gpos.MarkRecord>) {
-        let covMap: Map<G, number> = new Map();
+        const covMap: Map<G, number> = new Map();
         let collected = 0;
-        let plans: SingleMarkRecord<G>[][] = [];
+        const plans: SingleMarkRecord<G>[][] = [];
 
         do {
             collected = 0;
@@ -312,7 +312,7 @@ class GposMarkToBaseWriterBase {
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);
-        let plans: MarkBaseWritePlan[] = [];
+        const plans: MarkBaseWritePlan[] = [];
         for (const mp of markPlans) {
             const stpStart = new MarkBaseWritePlan(mp, new Set(), bases);
             const stPlans = stpStart.autoBisect(SubtableSizeLimit);
@@ -326,7 +326,7 @@ class GposMarkToBaseWriterBase {
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);
-        let plans: MarkLigatureWritePlan[] = [];
+        const plans: MarkLigatureWritePlan[] = [];
         for (const mp of markPlans) {
             const stpStart = new MarkLigatureWritePlan(mp, new Set(), bases);
             const stPlans = stpStart.autoBisect(SubtableSizeLimit);

@@ -51,7 +51,7 @@ const SubtableFormat1 = {
         frag.uint16(1);
         frag.push(Ptr16GidCoverage, gidList);
         frag.uint16(values.length);
-        for (let ligSet of values) {
+        for (const ligSet of values) {
             const fLigSet = frag.ptr16New();
             fLigSet.uint16(ligSet.length);
             for (const [rests, to] of ligSet) {
@@ -121,7 +121,7 @@ export class GsubLigatureWriter implements LookupWriter<Gsub.Lookup, Gsub.Ligatu
     }
     public createSubtableFragments(lookup: Gsub.Ligature, ctx: SubtableWriteContext<Gsub.Lookup>) {
         let state = new State();
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
         // Iterate the path map using post-root order to make sure that longer ligatures
         // is processed first.
         for (const { from, to } of lookup.mapping) {

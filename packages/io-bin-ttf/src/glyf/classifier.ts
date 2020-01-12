@@ -173,7 +173,7 @@ export class CompositeGlyph extends SpaceGlyph {
         let totalPoints = 0;
         let depth = 1;
         for (const ref of references) {
-            let stat = classifier.classify(ref.to).getStatData();
+            const stat = classifier.classify(ref.to).getStatData();
             if (stat.depth + 1 > depth) depth = stat.depth + 1;
             totalContours += stat.totalContours;
             totalPoints += stat.totalPoints;

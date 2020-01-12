@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { FontIo, Ot } from "ot-builder";
 import * as path from "path";
+import { FontIo, Ot } from "ot-builder";
 
 const file = process.argv[2];
 const fileOut = process.argv[3];

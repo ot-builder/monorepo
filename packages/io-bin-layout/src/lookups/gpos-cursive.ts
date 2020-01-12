@@ -37,7 +37,7 @@ const SubtableFormat1 = {
         frag.uint16(1);
         frag.push(Ptr16GidCoverage, gidList);
         frag.uint16(values.length);
-        for (let to of values) {
+        for (const to of values) {
             frag.push(NullablePtr16GposAnchor, to.entry, ctx.ivs);
             frag.push(NullablePtr16GposAnchor, to.exit, ctx.ivs);
         }
@@ -96,7 +96,7 @@ export class GposCursiveWriter implements LookupWriter<Gpos.Lookup, Gpos.Cursive
 
     public createSubtableFragments(lookup: Gpos.Cursive, ctx: SubtableWriteContext<Gpos.Lookup>) {
         let state = new State();
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
         for (const [from, to] of lookup.attachments) {
             if (state.tryAddMapping(from, to)) continue;
             this.flush(frags, state, ctx);

@@ -21,7 +21,7 @@ export class CffStringSink {
         return sid;
     }
     public getStringIndexList() {
-        let strList: string[] = [];
+        const strList: string[] = [];
         for (const [s, ix] of this.mapping) {
             if (ix >= CffStandardStrings.length) strList[ix - CffStandardStrings.length] = s;
         }

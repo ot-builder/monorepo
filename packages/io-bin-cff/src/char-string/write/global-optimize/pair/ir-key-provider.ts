@@ -9,11 +9,13 @@ export const MirKeyProvider: KeyProvider<Mir> = {
                 return `Z`;
             case MirType.Operand:
                 return `N[${ir.arg}]`;
-            case MirType.Operator:
+            case MirType.Operator: {
                 let s = `O[${ir.opCode}`;
                 if (ir.flags) for (const x of ir.flags) s += `,${x}`;
                 s += "]";
+
                 return s;
+            }
             case MirType.NonTerminal:
                 return `I[${ir.id}]`;
         }

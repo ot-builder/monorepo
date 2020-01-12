@@ -9,6 +9,9 @@ indent_size = 4
 
 [*.{js,jsx,ts,tsx}]
 insert_final_newline = true
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
 
 [*.md]
 insert_final_newline = false

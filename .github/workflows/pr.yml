@@ -27,6 +27,7 @@ jobs:
     - name: Building
       run: |
         npm run build
+        npm run lint
       env:
         CI: true
     - name: Unit test
@@ -34,7 +35,7 @@ jobs:
         npm run test
       env:
         CI: true
-  
+
   production-build:
     name: PR Production Build
     runs-on: ${{ matrix.os }}

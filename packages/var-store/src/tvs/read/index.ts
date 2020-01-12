@@ -115,7 +115,7 @@ function createMasterDimFromPeak(dim: OtVar.Dim, peak: number): OtVar.MasterDim 
 }
 
 function Iota(a: number, b: number) {
-    let as: number[] = [];
+    const as: number[] = [];
     for (let x = a; x < b; x++) as.push(x);
     return as;
 }
@@ -125,7 +125,7 @@ const PointNumbers = Read((view: BinaryView, nPoints: number) => {
     if (pointCount == null) return Iota(0, nPoints);
 
     let currentPoint = 0;
-    let points: number[] = [];
+    const points: number[] = [];
     while (points.length < pointCount) {
         currentPoint = view.next(PointNumberRun, currentPoint, points);
     }
@@ -134,7 +134,7 @@ const PointNumbers = Read((view: BinaryView, nPoints: number) => {
 
 const Deltas = Read((view: BinaryView, points: number[]) => {
     let deltasParsed = 0;
-    let deltas: number[] = [];
+    const deltas: number[] = [];
     while (deltasParsed < points.length) {
         deltasParsed = view.next(DeltaRun, deltasParsed, points, deltas);
     }

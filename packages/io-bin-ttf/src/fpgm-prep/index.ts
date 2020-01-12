@@ -3,7 +3,7 @@ import { Fpgm, Prep } from "@ot-builder/ft-glyphs";
 
 export const FpgmIo = {
     read(view: BinaryView) {
-        let buf = view.bytes(view.sourceBufferSize);
+        const buf = view.bytes(view.sourceBufferSize);
         return new Fpgm.Table(buf);
     },
     write(frag: Frag, table: Fpgm.Table) {
@@ -13,7 +13,7 @@ export const FpgmIo = {
 
 export const PrepIo = {
     read(view: BinaryView) {
-        let buf = view.bytes(view.sourceBufferSize);
+        const buf = view.bytes(view.sourceBufferSize);
         return new Prep.Table(buf);
     },
     write(frag: Frag, table: Prep.Table) {

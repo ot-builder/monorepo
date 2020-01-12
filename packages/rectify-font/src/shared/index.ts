@@ -21,8 +21,8 @@ export namespace RectifyImpl {
         xs: ReadonlySet<X>,
         fn: (rec: R, x: X) => null | undefined | X
     ) {
-        let xs1: Set<X> = new Set();
-        for (let x of xs) {
+        const xs1: Set<X> = new Set();
+        for (const x of xs) {
             const x1 = fn(rec, x);
             if (x1) xs1.add(x1);
             else return null;
@@ -34,8 +34,8 @@ export namespace RectifyImpl {
         xs: ReadonlySet<X>,
         fn: (rec: R, x: X) => null | undefined | X
     ) {
-        let xs1: Set<X> = new Set();
-        for (let x of xs) {
+        const xs1: Set<X> = new Set();
+        for (const x of xs) {
             const x1 = fn(rec, x);
             if (x1) xs1.add(x1);
         }
@@ -46,7 +46,7 @@ export namespace RectifyImpl {
         m: ReadonlyArray<X>,
         fn: (re: R, x: X) => null | undefined | X
     ) {
-        let m1: X[] = [];
+        const m1: X[] = [];
         for (const x of m) {
             const x1 = fn(rectifier, x);
             if (x1 == null) return null;
@@ -59,7 +59,7 @@ export namespace RectifyImpl {
         m: ReadonlyArray<X>,
         fn: (re: R, x: X) => null | undefined | X
     ) {
-        let m1: X[] = [];
+        const m1: X[] = [];
         for (const x of m) {
             const x1 = fn(rectifier, x);
             if (x1 != null) m1.push(x1);
@@ -71,7 +71,7 @@ export namespace RectifyImpl {
         m: ReadonlyArray<null | undefined | X>,
         fn: (re: R, x: X) => null | undefined | X
     ) {
-        let m1: Array<null | undefined | X> = [];
+        const m1: Array<null | undefined | X> = [];
         for (const x of m) {
             if (x == null) m1.push(x);
             else m1.push(fn(rectifier, x));
@@ -84,7 +84,7 @@ export namespace RectifyImpl {
         fnX: (re: R, x: X) => null | undefined | X,
         fnY: (re: R, y: Y) => null | undefined | Y
     ) {
-        let m1 = new Map<X, Y>();
+        const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
             const x1 = fnX(rectifier, x);
             if (x1 == null) return null;
@@ -100,7 +100,7 @@ export namespace RectifyImpl {
         fnX: (re: R, x: X) => null | undefined | X,
         fnY: (re: R, x1: X, y: Y) => null | undefined | Y
     ) {
-        let m1 = new Map<X, Y>();
+        const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
             const x1 = fnX(rectifier, x);
             if (x1 == null) return null;
@@ -116,7 +116,7 @@ export namespace RectifyImpl {
         fnX: (re: R, x: X) => null | undefined | X,
         fnY: (re: R, y: Y) => null | undefined | Y
     ) {
-        let m1 = new Map<X, Y>();
+        const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
             const x1 = fnX(rectifier, x);
             if (x1 == null) continue;
@@ -132,7 +132,7 @@ export namespace RectifyImpl {
         fnX: (re: R, x: X) => null | undefined | X,
         fnY: (re: R, x1: X, y: Y) => null | undefined | Y
     ) {
-        let m1 = new Map<X, Y>();
+        const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
             const x1 = fnX(rectifier, x);
             if (x1 == null) continue;
@@ -228,24 +228,24 @@ export namespace RectifyImpl {
             if (l == null) return null;
             return ls.get(l);
         }
-        export function comapSomeT<K, L, A extends any[]>(
+        export function comapSomeT<K, L, A extends unknown[]>(
             a: ReadonlyMap<K, L>,
             fn: (l: L, ...args: A) => null | undefined | L,
             ...args: A
         ) {
-            let a1 = new Map<K, L>();
+            const a1 = new Map<K, L>();
             for (const [key, value] of a) {
                 const l1 = fn(value, ...args);
                 if (l1 != null) a1.set(key, l1);
             }
             return a1;
         }
-        export function listSomeT<L, A extends any[]>(
+        export function listSomeT<L, A extends unknown[]>(
             a: ReadonlyArray<L>,
             fn: (l: L, ...args: A) => null | undefined | L,
             ...args: A
         ) {
-            let a1: L[] = [];
+            const a1: L[] = [];
             for (const item of a) {
                 const l1 = fn(item, ...args);
                 if (l1 != null) a1.push(l1);
@@ -253,15 +253,18 @@ export namespace RectifyImpl {
             return a1;
         }
         export function listSome<L>(a: ReadonlyArray<null | undefined | L>, ls: ReadonlySet<L>) {
-            let a1: L[] = [];
+            const a1: L[] = [];
             for (const item of a) {
                 const l1 = findInSet(item, ls);
                 if (l1 != null) a1.push(l1);
             }
             return a1;
         }
-        export function listSomeOpt<L>(a: ReadonlyArray<null | undefined | L>, ls: ReadonlySet<L>) {
-            let a1: L[] = [];
+        export function listSomeOpt<L>(
+            a: ReadonlyArray<null | undefined | L>,
+            ls: ReadonlySet<L>
+        ) {
+            const a1: L[] = [];
             for (const item of a) {
                 const l1 = findInSet(item, ls);
                 if (l1 != null) a1.push(l1);

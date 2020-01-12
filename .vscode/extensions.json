@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
+        "kisstkondoros.vscode-codemetrics",
+        "streetsidesoftware.code-spell-checker",
+        "philfontaine.autolaunch",
+        "esbenp.prettier-vscode"
+    ]
+}

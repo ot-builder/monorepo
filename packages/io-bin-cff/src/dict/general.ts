@@ -37,7 +37,7 @@ export function CffDictReadT<T>(interpFactory: CffDictInterpreterFactory<T>) {
         const interp = interpFactory(view, ctx);
         const irSource = new CffDictIrSource(view, dictSize);
         for (;;) {
-            let ir = irSource.next();
+            const ir = irSource.next();
             if (!ir) break;
             else interp.next(ir);
         }

@@ -92,7 +92,7 @@ export class GsubReverseWriter implements LookupWriter<Gsub.Lookup, Gsub.Reverse
         lookup: Gsub.ReverseSub,
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
-        let frags: Frag[] = [];
+        const frags: Frag[] = [];
         for (const rule of lookup.rules) {
             ctx.stat.setContext(rule.match.length);
             frags.push(Frag.from(SubtableFormat1, rule, ctx));

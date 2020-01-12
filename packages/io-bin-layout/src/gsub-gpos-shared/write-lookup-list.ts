@@ -1,3 +1,4 @@
+import * as crypto from "crypto";
 import { Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
@@ -6,7 +7,6 @@ import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 import { WriteTimeIVS } from "@ot-builder/var-store";
-import * as crypto from "crypto";
 
 import { EmptyStat, OtlStat } from "../stat";
 
@@ -147,13 +147,13 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
             (a, b) => a.priority - b.priority || a.buffer.byteLength - b.buffer.byteLength
         );
         let off = 0;
-        for (let st of this.subtableBlobs) {
+        for (const st of this.subtableBlobs) {
             st.relOffset = off;
             off += st.buffer.byteLength;
         }
     }
     private tryStabilize() {
-        let headerSize = this.getHeaderTotalSize();
+        const headerSize = this.getHeaderTotalSize();
 
         let headerOffset = 0;
         for (let lid = 0; lid < this.lookupHeaders.length; lid++) {
@@ -191,7 +191,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
 
     private getHeaderOffsets(hps: number) {
         let headerOffset = hps;
-        let headerOffsets: number[] = [];
+        const headerOffsets: number[] = [];
         for (let lid = 0; lid < this.lookupHeaders.length; lid++) {
             const h = this.lookupHeaders[lid];
             const hs = this.measureHeaderSizeWithExtension(h);

@@ -34,8 +34,8 @@ export const DeviceDeltaBits = {
         const deltasPerWord = 16 / deltaBits;
         let ppem = ppemMin,
             word = 0,
-            deltas = [],
             hasDelta = false;
+        const deltas = [];
         do {
             if ((ppem - ppemMin) % deltasPerWord === 0) word = bp.uint16();
             deltas[ppem] = (word << 16) >> (32 - deltaBits);

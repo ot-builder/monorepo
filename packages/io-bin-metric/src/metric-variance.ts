@@ -29,7 +29,7 @@ function readDeltaMapping(
         const mapEntrySizeM1 = (entryFormat & 0x0030) >>> 4;
 
         for (let gid = 0; gid < mapCount; gid++) {
-            let entry = pMapping.next(UIntN[mapEntrySizeM1]);
+            const entry = pMapping.next(UIntN[mapEntrySizeM1]);
             const outerIndex = entry >>> innerIndexBitCount;
             const innerIndex = entry & innerIndexMask;
             cbPresent(gid, outerIndex, innerIndex);
@@ -150,8 +150,8 @@ export const MetricVarianceIo = {
             ]);
 
             let empty = true;
-            let advanceMap: IndexMapping[] = [];
-            let originMap: IndexMapping[] = [];
+            const advanceMap: IndexMapping[] = [];
+            const originMap: IndexMapping[] = [];
             for (let gid = 0; gid < mv.measures.length; gid++) {
                 if (!OtVar.Ops.isConstant(mv.measures[gid].advance)) empty = false;
                 advanceMap[gid] = ivs.valueToInnerOuterIDForce(

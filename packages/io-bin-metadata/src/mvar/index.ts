@@ -133,7 +133,7 @@ export const MvarTableIo = {
     ) {
         const ivs = WriteTimeIVS.create(OtVar.Create.MasterSet());
         const lenses = new Map(lensSourcesFromMd(md));
-        let rec: [string, number, number][] = [];
+        const rec: [string, number, number][] = [];
         for (const [tag, lens] of lenses) {
             const r = ivs.valueToInnerOuterID(lens.get());
             if (r) rec.push([tag, r.outer, r.inner]);

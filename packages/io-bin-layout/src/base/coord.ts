@@ -25,13 +25,14 @@ export const BaseCoord = {
                     at: bp.int16(),
                     pointAttachment: { glyph: gOrd.at(bp.uint16()), pointIndex: bp.uint16() }
                 };
-            case 3:
+            case 3: {
                 const atOrig: OtVar.Value = bp.int16();
                 const atDD = bp.next(Ptr16DeviceTable, ivs);
                 return {
                     at: OtVar.Ops.add(atOrig, atDD ? atDD.variation : 0),
                     deviceDeltas: atDD ? atDD.deviceDeltas : null
                 };
+            }
             default:
                 throw Errors.FormatNotSupported("BaseCoord", format);
         }

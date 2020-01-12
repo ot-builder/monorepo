@@ -54,7 +54,7 @@ export class MaxpStat implements OtGlyph.Stat.Sink {
         this.maxp.maxCompositeContours = this.maxCompositeContours;
         this.maxp.maxSizeOfInstructions = this.maxSizeOfInstructions;
         this.maxp.maxComponentElements = this.maxComponentElements;
-        this.maxp.maxComponentDepth = this.maxp.maxComponentDepth;
+        this.maxp.maxComponentDepth = this.maxComponentDepth;
         if (this.outer) this.outer.settle();
     }
 }

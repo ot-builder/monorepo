@@ -18,7 +18,7 @@ const AxisSegmentMapList = {
     write(frag: Frag, asg: Avar.SegmentMap) {
         Assert.NoGap("AvarTable::SegmentMaps", asg);
         frag.uint16(asg.length);
-        for (let [from, to] of asg) {
+        for (const [from, to] of asg) {
             frag.push(F2D14, from);
             frag.push(F2D14, to);
         }

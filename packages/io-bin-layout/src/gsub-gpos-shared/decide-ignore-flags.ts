@@ -50,10 +50,10 @@ function igfGlyphClass<G>(
     cd: Data.Maybe<LayoutCommon.ClassDef.T<G>>
 ): null | IgnoreFlagOptions {
     if (!gs || !gs.size || !cd) return null;
-    let base = new HasAllState(),
+    const base = new HasAllState(),
         ligature = new HasAllState(),
         mark = new HasAllState();
-    let cov: Set<G> = new Set();
+    const cov: Set<G> = new Set();
     for (const [g, cl] of cd) {
         const inSet = gs.has(g);
         switch (cl) {
@@ -108,8 +108,8 @@ function igcMarkAttachmentClass<G>(
 }
 
 function setEqual<T>(a: ReadonlySet<T>, b: ReadonlySet<T>) {
-    for (let g of a) if (!b.has(g)) return false;
-    for (let g of b) if (!a.has(g)) return false;
+    for (const g of a) if (!b.has(g)) return false;
+    for (const g of b) if (!a.has(g)) return false;
     return true;
 }
 

@@ -27,7 +27,7 @@ export class CffStackMachine {
         if (this.stack.length < minCount) {
             throw Errors.Cff.StackInsufficient(this.stack.length, minCount);
         }
-        let s1 = [...this.stack];
+        const s1 = [...this.stack];
         this.stack.length = 0;
         return s1;
     }
@@ -81,9 +81,9 @@ export class CffStackMachine {
         const nValues = OtVar.Ops.originOf(_n);
         const nMasters = this.ivd.masterIDs.length;
         const args = this.args(nValues * (1 + nMasters));
-        let results: OtVar.Value[] = [];
+        const results: OtVar.Value[] = [];
         for (let ixVal = 0; ixVal < nValues; ixVal++) {
-            let orig = args[ixVal],
+            const orig = args[ixVal],
                 variance: [OtVar.Master, number][] = [];
             for (let ixMaster = 0; ixMaster < nMasters; ixMaster++) {
                 variance[ixMaster] = [

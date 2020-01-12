@@ -71,7 +71,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         const to: CffDrawCall[] = [];
         const col = ctx.ivs ? ctx.ivs.createCollector() : null;
         for (const dc of from) {
-            let args: Array<number | WriteTimeDelayValue> = [];
+            const args: Array<number | WriteTimeDelayValue> = [];
             for (const arg of dc.args) {
                 if (!col || OtVar.Ops.isConstant(arg)) {
                     args.push(OtVar.Ops.evaluate(arg, null));
@@ -83,7 +83,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         }
         const ivd = col ? col.getIVD() : null;
         for (const dci of intermediate) {
-            let args: (number | CffBlendPrimitive)[] = [];
+            const args: (number | CffBlendPrimitive)[] = [];
             let hasBlend = false;
             for (const arg of dci.args) {
                 if (typeof arg === "number") {

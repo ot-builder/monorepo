@@ -2,10 +2,10 @@ import { Errors } from "@ot-builder/errors";
 
 import { SizeofUInt16, SizeofUInt32, SizeofUInt8 } from "./primitive-types";
 
-export interface Read<T, A extends any[] = []> {
+export interface Read<T, A extends unknown[] = []> {
     read(view: BinaryView, ...args: A): T;
 }
-export function Read<T, A extends any[] = []>(
+export function Read<T, A extends unknown[] = []>(
     proc: (view: BinaryView, ...args: A) => T
 ): Read<T, A> {
     return { read: proc };
@@ -29,10 +29,14 @@ export class BinaryView {
         return this.buffer.byteLength;
     }
 
-    public next<T, A extends any[], AR extends A>(inst: Read<T, A>, ...args: AR): T {
+    public next<T, A extends unknown[], AR extends A>(inst: Read<T, A>, ...args: AR): T {
         return inst.read(this, ...args);
     }
-    public array<T, A extends any[], AR extends A>(count: number, inst: Read<T, A>, ...args: AR) {
+    public array<T, A extends unknown[], AR extends A>(
+        count: number,
+        inst: Read<T, A>,
+        ...args: AR
+    ) {
         const arr: T[] = [];
         for (let mu = 0; mu < count; mu++) {
             arr[mu] = inst.read(this, ...args);
@@ -87,7 +91,7 @@ export class BinaryView {
     }
     public ptr16Nullable(): BinaryView | null {
         const v = this.uint16();
-        if (v) return this.lift(v) as (BinaryView | null);
+        if (v) return this.lift(v) as BinaryView | null;
         else return null;
     }
     public ptr32() {
@@ -97,7 +101,7 @@ export class BinaryView {
     }
     public ptr32Nullable(): BinaryView | null {
         const v = this.uint32();
-        if (v) return this.lift(v) as (BinaryView | null);
+        if (v) return this.lift(v) as BinaryView | null;
         else return null;
     }
     public bytes(length: number) {

@@ -47,7 +47,7 @@ function rectifyCoordinates(
     if (!coordinates) return coordinates;
 
     const coordinates1: Map<Ot.Var.Dim, number> = new Map();
-    for (let [d, val] of coordinates) {
+    for (const [d, val] of coordinates) {
         const mapped = rec.dim(d);
         if (mapped) coordinates1.set(d, val);
     }

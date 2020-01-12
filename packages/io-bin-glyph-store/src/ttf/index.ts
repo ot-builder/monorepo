@@ -41,7 +41,7 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         }
         rectifyGlyphOrder(gOrd);
         // Co-glyphs
-        let cog: TtfCoGlyphs = {};
+        const cog: TtfCoGlyphs = {};
         const bFpgm = sfnt.tables.get(Fpgm.Tag);
         if (bFpgm) cog.fpgm = new BinaryView(bFpgm).next(FpgmIo);
         const bPrep = sfnt.tables.get(Prep.Tag);

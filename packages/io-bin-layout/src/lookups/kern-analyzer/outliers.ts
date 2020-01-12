@@ -55,14 +55,14 @@ export class OutlierTree<G> {
 }
 
 export function shareColumns<G>(cm: ClassMatrix<G>) {
-    let outliers = new OutlierTree<G>();
+    const outliers = new OutlierTree<G>();
     OutlierAnalyzerImpl.shareColumnsImpl(cm, outliers);
     cm.eliminateZeroClasses();
     if (outliers.size) throw Errors.Unreachable();
 }
 
 export function analyzeOutlier<G>(cm: ClassMatrix<G>) {
-    let outliers = new OutlierTree<G>();
+    const outliers = new OutlierTree<G>();
     OutlierAnalyzerImpl.shareColumnsImpl(cm, outliers);
     OutlierAnalyzerImpl.analyzeOutlierImpl(cm, outliers);
     cm.eliminateZeroClasses();
@@ -118,7 +118,7 @@ namespace OutlierAnalyzerImpl {
         export function analyze<G>(cm: ClassMatrix<G>, outliers: OutlierTree<G>, maxDiff: number) {
             let pc = 0;
             let columns = 0;
-            let sink: number[] = [];
+            const sink: number[] = [];
             for (const col of cm.cSecond) if (col.length) columns++;
             for (let c1p = 0; c1p < cm.cFirst.length; c1p++) {
                 if (!cm.firstClassValid(c1p)) continue;
@@ -160,7 +160,7 @@ namespace OutlierAnalyzerImpl {
             sink: number[]
         ) {
             let pc = 0;
-            for (let c1 of sink) {
+            for (const c1 of sink) {
                 for (const g1 of cm.cFirst[c1]) {
                     for (const g2 of cm.cSecond[c2t]) {
                         outliers.add(g1, g2, cm.get(c1, c2t));
@@ -175,7 +175,7 @@ namespace OutlierAnalyzerImpl {
         export function analyze<G>(cm: ClassMatrix<G>, outliers: OutlierTree<G>, maxDiff: number) {
             let pc = 0;
             let rows = 0;
-            let sink: number[] = [];
+            const sink: number[] = [];
             for (const row of cm.cFirst) if (row.length) rows++;
             for (let c2p = 0; c2p < cm.cSecond.length; c2p++) {
                 if (!cm.secondClassValid(c2p)) continue;

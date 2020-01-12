@@ -57,7 +57,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
     }
     public geometryList(processes: PointAttachmentHandler[]) {
         return (st: PointAttachmentHandlerState) => {
-            let children: Ot.Glyph.Geometry[] = [];
+            const children: Ot.Glyph.Geometry[] = [];
             for (const proc of processes) {
                 children.push(proc(st));
             }
@@ -76,7 +76,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
             ref1.useMyMetrics = ref.useMyMetrics;
             ref1.overlapCompound = ref.overlapCompound;
             ref1.pointAttachment = ref.pointAttachment;
-            let innerPoints = RectifyImpl.getGlyphPoints(ref.to);
+            const innerPoints = RectifyImpl.getGlyphPoints(ref.to);
             this.processTtReferenceImpl(innerPoints, st, ref1);
             for (const z of innerPoints) {
                 st.points.push(

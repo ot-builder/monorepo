@@ -170,7 +170,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             case CharStringOperator.IfElse:
                 return this.doConditional();
             case CharStringOperator.CallSubr:
-            case CharStringOperator.CallGSubr:
+            case CharStringOperator.CallGSubr: {
                 const subr = OtVar.Ops.originOf(this.state.pop());
                 const buf =
                     opCode === CharStringOperator.CallSubr
@@ -178,6 +178,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                         : this.getGlobalSubroutine(subr);
                 this.halt = callCharString(buf, this.state, this.subroutines, this.sink);
                 return;
+            }
             case CharStringOperator.Return:
                 return this.doReturn();
             case CharStringOperator.EndChar:

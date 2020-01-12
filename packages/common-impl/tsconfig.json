@@ -10,7 +10,7 @@
   },
   "references": [
     {
-    "path": "../prelude/tsconfig.json"
+      "path": "../prelude/tsconfig.json"
     }
   ]
 }

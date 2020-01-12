@@ -36,14 +36,14 @@ export class DicingStoreImpl<X, Y, D> {
     }
 
     private getDicingPlan<X>(coCd: X[][], mdf: Set<X>) {
-        let plans: DicingPlan<X>[] = [];
+        const plans: DicingPlan<X>[] = [];
         let inSet: X[];
         let outSet: X[];
         let clsNew = coCd.length;
         for (let cl = 0; cl < coCd.length; cl++) {
             inSet = [];
             outSet = [];
-            let kg = coCd[cl];
+            const kg = coCd[cl];
             if (!kg || !kg.length) continue;
             for (const g of kg) {
                 if (mdf.has(g)) {
@@ -73,18 +73,18 @@ export class DicingStoreImpl<X, Y, D> {
     ) {
         const planX = this.getDicingPlan(this.coClsDefX, new Set(mdfX));
         const planY = this.getDicingPlan(this.coClsDefY, new Set(mdfY));
-        for (let px of planX) {
+        for (const px of planX) {
             if (!px.items) continue;
             this.coClsDefX[px.cls] = px.items;
             if (px.inSet) for (const x of px.items) this.clsDefX.set(x, px.cls);
         }
-        for (let py of planY) {
+        for (const py of planY) {
             if (!py.items) continue;
             this.coClsDefY[py.cls] = py.items;
             if (py.inSet) for (const y of py.items) this.clsDefY.set(y, py.cls);
         }
-        for (let px of planX) {
-            for (let py of planY) {
+        for (const px of planX) {
+            for (const py of planY) {
                 if (px.cls === px.from && py.cls === py.from) continue;
                 const original =
                     px.from !== null && py.from !== null
@@ -94,9 +94,9 @@ export class DicingStoreImpl<X, Y, D> {
             }
         }
 
-        for (let px of planX) {
+        for (const px of planX) {
             if (!px.inSet) continue;
-            for (let py of planY) {
+            for (const py of planY) {
                 if (!py.inSet) continue;
                 this.putData(px.cls, py.cls, fn(this.getData(px.cls, py.cls)));
             }
@@ -104,9 +104,9 @@ export class DicingStoreImpl<X, Y, D> {
     }
 
     public get(x: X, y: Y) {
-        let clX = this.clsDefX.get(x);
+        const clX = this.clsDefX.get(x);
         if (clX == null) return undefined;
-        let clY = this.clsDefY.get(y);
+        const clY = this.clsDefY.get(y);
         if (clY == null) return undefined;
         return this.getData(clX, clY);
     }
@@ -116,7 +116,7 @@ export class DicingStoreImpl<X, Y, D> {
     }
 
     private getClassDefImpl<X>(cd: Map<X, number>) {
-        let a: X[][] = [];
+        const a: X[][] = [];
         for (const [x, cl] of cd) {
             if (!a[cl]) a[cl] = [];
             a[cl].push(x);

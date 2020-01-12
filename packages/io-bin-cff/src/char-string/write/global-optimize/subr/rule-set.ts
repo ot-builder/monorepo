@@ -133,7 +133,7 @@ export class RuleSet {
             const rule = this.nonTerminalRules[rid];
             let refCount = rule.inputRefCount,
                 depth = 1;
-            for (let [outerRid, crossReferences] of rule.nonTerminalRefCount) {
+            for (const [outerRid, crossReferences] of rule.nonTerminalRefCount) {
                 if (crossReferences <= 0) continue;
                 const outerRule = this.nonTerminalRules[outerRid];
                 if (outerRule.subrId >= 0) {
@@ -171,7 +171,7 @@ export class RuleSet {
     }
 
     private currentSidPlan() {
-        let plan: number[] = [];
+        const plan: number[] = [];
         for (let ix = 0; ix < this.nonTerminalRules.length; ix++) {
             plan[ix] = this.nonTerminalRules[ix].subrId;
         }
@@ -273,8 +273,8 @@ export class RuleSet {
     }
 
     public compile(limits: CffLimits) {
-        let subroutines: Buffer[] = [];
-        let charStrings: Buffer[] = [];
+        const subroutines: Buffer[] = [];
+        const charStrings: Buffer[] = [];
         let scEst = 0;
         for (const rule of this.nonTerminalRules) {
             if (rule.subrId + 1 > scEst) scEst = rule.subrId + 1;

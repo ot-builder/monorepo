@@ -1,6 +1,6 @@
 import * as fs from "fs";
-import { FontIo, Ot, Rectify } from "ot-builder";
 import * as path from "path";
+import { FontIo, Ot, Rectify } from "ot-builder";
 
 import { StdPointAttachRectifier } from "./point-rectifier";
 

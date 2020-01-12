@@ -1,6 +1,6 @@
+import * as crypto from "crypto";
 import { alignBufferSize, BufferWriter } from "@ot-builder/bin-util";
 import { Tag, UInt32 } from "@ot-builder/primitive";
-import * as crypto from "crypto";
 
 export interface TableBlob {
     offset: number;

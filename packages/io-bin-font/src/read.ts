@@ -72,7 +72,7 @@ class PostGlyphNamingWrapper implements Data.Naming.Source<Ot.Glyph> {
         private gOrd: Data.Order<Ot.Glyph>
     ) {}
     public getName(glyph: Ot.Glyph) {
-        let gid = this.gOrd.tryReverse(glyph);
+        const gid = this.gOrd.tryReverse(glyph);
         if (gid == null) return undefined;
         else return this.postNaming.getName(gid);
     }

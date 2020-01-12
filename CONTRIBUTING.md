@@ -20,7 +20,7 @@
     * [CodeMetrics](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics)
     * [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
     * [EditorConfig](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-    * [TSLint](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-typescript-tslint-plugin)
+    * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 ## Verify Your Environment Works
 
@@ -51,6 +51,7 @@
 * Make a pull request:
 
   * Run `npm run change` to create change files. The change files will decide the version of next publish and create change logs automatically.
+  * Run `npm run lint` to check your code style.
   * Send pull request to `ot-builder` repository.
 
 ## Project Structure

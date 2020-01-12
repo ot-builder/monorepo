@@ -187,7 +187,7 @@ export namespace DeltaRunDp {
         }
 
         public write(frag: Frag) {
-            let runs: DpRun[] = [];
+            const runs: DpRun[] = [];
             let bestRun = DpMin<DpRun>(...this.zero, ...this.byte, ...this.word);
             if (this.started && !bestRun) throw Errors.Unreachable();
             while (bestRun) {
@@ -276,7 +276,7 @@ export namespace PointNumberRunDp {
         }
 
         public write(frag: Frag) {
-            let runs: DpRun[] = [];
+            const runs: DpRun[] = [];
             let bestRun = DpMin<DpRun>(...this.byte, ...this.word);
             if (this.started && !bestRun) throw Errors.Unreachable();
             while (bestRun) {

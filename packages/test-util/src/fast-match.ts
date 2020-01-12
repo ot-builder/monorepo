@@ -1,5 +1,5 @@
-import { OtVar } from "@ot-builder/variance";
 import * as util from "util";
+import { OtVar } from "@ot-builder/variance";
 
 export namespace FastMatch {
     export function exactly<T>(actual: T, expected: T) {

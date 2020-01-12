@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export namespace Sigma {
     export class TypeID<T> {
         constructor(public readonly id: string) {}
@@ -27,7 +29,7 @@ export namespace Sigma {
         }
         public *entries(): IterableIterator<DependentPair> {
             for (const [id, value] of this.mapping) {
-                return DependentPair.create(new TypeID<any>(id), value);
+                yield DependentPair.create(new TypeID<any>(id), value);
             }
         }
     }

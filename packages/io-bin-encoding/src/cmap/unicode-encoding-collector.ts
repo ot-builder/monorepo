@@ -10,7 +10,7 @@ export class UnicodeEncodingCollector {
         private readonly maxCodePoint: number
     ) {}
     public collect(): [number, number][] {
-        let results: Array<[number, number]> = [];
+        const results: Array<[number, number]> = [];
         for (const [code, glyph] of this.encoding.entries()) {
             if (code >= this.maxCodePoint) continue;
             const gid = this.gOrd.reverse(glyph);
@@ -39,7 +39,7 @@ export class UvsEncodingCollector {
         private gOrd: Data.Order<OtGlyph>
     ) {}
     public collect(): UvsEncodingEntry[] {
-        let m: Map<number, UvsEncodingEntry> = new Map();
+        const m: Map<number, UvsEncodingEntry> = new Map();
 
         for (const [code, selector, glyph] of this.encoding.entries()) {
             let ee = m.get(selector);
@@ -57,7 +57,7 @@ export class UvsEncodingCollector {
             }
         }
 
-        let a = Array.from(m.values());
+        const a = Array.from(m.values());
         for (const ee of a) ee.sort();
         return a.sort((a, b) => a.selector - b.selector);
     }

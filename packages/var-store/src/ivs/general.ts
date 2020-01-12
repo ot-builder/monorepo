@@ -30,8 +30,8 @@ export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<
     }
     public getMasterList(outer: number): M[] {
         const ivd = this.getIVD(outer);
-        let masters: M[] = [];
-        for (let id of ivd.masterIDs) masters.push(this.getMaster(id));
+        const masters: M[] = [];
+        for (const id of ivd.masterIDs) masters.push(this.getMaster(id));
         return masters;
     }
     public buildValue(ivd: ReadTimeIVD<A, M, X>, deltas: number[]) {

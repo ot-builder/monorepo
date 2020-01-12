@@ -1,12 +1,12 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Data } from "@ot-builder/prelude";
 
-export function NullablePtr16<TR, AR extends any[], TW, AW extends any[]>(
+export function NullablePtr16<TR, AR extends unknown[], TW, AW extends unknown[]>(
     r: Read<TR, AR> & Write<TW, AW>
 ): Read<undefined | null | TR, AR> & Write<undefined | null | TW, AW> {
     return {
         read: (view, ...ar) => {
-            let p = view.ptr16Nullable();
+            const p = view.ptr16Nullable();
             if (!p) return null;
             else return p.next(r, ...ar);
         },
@@ -16,12 +16,12 @@ export function NullablePtr16<TR, AR extends any[], TW, AW extends any[]>(
         }
     };
 }
-export function NonNullablePtr16<TR, AR extends any[], TW, AW extends any[]>(
+export function NonNullablePtr16<TR, AR extends unknown[], TW, AW extends unknown[]>(
     r: Read<TR, AR> & Write<TW, AW>
 ): Read<TR, AR> & Write<TW, AW> {
     return {
         read: (view, ...ar) => {
-            let p = view.ptr16();
+            const p = view.ptr16();
             return p.next(r, ...ar);
         },
         write: (frag, t, ...aw) => {
@@ -29,12 +29,12 @@ export function NonNullablePtr16<TR, AR extends any[], TW, AW extends any[]>(
         }
     };
 }
-export function NullablePtr32<TR, AR extends any[], TW, AW extends any[]>(
+export function NullablePtr32<TR, AR extends unknown[], TW, AW extends unknown[]>(
     r: Read<TR, AR> & Write<TW, AW>
 ): Read<undefined | null | TR, AR> & Write<undefined | null | TW, AW> {
     return {
         read: (view, ...ar) => {
-            let p = view.ptr32Nullable();
+            const p = view.ptr32Nullable();
             if (!p) return null;
             else return p.next(r, ...ar);
         },
@@ -44,12 +44,12 @@ export function NullablePtr32<TR, AR extends any[], TW, AW extends any[]>(
         }
     };
 }
-export function NonNullablePtr32<TR, AR extends any[], TW, AW extends any[]>(
+export function NonNullablePtr32<TR, AR extends unknown[], TW, AW extends unknown[]>(
     r: Read<TR, AR> & Write<TW, AW>
 ): Read<TR, AR> & Write<TW, AW> {
     return {
         read: (view, ...ar) => {
-            let p = view.ptr32();
+            const p = view.ptr32();
             return p.next(r, ...ar);
         },
         write: (frag, t, ...aw) => {

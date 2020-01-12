@@ -27,7 +27,7 @@ export const StatRead = Read(view => {
 });
 
 const DesignAxisArray = Read((view, count: number) => {
-    let arr: Stat.Axis[] = [];
+    const arr: Stat.Axis[] = [];
     for (let aid = 0; aid < count; aid++) {
         const tag = view.next(Tag);
         const axisNameID = view.uint16();
@@ -39,7 +39,7 @@ const DesignAxisArray = Read((view, count: number) => {
 
 type AxisOrder = Data.Order<Stat.Axis>;
 const AxisValueArray = Read((view, count: number, axes: AxisOrder) => {
-    let arr: [Stat.AxisValue.General, Stat.NameAssignment][] = [];
+    const arr: [Stat.AxisValue.General, Stat.NameAssignment][] = [];
     for (let aid = 0; aid < count; aid++) {
         arr.push(view.ptr16().next(AxisValue, axes));
     }
@@ -119,7 +119,7 @@ const AxisValueFormat4 = Read((view, axes: AxisOrder) => {
     const flags = view.uint16();
     const valueNameID = view.uint16();
 
-    let assignments: [Stat.Axis, F16D16][] = [];
+    const assignments: [Stat.Axis, F16D16][] = [];
     for (let aid = 0; aid < axisCount; aid++) {
         const axisIndex = view.uint16();
         const axis = axes.at(axisIndex);

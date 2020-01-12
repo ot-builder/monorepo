@@ -25,17 +25,17 @@ export namespace CovUtils {
         return gids.sort(byNum);
     }
     export function gidListFromAuxMap<T>(axm: CovAuxMappingT<T>) {
-        let ans: number[] = [];
+        const ans: number[] = [];
         for (const [gid, ax] of axm) ans.push(gid);
         return ans;
     }
     export function valueListFromAuxMap<T>(axm: CovAuxMappingT<T>) {
-        let ans: T[] = [];
+        const ans: T[] = [];
         for (const [gid, ax] of axm) ans.push(ax);
         return ans;
     }
     export function auxMapFromMap<G, T>(mapping: Iterable<[G, T]>, gOrd: Data.Order<G>) {
-        let answer: CovAuxMappingT<T> = [];
+        const answer: CovAuxMappingT<T> = [];
         for (const [g, t] of mapping) answer.push([gOrd.reverse(g), t]);
         answer.sort(byGID);
         return answer;
@@ -45,7 +45,7 @@ export namespace CovUtils {
         gOrd: Data.Order<G>,
         exclude: ReadonlySet<G>
     ) {
-        let answer: CovAuxMappingT<T> = [];
+        const answer: CovAuxMappingT<T> = [];
         for (const [g, t] of mapping) if (!exclude.has(g)) answer.push([gOrd.reverse(g), t]);
         answer.sort(byGID);
         return answer;
@@ -55,7 +55,7 @@ export namespace CovUtils {
         gOrd: Data.Order<G>,
         extract: (from: T) => G
     ) {
-        let answer: CovAuxMappingT<T> = [];
+        const answer: CovAuxMappingT<T> = [];
         for (const t of mapping) answer.push([gOrd.reverse(extract(t)), t]);
         answer.sort(byGID);
         return answer;
@@ -74,8 +74,8 @@ export namespace CovUtils {
         mapping: Iterable<[G, T]>,
         gOrd: Data.Order<G>
     ): CovSplitLists<T> {
-        let gidList: number[] = [];
-        let values: T[] = [];
+        const gidList: number[] = [];
+        const values: T[] = [];
         const axm = auxMapFromMap(mapping, gOrd);
         for (const [gid, t] of axm) {
             gidList.push(gid);
@@ -90,12 +90,12 @@ export namespace CovUtils {
         for (const gid of gids) yield gOrd.at(gid);
     }
     export function glyphSetFromGidList<G>(gids: Iterable<number>, gOrd: Data.Order<G>) {
-        let s: Set<G> = new Set();
+        const s: Set<G> = new Set();
         for (const gid of gids) s.add(gOrd.at(gid));
         return s;
     }
     export function gidListFromGlyphSet<G>(glyphs: Iterable<G>, gOrd: Data.Order<G>) {
-        let gidSet: Set<number> = new Set();
+        const gidSet: Set<number> = new Set();
         for (const glyph of glyphs) gidSet.add(gOrd.reverse(glyph));
         return [...gidSet].sort((a, b) => a - b);
     }

@@ -13,8 +13,8 @@ export class CffWriteIndex<T> implements Write<readonly T[], [CffWriteContext]> 
     private collectOffsets(items: readonly T[], context: CffWriteContext) {
         Assert.NoGap("CFF Index items", items);
         let dataSize = 0;
-        let offsets: number[] = [];
-        let frags: Frag[] = [];
+        const offsets: number[] = [];
+        const frags: Frag[] = [];
         for (let index = 0; index < items.length; index++) {
             offsets.push(dataSize);
             const fragItem = new Frag().push(this.writeItem, items[index], context, index);
@@ -33,7 +33,7 @@ export class CffWriteIndex<T> implements Write<readonly T[], [CffWriteContext]> 
         frag.push(CffIndexCount, items.length, context.version);
         const offSize = this.offsetSize(dataSize);
         frag.push(CffOffSize, offSize);
-        for (let item of offsets) frag.push(CffOffset, item, offSize);
-        for (let frItem of frags) frag.embed(frItem);
+        for (const item of offsets) frag.push(CffOffset, item, offSize);
+        for (const frItem of frags) frag.embed(frItem);
     }
 }

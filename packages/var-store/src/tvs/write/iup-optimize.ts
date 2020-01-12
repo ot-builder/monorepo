@@ -54,7 +54,7 @@ function iupContourBoundForcedSet(
     let zN = 0,
         zL = n - 1;
 
-    let forced: boolean[] = ImpLib.BitMask.Falses(n);
+    const forced: boolean[] = ImpLib.BitMask.Falses(n);
 
     for (let _zPoint = n - 1; _zPoint > -1; _zPoint--) {
         const zPoint = ImpLib.Arith.pmod(_zPoint, n);
@@ -77,7 +77,7 @@ function iupContourBoundForcedSet(
                 (c1 = cN), (c2 = cL), (d1 = dN), (d2 = dL);
             }
 
-            let force =
+            const force =
                 roundCost(deltas, dimensions, z, tolerance) === COST_INTEGER &&
                 pointIsForced(c1, cZ, c2, d1, dZ, d2, tolerance);
 
@@ -160,8 +160,8 @@ function iupOptimizeDP(
     forces: boolean[] = [],
     lookBack: number = n
 ) {
-    let costs: number[] = [0]; // N + 1 items, [0] for a special terminating mask
-    let chain: (number | null)[] = [null]; // N + 1 items, [0] for a special terminating mask
+    const costs: number[] = [0]; // N + 1 items, [0] for a special terminating mask
+    const chain: (number | null)[] = [null]; // N + 1 items, [0] for a special terminating mask
 
     for (let zCur = 0; zCur < n; zCur++) {
         const rc = roundCost(deltas, zCur, dimensions, tolerance);
@@ -171,7 +171,7 @@ function iupOptimizeDP(
         if (forces[zCur - 1]) continue;
 
         for (let zBefore = zCur - 1; zBefore > -2 && zBefore > zCur - lookBack; zBefore--) {
-            let cost = costs[zBefore + 1] + rc; // k + 1 always >= 0, so no overflow
+            const cost = costs[zBefore + 1] + rc; // k + 1 always >= 0, so no overflow
             if (
                 cost < bestCost &&
                 canIupBetween(coords, deltas, n, dimensions, zBefore, zCur, tolerance)
@@ -228,7 +228,7 @@ export function iupOptimize(
 
     // If all deltas are exactly the same, return just one (the first one):
     if (allDeltasSame(deltas, n, dimensions)) {
-        let solution = ImpLib.BitMask.Falses(n);
+        const solution = ImpLib.BitMask.Falses(n);
         solution[0] = true;
         return solution;
     }
@@ -251,7 +251,7 @@ export function iupOptimize(
         const coords1 = rotateArray(coords, dimensions * n, dimensions * rot);
         const forces1 = rotateArray(forces, n, rot);
         const { chain } = iupOptimizeDP(coords1, deltas1, n, dimensions, tolerance, forces1);
-        let answer: boolean[] = ImpLib.BitMask.Falses(n);
+        const answer: boolean[] = ImpLib.BitMask.Falses(n);
         let jChain: number | null = n - 1;
         while (jChain !== null && jChain >= 0) {
             answer[ImpLib.Arith.pmod(jChain, n)] = true;
@@ -276,7 +276,7 @@ export function iupOptimize(
         let bestSolution: boolean[] = ImpLib.BitMask.Trues(n),
             bestCost = COST_NON_INTEGER * (n + 1);
         for (let start = n - 1; start < 2 * n - 1; start++) {
-            let solution: boolean[] = ImpLib.BitMask.Falses(n);
+            const solution: boolean[] = ImpLib.BitMask.Falses(n);
             let cur: number | null = start;
             while (cur !== null && cur > start - n) {
                 solution[ImpLib.Arith.pmod(cur, n)] = true;

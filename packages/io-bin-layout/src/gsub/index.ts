@@ -24,6 +24,7 @@ import { GsubSingleReader, GsubSingleWriter } from "../lookups/gsub-single";
 const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> = {
     extendedFormat: 7,
     isExtendedFormat: x => x === 7,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(x: number): LookupReader<Gsub.Lookup, any> {
         switch (x) {
             case 1:
@@ -44,6 +45,7 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
                 throw Errors.FormatNotSupported(`GSUB lookup`, x);
         }
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     *writers(): IterableIterator<LookupWriter<Gsub.Lookup, any>> {
         yield new GsubSingleWriter();
         yield new GsubMultiWriter();

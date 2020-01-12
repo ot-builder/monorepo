@@ -72,7 +72,7 @@ test("CFF Encoding: Draw call conversion", () => {
 test("CFF Encoding: Draw call conversion should not overflow", () => {
     const cr = OtVar.Create.ValueFactory();
     const ctx = new CffWriteContext(2, 1000);
-    let a: OtVar.Value[] = [];
+    const a: OtVar.Value[] = [];
     for (let x = 0; x < 128; x++) {
         if (x % 2) a.push(cr.make(x, [Bold, x]));
         else a.push(cr.make(x, [Wide, x]));

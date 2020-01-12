@@ -4,10 +4,10 @@ import { GidCoverage } from "./coverage";
 
 describe("Coverage IO", () => {
     function generateRandomList(maxLen: number) {
-        let n = Math.max(1, Math.round(maxLen / 4 + (Math.random() * maxLen) / 4));
-        let s = new Set<number>();
+        const n = Math.max(1, Math.round(maxLen / 4 + (Math.random() * maxLen) / 4));
+        const s = new Set<number>();
         while (s.size < n) {
-            let a = (Math.random() * 0xffff) | 0;
+            const a = (Math.random() * 0xffff) | 0;
             s.add(a);
         }
         return [...s].sort((a, b) => a - b);

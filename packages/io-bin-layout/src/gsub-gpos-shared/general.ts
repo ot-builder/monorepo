@@ -31,13 +31,16 @@ export interface LookupWriter<L, C extends L> {
 }
 
 export interface LookupReaderFactory<L> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(format: number): LookupReader<L, any>;
     isExtendedFormat(format: number): boolean;
 }
 
 export interface LookupWriterFactory<L> {
     readonly extendedFormat: number;
-    writers(): Iterable<LookupWriter<L, any>>; // Actually: ReadonlyArray<∃C. LookupWriter<L, C>>
+    // Actually: ReadonlyArray<∃C. LookupWriter<L, C>>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    writers(): Iterable<LookupWriter<L, any>>;
 }
 
 export const SubtableSizeLimit = 0x8000;

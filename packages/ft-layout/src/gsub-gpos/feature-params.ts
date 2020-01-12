@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sigma } from "@ot-builder/prelude";
 
 export namespace FeatureParams {

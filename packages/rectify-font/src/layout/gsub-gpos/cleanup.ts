@@ -10,7 +10,7 @@ export function cleanupGsubGposData<L, Table extends Ot.GsubGpos.TableT<L>>(
     lookupCorrespondence: Map<L, L>,
     fnRemovable: (lookup: L) => boolean
 ) {
-    let lookups: L[] = [];
+    const lookups: L[] = [];
     for (const lookup of [...lookupCorrespondence.values()]) {
         if (!fnRemovable(lookup)) lookups.push(lookup);
     }
@@ -19,7 +19,7 @@ export function cleanupGsubGposData<L, Table extends Ot.GsubGpos.TableT<L>>(
     const lookupSet = new Set(lookups);
     if (!lookupSet.size) return null;
 
-    let featureCorrespondence: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>> = new Map();
+    const featureCorrespondence: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>> = new Map();
     newTable.features = RectifyImpl.Elim.listSomeT(
         table.features,
         cleanupFeature,
@@ -98,7 +98,7 @@ function cleanupFeatureVariation<L>(
     featureCorrespondence: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>>,
     fs: ReadonlySet<Ot.GsubGpos.FeatureT<L>>
 ): null | Ot.GsubGpos.FeatureVariationT<L> {
-    let subst: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>> = new Map();
+    const subst: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>> = new Map();
     for (const [from, to] of fv.substitutions) {
         const from1 = RectifyImpl.Elim.findInSet(from, fs);
         const to1 = cleanupFeature(to, lookupCorrespondence, ls, featureCorrespondence, true);

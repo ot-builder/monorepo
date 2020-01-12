@@ -4,11 +4,11 @@ import { GidClassDef } from "./class-def";
 
 describe("ClassDef IO", () => {
     function generateRandomList(maxLen: number, maxK: number) {
-        let n = Math.max(1, Math.round(maxLen / 4 + (Math.random() * maxLen) / 4));
-        let s = new Set<number>();
-        let m = new Map<number, number>();
+        const n = Math.max(1, Math.round(maxLen / 4 + (Math.random() * maxLen) / 4));
+        const s = new Set<number>();
+        const m = new Map<number, number>();
         while (s.size < n) {
-            let a = (Math.random() * 0xffff) | 0;
+            const a = (Math.random() * 0xffff) | 0;
             if (s.has(a)) continue;
             s.add(a);
             m.set(a, (Math.random() * maxK) | 0);

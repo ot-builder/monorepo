@@ -58,7 +58,7 @@ const GvarHeader = Read(
 
         Assert.SubVersionSupported("GvarHeader", majorVersion, minorVersion, [1, 0]);
         Assert.SizeMatch("GvarHeader::axisCount", axisCount, designSpace.length);
-        if (!cfg.ttf.gvarRead_permissiveGlyphCount) {
+        if (!cfg.ttf.gvarReadPermissiveGlyphCount) {
             Assert.SizeMatch("GvarHeader::glyphCount", glyphCount, gOrd.length);
         }
 
@@ -113,9 +113,10 @@ class GeomVarPtrCollector {
                 return new ContourHolder(geom);
             case OtGlyph.GeometryType.TtReference:
                 return new TtReferenceHolder(geom);
-            case OtGlyph.GeometryType.GeometryList:
+            case OtGlyph.GeometryType.GeometryList: {
                 const parts: GeomHolder[] = geom.items.map(item => this.process(item.ref));
                 return new GeometryListHolder(parts);
+            }
         }
     }
 }

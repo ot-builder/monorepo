@@ -58,7 +58,7 @@ const AxisValueArray = Write(
         axes: AxisOrder,
         acNeedFormat12: ImpLib.Access<boolean>
     ) => {
-        for (let item of ava) {
+        for (const item of ava) {
             frag.ptr16New(FragPointerEmbedding.EmbedRelative).push(
                 AxisValue,
                 item,
