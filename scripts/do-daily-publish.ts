@@ -29,7 +29,7 @@ async function main() {
     await Git("remote", "set-url", "origin", repoUrl);
 
     // Do the publish
-    await Beachball("publish", "-n", NpmToken);
+    await Beachball("publish", "--yes", "-n", NpmToken);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
