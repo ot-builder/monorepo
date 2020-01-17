@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  schedule:
+    - cron: '45 4 * * *'
+
+jobs:
+  publish:
+    name: Daily publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: NPM Setup
+      run: |
+        npm run boot:prod
+      env:
+        CI: true
+    - name: Production Build
+      run: |
+        npm run build:prod
+      env:
+        CI: true
+    - name: Publish
+      run: |
+        npm run publish
+      env:
+        SECRET_GITHUB_TOKEN: ${{secrets.SECRET_GITHUB_TOKEN}}
+        SECRET_NPM_TOKEN: ${{secrets.SECRET_NPM_TOKEN}}
