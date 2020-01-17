@@ -17,6 +17,7 @@ for (const packageName of packages) {
 
 for (const packageName of packages) {
     const packageJSONPath = path.join(packagesRoot, packageName, "package.json");
+    const npmIgnorePath = path.join(packagesRoot, packageName, ".npmignore");
 
     const packageJSONData = JSON.parse(fs.readFileSync(packageJSONPath).toString());
 
@@ -49,5 +50,16 @@ for (const packageName of packages) {
     delete packageJSONData.devDependencies;
     packageJSONData.devDependencies = devDeps;
 
-    fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
+    fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  ") + "\n");
+    fs.writeFileSync(
+        npmIgnorePath,
+        `
+tsconfig.json
+tsconfig.prod.json
+CHANGELOG.json
+CHANGELOG.md
+lib/**/*.map
+src/
+`
+    );
 }
