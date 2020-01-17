@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove GeneralLookupT<G,X,E>",
-  "packageName": "@ot-builder/ft-layout",
-  "email": "belleve@typeof.net",
-  "commit": "1b83a00bf881bd3198e5188e6351245f8f3dfb77",
-  "date": "2019-12-19T04:38:34.323Z"
-}

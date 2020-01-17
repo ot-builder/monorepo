@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Mark all volatile fields",
-  "packageName": "@ot-builder/ft-metadata",
-  "email": "belleve@typeof.net",
-  "commit": "dba0a38c483a3ecd50254fd5f72ca0f817e19db9",
-  "date": "2019-12-22T11:25:15.998Z"
-}

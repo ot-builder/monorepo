@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Refactor \"Caster\" to \"Sigma\" and remove Geometry dynamic casting -- use algebra to do the conversion",
-  "packageName": "@ot-builder/prelude",
-  "email": "belleve@typeof.net",
-  "commit": "a0ec7eaf0ea82978f11505ac1770e776a912e89c",
-  "date": "2020-01-10T06:30:51.556Z"
-}

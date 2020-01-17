@@ -1,0 +1,61 @@
+{
+  "name": "@ot-builder/io-bin-cff",
+  "entries": [
+    {
+      "date": "Fri, 17 Jan 2020 05:07:07 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.3.0",
+      "version": "0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add documentation; Refactor some API exports",
+            "author": "belleve@typeof.net",
+            "commit": "563ded6f3217c64388e623b5538284a59f5776ed"
+          },
+          {
+            "comment": "Split Ot.Var.Dim from Ot.Fvar.Axis",
+            "author": "belleve@typeof.net",
+            "commit": "b5433a84f1f70ffafb069d353783af447bba2949"
+          },
+          {
+            "comment": "Optimize API for ValueFactory",
+            "author": "belleve@typeof.net",
+            "commit": "0a05d93c618a76de89cfbf8ee53bd1a3081e0ffa"
+          },
+          {
+            "comment": "Remove tagless final in geometry types",
+            "author": "belleve@typeof.net",
+            "commit": "387c57526cf16b43358aeae719fd2f0d54c311d6"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "CFF code cleanup",
+            "author": "belleve@typeof.net",
+            "commit": "e75186667fdb291d72d8ec3fe07800992ad41f8c"
+          },
+          {
+            "comment": "Add production build",
+            "author": "belleve@typeof.net",
+            "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da"
+          },
+          {
+            "comment": "Made apply signature of algebra-initials function property rather than method to avoid TypeScript's method parameter bivariance",
+            "author": "belleve@typeof.net",
+            "commit": "7cedf9a6af843c59271e3ad7810f17c0521c79ad"
+          },
+          {
+            "comment": "Fix all CRLF",
+            "author": "belleve@typeof.net",
+            "commit": "b62d3ac2cac20f161c931c4a466c1f6c97e00451"
+          },
+          {
+            "comment": "Move tslint -> eslint",
+            "author": "belleve@typeof.net",
+            "commit": "f41ebb9ed11f836db151a0974c7d1f99d0ab1903"
+          }
+        ]
+      }
+    }
+  ]
+}

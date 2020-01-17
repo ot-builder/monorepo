@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Optimize Ot.DicingStore for GPOS pairing lookup read performance",
-  "packageName": "@ot-builder/ft-layout",
-  "email": "belleve@typeof.net",
-  "commit": "f9f725682f0a29dd70d54303775f69591ea38123",
-  "date": "2019-12-21T09:25:03.683Z"
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add TTC-ish glyph merging demo",
-  "packageName": "@ot-builder/variance",
-  "email": "belleve@typeof.net",
-  "commit": "17c48aa038b6981862fa0aaa2d50933b52dfa9bf",
-  "date": "2019-12-24T09:36:58.456Z"
-}

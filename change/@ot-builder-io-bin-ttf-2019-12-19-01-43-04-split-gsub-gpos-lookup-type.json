@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Split Ot.GsubGpos.Lookup",
-  "packageName": "@ot-builder/io-bin-ttf",
-  "email": "belleve@typeof.net",
-  "commit": "ce644c6530214a376b389ad2a0e7a3650c7f82d3",
-  "date": "2019-12-19T09:43:02.165Z"
-}

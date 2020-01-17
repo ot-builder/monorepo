@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Layout: Remove tagless final representation. It is over-design.",
-  "packageName": "@ot-builder/test-util",
-  "email": "belleve@typeof.net",
-  "commit": "ca6e6a4851df8689a052b90984631fd8c8427217",
-  "date": "2020-01-11T06:25:38.492Z"
-}

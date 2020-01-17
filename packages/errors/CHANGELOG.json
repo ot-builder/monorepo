@@ -1,0 +1,26 @@
+{
+  "name": "@ot-builder/errors",
+  "entries": [
+    {
+      "date": "Fri, 17 Jan 2020 05:07:07 GMT",
+      "tag": "@ot-builder/errors_v0.3.0",
+      "version": "0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add documentation; Refactor some API exports",
+            "author": "belleve@typeof.net",
+            "commit": "563ded6f3217c64388e623b5538284a59f5776ed"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add production build",
+            "author": "belleve@typeof.net",
+            "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da"
+          }
+        ]
+      }
+    }
+  ]
+}

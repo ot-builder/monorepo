@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add production build",
-  "packageName": "@ot-builder/bin-composite-types",
-  "email": "belleve@typeof.net",
-  "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da",
-  "date": "2019-12-31T19:06:38.153Z"
-}

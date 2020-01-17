@@ -1,0 +1,56 @@
+{
+  "name": "@ot-builder/ft-glyphs",
+  "entries": [
+    {
+      "date": "Fri, 17 Jan 2020 05:07:07 GMT",
+      "tag": "@ot-builder/ft-glyphs_v0.3.0",
+      "version": "0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add documentation; Refactor some API exports",
+            "author": "belleve@typeof.net",
+            "commit": "563ded6f3217c64388e623b5538284a59f5776ed"
+          },
+          {
+            "comment": "Split Ot.GsubGpos.Lookup",
+            "author": "belleve@typeof.net",
+            "commit": "ce644c6530214a376b389ad2a0e7a3650c7f82d3"
+          },
+          {
+            "comment": "Refactor \"Caster\" to \"Sigma\" and remove Geometry dynamic casting -- use algebra to do the conversion",
+            "author": "belleve@typeof.net",
+            "commit": "a0ec7eaf0ea82978f11505ac1770e776a912e89c"
+          },
+          {
+            "comment": "Remove tagless final in geometry types",
+            "author": "belleve@typeof.net",
+            "commit": "387c57526cf16b43358aeae719fd2f0d54c311d6"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add production build",
+            "author": "belleve@typeof.net",
+            "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da"
+          },
+          {
+            "comment": "Made apply signature of algebra-initials function property rather than method to avoid TypeScript's method parameter bivariance",
+            "author": "belleve@typeof.net",
+            "commit": "7cedf9a6af843c59271e3ad7810f17c0521c79ad"
+          },
+          {
+            "comment": "Fix all CRLF",
+            "author": "belleve@typeof.net",
+            "commit": "b62d3ac2cac20f161c931c4a466c1f6c97e00451"
+          },
+          {
+            "comment": "Move tslint -> eslint",
+            "author": "belleve@typeof.net",
+            "commit": "f41ebb9ed11f836db151a0974c7d1f99d0ab1903"
+          }
+        ]
+      }
+    }
+  ]
+}

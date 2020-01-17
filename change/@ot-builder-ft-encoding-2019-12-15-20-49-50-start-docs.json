@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add documentation; Refactor some API exports",
-  "packageName": "@ot-builder/ft-encoding",
-  "email": "belleve@typeof.net",
-  "commit": "563ded6f3217c64388e623b5538284a59f5776ed",
-  "date": "2019-12-16T04:48:56.896Z"
-}

@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Move tslint -> eslint",
-  "packageName": "@ot-builder/io-bin-sfnt",
-  "email": "belleve@typeof.net",
-  "commit": "f41ebb9ed11f836db151a0974c7d1f99d0ab1903",
-  "date": "2020-01-12T01:57:22.561Z"
-}

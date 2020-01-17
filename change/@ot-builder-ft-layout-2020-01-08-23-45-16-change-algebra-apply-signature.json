@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Made apply signature of algebra-initials function property rather than method to avoid TypeScript's method parameter bivariance",
-  "packageName": "@ot-builder/ft-layout",
-  "email": "belleve@typeof.net",
-  "commit": "7cedf9a6af843c59271e3ad7810f17c0521c79ad",
-  "date": "2020-01-09T07:45:14.520Z"
-}
