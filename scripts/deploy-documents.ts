@@ -5,7 +5,6 @@ import * as FS from "fs-extra";
 import * as RimRaf from "rimraf";
 
 const OsSuffix = OS.platform() === "win32" ? ".cmd" : "";
-const DocRemote = "https://github.com/ot-builder/ot-builder.github.io.git";
 
 const Deploy = Path.resolve(__dirname, "../.doc-deploy");
 const Doc = Path.resolve(__dirname, "../doc");
@@ -14,6 +13,7 @@ const Out = Path.resolve(Doc, "out");
 
 const GitUser = "otbbuilder-dev";
 const GitEmail = "otbbuilder-dev@users.noreply.github.com";
+const GitToken = process.env.SECRET_GITHUB_TOKEN;
 
 main().catch(e => {
     console.error(e);
@@ -30,6 +30,9 @@ async function main() {
     await FS.mkdir(Deploy);
 
     // Repository
+    const DocRemote = GitToken
+        ? `https://${GitUser}:${GitToken}@github.com/ot-builder/ot-builder.github.io.git`
+        : "https://github.com/ot-builder/ot-builder.github.io.git";
     await Git("init");
     await Git("remote", "add", "origin", DocRemote);
     await Git("config", "user.name", GitUser);
