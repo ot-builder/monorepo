@@ -1,10 +1,10 @@
 import * as Path from "path";
 import * as FS from "fs-extra";
 import * as RimRaf from "rimraf";
-import { Build, Deploy, Git, Next, Out, PublishConfig } from "./tools";
+import { Build, Deploy, DocGit, Next, Out, PublishConfig } from "./tools";
 
 export async function docPublish(cfg: PublishConfig) {
-    if (!cfg.GitUser || !cfg.GitEmail || !cfg.GitToken) {
+    if (!cfg.GitUser || !cfg.GitEmail) {
         throw new Error("Key information missing.");
     }
 
@@ -20,11 +20,11 @@ export async function docPublish(cfg: PublishConfig) {
     const DocRemote = cfg.GitToken
         ? `https://${cfg.GitUser}:${cfg.GitToken}@github.com/ot-builder/ot-builder.github.io.git`
         : "https://github.com/ot-builder/ot-builder.github.io.git";
-    await Git("init");
-    await Git("remote", "add", "origin", DocRemote);
-    await Git("config", "user.name", cfg.GitUser);
-    await Git("config", "user.email", cfg.GitEmail);
-    await Git("pull", "origin", "master");
+    await DocGit("init");
+    await DocGit("remote", "add", "origin", DocRemote);
+    await DocGit("config", "user.name", cfg.GitUser);
+    await DocGit("config", "user.email", cfg.GitEmail);
+    await DocGit("pull", "origin", "master");
 
     // CP.spawnSync(Git, ["pull", "origin"], { cwd: Out });
     RimRaf.sync(Out);
@@ -39,7 +39,7 @@ export async function docPublish(cfg: PublishConfig) {
     RimRaf.sync(Out);
 
     // Commit and push
-    await Git("add", ".");
-    await Git("commit", "-m", `Documentation deploy @ ${new Date()}`);
-    await Git("push", "origin", "master", "--force");
+    await DocGit("add", ".");
+    await DocGit("commit", "-m", `Documentation deploy @ ${new Date()}`);
+    await DocGit("push", "origin", "master", "--force");
 }

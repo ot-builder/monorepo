@@ -4,25 +4,28 @@ import * as OS from "os";
 
 const OsSuffix = OS.platform() === "win32" ? ".cmd" : "";
 
-export const Deploy = Path.resolve(__dirname, "../../.doc-deploy");
-export const Doc = Path.resolve(__dirname, "../../doc");
+export const RepositoryDir = Path.resolve(__dirname, "../../");
+
+export const Deploy = Path.resolve(RepositoryDir, "doc-deploy");
+export const Doc = Path.resolve(RepositoryDir, "doc");
 export const Build = Path.resolve(Doc, "build");
 export const Out = Path.resolve(Doc, "out");
 
-export const RepositoryDir = Path.resolve(__dirname, "../../");
+function npmExecutable(packageName: string) {
+    return Path.resolve(RepositoryDir, "node_modules/.bin/" + packageName + OsSuffix);
+}
 
 export function Git(...args: string[]) {
     return Spawn("git", args, { cwd: RepositoryDir, stdio: "inherit" });
 }
+export function DocGit(...args: string[]) {
+    return Spawn("git", args, { cwd: Deploy, stdio: "inherit" });
+}
 export function Beachball(...args: string[]) {
-    const beachBallExec = Path.resolve(__dirname, "../../node_modules/.bin/beachball" + OsSuffix);
-    return Spawn(beachBallExec, args, { cwd: RepositoryDir, stdio: "inherit" });
+    return Spawn(npmExecutable("beachball"), args, { cwd: RepositoryDir, stdio: "inherit" });
 }
 export function Next(...args: string[]) {
-    return Spawn(Path.resolve(__dirname, "../../node_modules/.bin/next" + OsSuffix), args, {
-        cwd: Doc,
-        stdio: "inherit"
-    });
+    return Spawn(npmExecutable("next"), args, { cwd: Doc, stdio: "inherit" });
 }
 
 export function Spawn(command: string, args: string[], options: CP.SpawnOptions) {
