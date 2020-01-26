@@ -4,6 +4,10 @@ import * as RimRaf from "rimraf";
 import { Build, Deploy, Git, Next, Out, PublishConfig } from "./tools";
 
 export async function docPublish(cfg: PublishConfig) {
+    if (!cfg.GitUser || !cfg.GitEmail || !cfg.GitToken) {
+        throw new Error("Key information missing.");
+    }
+
     // Build
     RimRaf.sync(Build);
     await Next("build");
