@@ -28,7 +28,6 @@ jobs:
     - name: Publish
       run: |
         npm run publish
-        npm run docs:deploy
       env:
         SECRET_GITHUB_TOKEN: ${{secrets.SECRET_GITHUB_TOKEN}}
         SECRET_NPM_TOKEN: ${{secrets.SECRET_NPM_TOKEN}}
