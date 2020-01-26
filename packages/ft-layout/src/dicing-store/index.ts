@@ -16,15 +16,48 @@ export interface DicingStore<X, Y, D> {
         mdfY: Iterable<Y>,
         fn: (original: Data.Maybe<D>) => Data.Maybe<D>
     ): void;
+
+    toRep(): DicingStoreRep<X, Y, D>;
+}
+export namespace DicingStore {
+    export function create<X, Y, D>(
+        rep?: Data.Maybe<DicingStoreRep<X, Y, D>>
+    ): DicingStore<X, Y, D> {
+        return DicingStoreImpl.FromRep(rep);
+    }
+}
+export interface DicingStoreRep<X, Y, D> {
+    xClasses: X[][];
+    yClasses: Y[][];
+    data: Data.Maybe<D>[][];
 }
 
-export class DicingStoreImpl<X, Y, D> {
+export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
     private clsDefX: Map<X, number> = new Map();
     private coClsDefX: X[][] = [];
     private clsDefY: Map<Y, number> = new Map();
     private coClsDefY: Y[][] = [];
 
     private dataMatrix: Data.Maybe<D>[][] = [];
+
+    static FromRep<X, Y, D>(rep?: Data.Maybe<DicingStoreRep<X, Y, D>>) {
+        const store = new DicingStoreImpl<X, Y, D>();
+        if (!rep) return store;
+        store.clsDefX = toClassMap(rep.xClasses);
+        store.coClsDefX = duplicateArray2(rep.xClasses);
+        store.clsDefY = toClassMap(rep.yClasses);
+        store.coClsDefY = duplicateArray2(rep.yClasses);
+        store.dataMatrix = duplicateArray2(rep.data);
+        return store;
+    }
+
+    toRep(): DicingStoreRep<X, Y, D> {
+        return {
+            xClasses: duplicateArray2(this.coClsDefX),
+            yClasses: duplicateArray2(this.coClsDefY),
+            data: duplicateArray2(this.dataMatrix)
+        };
+    }
 
     private getData(kx: number, ky: number): Data.Maybe<D> {
         if (!this.dataMatrix[kx]) return undefined;
@@ -71,8 +104,11 @@ export class DicingStoreImpl<X, Y, D> {
         mdfY: Iterable<Y>,
         fn: (original: Data.Maybe<D>) => Data.Maybe<D>
     ) {
-        const planX = this.getDicingPlan(this.coClsDefX, new Set(mdfX));
-        const planY = this.getDicingPlan(this.coClsDefY, new Set(mdfY));
+        const mdfXSet = new Set(mdfX);
+        const mdfYSet = new Set(mdfY);
+        if (!mdfXSet.size || !mdfYSet.size) return;
+        const planX = this.getDicingPlan(this.coClsDefX, mdfXSet);
+        const planY = this.getDicingPlan(this.coClsDefY, mdfYSet);
         for (const px of planX) {
             if (!px.items) continue;
             this.coClsDefX[px.cls] = px.items;
@@ -146,4 +182,23 @@ export class DicingStoreImpl<X, Y, D> {
     public setIfAbsent(x: Iterable<X>, y: Iterable<Y>, v: D) {
         this.update(x, y, orig => (orig == null ? v : orig));
     }
+}
+
+// util function
+function duplicateArray2<T>(a: ReadonlyArray<ReadonlyArray<T>>) {
+    const r: T[][] = [];
+    for (let cx = 0; cx < a.length; cx++) {
+        const row = a[cx] || [];
+        r[cx] = [...row];
+    }
+    return r;
+}
+function toClassMap<T>(a: ReadonlyArray<ReadonlyArray<T>>) {
+    const r: Map<T, number> = new Map();
+    for (let cx = 0; cx < a.length; cx++) {
+        const row = a[cx];
+        if (!row) continue;
+        for (const x of row) r.set(x, cx);
+    }
+    return r;
 }

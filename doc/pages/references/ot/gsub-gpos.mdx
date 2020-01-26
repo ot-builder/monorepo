@@ -557,6 +557,10 @@ This namespace is aliased as <Decl s={Ot.Gsub.FeatureParams}/> and <Decl s={Ot.G
 
 ### Opaque Type <Decl s={Ot.DicingStore("X","Y","D")}/>
 
+#### Factory Methods
+
+* <Fn s={Ot.DicingStore.create} args={{rep:optional(Ot.DicingStoreRep("X","Y","D"))}} />
+
 #### Methods
 
 * <Method s={Ot.DicingStore.get} args={{x:"X",y:"Y"}} returns={Data.Maybe("D")}/>
@@ -567,3 +571,12 @@ This namespace is aliased as <Decl s={Ot.Gsub.FeatureParams}/> and <Decl s={Ot.G
 * <Method s={Ot.DicingStore.set} args={{x:iterable("X"),y:iterable("Y"),value:"D"}} returns="void"/>
 * <Method s={Ot.DicingStore.setIfAbsent} args={{x:iterable("X"),y:iterable("Y"),value:"D"}} returns="void"/>
 * <Method s={Ot.DicingStore.update} args={{x:iterable("X"),y:iterable("Y"),fn:pi({original:Data.Maybe("D")},Data.Maybe("D"))}} returns="void"/>
+* <Method s={Ot.DicingStore.toRep} args={{}} returns={Ot.DicingStoreRep("X","Y","D")}/>
+
+### Datatype <Decl s={Ot.DicingStoreRep("X","Y","D")}/>
+
+#### Properties
+
+* <Member s={Ot.DicingStoreRep.xClasses} type={array(array("X"))}/>
+* <Member s={Ot.DicingStoreRep.yClasses} type={array(array("Y"))}/>
+* <Member s={Ot.DicingStoreRep.data} type={array(array("D"))}/>

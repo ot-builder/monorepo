@@ -3,7 +3,7 @@ import { CaseCreator, CaseType } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
-import { DicingStoreImpl } from "../dicing-store";
+import { DicingStoreImpl, DicingStore } from "../dicing-store";
 
 import { CreateTable } from "./factories";
 import * as FeatureParamLib from "./feature-params";
@@ -137,7 +137,7 @@ export namespace Gpos {
     export type PairProp = GeneralLookup.GposPairPropT<OtGlyph, OtVar.Value>;
     export type Pair = CaseType<typeof LT.Gpos.Pair, PairProp>;
     export const Pair = CaseCreator<typeof LT.Gpos.Pair, PairProp>(LT.Gpos.Pair, () => ({
-        adjustments: new DicingStoreImpl()
+        adjustments: DicingStore.create()
     }));
 
     export type CursiveProp = GeneralLookup.GposCursivePropT<OtGlyph, OtVar.Value>;
