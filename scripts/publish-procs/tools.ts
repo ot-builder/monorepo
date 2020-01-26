@@ -6,7 +6,7 @@ const OsSuffix = OS.platform() === "win32" ? ".cmd" : "";
 
 export const RepositoryDir = Path.resolve(__dirname, "../../");
 
-export const Deploy = Path.resolve(RepositoryDir, "doc-deploy");
+export const Deploy = Path.resolve(RepositoryDir, ".doc-deploy");
 export const Doc = Path.resolve(RepositoryDir, "doc");
 export const Build = Path.resolve(Doc, "build");
 export const Out = Path.resolve(Doc, "out");
