@@ -38,16 +38,20 @@ export function rectifyFontGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
     gsf: Data.OrderStoreFactory<Ot.Glyph, GS>
 ) {
     rectifyFontGlyphStore(rec, font, gsf);
-    if (Ot.Font.isCff(font)) inPlaceRectifyGlyphCffTable(rec, font.cff);
-    if (font.cmap) font.cmap = rectifyGlyphCmap(rec, font.cmap);
+    if (Ot.Font.isCff(font)) {
+        inPlaceRectifyGlyphCffTable(rec, font.cff);
+    }
+    if (font.cmap) {
+        font.cmap = rectifyGlyphCmap(rec, font.cmap);
+    }
     if (font.gdef) {
-        font.gdef = rectifyGdefGlyphs(font.gdef, rec);
+        font.gdef = rectifyGdefGlyphs(rec, font.gdef);
     }
     if (font.gsub) {
-        font.gsub = rectifyGsubGlyphs(font.gsub, rec);
+        font.gsub = rectifyGsubGlyphs(rec, font.gsub);
     }
     if (font.gpos) {
-        font.gpos = rectifyGposGlyphs(font.gpos, rec);
+        font.gpos = rectifyGposGlyphs(rec, font.gpos);
     }
     if (font.base) {
         font.base = rectifyBaseTableGlyphs(rec, font.base);

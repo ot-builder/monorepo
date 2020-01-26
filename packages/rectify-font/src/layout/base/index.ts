@@ -96,11 +96,22 @@ function rectifyAxisTable(fn: BaseRectifyFn, at: Ot.Base.AxisTable) {
     return ret;
 }
 
-export function rectifyBaseTableCoord(rec: CoordRectifier, at: Ot.Base.Table) {
+export function rectifyBaseTableCoord(
+    recCoord: CoordRectifier,
+    recPA: PointAttachmentRectifier,
+    at: Ot.Base.Table
+) {
     const ret = new Ot.Base.Table();
-    const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordCoord(rec, c) };
-    if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);
-    if (at.vertical) ret.vertical = rectifyAxisTable(fn, at.vertical);
+    const fnH: BaseRectifyFn = {
+        baseCoord: c =>
+            rectifyBaseCoordPointAttach(recPA, rectifyBaseCoordCoord(recCoord, c), true)
+    };
+    const fnV: BaseRectifyFn = {
+        baseCoord: c =>
+            rectifyBaseCoordPointAttach(recPA, rectifyBaseCoordCoord(recCoord, c), false)
+    };
+    if (at.horizontal) ret.horizontal = rectifyAxisTable(fnH, at.horizontal);
+    if (at.vertical) ret.vertical = rectifyAxisTable(fnV, at.vertical);
     return ret;
 }
 export function rectifyBaseTableGlyphs(rec: GlyphRectifier, at: Ot.Base.Table) {
@@ -108,13 +119,5 @@ export function rectifyBaseTableGlyphs(rec: GlyphRectifier, at: Ot.Base.Table) {
     const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordGlyph(rec, c) };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);
     if (at.vertical) ret.vertical = rectifyAxisTable(fn, at.vertical);
-    return ret;
-}
-export function rectifyBaseTablePointAttachment(rec: PointAttachmentRectifier, at: Ot.Base.Table) {
-    const ret = new Ot.Base.Table();
-    const fnH: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordPointAttach(rec, c, true) };
-    const fnV: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordPointAttach(rec, c, false) };
-    if (at.horizontal) ret.horizontal = rectifyAxisTable(fnH, at.horizontal);
-    if (at.vertical) ret.vertical = rectifyAxisTable(fnV, at.vertical);
     return ret;
 }
