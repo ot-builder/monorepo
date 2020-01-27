@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Optimize rectification",
+  "packageName": "@ot-builder/ft-layout",
+  "email": "belleve@typeof.net",
+  "commit": "71c3cf5cbaf687e5f84d00b42a78daba95c7696d",
+  "dependentChangeType": "patch",
+  "date": "2020-01-27T00:19:34.694Z"
+}
