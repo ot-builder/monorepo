@@ -195,23 +195,26 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposPair(props: Ot.Gpos.PairProp): RStub<Ot.Gpos.Lookup> {
         return RStub(Ot.Gpos.Pair.create(), ret => {
             this.setMeta(props, ret);
-            const cdFirst = props.adjustments.getXClassDef();
-            const cdSecond = props.adjustments.getYClassDef();
-            for (let c1 = 0; c1 < cdFirst.length; c1++) {
-                for (let c2 = 0; c2 < cdSecond.length; c2++) {
-                    const adj = props.adjustments.getByClass(c1, c2);
+
+            const rep = props.adjustments.toRep();
+            for (let c1 = 0; c1 < rep.xClasses.length; c1++) {
+                rep.xClasses[c1] = RectifyImpl.Glyph.listSome(this.rg, rep.xClasses[c1]);
+            }
+            for (let c2 = 0; c2 < rep.yClasses.length; c2++) {
+                rep.yClasses[c2] = RectifyImpl.Glyph.listSome(this.rg, rep.yClasses[c2]);
+            }
+            for (let c1 = 0; c1 < rep.data.length; c1++) {
+                const row = rep.data[c1];
+                for (let c2 = 0; c2 < row.length; c2++) {
+                    const adj = row[c2];
                     if (adj == null) continue;
-                    const cFirst1 = RectifyImpl.Glyph.listSome(this.rg, cdFirst[c1]);
-                    const cSecond1 = RectifyImpl.Glyph.listSome(this.rg, cdSecond[c2]);
-                    if (!cFirst1 || !cFirst1.length || !cSecond1 || !cSecond1.length) {
-                        continue;
-                    }
-                    ret.adjustments.set(new Set(cFirst1), new Set(cSecond1), [
+                    row[c2] = [
                         rectifyAdjustment(this.rc, adj[0]),
                         rectifyAdjustment(this.rc, adj[1])
-                    ]);
+                    ];
                 }
             }
+            ret.adjustments = Ot.DicingStore.create(rep);
         });
     }
 

@@ -25,7 +25,7 @@ function fnGposLookupRemovable(lookup: Ot.Gpos.Lookup) {
     return LookupRemovableAlg.process(lookup);
 }
 
-export function rectifyGsubGlyphs(table: Ot.Gsub.Table, rec: GlyphRectifier) {
+export function rectifyGsubGlyphs(rec: GlyphRectifier, table: Ot.Gsub.Table) {
     const alg = new RectifyGsubGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     return cleanupGsubGposData(
@@ -36,11 +36,12 @@ export function rectifyGsubGlyphs(table: Ot.Gsub.Table, rec: GlyphRectifier) {
     );
 }
 export function rectifyGsubCoord(
-    table: Ot.Gsub.Table,
     recAxes: AxisRectifier,
-    recCoord: CoordRectifier
+    recCoord: CoordRectifier,
+    recPA: PointAttachmentRectifier,
+    table: Ot.Gsub.Table
 ) {
-    const alg = new RectifyGsubGlyphCoordAlg({ glyph: g => g }, recCoord, null);
+    const alg = new RectifyGsubGlyphCoordAlg({ glyph: g => g }, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     const newTable = cleanupGsubGposData(
         table,
@@ -53,22 +54,8 @@ export function rectifyGsubCoord(
     }
     return newTable;
 }
-export function rectifyGsubPointAttachment(table: Ot.Gsub.Table, recPA: PointAttachmentRectifier) {
-    const alg = new RectifyGsubGlyphCoordAlg(
-        { glyph: g => g },
-        { coord: x => x, cv: x => x },
-        recPA
-    );
-    const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
-    return cleanupGsubGposData(
-        table,
-        Ot.Gsub.Table.create(),
-        lookupCorrespondence,
-        fnGsubLookupRemovable
-    );
-}
 
-export function rectifyGposGlyphs(table: Ot.Gpos.Table, rec: GlyphRectifier) {
+export function rectifyGposGlyphs(rec: GlyphRectifier, table: Ot.Gpos.Table) {
     const alg = new RectifyGposGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     return cleanupGsubGposData(
@@ -79,11 +66,12 @@ export function rectifyGposGlyphs(table: Ot.Gpos.Table, rec: GlyphRectifier) {
     );
 }
 export function rectifyGposCoord(
-    table: Ot.Gpos.Table,
     recAxes: AxisRectifier,
-    recCoord: CoordRectifier
+    recCoord: CoordRectifier,
+    recPA: PointAttachmentRectifier,
+    table: Ot.Gpos.Table
 ) {
-    const alg = new RectifyGposGlyphCoordAlg({ glyph: g => g }, recCoord, null);
+    const alg = new RectifyGposGlyphCoordAlg({ glyph: g => g }, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     const newTable = cleanupGsubGposData(
         table,
@@ -95,18 +83,4 @@ export function rectifyGposCoord(
         for (const fv of newTable.featureVariations) axesRectifyFeatureVariation(recAxes, fv);
     }
     return newTable;
-}
-export function rectifyGposPointAttachment(table: Ot.Gpos.Table, recPA: PointAttachmentRectifier) {
-    const alg = new RectifyGposGlyphCoordAlg(
-        { glyph: g => g },
-        { coord: x => x, cv: x => x },
-        recPA
-    );
-    const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
-    return cleanupGsubGposData(
-        table,
-        Ot.Gpos.Table.create(),
-        lookupCorrespondence,
-        fnGposLookupRemovable
-    );
 }

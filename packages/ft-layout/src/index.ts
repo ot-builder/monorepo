@@ -6,7 +6,7 @@ import { Base } from "./table-base";
 
 export * from "./common";
 //
-export { DicingStore } from "./dicing-store";
+export { DicingStore, DicingStoreRep } from "./dicing-store";
 export * from "./gdef";
 export * from "./gsub-gpos";
 export * from "./table-base";

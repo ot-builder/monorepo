@@ -45,7 +45,15 @@ export type GlyphOrder = Data.Order<OtGlyph>;
 
 export { Cmap, OtEncoding as Encoding } from "@ot-builder/ft-encoding";
 export { Name, Stat, Meta } from "@ot-builder/ft-name";
-export { DicingStore, Gdef, Gsub, Gpos, GsubGpos, Base } from "@ot-builder/ft-layout";
+export {
+    DicingStore,
+    DicingStoreRep,
+    Gdef,
+    Gsub,
+    Gpos,
+    GsubGpos,
+    Base
+} from "@ot-builder/ft-layout";
 export { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
 
 export { Sfnt } from "@ot-builder/ft-sfnt";
