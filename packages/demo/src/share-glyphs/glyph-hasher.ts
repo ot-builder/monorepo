@@ -1,6 +1,5 @@
 import * as Crypto from "crypto";
-import { Data, Ot, Rectify } from "ot-builder";
-
+import { Ot, Rectify } from "ot-builder";
 import { DesignUnifierSession } from "./design-unifier";
 import { Hasher, HashRep } from "./hash-rep";
 import { ValueProcessor } from "./value-process";
@@ -12,7 +11,7 @@ class SharedGlyphProp {
     }
 }
 
-export class SharedGlyphStore implements Data.OrderStore<Ot.Glyph> {
+export class SharedGlyphStore implements Ot.GlyphStore {
     public mapping: Map<string, SharedGlyphProp> = new Map();
     public decideOrder() {
         return Ot.ListGlyphStoreFactory.createStoreFromList(
@@ -23,7 +22,7 @@ export class SharedGlyphStore implements Data.OrderStore<Ot.Glyph> {
     }
 }
 
-export class GlyphSharing implements Rectify.GlyphRectifier {
+export class GlyphSharing implements Rectify.GlyphReferenceRectifier {
     public mapping: Map<Ot.Glyph, Ot.Glyph> = new Map();
     constructor(readonly gs: SharedGlyphStore) {}
     public put(g: Ot.Glyph, hash: string, fid: number, priority: number) {
@@ -36,7 +35,7 @@ export class GlyphSharing implements Rectify.GlyphRectifier {
             this.mapping.set(g, g);
         }
     }
-    public glyph(a: Ot.Glyph) {
+    public glyphRef(a: Ot.Glyph) {
         return this.mapping.get(a);
     }
 }

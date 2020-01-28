@@ -1,9 +1,8 @@
 import * as Ot from "@ot-builder/font";
-import { Data } from "@ot-builder/prelude";
 
 // RECTIFICATION INTERFACES
-export interface GlyphRectifier {
-    glyph(from: Ot.Glyph): null | undefined | Ot.Glyph;
+export interface GlyphReferenceRectifier {
+    glyphRef(from: Ot.Glyph): null | undefined | Ot.Glyph;
 }
 
 export interface AxisRectifier {

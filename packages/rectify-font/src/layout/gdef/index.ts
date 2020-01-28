@@ -1,14 +1,13 @@
 import * as Ot from "@ot-builder/font";
-
 import {
     CoordRectifier,
-    GlyphRectifier,
+    GlyphReferenceRectifier,
     PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
-export function rectifyGdefGlyphs(rec: GlyphRectifier, gdef: Ot.Gdef.Table) {
+export function rectifyGdefGlyphs(rec: GlyphReferenceRectifier, gdef: Ot.Gdef.Table) {
     const newTable = new Ot.Gdef.Table();
     if (gdef.glyphClassDef) {
         newTable.glyphClassDef = RectifyImpl.Glyph.mapSome(rec, gdef.glyphClassDef);

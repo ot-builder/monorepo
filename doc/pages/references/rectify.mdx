@@ -8,13 +8,15 @@ export default Layout
 
 ## Glyph Rectification
 
-### Interface <Decl s={Rectify.GlyphRectifier}/>
+### Interface <Decl s={Rectify.GlyphReferenceRectifier}/>
 
 #### Methods
 
-* <Method s={Rectify.GlyphRectifier.glyph} args={{from:Ot.Glyph}} returns={either(null,undefined,Ot.Glyph)}/>
+* <Method s={Rectify.GlyphReferenceRectifier.glyphRef} args={{from:Ot.Glyph}} returns={either(null,undefined,Ot.Glyph)}/>
 
-### Function <Fn long s={Rectify.rectifyFontGlyphs(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{rec:annot(Rectify.GlyphRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process"),gsf:annot(Data.OrderStoreFactoryWithDefault(Ot.Glyph,"GS"),"Factory to create a glyph store")}} returns="void"/>
+### Function <Fn long s={Rectify.rectifyFontGlyphReferences(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{rec:annot(Rectify.GlyphReferenceRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+Perform in-place rectification of `font` using a given `Rectify.GlyphReferenceRectifier`. The procedure will rectify all the glyph references, including the cross-references from the glyph geometries, **but not** the glyph store itself.
 
 ## Axis, Coordinate and Point Attachment Rectification
 

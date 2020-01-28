@@ -1,9 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
-
 import {
     CoordRectifier,
-    GlyphRectifier,
+    GlyphReferenceRectifier,
     PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../../interface";
@@ -36,7 +35,7 @@ export function rectifyLookupList<L, A>(
 
 abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
     constructor(
-        protected readonly rg: GlyphRectifier,
+        protected readonly rg: GlyphReferenceRectifier,
         protected readonly rc: CoordRectifier,
         protected readonly rap: Data.Maybe<PointAttachmentRectifier>
     ) {}
@@ -131,7 +130,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
             this.setMeta(props, ret);
             const mapping1: Array<Ot.Gsub.LigatureEntry> = [];
             for (const { from, to } of props.mapping) {
-                const dst1 = this.rg.glyph(to);
+                const dst1 = this.rg.glyphRef(to);
                 if (!dst1) continue;
                 const src1 = RectifyImpl.Glyph.listAll(this.rg, from);
                 if (!src1) continue;
@@ -224,7 +223,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
             ret.attachments = RectifyImpl.mapSome2T(
                 this.rg,
                 props.attachments,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x))
             );
         });
@@ -236,13 +235,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
                 props.marks,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.bases = RectifyImpl.mapSome2T(
                 this.rg,
                 props.bases,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
             );
         });
@@ -254,13 +253,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
                 props.marks,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.baseMarks = RectifyImpl.mapSome2T(
                 this.rg,
                 props.baseMarks,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
             );
         });
@@ -272,13 +271,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
                 props.marks,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.bases = RectifyImpl.mapSome2T(
                 this.rg,
                 props.bases,
-                (rg, g) => rg.glyph(g),
+                (rg, g) => rg.glyphRef(g),
                 (rg, g, x) =>
                     rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x))
             );

@@ -9,10 +9,9 @@ import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readNames } from "@ot-builder/io-bin-name";
 import { Data } from "@ot-builder/prelude";
 import { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
-
 import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 
-export function readFont<GS extends Data.OrderStore<Ot.Glyph>>(
+export function readFont<GS extends Ot.GlyphStore>(
     sfnt: Sfnt,
     gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
     config: FontIoConfig = {}

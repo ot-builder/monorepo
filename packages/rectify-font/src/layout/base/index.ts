@@ -1,8 +1,7 @@
 import * as Ot from "@ot-builder/font";
-
 import {
     CoordRectifier,
-    GlyphRectifier,
+    GlyphReferenceRectifier,
     PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../../interface";
@@ -16,9 +15,9 @@ function rectifyBaseCoordCoord(rec: CoordRectifier, lc: Ot.Base.Coord): Ot.Base.
     return { ...lc, at: rec.coord(lc.at) };
 }
 
-function rectifyBaseCoordGlyph(rec: GlyphRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
+function rectifyBaseCoordGlyph(rec: GlyphReferenceRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
     if (!lc.pointAttachment) return lc;
-    const g1 = rec.glyph(lc.pointAttachment.glyph);
+    const g1 = rec.glyphRef(lc.pointAttachment.glyph);
     if (!g1) return { ...lc, pointAttachment: null };
     else return { ...lc, pointAttachment: { ...lc.pointAttachment, glyph: g1 } };
 }
@@ -114,7 +113,7 @@ export function rectifyBaseTableCoord(
     if (at.vertical) ret.vertical = rectifyAxisTable(fnV, at.vertical);
     return ret;
 }
-export function rectifyBaseTableGlyphs(rec: GlyphRectifier, at: Ot.Base.Table) {
+export function rectifyBaseTableGlyphs(rec: GlyphReferenceRectifier, at: Ot.Base.Table) {
     const ret = new Ot.Base.Table();
     const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordGlyph(rec, c) };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);

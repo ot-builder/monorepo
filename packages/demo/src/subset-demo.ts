@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Data, FontIo, Ot, Rectify } from "ot-builder";
+import { FontIo, Ot, Rectify } from "ot-builder";
 
 const file = process.argv[2];
 const subsetText = process.argv[3];
@@ -20,8 +20,9 @@ console.log("read complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-const rectifier = createSubsetRectifier(font, subsetText);
-Rectify.rectifyFontGlyphs(rectifier, font, Ot.ListGlyphStoreFactory);
+const { glyphs, rectifier } = createSubsetRectifier(font, subsetText);
+font.glyphs = Ot.ListGlyphStoreFactory.createStoreFromList(glyphs);
+Rectify.rectifyFontGlyphReferences(rectifier, font);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,18 +35,21 @@ console.log("write complete");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-function createSubsetRectifier<GS extends Data.OrderStore<Ot.Glyph>>(
+function createSubsetRectifier<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
     text: string
-): Rectify.GlyphRectifier {
+): { glyphs: Ot.Glyph[]; rectifier: Rectify.GlyphReferenceRectifier } {
     const codePointFilter =
         text === "*" ? { has: () => true } : new Set([...text].map(s => s.codePointAt(0)!));
     const init = Rectify.visibleGlyphsFromUnicodeSet(font, codePointFilter);
     const collected = Rectify.traceGlyphs(new Set(init), font);
     return {
-        glyph(g: Ot.Glyph) {
-            if (collected.has(g)) return g;
-            else return undefined;
+        glyphs: Array.from(font.glyphs.decideOrder()).filter(x => collected.has(x)),
+        rectifier: {
+            glyphRef(g: Ot.Glyph) {
+                if (collected.has(g)) return g;
+                else return undefined;
+            }
         }
     };
 }

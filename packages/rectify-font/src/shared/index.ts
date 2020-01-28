@@ -1,7 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import { OtGeometryHandler } from "@ot-builder/ft-glyphs";
-
-import { CoordRectifier, GlyphRectifier, GlyphTraceProc } from "../interface";
+import { CoordRectifier, GlyphReferenceRectifier, GlyphTraceProc } from "../interface";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {
@@ -144,67 +143,73 @@ export namespace RectifyImpl {
     }
 
     export namespace Glyph {
-        function single(rectifier: GlyphRectifier, g: Ot.Glyph) {
-            return rectifier.glyph(g);
+        function single(rectifier: GlyphReferenceRectifier, g: Ot.Glyph) {
+            return rectifier.glyphRef(g);
         }
-        export function setAll(rec: GlyphRectifier, gs: ReadonlySet<Ot.Glyph>) {
+        export function setAll(rec: GlyphReferenceRectifier, gs: ReadonlySet<Ot.Glyph>) {
             return RectifyImpl.setAllT(rec, gs, single);
         }
-        export function setSome(rec: GlyphRectifier, gs: ReadonlySet<Ot.Glyph>) {
+        export function setSome(rec: GlyphReferenceRectifier, gs: ReadonlySet<Ot.Glyph>) {
             return RectifyImpl.setSomeT(rec, gs, single);
         }
-        export function listAll(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
+        export function listAll(rec: GlyphReferenceRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listAllT(rec, gs, single);
         }
-        export function listSome(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
+        export function listSome(rec: GlyphReferenceRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listSomeT(rec, gs, single);
         }
-        export function listSparse(rec: GlyphRectifier, gs: ReadonlyArray<Ot.Glyph>) {
+        export function listSparse(rec: GlyphReferenceRectifier, gs: ReadonlyArray<Ot.Glyph>) {
             return RectifyImpl.listSparseT(rec, gs, single);
         }
-        export function bimapAll(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>) {
+        export function bimapAll(
+            rec: GlyphReferenceRectifier,
+            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>
+        ) {
             return RectifyImpl.mapAllT(rec, gm, single, single);
         }
-        export function bimapSome(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>) {
+        export function bimapSome(
+            rec: GlyphReferenceRectifier,
+            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>
+        ) {
             return RectifyImpl.mapSomeT(rec, gm, single, single);
         }
-        export function mapAll<X>(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
+        export function mapAll<X>(rec: GlyphReferenceRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
             return RectifyImpl.mapAllT(rec, gm, single, (r, x) => x);
         }
-        export function mapSome<X>(rec: GlyphRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
+        export function mapSome<X>(rec: GlyphReferenceRectifier, gm: ReadonlyMap<Ot.Glyph, X>) {
             return RectifyImpl.mapSomeT(rec, gm, single, (r, x) => x);
         }
-        export function comapAll<X>(rec: GlyphRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
+        export function comapAll<X>(rec: GlyphReferenceRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
             return RectifyImpl.mapAllT(rec, gm, (r, x) => x, single);
         }
-        export function comapSome<X>(rec: GlyphRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
+        export function comapSome<X>(rec: GlyphReferenceRectifier, gm: ReadonlyMap<X, Ot.Glyph>) {
             return RectifyImpl.mapSomeT(rec, gm, (r, x) => x, single);
         }
         export function mapAllT<X>(
-            rec: GlyphRectifier,
+            rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapAllT(rec, gm, single, fn);
         }
         export function mapSomeT<X>(
-            rec: GlyphRectifier,
+            rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapSomeT(rec, gm, single, fn);
         }
         export function comapAllT<X>(
-            rec: GlyphRectifier,
+            rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<X, Ot.Glyph>,
-            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapAllT(rec, gm, fn, single);
         }
         export function comapSomeT<X>(
-            rec: GlyphRectifier,
+            rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<X, Ot.Glyph>,
-            fn: (rec: GlyphRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
         ) {
             return RectifyImpl.mapSomeT(rec, gm, fn, single);
         }

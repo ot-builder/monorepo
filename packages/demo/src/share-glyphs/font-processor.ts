@@ -1,7 +1,5 @@
-import { Data, Ot, Rectify } from "ot-builder";
-
+import { Ot, Rectify } from "ot-builder";
 import { StdPointAttachRectifier } from "../point-rectifier";
-
 import { DesignSpaceUnifier, DesignUnifierSession } from "./design-unifier";
 import { GlyphHasher, GlyphSharing, SharedGlyphStore } from "./glyph-hasher";
 
@@ -39,7 +37,8 @@ export class FontProcessor {
             sharing.put(g, hash, id, gid);
         }
 
-        Rectify.rectifyFontGlyphs(sharing, font, Ot.ListGlyphStoreFactory);
-        return { ...font, glyphs: this.sharedGs };
+        const rectifiedFont: Ot.Font<SharedGlyphStore> = { ...font, glyphs: this.sharedGs };
+        Rectify.rectifyFontGlyphReferences(sharing, rectifiedFont);
+        return rectifiedFont;
     }
 }

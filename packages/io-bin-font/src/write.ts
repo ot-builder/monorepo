@@ -12,28 +12,28 @@ import { writeOtMetadata } from "@ot-builder/io-bin-metadata";
 import { writeNames } from "@ot-builder/io-bin-name";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
-
 import { createConfig, FontIoConfig } from "./config";
 
-type OtGlyphStore = Data.OrderStore<Ot.Glyph>;
-
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code
-function MD<GS extends OtGlyphStore>(font: Ot.Font<GS>, naming: WritePostNaming): OtFontIoMetadata {
+function MD<GS extends Ot.GlyphStore>(
+    font: Ot.Font<GS>,
+    naming: WritePostNaming
+): OtFontIoMetadata {
     return { ...font, postGlyphNaming: naming };
 }
-function Names<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtNameData {
+function Names<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtNameData {
     return font;
 }
-function CffCoGlyphs<GS extends OtGlyphStore>(font: Ot.Font.Cff<GS>): CffCoGlyphs {
+function CffCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Cff<GS>): CffCoGlyphs {
     return font;
 }
-function TtfCoGlyphs<GS extends OtGlyphStore>(font: Ot.Font.Ttf<GS>): TtfCoGlyphs {
+function TtfCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Ttf<GS>): TtfCoGlyphs {
     return font;
 }
-function Encoding<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtEncoding {
+function Encoding<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtEncoding {
     return font;
 }
-function OTL<GS extends OtGlyphStore>(font: Ot.Font<GS>): OtFontLayoutData {
+function OTL<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtFontLayoutData {
     return font;
 }
 
@@ -44,7 +44,7 @@ class WritePostNaming implements Data.Naming.Source<number> {
     }
 }
 
-export function writeFont<GS extends OtGlyphStore>(
+export function writeFont<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
     config: FontIoConfig = {}
 ): Sfnt {
