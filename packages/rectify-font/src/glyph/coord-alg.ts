@@ -211,7 +211,7 @@ function processGlyph(
     gs.processed.add(glyph);
 }
 
-export function rectifyGlyphsCoordPA<GS extends Data.OrderStore<Ot.Glyph>>(
+export function rectifyGlyphsCoordPA<GS extends Ot.GlyphStore>(
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     font: Ot.Font<GS>

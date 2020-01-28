@@ -25,7 +25,7 @@ export function rectifyFontCoords<GS extends OtGlyphStore>(
 ) {
     rectifyFontMetadata(recAxes, recCoord, font);
     rectifyGlyphsCoordPA(recCoord, recPA, font);
-    rectifyCoGlyphs(recAxes, recCoord, font);
+    rectifyCoGlyphs(recCoord, font);
     rectifyLayout(recAxes, recCoord, recPA, font);
 }
 
@@ -43,11 +43,7 @@ function rectifyFontMetadata<GS extends OtGlyphStore>(
     if (font.gasp) font.gasp = rectifyCoordGasp(recCoord, font.gasp);
 }
 
-function rectifyCoGlyphs<GS extends OtGlyphStore>(
-    recAxes: AxisRectifier,
-    recCoord: CoordRectifier,
-    font: Ot.Font<GS>
-) {
+function rectifyCoGlyphs<GS extends OtGlyphStore>(recCoord: CoordRectifier, font: Ot.Font<GS>) {
     if (Ot.Font.isCff(font)) {
         inPlaceRectifyCoordCffTable(recCoord, font.cff);
     } else {

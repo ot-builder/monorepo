@@ -1,9 +1,8 @@
 import * as Ot from "@ot-builder/font";
-
-import { GlyphRectifier } from "../interface";
+import { GlyphReferenceRectifier } from "../interface";
 
 export class RectifyGeomGlyphAlg {
-    constructor(private readonly rec: GlyphRectifier) {}
+    constructor(private readonly rec: GlyphReferenceRectifier) {}
     public process(geom: null | Ot.Glyph.Geometry): null | Ot.Glyph.Geometry {
         if (!geom) return null;
         switch (geom.type) {
@@ -26,7 +25,7 @@ export class RectifyGeomGlyphAlg {
         return Ot.Glyph.GeometryList.create(meaningful);
     }
     public ttReference(ref: Ot.Glyph.TtReferenceProps) {
-        const to1 = this.rec.glyph(ref.to);
+        const to1 = this.rec.glyphRef(ref.to);
         if (!to1) return null;
 
         const ref1 = Ot.Glyph.TtReference.create(to1, ref.transform);

@@ -1,6 +1,5 @@
 import * as Ot from "@ot-builder/font";
-
-import { CoordRectifier, GlyphRectifier } from "../interface";
+import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 
 function inPlaceRectifyCoordPrivateDict(rec: CoordRectifier, pd: Ot.Cff.PrivateDict) {
@@ -27,11 +26,11 @@ export function inPlaceRectifyCoordCffTable(rec: CoordRectifier, table: Ot.Cff.T
     if (table.fdArray) for (const fd of table.fdArray) inPlaceRectifyCoordFontDict(rec, fd);
 }
 
-export function inPlaceRectifyGlyphCID(rec: GlyphRectifier, cid: Ot.Cff.CID) {
+export function inPlaceRectifyGlyphCID(rec: GlyphReferenceRectifier, cid: Ot.Cff.CID) {
     if (cid.mapping) cid.mapping = RectifyImpl.Glyph.comapSome(rec, cid.mapping);
 }
 
-export function inPlaceRectifyGlyphCffTable(rec: GlyphRectifier, table: Ot.Cff.Table) {
+export function inPlaceRectifyGlyphCffTable(rec: GlyphReferenceRectifier, table: Ot.Cff.Table) {
     if (table.cid) inPlaceRectifyGlyphCID(rec, table.cid);
     if (table.fdSelect) table.fdSelect = RectifyImpl.Glyph.mapSome(rec, table.fdSelect);
 }

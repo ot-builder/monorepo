@@ -26,7 +26,7 @@ describe("GSUB Rectifier", () => {
 });
 
 function createDuplicateAlg() {
-    return new RectifyGsubGlyphCoordAlg({ glyph: g => g }, { coord: x => x, cv: x => x }, null);
+    return new RectifyGsubGlyphCoordAlg({ glyphRef: g => g }, { coord: x => x, cv: x => x }, null);
 }
 function fnApplyGsubLookup(lookup: Ot.Gsub.Lookup, alg: RectifyGsubGlyphCoordAlg) {
     return alg.process(lookup);

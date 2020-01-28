@@ -1,24 +1,16 @@
 import * as Ot from "@ot-builder/font";
-import { Data } from "@ot-builder/prelude";
-
 import { traceGlyphDependents } from "../glyph/trace-alg";
 import { GlyphTracer } from "../interface";
 import { traceGpos, traceGsub } from "../layout/gsub-gpos/trace";
 
-function traceGlyphsImpl<GS extends Data.OrderStore<Ot.Glyph>>(
-    font: Ot.Font<GS>,
-    tracer: GlyphTracer
-) {
+function traceGlyphsImpl<GS extends Ot.GlyphStore>(font: Ot.Font<GS>, tracer: GlyphTracer) {
     const gOrd = font.glyphs.decideOrder();
     for (const g of gOrd) traceGlyphDependents(g)(tracer);
     if (font.gsub) traceGsub(font.gsub)(tracer);
     if (font.gpos) traceGpos(font.gpos)(tracer);
 }
 
-export function traceGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
-    tracer: GlyphTracer,
-    font: Ot.Font<GS>
-) {
+export function traceGlyphs<GS extends Ot.GlyphStore>(tracer: GlyphTracer, font: Ot.Font<GS>) {
     let sizeBefore = 0,
         sizeAfter = 0;
     do {
@@ -29,7 +21,7 @@ export function traceGlyphs<GS extends Data.OrderStore<Ot.Glyph>>(
     return tracer;
 }
 
-export function visibleGlyphsFromUnicodeSet<GS extends Data.OrderStore<Ot.Glyph>>(
+export function visibleGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
     unicodeSet: { has(u: number): boolean }
 ) {

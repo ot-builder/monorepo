@@ -1,13 +1,10 @@
 import * as Ot from "@ot-builder/font";
-import { Delay } from "@ot-builder/prelude";
-
 import {
     AxisRectifier,
     CoordRectifier,
-    GlyphRectifier,
+    GlyphReferenceRectifier,
     PointAttachmentRectifier
 } from "../../interface";
-
 import { axesRectifyFeatureVariation, cleanupGsubGposData } from "./cleanup";
 import { LookupRemovableAlg } from "./lookup-removable-alg";
 import { RectifyGposGlyphCoordAlg, RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify";
@@ -25,7 +22,7 @@ function fnGposLookupRemovable(lookup: Ot.Gpos.Lookup) {
     return LookupRemovableAlg.process(lookup);
 }
 
-export function rectifyGsubGlyphs(rec: GlyphRectifier, table: Ot.Gsub.Table) {
+export function rectifyGsubGlyphs(rec: GlyphReferenceRectifier, table: Ot.Gsub.Table) {
     const alg = new RectifyGsubGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     return cleanupGsubGposData(
@@ -41,7 +38,7 @@ export function rectifyGsubCoord(
     recPA: PointAttachmentRectifier,
     table: Ot.Gsub.Table
 ) {
-    const alg = new RectifyGsubGlyphCoordAlg({ glyph: g => g }, recCoord, recPA);
+    const alg = new RectifyGsubGlyphCoordAlg({ glyphRef: g => g }, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     const newTable = cleanupGsubGposData(
         table,
@@ -55,7 +52,7 @@ export function rectifyGsubCoord(
     return newTable;
 }
 
-export function rectifyGposGlyphs(rec: GlyphRectifier, table: Ot.Gpos.Table) {
+export function rectifyGposGlyphs(rec: GlyphReferenceRectifier, table: Ot.Gpos.Table) {
     const alg = new RectifyGposGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     return cleanupGsubGposData(
@@ -71,7 +68,7 @@ export function rectifyGposCoord(
     recPA: PointAttachmentRectifier,
     table: Ot.Gpos.Table
 ) {
-    const alg = new RectifyGposGlyphCoordAlg({ glyph: g => g }, recCoord, recPA);
+    const alg = new RectifyGposGlyphCoordAlg({ glyphRef: g => g }, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     const newTable = cleanupGsubGposData(
         table,
