@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const Cli = require('@ot-builder/cli');
+
+Cli.cliMain(process.argv).catch(function (e){
+    console.error(e);
+    process.exit(1);
+});

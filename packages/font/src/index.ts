@@ -41,6 +41,10 @@ export {
 export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 export type ListGlyphStore = ImpLib.Order.ListStore<OtGlyph>;
 export type GlyphStore = Data.OrderStore<OtGlyph>;
+export type GlyphStoreFactory<GS extends GlyphStore> = Data.OrderStoreFactory<OtGlyph, GS>;
+export type GlyphStoreFactoryWithDefault<
+    GS extends GlyphStore
+> = Data.OrderStoreFactoryWithDefault<OtGlyph, GS>;
 export type GlyphOrder = Data.Order<OtGlyph>;
 
 export { Cmap, OtEncoding as Encoding } from "@ot-builder/ft-encoding";
