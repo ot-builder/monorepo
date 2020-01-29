@@ -2,10 +2,11 @@ import { Grammar } from "./command";
 import { AlternateSyntax } from "./syntax/alternate";
 import { gcFont, GcSyntax } from "./syntax/gc";
 import { IntroSyntax, loadFontFromFile } from "./syntax/intro";
+import { mergeFonts, MergeSyntax } from "./syntax/merge";
 import { PossessiveRepeatSyntax } from "./syntax/possessive-repeat";
 import { rebaseFont, RebaseSyntax } from "./syntax/rebase";
 import { saveFontToFile, SaveSyntax } from "./syntax/save";
-import { SubsetSyntax, subsetFont } from "./syntax/subset";
+import { subsetFont, SubsetSyntax } from "./syntax/subset";
 
 // Grammar Creator
 export function createGrammar(): Grammar {
@@ -14,7 +15,8 @@ export function createGrammar(): Grammar {
         SaveSyntax,
         RebaseSyntax,
         GcSyntax,
-        SubsetSyntax
+        SubsetSyntax,
+        MergeSyntax
     ]);
     const start = new PossessiveRepeatSyntax(element);
 
@@ -27,5 +29,6 @@ export const CliProc = {
     saveFontToFile,
     rebaseFont,
     gcFont,
-    subsetFont
+    subsetFont,
+    mergeFonts
 };
