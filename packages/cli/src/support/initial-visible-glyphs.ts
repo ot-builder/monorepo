@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+import * as Rectify from "@ot-builder/rectify-font";
 
 export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
@@ -20,4 +21,21 @@ export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
         }
     }
     return init;
+}
+
+export function createSubsetRectifier<GS extends Ot.GlyphStore>(
+    font: Ot.Font<GS>,
+    unicodeSet: { has(u: number): boolean }
+) {
+    const init = initialGlyphsFromUnicodeSet(font, unicodeSet);
+    const collected = Rectify.traceGlyphs(new Set(init), font);
+    return {
+        glyphs: Array.from(font.glyphs.decideOrder()).filter(x => collected.has(x)),
+        rectifier: {
+            glyphRef(g: Ot.Glyph) {
+                if (collected.has(g)) return g;
+                else return undefined;
+            }
+        }
+    };
 }
