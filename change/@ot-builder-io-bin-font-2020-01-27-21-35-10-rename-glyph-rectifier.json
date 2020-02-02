@@ -1,9 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Rename Rectify.GlyphRectifier -> Rectify.GlyphReferenceRectifier",
-  "packageName": "@ot-builder/io-bin-font",
-  "email": "belleve@typeof.net",
-  "commit": "d400c7ed99b1fa0ec4ce3144ca5ccd532dd6ff2c",
-  "dependentChangeType": "patch",
-  "date": "2020-01-28T05:35:08.911Z"
-}
