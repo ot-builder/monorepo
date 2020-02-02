@@ -7,7 +7,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -29,7 +29,7 @@
     "tslib": "^1.9.3"
   },
   "devDependencies": {
-    "@ot-builder/test-util": "0.3.0",
+    "@ot-builder/test-util": "0.3.1",
     "@types/jest": "^24.0.15",
     "jest": "^24.8.0"
   }

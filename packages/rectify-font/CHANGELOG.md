@@ -1,7 +1,16 @@
 # Change Log - @ot-builder/rectify-font
 
-This log was last generated on Fri, 17 Jan 2020 05:07:07 GMT and should not be manually modified.
+This log was last generated on Sun, 02 Feb 2020 00:09:43 GMT and should not be manually modified.
 
+## 0.4.0
+Sun, 02 Feb 2020 00:09:43 GMT
+
+### Minor changes
+
+- Rename Rectify.GlyphRectifier -> Rectify.GlyphReferenceRectifier (belleve@typeof.net)
+### Patches
+
+- Optimize rectification (belleve@typeof.net)
 ## 0.3.0
 Fri, 17 Jan 2020 05:07:07 GMT
 

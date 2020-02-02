@@ -2,6 +2,27 @@
   "name": "@ot-builder/rectify-font",
   "entries": [
     {
+      "date": "Sun, 02 Feb 2020 00:09:43 GMT",
+      "tag": "@ot-builder/rectify-font_v0.4.0",
+      "version": "0.4.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Optimize rectification",
+            "author": "belleve@typeof.net",
+            "commit": "71c3cf5cbaf687e5f84d00b42a78daba95c7696d"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Rename Rectify.GlyphRectifier -> Rectify.GlyphReferenceRectifier",
+            "author": "belleve@typeof.net",
+            "commit": "d400c7ed99b1fa0ec4ce3144ca5ccd532dd6ff2c"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jan 2020 05:07:07 GMT",
       "tag": "@ot-builder/rectify-font_v0.3.0",
       "version": "0.3.0",

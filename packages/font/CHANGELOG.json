@@ -2,6 +2,20 @@
   "name": "@ot-builder/font",
   "entries": [
     {
+      "date": "Sun, 02 Feb 2020 00:09:43 GMT",
+      "tag": "@ot-builder/font_v0.3.1",
+      "version": "0.3.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Optimize rectification",
+            "author": "belleve@typeof.net",
+            "commit": "71c3cf5cbaf687e5f84d00b42a78daba95c7696d"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jan 2020 05:07:07 GMT",
       "tag": "@ot-builder/font_v0.3.0",
       "version": "0.3.0",
