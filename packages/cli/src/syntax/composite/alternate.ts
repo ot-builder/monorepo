@@ -1,6 +1,7 @@
 import { ParseState, ParseResult } from "../../argv-parser";
 import { Syntax, Grammar } from "../../command";
 import { CliHelpShower } from "../../cli-help";
+import { Bullet } from "../../cli-help/style";
 
 export class AlternateSyntax<T> implements Syntax<null | T> {
     constructor(private readonly alternatives: Syntax<null | T>[]) {}
@@ -12,7 +13,7 @@ export class AlternateSyntax<T> implements Syntax<null | T> {
         return ParseResult(st, null);
     }
     displayHelp(shower: CliHelpShower) {
-        const indented = shower.indent("* ");
+        const indented = shower.indent(Bullet);
         for (const alt of this.alternatives) {
             alt.displayHelp(indented);
         }

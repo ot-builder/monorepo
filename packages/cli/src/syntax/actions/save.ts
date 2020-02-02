@@ -3,8 +3,9 @@ import * as Path from "path";
 import * as Ot from "@ot-builder/font";
 import * as FontIo from "@ot-builder/io-bin-font";
 import { ParseResult } from "../../argv-parser";
-import { Syntax, CliAction } from "../../command";
 import { CliHelpShower } from "../../cli-help";
+import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
+import { CliAction, Syntax } from "../../command";
 
 export const SaveSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -19,10 +20,16 @@ export const SaveSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(`-o <path> ; --save <path>`);
+        shower.message(
+            CliOptionStyle`-o`,
+            CliParamStyle`path`,
+            `;`,
+            CliOptionStyle`--save`,
+            CliParamStyle`path`
+        );
         shower
             .indent()
-            .message(`Pop the stack top font and save into the path.`)
+            .message(`Pop the stack top font and save into the`, CliParamStyle`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
     }
 };

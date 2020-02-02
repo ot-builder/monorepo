@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "tslib": "^1.9.3",
+    "chalk": "^3.0.0",
     "@ot-builder/io-bin-font": "0.4.0",
     "@ot-builder/primitive": "0.2.1",
     "@ot-builder/rectify-font": "0.4.0",

@@ -1,6 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
 import { ParseResult } from "../../argv-parser";
+import { CliHelpShower } from "../../cli-help";
+import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { createSubsetRectifier } from "../../support/initial-visible-glyphs";
 
@@ -21,7 +23,10 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             console.log(`  Glyphs: ${gcAfter} / ${gcBefore}`);
         });
     },
-    displayHelp() {}
+    displayHelp(shower: CliHelpShower) {
+        shower.message(CliOptionStyle`--subset`, CliParamStyle`text`);
+        shower.indent("").message("Subset the font at the stack top according to the text given.");
+    }
 };
 
 export function subsetFont<GS1 extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(

@@ -1,9 +1,10 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
 import { ParseResult } from "../../argv-parser";
+import { CliHelpShower } from "../../cli-help";
+import { CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { createSubsetRectifier } from "../../support/initial-visible-glyphs";
-import { CliHelpShower } from "../../cli-help";
 
 export const GcSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -23,7 +24,7 @@ export const GcSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(`--gc`);
+        shower.message(CliOptionStyle`--gc`);
         shower.indent("").message("Perform garbage collection of the font at the stack top.");
     }
 };

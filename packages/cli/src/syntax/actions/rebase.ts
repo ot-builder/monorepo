@@ -1,9 +1,10 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
 import { ParseResult } from "../../argv-parser";
+import { CliHelpShower } from "../../cli-help";
+import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { StdPointAttachRectifier } from "../../support/point-rectifier";
-import { CliHelpShower } from "../../cli-help";
 
 export const RebaseSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -20,7 +21,7 @@ export const RebaseSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(`--rebase <upm>`);
+        shower.message(CliOptionStyle`--rebase`, CliParamStyle`upm`);
         shower.indent("").message("Change the unit-per-em value of the font at the stack top.");
     }
 };

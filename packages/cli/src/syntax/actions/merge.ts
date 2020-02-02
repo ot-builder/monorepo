@@ -1,25 +1,67 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
 import { ParseResult } from "../../argv-parser";
+import { CliHelpShower } from "../../cli-help";
+import { CliArgStyle, CliCmdStyle, CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { unifyDesignSpaces } from "../../support/design-unifier";
 
 export const MergeSyntax: Syntax<null | CliAction> = {
     handle: st => {
         if (!st.isOption("--merge")) return ParseResult(st, null);
+        st = st.next();
 
-        return ParseResult(st.next(), async state => {
+        let preferOverride = false;
+        if (st.isOption("--override")) {
+            preferOverride = true;
+            st = st.next();
+        }
+
+        return ParseResult(st, async state => {
             const add = state.pop();
             if (!add) throw new RangeError("Stack size invalid. No font to do GC.");
             const into = state.pop();
             if (!into) throw new RangeError("Stack size invalid. No font to do GC.");
 
             console.log(`Merge font ${into} <- ${add}`);
-            const merged = mergeFonts(into.font, add.font, {}, Ot.ListGlyphStoreFactory);
+            const merged = mergeFonts(
+                into.font,
+                add.font,
+                { preferOverride },
+                Ot.ListGlyphStoreFactory
+            );
             state.push(into.fill(merged));
         });
     },
-    displayHelp() {}
+    displayHelp(shower: CliHelpShower) {
+        shower.message(CliOptionStyle`--merge`, `[`, CliOptionStyle`--override`, `]`);
+        shower
+            .indent("")
+            .message("Merge the font on the stack top to the font below it.")
+            .message(
+                `In a typical use like:`,
+                CliCmdStyle`otb-cli`,
+                CliArgStyle`a.ttf`,
+                CliArgStyle`b.ttf`,
+                CliOptionStyle`--merge`,
+                CliOptionStyle`-o`,
+                CliArgStyle`ab.ttf`,
+                `, metadata and naming will follow`,
+                CliArgStyle`a.ttf`,
+                `while glyphs from`,
+                CliArgStyle`b.ttf`,
+                `will be added to it.`
+            )
+            .message(
+                `When`,
+                CliOptionStyle(`--override`),
+                `is provided, characters from`,
+                CliArgStyle`b.ttf`,
+                `will be preferred; otherwise, characters from`,
+                CliArgStyle`a.ttf`,
+                `will be preferred.`
+            );
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

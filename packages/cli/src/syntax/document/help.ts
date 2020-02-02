@@ -2,6 +2,7 @@ import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
 import { ParseResult } from "../../argv-parser";
 import { CliHelpShower } from "../../cli-help";
+import { CliCmdStyle, CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { createSubsetRectifier } from "../../support/initial-visible-glyphs";
 
@@ -15,7 +16,13 @@ export const HelpSyntax: Syntax<null | CliAction[]> = {
         return ParseResult(st.next(), []);
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(`otb-cli -h ; otb-cli --help`);
+        shower.message(
+            CliCmdStyle`otb-cli`,
+            CliOptionStyle`-h`,
+            `;`,
+            CliCmdStyle`otb-cli`,
+            CliOptionStyle`--help`
+        );
         shower.indent("").message("Display help message.");
     }
 };

@@ -3,9 +3,10 @@ import * as Path from "path";
 import * as Ot from "@ot-builder/font";
 import * as FontIo from "@ot-builder/io-bin-font";
 import { ParseResult } from "../../argv-parser";
+import { CliHelpShower } from "../../cli-help";
+import { CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { CliStackEntryPlaceholder } from "../../state";
-import { CliHelpShower } from "../../cli-help";
 
 export const IntroSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -20,10 +21,10 @@ export const IntroSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(`<path>`);
+        shower.message(CliParamStyle`path`);
         shower
             .indent()
-            .message(`Introduces a font into the stack from <path>.`)
+            .message(`Introduces a font into the stack from`, CliParamStyle`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
     }
 };

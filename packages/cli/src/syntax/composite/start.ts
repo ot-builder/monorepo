@@ -1,5 +1,6 @@
 import { ParseState } from "../../argv-parser";
 import { CliHelpShower } from "../../cli-help";
+import { CliRule } from "../../cli-help/style";
 import { Grammar, Syntax } from "../../command";
 
 export class StartSyntax<T> implements Syntax<T> {
@@ -8,7 +9,11 @@ export class StartSyntax<T> implements Syntax<T> {
         return this.body.handle(st0, grammar);
     }
     displayHelp(shower: CliHelpShower) {
-        shower.message(`Usage :`);
+        shower
+            .message()
+            .message("ot-builder CLI utility program")
+            .message(CliRule)
+            .message(`Usage :`);
         this.body.displayHelp(shower);
     }
 }
