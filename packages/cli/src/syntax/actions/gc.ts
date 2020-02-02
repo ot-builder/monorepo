@@ -1,8 +1,9 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
-import { ParseResult } from "../argv-parser";
-import { CliAction, Syntax } from "../command";
-import { createSubsetRectifier } from "../support/initial-visible-glyphs";
+import { ParseResult } from "../../argv-parser";
+import { CliAction, Syntax } from "../../command";
+import { createSubsetRectifier } from "../../support/initial-visible-glyphs";
+import { CliHelpShower } from "../../cli-help";
 
 export const GcSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -20,6 +21,10 @@ export const GcSyntax: Syntax<null | CliAction> = {
             state.push(entry.fill(gcResult));
             console.log(`  Glyphs: ${gcAfter} / ${gcBefore}`);
         });
+    },
+    displayHelp(shower: CliHelpShower) {
+        shower.message(`--gc`);
+        shower.indent("").message("Perform garbage collection of the font at the stack top.");
     }
 };
 

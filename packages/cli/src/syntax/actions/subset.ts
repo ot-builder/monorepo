@@ -1,8 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
-import { ParseResult } from "../argv-parser";
-import { CliAction, Syntax } from "../command";
-import { createSubsetRectifier } from "../support/initial-visible-glyphs";
+import { ParseResult } from "../../argv-parser";
+import { CliAction, Syntax } from "../../command";
+import { createSubsetRectifier } from "../../support/initial-visible-glyphs";
 
 export const SubsetSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -20,7 +20,8 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             state.push(entry.fill(gcResult));
             console.log(`  Glyphs: ${gcAfter} / ${gcBefore}`);
         });
-    }
+    },
+    displayHelp() {}
 };
 
 export function subsetFont<GS1 extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(

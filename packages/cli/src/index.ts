@@ -11,9 +11,10 @@ export async function cliMain(argv: string[]) {
     if (!prActions.progress.isEof()) {
         throw new SyntaxError("Remaining item");
     }
-
-    const state = new CliState();
-    for (const action of prActions.result) {
-        await action(state);
+    if (prActions.result) {
+        const state = new CliState();
+        for (const action of prActions.result) {
+            await action(state);
+        }
     }
 }

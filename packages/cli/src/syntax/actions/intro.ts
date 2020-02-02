@@ -2,9 +2,10 @@ import * as Fs from "fs";
 import * as Path from "path";
 import * as Ot from "@ot-builder/font";
 import * as FontIo from "@ot-builder/io-bin-font";
-import { ParseResult } from "../argv-parser";
-import { CliAction, Syntax } from "../command";
-import { CliStackEntryPlaceholder } from "../state";
+import { ParseResult } from "../../argv-parser";
+import { CliAction, Syntax } from "../../command";
+import { CliStackEntryPlaceholder } from "../../state";
+import { CliHelpShower } from "../../cli-help";
 
 export const IntroSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -17,6 +18,13 @@ export const IntroSyntax: Syntax<null | CliAction> = {
             const entry = phEntry.fill(await loadFontFromFile(path, Ot.ListGlyphStoreFactory));
             state.push(entry);
         });
+    },
+    displayHelp(shower: CliHelpShower) {
+        shower.message(`<path>`);
+        shower
+            .indent()
+            .message(`Introduces a font into the stack from <path>.`)
+            .message(`Currently only .otf and .ttf files are supported.`);
     }
 };
 

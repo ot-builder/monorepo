@@ -1,8 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
-import { ParseResult } from "../argv-parser";
-import { CliAction, Syntax } from "../command";
-import { unifyDesignSpaces } from "../support/design-unifier";
+import { ParseResult } from "../../argv-parser";
+import { CliAction, Syntax } from "../../command";
+import { unifyDesignSpaces } from "../../support/design-unifier";
 
 export const MergeSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -18,7 +18,8 @@ export const MergeSyntax: Syntax<null | CliAction> = {
             const merged = mergeFonts(into.font, add.font, {}, Ot.ListGlyphStoreFactory);
             state.push(into.fill(merged));
         });
-    }
+    },
+    displayHelp() {}
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

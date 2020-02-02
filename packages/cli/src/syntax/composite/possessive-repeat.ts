@@ -1,5 +1,6 @@
-import { ParseResult, ParseState } from "../argv-parser";
-import { Syntax, Grammar } from "../command";
+import { ParseResult, ParseState } from "../../argv-parser";
+import { Syntax, Grammar } from "../../command";
+import { CliHelpShower } from "../../cli-help";
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
     constructor(private readonly body: Syntax<null | T>) {}
@@ -15,5 +16,8 @@ export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
                 return ParseResult(st, results);
             }
         }
+    }
+    displayHelp(shower: CliHelpShower) {
+        this.body.displayHelp(shower);
     }
 }

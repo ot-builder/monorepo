@@ -2,8 +2,9 @@ import * as Fs from "fs";
 import * as Path from "path";
 import * as Ot from "@ot-builder/font";
 import * as FontIo from "@ot-builder/io-bin-font";
-import { ParseResult } from "../argv-parser";
-import { Syntax, CliAction } from "../command";
+import { ParseResult } from "../../argv-parser";
+import { Syntax, CliAction } from "../../command";
+import { CliHelpShower } from "../../cli-help";
 
 export const SaveSyntax: Syntax<null | CliAction> = {
     handle: st => {
@@ -16,6 +17,13 @@ export const SaveSyntax: Syntax<null | CliAction> = {
             console.log(`Save ${entry} -> ${prPath.result}`);
             await saveFontToFile(prPath.result, entry.font);
         });
+    },
+    displayHelp(shower: CliHelpShower) {
+        shower.message(`-o <path> ; --save <path>`);
+        shower
+            .indent()
+            .message(`Pop the stack top font and save into the path.`)
+            .message(`Currently only .otf and .ttf files are supported.`);
     }
 };
 
