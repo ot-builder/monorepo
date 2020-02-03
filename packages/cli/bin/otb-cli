@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Cli = require('@ot-builder/cli');
+const Cli = require('../lib/index');
 
 Cli.cliMain(process.argv).catch(function (e){
     console.error(e);

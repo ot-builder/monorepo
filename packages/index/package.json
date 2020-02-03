@@ -23,7 +23,7 @@
     "@ot-builder/rectify-font": "0.4.0",
     "@ot-builder/prelude": "0.3.0",
     "@ot-builder/font": "0.3.1",
-    "@ot-builder/cli": "0.3.0"
+    "@ot-builder/cli-proc": "0.3.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

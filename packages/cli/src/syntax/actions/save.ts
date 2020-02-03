@@ -1,7 +1,6 @@
 import * as Fs from "fs";
 import * as Path from "path";
-import * as Ot from "@ot-builder/font";
-import * as FontIo from "@ot-builder/io-bin-font";
+import { FontIo, Ot } from "ot-builder";
 import { ParseResult } from "../../argv-parser";
 import { CliHelpShower } from "../../cli-help";
 import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";

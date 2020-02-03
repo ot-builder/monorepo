@@ -1,15 +1,15 @@
 import { Grammar } from "./command";
-import { gcFont, GcSyntax } from "./syntax/actions/gc";
-import { IntroSyntax, loadFontFromFile } from "./syntax/actions/intro";
-import { mergeFonts, MergeSyntax } from "./syntax/actions/merge";
-import { rebaseFont, RebaseSyntax } from "./syntax/actions/rebase";
-import { saveFontToFile, SaveSyntax } from "./syntax/actions/save";
-import { subsetFont, SubsetSyntax } from "./syntax/actions/subset";
+import { GcSyntax } from "./syntax/actions/gc";
+import { IntroSyntax } from "./syntax/actions/intro";
+import * as MergeLib from "./syntax/actions/merge";
+import { RebaseSyntax } from "./syntax/actions/rebase";
+import { SaveSyntax } from "./syntax/actions/save";
+import { SubsetSyntax } from "./syntax/actions/subset";
 import { AlternateSyntax } from "./syntax/composite/alternate";
+import { MainCommandSyntax } from "./syntax/composite/main-command";
 import { PossessiveRepeatSyntax } from "./syntax/composite/possessive-repeat";
 import { StartSyntax } from "./syntax/composite/start";
 import { HelpSyntax } from "./syntax/document/help";
-import { MainCommandSyntax } from "./syntax/composite/main-command";
 
 // Grammar Creator
 export function createGrammar(): Grammar {
@@ -19,7 +19,7 @@ export function createGrammar(): Grammar {
         RebaseSyntax,
         GcSyntax,
         SubsetSyntax,
-        MergeSyntax
+        MergeLib.MergeSyntax
     ]);
     const start = new StartSyntax(
         new AlternateSyntax([
@@ -30,13 +30,3 @@ export function createGrammar(): Grammar {
 
     return { element, start };
 }
-
-// CLI procedures re-export
-export const CliProc = {
-    loadFontFromFile,
-    saveFontToFile,
-    rebaseFont,
-    gcFont,
-    subsetFont,
-    mergeFonts
-};

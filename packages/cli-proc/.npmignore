@@ -1,0 +1,7 @@
+
+tsconfig.json
+tsconfig.prod.json
+CHANGELOG.json
+CHANGELOG.md
+lib/**/*.map
+src/

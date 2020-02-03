@@ -6,7 +6,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/1e85e5c09cfcbb66ebc1960688ac8685fd4e77fe27d943edec465f2f94272d2f"
+    "tsBuildInfoFile": "../../.cache/cbc9c8400d771996d3f4878d053de3a236ae6e15b4cc7cd6acb60d20a878fae9"
   },
   "references": [
     {
@@ -95,9 +95,6 @@
     },
     {
       "path": "../rectify-font/tsconfig.prod.json"
-    },
-    {
-      "path": "../cli-proc/tsconfig.prod.json"
     }
   ],
   "include": [

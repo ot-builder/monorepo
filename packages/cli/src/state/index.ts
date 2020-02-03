@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/font";
+import { Ot } from "ot-builder";
 
 export class CliState {
     private stack: CliStackEntry[] = [];
