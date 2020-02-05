@@ -13,15 +13,12 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to subset.");
             console.log(`Subset ${entry}`);
-            const gcBefore = entry.font.glyphs.decideOrder().length;
-            const gcResult = CliProc.subsetFont(
-                entry.font,
-                prArg.result,
-                Ot.ListGlyphStoreFactory
-            );
-            const gcAfter = gcResult.glyphs.decideOrder().length;
 
-            state.push(entry.fill(gcResult));
+            const gcBefore = entry.font.glyphs.decideOrder().length;
+            CliProc.subsetFont(entry.font, prArg.result, Ot.ListGlyphStoreFactory);
+            const gcAfter = entry.font.glyphs.decideOrder().length;
+
+            state.push(entry);
             console.log(`  Glyphs: ${gcAfter} / ${gcBefore}`);
         });
     },

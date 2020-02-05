@@ -22,13 +22,8 @@ export const MergeSyntax: Syntax<null | CliAction> = {
             if (!into) throw new RangeError("Stack size invalid. No font to do GC.");
 
             console.log(`Merge font ${into} <- ${add}`);
-            const merged = CliProc.mergeFonts(
-                into.font,
-                add.font,
-                { preferOverride },
-                Ot.ListGlyphStoreFactory
-            );
-            state.push(into.fill(merged));
+            CliProc.mergeFonts(into.font, add.font, { preferOverride }, Ot.ListGlyphStoreFactory);
+            state.push(into.fill(into.font));
         });
     },
     displayHelp(shower: CliHelpShower) {

@@ -14,10 +14,10 @@ export const GcSyntax: Syntax<null | CliAction> = {
             console.log(`Garbage collect ${entry}`);
 
             const gcBefore = entry.font.glyphs.decideOrder().length;
-            const gcResult = CliProc.gcFont(entry.font, Ot.ListGlyphStoreFactory);
-            const gcAfter = gcResult.glyphs.decideOrder().length;
+            CliProc.gcFont(entry.font, Ot.ListGlyphStoreFactory);
+            const gcAfter = entry.font.glyphs.decideOrder().length;
 
-            state.push(entry.fill(gcResult));
+            state.push(entry);
             console.log(`  Glyphs: ${gcAfter} / ${gcBefore}`);
         });
     },

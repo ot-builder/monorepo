@@ -51,6 +51,9 @@ setPage(FontIo, "font-io");
 export const Rectify = createTopLevelExport("Rectify");
 setPage(Rectify);
 
+export const CliProc = createTopLevelExport("CliProc");
+setPage(CliProc);
+
 export const string = "string";
 export const number = "number";
 export const boolean = "boolean";

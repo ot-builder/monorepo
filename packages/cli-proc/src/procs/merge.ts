@@ -2,109 +2,105 @@ import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
 import { unifyDesignSpaces } from "../support/design-unifier";
 
-export type MergeOption = { preferOverride?: boolean };
+export type MergeOptions = { preferOverride?: boolean };
 
-export function mergeFonts<GS extends Ot.GlyphStore>(
-    into: Ot.Font,
-    add: Ot.Font,
-    opt: MergeOption,
+export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
+    basis: Ot.Font<GS>,
+    override: Ot.Font<GS2>,
+    opt: MergeOptions,
     gsf: Ot.GlyphStoreFactory<GS>
-): Ot.Font<GS> {
-    unifyDesignSpaces([into, add]);
-    const glyphs = gsf.createStoreFromList([
-        ...into.glyphs.decideOrder(),
-        ...add.glyphs.decideOrder()
+) {
+    unifyDesignSpaces([basis, override]);
+    basis.glyphs = gsf.createStoreFromList([
+        ...basis.glyphs.decideOrder(),
+        ...override.glyphs.decideOrder()
     ]);
-    return { ...into, glyphs, ...mergeFontTables(into, add, opt) };
+    mergeFontTables(basis, override, opt);
 }
 
 // TODO: add CFF merging
-function mergeFontTables(into: Ot.Font, add: Ot.Font, opt: MergeOption) {
+function mergeFontTables(basis: Ot.Font, override: Ot.Font, opt: MergeOptions) {
     if (opt.preferOverride) {
-        return {
-            cmap: mergeCmap(add.cmap, into.cmap),
-            gsub: mergeGsubGpos(add.gsub, into.gsub),
-            gpos: mergeGsubGpos(add.gpos, into.gpos),
-            gdef: mergeGdef(add.gdef, into.gdef)
-        };
+        basis.cmap = mergeCmap(override.cmap, basis.cmap);
+        basis.gsub = mergeGsubGpos(override.gsub, basis.gsub);
+        basis.gpos = mergeGsubGpos(override.gpos, basis.gpos);
+        basis.gdef = mergeGdef(override.gdef, basis.gdef);
     } else {
-        return {
-            cmap: mergeCmap(into.cmap, add.cmap),
-            gsub: mergeGsubGpos(into.gsub, add.gsub),
-            gpos: mergeGsubGpos(into.gpos, add.gpos),
-            gdef: mergeGdef(into.gdef, add.gdef)
-        };
+        basis.cmap = mergeCmap(basis.cmap, override.cmap);
+        basis.gsub = mergeGsubGpos(basis.gsub, override.gsub);
+        basis.gpos = mergeGsubGpos(basis.gpos, override.gpos);
+        basis.gdef = mergeGdef(basis.gdef, override.gdef);
     }
 }
 
-function mergeCmap(prime: Data.Maybe<Ot.Cmap.Table>, basis: Data.Maybe<Ot.Cmap.Table>) {
-    if (!prime) return basis;
-    if (!basis) return prime;
-    for (const [u, g] of basis.unicode.entries()) {
-        if (!prime.unicode.get(u)) prime.unicode.set(u, g);
+function mergeCmap(preferred: Data.Maybe<Ot.Cmap.Table>, less: Data.Maybe<Ot.Cmap.Table>) {
+    if (!preferred) return less;
+    if (!less) return preferred;
+    for (const [u, g] of less.unicode.entries()) {
+        if (!preferred.unicode.get(u)) preferred.unicode.set(u, g);
     }
-    for (const [u, s, g] of basis.vs.entries()) {
-        if (!prime.vs.get(u, s)) prime.vs.set(u, s, g);
+    for (const [u, s, g] of less.vs.entries()) {
+        if (!preferred.vs.get(u, s)) preferred.vs.set(u, s, g);
     }
-    return prime;
+    return preferred;
 }
 
-function mergeGdef(prime: Data.Maybe<Ot.Gdef.Table>, basis: Data.Maybe<Ot.Gdef.Table>) {
-    if (!prime) return basis;
-    if (!basis) return prime;
+function mergeGdef(preferred: Data.Maybe<Ot.Gdef.Table>, less: Data.Maybe<Ot.Gdef.Table>) {
+    if (!preferred) return less;
+    if (!less) return preferred;
 
     const result = new Ot.Gdef.Table();
-    result.glyphClassDef = mergeMapOpt(prime.glyphClassDef, basis.glyphClassDef, Prime);
-    result.attachList = mergeMapOpt(prime.attachList, basis.attachList, Prime);
-    result.ligCarets = mergeMapOpt(prime.ligCarets, basis.ligCarets, Prime);
+    result.glyphClassDef = mergeMapOpt(preferred.glyphClassDef, less.glyphClassDef, Prime);
+    result.attachList = mergeMapOpt(preferred.attachList, less.attachList, Prime);
+    result.ligCarets = mergeMapOpt(preferred.ligCarets, less.ligCarets, Prime);
     result.markAttachClassDef = mergeMapOpt(
-        prime.markAttachClassDef,
-        basis.markAttachClassDef,
+        preferred.markAttachClassDef,
+        less.markAttachClassDef,
         Prime
     );
-    result.markGlyphSets = combineList(prime.markGlyphSets, basis.markGlyphSets);
+    result.markGlyphSets = combineList(preferred.markGlyphSets, less.markGlyphSets);
     return result;
 }
 
 function mergeGsubGpos<L>(
-    prime: Data.Maybe<Ot.GsubGpos.TableT<L>>,
-    basis: Data.Maybe<Ot.GsubGpos.TableT<L>>
+    preferred: Data.Maybe<Ot.GsubGpos.TableT<L>>,
+    less: Data.Maybe<Ot.GsubGpos.TableT<L>>
 ): Data.Maybe<Ot.GsubGpos.TableT<L>> {
-    if (!prime) return basis;
-    if (!basis) return prime;
+    if (!preferred) return less;
+    if (!less) return preferred;
 
-    const featureVariations = combineList(prime.featureVariations, basis.featureVariations);
-    const lookups = [...prime.lookups, ...basis.lookups];
-    const features = [...prime.features, ...basis.features];
-    const scripts = mergeMap(prime.scripts, basis.scripts, mergeGsubGposScript);
+    const featureVariations = combineList(preferred.featureVariations, less.featureVariations);
+    const lookups = [...preferred.lookups, ...less.lookups];
+    const features = [...preferred.features, ...less.features];
+    const scripts = mergeMap(preferred.scripts, less.scripts, mergeGsubGposScript);
 
     return { scripts, features, lookups, featureVariations };
 }
 
 function mergeGsubGposScript<L>(
-    prime: Ot.GsubGpos.ScriptT<L>,
-    basis: Ot.GsubGpos.ScriptT<L>
+    preferred: Ot.GsubGpos.ScriptT<L>,
+    less: Ot.GsubGpos.ScriptT<L>
 ): Ot.GsubGpos.ScriptT<L> {
     return {
-        defaultLanguage: mergeGsubGposLanguage(prime.defaultLanguage, basis.defaultLanguage),
-        languages: mergeMap(prime.languages, basis.languages, mergeGsubGposLanguageImpl)
+        defaultLanguage: mergeGsubGposLanguage(preferred.defaultLanguage, less.defaultLanguage),
+        languages: mergeMap(preferred.languages, less.languages, mergeGsubGposLanguageImpl)
     };
 }
 function mergeGsubGposLanguage<L>(
-    prime: Data.Maybe<Ot.GsubGpos.LanguageT<L>>,
-    basis: Data.Maybe<Ot.GsubGpos.LanguageT<L>>
+    preferred: Data.Maybe<Ot.GsubGpos.LanguageT<L>>,
+    less: Data.Maybe<Ot.GsubGpos.LanguageT<L>>
 ): Data.Maybe<Ot.GsubGpos.LanguageT<L>> {
-    if (!prime) return basis;
-    if (!basis) return prime;
-    return mergeGsubGposLanguageImpl(prime, basis);
+    if (!preferred) return less;
+    if (!less) return preferred;
+    return mergeGsubGposLanguageImpl(preferred, less);
 }
 function mergeGsubGposLanguageImpl<L>(
-    prime: Ot.GsubGpos.LanguageT<L>,
-    basis: Ot.GsubGpos.LanguageT<L>
+    preferred: Ot.GsubGpos.LanguageT<L>,
+    less: Ot.GsubGpos.LanguageT<L>
 ): Ot.GsubGpos.LanguageT<L> {
     return {
-        requiredFeature: prime.requiredFeature || basis.requiredFeature, // TODO: combine feature?
-        features: combineList(prime.features, basis.features)
+        requiredFeature: preferred.requiredFeature || less.requiredFeature, // TODO: combine feature?
+        features: combineList(preferred.features, less.features)
     };
 }
 
