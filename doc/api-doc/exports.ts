@@ -17,6 +17,12 @@ setPage(Ot.Var);
 setPage(Ot.Glyph);
 setPage(Ot.ListGlyphStore, "Ot.Glyph");
 setPage(Ot.ListGlyphStoreFactory, "Ot.Glyph");
+setPage(Ot.GlyphStore, "Ot.Glyph");
+setPage(Ot.GlyphStoreFactory, "Ot.Glyph");
+setPage(Ot.GlyphStoreFactoryWithDefault, "Ot.Glyph");
+setPage(Ot.GlyphNamingSource, "Ot.Glyph");
+setPage(Ot.GlyphNamer, "Ot.Glyph");
+setPage(Ot.StandardOtGlyphNamer, "Ot.Glyph");
 
 setPage(Ot.Head);
 setPage(Ot.Fvar);

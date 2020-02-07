@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
-import { unifyDesignSpaces } from "../support/design-unifier";
+import { DesignUnifierSession, unifyDesignSpacesImpl } from "../support/design-unifier";
 
 export type MergeOptions = { preferOverride?: boolean };
 
@@ -10,7 +10,7 @@ export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
     opt: MergeOptions,
     gsf: Ot.GlyphStoreFactory<GS>
 ) {
-    unifyDesignSpaces([basis, override]);
+    unifyDesignSpacesImpl(new DesignUnifierSession(), basis, override);
     basis.glyphs = gsf.createStoreFromList([
         ...basis.glyphs.decideOrder(),
         ...override.glyphs.decideOrder()

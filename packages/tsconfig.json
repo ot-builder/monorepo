@@ -98,9 +98,6 @@
     },
     {
       "path": "./cli/tsconfig.json"
-    },
-    {
-      "path": "./demo/tsconfig.json"
     }
   ]
 }

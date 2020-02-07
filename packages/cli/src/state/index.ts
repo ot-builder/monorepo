@@ -8,6 +8,14 @@ export class CliState {
     pop() {
         return this.stack.pop();
     }
+    shift() {
+        return this.stack.shift();
+    }
+    popAll() {
+        const s = this.stack;
+        this.stack = [];
+        return s;
+    }
 }
 
 export class CliStackEntryPlaceholder {

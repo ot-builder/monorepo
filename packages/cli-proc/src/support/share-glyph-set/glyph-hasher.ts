@@ -1,8 +1,9 @@
 import * as Crypto from "crypto";
-import { Ot, Rectify } from "ot-builder";
-import { DesignUnifierSession } from "./design-unifier";
+import * as Ot from "@ot-builder/font";
+import * as Rectify from "@ot-builder/rectify-font";
+import { DesignUnifierSession } from "../design-unifier";
+import { ValueProcessor } from "../design-unifier/value-process";
 import { Hasher, HashRep } from "./hash-rep";
-import { ValueProcessor } from "./value-process";
 
 class SharedGlyphProp {
     constructor(readonly glyph: Ot.Glyph, readonly fid: number, readonly priority: number) {}
@@ -28,7 +29,6 @@ export class GlyphSharing implements Rectify.GlyphReferenceRectifier {
     public put(g: Ot.Glyph, hash: string, fid: number, priority: number) {
         const existing = this.gs.mapping.get(hash);
         if (existing) {
-            console.log(`Shared glyph ${g.name} under hash ${hash}`);
             this.mapping.set(g, existing.glyph);
         } else {
             this.gs.mapping.set(hash, new SharedGlyphProp(g, fid, priority));

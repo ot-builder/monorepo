@@ -46,19 +46,25 @@ export class DesignSpaceUnifier implements Rectify.AxisRectifier, Rectify.CoordR
     }
 }
 
-export function unifyDesignSpaces(fonts: Ot.Font[]) {
-    if (fonts.length < 2) return fonts;
+export function unifyDesignSpacesImpl(
+    session: DesignUnifierSession,
+    ref: Ot.Font,
+    demand: Ot.Font
+) {
+    const fvar0 = ref.fvar;
+    const fvarI = demand.fvar;
+    if (fvar0 && fvarI) {
+        const du = new DesignSpaceUnifier(session, fvar0, fvarI);
+        Rectify.rectifyFontCoords(du, du, new StdPointAttachRectifier(), demand);
+    } else if (fvarI) {
+        throw new Error("Cannot unify variable font with static font");
+    }
+}
+export function unifyDesignSpaces<GS extends Ot.GlyphStore>(fonts: Ot.Font<GS>[]) {
+    if (fonts.length < 2) return;
     const session = new DesignUnifierSession();
     const ref = fonts[0];
-    for (let fid = 0; fid < fonts.length; fid++) {
-        const fvar0 = ref.fvar;
-        const fvarI = fonts[fid].fvar;
-        if (fvar0 && fvarI) {
-            const du = new DesignSpaceUnifier(session, fvar0, fvarI);
-            Rectify.rectifyFontCoords(du, du, new StdPointAttachRectifier(), fonts[fid]);
-        } else if (fvarI) {
-            throw new Error("Cannot unify variable font with static font");
-        }
+    for (let fid = 1; fid < fonts.length; fid++) {
+        unifyDesignSpacesImpl(session, ref, fonts[fid]);
     }
-    return fonts;
 }

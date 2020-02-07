@@ -48,7 +48,8 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
     isOption(...options: string[]) {
         if (this.isEof()) return false;
         const opt = this.argv[this.cp];
-        if (opt[0] !== "-") return false;
+        if (opt[0] !== "-" && opt[0] !== "+") return false;
+
         if (!options.length) return true;
         for (const option of options) {
             if (opt === option) return true;

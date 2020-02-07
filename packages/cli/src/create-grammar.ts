@@ -4,6 +4,8 @@ import { IntroSyntax } from "./syntax/actions/intro";
 import * as MergeLib from "./syntax/actions/merge";
 import { RebaseSyntax } from "./syntax/actions/rebase";
 import { SaveSyntax } from "./syntax/actions/save";
+import { SaveHeadSyntax } from "./syntax/actions/save-head";
+import { ShareGlyphSetSyntax } from "./syntax/actions/share-glyph-set";
 import { SubsetSyntax } from "./syntax/actions/subset";
 import { AlternateSyntax } from "./syntax/composite/alternate";
 import { MainCommandSyntax } from "./syntax/composite/main-command";
@@ -16,10 +18,12 @@ export function createGrammar(): Grammar {
     const element = new AlternateSyntax([
         IntroSyntax,
         SaveSyntax,
+        SaveHeadSyntax,
         RebaseSyntax,
         GcSyntax,
         SubsetSyntax,
-        MergeLib.MergeSyntax
+        MergeLib.MergeSyntax,
+        ShareGlyphSetSyntax
     ]);
     const start = new StartSyntax(
         new AlternateSyntax([
