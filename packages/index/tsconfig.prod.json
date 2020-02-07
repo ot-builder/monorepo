@@ -95,6 +95,9 @@
     },
     {
       "path": "../rectify-font/tsconfig.prod.json"
+    },
+    {
+      "path": "../cli-proc/tsconfig.prod.json"
     }
   ],
   "include": [

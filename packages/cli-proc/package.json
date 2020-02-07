@@ -1,0 +1,32 @@
+{
+  "name": "@ot-builder/cli-proc",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
+  "version": "0.3.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "lib/**/*.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^1.9.3",
+    "chalk": "^3.0.0",
+    "@ot-builder/io-bin-font": "0.4.0",
+    "@ot-builder/primitive": "0.2.1",
+    "@ot-builder/rectify-font": "0.4.0",
+    "@ot-builder/prelude": "0.3.0",
+    "@ot-builder/font": "0.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
+  }
+}

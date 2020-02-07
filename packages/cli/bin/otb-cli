@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const Cli = require('../lib/index');
+
+Cli.cliMain(process.argv).catch(function (e){
+    console.error(e);
+    process.exit(1);
+});

@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Create initial implementation of the CLI",
+  "packageName": "ot-builder-cli",
+  "email": "belleve@typeof.net",
+  "commit": "47d5d1484da1b29f9878270d9d75487102393d62",
+  "dependentChangeType": "patch",
+  "date": "2020-02-07T07:58:06.926Z"
+}

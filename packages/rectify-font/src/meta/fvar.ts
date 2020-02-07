@@ -49,7 +49,7 @@ function rectifyCoordinates(
     const coordinates1: Map<Ot.Var.Dim, number> = new Map();
     for (const [d, val] of coordinates) {
         const mapped = rec.dim(d);
-        if (mapped) coordinates1.set(d, val);
+        if (mapped) coordinates1.set(mapped, val);
     }
     for (const axis of addedAxes) coordinates1.set(axis.dim, 0);
     return coordinates1;

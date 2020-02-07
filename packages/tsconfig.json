@@ -91,10 +91,13 @@
       "path": "./rectify-font/tsconfig.json"
     },
     {
+      "path": "./cli-proc/tsconfig.json"
+    },
+    {
       "path": "./index/tsconfig.json"
     },
     {
-      "path": "./demo/tsconfig.json"
+      "path": "./cli/tsconfig.json"
     }
   ]
 }

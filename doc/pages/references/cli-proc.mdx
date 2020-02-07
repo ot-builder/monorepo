@@ -1,0 +1,51 @@
+import { Layout } from "templates/api-doc"
+import { R, Method, Fn, Member, Decl, Item } from "api-doc/tyfmt"
+import { string, number, boolean, iterable, array, CliProc, Ot } from "api-doc/exports"
+import { pi, extend, optional, annot, either, readonly, record, defaultTo } from "api-doc/tycon"
+export default Layout
+
+# Namespace <Decl s={CliProc}/>
+
+The namespace <R s={CliProc}/> contains programmatical implementations of various CLI functionality.
+
+## Garbage Collection
+
+### Function <Fn s={CliProc.gcFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+
+Reduces the _font_'s glyph set to all glyphs accessible.
+
+## Subsetting
+
+### Function <Fn s={CliProc.subsetFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),text:iterable(string),gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+
+Reduces the _font_'s glyph set to all glyphs accessible from _text_.
+
+## Font Merging
+
+### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),options:CliProc.MergeOptions,gsf:Ot.GlyphstoreFactory("GS1")}}/>
+
+Create a combined font _override_ into font _basis_, which will have a new glyph store and new `cmap`, `GSUB`, `GPOS` and `GDEF` tables. The remaining tables will be shared with _basis_.
+
+### DataType <Decl s={CliProc.MergeOptions}/>
+
+#### Members
+
+- <Member s={CliProc.MergeOptions.perferOverride} type={optional(boolean)}/>
+
+## Changing UPM
+
+### Function <Fn s={CliProc.rebaseFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),newUpm:number}} returns={"void"} />
+
+Reduces the _font_'s units-per-em value to _newUpm_.
+
+## Unify Design Space
+
+### Function <Fn s={CliProc.unifyDesignSpaces(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS"))}} returns={"void"} />
+
+Unify the design space of the input when they are compatible; Otherwise raise error.
+
+## Glyph Set Sharing
+
+### Function <Fn s={CliProc.shareGlyphSet(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+
+Unify the glyph set by glyph shape. This procedure is usually used when creating TTC files from TTF files.

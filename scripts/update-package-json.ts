@@ -7,13 +7,21 @@ const packages = fs
     .readdirSync(packagesRoot)
     .filter(item => fs.lstatSync(path.join(packagesRoot, item)).isDirectory());
 
-const sInternalPackageNames: Set<string> = new Set();
+const sInternalPackageVersion: Map<string, string> = new Map();
 
 for (const packageName of packages) {
     const packageJSONPath = path.join(packagesRoot, packageName, "package.json");
     const packageJSONData = JSON.parse(fs.readFileSync(packageJSONPath).toString());
-    sInternalPackageNames.add(packageJSONData.name);
+    sInternalPackageVersion.set(packageJSONData.name, packageJSONData.version);
 }
+
+console.log("Internal packages:");
+console.log(
+    Array.from(sInternalPackageVersion)
+        .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+        .map(([p, v]) => ` * ${p}: ${v}`)
+        .join("\n")
+);
 
 for (const packageName of packages) {
     const packageJSONPath = path.join(packagesRoot, packageName, "package.json");
@@ -40,6 +48,10 @@ for (const packageName of packages) {
     }
 
     const deps = packageJSONData.dependencies || {};
+    for (const pkgName in deps) {
+        const ver = sInternalPackageVersion.get(pkgName);
+        if (ver) deps[pkgName] = ver;
+    }
     delete packageJSONData.dependencies;
     packageJSONData.dependencies = deps;
 
