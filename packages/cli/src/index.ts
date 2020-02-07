@@ -7,7 +7,9 @@ export async function cliMain(argv: string[]) {
     const syntax = createGrammar();
     const prActions = syntax.start.handle(parse, syntax);
     if (!prActions.progress.isEof()) {
-        throw new SyntaxError("Remaining item");
+        console.error("! Unrecognizable argument/option. Stop.");
+        console.error(prActions.progress.reportParseErrorPosition());
+        process.exit(1);
     }
     if (prActions.result) {
         const state = new CliState();

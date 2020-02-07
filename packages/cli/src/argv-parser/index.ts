@@ -1,9 +1,12 @@
+import * as Chalk from "chalk";
+
 export interface ParseState {
     next(): ParseState;
     isEof(): this is ParsingEof;
     isOption(...options: string[]): this is ParsingOption;
     isArgument(): this is ParsingArgument;
     nextArgument(): ParseResult<string>;
+    reportParseErrorPosition(): string;
 }
 export interface ParsingEof {
     readonly eof: boolean;
@@ -66,5 +69,16 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         } else {
             throw new TypeError("Not argument.");
         }
+    }
+    reportParseErrorPosition() {
+        let s = "";
+        for (let cp = 0; cp < this.argv.length; cp++) {
+            if (cp === 0) continue;
+            if (s) s += " ";
+            const segmentText = cp === 0 ? "node" : cp === 1 ? "otb-cli" : this.argv[cp];
+            if (cp === this.cp) s += Chalk.bold.red.underline(segmentText);
+            else s += segmentText;
+        }
+        return s;
     }
 }
