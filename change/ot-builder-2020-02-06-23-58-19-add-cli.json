@@ -1,9 +1,9 @@
 {
   "type": "minor",
   "comment": "Create initial implementation of the CLI",
-  "packageName": "@ot-builder/ft-layout",
+  "packageName": "ot-builder",
   "email": "belleve@typeof.net",
-  "commit": "72e9ed3628d8ea0814d0cec925cfd930e32abd3d",
+  "commit": "47d5d1484da1b29f9878270d9d75487102393d62",
   "dependentChangeType": "patch",
-  "date": "2020-01-31T07:33:56.547Z"
+  "date": "2020-02-07T07:58:15.854Z"
 }
