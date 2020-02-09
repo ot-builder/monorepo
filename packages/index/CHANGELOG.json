@@ -2,6 +2,20 @@
   "name": "ot-builder",
   "entries": [
     {
+      "date": "Sun, 09 Feb 2020 00:14:36 GMT",
+      "tag": "ot-builder_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Create initial implementation of the CLI",
+            "author": "belleve@typeof.net",
+            "commit": "47d5d1484da1b29f9878270d9d75487102393d62"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jan 2020 05:07:07 GMT",
       "tag": "ot-builder_v0.3.0",
       "version": "0.3.0",
