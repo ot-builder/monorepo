@@ -40,5 +40,5 @@ for (const packageName of packages) {
         delete packageJSONData.__devDependencies;
     }
 
-    fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
+    fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  ") + "\n");
 }

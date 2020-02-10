@@ -26,7 +26,7 @@
         "docs:deploy": "ts-node scripts/deploy-documents.ts",
         "publish": "ts-node scripts/auto-publish.ts",
         "lerna:bootstrap": "lerna bootstrap --hoist --ignore-scripts",
-        "lerna:bootstrap:prod": "npm run update:hide-package.json-dev-deps && lerna bootstrap --hoist --ignore-scripts -- --production && npm run update:show-package.json-dev-deps",
+        "lerna:bootstrap:prod": "npm run update:hide-package.json-dev-deps && lerna bootstrap --hoist --ignore-scripts && npm run update:show-package.json-dev-deps",
         "lint": "npm run lint:editor-config && npm run lint:eslint",
         "lint:editor-config": "eclint check \"packages/*/src/**/*.ts\"",
         "lint:eslint": "eslint . --ext .ts,.tsx"
