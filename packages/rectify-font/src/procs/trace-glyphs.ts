@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+
 import { traceGlyphDependents } from "../glyph/trace-alg";
 import { GlyphTracer } from "../interface";
 import { traceGpos, traceGsub } from "../layout/gsub-gpos/trace";

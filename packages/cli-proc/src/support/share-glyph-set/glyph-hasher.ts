@@ -1,8 +1,11 @@
 import * as Crypto from "crypto";
+
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
+
 import { DesignUnifierSession } from "../design-unifier";
 import { ValueProcessor } from "../design-unifier/value-process";
+
 import { Hasher, HashRep } from "./hash-rep";
 
 class SharedGlyphProp {

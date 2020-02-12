@@ -1,6 +1,8 @@
 import * as Path from "path";
+
 import * as FS from "fs-extra";
 import * as RimRaf from "rimraf";
+
 import { Build, Deploy, DocGit, Next, Out, PublishConfig } from "./tools";
 
 export async function docPublish(cfg: PublishConfig) {

@@ -1,6 +1,7 @@
 import * as Ot from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
+
 import { inPlaceRectifyCoordCffTable } from "../glyph-store/cff";
 import { rectifyCoordCvtTable } from "../glyph-store/cvt";
 import { rectifyGlyphsCoordPA } from "../glyph/coord-alg";

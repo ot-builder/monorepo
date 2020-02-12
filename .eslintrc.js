@@ -25,7 +25,14 @@ module.exports = {
         "@typescript-eslint/no-non-null-assertion": "off",
         "prefer-const": ["error", { destructuring: "all", ignoreReadBeforeAssign: false }],
         "@typescript-eslint/camelcase": ["error", { allow: ["^Lib_", "^TID_", "^TAG_"] }],
-        "import/order": "warn",
+        "import/order": [
+            "error",
+            {
+                groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
+                "newlines-between": "always",
+                alphabetize: { order: "asc", caseInsensitive: true }
+            }
+        ],
         "import/no-extraneous-dependencies": "error",
         "import/newline-after-import": ["error", { count: 1 }]
     }

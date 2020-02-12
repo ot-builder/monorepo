@@ -1,10 +1,12 @@
 import * as Ot from "@ot-builder/font";
+
 import {
     AxisRectifier,
     CoordRectifier,
     GlyphReferenceRectifier,
     PointAttachmentRectifier
 } from "../../interface";
+
 import { axesRectifyFeatureVariation, cleanupGsubGposData } from "./cleanup";
 import { LookupRemovableAlg } from "./lookup-removable-alg";
 import { RectifyGposGlyphCoordAlg, RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify";

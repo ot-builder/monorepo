@@ -1,4 +1,5 @@
 import * as util from "util";
+
 import { OtVar } from "@ot-builder/variance";
 
 export namespace FastMatch {

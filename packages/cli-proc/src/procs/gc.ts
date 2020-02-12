@@ -1,5 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
+
 import { createSubsetRectifier } from "../support/initial-visible-glyphs";
 
 export function gcFont<GS extends Ot.GlyphStore>(

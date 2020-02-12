@@ -2,6 +2,7 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Vdmx } from "@ot-builder/ft-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
 import { TestFont } from "@ot-builder/test-util";
+
 import { VdmxRatioRange, VdmxTableIo } from ".";
 
 test("Writing : VDMX", () => {
