@@ -1,5 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import { OtGeometryHandler } from "@ot-builder/ft-glyphs";
+
 import { CoordRectifier, GlyphReferenceRectifier, GlyphTraceProc } from "../interface";
 
 // Rectifiable implementation methods

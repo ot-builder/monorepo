@@ -12,6 +12,7 @@ import { writeOtMetadata } from "@ot-builder/io-bin-metadata";
 import { writeNames } from "@ot-builder/io-bin-name";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
+
 import { createConfig, FontIoConfig } from "./config";
 
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code

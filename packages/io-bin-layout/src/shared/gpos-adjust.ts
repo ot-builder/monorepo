@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Gpos, LayoutCommon } from "@ot-builder/ft-layout";

@@ -1,6 +1,6 @@
 import { Read } from "@ot-builder/bin-util";
-import { Tag } from "@ot-builder/primitive";
 import { Sfnt } from "@ot-builder/ft-sfnt";
+import { Tag } from "@ot-builder/primitive";
 
 export const SfntRead = Read<Sfnt>(view => {
     // Table header

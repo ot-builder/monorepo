@@ -1,6 +1,6 @@
 import { ParseResult, ParseState } from "../../argv-parser";
-import { Syntax, Grammar } from "../../command";
 import { CliHelpShower } from "../../cli-help";
+import { Syntax, Grammar } from "../../command";
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
     constructor(private readonly body: Syntax<null | T>) {}

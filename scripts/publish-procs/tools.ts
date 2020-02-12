@@ -1,6 +1,6 @@
-import * as Path from "path";
 import * as CP from "child_process";
 import * as OS from "os";
+import * as Path from "path";
 
 const OsSuffix = OS.platform() === "win32" ? ".cmd" : "";
 

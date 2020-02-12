@@ -2,6 +2,7 @@ import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
+
 import * as GeneralGsubGpos from "./general/shared";
 
 export function CreateTable<L>() {

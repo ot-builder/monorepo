@@ -1,5 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import { Data } from "@ot-builder/prelude";
+
 import { DesignUnifierSession, unifyDesignSpacesImpl } from "../support/design-unifier";
 
 export type MergeOptions = { preferOverride?: boolean };

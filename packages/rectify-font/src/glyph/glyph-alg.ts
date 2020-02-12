@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+
 import { GlyphReferenceRectifier } from "../interface";
 
 export class RectifyGeomGlyphAlg {

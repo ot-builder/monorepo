@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+
 import { rectifyGlyphCmap } from "../encoding";
 import { inPlaceRectifyGlyphCffTable } from "../glyph-store/cff";
 import { RectifyGeomGlyphAlg } from "../glyph/glyph-alg";

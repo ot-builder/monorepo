@@ -1,4 +1,5 @@
 import * as Ot from "@ot-builder/font";
+
 import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 

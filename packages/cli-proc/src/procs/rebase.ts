@@ -1,5 +1,6 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
+
 import { StdPointAttachRectifier } from "../support/point-rectifier";
 
 export function rebaseFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>, newUpm: number) {

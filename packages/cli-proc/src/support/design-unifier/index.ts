@@ -1,6 +1,8 @@
 import * as Ot from "@ot-builder/font";
 import * as Rectify from "@ot-builder/rectify-font";
+
 import { StdPointAttachRectifier } from "../point-rectifier";
+
 import { DimMapper, MasterProcessor, ValueProcessor } from "./value-process";
 
 export class DesignUnifierSession {
