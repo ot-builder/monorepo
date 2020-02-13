@@ -2,13 +2,18 @@ import * as Ot from "@ot-builder/font";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Data } from "@ot-builder/prelude";
 
-import { inPlaceRectifyCoordCffTable } from "../glyph-store/cff";
+import { rectifyCffTable } from "../glyph-store/cff";
 import { rectifyCoordCvtTable } from "../glyph-store/cvt";
 import { rectifyGlyphsCoordPA } from "../glyph/coord-alg";
-import { AxisRectifier, CoordRectifier, PointAttachmentRectifier } from "../interface";
+import {
+    AxisRectifier,
+    CoordRectifier,
+    PointAttachmentRectifier,
+    IdRectifier
+} from "../interface";
 import { rectifyBaseTableCoord } from "../layout/base";
 import { rectifyGdefCoords } from "../layout/gdef";
-import { rectifyGposCoord, rectifyGsubCoord } from "../layout/gsub-gpos";
+import { rectifyGpos, rectifyGsub } from "../layout/gsub-gpos";
 import { rectifyAxisAvar } from "../meta/avar";
 import { rectifyAxisFvar } from "../meta/fvar";
 import { rectifyCoordGasp } from "../meta/gasp";
@@ -46,7 +51,7 @@ function rectifyFontMetadata<GS extends OtGlyphStore>(
 
 function rectifyCoGlyphs<GS extends OtGlyphStore>(recCoord: CoordRectifier, font: Ot.Font<GS>) {
     if (Ot.Font.isCff(font)) {
-        inPlaceRectifyCoordCffTable(recCoord, font.cff);
+        font.cff = rectifyCffTable(IdRectifier, recCoord, font.cff);
     } else {
         if (font.cvt) font.cvt = rectifyCoordCvtTable(recCoord, font.cvt);
     }
@@ -55,17 +60,16 @@ function rectifyLayout<GS extends OtGlyphStore>(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-
     font: Ot.Font<GS>
 ) {
     if (font.gdef) {
         font.gdef = rectifyGdefCoords(recCoord, recPA, font.gdef);
     }
     if (font.gsub) {
-        font.gsub = rectifyGsubCoord(recAxes, recCoord, recPA, font.gsub);
+        font.gsub = rectifyGsub(IdRectifier, recAxes, recCoord, recPA, font.gsub);
     }
     if (font.gpos) {
-        font.gpos = rectifyGposCoord(recAxes, recCoord, recPA, font.gpos);
+        font.gpos = rectifyGpos(IdRectifier, recAxes, recCoord, recPA, font.gpos);
     }
     if (font.base) {
         font.base = rectifyBaseTableCoord(recCoord, recPA, font.base);

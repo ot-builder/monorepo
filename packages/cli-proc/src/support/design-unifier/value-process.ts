@@ -13,8 +13,8 @@ export class DimMapper {
         return aid;
     }
     public alias(dim: Ot.Var.Dim, existing: Ot.Var.Dim) {
-        const aid = this.mapping.get(existing);
-        if (aid == null) return this.put(dim);
+        let aid = this.mapping.get(existing);
+        if (aid == null) aid = this.put(existing);
         this.mapping.set(dim, aid);
         return aid;
     }

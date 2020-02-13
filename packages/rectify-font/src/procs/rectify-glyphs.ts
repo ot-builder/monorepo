@@ -1,12 +1,12 @@
 import * as Ot from "@ot-builder/font";
 
 import { rectifyGlyphCmap } from "../encoding";
-import { inPlaceRectifyGlyphCffTable } from "../glyph-store/cff";
+import { rectifyCffTable } from "../glyph-store/cff";
 import { RectifyGeomGlyphAlg } from "../glyph/glyph-alg";
-import { GlyphReferenceRectifier } from "../interface";
+import { GlyphReferenceRectifier, IdRectifier } from "../interface";
 import { rectifyBaseTableGlyphs } from "../layout/base";
 import { rectifyGdefGlyphs } from "../layout/gdef";
-import { rectifyGposGlyphs, rectifyGsubGlyphs } from "../layout/gsub-gpos";
+import { rectifyGpos, rectifyGsub } from "../layout/gsub-gpos";
 
 function rectifyFontGlyphStore<GS extends Ot.GlyphStore>(
     rec: GlyphReferenceRectifier,
@@ -27,7 +27,7 @@ export function rectifyFontGlyphReferences<GS extends Ot.GlyphStore>(
 ) {
     rectifyFontGlyphStore(rec, font);
     if (Ot.Font.isCff(font)) {
-        inPlaceRectifyGlyphCffTable(rec, font.cff);
+        font.cff = rectifyCffTable(rec, IdRectifier, font.cff);
     }
     if (font.cmap) {
         font.cmap = rectifyGlyphCmap(rec, font.cmap);
@@ -36,10 +36,10 @@ export function rectifyFontGlyphReferences<GS extends Ot.GlyphStore>(
         font.gdef = rectifyGdefGlyphs(rec, font.gdef);
     }
     if (font.gsub) {
-        font.gsub = rectifyGsubGlyphs(rec, font.gsub);
+        font.gsub = rectifyGsub(rec, IdRectifier, IdRectifier, IdRectifier, font.gsub);
     }
     if (font.gpos) {
-        font.gpos = rectifyGposGlyphs(rec, font.gpos);
+        font.gpos = rectifyGpos(rec, IdRectifier, IdRectifier, IdRectifier, font.gpos);
     }
     if (font.base) {
         font.base = rectifyBaseTableGlyphs(rec, font.base);

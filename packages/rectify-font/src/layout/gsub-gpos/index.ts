@@ -24,23 +24,14 @@ function fnGposLookupRemovable(lookup: Ot.Gpos.Lookup) {
     return LookupRemovableAlg.process(lookup);
 }
 
-export function rectifyGsubGlyphs(rec: GlyphReferenceRectifier, table: Ot.Gsub.Table) {
-    const alg = new RectifyGsubGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
-    const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
-    return cleanupGsubGposData(
-        table,
-        Ot.Gsub.Table.create(),
-        lookupCorrespondence,
-        fnGsubLookupRemovable
-    );
-}
-export function rectifyGsubCoord(
+export function rectifyGsub(
+    recGlyphs: GlyphReferenceRectifier,
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     table: Ot.Gsub.Table
 ) {
-    const alg = new RectifyGsubGlyphCoordAlg({ glyphRef: g => g }, recCoord, recPA);
+    const alg = new RectifyGsubGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     const newTable = cleanupGsubGposData(
         table,
@@ -54,23 +45,14 @@ export function rectifyGsubCoord(
     return newTable;
 }
 
-export function rectifyGposGlyphs(rec: GlyphReferenceRectifier, table: Ot.Gpos.Table) {
-    const alg = new RectifyGposGlyphCoordAlg(rec, { coord: x => x, cv: x => x }, null);
-    const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
-    return cleanupGsubGposData(
-        table,
-        Ot.Gpos.Table.create(),
-        lookupCorrespondence,
-        fnGposLookupRemovable
-    );
-}
-export function rectifyGposCoord(
+export function rectifyGpos(
+    recGlyphs: GlyphReferenceRectifier,
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     table: Ot.Gpos.Table
 ) {
-    const alg = new RectifyGposGlyphCoordAlg({ glyphRef: g => g }, recCoord, recPA);
+    const alg = new RectifyGposGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     const newTable = cleanupGsubGposData(
         table,
