@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Unify table rectifier logic",
+  "packageName": "@ot-builder/rectify-font",
+  "email": "belleve@typeof.net",
+  "commit": "ad78b479c9fe30f818500c8915493563cf44ac4f",
+  "dependentChangeType": "patch",
+  "date": "2020-02-13T07:52:11.112Z"
+}
