@@ -4,7 +4,7 @@ import { GlyphReferenceRectifier, IdRectifier } from "../interface";
 
 import { rectifyFont } from "./rectify-font";
 
-function rectifyFontGlyphStore<GS extends Ot.GlyphStore>(
+export function rectifyFontGlyphReferences<GS extends Ot.GlyphStore>(
     rec: GlyphReferenceRectifier,
     font: Ot.Font<GS>
 ) {
