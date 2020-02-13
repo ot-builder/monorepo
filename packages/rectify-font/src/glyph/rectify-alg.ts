@@ -4,7 +4,8 @@ import { Data } from "@ot-builder/prelude";
 import {
     CoordRectifier,
     PointAttachmentRectifier,
-    PointAttachmentRectifyManner
+    PointAttachmentRectifyManner,
+    GlyphReferenceRectifier
 } from "../interface";
 import { RectifyImpl } from "../shared";
 
@@ -14,10 +15,11 @@ interface PointAttachmentGlobalState {
 interface PointAttachmentHandlerState {
     points: Data.XY<Ot.Var.Value>[];
 }
-type PointAttachmentHandler = (st: PointAttachmentHandlerState) => Ot.Glyph.Geometry;
+type PointAttachmentHandler = (st: PointAttachmentHandlerState) => null | Ot.Glyph.Geometry;
 
 export class OtGhRectifyGeomPointAttachmentAlg {
     constructor(
+        private readonly recGlyphRef: GlyphReferenceRectifier,
         private readonly recCoord: CoordRectifier,
         private readonly recPA: PointAttachmentRectifier,
         private readonly context: PointAttachmentGlobalState
@@ -59,15 +61,19 @@ export class OtGhRectifyGeomPointAttachmentAlg {
         return (st: PointAttachmentHandlerState) => {
             const children: Ot.Glyph.Geometry[] = [];
             for (const proc of processes) {
-                children.push(proc(st));
+                const childGeom = proc(st);
+                if (childGeom) children.push(childGeom);
             }
             return Ot.Glyph.GeometryList.create(children);
         };
     }
     public ttReference(ref: Ot.Glyph.TtReferenceProps) {
         return (st: PointAttachmentHandlerState) => {
-            processGlyph(this.recCoord, this.recPA, ref.to, this.context);
-            const ref1 = Ot.Glyph.TtReference.create(ref.to, {
+            const to1 = this.recGlyphRef.glyphRef(ref.to);
+            if (!to1) return null;
+
+            processGlyph(this.recGlyphRef, this.recCoord, this.recPA, to1, this.context);
+            const ref1 = Ot.Glyph.TtReference.create(to1, {
                 ...ref.transform,
                 dx: this.recCoord.coord(ref.transform.dx),
                 dy: this.recCoord.coord(ref.transform.dy)
@@ -76,7 +82,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
             ref1.useMyMetrics = ref.useMyMetrics;
             ref1.overlapCompound = ref.overlapCompound;
             ref1.pointAttachment = ref.pointAttachment;
-            const innerPoints = RectifyImpl.getGlyphPoints(ref.to);
+            const innerPoints = RectifyImpl.getGlyphPoints(to1);
             this.processTtReferenceImpl(innerPoints, st, ref1);
             for (const z of innerPoints) {
                 st.points.push(
@@ -185,6 +191,7 @@ class RectifyHintCoordAlg {
 }
 
 function processGlyph(
+    recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     glyph: Ot.Glyph,
@@ -193,7 +200,7 @@ function processGlyph(
     if (gs.processed.has(glyph)) return;
 
     if (glyph.geometry) {
-        const alg = new OtGhRectifyGeomPointAttachmentAlg(recCoord, recPA, gs);
+        const alg = new OtGhRectifyGeomPointAttachmentAlg(recGlyphRef, recCoord, recPA, gs);
         glyph.geometry = alg.process(glyph.geometry)({ points: [] });
     }
     if (glyph.hints) {
@@ -211,7 +218,8 @@ function processGlyph(
     gs.processed.add(glyph);
 }
 
-export function rectifyGlyphsCoordPA<GS extends Ot.GlyphStore>(
+export function rectifyGlyphs<GS extends Ot.GlyphStore>(
+    recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     font: Ot.Font<GS>
@@ -219,5 +227,5 @@ export function rectifyGlyphsCoordPA<GS extends Ot.GlyphStore>(
     const gOrd = font.glyphs.decideOrder();
     const st: PointAttachmentGlobalState = { processed: new Set() };
 
-    for (const g of gOrd) processGlyph(recCoord, recPA, g, st);
+    for (const g of gOrd) processGlyph(recGlyphRef, recCoord, recPA, g, st);
 }

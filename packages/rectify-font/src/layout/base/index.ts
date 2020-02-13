@@ -12,18 +12,28 @@ interface BaseRectifyFn {
     baseCoord(lc: Ot.Base.Coord): Ot.Base.Coord;
 }
 
-function rectifyBaseCoordCoord(rec: CoordRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
-    return { ...lc, at: rec.coord(lc.at) };
+function processGlyphRefAndCoord(
+    rg: GlyphReferenceRectifier,
+    rc: CoordRectifier,
+    lc: Ot.Base.Coord
+): Ot.Base.Coord {
+    const at = rc.coord(lc.at);
+    if (!lc.pointAttachment) {
+        return { ...lc, at };
+    }
+    const g1 = rg.glyphRef(lc.pointAttachment.glyph);
+    if (!g1) {
+        return { ...lc, at, pointAttachment: null };
+    } else {
+        return {
+            ...lc,
+            at,
+            pointAttachment: { ...lc.pointAttachment, glyph: g1 }
+        };
+    }
 }
 
-function rectifyBaseCoordGlyph(rec: GlyphReferenceRectifier, lc: Ot.Base.Coord): Ot.Base.Coord {
-    if (!lc.pointAttachment) return lc;
-    const g1 = rec.glyphRef(lc.pointAttachment.glyph);
-    if (!g1) return { ...lc, pointAttachment: null };
-    else return { ...lc, pointAttachment: { ...lc.pointAttachment, glyph: g1 } };
-}
-
-function rectifyBaseCoordPointAttach(
+function processPointAttach(
     rec: PointAttachmentRectifier,
     lc: Ot.Base.Coord,
     horizontal: boolean
@@ -96,7 +106,8 @@ function rectifyAxisTable(fn: BaseRectifyFn, at: Ot.Base.AxisTable) {
     return ret;
 }
 
-export function rectifyBaseTableCoord(
+export function rectifyBaseTable(
+    recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     at: Ot.Base.Table
@@ -104,20 +115,13 @@ export function rectifyBaseTableCoord(
     const ret = new Ot.Base.Table();
     const fnH: BaseRectifyFn = {
         baseCoord: c =>
-            rectifyBaseCoordPointAttach(recPA, rectifyBaseCoordCoord(recCoord, c), true)
+            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), true)
     };
     const fnV: BaseRectifyFn = {
         baseCoord: c =>
-            rectifyBaseCoordPointAttach(recPA, rectifyBaseCoordCoord(recCoord, c), false)
+            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), false)
     };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fnH, at.horizontal);
     if (at.vertical) ret.vertical = rectifyAxisTable(fnV, at.vertical);
-    return ret;
-}
-export function rectifyBaseTableGlyphs(rec: GlyphReferenceRectifier, at: Ot.Base.Table) {
-    const ret = new Ot.Base.Table();
-    const fn: BaseRectifyFn = { baseCoord: c => rectifyBaseCoordGlyph(rec, c) };
-    if (at.horizontal) ret.horizontal = rectifyAxisTable(fn, at.horizontal);
-    if (at.vertical) ret.vertical = rectifyAxisTable(fn, at.vertical);
     return ret;
 }

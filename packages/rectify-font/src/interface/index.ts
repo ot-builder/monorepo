@@ -29,6 +29,20 @@ export interface PointAttachmentRectifier {
     ): { x: boolean; y: boolean };
 }
 
+export const IdRectifier: GlyphReferenceRectifier &
+    AxisRectifier &
+    CoordRectifier &
+    PointAttachmentRectifier = {
+    glyphRef: g => g,
+    dim: a => a,
+    axis: a => a,
+    addedAxes: [],
+    coord: x => x,
+    cv: x => x,
+    manner: PointAttachmentRectifyManner.TrustAttachment,
+    acceptOffset: () => ({ x: true, y: true })
+};
+
 export interface GlyphTracer {
     readonly size: number;
     has(glyph: Ot.Glyph): boolean;
