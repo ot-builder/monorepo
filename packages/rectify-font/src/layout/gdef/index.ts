@@ -8,42 +8,35 @@ import {
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
-export function rectifyGdefGlyphs(rec: GlyphReferenceRectifier, gdef: Ot.Gdef.Table) {
-    const newTable = new Ot.Gdef.Table();
-    if (gdef.glyphClassDef) {
-        newTable.glyphClassDef = RectifyImpl.Glyph.mapSome(rec, gdef.glyphClassDef);
-    }
-    if (gdef.attachList) {
-        newTable.attachList = RectifyImpl.Glyph.mapSome(rec, gdef.attachList);
-    }
-    if (gdef.ligCarets) {
-        newTable.ligCarets = RectifyImpl.Glyph.mapSome(rec, gdef.ligCarets);
-    }
-    if (gdef.markAttachClassDef) {
-        newTable.markAttachClassDef = RectifyImpl.Glyph.mapSome(rec, gdef.markAttachClassDef);
-    }
-    if (gdef.markGlyphSets) {
-        newTable.markGlyphSets = RectifyImpl.listSomeT(
-            rec,
-            gdef.markGlyphSets,
-            RectifyImpl.Glyph.setSome
-        );
-    }
-    return newTable;
-}
-
-export function rectifyGdefCoords(
+export function rectifyGdef(
+    recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     gdef: Ot.Gdef.Table
 ) {
     const newTable = new Ot.Gdef.Table();
-    newTable.glyphClassDef = gdef.glyphClassDef;
-    newTable.attachList = gdef.attachList;
-    newTable.markAttachClassDef = gdef.markAttachClassDef;
-    newTable.markGlyphSets = gdef.markGlyphSets;
+    if (gdef.glyphClassDef) {
+        newTable.glyphClassDef = RectifyImpl.Glyph.mapSome(recGlyphRef, gdef.glyphClassDef);
+    }
+    if (gdef.attachList) {
+        newTable.attachList = RectifyImpl.Glyph.mapSome(recGlyphRef, gdef.attachList);
+    }
+    if (gdef.markAttachClassDef) {
+        newTable.markAttachClassDef = RectifyImpl.Glyph.mapSome(
+            recGlyphRef,
+            gdef.markAttachClassDef
+        );
+    }
+    if (gdef.markGlyphSets) {
+        newTable.markGlyphSets = RectifyImpl.listSomeT(
+            recGlyphRef,
+            gdef.markGlyphSets,
+            RectifyImpl.Glyph.setSome
+        );
+    }
     if (gdef.ligCarets) {
         newTable.ligCarets = rectifyLigCaretListPointAttachment(
+            recGlyphRef,
             recPA,
             RectifyImpl.mapSomeT(
                 recCoord,
@@ -96,8 +89,11 @@ function rectifyLigCaretArrayPointAttachment(
 }
 
 function rectifyLigCaretListPointAttachment(
+    recGlyphRef: GlyphReferenceRectifier,
     rec: PointAttachmentRectifier,
     lcs: Ot.Gdef.LigCaretList
 ): Ot.Gdef.LigCaretList {
-    return RectifyImpl.mapSome2T(rec, lcs, RectifyImpl.Id, rectifyLigCaretArrayPointAttachment);
+    return RectifyImpl.mapSome2T(recGlyphRef, lcs, RectifyImpl.Id, (rg, g, lc) =>
+        rectifyLigCaretArrayPointAttachment(rec, g, lc)
+    );
 }
