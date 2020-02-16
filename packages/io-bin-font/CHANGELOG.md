@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/io-bin-font
 
-This log was last generated on Sun, 02 Feb 2020 00:09:43 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
 
+## 0.4.2
+Sun, 16 Feb 2020 00:16:01 GMT
+
+### Patches
+
+- Enforce import ordering (belleve@typeof.net)
 ## 0.4.0
 Sun, 02 Feb 2020 00:09:43 GMT
 

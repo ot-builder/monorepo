@@ -2,6 +2,20 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sun, 16 Feb 2020 00:16:01 GMT",
+      "tag": "@ot-builder/io-bin-font_v0.4.2",
+      "version": "0.4.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Enforce import ordering",
+            "author": "belleve@typeof.net",
+            "commit": "6fdb8cf99ae7558e898d3f2e76a9b73ae8f22df5"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 02 Feb 2020 00:09:43 GMT",
       "tag": "@ot-builder/io-bin-font_v0.4.0",
       "version": "0.4.0",

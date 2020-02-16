@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Fri, 17 Jan 2020 05:07:07 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
 
+## 0.3.3
+Sun, 16 Feb 2020 00:16:01 GMT
+
+### Patches
+
+- Enforce import ordering (belleve@typeof.net)
 ## 0.3.0
 Fri, 17 Jan 2020 05:07:07 GMT
 

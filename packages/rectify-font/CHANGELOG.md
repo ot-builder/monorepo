@@ -1,7 +1,14 @@
 # Change Log - @ot-builder/rectify-font
 
-This log was last generated on Sun, 09 Feb 2020 00:14:36 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
 
+## 0.5.1
+Sun, 16 Feb 2020 00:16:01 GMT
+
+### Patches
+
+- Enforce import ordering (belleve@typeof.net)
+- Unify table rectifier logic (belleve@typeof.net)
 ## 0.5.0
 Sun, 09 Feb 2020 00:14:36 GMT
 

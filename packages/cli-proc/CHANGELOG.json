@@ -2,6 +2,25 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sun, 16 Feb 2020 00:16:01 GMT",
+      "tag": "@ot-builder/cli-proc_v0.4.1",
+      "version": "0.4.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Enforce import ordering",
+            "author": "belleve@typeof.net",
+            "commit": "6fdb8cf99ae7558e898d3f2e76a9b73ae8f22df5"
+          },
+          {
+            "comment": "Unify table rectifier logic",
+            "author": "belleve@typeof.net",
+            "commit": "ad78b479c9fe30f818500c8915493563cf44ac4f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 09 Feb 2020 00:14:36 GMT",
       "tag": "@ot-builder/cli-proc_v0.4.0",
       "version": "0.4.0",

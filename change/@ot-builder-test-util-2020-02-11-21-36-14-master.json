@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Enforce import ordering",
-  "packageName": "@ot-builder/test-util",
-  "email": "belleve@typeof.net",
-  "commit": "6fdb8cf99ae7558e898d3f2e76a9b73ae8f22df5",
-  "dependentChangeType": "patch",
-  "date": "2020-02-12T05:36:14.515Z"
-}
