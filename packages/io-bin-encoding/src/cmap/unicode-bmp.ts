@@ -67,7 +67,10 @@ export class UnicodeBmp implements SubtableHandler {
 
     public createAssignments(frag: Frag) {
         if (!frag || !frag.size) return [];
-        return [{ platform: 3, encoding: 1, frag }, { platform: 0, encoding: 3, frag }];
+        return [
+            { platform: 3, encoding: 1, frag },
+            { platform: 0, encoding: 3, frag }
+        ];
     }
 }
 

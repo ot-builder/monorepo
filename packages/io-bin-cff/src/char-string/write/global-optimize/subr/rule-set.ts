@@ -282,7 +282,11 @@ export class RuleSet {
 
         for (const rule of this.inputRules) {
             charStrings.push(
-                this.encodeRule(rule, scEst, limits.endCharSize ? CharStringOperator.EndChar : null)
+                this.encodeRule(
+                    rule,
+                    scEst,
+                    limits.endCharSize ? CharStringOperator.EndChar : null
+                )
             );
         }
         for (const rule of this.nonTerminalRules) {

@@ -6,7 +6,9 @@ export const AsideNav = (props: { children: React.ReactNode }) => (
     <aside className="side">
         <section className="site-nav">
             <h1>
-                <a className="nav-link" href="/index">ot-builder</a>
+                <a className="nav-link" href="/index">
+                    ot-builder
+                </a>
             </h1>
             <ul className="nav-list">
                 <NavLink dir="/tutorial/intro" href="/tutorial/intro" text="Introduction" />

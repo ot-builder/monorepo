@@ -23,7 +23,11 @@ export namespace Stat {
             }
         }
         export class Linked extends General {
-            constructor(public readonly axis: Axis, public readonly value: F16D16, public readonly linkedValue: F16D16) {
+            constructor(
+                public readonly axis: Axis,
+                public readonly value: F16D16,
+                public readonly linkedValue: F16D16
+            ) {
                 super();
             }
         }

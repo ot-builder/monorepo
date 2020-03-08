@@ -10,6 +10,9 @@ export const CvtIo = {
         return new Cvt.Table(entries);
     },
     write(frag: Frag, table: Cvt.Table) {
-        frag.array(Int16, table.items.map(x => OtVar.Ops.originOf(x)));
+        frag.array(
+            Int16,
+            table.items.map(x => OtVar.Ops.originOf(x))
+        );
     }
 };

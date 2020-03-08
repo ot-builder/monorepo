@@ -74,12 +74,12 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
             !table.featureVariations || !twc.designSpace || !twc.designSpace.length
                 ? null
                 : Frag.solidFrom(
-                    new CFeatureVariations<L>(),
-                    table.featureVariations,
-                    twc.designSpace,
-                    fOrd,
-                    lOrd
-                );
+                      new CFeatureVariations<L>(),
+                      table.featureVariations,
+                      twc.designSpace,
+                      fOrd,
+                      lOrd
+                  );
 
         // Write it!
         const minorVersion = fFeatureVariations ? 1 : 0;

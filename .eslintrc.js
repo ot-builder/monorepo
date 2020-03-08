@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "import", "monorepo-cop"],
+    plugins: ["@typescript-eslint", "import", "monorepo-cop", "prettier"],
     ignorePatterns: ["node_modules", "packages/*/lib", "coverage"],
     extends: [
         "eslint:recommended",
@@ -37,6 +37,7 @@ module.exports = {
             }
         ],
         "import/no-extraneous-dependencies": "error",
-        "import/newline-after-import": ["error", { count: 1 }]
+        "import/newline-after-import": ["error", { count: 1 }],
+        "prettier/prettier": "error"
     }
 };

@@ -3,14 +3,14 @@ import { VarianceInstance, VarianceInstanceTuple } from "./instance";
 
 export interface VarianceMaster<A extends VarianceDim> {
     /**
-    * Return the peak instance
-    */
+     * Return the peak instance
+     */
     getPeak(): VarianceInstanceTuple<A>;
     /**
-    * Weight an instance under this master
-    * If the master is invalid always return 0
-    * @param instance instance to weight
-    */
+     * Weight an instance under this master
+     * If the master is invalid always return 0
+     * @param instance instance to weight
+     */
     evaluate(instance: VarianceInstance<A>): number;
 }
 

@@ -17,7 +17,8 @@ export namespace Errors {
         new RangeError(`Glyph count mismatch at ${where}`);
 
     export namespace Binary {
-        export const PointerUnderflow = () => new Error("Critical! Unreachable: Pointer underflow");
+        export const PointerUnderflow = () =>
+            new Error("Critical! Unreachable: Pointer underflow");
         export const UnresolvableFragOverflow = () =>
             new Error("Unresolvable pointer flow happened during packing binary fragments");
         export const UnknownPointerType = () => new TypeError("Unknown pointer type");
@@ -92,7 +93,9 @@ export namespace Errors {
 
     export namespace Name {
         export const EncodingNotSupported = (platformID: number, encodingID: number) =>
-            new TypeError(`Name encoding not supported for platform ${platformID} : ${encodingID}`);
+            new TypeError(
+                `Name encoding not supported for platform ${platformID} : ${encodingID}`
+            );
     }
 
     export namespace STAT {
