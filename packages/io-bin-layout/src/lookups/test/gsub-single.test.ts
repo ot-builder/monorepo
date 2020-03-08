@@ -2,10 +2,10 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+import { SubtableWriteTrick } from "../../gsub-gpos-shared/general";
+import { GsubSingleReader, GsubSingleWriter } from "../gsub-single";
 
-import { GsubSingleReader, GsubSingleWriter } from "./gsub-single";
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GSUB single lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);

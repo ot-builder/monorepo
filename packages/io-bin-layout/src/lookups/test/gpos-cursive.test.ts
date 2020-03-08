@@ -2,8 +2,13 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { GposCursiveReader, GposCursiveWriter } from "./gpos-cursive";
-import { LookupRoundTripConfig, LookupRoundTripTest, SetupVariation } from "./test-util.test";
+import { GposCursiveReader, GposCursiveWriter } from "../gpos-cursive";
+
+import {
+    LookupRoundTripConfig,
+    LookupRoundTripTest,
+    SetupVariation
+} from "./-shared-test-util.test";
 
 describe("GPOS cursive lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);

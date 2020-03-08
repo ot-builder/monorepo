@@ -3,8 +3,9 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { GsubReverseReader, GsubReverseWriter } from "./gsub-reverse";
-import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./test-util.test";
+import { GsubReverseReader, GsubReverseWriter } from "../gsub-reverse";
+
+import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./-shared-test-util.test";
 
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();

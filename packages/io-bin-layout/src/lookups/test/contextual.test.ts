@@ -3,11 +3,11 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
 import { BimapCtx, LookupCtx, LookupIdentity } from "@ot-builder/test-util";
 
-import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+import { SubtableWriteTrick } from "../../gsub-gpos-shared/general";
+import { GsubChainingReader, GsubContextualReader } from "../contextual-read";
+import { GsubChainingContextualWriter } from "../contextual-write";
 
-import { GsubChainingReader, GsubContextualReader } from "./contextual-read";
-import { GsubChainingContextualWriter } from "./contextual-write";
-import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./test-util.test";
+import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./-shared-test-util.test";
 
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();

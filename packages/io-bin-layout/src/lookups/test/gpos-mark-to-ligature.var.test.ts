@@ -2,9 +2,14 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { GposMarkToLigatureReader } from "./gpos-mark-read";
-import { GposMarkToLigatureWriter } from "./gpos-mark-write";
-import { LookupRoundTripConfig, LookupRoundTripTest, SetupVariation } from "./test-util.test";
+import { GposMarkToLigatureReader } from "../gpos-mark-read";
+import { GposMarkToLigatureWriter } from "../gpos-mark-write";
+
+import {
+    LookupRoundTripConfig,
+    LookupRoundTripTest,
+    SetupVariation
+} from "./-shared-test-util.test";
 
 describe("GPOS mark-to-ligature lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x400);
@@ -42,25 +47,25 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 baseAnchors:
                     gid % 2
                         ? [
-                            [null, { x: 1 + gid, y: 1 + gid }],
-                            [
-                                {
-                                    x: variation.create(-1, [bold, Math.round(gid / 8)]),
-                                    y: variation.create(-1, [wide, Math.round(-gid / 8)])
-                                },
-                                null
-                            ]
-                        ]
+                              [null, { x: 1 + gid, y: 1 + gid }],
+                              [
+                                  {
+                                      x: variation.create(-1, [bold, Math.round(gid / 8)]),
+                                      y: variation.create(-1, [wide, Math.round(-gid / 8)])
+                                  },
+                                  null
+                              ]
+                          ]
                         : [
-                            [
-                                {
-                                    x: variation.create(1, [bold, Math.round(gid / 8)]),
-                                    y: variation.create(1, [wide, Math.round(-gid / 8)])
-                                },
-                                null
-                            ],
-                            [null, { x: -gid, y: -gid }]
-                        ]
+                              [
+                                  {
+                                      x: variation.create(1, [bold, Math.round(gid / 8)]),
+                                      y: variation.create(1, [wide, Math.round(-gid / 8)])
+                                  },
+                                  null
+                              ],
+                              [null, { x: -gid, y: -gid }]
+                          ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);
