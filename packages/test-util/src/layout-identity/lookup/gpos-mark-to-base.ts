@@ -34,8 +34,16 @@ export namespace GposMarkToBaseIdentity {
                     actual.marks.get(bmg.forward(gme)),
                     actual.bases.get(bmg.forward(gbe))
                 );
-                FastMatch.otvar(offsetExpected.x, offsetActual.x, `${gme.name} >< ${gbe.name} / x`);
-                FastMatch.otvar(offsetExpected.y, offsetActual.y, `${gme.name} >< ${gbe.name} / y`);
+                FastMatch.otvar(
+                    offsetExpected.x,
+                    offsetActual.x,
+                    `${gme.name} >< ${gbe.name} / x`
+                );
+                FastMatch.otvar(
+                    offsetExpected.y,
+                    offsetActual.y,
+                    `${gme.name} >< ${gbe.name} / y`
+                );
             }
         }
     }

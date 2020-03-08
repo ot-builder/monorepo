@@ -1,5 +1,4 @@
 import { Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ft-glyphs";
 import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
 import { OtFontMetadata } from "@ot-builder/ft-metadata";

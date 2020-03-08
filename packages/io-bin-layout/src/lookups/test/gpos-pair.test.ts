@@ -3,9 +3,14 @@ import { Gpos } from "@ot-builder/ft-layout";
 import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 
-import { GposPairReader } from "./gpos-pair-read";
-import { GposPairWriter } from "./gpos-pair-write";
-import { LookupRoundTripConfig, LookupRoundTripTest, SetupVariation } from "./test-util.test";
+import { GposPairReader } from "../gpos-pair-read";
+import { GposPairWriter } from "../gpos-pair-write";
+
+import {
+    LookupRoundTripConfig,
+    LookupRoundTripTest,
+    SetupVariation
+} from "./-shared-test-util.test";
 
 describe("GPOS pair lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x200);

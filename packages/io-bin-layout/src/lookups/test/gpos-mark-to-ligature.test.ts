@@ -2,9 +2,10 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gpos } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { GposMarkToLigatureReader } from "./gpos-mark-read";
-import { GposMarkToLigatureWriter } from "./gpos-mark-write";
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
+import { GposMarkToLigatureReader } from "../gpos-mark-read";
+import { GposMarkToLigatureWriter } from "../gpos-mark-write";
+
+import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GPOS mark-to-ligature lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x4000);
@@ -52,13 +53,13 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 baseAnchors:
                     gid % 2
                         ? [
-                            [null, { x: 1 + gid, y: 1 + gid }],
-                            [{ x: -gid, y: -gid }, null]
-                        ]
+                              [null, { x: 1 + gid, y: 1 + gid }],
+                              [{ x: -gid, y: -gid }, null]
+                          ]
                         : [
-                            [{ x: 1 + gid, y: 1 + gid }, null],
-                            [null, { x: -gid, y: -gid }]
-                        ]
+                              [{ x: 1 + gid, y: 1 + gid }, null],
+                              [null, { x: -gid, y: -gid }]
+                          ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "import", "monorepo-cop"],
+    plugins: ["@typescript-eslint", "import", "monorepo-cop", "prettier"],
     ignorePatterns: ["node_modules", "packages/*/lib", "coverage"],
     extends: [
         "eslint:recommended",
@@ -10,9 +10,12 @@ module.exports = {
         "plugin:import/errors",
         "plugin:import/warnings",
         "plugin:import/typescript",
-        "plugin:monorepo-cop/recommended"
+        "plugin:monorepo-cop/recommended",
+        "prettier",
+        "prettier/@typescript-eslint"
     ],
     rules: {
+        "linebreak-style": ["error", "unix"],
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-inferrable-types": "off",
@@ -34,6 +37,7 @@ module.exports = {
             }
         ],
         "import/no-extraneous-dependencies": "error",
-        "import/newline-after-import": ["error", { count: 1 }]
+        "import/newline-after-import": ["error", { count: 1 }],
+        "prettier/prettier": "error"
     }
 };

@@ -7,8 +7,8 @@ import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import { LookupReader, LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
-import { EmptyStat } from "../stat";
+import { LookupReader, LookupWriter, SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import { EmptyStat } from "../../stat";
 
 export interface LookupRoundTripConfig<L, C extends L> {
     gOrd: Data.Order<OtGlyph>;

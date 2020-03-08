@@ -2,8 +2,9 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { Gsub } from "@ot-builder/ft-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { GsubMultiReader, GsubMultiWriter } from "./gsub-multi-alternate";
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./test-util.test";
+import { GsubMultiReader, GsubMultiWriter } from "../gsub-multi-alternate";
+
+import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GSUB multi/alternate lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x1000);

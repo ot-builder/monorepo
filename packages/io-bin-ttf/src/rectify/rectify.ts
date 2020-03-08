@@ -60,7 +60,10 @@ class AttachmentPointToCoordAlg {
         return (st: PointAttachmentHandlerState) => {
             rectifyGlyph(ref.to, this.gs);
             let tfm = ref.transform;
-            const innerPoints = OtGeometryHandler.stat(OtGeometryHandler.ListPoint, ref.to.geometry);
+            const innerPoints = OtGeometryHandler.stat(
+                OtGeometryHandler.ListPoint,
+                ref.to.geometry
+            );
             if (ref.pointAttachment) {
                 const zOut = st.points[ref.pointAttachment.outer.pointIndex];
                 const zIn = innerPoints[ref.pointAttachment.inner.pointIndex];

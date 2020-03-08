@@ -17,7 +17,10 @@ export const GdefAttachmentPointList = {
         for (const gid of gidCov) {
             const pointCount = view.uint16();
             const pointIndices = view.array(pointCount, UInt16);
-            atp.set(gOrd.at(gid), pointIndices.map(z => ({ pointIndex: z })));
+            atp.set(
+                gOrd.at(gid),
+                pointIndices.map(z => ({ pointIndex: z }))
+            );
         }
         return atp;
     }),

@@ -21,7 +21,7 @@ export namespace Vdmx {
     }
 
     export class Table {
-        constructor(public readonly version: UInt16 = 1) { }
+        constructor(public readonly version: UInt16 = 1) {}
         records: Array<VdmxRecord> = [];
     }
 }

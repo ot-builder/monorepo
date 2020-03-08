@@ -100,7 +100,10 @@ export class HmtxCoStat implements OtGlyph.CoStat.Source {
         } else {
             start = extent.xMin - this.hmtx.measures[gid].startSideBearing;
             if (this.hvar) {
-                start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.hvar.measures[gid].start));
+                start = OtVar.Ops.add(
+                    start,
+                    OtVar.Ops.removeOrigin(this.hvar.measures[gid].start)
+                );
             }
         }
         const end: OtVar.Value = OtVar.Ops.add(
