@@ -27,9 +27,7 @@
         "publish": "ts-node scripts/auto-publish.ts",
         "lerna:bootstrap": "lerna bootstrap --hoist --ignore-scripts",
         "lerna:bootstrap:prod": "npm run update:hide-package.json-dev-deps && lerna bootstrap --hoist --ignore-scripts && npm run update:show-package.json-dev-deps",
-        "lint": "npm run lint:editor-config && npm run lint:eslint",
-        "lint:editor-config": "eclint check \"packages/*/src/**/*.ts\"",
-        "lint:eslint": "eslint . --ext .ts,.tsx",
+        "lint": "eslint . --ext .ts,.tsx",
         "lint:eslint-fix": "eslint . --ext .ts,.tsx --fix"
     },
     "devDependencies": {
@@ -43,8 +41,8 @@
         "@typescript-eslint/parser": "^2.15.0",
         "@zeit/next-stylus": "^1.0.1",
         "beachball": "^1.16.0",
-        "eclint": "^2.8.1",
         "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.10.0",
         "eslint-plugin-import": "^2.20.0",
         "eslint-plugin-monorepo-cop": "^1.0.2",
         "fs-extra": "^8.1.0",
