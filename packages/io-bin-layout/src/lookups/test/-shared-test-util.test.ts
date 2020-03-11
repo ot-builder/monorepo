@@ -87,6 +87,3 @@ export function SetupVariation() {
     const create = (...xs: (number | [OtVar.Master, number])[]) => cr.make(...xs);
     return { designSpace: ds, masters, ivs, masterSet: ms, create };
 }
-
-// Jest needs this :(
-test("Dummy for test util", () => {});

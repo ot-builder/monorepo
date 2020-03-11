@@ -2,7 +2,7 @@ import { GsubGpos } from "@ot-builder/ft-layout";
 
 import { TestOtlLoop } from "./-shared-test-loop.test";
 
-test("FeatureParams Read - SS and CV", () => {
+test("OTL Integrated Test Loop - Feature Params", () => {
     for (const { otl } of TestOtlLoop("SourceCodeVariable-Roman.ttf")) {
         const { gsub } = otl;
         if (!gsub) fail("GSUB not present");
