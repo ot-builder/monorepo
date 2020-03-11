@@ -30,6 +30,3 @@ export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     const otlPostRoundtrip = readOtl(tempSfnt, gOrd, md);
     yield { otl: otlPostRoundtrip, gOrd };
 }
-
-// Jest needs this :(
-test("Dummy for test util", () => {});
