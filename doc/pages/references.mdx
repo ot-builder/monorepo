@@ -1,9 +1,19 @@
 import { Layout } from "templates/api-doc"
 import { R, Decl } from "api-doc/tyfmt"
-import { Data, Thunk, Sigma, Ot, FontIo, Rectify, Tag } from "api-doc/exports"
+import { Data, Thunk, Sigma, Ot, FontIo, Rectify, Tag, CliProc } from "api-doc/exports"
 export default Layout
 
 # API References
+
+## Exports
+
+```typescript
+// TypeScript or JavaScript
+import { Ot, FontIo, Rectify, CliProc } from "ot-builder"
+import { Tag, Data, Sigma, Thunk } from "ot-builder"
+```
+
+<hr/>
 
 * Prelude
     * <R s={Data}/>
@@ -13,6 +23,7 @@ export default Layout
     * <R s={Tag}/>
 * <R s={FontIo}/>
 * <R s={Rectify}/>
+* <R s={CliProc}/>
 * Font Datatype
     * <R s={Ot.Sfnt}/>
     * <R s={Ot.Font}/>
