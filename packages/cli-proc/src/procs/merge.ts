@@ -8,8 +8,8 @@ export type MergeOptions = { preferOverride?: boolean };
 export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
     basis: Ot.Font<GS>,
     override: Ot.Font<GS2>,
-    opt: MergeOptions,
-    gsf: Ot.GlyphStoreFactory<GS>
+    gsf: Ot.GlyphStoreFactory<GS>,
+    opt: MergeOptions = {}
 ) {
     unifyDesignSpacesImpl(new DesignUnifierSession(), basis, override);
     basis.glyphs = gsf.createStoreFromList([
