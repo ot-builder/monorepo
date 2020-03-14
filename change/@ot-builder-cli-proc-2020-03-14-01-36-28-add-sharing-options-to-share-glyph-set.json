@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Add options to CliProc.shareGlyphSet",
+  "packageName": "@ot-builder/cli-proc",
+  "email": "belleve@typeof.net",
+  "commit": "c9d087a3520ed34e0d4b86a14daf268eb4f10c87",
+  "dependentChangeType": "patch",
+  "date": "2020-03-14T08:36:26.948Z"
+}

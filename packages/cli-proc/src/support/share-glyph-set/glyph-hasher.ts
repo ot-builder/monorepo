@@ -33,9 +33,11 @@ export class GlyphSharing implements Rectify.GlyphReferenceRectifier {
         const existing = this.gs.mapping.get(hash);
         if (existing) {
             this.mapping.set(g, existing.glyph);
+            return existing.glyph;
         } else {
             this.gs.mapping.set(hash, new SharedGlyphProp(g, fid, priority));
             this.mapping.set(g, g);
+            return g;
         }
     }
     public glyphRef(a: Ot.Glyph) {

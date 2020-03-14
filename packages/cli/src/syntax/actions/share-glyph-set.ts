@@ -21,7 +21,7 @@ export const ShareGlyphSetSyntax: Syntax<null | CliAction> = {
                     totalGlyphs += entry.font.glyphs.decideOrder().length;
                 }
                 const fonts = entries.map(e => e.font);
-                CliProc.shareGlyphSet(fonts, Ot.ListGlyphStoreFactory);
+                CliProc.shareGlyphSet(fonts, Ot.ListGlyphStoreFactory, { unifyGlyphList: true });
                 const uniqueGlyphs = fonts[0].glyphs.decideOrder().length;
                 console.log(
                     `  ${uniqueGlyphs} unique glyphs concluded from ${totalGlyphs} glyphs.`

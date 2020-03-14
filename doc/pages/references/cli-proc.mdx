@@ -22,7 +22,7 @@ Reduces the _font_'s glyph set to all glyphs accessible from _text_.
 
 ## Font Merging
 
-### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),options:CliProc.MergeOptions,gsf:Ot.GlyphstoreFactory("GS1")}}/>
+### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),gsf:Ot.GlyphstoreFactory("GS1"),options:optional(CliProc.MergeOptions)}}/>
 
 Create a combined font _override_ into font _basis_, which will have a new glyph store and new `cmap`, `GSUB`, `GPOS` and `GDEF` tables. The remaining tables will be shared with _basis_.
 
@@ -31,6 +31,8 @@ Create a combined font _override_ into font _basis_, which will have a new glyph
 #### Members
 
 - <Member s={CliProc.MergeOptions.perferOverride} type={optional(boolean)}/>
+
+    When set, the character mapping and OTL will prefer the mapping in _override_ over _basis_.
 
 ## Changing UPM
 
@@ -46,6 +48,14 @@ Unify the design space of the input when they are compatible; Otherwise raise er
 
 ## Glyph Set Sharing
 
-### Function <Fn s={CliProc.shareGlyphSet(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+### Function <Fn s={CliProc.shareGlyphSet(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), gsf:Ot.GlyphstoreFactory("GS"), options:optional(CliProc.ShareGlyphSetOptions)}} returns={"void"} />
 
 Unify the glyph set by glyph shape. This procedure is usually used when creating TTC files from TTF files.
+
+### DataType <Decl s={CliProc.ShareGlyphSetOptions} />
+
+#### Members
+
+- <Member s={CliProc.ShareGlyphSetOptions.unifyGlyphList} type={optional(boolean)}/>
+
+    Whether to make the glyph list the same. When set to false, only the glyph references will be unified.
