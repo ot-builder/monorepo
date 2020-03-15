@@ -1,7 +1,8 @@
 import { Grammar } from "./command";
+import { ConsolidateSyntax } from "./syntax/actions/consolidate";
 import { GcSyntax } from "./syntax/actions/gc";
 import { IntroSyntax } from "./syntax/actions/intro";
-import * as MergeLib from "./syntax/actions/merge";
+import { MergeSyntax } from "./syntax/actions/merge";
 import { RebaseSyntax } from "./syntax/actions/rebase";
 import { SaveSyntax } from "./syntax/actions/save";
 import { SaveHeadSyntax } from "./syntax/actions/save-head";
@@ -23,8 +24,9 @@ export function createGrammar(): Grammar {
         RebaseSyntax,
         GcSyntax,
         SubsetSyntax,
-        MergeLib.MergeSyntax,
-        ShareGlyphSetSyntax
+        MergeSyntax,
+        ShareGlyphSetSyntax,
+        ConsolidateSyntax
     ]);
     const start = new StartSyntax(
         new AlternateSyntax([

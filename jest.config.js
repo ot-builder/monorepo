@@ -1,3 +1,7 @@
+/* eslint global-require: "off" */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-env es6,node */
+
 const os = require("os");
 
 module.exports = {

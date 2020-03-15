@@ -67,8 +67,12 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
         const lOrd = ImpLib.Order.fromList(`Lookups`, table.lookups);
-        const fFeatures = Frag.solidFrom(new CFeatureList<L>(), table.features, lOrd);
-        const fOrd = ImpLib.Order.fromList(`Features`, table.features);
+        // Feature list is sorted by tag
+        // https://docs.microsoft.com/en-us/typography/opentype/spec/chapter2#flTbl
+        const sortedFeatures = Array.from(table.features).sort(compareFeature);
+        const fFeatures = Frag.solidFrom(new CFeatureList<L>(), sortedFeatures, lOrd);
+        const fOrd = ImpLib.Order.fromList(`Features`, sortedFeatures);
+        // Script list
         const fScripts = Frag.solidFrom(new CScriptList<L>(), table.scripts, fOrd);
         const fFeatureVariations =
             !table.featureVariations || !twc.designSpace || !twc.designSpace.length
@@ -89,4 +93,8 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         frag.ptr16(fLookups);
         if (minorVersion) frag.ptr32(fFeatureVariations);
     }
+}
+
+function compareFeature<L>(a: GsubGpos.FeatureT<L>, b: GsubGpos.FeatureT<L>) {
+    return a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : 0;
 }

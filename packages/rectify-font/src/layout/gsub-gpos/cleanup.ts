@@ -100,7 +100,7 @@ function cleanupFeatureVariation<L>(
 ): null | Ot.GsubGpos.FeatureVariationT<L> {
     const subst: Map<Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>> = new Map();
     for (const [from, to] of fv.substitutions) {
-        const from1 = RectifyImpl.Elim.findInSet(from, fs);
+        const from1 = RectifyImpl.Elim.findInSet(featureCorrespondence.get(from) || from, fs);
         const to1 = cleanupFeature(to, lookupCorrespondence, ls, featureCorrespondence, true);
         if (from1 && to1) subst.set(from1, to1);
     }
