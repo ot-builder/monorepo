@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Make the font merger able to support feature variations by dicing the variation space.",
+  "packageName": "@ot-builder/rectify-font",
+  "email": "belleve@typeof.net",
+  "commit": "500bc42dd1a7495e7913155a3d1c1bf88774f731",
+  "dependentChangeType": "patch",
+  "date": "2020-03-15T11:46:58.777Z"
+}
