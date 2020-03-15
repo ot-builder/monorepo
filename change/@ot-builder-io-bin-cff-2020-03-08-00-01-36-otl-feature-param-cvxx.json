@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Apply prettier eslint",
-  "packageName": "@ot-builder/io-bin-cff",
-  "email": "belleve@typeof.net",
-  "commit": "b5e1c77394d33da3fb6c91882896a4b3f4b5d74c",
-  "dependentChangeType": "patch",
-  "date": "2020-03-08T08:01:34.895Z"
-}

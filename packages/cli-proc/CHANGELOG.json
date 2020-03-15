@@ -2,6 +2,20 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sun, 15 Mar 2020 00:17:52 GMT",
+      "tag": "@ot-builder/cli-proc_v0.4.2",
+      "version": "0.4.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add options to CliProc.shareGlyphSet",
+            "author": "belleve@typeof.net",
+            "commit": "c9d087a3520ed34e0d4b86a14daf268eb4f10c87"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/cli-proc_v0.4.1",
       "version": "0.4.1",

@@ -2,6 +2,20 @@
   "name": "@ot-builder/ft-layout",
   "entries": [
     {
+      "date": "Sun, 15 Mar 2020 00:17:52 GMT",
+      "tag": "@ot-builder/ft-layout_v0.4.2",
+      "version": "0.4.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support for feature params of `cv##` features.",
+            "author": "belleve@typeof.net",
+            "commit": "41d5e955258efb4b7af498c39ead1aad0b302edd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/ft-layout_v0.4.1",
       "version": "0.4.1",

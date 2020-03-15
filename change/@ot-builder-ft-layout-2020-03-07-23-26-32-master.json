@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add support for feature params of `cv##` features.",
-  "packageName": "@ot-builder/ft-layout",
-  "email": "belleve@typeof.net",
-  "commit": "41d5e955258efb4b7af498c39ead1aad0b302edd",
-  "dependentChangeType": "patch",
-  "date": "2020-03-08T07:26:31.336Z"
-}

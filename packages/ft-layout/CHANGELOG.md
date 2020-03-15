@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-layout
 
-This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Mar 2020 00:17:52 GMT and should not be manually modified.
 
+## 0.4.2
+Sun, 15 Mar 2020 00:17:52 GMT
+
+### Patches
+
+- Add support for feature params of `cv##` features. (belleve@typeof.net)
 ## 0.4.1
 Sun, 16 Feb 2020 00:16:01 GMT
 

@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-name
 
-This log was last generated on Fri, 17 Jan 2020 05:07:07 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Mar 2020 00:17:52 GMT and should not be manually modified.
 
+## 0.3.2
+Sun, 15 Mar 2020 00:17:52 GMT
+
+### Patches
+
+- Apply prettier eslint (belleve@typeof.net)
 ## 0.3.0
 Fri, 17 Jan 2020 05:07:07 GMT
 

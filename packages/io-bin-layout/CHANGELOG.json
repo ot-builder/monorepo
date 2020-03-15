@@ -2,6 +2,25 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 15 Mar 2020 00:17:52 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.3.4",
+      "version": "0.3.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support for feature params of `cv##` features.",
+            "author": "belleve@typeof.net",
+            "commit": "41d5e955258efb4b7af498c39ead1aad0b302edd"
+          },
+          {
+            "comment": "Add tests for feature variations",
+            "author": "belleve@typeof.net",
+            "commit": "7aac9f017f50718d08130fa83500321d88d55b15"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.3.3",
       "version": "0.3.3",

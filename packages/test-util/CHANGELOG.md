@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/test-util
 
-This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
+This log was last generated on Sun, 15 Mar 2020 00:17:52 GMT and should not be manually modified.
 
+## 0.3.4
+Sun, 15 Mar 2020 00:17:52 GMT
+
+### Patches
+
+- Apply prettier eslint (belleve@typeof.net)
 ## 0.3.3
 Sun, 16 Feb 2020 00:16:01 GMT
 
