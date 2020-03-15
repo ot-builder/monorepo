@@ -8,6 +8,15 @@ export default Layout
 
 The namespace <R s={CliProc}/> contains programmatical implementations of various CLI functionality.
 
+## Consolidation
+
+### Function <Fn s={CliProc.consolidateFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS")}} returns={"void"} />
+
+Consolidates the font, including:
+
+ * Cleanup all the data references to glyphs not present in font's glyph set.
+ * Cleanup fonts' OTL tables, like merging identical feature records under same language.
+
 ## Garbage Collection
 
 ### Function <Fn s={CliProc.gcFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
