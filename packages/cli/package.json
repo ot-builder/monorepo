@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.4.2",
+  "version": "0.5.0",
   "bin": {
     "otb-cli": "./bin/otb-cli"
   },
@@ -22,7 +22,7 @@
   "dependencies": {
     "tslib": "^1.9.3",
     "chalk": "^3.0.0",
-    "ot-builder": "0.5.2"
+    "ot-builder": "0.6.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

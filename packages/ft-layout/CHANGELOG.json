@@ -2,6 +2,20 @@
   "name": "@ot-builder/ft-layout",
   "entries": [
     {
+      "date": "Mon, 16 Mar 2020 12:13:10 GMT",
+      "tag": "@ot-builder/ft-layout_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Remove the {ref:} indirect references from the data types.",
+            "author": "belleve@typeof.net",
+            "commit": "6d85c7a61ae94d3fcc7cdf7bff411e35dd3ab4ab"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 15 Mar 2020 00:17:52 GMT",
       "tag": "@ot-builder/ft-layout_v0.4.2",
       "version": "0.4.2",

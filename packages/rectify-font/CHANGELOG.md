@@ -1,7 +1,14 @@
 # Change Log - @ot-builder/rectify-font
 
-This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
 
+## 0.6.0
+Mon, 16 Mar 2020 12:13:10 GMT
+
+### Minor changes
+
+- Make the font merger able to support feature variations by dicing the variation space. (belleve@typeof.net)
+- Remove the {ref:} indirect references from the data types. (belleve@typeof.net)
 ## 0.5.1
 Sun, 16 Feb 2020 00:16:01 GMT
 

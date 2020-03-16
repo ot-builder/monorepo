@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-layout
 
-This log was last generated on Sun, 15 Mar 2020 00:17:52 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
 
+## 0.5.0
+Mon, 16 Mar 2020 12:13:10 GMT
+
+### Minor changes
+
+- Remove the {ref:} indirect references from the data types. (belleve@typeof.net)
 ## 0.4.2
 Sun, 15 Mar 2020 00:17:52 GMT
 

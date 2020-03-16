@@ -2,6 +2,20 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Mon, 16 Mar 2020 12:13:10 GMT",
+      "tag": "ot-builder-cli_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Make the font merger able to support feature variations by dicing the variation space.",
+            "author": "belleve@typeof.net",
+            "commit": "500bc42dd1a7495e7913155a3d1c1bf88774f731"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 15 Mar 2020 00:17:52 GMT",
       "tag": "ot-builder-cli_v0.4.2",
       "version": "0.4.2",

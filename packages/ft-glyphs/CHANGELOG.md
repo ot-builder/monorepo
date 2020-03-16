@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-glyphs
 
-This log was last generated on Fri, 17 Jan 2020 05:07:07 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
 
+## 0.4.0
+Mon, 16 Mar 2020 12:13:10 GMT
+
+### Minor changes
+
+- Remove the {ref:} indirect references from the data types. (belleve@typeof.net)
 ## 0.3.0
 Fri, 17 Jan 2020 05:07:07 GMT
 
