@@ -1,7 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff } from "@ot-builder/ft-glyphs";
-import { CffCoGlyphsWithNaming } from "@ot-builder/ft-glyphs/lib/store/cff";
+import { Cff, CffCoGlyphsWithNaming } from "@ot-builder/ft-glyphs";
 import { Cff1Io, Cff2Io, CffCfg } from "@ot-builder/io-bin-cff";
 
 import { ReadGlyphStoreImpl } from "../general/read";

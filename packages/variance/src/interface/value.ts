@@ -1,4 +1,4 @@
-import { VectorSpace } from "@ot-builder/prelude/lib/algebra";
+import { Algebra } from "@ot-builder/prelude";
 
 import { VarianceDim } from "./dimension";
 import { VarianceInstance } from "./instance";
@@ -8,7 +8,7 @@ import { VarianceMaster, VarianceMasterSet } from "./master";
  * VariableOps<A,M,X> contains various methods to manipulate variable values (X)
  */
 export interface VariableOps<A extends VarianceDim, M extends VarianceMaster<A>, X>
-    extends VectorSpace<X, number> {
+    extends Algebra.VectorSpace<X, number> {
     originOf(x: X): number;
     varianceOf(x: X): Iterable<[M, number]>;
     removeOrigin(x: X): X;

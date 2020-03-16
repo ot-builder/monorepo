@@ -7,7 +7,6 @@ import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
-import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
 
 import { BaseCoord, Ptr16BaseCoord, Ptr16BaseCoordNullable } from "./coord";
 
@@ -40,7 +39,7 @@ export const BaseTableIo = {
         designSpace?: Data.Maybe<OtVar.DesignSpace>
     ) {
         const ivs: null | WriteTimeIVS = designSpace
-            ? WriteTimeIVS.create(new OtVarMasterSet())
+            ? WriteTimeIVS.create(OtVar.Create.MasterSet())
             : null;
         frag.uint16(1);
         const hMinorVersion = frag.reserve(UInt16);

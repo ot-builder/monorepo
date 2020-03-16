@@ -16,6 +16,10 @@ module.exports = {
     ],
     rules: {
         "linebreak-style": ["error", "unix"],
+        "no-restricted-imports": [
+            "error",
+            { paths: ["@ot-builder"], patterns: ["@ot-builder/*/src", "@ot-builder/*/lib"] }
+        ],
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-inferrable-types": "off",

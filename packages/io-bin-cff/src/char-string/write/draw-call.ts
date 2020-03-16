@@ -1,6 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { WriteTimeIVD } from "@ot-builder/var-store";
-import { WriteTimeDelayValue } from "@ot-builder/var-store/lib/ivs/impl";
+import { WriteTimeDelayValue, WriteTimeIVD } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffEncodingOptions, CffWriteContext } from "../../context/write";
