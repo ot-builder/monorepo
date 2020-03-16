@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sigma } from "@ot-builder/prelude";
-import { UInt16, UInt24 } from "@ot-builder/primitive/src";
+import { UInt16, UInt24 } from "@ot-builder/primitive";
 
 export namespace FeatureParams {
     export const TID_StylisticSet = new Sigma.TypeID<StylisticSet>(
