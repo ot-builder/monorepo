@@ -7,8 +7,8 @@ import { LookupCtx, StdCompare } from "../../compar-util";
 export namespace ChainingLookupIdentity {
     function ruleMatch<L>(
         bmg: LookupCtx<OtGlyph, L>,
-        rExp: GsubGpos.ChainingRule<{ ref: L }>,
-        rAct: GsubGpos.ChainingRule<{ ref: L }>
+        rExp: GsubGpos.ChainingRule<L>,
+        rAct: GsubGpos.ChainingRule<L>
     ) {
         if (rExp.match.length !== rAct.match.length) return false;
         if (rExp.inputBegins !== rAct.inputBegins) return false;
@@ -24,14 +24,14 @@ export namespace ChainingLookupIdentity {
             rAct.applications
         )) {
             if (aa.at !== ab.at) return false;
-            if (ab.apply.ref !== bmg.lookups.forward(aa.apply.ref)) return false;
+            if (ab.apply !== bmg.lookups.forward(aa.apply)) return false;
         }
         return true;
     }
     function testSingle<L>(
         bmg: LookupCtx<OtGlyph, L>,
-        expected: GsubGpos.ChainingProp<{ ref: L }>,
-        actual: GsubGpos.ChainingProp<{ ref: L }>
+        expected: GsubGpos.ChainingProp<L>,
+        actual: GsubGpos.ChainingProp<L>
     ) {
         for (const rExp of expected.rules) {
             let foundMatchRule = false;

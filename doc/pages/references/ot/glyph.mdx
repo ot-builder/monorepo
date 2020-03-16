@@ -90,15 +90,11 @@ Defines a metric advance of a glyph.
 
 ### Interface <Decl s={Ot.Glyph.Geometry}/>
 
-Defined as <R s={Ot.Glyph.GeometryT(record({ref:Ot.Glyph.Geometry}))}/>
-
-### Interface <Decl s={Ot.Glyph.GeometryT("E")}/>
-
 Defines as the union of the following cases.
 
  * <R s={Ot.Glyph.ContourSet}/>
  * <R s={Ot.Glyph.TtReference}/>
- * <R s={Ot.Glyph.GeometryListT("E")}/>
+ * <R s={Ot.Glyph.GeometryList}/>
 
 #### Properties
 
@@ -170,9 +166,7 @@ Defines as the union of the following cases.
 
     When present, this reference follows TrueType's point-attachment rules.
 
-### Type <Decl s={Ot.Glyph.GeometryList}/>
-
-Defined as <R s={Ot.Glyph.GeometryListT(record({ref:Ot.Glyph.Geometry}))}/>
+### Case Type <Decl s={Ot.Glyph.GeometryList}/> | type = <R s={Ot.Glyph.GeometryType.GeometryList}/>
 
 #### Factory Methods
 
@@ -180,17 +174,15 @@ Defined as <R s={Ot.Glyph.GeometryListT(record({ref:Ot.Glyph.Geometry}))}/>
 
     Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
 
-### Case Type <Decl s={Ot.Glyph.GeometryListT("E")}/> | type = <R s={Ot.Glyph.GeometryType.GeometryList}/>
-
 #### Inherits
 
- * <R s={Ot.Glyph.GeometryListProps("E")} />
+ * <R s={Ot.Glyph.GeometryListProp} />
 
-### Type <Decl s={Ot.Glyph.GeometryListProps("E")}/>
+### Type <Decl s={Ot.Glyph.GeometryListProp}/>
 
 #### Properties
 
- * <Member s={Ot.Glyph.GeometryList.items} type={array("E")}/>
+ * <Member s={Ot.Glyph.GeometryList.items} type={Ot.Glyph.Geometry}/>
 
     The sub items inside.
 

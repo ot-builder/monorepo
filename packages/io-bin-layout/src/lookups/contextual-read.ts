@@ -36,7 +36,7 @@ class CApplication<L> {
         const glyphSequenceIndex = view.uint16();
         const lookupListIndex = view.uint16();
         const lookup = siblings.at(lookupListIndex);
-        return { at: glyphSequenceIndex, apply: { ref: lookup } };
+        return { at: glyphSequenceIndex, apply: lookup };
     }
 }
 
@@ -70,7 +70,7 @@ class CIndividualClassRule<L> {
             lookAheadSequence = lookAheadIDs.map(n => srLookAhead.toGlyphSet(n, false));
             applicationCount = view.uint16();
         }
-        const rule: GsubGpos.ChainingRule<{ ref: L }> = {
+        const rule: GsubGpos.ChainingRule<L> = {
             match: [...gssBacktrack, ...inputSequence, ...lookAheadSequence],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + inputSequence.length,
@@ -87,7 +87,7 @@ class IndividualClassRuleSet<L> {
     public read(
         view: BinaryView,
         isChaining: boolean,
-        lookup: GsubGpos.ChainingProp<{ ref: L }>,
+        lookup: GsubGpos.ChainingProp<L>,
         startGlyphs: Set<OtGlyph>,
         srBacktrack: Resolver,
         srInput: Resolver,
@@ -116,7 +116,7 @@ class SubtableFormat1<L> {
     public read(
         view: BinaryView,
         isChaining: boolean,
-        lookup: GsubGpos.ChainingProp<{ ref: L }>,
+        lookup: GsubGpos.ChainingProp<L>,
         ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
@@ -152,7 +152,7 @@ class SubtableFormat2<L> {
     public read(
         view: BinaryView,
         isChaining: boolean,
-        lookup: GsubGpos.ChainingProp<{ ref: L }>,
+        lookup: GsubGpos.ChainingProp<L>,
         ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
@@ -200,7 +200,7 @@ class SubtableFormat3<L> {
     public read(
         view: BinaryView,
         isChaining: boolean,
-        lookup: GsubGpos.ChainingProp<{ ref: L }>,
+        lookup: GsubGpos.ChainingProp<L>,
         ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
@@ -231,7 +231,7 @@ class SubtableFormat3<L> {
             gssLookAhead = [];
         }
 
-        const rule: GsubGpos.ChainingRule<{ ref: L }> = {
+        const rule: GsubGpos.ChainingRule<L> = {
             match: [...gssBacktrack, ...gssInput, ...gssLookAhead],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + gssInput.length,
@@ -246,7 +246,7 @@ class SubtableFormat3<L> {
     }
 }
 
-abstract class ChainingContextualReader<L, CL extends L & GsubGpos.ChainingProp<{ ref: L }>>
+abstract class ChainingContextualReader<L, CL extends L & GsubGpos.ChainingProp<L>>
     implements LookupReader<L, CL> {
     constructor(private chaining: boolean) {}
     public abstract createLookup(): CL;

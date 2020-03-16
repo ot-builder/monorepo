@@ -114,7 +114,7 @@ class GeomVarPtrCollector {
             case OtGlyph.GeometryType.TtReference:
                 return new TtReferenceHolder(geom);
             case OtGlyph.GeometryType.GeometryList: {
-                const parts: GeomHolder[] = geom.items.map(item => this.process(item.ref));
+                const parts: GeomHolder[] = geom.items.map(item => this.process(item));
                 return new GeometryListHolder(parts);
             }
         }

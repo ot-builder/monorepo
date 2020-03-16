@@ -49,17 +49,17 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
     }
 
     protected processChainingRules(
-        props: Ot.GsubGpos.ChainingProp<{ ref: L }>,
-        ret: Ot.GsubGpos.ChainingProp<{ ref: L }>
+        props: Ot.GsubGpos.ChainingProp<L>,
+        ret: Ot.GsubGpos.ChainingProp<L>
     ) {
         ret.rules = [];
         for (const rule of props.rules) {
             const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setAll);
             if (!match1 || !match1.length) continue;
-            const applications1: Ot.GsubGpos.ChainingApplication<{ ref: L }>[] = [];
+            const applications1: Ot.GsubGpos.ChainingApplication<L>[] = [];
             for (const app of rule.applications) {
-                const stub = this._cache.get(app.apply.ref);
-                if (stub) applications1.push({ at: app.at, apply: { ref: stub.demand } });
+                const stub = this._cache.get(app.apply);
+                if (stub) applications1.push({ at: app.at, apply: stub.demand });
             }
             ret.rules.push({
                 match: match1,
@@ -153,9 +153,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
         });
     }
 
-    private gsubChaining(
-        props: Ot.Gsub.ChainingProp<{ ref: Ot.Gsub.Lookup }>
-    ): RStub<Ot.Gsub.Lookup> {
+    private gsubChaining(props: Ot.Gsub.ChainingProp): RStub<Ot.Gsub.Lookup> {
         return RStub(Ot.Gsub.Chaining.create(), ret => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);
@@ -285,9 +283,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
         });
     }
 
-    public gposChaining(
-        props: Ot.GsubGpos.ChainingProp<{ ref: Ot.Gpos.Lookup }>
-    ): RStub<Ot.Gpos.Lookup> {
+    public gposChaining(props: Ot.Gpos.ChainingProp): RStub<Ot.Gpos.Lookup> {
         return RStub(Ot.Gpos.Chaining.create(), ret => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);

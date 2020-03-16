@@ -10,7 +10,7 @@ describe("GSUB Rectifier", () => {
             match: [new Set([a])],
             inputBegins: 0,
             inputEnds: 1,
-            applications: [{ at: 0, apply: { ref: chaining } }] // Circular
+            applications: [{ at: 0, apply: chaining }] // Circular
         });
         const correspondence = rectifyLookupList(
             [chaining],
@@ -21,7 +21,7 @@ describe("GSUB Rectifier", () => {
         const chainingDup = correspondence.get(chaining)! as Ot.Gsub.Chaining;
         expect(chainingDup).toBeTruthy();
         expect(chainingDup).not.toBe(chaining);
-        expect(chainingDup.rules[0].applications[0].apply.ref).toBe(chainingDup);
+        expect(chainingDup.rules[0].applications[0].apply).toBe(chainingDup);
     });
 });
 

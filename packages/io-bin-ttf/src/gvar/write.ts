@@ -122,10 +122,10 @@ class GeomVarCollector {
         }
         return collected;
     }
-    public geometryList(geom: OtGlyph.GeometryListProps<{ ref: OtGlyph.Geometry }>) {
+    public geometryList(geom: OtGlyph.GeometryListProps) {
         const collected: OtVar.Value[][] = [];
         for (const entry of geom.items) {
-            const sub = this.process(entry.ref);
+            const sub = this.process(entry);
             for (const x of sub) collected.push(x);
         }
         return collected;

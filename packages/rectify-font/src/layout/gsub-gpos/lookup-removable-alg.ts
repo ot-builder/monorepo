@@ -74,10 +74,10 @@ export class CLookupRemovableAlg {
     public gposMarkToLigature(props: Ot.Gpos.MarkToLigatureProp): boolean {
         return !props.marks.size || !props.bases.size;
     }
-    public gsubChaining(props: Ot.GsubGpos.ChainingProp<{ ref: Ot.Gsub.Lookup }>): boolean {
+    public gsubChaining(props: Ot.Gsub.ChainingProp): boolean {
         return !props.rules.length;
     }
-    public gposChaining(props: Ot.GsubGpos.ChainingProp<{ ref: Ot.Gpos.Lookup }>): boolean {
+    public gposChaining(props: Ot.Gpos.ChainingProp): boolean {
         return !props.rules.length;
     }
 }

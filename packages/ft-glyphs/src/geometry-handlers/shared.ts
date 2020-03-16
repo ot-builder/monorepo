@@ -48,9 +48,7 @@ export class OtGhPointAlg<PS extends PointSink> implements GeometryProcessor {
                 break;
             }
             case OtGlyph.GeometryType.GeometryList: {
-                for (const item of geom.items) {
-                    this.process(item.ref);
-                }
+                for (const item of geom.items) this.process(item);
                 break;
             }
         }

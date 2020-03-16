@@ -16,7 +16,7 @@ type CompatibleRuleResult<L> = {
     cdBacktrack: GsubGpos.ClassDef;
     cdInput: GsubGpos.ClassDef;
     cdLookAhead: GsubGpos.ClassDef;
-    cr: GsubGpos.ChainingClassRule<{ ref: L }>;
+    cr: GsubGpos.ChainingClassRule<L>;
     firstGlyphSet: Set<OtGlyph>;
     firstGlyphClass: number;
 };
@@ -26,8 +26,8 @@ class ClassDefsAnalyzeState<L> {
     public cdBacktrack: GsubGpos.ClassDef = new Map();
     public cdInput: GsubGpos.ClassDef = new Map();
     public cdLookAhead: GsubGpos.ClassDef = new Map();
-    public rules: Array<GsubGpos.ChainingRule<{ ref: L }>> = [];
-    public classRules: Map<number, Array<GsubGpos.ChainingClassRule<{ ref: L }>>> = new Map();
+    public rules: Array<GsubGpos.ChainingRule<L>> = [];
+    public classRules: Map<number, Array<GsubGpos.ChainingClassRule<L>>> = new Map();
     public lastFirstClass: number = 0;
     public maxFirstClass: number = 0;
     public ruleComplexity: number = 0; // Quantity of UInt16s of ChainSubClassRule's
@@ -70,13 +70,13 @@ class ClassDefsAnalyzeState<L> {
     }
 
     private checkRuleCompatibility(
-        rule: GsubGpos.ChainingRule<{ ref: L }>
+        rule: GsubGpos.ChainingRule<L>
     ): null | CompatibleRuleResult<L> {
         const cdBacktrack = new Map(this.cdBacktrack);
         const cdInput = new Map(this.cdInput);
         const cdLookAhead = new Map(this.cdLookAhead);
 
-        const cr: GsubGpos.ChainingClassRule<{ ref: L }> = {
+        const cr: GsubGpos.ChainingClassRule<L> = {
             match: [],
             inputBegins: rule.inputBegins,
             inputEnds: rule.inputEnds,
@@ -125,10 +125,7 @@ class ClassDefsAnalyzeState<L> {
         );
     }
 
-    private addCompatibleRule(
-        rule: GsubGpos.ChainingRule<{ ref: L }>,
-        comp: CompatibleRuleResult<L>
-    ) {
+    private addCompatibleRule(rule: GsubGpos.ChainingRule<L>, comp: CompatibleRuleResult<L>) {
         this.cdBacktrack = comp.cdBacktrack;
         this.cdInput = comp.cdInput;
         this.cdLookAhead = comp.cdLookAhead;
@@ -142,7 +139,7 @@ class ClassDefsAnalyzeState<L> {
         this.ruleComplexity += this.compatibleRuleComplexity(comp);
     }
 
-    public tryAddRule(rule: GsubGpos.ChainingRule<{ ref: L }>) {
+    public tryAddRule(rule: GsubGpos.ChainingRule<L>) {
         const comp = this.checkRuleCompatibility(rule);
         if (!comp) return false;
         if (0x8000 < this.estimateUpdatedSubtableSize(comp)) return false;
@@ -154,11 +151,11 @@ class ClassDefsAnalyzeState<L> {
 class CApplication<L> {
     public write(
         frag: Frag,
-        apps: ReadonlyArray<GsubGpos.ChainingApplication<{ ref: L }>>,
+        apps: ReadonlyArray<GsubGpos.ChainingApplication<L>>,
         crossRef: Data.Order<L>
     ) {
         for (const app of apps) {
-            frag.uint16(app.at).uint16(crossRef.reverse(app.apply.ref));
+            frag.uint16(app.at).uint16(crossRef.reverse(app.apply));
         }
     }
 }
@@ -168,7 +165,7 @@ class CCoverageRule<L> {
     public write(
         frag: Frag,
         isChaining: boolean,
-        rule: GsubGpos.ChainingRule<{ ref: L }>,
+        rule: GsubGpos.ChainingRule<L>,
         ctx: SubtableWriteContext<L>
     ) {
         frag.uint16(3);
@@ -199,7 +196,7 @@ class CClassRule<L> {
     public write(
         frag: Frag,
         isChaining: boolean,
-        cr: GsubGpos.ChainingClassRule<{ ref: L }>,
+        cr: GsubGpos.ChainingClassRule<L>,
         ctx: SubtableWriteContext<L>
     ) {
         const backtrack = cr.match.slice(0, cr.inputBegins).reverse();
@@ -253,7 +250,7 @@ class CClassRuleSet<L> {
     }
 }
 
-abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<{ ref: L }>>
+abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L>>
     implements LookupWriter<L, C> {
     private wCoverageRule = new CCoverageRule<L>();
     private wClassRuleSet = new CClassRuleSet<L>();
@@ -272,7 +269,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<{
     public abstract canBeUsed(l: L): l is C;
 
     private covSubtable(
-        rule: GsubGpos.ChainingRule<{ ref: L }>,
+        rule: GsubGpos.ChainingRule<L>,
         isChaining: boolean,
         ctx: SubtableWriteContext<L>
     ) {
