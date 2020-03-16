@@ -5,7 +5,7 @@ import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVarMasterSet } from "@ot-builder/variance/lib/otvar-impl";
+import { OtVar } from "@ot-builder/variance";
 
 import { BaseTableIo } from "../base";
 import { GdefTableIo } from "../gdef";
@@ -25,7 +25,7 @@ export function writeOtl(
 ) {
     let { gsub, gpos, gdef } = otl;
     const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
-    const ivs = md.fvar ? WriteTimeIVS.create(new OtVarMasterSet()) : null;
+    const ivs = md.fvar ? WriteTimeIVS.create(OtVar.Create.MasterSet()) : null;
     if (ivs && !gdef) gdef = new Gdef.Table();
     const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
 

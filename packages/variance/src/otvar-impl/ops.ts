@@ -1,4 +1,4 @@
-import { VectorSpace } from "@ot-builder/prelude/lib/algebra";
+import { Algebra } from "@ot-builder/prelude";
 
 import { VarianceDim } from "../interface/dimension";
 import { VarianceInstance } from "../interface/instance";
@@ -22,7 +22,7 @@ export class OtVarCreatorImpl<A extends VarianceDim, M extends VarianceMaster<A>
     implements VariableCreator<A, M, OtVarValue<A, M>> {
     constructor(
         public readonly masterSet: VarianceMasterSet<A, M>,
-        public ops: VectorSpace<OtVarValue<A, M>, number>
+        public ops: Algebra.VectorSpace<OtVarValue<A, M>, number>
     ) {}
 
     public create(origin: number = 0, variance: Iterable<[M, number]> = []) {

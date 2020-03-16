@@ -1,5 +1,5 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { Maybe } from "@ot-builder/prelude/lib/data";
+import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
 
 import { CffDrawCall, CffDrawCallRaw } from "../char-string/write/draw-call";
@@ -23,7 +23,7 @@ export interface CffDictInterpreter<T> {
 
 export abstract class CffDictInterpreterBase extends CffInterp.Interpreter {
     public st: CffStackMachine;
-    constructor(ivs?: Maybe<ReadTimeIVS>) {
+    constructor(ivs?: Data.Maybe<ReadTimeIVS>) {
         super();
         this.st = new CffStackMachine(ivs);
     }

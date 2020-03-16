@@ -1,8 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ft-metadata";
-import { Gasp } from "@ot-builder/ft-metadata/lib/gasp";
+import { Gasp, MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ft-metadata";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";

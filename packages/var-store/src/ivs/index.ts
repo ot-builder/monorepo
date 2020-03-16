@@ -1,2 +1,2 @@
-export { ReadTimeIVS, WriteTimeIVS } from "./impl";
+export { ReadTimeIVS, WriteTimeIVS, WriteTimeDelayValue } from "./impl";
 export { ReadTimeIVD, WriteTimeIVD } from "./general";
