@@ -7,7 +7,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -19,8 +19,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ft-glyphs": "0.4.0",
-    "@ot-builder/prelude": "0.4.0",
+    "@ot-builder/ft-glyphs": "0.4.1",
+    "@ot-builder/prelude": "0.4.1",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

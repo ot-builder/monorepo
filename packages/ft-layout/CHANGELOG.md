@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-layout
 
-This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Mar 2020 12:47:59 GMT and should not be manually modified.
 
+## 0.5.1
+Mon, 16 Mar 2020 12:47:59 GMT
+
+### Patches
+
+- Fix incorrect /src reference from feature-params (belleve@typeof.net)
 ## 0.5.0
 Mon, 16 Mar 2020 12:13:10 GMT
 
