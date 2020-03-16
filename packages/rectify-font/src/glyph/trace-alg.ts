@@ -17,7 +17,7 @@ class TraceGlyphsAlg {
             case Ot.Glyph.GeometryType.ContourSet:
                 return this.contourSet(geom);
             case Ot.Glyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+                return this.geometryList(geom.items.map(item => this.process(item)));
             case Ot.Glyph.GeometryType.TtReference:
                 return this.ttReference(geom);
         }

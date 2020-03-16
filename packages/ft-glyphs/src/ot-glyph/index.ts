@@ -23,8 +23,7 @@ export namespace OtGlyph {
     }
 
     // Exported geometry types
-    export type GeometryT<E> = ContourSet | TtReference | GeometryListT<E>;
-    export type Geometry = GeometryT<{ ref: Geometry }>;
+    export type Geometry = ContourSet | TtReference | GeometryList;
 
     export type ContourSetProps = GeneralGlyph.ContourSetPropsT<OtGlyph, OtVar.Value>;
     export type ContourSet = CaseType<typeof TAG.GeometryType.ContourSet, ContourSetProps>;
@@ -34,18 +33,15 @@ export namespace OtGlyph {
         }
     }
 
-    export type GeometryListProps<E> = GeneralGlyph.GeometryListPropsT<OtGlyph, OtVar.Value, E>;
-    export type GeometryListT<E> = CaseType<
-        typeof TAG.GeometryType.GeometryList,
-        GeometryListProps<E>
+    export type GeometryListProps = GeneralGlyph.GeometryListPropsT<
+        OtGlyph,
+        OtVar.Value,
+        Geometry
     >;
-    export type GeometryList = GeometryListT<{ ref: Geometry }>;
+    export type GeometryList = CaseType<typeof TAG.GeometryType.GeometryList, GeometryListProps>;
     export namespace GeometryList {
         export function create(items: Geometry[] = []): GeometryList {
-            return {
-                type: TAG.GeometryType.GeometryList,
-                items: items.map(geom => ({ ref: geom }))
-            };
+            return { type: TAG.GeometryType.GeometryList, items: [...items] };
         }
     }
 

@@ -73,10 +73,8 @@ class GeometryClassifier {
         this.allReference = false;
         this.collectedContourSets.push(OtGlyph.ContourSet.create(csProps.contours));
     }
-    public geometryList(glProps: OtGlyph.GeometryListProps<{ ref: OtGlyph.Geometry }>) {
-        for (const entry of glProps.items) {
-            this.process(entry.ref);
-        }
+    public geometryList(glProps: OtGlyph.GeometryListProps) {
+        for (const entry of glProps.items) this.process(entry);
     }
     public ttReference(refProps: OtGlyph.TtReferenceProps) {
         this.hasReference = true;

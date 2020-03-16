@@ -107,17 +107,13 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gsub.Lookup)}/>
 
 ### Type <Decl s={Ot.Gsub.Lookup} />
 
-Defined as <R s={Ot.Gsub.LookupT(record({ref:Ot.Gsub.Lookup}))}/>
-
-### Type <Decl s={Ot.Gsub.LookupT("E")} />
-
 Defined as a union of the following cases:
 
 * <R s={Ot.Gsub.Single}/>
 * <R s={Ot.Gsub.Multiple}/>
 * <R s={Ot.Gsub.Alternate}/>
 * <R s={Ot.Gsub.Ligature}/>
-* <R s={Ot.Gsub.ChainingT("E")}/>
+* <R s={Ot.Gsub.Chaining}/>
 * <R s={Ot.Gsub.ReverseSub}/>
 
 #### Properties
@@ -201,19 +197,15 @@ Defined as a union of the following cases:
 * <Member readonly s={Ot.Gsub.LigatureEntry.from} type={readonly(array(Ot.Glyph))}/>
 * <Member readonly s={Ot.Gsub.LigatureEntry.to} type={Ot.Glyph}/>
 
-### Type <Decl s={Ot.Gsub.Chaining}/>
-
-Defined as <R s = {Ot.Gsub.ChainingT(record({ref:Ot.Gsub.Lookup}))}/>.
+### Case Type <Decl s={Ot.Gsub.Chaining}/> | type = <R s={Ot.Gsub.LookupType.Chaining}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gsub.Chaining.create} args={{props:optional(Ot.GsubGpos.ChainingProp(record({ref:Ot.Gsub.Lookup})))}}/>
-
-### Case Type <Decl s={Ot.Gsub.ChainingT("E")}/> | type = <R s={Ot.Gsub.LookupType.Chaining}/>
+* <Method static s={Ot.Gsub.Chaining.create} args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup))}}/>
 
 #### Inherits
 
-* <R s={Ot.GsubGpos.ChainingProp("E")}/>
+* <R s={Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup)}/>
 
 ### Case Type <Decl s={Ot.Gsub.ReverseSub}/> | type = <R s={Ot.Gsub.LookupType.ReverseSub}/>
 
@@ -284,10 +276,6 @@ Defined as <R s={Ot.GsubGpos.FeatureVariationT(Ot.Gpos.Lookup)}/>
 
 ### Type <Decl s={Ot.Gpos.Lookup} />
 
-Defined as <R s={Ot.Gpos.LookupT(record({ref:Ot.Gpos.Lookup}))}/>
-
-### Type <Decl s={Ot.Gpos.LookupT("E")} />
-
 Defined as a union of the following cases:
 
 * <R s={Ot.Gpos.Single}/>
@@ -296,7 +284,7 @@ Defined as a union of the following cases:
 * <R s={Ot.Gpos.MarkToBase}/>
 * <R s={Ot.Gpos.MarkToLigature}/>
 * <R s={Ot.Gpos.MarkToMark}/>
-* <R s={Ot.Gpos.ChainingT("E")}/>
+* <R s={Ot.Gpos.Chaining}/>
 
 #### Properties
 
@@ -425,19 +413,15 @@ Defined as a union of the following cases:
 * <Member s={Ot.Gpos.MarkToMarkProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToMarkProp.baseMarks} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Type <Decl s={Ot.Gpos.Chaining}/>
-
-Defined as <R s={Ot.Gpos.ChainingT(record({ref:Ot.Gpos.Lookup}))}/>.
+### Case Type <Decl s={Ot.Gpos.Chaining}/> | type = <R s={Ot.Gpos.LookupType.Chaining}/>
 
 #### Factory Methods
 
-* <Method static s={Ot.Gpos.Chaining.create}  args={{props:optional(Ot.GsubGpos.ChainingProp(record({ref:Ot.Gpos.Lookup})))}}/>
-
-### Case Type <Decl s={Ot.Gpos.ChainingT("E")}/> | type = <R s={Ot.Gpos.LookupType.Chaining}/>
+* <Method static s={Ot.Gpos.Chaining.create}  args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup))}}/>
 
 #### Inherits
 
-* <R s={Ot.GsubGpos.ChainingProp("E")}/>
+* <R s={Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup)}/>
 
 
 

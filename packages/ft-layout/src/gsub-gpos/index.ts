@@ -82,10 +82,9 @@ export namespace Gsub {
         () => ({ mapping: [] })
     );
 
-    export type ChainingProp<L> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, L>;
-    export type ChainingT<L> = CaseType<typeof LT.Gsub.Chaining, ChainingProp<L>>;
-    export type Chaining = ChainingT<{ ref: Lookup }>;
-    export const Chaining = CaseCreator<typeof LT.Gsub.Chaining, ChainingProp<{ ref: Lookup }>>(
+    export type ChainingProp = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, Lookup>;
+    export type Chaining = CaseType<typeof LT.Gsub.Chaining, ChainingProp>;
+    export const Chaining = CaseCreator<typeof LT.Gsub.Chaining, ChainingProp>(
         LT.Gsub.Chaining,
         () => ({ rules: [] })
     );
@@ -97,8 +96,7 @@ export namespace Gsub {
         () => ({ rules: [] })
     );
 
-    export type LookupT<L> = Single | Multiple | Alternate | Ligature | ChainingT<L> | ReverseSub;
-    export type Lookup = LookupT<{ ref: Lookup }>;
+    export type Lookup = Single | Multiple | Alternate | Ligature | Chaining | ReverseSub;
     export import LookupType = LT.Gsub;
 
     // Lookup-internal data types
@@ -168,23 +166,21 @@ export namespace Gpos {
         () => ({ marks: new Map(), baseMarks: new Map() })
     );
 
-    export type ChainingProp<L> = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, L>;
-    export type ChainingT<L> = CaseType<typeof LT.Gpos.Chaining, ChainingProp<L>>;
-    export type Chaining = ChainingT<{ ref: Lookup }>;
-    export const Chaining = CaseCreator<typeof LT.Gpos.Chaining, ChainingProp<{ ref: Lookup }>>(
+    export type ChainingProp = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, Lookup>;
+    export type Chaining = CaseType<typeof LT.Gpos.Chaining, ChainingProp>;
+    export const Chaining = CaseCreator<typeof LT.Gpos.Chaining, ChainingProp>(
         LT.Gpos.Chaining,
         () => ({ rules: [] })
     );
 
-    export type LookupT<L> =
+    export type Lookup =
         | Single
         | Pair
         | Cursive
         | MarkToBase
         | MarkToMark
         | MarkToLigature
-        | ChainingT<L>;
-    export type Lookup = LookupT<{ ref: Lookup }>;
+        | Chaining;
     export import LookupType = LT.Gpos;
 
     // Lookup-internal data type aliases

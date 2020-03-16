@@ -157,8 +157,8 @@ export namespace GlyphIdentity {
     ) {
         expect(expected.items.length).toBe(actual.items.length);
         for (let rid = 0; rid < expected.items.length; rid++) {
-            const expectedItem = expected.items[rid].ref;
-            const actualItem = actual.items[rid].ref;
+            const expectedItem = expected.items[rid];
+            const actualItem = actual.items[rid];
             testInitGeometry(expectedItem, actualItem, mode, tolerance);
         }
     }

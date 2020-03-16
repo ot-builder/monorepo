@@ -36,7 +36,7 @@ class AttachmentPointToCoordAlg {
             case OtGlyph.GeometryType.TtReference:
                 return this.ttReference(geom);
             case OtGlyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map(item => this.process(item.ref)));
+                return this.geometryList(geom.items.map(item => this.process(item)));
         }
     }
     public contourSet(cs: OtGlyph.ContourSetProps): PointAttachmentHandler {

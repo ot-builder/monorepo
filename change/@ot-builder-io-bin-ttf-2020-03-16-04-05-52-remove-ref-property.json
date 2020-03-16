@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Remove the {ref:} indirect references from the data types.",
+  "packageName": "@ot-builder/io-bin-ttf",
+  "email": "belleve@typeof.net",
+  "commit": "6d85c7a61ae94d3fcc7cdf7bff411e35dd3ab4ab",
+  "dependentChangeType": "patch",
+  "date": "2020-03-16T11:05:50.006Z"
+}

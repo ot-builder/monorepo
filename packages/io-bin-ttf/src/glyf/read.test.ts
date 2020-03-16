@@ -66,8 +66,8 @@ test("Reading : TTF, static", () => {
         const geom = g300.geometry as OtGlyph.GeometryList;
         expect(geom.items.length).toBe(2);
 
-        const base = geom.items[0].ref as OtGlyph.TtReference;
-        const diacritic = geom.items[1].ref as OtGlyph.TtReference;
+        const base = geom.items[0] as OtGlyph.TtReference;
+        const diacritic = geom.items[1] as OtGlyph.TtReference;
 
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));

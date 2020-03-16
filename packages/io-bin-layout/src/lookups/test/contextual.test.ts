@@ -35,12 +35,7 @@ test("GSUB/GPOS Contextual : Simple", () => {
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         inputBegins: 0,
         inputEnds: 2,
-        applications: [
-            {
-                at: 0,
-                apply: { ref: lOrd.at(0) }
-            }
-        ]
+        applications: [{ at: 0, apply: lOrd.at(0) }]
     });
     lookup.rules.push({
         match: [
@@ -51,12 +46,7 @@ test("GSUB/GPOS Contextual : Simple", () => {
         ],
         inputBegins: 1,
         inputEnds: 3,
-        applications: [
-            {
-                at: 0,
-                apply: { ref: lOrd.at(1) }
-            }
-        ]
+        applications: [{ at: 0, apply: lOrd.at(1) }]
     });
 
     LookupRoundTripTest(lookup, roundtripConfig);

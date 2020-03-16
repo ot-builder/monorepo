@@ -14,7 +14,7 @@ export function traceGpos(table: Ot.Gpos.Table): GlyphTraceProc {
 }
 
 class ItTraceGlyph<E> {
-    public process(lookup: Ot.Gsub.LookupT<E> | Ot.Gpos.LookupT<E>): GlyphTraceProc {
+    public process(lookup: Ot.Gsub.Lookup | Ot.Gpos.Lookup): GlyphTraceProc {
         switch (lookup.type) {
             case Ot.Gsub.LookupType.Single:
                 return this.gsubSingle(lookup);
