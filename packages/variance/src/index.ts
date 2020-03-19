@@ -1,9 +1,5 @@
 import { Data } from "@ot-builder/prelude";
 
-import {
-    GeneralCollectedValueFactory,
-    GeneralVariableValueCollector
-} from "./general-impl/value-collector";
 import { VarianceDim } from "./interface/dimension";
 import { VarianceInstance } from "./interface/instance";
 import {
@@ -30,20 +26,8 @@ export namespace GeneralVar {
         M extends Master<A>
     > = VarianceMasterCollectResult<A, M>;
     export type Ops<A extends Dim, M extends Master<A>, X> = VariableOps<A, M, X>;
-    export type ValueFactory<A extends Dim, M extends Master<A>, X> = VariableCreator<A, M, X>;
-    export type ValueCollector<
-        A extends VarianceDim,
-        M extends VarianceMaster<A>,
-        X,
-        D
-    > = GeneralVariableValueCollector<A, M, X, D>;
-    export type CollectedValueFactory<
-        A extends VarianceDim,
-        M extends VarianceMaster<A>,
-        X,
-        D
-    > = GeneralCollectedValueFactory<A, M, X, D>;
     export type Instance<A extends Dim> = VarianceInstance<A>;
+    export type ValueFactory<A extends Dim, M extends Master<A>, X> = VariableCreator<A, M, X>;
 }
 
 export namespace OtVar {
@@ -57,9 +41,6 @@ export namespace OtVar {
     export type MasterSet = VarianceMasterSet<Dim, Master>;
     export type Ops = VariableOps<Dim, Master, Value>;
     export type ValueFactory = VariableCreator<Dim, Master, Value>;
-    export type ValueCollector<D> = GeneralVariableValueCollector<Dim, Master, Value, D>;
-    export type CollectedValueFactory<D> = GeneralCollectedValueFactory<Dim, Master, Value, D>;
-
     // Factory exports
     export const Ops = OtVarOps;
     export namespace Create {
@@ -69,15 +50,8 @@ export namespace OtVar {
         export function MasterSet(): MasterSet {
             return new OtVarMasterSet<Dim>();
         }
-        export function ValueCollector<D>(dvf: CollectedValueFactory<D>): ValueCollector<D> {
-            return new GeneralVariableValueCollector(Ops, MasterSet(), dvf);
-        }
         export function ValueFactory(ms?: MasterSet): ValueFactory {
             return new OtVarCreatorImpl(ms || MasterSet(), OtVarOps);
         }
     }
-}
-
-export namespace GeneralVarInternalImpl {
-    export const ValueCollector = GeneralVariableValueCollector;
 }

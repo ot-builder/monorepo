@@ -127,27 +127,3 @@ A master set collects masters and associates an unique number to masters that ar
 
  * <Method s={Ot.Var.ValueFactory.create} args={{origin:optional(number),variance:optional(iterable(tuple(Ot.Var.Master,number)))}} returns={Ot.Var.Value} />
  * <Method s={Ot.Var.ValueFactory.make} args={{['...xs']:array(either(Ot.Var.Value,tuple(Ot.Var.Master,number)))}} returns={Ot.Var.Value} />
-
-
-## Value Collection
-
-### Class <Decl s={Ot.Var.ValueCollector("D")}/>
-
-#### Factory Methods
-
- * <Fn s={Ot.Var.Create.ValueCollector('D')} args={{factory:Ot.Var.CollectedValueFactory("D")}} returns={Ot.Var.ValueCollector("D")}/>
-
-#### Properties
-
- * <Member readonly s={Ot.Var.ValueCollector.size} type={number} />
-
-#### Methods
-
- * <Method s={Ot.Var.ValueCollector.collect} args={{x:Ot.Var.Value}} returns="D" />
- * <Method s={Ot.Var.ValueCollector.settleDown} args={{}} returns="void" />
- * <Method s={Ot.Var.ValueCollector.resolveDeltas} args={{deltaMA:array(number)}} returns={array(number)} />
- * <Method s={Ot.Var.ValueCollector.getMasterList} args={{}} returns={array(tuple(number,Ot.Var.Master))} />
-
-### Type <Decl s={Ot.Var.CollectedValueFactory("D")}/>
-
-Defined as <R s={pi({col: Ot.Var.ValueCollector('D'),origin:number,deltaMA:array(number)},"D")}/>

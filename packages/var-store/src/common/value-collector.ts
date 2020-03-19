@@ -1,32 +1,24 @@
-import { VarianceDim } from "../interface/dimension";
-import { VarianceMaster, VarianceMasterSet } from "../interface/master";
-import { VariableOps } from "../interface/value";
+import { GeneralVar } from "@ot-builder/variance";
 
-export type GeneralCollectedValueFactory<
-    A extends VarianceDim,
-    M extends VarianceMaster<A>,
-    X,
-    D
-> = (col: GeneralVariableValueCollector<A, M, X, D>, origin: number, deltaMA: number[]) => D;
-
-export class GeneralVariableValueCollector<
-    A extends VarianceDim,
-    M extends VarianceMaster<A>,
+export abstract class DelayValueCollector<
+    A extends GeneralVar.Dim,
+    M extends GeneralVar.Master<A>,
     X,
     D
 > {
     constructor(
-        private op: VariableOps<A, M, X>,
-        private masterCollector: VarianceMasterSet<A, M>,
-        private dvf: GeneralCollectedValueFactory<A, M, X, D>
+        private readonly op: GeneralVar.Ops<A, M, X>,
+        private readonly masterSet: GeneralVar.MasterSet<A, M>
     ) {}
 
     private masterList: M[] = [];
     private masterIDSet = new Set<number>();
     protected relocation: number[] = [];
 
+    protected abstract createCollectedValue(origin: number, deltaMA: number[]): D;
+
     protected addMaster(master: M) {
-        const rec = this.masterCollector.getOrPush(master);
+        const rec = this.masterSet.getOrPush(master);
         if (rec) {
             this.masterIDSet.add(rec.index);
             this.masterList[rec.index] = master;
@@ -45,7 +37,7 @@ export class GeneralVariableValueCollector<
             if (index === undefined) continue;
             deltaMA[index] = (deltaMA[index] || 0) + delta;
         }
-        return this.dvf(this, origin, deltaMA);
+        return this.createCollectedValue(origin, deltaMA);
     }
 
     public settleDown() {
@@ -65,6 +57,6 @@ export class GeneralVariableValueCollector<
     }
 
     get size() {
-        return this.masterCollector.size;
+        return this.masterSet.size;
     }
 }
