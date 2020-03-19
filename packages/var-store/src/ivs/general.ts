@@ -1,6 +1,8 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { GeneralVar, GeneralVarInternalImpl } from "@ot-builder/variance";
+import { GeneralVar } from "@ot-builder/variance";
+
+import { DelayValueCollector } from "../common/value-collector";
 
 export class ReadTimeIVD<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     constructor(cr: GeneralVar.ValueFactory<A, M, X>) {
@@ -119,19 +121,20 @@ export class WriteTimeIVCollector<
     A extends GeneralVar.Dim,
     M extends GeneralVar.Master<A>,
     X
-> extends GeneralVarInternalImpl.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
+> extends DelayValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
     constructor(
         op: GeneralVar.Ops<A, M, X>,
-        masterCollector: GeneralVar.MasterSet<A, M>,
+        masterSet: GeneralVar.MasterSet<A, M>,
         private pmBlossom: ImpLib.PathMap<number, WriteTimeIVDBlossom>,
         private acBlossom: WriteTimeIVDBlossomAllocator
     ) {
-        super(
-            op,
-            masterCollector,
-            (col, origin, deltaMA) => new DelayDeltaValue(col, origin, deltaMA)
-        );
+        super(op, masterSet);
     }
+
+    protected createCollectedValue(origin: number, deltaMA: number[]): DelayDeltaValue<A, M, X> {
+        return new DelayDeltaValue(this, origin, deltaMA);
+    }
+
     public getIVD() {
         this.settleDown();
         if (!this.relocation.length) return null;
@@ -140,6 +143,7 @@ export class WriteTimeIVCollector<
         const blossom = lens.getOrAlloc(this.acBlossom, this.relocation);
         return blossom.getFreeIVD();
     }
+
     public forceGetIVD(master: M) {
         this.settleDown();
         if (!this.relocation.length) {
@@ -155,7 +159,7 @@ export class WriteTimeIVCollector<
 
 export class DelayDeltaValue<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
     constructor(
-        private col: GeneralVar.ValueCollector<A, M, X, DelayDeltaValue<A, M, X>>,
+        private col: WriteTimeIVCollector<A, M, X>,
         public origin: number,
         private deltaMA: number[]
     ) {}
@@ -196,6 +200,7 @@ export class GeneralWriteTimeIVStore<A extends GeneralVar.Dim, M extends General
         const innerIndex = ivd.enter(deltas);
         return { outer: ivd.outerIndex, inner: innerIndex };
     }
+
     public valueToInnerOuterIDForce(x: X, fallbackMaster: M) {
         const collector = this.createCollector();
         const dv = collector.collect(x);

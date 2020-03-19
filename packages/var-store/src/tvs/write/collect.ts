@@ -1,18 +1,20 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { GeneralVarInternalImpl, OtVar } from "@ot-builder/variance";
+import { OtVar } from "@ot-builder/variance";
 
-export class TvsCollector extends GeneralVarInternalImpl.ValueCollector<
+import { DelayValueCollector } from "../../common/value-collector";
+
+export class TvsCollector extends DelayValueCollector<
     OtVar.Dim,
     OtVar.Master,
     OtVar.Value,
     DelayDeltaValue
 > {
-    constructor(masterCollector: OtVar.MasterSet) {
-        super(
-            OtVar.Ops,
-            masterCollector,
-            (col, origin, deltaMA) => new DelayDeltaValue(col, origin, deltaMA)
-        );
+    constructor() {
+        super(OtVar.Ops, OtVar.Create.MasterSet());
+    }
+
+    protected createCollectedValue(origin: number, deltaMA: number[]) {
+        return new DelayDeltaValue(this, origin, deltaMA);
     }
 }
 
