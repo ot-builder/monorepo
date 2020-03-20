@@ -59,7 +59,7 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
 export const GsubTableIo = {
     read(view: BinaryView, trc: TableReadContext) {
         const o = view.next(new CGsubGposTable<Gsub.Lookup>(), gsub, trc);
-        return Gsub.Table.create(o.scripts, o.features, o.lookups, o.featureVariations);
+        return new Gsub.Table(o.scripts, o.features, o.lookups, o.featureVariations);
     },
     write(frag: Frag, table: Gsub.Table, twc: TableWriteContext) {
         return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, gsub, twc);

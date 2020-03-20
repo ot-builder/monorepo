@@ -63,7 +63,7 @@ const SubtableFormat1 = {
 
 export class GsubReverseReader implements LookupReader<Gsub.Lookup, Gsub.ReverseSub> {
     public createLookup() {
-        return Gsub.ReverseSub.create();
+        return new Gsub.ReverseSub();
     }
     public parseSubtable(
         view: BinaryView,

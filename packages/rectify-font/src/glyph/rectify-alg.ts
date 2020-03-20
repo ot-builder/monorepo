@@ -52,7 +52,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
                 cs1.push(c1);
             }
 
-            const g = Ot.Glyph.ContourSet.create(cs1);
+            const g = new Ot.Glyph.ContourSet(cs1);
             for (const c of g.contours) for (const z of c) st.points.push(z);
             return g;
         };
@@ -64,7 +64,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
                 const childGeom = proc(st);
                 if (childGeom) children.push(childGeom);
             }
-            return Ot.Glyph.GeometryList.create(children);
+            return new Ot.Glyph.GeometryList(children);
         };
     }
     public ttReference(ref: Ot.Glyph.TtReferenceProps) {
@@ -73,7 +73,7 @@ export class OtGhRectifyGeomPointAttachmentAlg {
             if (!to1) return null;
 
             processGlyph(this.recGlyphRef, this.recCoord, this.recPA, to1, this.context);
-            const ref1 = Ot.Glyph.TtReference.create(to1, {
+            const ref1 = new Ot.Glyph.TtReference(to1, {
                 ...ref.transform,
                 dx: this.recCoord.coord(ref.transform.dx),
                 dy: this.recCoord.coord(ref.transform.dy)
@@ -154,14 +154,14 @@ class RectifyHintCoordAlg {
     }
 
     public ttInstructions(tt: Ot.Glyph.TtInstructionProps): Ot.Glyph.Hint {
-        return Ot.Glyph.TtInstruction.create(tt.instructions);
+        return new Ot.Glyph.TtInstruction(tt.instructions);
     }
     public cffHint(ch: Ot.Glyph.CffHintProps): Ot.Glyph.Hint {
         const stemHMap = new Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>();
         const stemVMap = new Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>();
         for (const s of ch.hStems) stemHMap.set(s, this.rectifyHintStem(s));
         for (const s of ch.vStems) stemVMap.set(s, this.rectifyHintStem(s));
-        const h1 = Ot.Glyph.CffHint.create();
+        const h1 = new Ot.Glyph.CffHint();
         h1.hStems = [...stemHMap.values()];
         h1.vStems = [...stemVMap.values()];
         h1.hintMasks = ch.hintMasks.map(m => this.rectifyMask(m, stemHMap, stemVMap));

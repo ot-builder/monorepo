@@ -25,7 +25,7 @@ describe("GPOS cursive lookup handler", () => {
     };
 
     test("Very different", () => {
-        const lookup = Gpos.Cursive.create();
+        const lookup = new Gpos.Cursive();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {
@@ -43,7 +43,7 @@ describe("GPOS cursive lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
     });
     test("Very same", () => {
-        const lookup = Gpos.Cursive.create();
+        const lookup = new Gpos.Cursive();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {
@@ -64,7 +64,7 @@ describe("GPOS cursive lookup handler", () => {
         const variation = SetupVariation();
         const { bold, wide } = variation.masters;
 
-        const lookup = Gpos.Cursive.create();
+        const lookup = new Gpos.Cursive();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {

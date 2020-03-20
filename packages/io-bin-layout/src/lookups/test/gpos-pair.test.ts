@@ -31,7 +31,7 @@ describe("GPOS pair lookup handler", () => {
     }
 
     test("Scattered", () => {
-        const lookup = Gpos.Pair.create();
+        const lookup = new Gpos.Pair();
         for (let gid = 1; gid < 0x10; gid++) {
             lookup.adjustments.set(new Set([gOrd.at(gid)]), new Set([gOrd.at(gid)]), kern(gid));
         }
@@ -40,7 +40,7 @@ describe("GPOS pair lookup handler", () => {
     });
 
     test("Scattered, zero padded", () => {
-        const lookup = Gpos.Pair.create();
+        const lookup = new Gpos.Pair();
         lookup.adjustments.set(new Set(gOrd), new Set(gOrd), kern(0));
         for (let gid = 1; gid < 0x10; gid++) {
             lookup.adjustments.set(new Set([gOrd.at(gid)]), new Set([gOrd.at(gid)]), kern(gid));
@@ -50,7 +50,7 @@ describe("GPOS pair lookup handler", () => {
     });
 
     test("Plain", () => {
-        const lookup = Gpos.Pair.create();
+        const lookup = new Gpos.Pair();
         const split = 16;
         for (let c1 = 0; c1 < split; c1++) {
             for (let c2 = 0; c2 < split; c2++) {
@@ -69,7 +69,7 @@ describe("GPOS pair lookup handler", () => {
     });
 
     test("Plain + Scatter", () => {
-        const lookup = Gpos.Pair.create();
+        const lookup = new Gpos.Pair();
         const split = 16;
         for (let c1 = 0; c1 < split; c1++) {
             for (let c2 = 0; c2 < split; c2++) {
@@ -98,7 +98,7 @@ describe("GPOS pair lookup handler", () => {
         const variation = SetupVariation();
         const { bold, wide } = variation.masters;
 
-        const lookup = Gpos.Pair.create();
+        const lookup = new Gpos.Pair();
         const split = 16;
         for (let c1 = 0; c1 < split; c1++) {
             for (let c2 = 0; c2 < split; c2++) {

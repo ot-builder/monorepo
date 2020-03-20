@@ -58,7 +58,7 @@ const SubtableFormat2 = {
 
 export class GsubSingleReader implements LookupReader<Gsub.Lookup, Gsub.Single> {
     public createLookup() {
-        return Gsub.Single.create();
+        return new Gsub.Single();
     }
 
     public parseSubtable(

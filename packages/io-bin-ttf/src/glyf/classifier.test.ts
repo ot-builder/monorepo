@@ -36,7 +36,7 @@ describe("TTF glyph classifier", () => {
 
     test("Should distinguish spaces with simple-glyph-without-contours", () => {
         const classifier = new GlyphClassifier(gOrd);
-        gOrd.at(1).geometry = OtGlyph.ContourSet.create([]);
+        gOrd.at(1).geometry = new OtGlyph.ContourSet([]);
         const g1 = classifier.classify(gOrd.at(1));
         expect(g1).toBeInstanceOf(SimpleGlyph);
         expect(g1.getStatData()).toEqual({

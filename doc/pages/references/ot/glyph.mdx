@@ -34,13 +34,20 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
 ## Glyph
 
-### Type <Decl s={Ot.Glyph}/>
+### Class <Decl s={Ot.Glyph}/>
 
-#### Factory Methods
+The <R s={Ot.Glyph}/> class represents one glyph. Object identity of <R s={Ot.Glyph}/>'s carry the semantics of glyph identity. Many parts of the font, even some geometries inside the glyph, will hold references to <R s={Ot.Glyph}/>'s.
 
- * <Fn s={Ot.Glyph.create}/>
+#### Implements
+
+ * <R s ={Ot.Glyph.Props}/>
+
+#### Constructor
+
+ * <Method ctor s={Ot.Glyph.constructor}/>
 
     Create a blank <R s={Ot.Glyph}/> with default implementation.
+
 
 #### Properties
 
@@ -64,15 +71,35 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
     The vertical metric.
 
-#### Methods
+### Datatype <Decl s={Ot.Glyph.Props}/>
 
- * <Method s={Ot.Glyph.apply('E', 'EG', 'EH')} args={{alg:Ot.Glyph.GlyphAlg('E', 'EG', 'EH')}} returns="E"/>
+This datatype defines properties of <R s={Ot.Glyph}/>'s. This is a datatype therefore all the properties are _read only_.
 
-    Accepts a <R s={Ot.Glyph.GlyphAlg} /> and return the results.
+#### Properties
+
+ * <Member readonly s={Ot.Glyph.name} type={Data.Maybe(string)}/>
+
+    The glyph name. Optional.
+
+ * <Member readonly s={Ot.Glyph.geometry} type={Data.Maybe(Ot.Glyph.Geometry)}/>
+
+    The geometry. Optional. When absent, the glyph is considered a space.
+
+ * <Member readonly s={Ot.Glyph.hints} type={Data.Maybe(Ot.Glyph.Hints)}/>
+
+    The hints. Optional.
+
+ * <Member readonly s={Ot.Glyph.horizontal} type={Data.Maybe(Ot.Glyph.Metric)}/>
+
+    The horizontal metric.
+
+ * <Member readonly s={Ot.Glyph.vertical} type={Data.Maybe(Ot.Glyph.Metric)}/>
+
+    The vertical metric.
 
 ## Metrics
 
-### Type <Decl s={Ot.Glyph.Metric}/>
+### Datatype <Decl s={Ot.Glyph.Metric}/>
 
 Defines a metric advance of a glyph.
 
@@ -103,15 +130,15 @@ Defines as the union of the following cases.
    The type tag of this hint object.
 
 
-### Case Type <Decl s={Ot.Glyph.ContourSet}/> | type = <R s={Ot.Glyph.GeometryType.ContourSet}/>
+### Case Class <Decl s={Ot.Glyph.ContourSet}/> | type = <R s={Ot.Glyph.GeometryType.ContourSet}/>
 
-#### Inherits
+#### Implements
 
  * <R s={Ot.Glyph.ContourSetProps} />
 
-#### Factory Methods
+#### Constructor
 
- * <Fn s={Ot.Glyph.ContourSet.create} args={{}} returns={Ot.Glyph.ContourSet}/>
+ * <Method ctor s={Ot.Glyph.ContourSet.constructor} args={{}} returns={Ot.Glyph.ContourSet}/>
 
     Creates an <R s={Ot.Glyph.ContourSet}/> with default implementation.
 
@@ -123,15 +150,15 @@ Defines as the union of the following cases.
 
     The contour set, being a nested array of control knots.
 
-### Case Type <Decl s={Ot.Glyph.TtReference}/> | type = <R s={Ot.Glyph.GeometryType.TtReference}/>
+### Case Class <Decl s={Ot.Glyph.TtReference}/> | type = <R s={Ot.Glyph.GeometryType.TtReference}/>
 
-#### Inherits
+#### Implements
 
  * <R s={Ot.Glyph.TtReferenceProps} />
 
-#### Factory Methods
+#### Constructor
 
- * <Fn long s={Ot.Glyph.TtReference.create} args={{
+ * <Method ctor long s={Ot.Glyph.TtReference.constructor} args={{
     to: annot(Ot.Glyph,"Target glyph"),
     transform: annot(Ot.Glyph.Transform2X3,"Transform of this reference")
   }} returns={Ot.Glyph.TtReference}/>
@@ -166,17 +193,17 @@ Defines as the union of the following cases.
 
     When present, this reference follows TrueType's point-attachment rules.
 
-### Case Type <Decl s={Ot.Glyph.GeometryList}/> | type = <R s={Ot.Glyph.GeometryType.GeometryList}/>
+### Case Class <Decl s={Ot.Glyph.GeometryList}/> | type = <R s={Ot.Glyph.GeometryType.GeometryList}/>
 
-#### Factory Methods
-
- * <Fn s={Ot.Glyph.GeometryList.create} args={{items:optional(array(Ot.Glyph.Geometry))}} returns={Ot.Glyph.GeometryList}/>
-
-    Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
-
-#### Inherits
+#### Implements
 
  * <R s={Ot.Glyph.GeometryListProp} />
+
+#### Constructor
+
+ * <Method ctor s={Ot.Glyph.GeometryList.constructor} args={{items:optional(array(Ot.Glyph.Geometry))}} returns={Ot.Glyph.GeometryList}/>
+
+    Creates an <R s={Ot.Glyph.GeometryList}/> from its members.
 
 ### Type <Decl s={Ot.Glyph.GeometryListProp}/>
 
@@ -205,14 +232,15 @@ Defines as the union of the following cases.
 
    The type tag of this hint object.
 
-### Type <Decl s={Ot.Glyph.TtInstruction} /> | type = <R s={Ot.Glyph.HintType.TtInstruction}/>
+### Case Class <Decl s={Ot.Glyph.TtInstruction} /> | type = <R s={Ot.Glyph.HintType.TtInstruction}/>
 
-#### Inherits
+#### Implements
 
  * <R s={Ot.Glyph.TtInstructionProps} />
 
-#### Factory Methods
- * <Fn s={Ot.Glyph.TtInstruction.create} args={{instructions:"Buffer"}} />
+#### Constructor
+
+ * <Method ctor s={Ot.Glyph.TtInstruction.constructor} args={{instructions:"Buffer"}} />
 
     Creates an <R s={Ot.Glyph.TtInstruction} /> from a given instruction buffer.
 
@@ -224,15 +252,15 @@ Defines as the union of the following cases.
 
     The buffer containing the TrueType instructions.
 
-### Type <Decl s={Ot.Glyph.CffHint} /> | type = <R s={Ot.Glyph.HintType.CffHint}/>
+### Case Class <Decl s={Ot.Glyph.CffHint} /> | type = <R s={Ot.Glyph.HintType.CffHint}/>
 
-#### Inherits
+#### Implements
 
  * <R s={Ot.Glyph.CffHintProps} />
 
-#### Factory Methods
+#### Constructor
 
- * <Fn s={Ot.Glyph.CffHint.create} args={{}} returns={Ot.Glyph.CffHint} />
+ * <Method ctor s={Ot.Glyph.CffHint.constructor} args={{}} returns={Ot.Glyph.CffHint} />
 
     Create an empty <R s={Ot.Glyph.CffHint} />.
 

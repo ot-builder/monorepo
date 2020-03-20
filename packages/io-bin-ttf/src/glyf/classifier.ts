@@ -71,7 +71,7 @@ class GeometryClassifier {
     public contourSet(csProps: OtGlyph.ContourSetProps) {
         this.hasContours = true;
         this.allReference = false;
-        this.collectedContourSets.push(OtGlyph.ContourSet.create(csProps.contours));
+        this.collectedContourSets.push(new OtGlyph.ContourSet(csProps.contours));
     }
     public geometryList(glProps: OtGlyph.GeometryListProps) {
         for (const entry of glProps.items) this.process(entry);
@@ -79,7 +79,7 @@ class GeometryClassifier {
     public ttReference(refProps: OtGlyph.TtReferenceProps) {
         this.hasReference = true;
         this.allContours = false;
-        const ref = OtGlyph.TtReference.create(refProps.to, refProps.transform);
+        const ref = new OtGlyph.TtReference(refProps.to, refProps.transform);
         ref.roundXyToGrid = refProps.roundXyToGrid;
         ref.useMyMetrics = refProps.useMyMetrics;
         ref.overlapCompound = refProps.overlapCompound;

@@ -110,13 +110,13 @@ class GsubMultiAlternateWriterBase {
 export class GsubMultiReader extends GsubMultiAlternateReaderBase
     implements LookupReader<Gsub.Lookup, Gsub.Multiple> {
     public createLookup() {
-        return Gsub.Multiple.create();
+        return new Gsub.Multiple();
     }
 }
 export class GsubAlternateReader extends GsubMultiAlternateReaderBase
     implements LookupReader<Gsub.Lookup, Gsub.Alternate> {
     public createLookup() {
-        return Gsub.Alternate.create();
+        return new Gsub.Alternate();
     }
 }
 export class GsubMultiWriter extends GsubMultiAlternateWriterBase

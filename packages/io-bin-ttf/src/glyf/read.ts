@@ -108,7 +108,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
     }
 
     return {
-        geometry: OtGlyph.ContourSet.create(contours),
+        geometry: new OtGlyph.ContourSet(contours),
         instructions
     };
 });
@@ -171,7 +171,7 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
         const [arg1, arg2] = view.next(ComponentArgs, flags);
         const { scaleX, scaleY, scale01, scale10 } = view.next(ComponentTransformMatrix, flags);
 
-        const ref = OtGlyph.TtReference.create(subGlyf, {
+        const ref = new OtGlyph.TtReference(subGlyf, {
             scaledOffset: !!(flags & ComponentFlag.SCALED_COMPONENT_OFFSET),
             xx: scaleX,
             yx: scale01,
@@ -219,13 +219,13 @@ export const GlyfTableRead = Read(
                     const { geometry, instructions } = vGlyph.next(SimpleGlyph, numberOfContours);
                     glyph.geometry = geometry;
                     if (instructions && instructions.byteLength) {
-                        glyph.hints = OtGlyph.TtInstruction.create(instructions);
+                        glyph.hints = new OtGlyph.TtInstruction(instructions);
                     }
                 } else {
                     const r = vGlyph.next(CompositeGlyph, gOrd);
-                    glyph.geometry = OtGlyph.GeometryList.create(r.references);
+                    glyph.geometry = new OtGlyph.GeometryList(r.references);
                     if (r.instructions && r.instructions.byteLength) {
-                        glyph.hints = OtGlyph.TtInstruction.create(r.instructions);
+                        glyph.hints = new OtGlyph.TtInstruction(r.instructions);
                     }
                 }
             }

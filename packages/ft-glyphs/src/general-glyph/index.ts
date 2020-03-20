@@ -7,7 +7,7 @@ import { Transform2X3 as GlyphTransform2X3 } from "./transform-2x3";
 
 export namespace GeneralGlyph {
     // Geometry
-    export interface ContourSetPropsT<G, X> {
+    export interface ContourSetPropsT<X> {
         contours: Contour.T<X>[];
     }
     export interface TtReferencePropsT<G, X> {
@@ -18,7 +18,7 @@ export namespace GeneralGlyph {
         overlapCompound?: boolean;
         pointAttachment?: Data.Maybe<Lib_General_Point.PointAttachment>;
     }
-    export interface GeometryListPropsT<G, X, E> {
+    export interface GeometryListPropsT<E> {
         items: E[];
     }
 

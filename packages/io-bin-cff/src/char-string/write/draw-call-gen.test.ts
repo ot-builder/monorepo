@@ -8,8 +8,8 @@ import { Mir } from "./mir";
 
 test("Draw call generator test", () => {
     const ctx = new CffWriteContext(2, 1000);
-    const glyph = OtGlyph.create();
-    const hints = OtGlyph.CffHint.create();
+    const glyph = new OtGlyph();
+    const hints = new OtGlyph.CffHint();
     hints.hStems = [OtGlyph.CffHint.createStem(1, 2), OtGlyph.CffHint.createStem(3, 4)];
     hints.hintMasks = [
         OtGlyph.CffHint.createMask(
@@ -35,7 +35,7 @@ test("Draw call generator test", () => {
     ];
     glyph.hints = hints;
 
-    glyph.geometry = OtGlyph.ContourSet.create([
+    glyph.geometry = new OtGlyph.ContourSet([
         [
             OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner),
             OtGlyph.Point.create(2, 1, OtGlyph.PointType.Corner),

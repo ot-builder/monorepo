@@ -8,7 +8,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
     public stemQuantity: number = 0;
     public transient: OtVar.Value[] = [];
 
-    private hints = OtGlyph.CffHint.create();
+    private hints = new OtGlyph.CffHint();
     private contours: OtGlyph.Point[][] = [];
     private currentContour: OtGlyph.Point[] = [];
 
@@ -97,7 +97,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
 
     public endChar() {
         this.startContour();
-        if (this.contours.length) this.glyph.geometry = OtGlyph.ContourSet.create(this.contours);
+        if (this.contours.length) this.glyph.geometry = new OtGlyph.ContourSet(this.contours);
         this.glyph.hints = this.hints;
     }
 }

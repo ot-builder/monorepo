@@ -22,7 +22,7 @@ describe("GPOS mark-to-base lookup handler", () => {
     };
 
     test("1MC", () => {
-        const lookup = Gpos.MarkToBase.create();
+        const lookup = new Gpos.MarkToBase();
         const gidMaxMark = 0x100;
         for (let gid = 0; gid < gidMaxMark; gid++) {
             lookup.marks.set(gOrd.at(gid), { markAnchors: [{ x: gid, y: gid }] });
@@ -36,7 +36,7 @@ describe("GPOS mark-to-base lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
     });
     test("2MC", () => {
-        const lookup = Gpos.MarkToBase.create();
+        const lookup = new Gpos.MarkToBase();
         const gidMaxMark = 0x100;
         for (let gid = 0; gid < gidMaxMark; gid++) {
             lookup.marks.set(gOrd.at(gid), {
