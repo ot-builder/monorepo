@@ -46,7 +46,7 @@ const SubtableFormat1 = {
 
 export class GposCursiveReader implements LookupReader<Gpos.Lookup, Gpos.Cursive> {
     public createLookup() {
-        return Gpos.Cursive.create();
+        return new Gpos.Cursive();
     }
 
     public parseSubtable(

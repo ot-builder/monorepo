@@ -12,7 +12,7 @@ import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./-share
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();
 
-const ll = [Gsub.Single.create(), Gsub.Single.create(), Gsub.Single.create()];
+const ll = [new Gsub.Single(), new Gsub.Single(), new Gsub.Single()];
 const lOrd = ImpLib.Order.fromList(`Lookups`, ll);
 
 const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Chaining> = {
@@ -30,7 +30,7 @@ const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Chaining> = {
 };
 
 test("GSUB/GPOS Contextual : Simple", () => {
-    const lookup = Gsub.Chaining.create();
+    const lookup = new Gsub.Chaining();
     lookup.rules.push({
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         inputBegins: 0,

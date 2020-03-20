@@ -26,7 +26,7 @@ describe("GPOS single lookup handler", () => {
     };
 
     test("Very different", () => {
-        const lookup = Gpos.Single.create();
+        const lookup = new Gpos.Single();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.adjustments.set(gOrd.at(gid), {
                 dX: Math.round(gid / 8),
@@ -46,7 +46,7 @@ describe("GPOS single lookup handler", () => {
         });
     });
     test("Very same", () => {
-        const lookup = Gpos.Single.create();
+        const lookup = new Gpos.Single();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.adjustments.set(gOrd.at(gid), {
                 dX: Math.round(gid / 1024),
@@ -66,7 +66,7 @@ describe("GPOS single lookup handler", () => {
         });
     });
     test("Variable", () => {
-        const lookup = Gpos.Single.create();
+        const lookup = new Gpos.Single();
         const variation = SetupVariation();
         const { bold, wide } = variation.masters;
         for (let gid = 0; gid < gOrd.length; gid++) {

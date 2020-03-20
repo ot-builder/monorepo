@@ -22,7 +22,7 @@ describe("GSUB single lookup handler", () => {
     };
 
     test("Simple", () => {
-        const lookup: Gsub.Single = Gsub.Single.create();
+        const lookup: Gsub.Single = new Gsub.Single();
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.set(gOrd.at(gid), gOrd.at((gid + 0x30) % gOrd.length));
         }

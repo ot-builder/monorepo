@@ -98,14 +98,14 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubSingle(props: Ot.Gsub.SingleProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.Single.create(), ret => {
+        return RStub(new Ot.Gsub.Single(), ret => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.bimapSome(this.rg, props.mapping);
         });
     }
 
     private gsubMulti(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.Multiple.create(), ret => {
+        return RStub(new Ot.Gsub.Multiple(), ret => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.mapSomeT(
                 this.rg,
@@ -116,7 +116,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubAlternate(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.Alternate.create(), ret => {
+        return RStub(new Ot.Gsub.Alternate(), ret => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.mapSomeT(
                 this.rg,
@@ -127,7 +127,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubLigature(props: Ot.Gsub.LigatureProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.Ligature.create(), ret => {
+        return RStub(new Ot.Gsub.Ligature(), ret => {
             this.setMeta(props, ret);
             const mapping1: Array<Ot.Gsub.LigatureEntry> = [];
             for (const { from, to } of props.mapping) {
@@ -142,7 +142,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubReverse(props: Ot.Gsub.ReverseSubProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.ReverseSub.create(), ret => {
+        return RStub(new Ot.Gsub.ReverseSub(), ret => {
             this.setMeta(props, ret);
             ret.rules = RectifyImpl.listSomeT(this.rg, props.rules, (rec, rule) => {
                 const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setAll);
@@ -154,7 +154,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubChaining(props: Ot.Gsub.ChainingProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(Ot.Gsub.Chaining.create(), ret => {
+        return RStub(new Ot.Gsub.Chaining(), ret => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);
         });
@@ -182,7 +182,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposSingle(props: Ot.Gpos.SingleProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.Single.create(), ret => {
+        return RStub(new Ot.Gpos.Single(), ret => {
             this.setMeta(props, ret);
             ret.adjustments = RectifyImpl.Glyph.mapSomeT(this.rg, props.adjustments, (rec, x) =>
                 rectifyAdjustment(this.rc, x)
@@ -191,7 +191,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposPair(props: Ot.Gpos.PairProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.Pair.create(), ret => {
+        return RStub(new Ot.Gpos.Pair(), ret => {
             this.setMeta(props, ret);
 
             const rep = props.adjustments.toRep();
@@ -217,7 +217,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposCursive(props: Ot.Gpos.CursiveProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.Cursive.create(), ret => {
+        return RStub(new Ot.Gpos.Cursive(), ret => {
             this.setMeta(props, ret);
             ret.attachments = RectifyImpl.mapSome2T(
                 this.rg,
@@ -229,7 +229,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposMarkToBase(props: Ot.Gpos.MarkToBaseProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.MarkToBase.create(), ret => {
+        return RStub(new Ot.Gpos.MarkToBase(), ret => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
@@ -247,7 +247,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposMarkToMark(props: Ot.Gpos.MarkToMarkProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.MarkToMark.create(), ret => {
+        return RStub(new Ot.Gpos.MarkToMark(), ret => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
@@ -265,7 +265,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposMarkToLigature(props: Ot.Gpos.MarkToLigatureProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.MarkToLigature.create(), ret => {
+        return RStub(new Ot.Gpos.MarkToLigature(), ret => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSome2T(
                 this.rg,
@@ -284,7 +284,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposChaining(props: Ot.Gpos.ChainingProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(Ot.Gpos.Chaining.create(), ret => {
+        return RStub(new Ot.Gpos.Chaining(), ret => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);
         });

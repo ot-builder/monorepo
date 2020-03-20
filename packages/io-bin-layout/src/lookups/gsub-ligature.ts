@@ -69,7 +69,7 @@ const SubtableFormat1 = {
 
 export class GsubLigatureReader implements LookupReader<Gsub.Lookup, Gsub.Ligature> {
     public createLookup() {
-        return Gsub.Ligature.create();
+        return new Gsub.Ligature();
     }
 
     public parseSubtable(

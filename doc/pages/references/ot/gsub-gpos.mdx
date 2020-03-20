@@ -76,13 +76,13 @@ Aliased as <Decl s={Ot.Gsub.LookupProp}/>, <Decl s={Ot.Gpos.LookupProp}/>.
 
 ### Type <Decl s={Ot.Gsub.Table} />
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.GsubGpos.TableT(Ot.Gsub.Lookup)}/>
 
 #### Factory Methods
 
-* <Method static long s={Ot.Gsub.Table.create} args={{
+* <Method ctor long s={Ot.Gsub.Table.constructor} args={{
     scripts:optional(map(Tag,Ot.Gsub.Script)),
     features:optional(array(Ot.Gsub.Feature)),
     lookups:optional(array(Ot.Gsub.Lookup)),
@@ -120,15 +120,15 @@ Defined as a union of the following cases:
 
 * <Member readonly s={Ot.Gsub.LookupT.type} type="unique symbol"/>
 
-### Case Type <Decl s={Ot.Gsub.Single}/> | type = <R s={Ot.Gsub.LookupType.Single}/>
+### Case Class <Decl s={Ot.Gsub.Single}/> | type = <R s={Ot.Gsub.LookupType.Single}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gsub.SingleProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gsub.Single.create} args={{props:optional(Ot.Gsub.SingleProp)}}/>
+* <Method ctor s={Ot.Gsub.Single.Constructor} args={{props:optional(Ot.Gsub.SingleProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.SingleProp}/>
 
@@ -140,25 +140,25 @@ Defined as a union of the following cases:
 
 * <Member s={Ot.Gsub.SingleProp.mapping} type={map(Ot.Glyph, Ot.Glyph)}/>
 
-### Case Type <Decl s={Ot.Gsub.Multiple}/> | type = <R s={Ot.Gsub.LookupType.Multiple}/>
+### Case Class <Decl s={Ot.Gsub.Multiple}/> | type = <R s={Ot.Gsub.LookupType.Multiple}/>
 
-#### Inherits
-
-* <R s={Ot.Gsub.MultipleAlternateProp}/>
-
-#### Factory Methods
-
-* <Method static s={Ot.Gsub.Multiple.create} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
-
-### Case Type <Decl s={Ot.Gsub.Alternate}/> | type = <R s={Ot.Gsub.LookupType.Alternate}/>
-
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gsub.MultipleAlternateProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gsub.Alternate.create} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
+* <Method ctor s={Ot.Gsub.Multiple.Constructor} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
+
+### Case Class <Decl s={Ot.Gsub.Alternate}/> | type = <R s={Ot.Gsub.LookupType.Alternate}/>
+
+#### Implements
+
+* <R s={Ot.Gsub.MultipleAlternateProp}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Gsub.Alternate.Constructor} args={{props:optional(Ot.Gsub.MultipleAlternateProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.MultipleAlternateProp}/>
 
@@ -170,15 +170,15 @@ Defined as a union of the following cases:
 
 * <Member s={Ot.Gsub.MultipleAlternateProp.mapping} type={map(Ot.Glyph, readonly(array(Ot.Glyph)))}/>
 
-### Case Type <Decl s={Ot.Gsub.Ligature}/> | type = <R s={Ot.Gsub.LookupType.Ligature}/>
+### Case Class <Decl s={Ot.Gsub.Ligature}/> | type = <R s={Ot.Gsub.LookupType.Ligature}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gsub.LigatureProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gsub.Ligature.create}  args={{props:optional(Ot.Gsub.LigatureProp)}}/>
+* <Method ctor s={Ot.Gsub.Ligature.Constructor} args={{props:optional(Ot.Gsub.LigatureProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.LigatureProp}/>
 
@@ -197,25 +197,25 @@ Defined as a union of the following cases:
 * <Member readonly s={Ot.Gsub.LigatureEntry.from} type={readonly(array(Ot.Glyph))}/>
 * <Member readonly s={Ot.Gsub.LigatureEntry.to} type={Ot.Glyph}/>
 
-### Case Type <Decl s={Ot.Gsub.Chaining}/> | type = <R s={Ot.Gsub.LookupType.Chaining}/>
+### Case Class <Decl s={Ot.Gsub.Chaining}/> | type = <R s={Ot.Gsub.LookupType.Chaining}/>
 
-#### Factory Methods
-
-* <Method static s={Ot.Gsub.Chaining.create} args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup))}}/>
-
-#### Inherits
+#### Implements
 
 * <R s={Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup)}/>
 
-### Case Type <Decl s={Ot.Gsub.ReverseSub}/> | type = <R s={Ot.Gsub.LookupType.ReverseSub}/>
+#### Constructor
 
-#### Inherits
+* <Method ctor s={Ot.Gsub.Chaining.Constructor} args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gsub.Lookup))}}/>
+
+### Case Class <Decl s={Ot.Gsub.ReverseSub}/> | type = <R s={Ot.Gsub.LookupType.ReverseSub}/>
+
+#### Implements
 
 * <R s={Ot.Gsub.ReverseSubProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gsub.ReverseSub.create} args={{props:optional(Ot.Gsub.ReverseSubProp)}}/>
+* <Method ctor s={Ot.Gsub.ReverseSub.Constructor} args={{props:optional(Ot.Gsub.ReverseSubProp)}}/>
 
 ### Datatype <Decl s={Ot.Gsub.ReverseSubProp}/>
 
@@ -245,13 +245,13 @@ Defined as a union of the following cases:
 
 ### Type <Decl s={Ot.Gpos.Table} />
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.GsubGpos.TableT(Ot.Gpos.Lookup)}/>
 
 #### Factory Methods
 
-* <Method static long s={Ot.Gpos.Table.create} args={{
+* <Method ctor long s={Ot.Gpos.Table.constructor} args={{
     scripts:optional(map(Tag,Ot.Gpos.Script)),
     features:optional(array(Ot.Gpos.Feature)),
     lookups:optional(array(Ot.Gpos.Lookup)),
@@ -290,15 +290,15 @@ Defined as a union of the following cases:
 
 * <Member readonly s={Ot.Gsub.LookupT.type} type="unique symbol"/>
 
-### Case Type <Decl s={Ot.Gpos.Single}/> | type = <R s={Ot.Gpos.LookupType.Multiple}/>
+### Case Class <Decl s={Ot.Gpos.Single}/> | type = <R s={Ot.Gpos.LookupType.Multiple}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.SingleProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.Single.create} args={{props:optional(Ot.Gpos.SingleProp)}} />
+* <Method ctor s={Ot.Gpos.Single.Constructor} args={{props:optional(Ot.Gpos.SingleProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.SingleProp}/>
 
@@ -310,15 +310,15 @@ Defined as a union of the following cases:
 
 * <Member s={Ot.Gpos.SingleProp.adjustments} type={map(Ot.Glyph, Ot.Gpos.Adjustment)}/>
 
-### Case Type <Decl s={Ot.Gpos.Pair}/> | type = <R s={Ot.Gpos.LookupType.Pair}/>
+### Case Class <Decl s={Ot.Gpos.Pair}/> | type = <R s={Ot.Gpos.LookupType.Pair}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.PairProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.Pair.create} args={{props:optional(Ot.Gpos.PairProp)}} />
+* <Method ctor s={Ot.Gpos.Pair.Constructor} args={{props:optional(Ot.Gpos.PairProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.PairProp}/>
 
@@ -330,15 +330,15 @@ Defined as a union of the following cases:
 
 * <Member s={Ot.Gpos.PairProp.adjustments} type={Ot.DicingStore(Ot.Glyph,Ot.Glyph,Ot.Gpos.AdjustmentPair)}/>
 
-### Case Type <Decl s={Ot.Gpos.Cursive}/> | type = <R s={Ot.Gpos.LookupType.Cursive}/>
+### Case Class <Decl s={Ot.Gpos.Cursive}/> | type = <R s={Ot.Gpos.LookupType.Cursive}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.CursiveProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.Cursive.create} args={{props:optional(Ot.Gpos.CursiveProp)}} />
+* <Method ctor s={Ot.Gpos.Cursive.Constructor} args={{props:optional(Ot.Gpos.CursiveProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.CursiveProp}/>
 
@@ -350,15 +350,15 @@ Defined as a union of the following cases:
 
 * <Member s={Ot.Gpos.CursiveProp.attachments} type={map(Ot.Glyph,Ot.Gpos.CursiveAnchorPair)}/>
 
-### Case Type <Decl s={Ot.Gpos.MarkToBase}/> | type = <R s={Ot.Gpos.LookupType.MarkToBase}/>
+### Case Class <Decl s={Ot.Gpos.MarkToBase}/> | type = <R s={Ot.Gpos.LookupType.MarkToBase}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.MarkToBaseProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.MarkToBase.create} args={{props:optional(Ot.Gpos.MarkToBaseProp)}} />
+* <Method ctor s={Ot.Gpos.MarkToBase.Constructor} args={{props:optional(Ot.Gpos.MarkToBaseProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToBaseProp}/>
 
@@ -371,15 +371,15 @@ Defined as a union of the following cases:
 * <Member s={Ot.Gpos.MarkToBaseProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToBaseProp.bases} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Case Type <Decl s={Ot.Gpos.MarkToLigature}/> | type = <R s={Ot.Gpos.LookupType.MarkToLigature}/>
+### Case Class <Decl s={Ot.Gpos.MarkToLigature}/> | type = <R s={Ot.Gpos.LookupType.MarkToLigature}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.MarkToLigatureProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.MarkToLigature.create} args={{props:optional(Ot.Gpos.MarkToLigatureProp)}} />
+* <Method ctor s={Ot.Gpos.MarkToLigature.Constructor} args={{props:optional(Ot.Gpos.MarkToLigatureProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToLigatureProp}/>
 
@@ -392,15 +392,15 @@ Defined as a union of the following cases:
 * <Member s={Ot.Gpos.MarkToLigatureProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToLigatureProp.bases} type={map(Ot.Glyph,Ot.Gpos.LigatureBaseRecord)}/>
 
-### Case Type <Decl s={Ot.Gpos.MarkToMark}/> | type = <R s={Ot.Gpos.LookupType.MarkToMark}/>
+### Case Class <Decl s={Ot.Gpos.MarkToMark}/> | type = <R s={Ot.Gpos.LookupType.MarkToMark}/>
 
-#### Inherits
+#### Implements
 
 * <R s={Ot.Gpos.MarkToMarkProp}/>
 
-#### Factory Methods
+#### Constructor
 
-* <Method static s={Ot.Gpos.MarkToMark.create} args={{props:optional(Ot.Gpos.MarkToMarkProp)}} />
+* <Method ctor s={Ot.Gpos.MarkToMark.Constructor} args={{props:optional(Ot.Gpos.MarkToMarkProp)}} />
 
 ### Datatype <Decl s={Ot.Gpos.MarkToMarkProp}/>
 
@@ -413,15 +413,15 @@ Defined as a union of the following cases:
 * <Member s={Ot.Gpos.MarkToMarkProp.marks} type={map(Ot.Glyph,Ot.Gpos.MarkRecord)}/>
 * <Member s={Ot.Gpos.MarkToMarkProp.baseMarks} type={map(Ot.Glyph,Ot.Gpos.BaseRecord)}/>
 
-### Case Type <Decl s={Ot.Gpos.Chaining}/> | type = <R s={Ot.Gpos.LookupType.Chaining}/>
+### Case Class <Decl s={Ot.Gpos.Chaining}/> | type = <R s={Ot.Gpos.LookupType.Chaining}/>
 
-#### Factory Methods
-
-* <Method static s={Ot.Gpos.Chaining.create}  args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup))}}/>
-
-#### Inherits
+#### Implements
 
 * <R s={Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup)}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Gpos.Chaining.Constructor} args={{props:optional(Ot.GsubGpos.ChainingProp(Ot.Gpos.Lookup))}}/>
 
 
 

@@ -35,7 +35,7 @@ export function rectifyGsub(
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGsubLookup);
     const newTable = cleanupGsubGposData(
         table,
-        Ot.Gsub.Table.create(),
+        new Ot.Gsub.Table(),
         lookupCorrespondence,
         fnGsubLookupRemovable
     );
@@ -56,7 +56,7 @@ export function rectifyGpos(
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, fnApplyGposLookup);
     const newTable = cleanupGsubGposData(
         table,
-        Ot.Gpos.Table.create(),
+        new Ot.Gpos.Table(),
         lookupCorrespondence,
         fnGposLookupRemovable
     );

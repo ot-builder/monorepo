@@ -157,7 +157,7 @@ class ContourHolder implements GeomHolder {
         this.contours = cs.contours.map(c => [...c]);
     }
     public toGeometry() {
-        return OtGlyph.ContourSet.create(this.contours);
+        return new OtGlyph.ContourSet(this.contours);
     }
     public collectTvdAccesses(sink: TvdAccess<OtVar.Master>[][], ms: OtVar.MasterSet) {
         for (let cid = 0; cid < this.contours.length; cid++) {
@@ -179,7 +179,7 @@ class TtReferenceHolder implements GeomHolder {
         this.ref = { ...ref };
     }
     public toGeometry() {
-        const ref1 = OtGlyph.TtReference.create(this.ref.to, this.ref.transform);
+        const ref1 = new OtGlyph.TtReference(this.ref.to, this.ref.transform);
         ref1.roundXyToGrid = this.ref.roundXyToGrid;
         ref1.useMyMetrics = this.ref.useMyMetrics;
         ref1.overlapCompound = this.ref.overlapCompound;
@@ -194,7 +194,7 @@ class TtReferenceHolder implements GeomHolder {
 class GeometryListHolder implements GeomHolder {
     constructor(private readonly children: GeomHolder[]) {}
     public toGeometry() {
-        return OtGlyph.GeometryList.create(this.children.map(c => c.toGeometry()));
+        return new OtGlyph.GeometryList(this.children.map(c => c.toGeometry()));
     }
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],

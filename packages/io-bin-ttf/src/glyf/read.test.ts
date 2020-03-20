@@ -32,28 +32,28 @@ test("Reading : TTF, static", () => {
         expect(outlines).toBeTruthy();
         expect(outlines.contours).toEqual([
             [
-                OtGlyph.Point.create(80, 0, 0),
-                OtGlyph.Point.create(500, 670, 0),
-                OtGlyph.Point.create(560, 670, 0),
-                OtGlyph.Point.create(140, 0, 0)
+                OtGlyph.Point.create(80, 0),
+                OtGlyph.Point.create(500, 670),
+                OtGlyph.Point.create(560, 670),
+                OtGlyph.Point.create(140, 0)
             ],
             [
-                OtGlyph.Point.create(560, 0, 0),
-                OtGlyph.Point.create(500, 0, 0),
-                OtGlyph.Point.create(80, 670, 0),
-                OtGlyph.Point.create(140, 670, 0)
+                OtGlyph.Point.create(560, 0),
+                OtGlyph.Point.create(500, 0),
+                OtGlyph.Point.create(80, 670),
+                OtGlyph.Point.create(140, 670)
             ],
             [
-                OtGlyph.Point.create(140, 50, 0),
-                OtGlyph.Point.create(500, 50, 0),
-                OtGlyph.Point.create(500, 620, 0),
-                OtGlyph.Point.create(140, 620, 0)
+                OtGlyph.Point.create(140, 50),
+                OtGlyph.Point.create(500, 50),
+                OtGlyph.Point.create(500, 620),
+                OtGlyph.Point.create(140, 620)
             ],
             [
-                OtGlyph.Point.create(80, 0, 0),
-                OtGlyph.Point.create(80, 670, 0),
-                OtGlyph.Point.create(560, 670, 0),
-                OtGlyph.Point.create(560, 0, 0)
+                OtGlyph.Point.create(80, 0),
+                OtGlyph.Point.create(80, 670),
+                OtGlyph.Point.create(560, 670),
+                OtGlyph.Point.create(560, 0)
             ]
         ]);
     }

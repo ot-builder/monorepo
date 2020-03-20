@@ -41,7 +41,7 @@ class AttachmentPointToCoordAlg {
     }
     public contourSet(cs: OtGlyph.ContourSetProps): PointAttachmentHandler {
         return (st: PointAttachmentHandlerState) => {
-            const g = OtGlyph.ContourSet.create(cs.contours);
+            const g = new OtGlyph.ContourSet(cs.contours);
             for (const c of g.contours) for (const z of c) st.points.push(z);
             return g;
         };
@@ -52,7 +52,7 @@ class AttachmentPointToCoordAlg {
             for (const proc of processes) {
                 children.push(proc(st));
             }
-            return OtGlyph.GeometryList.create(children);
+            return new OtGlyph.GeometryList(children);
         };
     }
 
@@ -88,7 +88,7 @@ class AttachmentPointToCoordAlg {
                     );
                 }
             }
-            const geom = OtGlyph.TtReference.create(ref.to, tfm);
+            const geom = new OtGlyph.TtReference(ref.to, tfm);
             geom.roundXyToGrid = ref.roundXyToGrid;
             geom.useMyMetrics = ref.useMyMetrics;
             geom.overlapCompound = ref.overlapCompound;
