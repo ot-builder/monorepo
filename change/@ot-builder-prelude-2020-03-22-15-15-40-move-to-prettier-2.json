@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Move prettier to 2.0",
+  "packageName": "@ot-builder/prelude",
+  "email": "belleve@typeof.net",
+  "commit": "3b55b78dec952e06b9d11ddb88f954b99871f81e",
+  "dependentChangeType": "patch",
+  "date": "2020-03-22T22:15:40.120Z"
+}
