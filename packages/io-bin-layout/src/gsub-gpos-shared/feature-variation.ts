@@ -32,9 +32,7 @@ class CFeatureTableSubstitution<L> {
         fOrd: Data.Order<Feature<L>>,
         lOrd: Data.Order<L>
     ) {
-        frag.uint16(1)
-            .uint16(0)
-            .uint16(subst.size);
+        frag.uint16(1).uint16(0).uint16(subst.size);
         for (const [from, to] of subst) {
             frag.uint16(fOrd.reverse(from));
             frag.ptr32New().push(new CFeatureTable<L>(), to, lOrd);
