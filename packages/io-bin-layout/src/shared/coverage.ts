@@ -235,9 +235,7 @@ const OtGidCoverageFormat2 = {
 
         frag.uint16(2).uint16(collector.runs.length);
         for (const run of collector.runs) {
-            frag.uint16(run.startGlyphID)
-                .uint16(run.endGlyphID)
-                .uint16(run.startCoverageIndex);
+            frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.startCoverageIndex);
         }
         return frag;
     })

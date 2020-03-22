@@ -45,9 +45,7 @@ const DesignAxisArray = Write((frag, axes: ReadonlyArray<Stat.Axis>) => {
     for (const axis of axes) frag.push(DesignAxisRecord, axis);
 });
 const DesignAxisRecord = Write((frag, axis: Stat.Axis) => {
-    frag.push(Tag, axis.tag)
-        .uint16(axis.axisNameID)
-        .uint16(axis.axisOrdering);
+    frag.push(Tag, axis.tag).uint16(axis.axisNameID).uint16(axis.axisOrdering);
 });
 
 type AxisOrder = Data.Order<Stat.Axis>;
@@ -122,10 +120,7 @@ const AxisValueFormat3 = Write(
 );
 const AxisValueFormat4 = Write(
     (frag, [av, asg]: [Stat.AxisValue.PolyAxis, Stat.NameAssignment], axes: AxisOrder) => {
-        frag.uint16(4)
-            .uint16(av.assignments.length)
-            .uint16(asg.flags)
-            .uint16(asg.valueNameID);
+        frag.uint16(4).uint16(av.assignments.length).uint16(asg.flags).uint16(asg.valueNameID);
         for (const [axis, value] of av.assignments) {
             frag.uint16(axes.reverse(axis)).push(F16D16, value);
         }

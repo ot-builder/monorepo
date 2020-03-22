@@ -17,9 +17,7 @@ test("Frag: Shared Embed-relative Pointer", () => {
         Frag.uint32(0x01020304),
         FragPointerEmbedding.EmbedRelative
     );
-    const root = Frag.ptr16(a)
-        .ptr16(Frag.uint32(0x01020304))
-        .embed(b);
+    const root = Frag.ptr16(a).ptr16(Frag.uint32(0x01020304)).embed(b);
     expect([...Frag.pack(root)]).toEqual([
         ...[0, 8, 0, 10, 0, 4, 0, 6],
         ...[0, 2],

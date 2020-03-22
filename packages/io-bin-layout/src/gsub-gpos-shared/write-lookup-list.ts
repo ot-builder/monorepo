@@ -251,7 +251,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
     }
 }
 
-export const WriteLookupList = Write(function<L extends GsubGpos.LookupProp>(
+export const WriteLookupList = Write(function <L extends GsubGpos.LookupProp>(
     frag: Frag,
     lookups: L[],
     lwf: LookupWriterFactory<L>,

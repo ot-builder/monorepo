@@ -15,11 +15,7 @@ export const MetaTableIo = {
     },
     write(frag: Frag, table: Meta.Table) {
         Assert.NoGap(`MetaTable::Data`, table.data);
-        frag.uint32(1)
-            .uint32(0)
-            .uint32(0)
-            .uint32(table.data.length)
-            .array(DataMap, table.data);
+        frag.uint32(1).uint32(0).uint32(0).uint32(table.data.length).array(DataMap, table.data);
     }
 };
 

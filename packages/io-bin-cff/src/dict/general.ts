@@ -33,7 +33,7 @@ export abstract class CffDictInterpreterBase extends CffInterp.Interpreter {
 }
 
 export function CffDictReadT<T>(interpFactory: CffDictInterpreterFactory<T>) {
-    return Read(function(view: BinaryView, ctx: CffReadContext, dictSize: number) {
+    return Read(function (view: BinaryView, ctx: CffReadContext, dictSize: number) {
         const interp = interpFactory(view, ctx);
         const irSource = new CffDictIrSource(view, dictSize);
         for (;;) {

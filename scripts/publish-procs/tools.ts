@@ -29,10 +29,10 @@ export function Next(...args: string[]) {
 }
 
 export function Spawn(command: string, args: string[], options: CP.SpawnOptions) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         const cp = CP.spawn(command, args, options);
 
-        cp.on("error", reject).on("close", function(code) {
+        cp.on("error", reject).on("close", function (code) {
             if (code === 0) {
                 resolve(null);
             } else {

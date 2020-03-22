@@ -7,7 +7,7 @@ import { OtVar } from "@ot-builder/variance";
 
 import macGlyphNames from "./mac-glyph-names";
 
-const coMacGlyphNames: Map<string, number> = (function() {
+const coMacGlyphNames: Map<string, number> = (function () {
     const m = new Map<string, number>();
     for (let nid = 0; nid < macGlyphNames.length; nid++) {
         m.set(macGlyphNames[nid], nid);

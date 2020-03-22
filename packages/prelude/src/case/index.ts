@@ -19,7 +19,7 @@ function CaseCtorImpl<Tag, Props, A extends any[]>(
     typeTag: Tag,
     fn: (...args: A) => Props
 ): CaseCtorType<Tag, Props, A> {
-    return function(this: any, ...args: A) {
+    return function (this: any, ...args: A) {
         initialize(this, typeTag, fn(...args));
     } as any;
 }
