@@ -2,6 +2,20 @@
   "name": "@ot-builder/prelude",
   "entries": [
     {
+      "date": "Sun, 22 Mar 2020 00:11:55 GMT",
+      "tag": "@ot-builder/prelude_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Change case datatypes to case classes",
+            "author": "belleve@typeof.net",
+            "commit": "c3d91a5efb636d99780a5996ff12271e626c2180"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jan 2020 05:07:07 GMT",
       "tag": "@ot-builder/prelude_v0.3.0",
       "version": "0.3.0",

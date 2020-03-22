@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add import path check",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "commit": "e3fd686f3453f6c74139671cb9a480215dbf5e03",
-  "dependentChangeType": "patch",
-  "date": "2020-03-16T12:58:07.814Z"
-}

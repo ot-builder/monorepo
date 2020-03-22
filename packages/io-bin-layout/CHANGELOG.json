@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 22 Mar 2020 00:11:55 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add import path check",
+            "author": "belleve@typeof.net",
+            "commit": "e3fd686f3453f6c74139671cb9a480215dbf5e03"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Change case datatypes to case classes",
+            "author": "belleve@typeof.net",
+            "commit": "c3d91a5efb636d99780a5996ff12271e626c2180"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Mar 2020 12:13:10 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.4.0",
       "version": "0.4.0",

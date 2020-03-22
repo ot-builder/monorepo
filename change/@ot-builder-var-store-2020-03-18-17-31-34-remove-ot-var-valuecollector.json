@@ -1,9 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Removal of Ot.Var.ValueCollector; Move original value collector implementation into packages/var-store.",
-  "packageName": "@ot-builder/var-store",
-  "email": "belleve@typeof.net",
-  "commit": "853c7e6b330acb4f2682c1dbc73b1867cb105df9",
-  "dependentChangeType": "patch",
-  "date": "2020-03-19T00:31:33.535Z"
-}

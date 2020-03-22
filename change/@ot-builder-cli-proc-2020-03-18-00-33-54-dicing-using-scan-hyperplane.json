@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Use scan planes to do zone dicing.",
-  "packageName": "@ot-builder/cli-proc",
-  "email": "belleve@typeof.net",
-  "commit": "00fcb843c57d423b7d7c224b15320181305c924e",
-  "dependentChangeType": "patch",
-  "date": "2020-03-18T07:33:54.499Z"
-}

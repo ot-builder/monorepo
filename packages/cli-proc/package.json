@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.5.1",
+  "version": "0.6.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -19,12 +19,12 @@
   "dependencies": {
     "tslib": "^1.9.3",
     "chalk": "^3.0.0",
-    "@ot-builder/io-bin-font": "0.5.1",
-    "@ot-builder/primitive": "0.3.1",
-    "@ot-builder/common-impl": "0.4.1",
-    "@ot-builder/rectify-font": "0.6.1",
-    "@ot-builder/prelude": "0.4.1",
-    "@ot-builder/font": "0.5.1"
+    "@ot-builder/io-bin-font": "0.6.0",
+    "@ot-builder/primitive": "0.4.0",
+    "@ot-builder/common-impl": "0.5.0",
+    "@ot-builder/rectify-font": "0.7.0",
+    "@ot-builder/prelude": "0.5.0",
+    "@ot-builder/font": "0.6.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

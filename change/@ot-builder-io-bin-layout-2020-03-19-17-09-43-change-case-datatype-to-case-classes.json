@@ -1,9 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Change case datatypes to case classes",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "commit": "c3d91a5efb636d99780a5996ff12271e626c2180",
-  "dependentChangeType": "patch",
-  "date": "2020-03-20T00:09:39.467Z"
-}

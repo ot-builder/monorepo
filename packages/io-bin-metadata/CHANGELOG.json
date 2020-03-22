@@ -2,6 +2,20 @@
   "name": "@ot-builder/io-bin-metadata",
   "entries": [
     {
+      "date": "Sun, 22 Mar 2020 00:11:55 GMT",
+      "tag": "@ot-builder/io-bin-metadata_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add import path check",
+            "author": "belleve@typeof.net",
+            "commit": "e3fd686f3453f6c74139671cb9a480215dbf5e03"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/io-bin-metadata_v0.3.3",
       "version": "0.3.3",

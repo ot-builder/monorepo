@@ -2,6 +2,20 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sun, 22 Mar 2020 00:11:55 GMT",
+      "tag": "@ot-builder/cli-proc_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Use scan planes to do zone dicing.",
+            "author": "belleve@typeof.net",
+            "commit": "00fcb843c57d423b7d7c224b15320181305c924e"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Mar 2020 12:13:10 GMT",
       "tag": "@ot-builder/cli-proc_v0.5.0",
       "version": "0.5.0",

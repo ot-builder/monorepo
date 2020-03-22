@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/io-bin-metadata
 
-This log was last generated on Sun, 16 Feb 2020 00:16:01 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Mar 2020 00:11:55 GMT and should not be manually modified.
 
+## 0.5.0
+Sun, 22 Mar 2020 00:11:55 GMT
+
+### Patches
+
+- Add import path check (belleve@typeof.net)
 ## 0.3.3
 Sun, 16 Feb 2020 00:16:01 GMT
 

@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/ft-glyphs
 
-This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Mar 2020 00:11:55 GMT and should not be manually modified.
 
+## 0.5.0
+Sun, 22 Mar 2020 00:11:55 GMT
+
+### Minor changes
+
+- Change case datatypes to case classes (belleve@typeof.net)
 ## 0.4.0
 Mon, 16 Mar 2020 12:13:10 GMT
 

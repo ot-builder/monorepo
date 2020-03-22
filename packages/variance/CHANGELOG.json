@@ -2,6 +2,27 @@
   "name": "@ot-builder/variance",
   "entries": [
     {
+      "date": "Sun, 22 Mar 2020 00:11:55 GMT",
+      "tag": "@ot-builder/variance_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add import path check",
+            "author": "belleve@typeof.net",
+            "commit": "e3fd686f3453f6c74139671cb9a480215dbf5e03"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Removal of Ot.Var.ValueCollector; Move original value collector implementation into packages/var-store.",
+            "author": "belleve@typeof.net",
+            "commit": "853c7e6b330acb4f2682c1dbc73b1867cb105df9"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 15 Mar 2020 00:17:52 GMT",
       "tag": "@ot-builder/variance_v0.3.2",
       "version": "0.3.2",

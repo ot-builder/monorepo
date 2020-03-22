@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/io-bin-glyph-store
 
-This log was last generated on Fri, 17 Jan 2020 05:07:07 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Mar 2020 00:11:55 GMT and should not be manually modified.
 
+## 0.5.0
+Sun, 22 Mar 2020 00:11:55 GMT
+
+### Patches
+
+- Add import path check (belleve@typeof.net)
 ## 0.3.0
 Fri, 17 Jan 2020 05:07:07 GMT
 

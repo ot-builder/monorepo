@@ -1,7 +1,13 @@
 # Change Log - @ot-builder/cli-proc
 
-This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
+This log was last generated on Sun, 22 Mar 2020 00:11:55 GMT and should not be manually modified.
 
+## 0.6.0
+Sun, 22 Mar 2020 00:11:55 GMT
+
+### Patches
+
+- Use scan planes to do zone dicing. (belleve@typeof.net)
 ## 0.5.0
 Mon, 16 Mar 2020 12:13:10 GMT
 
