@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Maxp } from "@ot-builder/ft-metadata";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Maxp } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 

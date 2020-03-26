@@ -1,8 +1,8 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
-import { OtFontMetadata } from "@ot-builder/ft-metadata";
-import { Sfnt } from "@ot-builder/ft-sfnt";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ot-layout";
+import { OtFontMetadata } from "@ot-builder/ot-metadata";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
 

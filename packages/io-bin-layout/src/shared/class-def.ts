@@ -1,8 +1,8 @@
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag, Read, Write, WriteOpt } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { LayoutCommon } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 export namespace ClassDefUtil {

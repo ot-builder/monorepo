@@ -1,10 +1,10 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gdef } from "@ot-builder/ft-layout";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { Gdef } from "@ot-builder/ot-layout";
 import { TestFont } from "@ot-builder/test-util";
 
 import { GdefTableIo } from "./index";

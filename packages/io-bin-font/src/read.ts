@@ -1,14 +1,13 @@
-import * as Ot from "@ot-builder/font";
-import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
-import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readEncoding } from "@ot-builder/io-bin-encoding";
 import { ReadCffGlyphs, readGlyphStore, ReadTtfGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtl } from "@ot-builder/io-bin-layout";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readNames } from "@ot-builder/io-bin-name";
+import * as Ot from "@ot-builder/ot";
+import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
+import { OtFontIoMetadata } from "@ot-builder/ot-metadata";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
-import { StandardOtGlyphNamer } from "@ot-builder/standard-glyph-namer";
 
 import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 
@@ -59,7 +58,7 @@ function nameGlyphs(
         cff: cffGlyphNaming,
         encoding: new CmapNameIndexSource(encoding)
     };
-    const namer = cfg.glyphNaming.namer || new StandardOtGlyphNamer();
+    const namer = cfg.glyphNaming.namer || new Ot.StandardGlyphNamer();
     for (let gid = 0; gid < gOrd.length; gid++) {
         const glyph = gOrd.at(gid);
         glyph.name = namer.nameGlyph(namingSource, gid, glyph);

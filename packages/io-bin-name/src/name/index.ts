@@ -1,6 +1,6 @@
 import { BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Name } from "@ot-builder/ft-name";
+import { Name } from "@ot-builder/ot-name";
 import * as iconv from "iconv-lite";
 
 // TODO: add more encodings

@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/font";
+import * as Ot from "@ot-builder/ot";
 
 export class DimMapper {
     private nAxes = 0;

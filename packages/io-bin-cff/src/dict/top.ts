@@ -1,6 +1,6 @@
 import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff } from "@ot-builder/ft-glyphs";
+import { Cff } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 

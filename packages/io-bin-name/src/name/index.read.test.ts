@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Name } from "@ot-builder/ft-name";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Name } from "@ot-builder/ot-name";
 import { TestFont } from "@ot-builder/test-util";
 
 import { NameIo } from "./index";

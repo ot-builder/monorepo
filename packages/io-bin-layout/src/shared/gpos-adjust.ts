@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { Gpos, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gpos, LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { Int16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";

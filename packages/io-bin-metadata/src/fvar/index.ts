@@ -1,6 +1,6 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Fvar } from "@ot-builder/ft-metadata";
+import { Fvar } from "@ot-builder/ot-metadata";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 

@@ -1,9 +1,9 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { MetricBasic, MetricVariance, Vorg } from "@ot-builder/ft-glyphs";
-import { Fvar, Maxp, MetricHead } from "@ot-builder/ft-metadata";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
+import { MetricBasic, MetricVariance, Vorg } from "@ot-builder/ot-glyphs";
+import { Fvar, Maxp, MetricHead } from "@ot-builder/ot-metadata";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 

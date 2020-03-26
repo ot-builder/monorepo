@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { Maxp } from "@ot-builder/ft-metadata";
+import { Maxp } from "@ot-builder/ot-metadata";
 
 export const MaxpIo = {
     ...Read<Maxp.Table>(vw => {

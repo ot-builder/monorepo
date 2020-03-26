@@ -1,6 +1,6 @@
 import { LongDateTime } from "@ot-builder/bin-composite-types";
 import { Read, Write } from "@ot-builder/bin-util";
-import { Head } from "@ot-builder/ft-metadata";
+import { Head } from "@ot-builder/ot-metadata";
 import { F16D16 } from "@ot-builder/primitive";
 
 export const HeadIo = {

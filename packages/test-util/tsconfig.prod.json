@@ -31,13 +31,13 @@
       "path": "../variance/tsconfig.prod.json"
     },
     {
-      "path": "../ft-glyphs/tsconfig.prod.json"
+      "path": "../ot-glyphs/tsconfig.prod.json"
     },
     {
-      "path": "../ft-encoding/tsconfig.prod.json"
+      "path": "../ot-encoding/tsconfig.prod.json"
     },
     {
-      "path": "../ft-layout/tsconfig.prod.json"
+      "path": "../ot-layout/tsconfig.prod.json"
     }
   ],
   "include": [

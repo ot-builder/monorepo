@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ot-layout";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";

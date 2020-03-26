@@ -1,6 +1,6 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { Vorg } from "@ot-builder/ft-glyphs";
+import { Vorg } from "@ot-builder/ot-glyphs";
 
 export const VorgIo = {
     ...Read(view => {

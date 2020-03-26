@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Head } from "@ot-builder/ft-metadata";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Head } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 
 export class HeadExtendStat implements OtGlyph.Stat.Sink {

@@ -1,4 +1,4 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";

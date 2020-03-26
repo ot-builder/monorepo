@@ -1,16 +1,16 @@
-import * as Ot from "@ot-builder/font";
-import { OtEncoding } from "@ot-builder/ft-encoding";
-import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
-import { OtFontLayoutData } from "@ot-builder/ft-layout";
-import { OtFontIoMetadata } from "@ot-builder/ft-metadata";
-import { OtNameData } from "@ot-builder/ft-name";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { writeEncoding } from "@ot-builder/io-bin-encoding";
 import { WriteCffGlyphs, writeGlyphStore, WriteTtfGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { writeOtl } from "@ot-builder/io-bin-layout";
 import { writeOtMetadata } from "@ot-builder/io-bin-metadata";
 import { writeNames } from "@ot-builder/io-bin-name";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import * as Ot from "@ot-builder/ot";
+import { OtEncoding } from "@ot-builder/ot-encoding";
+import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
+import { OtFontLayoutData } from "@ot-builder/ot-layout";
+import { OtFontIoMetadata } from "@ot-builder/ot-metadata";
+import { OtNameData } from "@ot-builder/ot-name";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 
 import { createConfig, FontIoConfig } from "./config";

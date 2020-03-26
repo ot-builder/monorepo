@@ -1,9 +1,9 @@
 import { Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ft-glyphs";
-import { Fvar, MetricHead } from "@ot-builder/ft-metadata";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
+import { Fvar, MetricHead } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { HmtxStat, VmtxStat } from "@ot-builder/stat-glyphs";
 import { OtVar } from "@ot-builder/variance";

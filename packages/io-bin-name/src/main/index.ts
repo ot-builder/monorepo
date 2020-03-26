@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Meta, Name, OtNameData, Stat } from "@ot-builder/ft-name";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { Meta, Name, OtNameData, Stat } from "@ot-builder/ot-name";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 
 import { MetaTableIo } from "../meta";
 import { NameIo } from "../name";

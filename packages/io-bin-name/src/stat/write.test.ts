@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Stat } from "@ot-builder/ft-name";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Stat } from "@ot-builder/ot-name";
 import { TestFont } from "@ot-builder/test-util";
 
 import { StatRead } from "./read";

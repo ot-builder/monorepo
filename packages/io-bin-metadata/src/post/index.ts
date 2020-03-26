@@ -1,6 +1,6 @@
 import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Post } from "@ot-builder/ft-metadata";
+import { Post } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { F16D16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";

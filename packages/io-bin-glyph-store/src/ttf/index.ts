@@ -1,7 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Cvt, Fpgm, Prep, TtfCoGlyphs } from "@ot-builder/ft-glyphs";
 import {
     CvarIo,
     CvtIo,
@@ -13,6 +12,7 @@ import {
     rectifyGlyphOrder,
     TtfCfg
 } from "@ot-builder/io-bin-ttf";
+import { Cvt, Fpgm, Prep, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
 
 import { ReadGlyphStoreImpl } from "../general/read";
 import { WriteGlyphStoreImpl } from "../general/write";

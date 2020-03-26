@@ -1,7 +1,7 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Head, Maxp, OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Head, Maxp, OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { HeadExtendStat, HmtxStat, MaxpStat, Os2Stat, VmtxStat } from "@ot-builder/stat-glyphs";
 import { OtVar } from "@ot-builder/variance";

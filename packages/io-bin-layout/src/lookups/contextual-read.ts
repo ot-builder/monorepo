@@ -1,7 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";

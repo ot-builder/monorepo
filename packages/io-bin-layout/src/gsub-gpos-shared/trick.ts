@@ -1,4 +1,4 @@
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { GsubGpos } from "@ot-builder/ot-layout";
 import { Tag } from "@ot-builder/primitive";
 
 export function setLookupTricks<L>(table: GsubGpos.TableT<L>) {

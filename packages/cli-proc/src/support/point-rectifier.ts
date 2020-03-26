@@ -1,6 +1,6 @@
-import * as Ot from "@ot-builder/font";
+import * as Ot from "@ot-builder/ot";
 import { Data } from "@ot-builder/prelude";
-import * as Rectify from "@ot-builder/rectify-font";
+import * as Rectify from "@ot-builder/rectify";
 
 export class StdPointAttachRectifier implements Rectify.PointAttachmentRectifier {
     constructor(

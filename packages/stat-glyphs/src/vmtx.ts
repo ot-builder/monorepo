@@ -1,6 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ft-glyphs";
-import { Fvar, MetricHead } from "@ot-builder/ft-metadata";
+import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
+import { Fvar, MetricHead } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 

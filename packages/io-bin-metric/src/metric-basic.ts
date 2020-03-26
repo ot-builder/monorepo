@@ -1,7 +1,7 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { MetricBasic, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Maxp, MetricHead } from "@ot-builder/ft-metadata";
+import { MetricBasic, OtGlyph } from "@ot-builder/ot-glyphs";
+import { Maxp, MetricHead } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 
 export const MetricBasicIo = {

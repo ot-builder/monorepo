@@ -1,4 +1,4 @@
-import { Head, MetricHead } from "@ot-builder/ft-metadata";
+import { Head, MetricHead } from "@ot-builder/ot-metadata";
 
 import { HmtxStat } from "./hmtx";
 import { VmtxStat } from "./vmtx";

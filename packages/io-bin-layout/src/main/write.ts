@@ -1,8 +1,8 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ft-layout";
-import { OtFontMetadata } from "@ot-builder/ft-metadata";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ot-layout";
+import { OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";

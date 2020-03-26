@@ -1,4 +1,4 @@
-import { Base } from "@ot-builder/ft-layout";
+import { Base } from "@ot-builder/ot-layout";
 
 import { Compare, EmptyCtx, StdCompare } from "../compar-util";
 import { FastMatch } from "../fast-match";

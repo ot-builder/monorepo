@@ -1,6 +1,6 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 

@@ -1,4 +1,4 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 
 import { CffWriteContext } from "../../context/write";
 

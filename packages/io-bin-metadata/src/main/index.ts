@@ -1,6 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
+import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import {
     Avar,
     Fvar,
@@ -10,9 +11,8 @@ import {
     Os2,
     OtFontIoMetadata,
     Post
-} from "@ot-builder/ft-metadata";
-import { Sfnt } from "@ot-builder/ft-sfnt";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+} from "@ot-builder/ot-metadata";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 
 import { AvarIo } from "../avar";
 import { FontMetadataCfg } from "../cfg";

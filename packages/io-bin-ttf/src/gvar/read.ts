@@ -1,6 +1,6 @@
 import { BinaryView, Read } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import {
