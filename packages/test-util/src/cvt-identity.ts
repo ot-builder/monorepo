@@ -1,4 +1,4 @@
-import { Cvt } from "@ot-builder/ft-glyphs";
+import { Cvt } from "@ot-builder/ot-glyphs";
 
 import { EmptyCtx, StdCompare } from "./compar-util";
 import { FastMatch } from "./fast-match";

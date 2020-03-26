@@ -31,10 +31,10 @@
       "path": "../variance/tsconfig.prod.json"
     },
     {
-      "path": "../ft-glyphs/tsconfig.prod.json"
+      "path": "../ot-glyphs/tsconfig.prod.json"
     },
     {
-      "path": "../ft-metadata/tsconfig.prod.json"
+      "path": "../ot-metadata/tsconfig.prod.json"
     }
   ],
   "include": [

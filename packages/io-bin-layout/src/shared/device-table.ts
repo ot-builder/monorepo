@@ -1,6 +1,6 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { Read, Write } from "@ot-builder/bin-util";
-import { LayoutCommon } from "@ot-builder/ft-layout";
+import { LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";

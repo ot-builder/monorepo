@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Vdmx } from "@ot-builder/ft-metadata";
+import { Vdmx } from "@ot-builder/ot-metadata";
 import { UInt16 } from "@ot-builder/primitive";
 
 export const VdmxRatioRange = {

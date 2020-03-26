@@ -1,0 +1,70 @@
+{
+  "name": "@ot-builder/ot-metadata",
+  "entries": [
+    {
+      "date": "Sun, 15 Mar 2020 00:17:52 GMT",
+      "tag": "@ot-builder/ot-metadata_v0.3.2",
+      "version": "0.3.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Apply prettier eslint",
+            "author": "belleve@typeof.net",
+            "commit": "b5e1c77394d33da3fb6c91882896a4b3f4b5d74c"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 17 Jan 2020 05:07:07 GMT",
+      "tag": "@ot-builder/ot-metadata_v0.3.0",
+      "version": "0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add documentation; Refactor some API exports",
+            "author": "belleve@typeof.net",
+            "commit": "563ded6f3217c64388e623b5538284a59f5776ed"
+          },
+          {
+            "comment": "Split Ot.Var.Dim from Ot.Fvar.Axis",
+            "author": "belleve@typeof.net",
+            "commit": "b5433a84f1f70ffafb069d353783af447bba2949"
+          },
+          {
+            "comment": "Add TTC-ish glyph merging demo",
+            "author": "belleve@typeof.net",
+            "commit": "17c48aa038b6981862fa0aaa2d50933b52dfa9bf"
+          },
+          {
+            "comment": "add VDMX table",
+            "author": "c@cyano.cn",
+            "commit": "95aed413de05aa79c5d6158faf0d534127ef30c3"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Mark all volatile fields",
+            "author": "belleve@typeof.net",
+            "commit": "dba0a38c483a3ecd50254fd5f72ca0f817e19db9"
+          },
+          {
+            "comment": "Add production build",
+            "author": "belleve@typeof.net",
+            "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da"
+          },
+          {
+            "comment": "Fix all CRLF",
+            "author": "belleve@typeof.net",
+            "commit": "b62d3ac2cac20f161c931c4a466c1f6c97e00451"
+          },
+          {
+            "comment": "Move tslint -> eslint",
+            "author": "belleve@typeof.net",
+            "commit": "f41ebb9ed11f836db151a0974c7d1f99d0ab1903"
+          }
+        ]
+      }
+    }
+  ]
+}

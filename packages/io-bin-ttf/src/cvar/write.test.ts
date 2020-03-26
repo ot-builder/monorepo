@@ -1,8 +1,8 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { Cvt } from "@ot-builder/ft-glyphs";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Cvt } from "@ot-builder/ot-glyphs";
 import { CvtIdentity, EmptyCtx, TestFont } from "@ot-builder/test-util";
 
 import { CvtIo } from "../cvt/index";

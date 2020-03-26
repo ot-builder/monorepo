@@ -1,5 +1,5 @@
-import * as Ot from "@ot-builder/font";
-import * as Rectify from "@ot-builder/rectify-font";
+import * as Ot from "@ot-builder/ot";
+import * as Rectify from "@ot-builder/rectify";
 
 export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,

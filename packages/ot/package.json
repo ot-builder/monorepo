@@ -1,0 +1,36 @@
+{
+  "name": "@ot-builder/ot",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
+  "version": "0.6.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "lib/**/*.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ot-builder/ot-encoding": "0.5.0",
+    "@ot-builder/ot-glyphs": "0.5.0",
+    "@ot-builder/ot-layout": "0.6.0",
+    "@ot-builder/ot-metadata": "0.5.0",
+    "@ot-builder/ot-name": "0.5.0",
+    "@ot-builder/prelude": "0.5.0",
+    "@ot-builder/variance": "0.5.0",
+    "@ot-builder/common-impl": "0.5.0",
+    "@ot-builder/ot-standard-glyph-namer": "0.5.0",
+    "@ot-builder/ot-sfnt": "0.5.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0"
+  }
+}

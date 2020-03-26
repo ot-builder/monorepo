@@ -1,6 +1,6 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";

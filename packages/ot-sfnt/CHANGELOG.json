@@ -1,0 +1,36 @@
+{
+  "name": "@ot-builder/ot-sfnt",
+  "entries": [
+    {
+      "date": "Fri, 17 Jan 2020 05:07:07 GMT",
+      "tag": "@ot-builder/ot-sfnt_v0.3.0",
+      "version": "0.3.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add documentation; Refactor some API exports",
+            "author": "belleve@typeof.net",
+            "commit": "563ded6f3217c64388e623b5538284a59f5776ed"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add production build",
+            "author": "belleve@typeof.net",
+            "commit": "a1691f4c50b69a4d2cca3c3e58431155c845a1da"
+          },
+          {
+            "comment": "Fix all CRLF",
+            "author": "belleve@typeof.net",
+            "commit": "b62d3ac2cac20f161c931c4a466c1f6c97e00451"
+          },
+          {
+            "comment": "Move tslint -> eslint",
+            "author": "belleve@typeof.net",
+            "commit": "f41ebb9ed11f836db151a0974c7d1f99d0ab1903"
+          }
+        ]
+      }
+    }
+  ]
+}

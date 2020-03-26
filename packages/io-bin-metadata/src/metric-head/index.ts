@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { MetricHead } from "@ot-builder/ft-metadata";
+import { MetricHead } from "@ot-builder/ot-metadata";
 import { OtVar } from "@ot-builder/variance";
 
 export const MetricHeadIo = {

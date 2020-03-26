@@ -1,6 +1,6 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { GsubGpos } from "@ot-builder/ot-layout";
 import { Data, Sigma } from "@ot-builder/prelude";
 import { Tag, UInt24 } from "@ot-builder/primitive";
 

@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { Cvt } from "@ot-builder/ft-glyphs";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Cvt } from "@ot-builder/ot-glyphs";
 import { TestFont } from "@ot-builder/test-util";
 
 import { CvtIo } from "./index";

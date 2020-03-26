@@ -1,4 +1,4 @@
-import { Gdef, LayoutCommon } from "@ot-builder/ft-layout";
+import { Gdef, LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 export interface IgnoreFlagOptions {

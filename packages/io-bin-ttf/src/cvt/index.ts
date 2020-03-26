@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Cvt } from "@ot-builder/ft-glyphs";
+import { Cvt } from "@ot-builder/ot-glyphs";
 import { Int16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 

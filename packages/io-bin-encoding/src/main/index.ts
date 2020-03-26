@@ -1,9 +1,9 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Cmap, OtEncoding } from "@ot-builder/ft-encoding";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { OtFontMetadata } from "@ot-builder/ft-metadata";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { Cmap, OtEncoding } from "@ot-builder/ot-encoding";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { OtFontMetadata } from "@ot-builder/ot-metadata";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 
 import { EncodingCfg } from "../cfg";

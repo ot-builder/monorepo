@@ -1,5 +1,5 @@
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gpos } from "@ot-builder/ft-layout";
+import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { Gpos } from "@ot-builder/ot-layout";
 import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
 

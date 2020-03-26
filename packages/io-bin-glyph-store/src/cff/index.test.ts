@@ -1,8 +1,8 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
 import { DefaultCffCfgProps } from "@ot-builder/io-bin-cff";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntIoTableSink, SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
 import { readGlyphStore } from "../general/read";

@@ -1,8 +1,8 @@
 import * as CliProcLib from "@ot-builder/cli-proc";
-import * as OtLib from "@ot-builder/font";
 import * as FontIoLib from "@ot-builder/io-bin-font";
+import * as OtLib from "@ot-builder/ot";
 import * as PrimitiveLib from "@ot-builder/primitive";
-import * as RectifyLib from "@ot-builder/rectify-font";
+import * as RectifyLib from "@ot-builder/rectify";
 
 export { Data, Sigma, Thunk } from "@ot-builder/prelude";
 export import Rectify = RectifyLib;

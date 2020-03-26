@@ -1,4 +1,4 @@
-import { Sfnt } from "@ot-builder/ft-sfnt";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 

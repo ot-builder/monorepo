@@ -1,4 +1,4 @@
-import { Os2 } from "@ot-builder/ft-metadata";
+import { Os2 } from "@ot-builder/ot-metadata";
 
 import { OtlStat } from "./interface";
 

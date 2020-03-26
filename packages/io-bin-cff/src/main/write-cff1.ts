@@ -1,7 +1,7 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph } from "@ot-builder/ft-glyphs";
-import { Head } from "@ot-builder/ft-metadata";
+import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
+import { Head } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 
 import { CffCfg } from "../cfg";

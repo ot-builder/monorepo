@@ -1,6 +1,6 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 

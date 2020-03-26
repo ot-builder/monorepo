@@ -1,4 +1,4 @@
-import { Gpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { FastMatch } from "../../fast-match";

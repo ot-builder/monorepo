@@ -1,6 +1,6 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gpos, GsubGpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, GsubGpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";

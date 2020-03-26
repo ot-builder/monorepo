@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Maxp } from "@ot-builder/ft-metadata";
 import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { Maxp } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
 import { MaxpIo } from "./index";

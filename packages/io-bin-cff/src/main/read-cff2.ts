@@ -1,5 +1,5 @@
 import { Read } from "@ot-builder/bin-util";
-import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ft-glyphs";
+import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 

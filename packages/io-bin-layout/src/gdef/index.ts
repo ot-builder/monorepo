@@ -1,7 +1,7 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gdef } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";

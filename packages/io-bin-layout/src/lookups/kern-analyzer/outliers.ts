@@ -1,5 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { Gpos } from "@ot-builder/ft-layout";
+import { Gpos } from "@ot-builder/ot-layout";
 
 import { GposAdjustment } from "../../shared/gpos-adjust";
 

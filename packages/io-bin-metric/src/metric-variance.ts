@@ -1,8 +1,8 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { MetricVariance } from "@ot-builder/ft-glyphs";
-import { Maxp } from "@ot-builder/ft-metadata";
+import { MetricVariance } from "@ot-builder/ot-glyphs";
+import { Maxp } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { UIntN } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";

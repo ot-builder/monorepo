@@ -1,7 +1,7 @@
 import { Frag, FragPointerEmbedding, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Stat } from "@ot-builder/ft-name";
+import { Stat } from "@ot-builder/ot-name";
 import { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 

@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Head, Maxp } from "@ot-builder/ft-metadata";
+import { Head, Maxp } from "@ot-builder/ot-metadata";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LocaShortOffsetScaling } from "./shared";

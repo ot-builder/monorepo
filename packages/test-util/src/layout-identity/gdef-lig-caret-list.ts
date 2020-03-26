@@ -1,6 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gdef } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gdef } from "@ot-builder/ot-layout";
 import { OtVar } from "@ot-builder/variance";
 
 import { BimapCtx, StdCompare } from "../compar-util";

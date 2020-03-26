@@ -1,5 +1,5 @@
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gsub } from "@ot-builder/ft-layout";
+import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { Gsub } from "@ot-builder/ot-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GsubMultiReader, GsubMultiWriter } from "../gsub-multi-alternate";

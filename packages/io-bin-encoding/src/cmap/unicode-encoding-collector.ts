@@ -1,5 +1,5 @@
-import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Cmap } from "@ot-builder/ot-encoding";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { GID, UInt24 } from "@ot-builder/primitive";
 

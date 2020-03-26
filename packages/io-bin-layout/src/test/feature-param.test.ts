@@ -1,4 +1,4 @@
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { GsubGpos } from "@ot-builder/ot-layout";
 
 import { TestOtlLoop } from "./-shared-test-loop.test";
 

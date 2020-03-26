@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { Meta } from "@ot-builder/ft-name";
+import { Meta } from "@ot-builder/ot-name";
 import { Tag } from "@ot-builder/primitive";
 import * as iconv from "iconv-lite";
 

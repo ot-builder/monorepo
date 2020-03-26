@@ -1,5 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { OtGeometryHandler, OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {

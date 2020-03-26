@@ -1,7 +1,7 @@
 import { BinaryView, Frag, FragHole, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { Cmap } from "@ot-builder/ft-encoding";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { Cmap } from "@ot-builder/ot-encoding";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { UInt24, UInt32 } from "@ot-builder/primitive";
 

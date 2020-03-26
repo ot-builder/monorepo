@@ -1,7 +1,7 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import * as Ot from "@ot-builder/font";
+import * as Ot from "@ot-builder/ot";
 import { Data } from "@ot-builder/prelude";
-import * as Rectify from "@ot-builder/rectify-font";
+import * as Rectify from "@ot-builder/rectify";
 
 import { DesignUnifierSession, unifyDesignSpacesImpl } from "../../support/design-unifier";
 

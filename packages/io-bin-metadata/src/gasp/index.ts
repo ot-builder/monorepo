@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { Gasp } from "@ot-builder/ft-metadata";
+import { Gasp } from "@ot-builder/ot-metadata";
 import { OtVar } from "@ot-builder/variance";
 
 export const GaspTableIo = {

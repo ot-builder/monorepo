@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gsub } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gsub } from "@ot-builder/ot-layout";
 
 import { BimapCtx, StdCompare } from "../../compar-util";
 import { FastMatch } from "../../fast-match";

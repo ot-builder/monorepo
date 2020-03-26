@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Meta } from "@ot-builder/ft-name";
+import { Meta } from "@ot-builder/ot-name";
 
 import { MetaTableIo } from "./index";
 

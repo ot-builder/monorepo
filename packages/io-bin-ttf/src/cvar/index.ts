@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { Cvt } from "@ot-builder/ft-glyphs";
+import { Cvt } from "@ot-builder/ot-glyphs";
 import {
     TupleVariationBuildContext,
     TupleVariationBuildSource,

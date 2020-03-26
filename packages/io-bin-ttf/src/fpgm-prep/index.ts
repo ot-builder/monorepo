@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Fpgm, Prep } from "@ot-builder/ft-glyphs";
+import { Fpgm, Prep } from "@ot-builder/ot-glyphs";
 
 export const FpgmIo = {
     read(view: BinaryView) {

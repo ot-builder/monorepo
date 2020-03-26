@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gsub, GsubGpos } from "@ot-builder/ft-layout";
+import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { Gsub, GsubGpos } from "@ot-builder/ot-layout";
 
 import { LookupReader, LookupReaderFactory, LookupWriter, LookupWriterFactory } from "./general";
 import { CReadLookupList } from "./read-lookup-list";

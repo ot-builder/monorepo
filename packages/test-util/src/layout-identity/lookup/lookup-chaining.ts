@@ -1,6 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { GsubGpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { GsubGpos } from "@ot-builder/ot-layout";
 
 import { LookupCtx, StdCompare } from "../../compar-util";
 

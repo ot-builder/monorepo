@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { DicingStore, Gpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { DicingStore, Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { SubtableWriteContext } from "../../gsub-gpos-shared/general";

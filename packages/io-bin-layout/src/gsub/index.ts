@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Gsub } from "@ot-builder/ft-layout";
+import { Gsub } from "@ot-builder/ot-layout";
 
 import {
     LookupReader,

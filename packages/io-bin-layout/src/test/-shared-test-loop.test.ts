@@ -1,9 +1,9 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { OtFontLayoutData } from "@ot-builder/ft-layout";
-import { Sfnt } from "@ot-builder/ft-sfnt";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { SfntIoTableSink, SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { OtFontLayoutData } from "@ot-builder/ot-layout";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 

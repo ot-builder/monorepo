@@ -31,16 +31,16 @@
       "path": "../variance/tsconfig.prod.json"
     },
     {
-      "path": "../ft-glyphs/tsconfig.prod.json"
+      "path": "../ot-glyphs/tsconfig.prod.json"
     },
     {
-      "path": "../ft-encoding/tsconfig.prod.json"
+      "path": "../ot-encoding/tsconfig.prod.json"
     },
     {
-      "path": "../ft-layout/tsconfig.prod.json"
+      "path": "../ot-layout/tsconfig.prod.json"
     },
     {
-      "path": "../ft-sfnt/tsconfig.prod.json"
+      "path": "../ot-sfnt/tsconfig.prod.json"
     },
     {
       "path": "../test-util/tsconfig.prod.json"

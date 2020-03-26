@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Os2 } from "@ot-builder/ft-metadata";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Os2 } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 

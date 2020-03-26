@@ -1,5 +1,5 @@
 import { Read } from "@ot-builder/bin-util";
-import { Sfnt } from "@ot-builder/ft-sfnt";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag } from "@ot-builder/primitive";
 
 export const SfntRead = Read<Sfnt>(view => {

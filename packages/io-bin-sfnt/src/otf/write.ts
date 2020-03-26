@@ -1,5 +1,5 @@
 import { BufferWriter, Frag, Write } from "@ot-builder/bin-util";
-import { Sfnt } from "@ot-builder/ft-sfnt";
+import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag, UInt16, UInt32 } from "@ot-builder/primitive";
 
 import {

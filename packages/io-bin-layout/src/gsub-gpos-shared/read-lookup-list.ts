@@ -1,8 +1,8 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
-import { Gdef, GsubGpos } from "@ot-builder/ft-layout";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gdef, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
 

@@ -1,5 +1,5 @@
 import { ImpLib } from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ft-glyphs";
+import { OtGlyph } from "@ot-builder/ot-glyphs";
 
 import { rectifyGlyphOrder } from "./rectify";
 

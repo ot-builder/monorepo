@@ -1,5 +1,5 @@
-import { OtListGlyphStoreFactory } from "@ot-builder/ft-glyphs";
-import { Gpos } from "@ot-builder/ft-layout";
+import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { Gpos } from "@ot-builder/ot-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GposMarkToLigatureReader } from "../gpos-mark-read";
