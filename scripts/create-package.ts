@@ -43,8 +43,7 @@ fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  "));
 fs.writeFileSync(path.join(packagesRoot, packageName, ".npmrc"), `package-lock=false`);
 fs.writeFileSync(
     path.join(packagesRoot, packageName, "src", ".npmignore"),
-    `
-tsconfig.json
+    `tsconfig.json
 tsconfig.prod.json
 CHANGELOG.json
 CHANGELOG.md

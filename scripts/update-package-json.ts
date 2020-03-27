@@ -65,8 +65,7 @@ for (const packageName of packages) {
     fs.writeFileSync(packageJSONPath, JSON.stringify(packageJSONData, null, "  ") + "\n");
     fs.writeFileSync(
         npmIgnorePath,
-        `
-tsconfig.json
+        `tsconfig.json
 tsconfig.prod.json
 CHANGELOG.json
 CHANGELOG.md
