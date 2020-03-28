@@ -1,7 +1,8 @@
 import * as Ot from "@ot-builder/ot";
 
-import { GlyphTraceProc } from "../../interface";
-import { TraceImpl } from "../../shared";
+import { GlyphTraceProc } from "../interface";
+
+import { TraceImpl } from "./shared";
 
 export function traceGsub(table: Ot.Gsub.Table): GlyphTraceProc {
     const alg = new ItTraceGlyph<{ ref: Ot.Gsub.Lookup }>();

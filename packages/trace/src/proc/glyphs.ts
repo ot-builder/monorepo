@@ -1,7 +1,8 @@
 import * as Ot from "@ot-builder/ot";
 
 import { GlyphTraceProc, GlyphTracer } from "../interface";
-import { TraceImpl } from "../shared";
+
+import { TraceImpl } from "./shared";
 
 export function traceGlyphDependents(g: Ot.Glyph): GlyphTraceProc {
     return tracer => {

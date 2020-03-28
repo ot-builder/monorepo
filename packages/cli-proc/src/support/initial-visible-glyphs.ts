@@ -1,5 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 import * as Rectify from "@ot-builder/rectify";
+import * as Trace from "@ot-builder/trace";
 
 export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
@@ -28,7 +29,7 @@ export function createSubsetRectifier<GS extends Ot.GlyphStore>(
     unicodeSet: { has(u: number): boolean }
 ) {
     const init = initialGlyphsFromUnicodeSet(font, unicodeSet);
-    const collected = Rectify.traceGlyphs(new Set(init), font);
+    const collected = Trace.traceGlyphs(new Set(init), font);
     return {
         glyphs: Array.from(font.glyphs.decideOrder()).filter(x => collected.has(x)),
         rectifier: {

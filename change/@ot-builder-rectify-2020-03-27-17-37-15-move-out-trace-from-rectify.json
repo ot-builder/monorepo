@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Move out Trace from Rectify",
+  "packageName": "@ot-builder/rectify",
+  "email": "belleve@typeof.net",
+  "commit": "51f81c9fff3d2dcc3ba4e777d2f89da8ca31e7b2",
+  "dependentChangeType": "patch",
+  "date": "2020-03-28T00:37:14.046Z"
+}
