@@ -1,16 +1,13 @@
-import * as CliProcLib from "@ot-builder/cli-proc";
-import * as FontIoLib from "@ot-builder/io-bin-font";
-import * as OtLib from "@ot-builder/ot";
-import * as PrimitiveLib from "@ot-builder/primitive";
-import * as RectifyLib from "@ot-builder/rectify";
-
+export * as CliProc from "@ot-builder/cli-proc";
+export * as FontIo from "@ot-builder/io-bin-font";
+export * as Ot from "@ot-builder/ot";
+export * as Rectify from "@ot-builder/rectify";
+export * as Trace from "@ot-builder/trace";
 export { Data, Sigma, Thunk } from "@ot-builder/prelude";
-export import Rectify = RectifyLib;
-export import FontIo = FontIoLib;
-export import Ot = OtLib;
-export import CliProc = CliProcLib;
 
 // re-export primitive types from Primitive
+import * as PrimitiveLib from "@ot-builder/primitive";
+
 export type Tag = PrimitiveLib.Tag;
 export type UInt8 = PrimitiveLib.UInt8;
 export type UInt16 = PrimitiveLib.UInt16;

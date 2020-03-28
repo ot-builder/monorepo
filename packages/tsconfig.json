@@ -91,6 +91,9 @@
       "path": "./rectify/tsconfig.json"
     },
     {
+      "path": "./trace/tsconfig.json"
+    },
+    {
       "path": "./cli-proc/tsconfig.json"
     },
     {

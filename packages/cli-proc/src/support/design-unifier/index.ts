@@ -57,7 +57,7 @@ export function unifyDesignSpacesImpl(
     const fvarI = demand.fvar;
     if (fvar0 && fvarI) {
         const du = new DesignSpaceUnifier(session, fvar0, fvarI);
-        Rectify.rectifyFontCoords(du, du, new StdPointAttachRectifier(), demand);
+        Rectify.rectifyFont({ glyphRef: g => g }, du, du, new StdPointAttachRectifier(), demand);
     } else if (fvarI) {
         throw new Error("Cannot unify variable font with static font");
     }

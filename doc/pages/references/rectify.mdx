@@ -14,7 +14,11 @@ export default Layout
 
 * <Method s={Rectify.GlyphReferenceRectifier.glyphRef} args={{from:Ot.Glyph}} returns={either(null,undefined,Ot.Glyph)}/>
 
-### Function <Fn long s={Rectify.rectifyFontGlyphReferences(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{rec:annot(Rectify.GlyphReferenceRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+### Constant <Decl s={Rectify.IdGlyphRefRectifier}/> : <R s={Rectify.GlyphReferenceRectifier}/>
+
+The identity (Nop) glyph reference rectifier.
+
+### Function <Fn long s={Rectify.rectifyFontGlyphReferences(extend("GS",Ot.GlyphStore))} args={{rec:annot(Rectify.GlyphReferenceRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
 
 Perform in-place rectification of `font` using a given `Rectify.GlyphReferenceRectifier`. The procedure will rectify all the glyph references, including the cross-references from the glyph geometries, **but not** the glyph store itself.
 
@@ -31,12 +35,20 @@ Perform in-place rectification of `font` using a given `Rectify.GlyphReferenceRe
 
 * <Member readonly s={Rectify.AxisRectifier.addedAxes} type={readonly(array(Ot.Fvar.Axis))}/>
 
+### Constant <Decl s={Rectify.IdAxisRectifier}/> : <R s={Rectify.AxisRectifier}/>
+
+The identity (Nop) axis rectifier.
+
 ### Interface <Decl s={Rectify.CoordRectifier}/>
 
 #### Methods
 
 * <Method s={Rectify.CoordRectifier.coord} args={{from:Ot.Var.Value}} returns={Ot.Var.Value}/>
 * <Method s={Rectify.CoordRectifier.cv} args={{from:Ot.Var.Value}} returns={Ot.Var.Value}/>
+
+### Constant <Decl s={Rectify.IdCoordRectifier}/> : <R s={Rectify.CoordRectifier}/>
+
+The identity (Nop) coordinate rectifier.
 
 ### Interface <Decl s={Rectify.PointAttachmentRectifier}/>
 
@@ -53,21 +65,14 @@ Perform in-place rectification of `font` using a given `Rectify.GlyphReferenceRe
 * <Item s={Rectify.PointAttachmentRectifyManner.TrustAttachment}/>
 * <Item s={Rectify.PointAttachmentRectifyManner.TrustCoordinate}/>
 
-### Function <Fn long s={Rectify.rectifyFontCoords(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+### Constant <Decl s={Rectify.IdPointAttachmentRectifier}/> : <R s={Rectify.PointAttachmentRectifier}/>
 
-## Visible Glyph Tracing
+The identity (Nop) point Attachment rectifier.
 
-### Interface <Decl s={Rectify.GlyphTracer}/>
+### Function <Fn long s={Rectify.rectifyFontAxes(extend("GS",Ot.GlyphStore))} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
 
-#### Methods
+### Function <Fn long s={Rectify.rectifyFontCoords(extend("GS",Ot.GlyphStore))} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
 
-* <Method s={Rectify.GlyphTracer.has} args={{glyph:Ot.Glyph}} returns={boolean}/>
-* <Method s={Rectify.GlyphTracer.add} args={{glyph:Ot.Glyph}} returns="void"/>
+## Run All Rectification at Once
 
-#### Properties
-
-* <Member readonly s={Rectify.GlyphTracer.size} type={number}/>
-
-### Function <Fn long s={Rectify.traceGlyphs(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{tracer:annot(Rectify.GlyphTracer,"The glyph tracer"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
-
-### Function <Fn long s={Rectify.visibleGlyphsFromUnicodeSet(extend("GS",Data.OrderStore(Ot.Glyph)))} args={{font:annot(Ot.Font("GS"),"The font to process"),unicodeSet:annot(record({has:pi({u:number},boolean)}),"The Unicode inclusion detector")}} returns={set(Ot.Glyph)}/>
+### Function <Fn long s={Rectify.rectifyFont(extend("GS",Ot.GlyphStore))} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>

@@ -1,4 +1,4 @@
 export * from "./interface";
-export { traceGlyphs, visibleGlyphsFromUnicodeSet } from "./procs/trace-glyphs";
+export { rectifyFont } from "./procs/rectify-font";
 export { rectifyFontGlyphReferences } from "./procs/rectify-glyphs";
-export { rectifyFontCoords } from "./procs/rectify-coords";
+export { rectifyFontAxes, rectifyFontCoords } from "./procs/rectify-coords";

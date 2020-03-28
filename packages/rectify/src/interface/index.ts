@@ -29,23 +29,10 @@ export interface PointAttachmentRectifier {
     ): { x: boolean; y: boolean };
 }
 
-export const IdRectifier: GlyphReferenceRectifier &
-    AxisRectifier &
-    CoordRectifier &
-    PointAttachmentRectifier = {
-    glyphRef: g => g,
-    dim: a => a,
-    axis: a => a,
-    addedAxes: [],
-    coord: x => x,
-    cv: x => x,
+export const IdGlyphRefRectifier: GlyphReferenceRectifier = { glyphRef: g => g };
+export const IdAxisRectifier: AxisRectifier = { dim: a => a, axis: a => a, addedAxes: [] };
+export const IdCoordRectifier: CoordRectifier = { coord: x => x, cv: x => x };
+export const IdPointAttachmentRectifier: PointAttachmentRectifier = {
     manner: PointAttachmentRectifyManner.TrustAttachment,
     acceptOffset: () => ({ x: true, y: true })
 };
-
-export interface GlyphTracer {
-    readonly size: number;
-    has(glyph: Ot.Glyph): boolean;
-    add(glyph: Ot.Glyph): void;
-}
-export type GlyphTraceProc = (tracer: GlyphTracer) => void;

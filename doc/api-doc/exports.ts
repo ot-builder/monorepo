@@ -57,6 +57,9 @@ setPage(FontIo, "font-io");
 export const Rectify = createTopLevelExport("Rectify");
 setPage(Rectify);
 
+export const Trace = createTopLevelExport("Trace");
+setPage(Trace);
+
 export const CliProc = createTopLevelExport("CliProc");
 setPage(CliProc);
 

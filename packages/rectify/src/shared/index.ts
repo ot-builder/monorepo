@@ -1,7 +1,7 @@
 import * as Ot from "@ot-builder/ot";
 import { OtGeometryHandler } from "@ot-builder/ot-glyphs";
 
-import { CoordRectifier, GlyphReferenceRectifier, GlyphTraceProc } from "../interface";
+import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {
@@ -282,17 +282,5 @@ export namespace RectifyImpl {
 
     export function getGlyphPoints(g: Ot.Glyph) {
         return OtGeometryHandler.stat(OtGeometryHandler.ListPoint, g.geometry);
-    }
-}
-export namespace TraceImpl {
-    export namespace Glyph {
-        export function Nop(): GlyphTraceProc {
-            return tracer => {};
-        }
-        export function Seq(from: Iterable<GlyphTraceProc>): GlyphTraceProc {
-            return tracer => {
-                for (const proc of from) proc(tracer);
-            };
-        }
     }
 }

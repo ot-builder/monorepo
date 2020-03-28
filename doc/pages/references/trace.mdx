@@ -1,0 +1,24 @@
+import { Layout } from "templates/api-doc"
+import { R, Method, Fn, Member, Decl, Item } from "api-doc/tyfmt"
+import { array, set, number, boolean, Data, Trace, Ot } from "api-doc/exports"
+import { pi, extend, optional, annot, either, readonly, record } from "api-doc/tycon"
+export default Layout
+
+# Namespace <Decl s={Trace}/>
+
+## Visible Glyph Tracing
+
+### Interface <Decl s={Trace.GlyphTracer}/>
+
+#### Methods
+
+* <Method s={Trace.GlyphTracer.has} args={{glyph:Ot.Glyph}} returns={boolean}/>
+* <Method s={Trace.GlyphTracer.add} args={{glyph:Ot.Glyph}} returns="void"/>
+
+#### Properties
+
+* <Member readonly s={Trace.GlyphTracer.size} type={number}/>
+
+### Function <Fn long s={Trace.traceGlyphs(extend("GS",Ot.GlyphStore))} args={{tracer:annot(Trace.GlyphTracer,"The glyph tracer"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+### Function <Fn long s={Trace.visibleGlyphsFromUnicodeSet(extend("GS",Ot.GlyphStore))} args={{font:annot(Ot.Font("GS"),"The font to process"),unicodeSet:annot(record({has:pi({u:number},boolean)}),"The Unicode inclusion detector")}} returns={set(Ot.Glyph)}/>
