@@ -2,6 +2,35 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "ot-builder-cli_v0.7.0",
+      "version": "0.7.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "ot-builder-cli"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "ot-builder-cli"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "Move out Trace from Rectify",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Mar 2020 12:13:10 GMT",
       "tag": "ot-builder-cli_v0.5.0",
       "version": "0.5.0",

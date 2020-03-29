@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-metric",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/io-bin-metric_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-metric"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-metric"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 17 Jan 2020 05:07:07 GMT",
       "tag": "@ot-builder/io-bin-metric_v0.3.0",
       "version": "0.3.0",

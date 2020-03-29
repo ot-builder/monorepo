@@ -2,6 +2,27 @@
   "name": "@ot-builder/test-util",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/test-util_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/test-util"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/test-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 16 Mar 2020 12:13:10 GMT",
       "tag": "@ot-builder/test-util_v0.4.0",
       "version": "0.4.0",

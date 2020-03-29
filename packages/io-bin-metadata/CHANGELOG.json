@@ -2,6 +2,33 @@
   "name": "@ot-builder/io-bin-metadata",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/io-bin-metadata_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Move prettier to 2.0",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-metadata"
+          },
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-metadata"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-metadata"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 22 Mar 2020 00:11:55 GMT",
       "tag": "@ot-builder/io-bin-metadata_v0.5.0",
       "version": "0.5.0",

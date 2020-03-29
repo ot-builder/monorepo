@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Remove unnecessary newline in .npmignore",
-  "packageName": "@ot-builder/ot-encoding",
-  "email": "belleve@typeof.net",
-  "commit": "7cae4f41b1e403ce7c12c0d05a5b8b0cf216ef43",
-  "dependentChangeType": "patch",
-  "date": "2020-03-27T03:35:57.193Z"
-}

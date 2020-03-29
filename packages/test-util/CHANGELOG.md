@@ -1,7 +1,14 @@
 # Change Log - @ot-builder/test-util
 
-This log was last generated on Mon, 16 Mar 2020 12:13:10 GMT and should not be manually modified.
+This log was last generated on Sun, 29 Mar 2020 00:13:11 GMT and should not be manually modified.
 
+## 0.6.0
+Sun, 29 Mar 2020 00:13:11 GMT
+
+### Patches
+
+- Rename packages (belleve@typeof.net)
+- Remove unnecessary newline in .npmignore (belleve@typeof.net)
 ## 0.4.0
 Mon, 16 Mar 2020 12:13:10 GMT
 

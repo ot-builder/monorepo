@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Rename packages",
-  "packageName": "@ot-builder/var-store",
-  "email": "belleve@typeof.net",
-  "commit": "5084774681a85f619a40bbe75421d31af8bd7751",
-  "dependentChangeType": "patch",
-  "date": "2020-03-26T00:37:43.729Z"
-}

@@ -2,6 +2,27 @@
   "name": "@ot-builder/bin-util",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/bin-util_v0.5.0",
+      "version": "0.5.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Move prettier to 2.0",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/bin-util"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/bin-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/bin-util_v0.2.2",
       "version": "0.2.2",

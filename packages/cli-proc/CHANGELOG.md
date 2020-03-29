@@ -1,7 +1,17 @@
 # Change Log - @ot-builder/cli-proc
 
-This log was last generated on Sun, 22 Mar 2020 00:11:55 GMT and should not be manually modified.
+This log was last generated on Sun, 29 Mar 2020 00:13:11 GMT and should not be manually modified.
 
+## 0.7.0
+Sun, 29 Mar 2020 00:13:11 GMT
+
+### Minor changes
+
+- Move out Trace from Rectify (belleve@typeof.net)
+### Patches
+
+- Rename packages (belleve@typeof.net)
+- Remove unnecessary newline in .npmignore (belleve@typeof.net)
 ## 0.6.0
 Sun, 22 Mar 2020 00:11:55 GMT
 

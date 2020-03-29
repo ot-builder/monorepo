@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-sfnt",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/io-bin-sfnt_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-sfnt"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/io-bin-sfnt"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Feb 2020 00:16:01 GMT",
       "tag": "@ot-builder/io-bin-sfnt_v0.3.3",
       "version": "0.3.3",

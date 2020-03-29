@@ -2,6 +2,27 @@
   "name": "@ot-builder/ot-metadata",
   "entries": [
     {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/ot-metadata_v0.6.0",
+      "version": "0.6.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rename packages",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/ot-metadata"
+          },
+          {
+            "comment": "Remove unnecessary newline in .npmignore",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/ot-metadata"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 15 Mar 2020 00:17:52 GMT",
       "tag": "@ot-builder/ot-metadata_v0.3.2",
       "version": "0.3.2",

@@ -1,6 +1,21 @@
 {
-  "name": "@ot-builder/rectify",
+  "name": "@ot-builder/trace",
   "entries": [
+    {
+      "date": "Sun, 29 Mar 2020 00:13:11 GMT",
+      "tag": "@ot-builder/trace_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Move out Trace from Rectify",
+            "author": "belleve@typeof.net",
+            "commit": "d7e6db36e4fae5c3ed2a643ea8b35bc986674a95",
+            "package": "@ot-builder/trace"
+          }
+        ]
+      }
+    },
     {
       "date": "Sun, 22 Mar 2020 00:11:55 GMT",
       "tag": "@ot-builder/rectify-font_v0.7.0",
