@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Add small fractions into Fixed roundtrip test",
+  "packageName": "@ot-builder/primitive",
+  "email": "belleve@typeof.net",
+  "commit": "faf52843c9e901b1b3bbfd6afcecfa01981f95c7",
+  "dependentChangeType": "patch",
+  "date": "2020-03-29T01:52:17.642Z"
+}
