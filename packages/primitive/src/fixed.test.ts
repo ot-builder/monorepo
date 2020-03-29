@@ -12,7 +12,20 @@ test("Fixed number roundtrip (Int16)", () => {
     }
 });
 test("Fixed number roundtrip (F16D16)", () => {
-    for (const v of [-16637 + 1444 / 0x10000, -1, 0, 1, 0x7fff, 1 / 4]) {
+    const cases = [
+        -16637 + 1444 / 0x10000,
+        -0x8000,
+        -0x8000 + 1 / 0x10000,
+        -1,
+        -1 / 0x10000,
+        0,
+        1 / 0x10000,
+        1,
+        0x7fff - 1 / 0x10000,
+        0x7fff,
+        1 / 4
+    ];
+    for (const v of cases) {
         const frag = new Frag();
         frag.push(F16D16, v);
         const view = new BinaryView(Frag.pack(frag));
@@ -21,7 +34,23 @@ test("Fixed number roundtrip (F16D16)", () => {
     }
 });
 test("Fixed number roundtrip (F2D14)", () => {
-    for (const v of [-1 + 1453 / (1 << 14), -1, -2, 0, 1, 1 / 4]) {
+    const cases = [
+        -1 + 1453 / 0x4000,
+        -2,
+        -1 + 1 / 0x4000,
+        -1 - 1 / 0x4000,
+        -1,
+        -1 + 1 / 0x4000,
+        -1 / 0x4000,
+        0,
+        +1 / 0x4000,
+        1 / 4,
+        1 - 1 / 0x4000,
+        1,
+        1 + 1 / 0x4000,
+        2 - 1 / 0x4000
+    ];
+    for (const v of cases) {
         const frag = new Frag();
         const hole = frag.reserve(F2D14);
         hole.fill(v);
