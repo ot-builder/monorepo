@@ -1,6 +1,4 @@
-import { EncodingMapT } from "./general";
-
-export class EncodingMapImplT<G> implements EncodingMapT<G> {
+export class EncodingMapT<G> {
     private mapping: Map<number, G> = new Map();
     constructor(init?: Iterable<[number, G]>) {
         if (init) {
@@ -21,6 +19,9 @@ export class EncodingMapImplT<G> implements EncodingMapT<G> {
     }
     public delete(code: number) {
         this.mapping.delete(code | 0);
+    }
+    public clear() {
+        this.mapping = new Map();
     }
     public *entries(): IterableIterator<[number, G]> {
         yield* this.mapping.entries();

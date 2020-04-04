@@ -1,8 +1,8 @@
-import { VsEncodingMapImplT } from "./vs-encoding-map-impl";
+import { VsEncodingMapT } from "./vs-encoding-map-impl";
 
 describe("VS encoding map", () => {
     test("Should work", () => {
-        const vsm = new VsEncodingMapImplT<number>();
+        const vsm = new VsEncodingMapT<number>();
         vsm.set(0, 0, 0);
         vsm.set(0, 0xffffff, 1);
         vsm.set(0xffffff, 0, 2);

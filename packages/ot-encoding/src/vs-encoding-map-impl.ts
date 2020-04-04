@@ -1,6 +1,4 @@
-import { VsEncodingMapT } from "./general";
-
-export class VsEncodingMapImplT<G> implements VsEncodingMapT<G> {
+export class VsEncodingMapT<G> {
     private sizeCache: undefined | number = undefined;
     private mapping: Map<number, Map<number, G>> = new Map();
 
@@ -39,6 +37,9 @@ export class VsEncodingMapImplT<G> implements VsEncodingMapT<G> {
             blossom.delete(code);
             if (!blossom.size) this.mapping.delete(vs);
         }
+    }
+    public clear() {
+        this.mapping = new Map();
     }
     public *entries(): IterableIterator<[number, number, G]> {
         for (const [vs, blossom] of this.mapping) {
