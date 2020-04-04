@@ -9,7 +9,7 @@ import { SubtableHandler, SubtableHandlerKey } from "./general";
 import { UnicodeEncodingCollector } from "./unicode-encoding-collector";
 
 export class UnicodeBmp implements SubtableHandler {
-    private mapping = Cmap.createMapping();
+    private mapping = new Cmap.EncodingMap();
 
     public readonly key = SubtableHandlerKey.UnicodeBmp;
 

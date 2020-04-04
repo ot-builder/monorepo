@@ -18,10 +18,10 @@ function cmapRoundtrip(file: string) {
     const { gOrd } = readGlyphStore(sfnt, cfg, md, OtListGlyphStoreFactory, SkipReadGlyphs);
     const cmap = new BinaryView(sfnt.tables.get(Cmap.Tag)!).next(ReadCmap, gOrd);
     if (cmap.unicode) {
-        cmap.unicode = Cmap.createMapping(Disorder.shuffleArray([...cmap.unicode.entries()]));
+        cmap.unicode = new Cmap.EncodingMap(Disorder.shuffleArray([...cmap.unicode.entries()]));
     }
     if (cmap.vs) {
-        cmap.vs = Cmap.createVsMapping(Disorder.shuffleArray([...cmap.vs.entries()]));
+        cmap.vs = new Cmap.VsEncodingMap(Disorder.shuffleArray([...cmap.vs.entries()]));
     }
 
     const bufCmap = Frag.pack(Frag.from(WriteCmap, cmap, gOrd));
