@@ -1,6 +1,16 @@
 # Change Log - @ot-builder/io-bin-encoding
 
-This log was last generated on Sun, 29 Mar 2020 00:13:11 GMT and should not be manually modified.
+This log was last generated on Sun, 05 Apr 2020 00:12:21 GMT and should not be manually modified.
+
+<!-- Start content -->
+
+## 0.7.0
+
+Sun, 05 Apr 2020 00:12:21 GMT
+
+### Minor changes
+
+- Change the way to export CMAP mapping objects (belleve@typeof.net)
 
 ## 0.6.0
 Sun, 29 Mar 2020 00:13:11 GMT
