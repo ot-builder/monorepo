@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Add CMAP writing overflow check and crafted stress tests",
+  "packageName": "@ot-builder/errors",
+  "email": "belleve@typeof.net",
+  "commit": "bf26fc0ec8c6030d21bd9471f49dacc9be5ce021",
+  "dependentChangeType": "patch",
+  "date": "2020-04-12T01:54:25.336Z"
+}
