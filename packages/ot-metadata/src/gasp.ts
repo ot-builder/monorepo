@@ -14,7 +14,7 @@ export namespace Gasp {
     export class Range {
         constructor(
             public maxPPEM: OtVar.Value, // Why?
-            public behavior: UInt16
+            public behavior: RangeBehavior
         ) {}
     }
     export class Table {

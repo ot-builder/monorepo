@@ -263,10 +263,10 @@ export namespace Os2 {
         public yStrikeoutPosition: OtVar.Value = 0;
         public sFamilyClass: Int16 = 0;
         public panose: Panose = new Panose();
-        public ulUnicodeRange1: UInt32 = 0;
-        public ulUnicodeRange2: UInt32 = 0;
-        public ulUnicodeRange3: UInt32 = 0;
-        public ulUnicodeRange4: UInt32 = 0;
+        public ulUnicodeRange1: UnicodeRange1 = 0;
+        public ulUnicodeRange2: UnicodeRange2 = 0;
+        public ulUnicodeRange3: UnicodeRange3 = 0;
+        public ulUnicodeRange4: UnicodeRange4 = 0;
         public achVendID: Tag = "UKWN";
         public fsSelection: FsSelection = 0;
         public usFirstCharIndex: UInt16 = 0;
@@ -276,8 +276,8 @@ export namespace Os2 {
         public sTypoLineGap: OtVar.Value = 0;
         public usWinAscent: OtVar.Value = 0;
         public usWinDescent: OtVar.Value = 0;
-        public ulCodePageRange1: UInt32 = 0;
-        public ulCodePageRange2: UInt32 = 0;
+        public ulCodePageRange1: CodePageRange1 = 0;
+        public ulCodePageRange2: CodePageRange2 = 0;
         public sxHeight: OtVar.Value = 0;
         public sCapHeight: OtVar.Value = 0;
         public usDefaultChar: UInt16 = 0;

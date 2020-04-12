@@ -1,0 +1,9 @@
+{
+  "type": "minor",
+  "comment": "Leverage more enums in data types",
+  "packageName": "@ot-builder/ot-metadata",
+  "email": "belleve@typeof.net",
+  "commit": "aa833d6f8c44ba8016a9a77695c19a914b2e65f4",
+  "dependentChangeType": "patch",
+  "date": "2020-04-12T00:32:53.870Z"
+}
