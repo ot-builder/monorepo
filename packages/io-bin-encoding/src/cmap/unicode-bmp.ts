@@ -198,7 +198,7 @@ class CmapFormat4Writer {
         const endCode: UInt16[] = [];
         const startCode: UInt16[] = [];
         const idDelta: Int16[] = [];
-        const idRangeOffset: UInt16[] = [];
+        const idRangeOffsets: UInt16[] = [];
         const glyphIdArray: UInt16[] = [];
 
         for (let rid = 0; rid < this.runs.length; rid++) {
@@ -207,20 +207,25 @@ class CmapFormat4Writer {
             startCode.push(run.unicodeStart);
             if (!run.glyphIdArray || !run.glyphIdArray.length) {
                 idDelta.push(Int16.from(run.gidStart - run.unicodeStart));
-                idRangeOffset.push(0);
+                idRangeOffsets.push(0);
             } else {
                 Assert.SizeMatch(
                     `CMAP format 4 run glyph id array`,
                     run.glyphIdArray.length,
                     run.unicodeEnd - run.unicodeStart + 1
                 );
-                idDelta.push(0);
-                idRangeOffset.push(UInt16.size * (glyphIdArray.length + (this.runs.length - rid)));
+
+                const idRgOffset = UInt16.size * (glyphIdArray.length + (this.runs.length - rid));
+                if (idRgOffset != UInt16.from(idRgOffset))
+                    throw Errors.GeneralOverflow(`idRangeOffset`, idRgOffset);
+                idRangeOffsets.push(idRgOffset);
                 for (const gid of run.glyphIdArray) glyphIdArray.push(gid);
+
+                idDelta.push(0);
             }
         }
 
-        return { endCode, startCode, idDelta, idRangeOffset, glyphIdArray };
+        return { endCode, startCode, idDelta, idRangeOffset: idRangeOffsets, glyphIdArray };
     }
 
     private computeSearchRange(sc: number) {

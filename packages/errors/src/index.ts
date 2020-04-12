@@ -11,6 +11,8 @@ export namespace Errors {
     export const VersionNotSupported = (what: string, ver: number | string) =>
         new TypeError(`${what} version unsupported : ${ver}`);
     export const MissingKeyTable = (tag: string) => new TypeError(`Table ${tag} missing.`);
+    export const GeneralOverflow = (kind: string, value: number) =>
+        new RangeError(`${kind} overflow: ${value}.`);
 
     export const GlyphNotFound = (where: string) => new RangeError(`Glyph not found in ${where}`);
     export const GlyphCountMismatch = (where: string) =>
