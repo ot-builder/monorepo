@@ -48,7 +48,7 @@ class ListOrder<T> implements Data.Order<T> {
     }
     public at(gid: number) {
         const g = this.items[gid];
-        if (!g) throw new RangeError(`Missing Item in ${this.sourceKind}`);
+        if (!g) throw new RangeError(`Missing Item #${gid} in ${this.sourceKind}`);
         else return g;
     }
     public [Symbol.iterator](): IterableIterator<T> {
