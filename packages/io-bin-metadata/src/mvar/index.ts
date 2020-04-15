@@ -137,6 +137,8 @@ export const MvarTableIo = {
             const r = ivs.valueToInnerOuterID(lens.get());
             if (r) rec.push([tag, r.outer, r.inner]);
         }
+        // sort records by tag
+        rec.sort((a, b) => (a[0] > b[0] ? 1 : -1));
 
         frag.uint16(1)
             .uint16(0)
