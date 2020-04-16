@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Fix chaining lookup rectifier when subsetting fonts",
+  "packageName": "@ot-builder/rectify",
+  "email": "belleve@typeof.net",
+  "commit": "9573fdd16e0e65d664413c71da2e2894b9df76e2",
+  "dependentChangeType": "patch",
+  "date": "2020-04-16T01:00:51.610Z"
+}
