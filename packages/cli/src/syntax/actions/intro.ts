@@ -1,6 +1,6 @@
-import * as Fs from "fs";
 import * as Path from "path";
 
+import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
@@ -35,6 +35,6 @@ export async function loadFontFromFile<GS extends Ot.GlyphStore>(
     gsf: Ot.GlyphStoreFactoryWithDefault<GS>,
     cfg?: FontIo.FontIoConfig
 ) {
-    const bufFont = Fs.readFileSync(Path.resolve(path));
+    const bufFont = await Fs.readFile(Path.resolve(path));
     return FontIo.readFont(FontIo.readSfntOtf(bufFont), gsf, cfg);
 }
