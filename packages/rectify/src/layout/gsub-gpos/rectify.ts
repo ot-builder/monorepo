@@ -48,14 +48,20 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
         ret.ignoreGlyphs = RectifyImpl.Glyph.setSome(this.rg, props.ignoreGlyphs || new Set());
     }
 
+    protected isValidMatchingSequence(match: ReadonlySet<Ot.Glyph>[]) {
+        if (!match.length) return false;
+        for (const gs of match) if (!gs.size) return false;
+        return true;
+    }
+
     protected processChainingRules(
         props: Ot.GsubGpos.ChainingProp<L>,
         ret: Ot.GsubGpos.ChainingProp<L>
     ) {
         ret.rules = [];
-        for (const rule of props.rules) {
-            const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setAll);
-            if (!match1 || !match1.length) continue;
+        ProcessRules: for (const rule of props.rules) {
+            const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setSome);
+            if (!match1 || !this.isValidMatchingSequence(match1)) continue ProcessRules;
             const applications1: Ot.GsubGpos.ChainingApplication<L>[] = [];
             for (const app of rule.applications) {
                 const stub = this._cache.get(app.apply);
@@ -145,9 +151,9 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
         return RStub(new Ot.Gsub.ReverseSub(), ret => {
             this.setMeta(props, ret);
             ret.rules = RectifyImpl.listSomeT(this.rg, props.rules, (rec, rule) => {
-                const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setAll);
+                const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setSome);
                 const replace1 = RectifyImpl.Glyph.bimapSome(rec, rule.replacement);
-                if (!match1 || !replace1) return null;
+                if (!match1 || !this.isValidMatchingSequence(match1) || !replace1) return null;
                 else return { ...rule, match: match1, replacement: replace1 };
             });
         });
