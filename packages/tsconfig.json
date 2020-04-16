@@ -101,6 +101,9 @@
     },
     {
       "path": "./cli/tsconfig.json"
+    },
+    {
+      "path": "./cli-ttc-bundle/tsconfig.json"
     }
   ]
 }

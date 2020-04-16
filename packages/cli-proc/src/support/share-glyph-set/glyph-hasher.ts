@@ -26,13 +26,23 @@ export class SharedGlyphStore implements Ot.GlyphStore {
     }
 }
 
-export class GlyphSharing implements Rectify.GlyphReferenceRectifier {
-    public mapping: Map<Ot.Glyph, Ot.Glyph> = new Map();
+export class GlyphSharingRectifier implements Rectify.GlyphReferenceRectifier {
+    private rankMap = new Map<string, number>();
+    private mapping = new Map<Ot.Glyph, Ot.Glyph>();
+
     constructor(readonly gs: SharedGlyphStore) {}
-    public put(g: Ot.Glyph, hash: string, fid: number, priority: number) {
+
+    private amendHashByRank(rawHash: string) {
+        const rank = this.rankMap.get(rawHash) || 0;
+        this.rankMap.set(rawHash, rank + 1);
+        return rawHash + "/" + rank;
+    }
+    public put(g: Ot.Glyph, rawHash: string, fid: number, priority: number) {
+        const hash = this.amendHashByRank(rawHash);
         const existing = this.gs.mapping.get(hash);
         if (existing) {
             this.mapping.set(g, existing.glyph);
+            this.mapping.set(existing.glyph, existing.glyph);
             return existing.glyph;
         } else {
             this.gs.mapping.set(hash, new SharedGlyphProp(g, fid, priority));
