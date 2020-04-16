@@ -154,7 +154,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
                 const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setSome);
                 const replace1 = RectifyImpl.Glyph.bimapSome(rec, rule.replacement);
                 if (!match1 || !this.isValidMatchingSequence(match1) || !replace1) return null;
-                return { ...rule, match: match1, replacement: replace1 };
+                else return { ...rule, match: match1, replacement: replace1 };
             });
         });
     }
