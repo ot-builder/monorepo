@@ -60,7 +60,7 @@ async function glyphSharingMerging(args: ArgParser) {
         const resultBuffers: Buffer[] = [];
         const cfg = {
             glyphStore: { statOs2XAvgCharWidth: false },
-            ttf: { gvarForceProduceTvd: args.sparse }
+            ttf: { gvarForceProduceGVD: args.sparse, gvarForceZeroGapsBetweenGVD: args.sparse }
         };
         for (const font of sharer.fonts) {
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));

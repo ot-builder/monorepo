@@ -1,6 +1,7 @@
 export interface TtfCfgProps {
     gvarOptimizeTolerance?: number;
-    gvarForceProduceTvd?: boolean;
+    gvarForceProduceGVD?: boolean;
+    gvarForceZeroGapsBetweenGVD?: boolean;
     gvarReadPermissiveGlyphCount?: boolean;
 }
 export interface TtfCfg {
@@ -11,6 +12,7 @@ export interface TtfCfgPt {
 }
 export const DefaultTtfCfgProps: TtfCfgProps = {
     gvarOptimizeTolerance: 1 / 128,
-    gvarForceProduceTvd: false,
+    gvarForceProduceGVD: false,
+    gvarForceZeroGapsBetweenGVD: false,
     gvarReadPermissiveGlyphCount: false
 };

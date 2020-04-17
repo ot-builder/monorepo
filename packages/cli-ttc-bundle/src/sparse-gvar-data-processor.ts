@@ -22,20 +22,20 @@ type GvarTask = {
 // Layout:                             Viewed from font 1        Viewed font font 2
 // [GVAR header of font 1   ] ◆──╮   ⎡GVAR header       ⎤
 // [Shared tuples of font 1 ] ◁──┤   ⎢Shared tuples     ⎥
-// [TVD #0 of font 1        ] ◁──╯   ⎢TVD of glyph 0    ⎥
+// [GVD #0 of font 1        ] ◁──╯   ⎢GVD of glyph 0    ⎥
 // [GVAR header of font 2   ] ◆──╮   ⎢                  ⎥      ⎡GVAR header       ⎤
 // [Shared tuples of font 2 ] ◁──┤   ⎢                  ⎥      ⎢Shared tuples     ⎥
-// [TVD #0 of font 2        ] ◁──╯   ⎢    L A R G E     ⎥      ⎢TVD of glyph 0    ⎥
+// [GVD #0 of font 2        ] ◁──╯   ⎢    L A R G E     ⎥      ⎢GVD of glyph 0    ⎥
 //  .......................           ⎢                  ⎥      ⎢                  ⎥
 //  .......................           ⎢      G A P       ⎥      ⎢    L A R G E     ⎥
 //  .......................           ⎢                  ⎥      ⎢      G A P       ⎥
 //  .......................           ⎢                  ⎥      ⎢                  ⎥
-// [TVD of #0 of all fonts  ] ─────── ⎢── Ignored      ──⎥ ──── ⎢── Ignored      ──⎥
-// [TVD of other glyphs     ]         ⎣TVD of rest glyphs⎦      ⎣TVD of rest glyphs⎦
+// [GVD of #0 of all fonts  ] ─────── ⎢── Ignored      ──⎥ ──── ⎢── Ignored      ──⎥
+// [GVD of other glyphs     ]         ⎣GVD of rest glyphs⎦      ⎣GVD of rest glyphs⎦
 //
-// Why duplicate the TVD of first glyph in each font? Because many font engines
-// require that shared tuple list occurs right after the header, and TVD occurs
-// right after shared tuple list. So we have to use the gap between TVDs to
+// Why duplicate the GVD of first glyph in each font? Because many font engines
+// require that shared tuple list occurs right after the header, and GVD occurs
+// right after shared tuple list. So we have to use the gap between GVDs to
 // interlace tables together.
 
 export function sparseShareGvarData(fonts: FontIo.TableSliceCollection[], sharing: number[][]) {
@@ -58,20 +58,20 @@ export function sparseShareGvarData(fonts: FontIo.TableSliceCollection[], sharin
     for (const task of tasks) {
         const offsetLoca = start + task.headerSlice.byteLength;
         const offsetSharedTuples = offsetLoca + 4 * (task.glyphData.length + 1);
-        const offsetFirstVar = offsetSharedTuples + task.sharedTupleSlice.byteLength;
+        const offsetFirstGvd = offsetSharedTuples + task.sharedTupleSlice.byteLength;
 
-        const locaBuf = taskToLocaBuf(task, sharing, db, totalInitialSize - offsetFirstVar);
+        const locaBuf = taskToLocaBuf(task, sharing, db, totalInitialSize - offsetFirstGvd);
 
         // Data copying
         task.headerSlice.copy(backBuffer, start);
         locaBuf.copy(backBuffer, offsetLoca);
         task.sharedTupleSlice.copy(backBuffer, offsetSharedTuples);
-        task.glyphData[0].buffer.copy(backBuffer, offsetFirstVar);
+        task.glyphData[0].buffer.copy(backBuffer, offsetFirstGvd);
 
         // Amend pointers and flags
         backBuffer.writeUInt16BE(1, start + GvarFlagsOffset);
         backBuffer.writeUInt32BE(offsetSharedTuples - start, start + GvarSharedTuplesOffsetOffset);
-        backBuffer.writeUInt32BE(offsetFirstVar - start, start + GvarTvdOffsetOffset);
+        backBuffer.writeUInt32BE(offsetFirstGvd - start, start + GvarGvdOffsetOffset);
 
         // Store back
         task.table.data = backBuffer;
@@ -131,7 +131,7 @@ function getGvarTasks(fonts: FontIo.TableSliceCollection[], sharing: number[][])
 const GvarHeaderSize = 2 * 6 + 4 * 2;
 const GvarSharedTuplesOffsetOffset = 8;
 const GvarFlagsOffset = 14;
-const GvarTvdOffsetOffset = 16;
+const GvarGvdOffsetOffset = 16;
 
 function produceGvarTask(fontID: number, table: FontIo.TableSlice): GvarTask {
     const headerSlice = Buffer.from(table.data.slice(0, GvarHeaderSize));
@@ -145,7 +145,7 @@ function produceGvarTask(fontID: number, table: FontIo.TableSlice): GvarTask {
 
     const glyphCount = headerSlice.readUInt16BE(12);
     const flags = headerSlice.readUInt16BE(GvarFlagsOffset);
-    const tvdOffset = headerSlice.readUInt32BE(GvarTvdOffsetOffset);
+    const gvdOffset = headerSlice.readUInt32BE(GvarGvdOffsetOffset);
 
     const useLongOffset = !!(flags & 1);
 
@@ -163,7 +163,7 @@ function produceGvarTask(fontID: number, table: FontIo.TableSlice): GvarTask {
         const offset = offsets[j],
             size = offsets[j + 1] - offsets[j];
         if (!size || size % 4) throw new Error("Unreachable! Gvar data blocks should be aligned");
-        const buf = table.data.slice(tvdOffset + offset, tvdOffset + offset + size);
+        const buf = table.data.slice(gvdOffset + offset, gvdOffset + offset + size);
         glyphData[j] = { hash: computeHashBuf(buf), buffer: buf };
     }
 
