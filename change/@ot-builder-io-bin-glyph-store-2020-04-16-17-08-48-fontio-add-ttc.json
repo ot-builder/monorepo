@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Add TTC support for fontio",
+  "packageName": "@ot-builder/io-bin-glyph-store",
+  "email": "belleve@typeof.net",
+  "commit": "f28bff94e5958332c17145780d115de8f94f8d80",
+  "dependentChangeType": "patch",
+  "date": "2020-04-17T00:08:40.390Z"
+}
