@@ -1,10 +1,11 @@
-import { BufferWriter, Frag, Write } from "@ot-builder/bin-util";
+import { BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag, UInt16, UInt32 } from "@ot-builder/primitive";
 
 import {
     allocateBlobOffsets,
     BlobStore,
+    BufferToSlice,
     calculateChecksum,
     collectTableData,
     TableRecord
@@ -39,7 +40,7 @@ export function writeSfntBuf(sfnt: Sfnt) {
 
     const records: TableRecord[] = [];
     for (const [tag, table] of sfnt.tables) {
-        records.push(collectTableData(tag, table, store));
+        records.push(collectTableData(tag, BufferToSlice(table), store));
     }
     records.sort((a, b) => (a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : 0));
     allocateBlobOffsets(store);
@@ -57,7 +58,7 @@ export function writeSfntBuf(sfnt: Sfnt) {
         if (record.tag === "head") headOffset = headerSize + record.blob.offset;
         bw.bytes(Frag.pack(new Frag().push(Tag, record.tag)));
         bw.uint32(record.blob.checksum);
-        bw.uint32(headerSize + record.blob.offset);
+        bw.uint32(headerSize + record.blob.offset + record.start);
         bw.uint32(record.length);
     }
 

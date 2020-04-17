@@ -3,7 +3,7 @@ import { FontIo, Ot } from "ot-builder";
 
 import { ArgParser } from "./arg-parser";
 import { createTtc } from "./create-ttc";
-import { SparseGlyphSharer } from "./sparse-sharing";
+import { SparseGlyphSharer } from "./sparse-sharer";
 
 export async function cliMain(argv: string[]) {
     const args = new ArgParser();
@@ -58,7 +58,10 @@ async function glyphSharingMerging(args: ArgParser) {
 
     if (args.output) {
         const resultBuffers: Buffer[] = [];
-        const cfg = { glyphStore: { statOs2XAvgCharWidth: false } };
+        const cfg = {
+            glyphStore: { statOs2XAvgCharWidth: false },
+            ttf: { gvarForceProduceTvd: args.sparse }
+        };
         for (const font of sharer.fonts) {
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));
         }

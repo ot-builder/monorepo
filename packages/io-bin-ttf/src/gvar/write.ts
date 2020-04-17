@@ -35,16 +35,18 @@ export const GvarTableWrite = Write(
         const gvarOffsets = [];
 
         for (let gid = 0; gid < gOrd.length; gid++) {
-            const tvd = TupleVariationWriteOpt.writeOpt(
+            let tvd = TupleVariationWriteOpt.writeOpt(
                 new GlyphTupleVariationSource(gOrd.at(gid)),
                 context
             );
+            if (!tvd && cfg.ttf.gvarForceProduceTvd) {
+                tvd = Frag.uint16(0).uint16(4).uint32(0);
+            }
             if (tvd) {
                 hasMeaningfulData = true;
                 const tvdBuffer = alignBufferSize(Frag.pack(tvd), GvarOffsetAlign);
                 gvarOffsets.push(gvarBody.size);
                 gvarBody.bytes(tvdBuffer);
-                gvarBody.uint32(0);
             } else {
                 gvarOffsets.push(gvarBody.size);
             }
