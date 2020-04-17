@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "Add back 4 byte gap between TVDs in GVAR when gvarForceZeroGapsBetweenTvd  is provided.",
+  "packageName": "@ot-builder/io-bin-ttf",
+  "email": "belleve@typeof.net",
+  "commit": "8f006d055772d4b4686a6d265a0a12e0b9180b85",
+  "dependentChangeType": "patch",
+  "date": "2020-04-17T08:32:41.303Z"
+}

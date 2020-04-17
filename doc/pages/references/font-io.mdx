@@ -85,9 +85,13 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         The error tolerance when writing the `gvar` table. Defaults to `1/128`. With higher tolerance the `gvar` table writer would do more aggressive IUP optimization.
 
-    * <Member optional s={FontIo.FontIoConfig.ttf.gvarForceProduceTvd} type={boolean} />
+    * <Member optional s={FontIo.FontIoConfig.ttf.gvarForceProduceGVD} type={boolean} />
 
-        When building `gvar`, force production of tuple variation data, even if the glyph has no variation.
+        When building `gvar`, force production of glyph variation data, even if the glyph has no variation.
+
+    * <Member optional s={FontIo.FontIoConfig.ttf.gvarForceZeroGapsBetweenGVD} type={boolean} />
+
+        When building `gvar`, force a 4-byte zero gap between each glyph variation data.
 
 * <Item optional s={FontIo.FontIoConfig.encoding}/>:
 

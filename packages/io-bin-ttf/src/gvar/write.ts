@@ -39,7 +39,7 @@ export const GvarTableWrite = Write(
                 new GlyphTupleVariationSource(gOrd.at(gid)),
                 context
             );
-            if (!tvd && cfg.ttf.gvarForceProduceTvd) {
+            if (!tvd && cfg.ttf.gvarForceProduceGVD) {
                 tvd = Frag.uint16(0).uint16(4).uint32(0);
             }
             if (tvd) {
@@ -47,6 +47,7 @@ export const GvarTableWrite = Write(
                 const tvdBuffer = alignBufferSize(Frag.pack(tvd), GvarOffsetAlign);
                 gvarOffsets.push(gvarBody.size);
                 gvarBody.bytes(tvdBuffer);
+                if (cfg.ttf.gvarForceZeroGapsBetweenGVD) gvarBody.uint32(0);
             } else {
                 gvarOffsets.push(gvarBody.size);
             }

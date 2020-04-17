@@ -56,10 +56,11 @@ export function buildDataBlock(shared: GlyphSharingMap[]): DataBlockBuildResults
     return { dataBlock: dataBlock, offsets: offsets, saGidMaps };
 }
 
-export function buildOffsetIndex(offsets: number[]) {
+export function buildOffsetIndex(offsets: number[], validateAlign: boolean) {
     const buf = Buffer.alloc(offsets.length * 4);
     for (let j = 0; j < offsets.length; j++) {
-        if (offsets[j] % 4) throw new Error("Unreachable! offset should be aligned.");
+        if (validateAlign && offsets[j] % 4)
+            throw new Error("Unreachable! offset should be aligned.");
         buf.writeUInt32BE(offsets[j], j * 4);
     }
     return buf;
