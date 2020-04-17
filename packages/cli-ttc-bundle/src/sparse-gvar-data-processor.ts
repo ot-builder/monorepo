@@ -38,7 +38,7 @@ type GvarTask = {
 // right after shared tuple list. So we have to use the gap between TVDs to
 // interlace tables together.
 
-export function sparseShareGvarData(fonts: FontIo.CustomTtcDataSource[], sharing: number[][]) {
+export function sparseShareGvarData(fonts: FontIo.TableSliceCollection[], sharing: number[][]) {
     const tasks = getGvarTasks(fonts, sharing);
     if (!tasks.length) return;
 
@@ -116,7 +116,7 @@ function gvarInitialSize(task: GvarTask) {
     return s;
 }
 
-function getGvarTasks(fonts: FontIo.CustomTtcDataSource[], sharing: number[][]) {
+function getGvarTasks(fonts: FontIo.TableSliceCollection[], sharing: number[][]) {
     const results: GvarTask[] = [];
 
     for (let fid = 0; fid < fonts.length; fid++) {

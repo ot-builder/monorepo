@@ -8,6 +8,7 @@ import {
     BufferToSlice,
     calculateChecksum,
     collectTableData,
+    TableSliceCollection,
     TableRecord
 } from "./collector";
 
@@ -29,7 +30,13 @@ function fixHeadChecksum(bw: BufferWriter, headOffset: number) {
     bw.uint32(UInt32.from(0xb1b0afba - fontChecksum));
 }
 
-export function writeSfntBuf(sfnt: Sfnt) {
+export function writeSfntOtf(sfnt: Sfnt) {
+    const ds: TableSliceCollection = { version: sfnt.version, tables: new Map() };
+    for (const [tag, table] of sfnt.tables) ds.tables.set(tag, BufferToSlice(table));
+    return writeSfntOtfFromTableSlices(ds);
+}
+
+export function writeSfntOtfFromTableSlices(sfnt: TableSliceCollection) {
     const store: BlobStore = new Map();
 
     const numTable = sfnt.tables.size;
@@ -40,7 +47,7 @@ export function writeSfntBuf(sfnt: Sfnt) {
 
     const records: TableRecord[] = [];
     for (const [tag, table] of sfnt.tables) {
-        records.push(collectTableData(tag, BufferToSlice(table), store));
+        records.push(collectTableData(tag, table, store));
     }
     records.sort((a, b) => (a.tag < b.tag ? -1 : a.tag > b.tag ? 1 : 0));
     allocateBlobOffsets(store);

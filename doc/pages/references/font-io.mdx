@@ -1,6 +1,6 @@
 import { Layout } from "templates/api-doc"
 import { R, Method, Fn, Member, Decl, Item } from "api-doc/tyfmt"
-import { number, boolean, Data, FontIo, Ot, array } from "api-doc/exports"
+import { number, boolean, Data, FontIo, Ot, array, map, Tag} from "api-doc/exports"
 import { pi, extend, optional, annot } from "api-doc/tycon"
 export default Layout
 
@@ -24,6 +24,10 @@ Creates a <R s={Ot.Sfnt}/> form a <R s="Buffer"/>.
 
 Creates a <R s="Buffer"/> form a <R s={Ot.Sfnt}/>.
 
+### <Fn s={FontIo.writeSfntOtfFromTableSlices} args={{sfnt:FontIo.TableSliceCollection}} returns="Buffer"/>
+
+Creates a <R s="Buffer"/> form a <R s={Ot.TableSliceCollection}/>.
+
 ### <Fn s={FontIo.readSfntTtc} args={{buffer:"Buffer"}} returns={array(Ot.Sfnt)}/>
 
 Creates a <R s={Ot.Sfnt}/> array form a <R s="Buffer"/> representing a TTC file.
@@ -31,6 +35,27 @@ Creates a <R s={Ot.Sfnt}/> array form a <R s="Buffer"/> representing a TTC file.
 ### <Fn s={FontIo.writeSfntTtc} args={{sfnt:array(Ot.Sfnt)}} returns="Buffer"/>
 
 Creates a TTC file <R s="Buffer"/> form a <R s={Ot.Sfnt}/> array.
+
+### <Fn s={FontIo.writeSfntTtcFromTableSlices} args={{sfnt:array(Ot.TableSliceCollection)}} returns="Buffer"/>
+
+Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> array.
+
+## Table Slice Collection
+
+### Datatype <Decl s={FontIo.TableSliceCollection} />
+
+#### Properties
+
+* <Member readonly s={FontIo.TableSliceCollection.version} type={number} />
+* <Member s={FontIo.TableSliceCollection.tables} type={map(Tag,FontIo.TableSlice)} />
+
+### Datatype <Decl s={FontIo.TableSlice} />
+
+#### Properties
+
+* <Member s={FontIo.TableSlice.data} type={"Buffer"} />
+* <Member s={FontIo.TableSlice.start} type={number} />
+* <Member s={FontIo.TableSlice.length} type={number} />
 
 ## IO Configuration
 
@@ -59,6 +84,10 @@ Creates a TTC file <R s="Buffer"/> form a <R s={Ot.Sfnt}/> array.
     * <Member optional s={FontIo.FontIoConfig.ttf.gvarOptimizeTolerance} type={boolean} />
 
         The error tolerance when writing the `gvar` table. Defaults to `1/128`. With higher tolerance the `gvar` table writer would do more aggressive IUP optimization.
+
+    * <Member optional s={FontIo.FontIoConfig.ttf.gvarForceProduceTvd} type={boolean} />
+
+        When building `gvar`, force production of tuple variation data, even if the glyph has no variation.
 
 * <Item optional s={FontIo.FontIoConfig.encoding}/>:
 

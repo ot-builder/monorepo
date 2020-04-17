@@ -21,7 +21,7 @@ type GlyfTask = {
 
 const IndexToLocFormatOffset = 50;
 
-export function sparseShareGlyfData(fonts: FontIo.CustomTtcDataSource[], sharing: number[][]) {
+export function sparseShareGlyfData(fonts: FontIo.TableSliceCollection[], sharing: number[][]) {
     const tasks = getGlyfTasks(fonts);
     if (!tasks.length) return;
 
@@ -55,7 +55,7 @@ function taskToLocaBuf(entry: GlyfTask, sharing: number[][], db: DataBlockBuildR
     return locaBuf;
 }
 
-function getGlyfTasks(fonts: FontIo.CustomTtcDataSource[]) {
+function getGlyfTasks(fonts: FontIo.TableSliceCollection[]) {
     const entries: GlyfTask[] = [];
     for (let fid = 0; fid < fonts.length; fid++) {
         const font = fonts[fid];

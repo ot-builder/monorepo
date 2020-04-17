@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { TestFont } from "@ot-builder/test-util";
 import { OtVar } from "@ot-builder/variance";
@@ -16,7 +16,7 @@ import { GvarTag } from "./shared";
 
 test("Reading : TTF, variable", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const cfg = { ttf: DefaultTtfCfgProps, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);

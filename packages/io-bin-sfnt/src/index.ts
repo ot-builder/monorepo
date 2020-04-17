@@ -1,6 +1,6 @@
-export { TableSlice } from "./otf/collector";
-export { readSfntBuf, readSfntView } from "./otf/read";
-export { writeSfntBuf } from "./otf/write";
+export { TableSlice, TableSliceCollection } from "./otf/collector";
+export { readSfntOtf, readSfntView } from "./otf/read";
+export { writeSfntOtf, writeSfntOtfFromTableSlices } from "./otf/write";
 export { SfntIoTableSink } from "./table-sink";
-export { readSfntTtcBuf, readSfntTtcView } from "./ttc/read";
-export { CustomTtcDataSource, writeSfntTtcBuf, writeCustomSfntTtcBuf } from "./ttc/write";
+export { readSfntTtc, readSfntTtcView } from "./ttc/read";
+export { writeSfntTtc, writeSfntTtcFromTableSlices } from "./ttc/write";

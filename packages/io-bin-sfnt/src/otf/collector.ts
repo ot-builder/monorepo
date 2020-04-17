@@ -3,6 +3,16 @@ import * as crypto from "crypto";
 import { alignBufferSize } from "@ot-builder/bin-util";
 import { Tag, UInt32 } from "@ot-builder/primitive";
 
+export type TableSlice = {
+    data: Buffer;
+    start: number;
+    length: number;
+};
+export type TableSliceCollection = {
+    readonly version: number;
+    tables: Map<string, TableSlice>;
+};
+
 export interface TableBlob {
     offset: number;
     content: Buffer;
@@ -10,11 +20,6 @@ export interface TableBlob {
 }
 export type BlobStore = Map<string, TableBlob>;
 
-export type TableSlice = {
-    data: Buffer;
-    start: number;
-    length: number;
-};
 export interface TableRecord {
     tag: Tag;
     blob: TableBlob;

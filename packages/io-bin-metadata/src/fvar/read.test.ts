@@ -1,5 +1,5 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Fvar } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
@@ -7,7 +7,7 @@ import { FvarIo } from ".";
 
 test("Reading : FVAR", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
     expect(fvar.axes.length).toBe(1);
     expect(fvar.axes[0].dim.tag).toBe("wght");

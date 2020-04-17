@@ -7,16 +7,11 @@ import {
     BlobStore,
     BufferToSlice,
     collectTableData,
-    TableRecord,
-    TableSlice
+    TableSliceCollection,
+    TableRecord
 } from "../otf/collector";
 
-export type CustomTtcDataSource = {
-    version: number;
-    tables: Map<string, TableSlice>;
-};
-
-export function writeCustomSfntTtcBuf(sfntList: CustomTtcDataSource[]) {
+export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {
     const store: BlobStore = new Map();
     const records: TtcEntry[] = [];
     for (const sfnt of sfntList) {
@@ -75,13 +70,13 @@ export function writeCustomSfntTtcBuf(sfntList: CustomTtcDataSource[]) {
     return bw.toBuffer();
 }
 
-export function writeSfntTtcBuf(sfntList: Sfnt[]) {
-    const dss: CustomTtcDataSource[] = [];
+export function writeSfntTtc(sfntList: Sfnt[]) {
+    const dss: TableSliceCollection[] = [];
     for (const sfnt of sfntList) {
-        const ds: CustomTtcDataSource = { version: sfnt.version, tables: new Map() };
+        const ds: TableSliceCollection = { version: sfnt.version, tables: new Map() };
         for (const [tag, table] of sfnt.tables) ds.tables.set(tag, BufferToSlice(table));
     }
-    return writeCustomSfntTtcBuf(dss);
+    return writeSfntTtcFromTableSlices(dss);
 }
 
 type TtcEntry = {

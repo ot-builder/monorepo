@@ -1,13 +1,13 @@
 import { TestFont } from "@ot-builder/test-util";
 
-import { readSfntBuf } from "./read";
-import { writeSfntBuf } from "./write";
+import { readSfntOtf } from "./read";
+import { writeSfntOtf } from "./write";
 
 test("SFNT writing", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
-    const sfnt = readSfntBuf(bufFont);
-    const bufWritten = writeSfntBuf(sfnt);
-    const sfnt2 = readSfntBuf(bufWritten);
+    const sfnt = readSfntOtf(bufFont);
+    const bufWritten = writeSfntOtf(sfnt);
+    const sfnt2 = readSfntOtf(bufWritten);
 
     for (const [tag, table] of sfnt.tables) {
         if (tag === "head") continue;

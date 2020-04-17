@@ -2,7 +2,7 @@ import { Read, BinaryView } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag } from "@ot-builder/primitive";
 
-export function readSfntBuf(buf: Buffer) {
+export function readSfntOtf(buf: Buffer) {
     return readSfntView(new BinaryView(buf));
 }
 export function readSfntView(view: BinaryView) {
