@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { TestFont } from "@ot-builder/test-util";
@@ -12,7 +12,7 @@ import { ReadTtfGlyphs } from "./index";
 
 function readTtf(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const cfg = { fontMetadata: {}, glyphStore: {}, ttf: DefaultTtfCfgProps };
     const md = readOtMetadata(sfnt, cfg);
 

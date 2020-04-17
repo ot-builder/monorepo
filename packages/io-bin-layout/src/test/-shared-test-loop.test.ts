@@ -1,6 +1,5 @@
-import { BinaryView } from "@ot-builder/bin-util";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntIoTableSink, SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { OtFontLayoutData } from "@ot-builder/ot-layout";
 import { Fvar } from "@ot-builder/ot-metadata";
@@ -19,7 +18,7 @@ export type TestOtlLoopYield = {
 
 export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     const bufFont = TestFont.get(file);
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const cfg = { fontMetadata: {} };
     const md = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(md.maxp.numGlyphs);

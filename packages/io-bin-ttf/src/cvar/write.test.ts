@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { Cvt } from "@ot-builder/ot-glyphs";
 import { CvtIdentity, EmptyCtx, TestFont } from "@ot-builder/test-util";
 
@@ -11,7 +11,7 @@ import { CvarIo } from "./index";
 
 function cvtRoundTipLoop(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const cfg = { fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const designSpace = fvar ? fvar.getDesignSpace() : null;

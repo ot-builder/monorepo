@@ -10,12 +10,34 @@ export async function cliMain(argv: string[]) {
     for (const arg of argv.slice(2)) args.arg(arg);
 
     if (args.displayHelp) {
-        console.log(`otb-ttc-bundle [-x | --sparse] [-o output] input1 input2 ...`);
+        console.log(`otb-ttc-bundle [-u | --unify | -x | --sparse] [-o output] input1 input2 ...`);
         console.log(`  Bundles multiple TTF into one TTC with glyph sharing.`);
-        console.log(`  Use -x / --sparse option to enable sparse mode.`);
+        console.log(`  Use -u / --unify to unify glyph set.`);
+        console.log(`  Use -x / --sparse to enable sparse glyph sharing (TT outline only).`);
         return;
     }
 
+    if (!args.unify && !args.sparse) {
+        await simpleMerging(args);
+    } else {
+        await glyphSharingMerging(args);
+    }
+}
+
+async function simpleMerging(args: ArgParser) {
+    const sfntList: Ot.Sfnt[] = [];
+    for (const input of args.inputs) {
+        process.stderr.write(`Processing ${input}\n`);
+        const bufFont = await Fs.readFile(input);
+        sfntList.push(FontIo.readSfntOtf(bufFont));
+    }
+    if (args.output) {
+        const bufTtc = FontIo.writeSfntTtc(sfntList);
+        await Fs.writeFile(args.output, bufTtc);
+    }
+}
+
+async function glyphSharingMerging(args: ArgParser) {
     const gsf = Ot.ListGlyphStoreFactory;
     const sharer = new SparseGlyphSharer(gsf);
     for (const input of args.inputs) {
