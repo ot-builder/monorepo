@@ -2,9 +2,16 @@ import { BufferWriter } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag, UInt16, UInt32 } from "@ot-builder/primitive";
 
-import { allocateBlobOffsets, BlobStore, collectTableData, TableRecord } from "../otf/collector";
+import {
+    allocateBlobOffsets,
+    BlobStore,
+    BufferToSlice,
+    collectTableData,
+    TableSliceCollection,
+    TableRecord
+} from "../otf/collector";
 
-export function writeSfntTtcBuf(sfntList: Sfnt[]) {
+export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {
     const store: BlobStore = new Map();
     const records: TtcEntry[] = [];
     for (const sfnt of sfntList) {
@@ -50,7 +57,7 @@ export function writeSfntTtcBuf(sfntList: Sfnt[]) {
             const table = rec.tableRecords[k];
             bw.uint32(tagToUInt32(table.tag));
             bw.uint32(table.blob.checksum);
-            bw.uint32(totalHeaderSize + table.blob.offset);
+            bw.uint32(totalHeaderSize + table.blob.offset + table.start);
             bw.uint32(table.length);
         }
     }
@@ -61,6 +68,15 @@ export function writeSfntTtcBuf(sfntList: Sfnt[]) {
     }
 
     return bw.toBuffer();
+}
+
+export function writeSfntTtc(sfntList: Sfnt[]) {
+    const dss: TableSliceCollection[] = [];
+    for (const sfnt of sfntList) {
+        const ds: TableSliceCollection = { version: sfnt.version, tables: new Map() };
+        for (const [tag, table] of sfnt.tables) ds.tables.set(tag, BufferToSlice(table));
+    }
+    return writeSfntTtcFromTableSlices(dss);
 }
 
 type TtcEntry = {

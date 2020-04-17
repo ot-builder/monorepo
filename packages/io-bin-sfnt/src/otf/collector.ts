@@ -3,23 +3,37 @@ import * as crypto from "crypto";
 import { alignBufferSize } from "@ot-builder/bin-util";
 import { Tag, UInt32 } from "@ot-builder/primitive";
 
+export type TableSlice = {
+    data: Buffer;
+    start: number;
+    length: number;
+};
+export type TableSliceCollection = {
+    readonly version: number;
+    tables: Map<string, TableSlice>;
+};
+
 export interface TableBlob {
     offset: number;
     content: Buffer;
     checksum: number;
 }
 export type BlobStore = Map<string, TableBlob>;
+
 export interface TableRecord {
     tag: Tag;
     blob: TableBlob;
+    start: number;
     length: number;
 }
 
-export function collectTableData(tag: Tag, buf: Buffer, blobStore: BlobStore): TableRecord {
-    // Pad buffer with 0
+export function BufferToSlice(buf: Buffer): TableSlice {
+    return { data: buf, start: 0, length: buf.byteLength };
+}
 
-    const originalLength = buf.byteLength;
-    const b = alignBufferSize(buf, 4);
+export function collectTableData(tag: Tag, slice: TableSlice, blobStore: BlobStore): TableRecord {
+    // Pad buffer with 0
+    const b = alignBufferSize(slice.data, 4);
 
     const hasher = crypto.createHash("sha256");
     hasher.update(b);
@@ -27,11 +41,11 @@ export function collectTableData(tag: Tag, buf: Buffer, blobStore: BlobStore): T
 
     const existing = blobStore.get(hash);
     if (existing) {
-        return { tag, blob: existing, length: originalLength };
+        return { tag, blob: existing, start: slice.start, length: slice.length };
     } else {
         const blob = { offset: 0, content: b, checksum: calculateChecksum(b) };
         blobStore.set(hash, blob);
-        return { tag, blob, length: originalLength };
+        return { tag, blob, start: slice.start, length: slice.length };
     }
 }
 

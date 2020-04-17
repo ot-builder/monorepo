@@ -1,7 +1,7 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Cmap } from "@ot-builder/ot-encoding";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { TestFont } from "@ot-builder/test-util";
@@ -10,7 +10,7 @@ import { ReadCmap } from "./read";
 
 function cmapRead(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const cfg = { fontMetadata: {}, glyphStore: {} };
     const md = readOtMetadata(sfnt, cfg);
 

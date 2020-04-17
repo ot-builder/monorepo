@@ -1,5 +1,5 @@
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { readSfntBuf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { CvtIdentity, EmptyCtx, GlyphIdentity, TestFont } from "@ot-builder/test-util";
@@ -11,7 +11,7 @@ import { ReadTtfGlyphs, WriteTtfGlyphs } from "./index";
 
 function ttfGsRoundTrip(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const cfg = { fontMetadata: {}, glyphStore: {}, ttf: DefaultTtfCfgProps };
     const md = readOtMetadata(sfnt, cfg);
 

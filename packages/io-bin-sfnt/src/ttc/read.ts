@@ -36,6 +36,6 @@ export function readSfntTtcView(view: BinaryView) {
     return sfntList;
 }
 
-export function readSfntTtcBuf(buf: Buffer) {
+export function readSfntTtc(buf: Buffer) {
     return readSfntTtcView(new BinaryView(buf));
 }

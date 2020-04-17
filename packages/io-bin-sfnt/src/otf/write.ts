@@ -1,12 +1,14 @@
-import { BufferWriter, Frag, Write } from "@ot-builder/bin-util";
+import { BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag, UInt16, UInt32 } from "@ot-builder/primitive";
 
 import {
     allocateBlobOffsets,
     BlobStore,
+    BufferToSlice,
     calculateChecksum,
     collectTableData,
+    TableSliceCollection,
     TableRecord
 } from "./collector";
 
@@ -28,7 +30,13 @@ function fixHeadChecksum(bw: BufferWriter, headOffset: number) {
     bw.uint32(UInt32.from(0xb1b0afba - fontChecksum));
 }
 
-export function writeSfntBuf(sfnt: Sfnt) {
+export function writeSfntOtf(sfnt: Sfnt) {
+    const ds: TableSliceCollection = { version: sfnt.version, tables: new Map() };
+    for (const [tag, table] of sfnt.tables) ds.tables.set(tag, BufferToSlice(table));
+    return writeSfntOtfFromTableSlices(ds);
+}
+
+export function writeSfntOtfFromTableSlices(sfnt: TableSliceCollection) {
     const store: BlobStore = new Map();
 
     const numTable = sfnt.tables.size;
@@ -57,7 +65,7 @@ export function writeSfntBuf(sfnt: Sfnt) {
         if (record.tag === "head") headOffset = headerSize + record.blob.offset;
         bw.bytes(Frag.pack(new Frag().push(Tag, record.tag)));
         bw.uint32(record.blob.checksum);
-        bw.uint32(headerSize + record.blob.offset);
+        bw.uint32(headerSize + record.blob.offset + record.start);
         bw.uint32(record.length);
     }
 

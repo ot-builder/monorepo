@@ -1,5 +1,5 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Vdmx } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
@@ -7,7 +7,7 @@ import { VdmxTableIo } from ".";
 
 test("Reading : VDMX", () => {
     const bufFont = TestFont.get("vdmx.ttf");
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const vdmx = new BinaryView(sfnt.tables.get(Vdmx.Tag)!).next(VdmxTableIo);
 
     expect(vdmx.version).toBe(1);

@@ -1,6 +1,10 @@
 export {
-    readSfntBuf as readSfntOtf,
-    readSfntTtcView as readSfntTtc,
-    writeSfntBuf as writeSfntOtf,
-    writeSfntTtcBuf as writeSfntTtc
+    readSfntOtf,
+    readSfntTtcView,
+    TableSlice,
+    TableSliceCollection,
+    writeSfntOtf,
+    writeSfntOtfFromTableSlices,
+    writeSfntTtc,
+    writeSfntTtcFromTableSlices
 } from "@ot-builder/io-bin-sfnt";

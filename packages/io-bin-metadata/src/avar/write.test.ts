@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
+import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Avar, Fvar } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
@@ -10,7 +10,7 @@ import { AvarIo } from "./index";
 
 function AvarRoundtrip(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = readSfntBuf(bufFont);
+    const sfnt = readSfntOtf(bufFont);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
     const designSpace = fvar.getDesignSpace();
 
