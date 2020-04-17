@@ -51,7 +51,7 @@ function taskToLocaBuf(entry: GlyfTask, sharing: number[][], db: DataBlockBuildR
         entryOffsets[gid] = db.offsets[db.saGidMaps[sh[gid]].get(entry.glyphData[gid].hash)!];
     }
     entryOffsets.push(db.dataBlock.byteLength);
-    const locaBuf = buildOffsetIndex(entryOffsets);
+    const locaBuf = buildOffsetIndex(entryOffsets, true);
     return locaBuf;
 }
 

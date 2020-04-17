@@ -102,7 +102,7 @@ function taskToLocaBuf(
         entryOffsets[gid] += deltaOffsetOfRest;
     }
 
-    return buildOffsetIndex(entryOffsets);
+    return buildOffsetIndex(entryOffsets, false);
 }
 
 function gvarInitialSize(task: GvarTask) {
