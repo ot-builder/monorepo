@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { Avar, Fvar } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
@@ -10,7 +10,7 @@ import { AvarIo } from ".";
 
 test("Reading : AVAR", () => {
     const bufFont = TestFont.get("AdobeVFPrototype.ttf");
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const fvar = new BinaryView(sfnt.tables.get(Fvar.Tag)!).next(FvarIo);
     const avar = new BinaryView(sfnt.tables.get(Avar.Tag)!).next(AvarIo, fvar.getDesignSpace());
     const [wght, cntr] = fvar.axes;

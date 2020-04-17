@@ -2,7 +2,7 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
 import { TestFont } from "@ot-builder/test-util";
@@ -12,7 +12,7 @@ import { GdefTableIo } from "./index";
 describe("GDEF read", () => {
     function readGdef(file: string) {
         const bufFont = TestFont.get(file);
-        const sfnt = new BinaryView(bufFont).next(SfntOtf);
+        const sfnt = readSfntBuf(bufFont);
         const cfg = { fontMetadata: {}, glyphStore: {} };
         const md = readOtMetadata(sfnt, cfg);
         const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;

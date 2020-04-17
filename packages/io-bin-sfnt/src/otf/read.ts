@@ -1,8 +1,11 @@
-import { Read } from "@ot-builder/bin-util";
+import { Read, BinaryView } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag } from "@ot-builder/primitive";
 
-export const SfntRead = Read<Sfnt>(view => {
+export function readSfntBuf(buf: Buffer) {
+    return readSfntView(new BinaryView(buf));
+}
+export function readSfntView(view: BinaryView) {
     // Table header
     const version = view.uint32();
     const numTables = view.uint16();
@@ -21,4 +24,4 @@ export const SfntRead = Read<Sfnt>(view => {
     }
 
     return sfnt;
-});
+}

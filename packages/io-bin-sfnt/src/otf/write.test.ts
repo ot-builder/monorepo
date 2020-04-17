@@ -1,20 +1,13 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { TestFont } from "@ot-builder/test-util";
 
-import { SfntRead } from "./read";
-import { SfntWrite } from "./write";
+import { readSfntBuf } from "./read";
+import { writeSfntBuf } from "./write";
 
 test("SFNT writing", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");
-
-    const view = new BinaryView(bufFont);
-    const sfnt = view.next(SfntRead);
-
-    const frag = new Frag();
-    frag.push(SfntWrite, sfnt);
-
-    const view2 = new BinaryView(Frag.pack(frag));
-    const sfnt2 = view2.next(SfntRead);
+    const sfnt = readSfntBuf(bufFont);
+    const bufWritten = writeSfntBuf(sfnt);
+    const sfnt2 = readSfntBuf(bufWritten);
 
     for (const [tag, table] of sfnt.tables) {
         if (tag === "head") continue;

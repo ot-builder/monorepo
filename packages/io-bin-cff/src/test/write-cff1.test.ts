@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { Cff, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
@@ -10,7 +10,7 @@ import { WriteCff1 } from "../main/write-cff1";
 
 function cff1RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const bufFont = TestFont.get(file);
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const cfg = { cff: { ...DefaultCffCfgProps, ...override }, fontMetadata: {} };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);

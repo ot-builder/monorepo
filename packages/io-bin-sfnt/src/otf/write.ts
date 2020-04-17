@@ -28,7 +28,7 @@ function fixHeadChecksum(bw: BufferWriter, headOffset: number) {
     bw.uint32(UInt32.from(0xb1b0afba - fontChecksum));
 }
 
-export const SfntWrite = Write<Sfnt>((frag, sfnt) => {
+export function writeSfntBuf(sfnt: Sfnt) {
     const store: BlobStore = new Map();
 
     const numTable = sfnt.tables.size;
@@ -68,5 +68,5 @@ export const SfntWrite = Write<Sfnt>((frag, sfnt) => {
 
     fixHeadChecksum(bw, headOffset);
 
-    frag.bytes(bw.toBuffer());
-});
+    return bw.toBuffer();
+}

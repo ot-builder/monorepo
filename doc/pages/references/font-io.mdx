@@ -1,6 +1,6 @@
 import { Layout } from "templates/api-doc"
 import { R, Method, Fn, Member, Decl, Item } from "api-doc/tyfmt"
-import { number, boolean, Data, FontIo, Ot } from "api-doc/exports"
+import { number, boolean, Data, FontIo, Ot, array } from "api-doc/exports"
 import { pi, extend, optional, annot } from "api-doc/tycon"
 export default Layout
 
@@ -23,6 +23,14 @@ Creates a <R s={Ot.Sfnt}/> form a <R s="Buffer"/>.
 ### <Fn s={FontIo.writeSfntOtf} args={{sfnt:Ot.Sfnt}} returns="Buffer"/>
 
 Creates a <R s="Buffer"/> form a <R s={Ot.Sfnt}/>.
+
+### <Fn s={FontIo.readSfntTtc} args={{buffer:"Buffer"}} returns={array(Ot.Sfnt)}/>
+
+Creates a <R s={Ot.Sfnt}/> array form a <R s="Buffer"/> representing a TTC file.
+
+### <Fn s={FontIo.writeSfntTtc} args={{sfnt:array(Ot.Sfnt)}} returns="Buffer"/>
+
+Creates a TTC file <R s="Buffer"/> form a <R s={Ot.Sfnt}/> array.
 
 ## IO Configuration
 

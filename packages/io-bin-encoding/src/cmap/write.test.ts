@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { Cmap } from "@ot-builder/ot-encoding";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { BimapCtx, CmapIdentity, Disorder, TestFont } from "@ot-builder/test-util";
@@ -11,7 +11,7 @@ import { WriteCmap } from "./write";
 
 function cmapRoundtrip(file: string) {
     const bufFont = TestFont.get(file);
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const cfg = { fontMetadata: {}, glyphStore: {} };
     const md = readOtMetadata(sfnt, cfg);
 

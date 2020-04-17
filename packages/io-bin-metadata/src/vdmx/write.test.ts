@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { SfntOtf } from "@ot-builder/io-bin-sfnt";
+import { readSfntBuf } from "@ot-builder/io-bin-sfnt";
 import { Vdmx } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
@@ -7,7 +7,7 @@ import { VdmxRatioRange, VdmxTableIo } from ".";
 
 test("Writing : VDMX", () => {
     const bufFont = TestFont.get("vdmx.ttf");
-    const sfnt = new BinaryView(bufFont).next(SfntOtf);
+    const sfnt = readSfntBuf(bufFont);
     const vdmx = new BinaryView(sfnt.tables.get(Vdmx.Tag)!).next(VdmxTableIo);
 
     // Read-write roundtrip
