@@ -1,0 +1,9 @@
+{
+  "type": "patch",
+  "comment": "HOTFIX: FontIO: fix GASP IO procedures",
+  "packageName": "@ot-builder/io-bin-metadata",
+  "email": "belleve@typeof.net",
+  "commit": "e1bfc702d364033a9927115a11d76a1cdde3c119",
+  "dependentChangeType": "patch",
+  "date": "2020-04-19T09:42:09.257Z"
+}
