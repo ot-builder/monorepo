@@ -2,6 +2,21 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "ot-builder-cli_v0.9.0",
+      "version": "0.9.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Create otb-ttc-bundle CLI program. Remove --share-glyphs from otb-cli.",
+            "author": "belleve@typeof.net",
+            "commit": "d1e1f03a54dc8e3c35168944ffdd2376b8353cd3",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "ot-builder-cli_v0.7.0",
       "version": "0.7.0",

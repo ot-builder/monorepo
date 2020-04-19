@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/io-bin-encoding
 
-This log was last generated on Sun, 05 Apr 2020 00:12:21 GMT and should not be manually modified.
+This log was last generated on Sun, 19 Apr 2020 00:10:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.8.0
+
+Sun, 19 Apr 2020 00:10:05 GMT
+
+### Patches
+
+- Add CMAP writing overflow check and crafted stress tests (belleve@typeof.net)
+- Add TTC support for fontio (belleve@typeof.net)
+- Cleanup names (belleve@typeof.net)
 
 ## 0.7.0
 

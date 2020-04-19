@@ -1,6 +1,18 @@
 # Change Log - @ot-builder/io-bin-ttf
 
-This log was last generated on Sun, 29 Mar 2020 00:13:11 GMT and should not be manually modified.
+This log was last generated on Sun, 19 Apr 2020 00:10:05 GMT and should not be manually modified.
+
+<!-- Start content -->
+
+## 0.8.0
+
+Sun, 19 Apr 2020 00:10:05 GMT
+
+### Patches
+
+- Add TTC support for fontio (belleve@typeof.net)
+- Add GVAR sparse glyph sharing (belleve@typeof.net)
+- Add back 4 byte gap between TVDs in GVAR when gvarForceZeroGapsBetweenTvd  is provided. (belleve@typeof.net)
 
 ## 0.6.0
 Sun, 29 Mar 2020 00:13:11 GMT

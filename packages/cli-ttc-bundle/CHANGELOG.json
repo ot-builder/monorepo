@@ -1,0 +1,40 @@
+{
+  "name": "otb-ttc-bundle",
+  "entries": [
+    {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "otb-ttc-bundle_v0.9.0",
+      "version": "0.9.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Create otb-ttc-bundle CLI program. Remove --share-glyphs from otb-cli.",
+            "author": "belleve@typeof.net",
+            "commit": "d1e1f03a54dc8e3c35168944ffdd2376b8353cd3",
+            "package": "otb-ttc-bundle"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add TTC support for fontio",
+            "author": "belleve@typeof.net",
+            "commit": "059cc70459617a9a16e9fa49464342c002ca8991",
+            "package": "otb-ttc-bundle"
+          },
+          {
+            "comment": "Add GVAR sparse glyph sharing",
+            "author": "belleve@typeof.net",
+            "commit": "8f8739b9223b7d82c2e07b36bc5e99f102d88b08",
+            "package": "otb-ttc-bundle"
+          },
+          {
+            "comment": "Make offset index alignment check optional",
+            "author": "belleve@typeof.net",
+            "commit": "495450c9d1014fca04804adacdb897ed8dcc5f64",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    }
+  ]
+}

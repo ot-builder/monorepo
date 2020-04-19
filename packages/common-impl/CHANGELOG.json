@@ -2,6 +2,21 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/common-impl_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add roundtrip tests for OTL kerning",
+            "author": "belleve@typeof.net",
+            "commit": "8a464aa34e39b759a6e65bee03820ca69e46e3dd",
+            "package": "@ot-builder/common-impl"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/common-impl_v0.6.0",
       "version": "0.6.0",

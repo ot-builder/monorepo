@@ -2,6 +2,21 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/rectify_v0.10.0",
+      "version": "0.10.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix chaining lookup rectifier when subsetting fonts",
+            "author": "belleve@typeof.net",
+            "commit": "9ced4ac522e71c2546e9b1e3a3b4cc0644466677",
+            "package": "@ot-builder/rectify"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/rectify_v0.8.0",
       "version": "0.8.0",

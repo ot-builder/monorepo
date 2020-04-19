@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "sort mvar records by tag",
-  "packageName": "@ot-builder/io-bin-metadata",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch",
-  "date": "2020-04-14T15:20:11.329Z"
-}

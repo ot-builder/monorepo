@@ -2,6 +2,29 @@
   "name": "@ot-builder/io-bin-sfnt",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/io-bin-sfnt_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Add TTC support for fontio",
+            "author": "belleve@typeof.net",
+            "commit": "059cc70459617a9a16e9fa49464342c002ca8991",
+            "package": "@ot-builder/io-bin-sfnt"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Add GVAR sparse glyph sharing",
+            "author": "belleve@typeof.net",
+            "commit": "8f8739b9223b7d82c2e07b36bc5e99f102d88b08",
+            "package": "@ot-builder/io-bin-sfnt"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/io-bin-sfnt_v0.6.0",
       "version": "0.6.0",

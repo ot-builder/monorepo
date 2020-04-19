@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Make offset index alignment check optional",
-  "packageName": "otb-ttc-bundle",
-  "email": "belleve@typeof.net",
-  "commit": "a6b8ba2818c3737b9a37b5b0ffc052c8964c04b4",
-  "dependentChangeType": "patch",
-  "date": "2020-04-17T08:16:43.418Z"
-}

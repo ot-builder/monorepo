@@ -1,9 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add TTC support for fontio",
-  "packageName": "@ot-builder/io-bin-font",
-  "email": "belleve@typeof.net",
-  "commit": "f28bff94e5958332c17145780d115de8f94f8d80",
-  "dependentChangeType": "patch",
-  "date": "2020-04-17T00:08:39.080Z"
-}

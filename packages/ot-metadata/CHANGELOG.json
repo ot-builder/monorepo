@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-metadata",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/ot-metadata_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Leverage more enums in data types",
+            "author": "belleve@typeof.net",
+            "commit": "685f8a0d86d170c034bfc9ced0406ebe76545740",
+            "package": "@ot-builder/ot-metadata"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/ot-metadata_v0.6.0",
       "version": "0.6.0",

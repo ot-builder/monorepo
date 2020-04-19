@@ -2,6 +2,33 @@
   "name": "@ot-builder/io-bin-ttf",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/io-bin-ttf_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add TTC support for fontio",
+            "author": "belleve@typeof.net",
+            "commit": "059cc70459617a9a16e9fa49464342c002ca8991",
+            "package": "@ot-builder/io-bin-ttf"
+          },
+          {
+            "comment": "Add GVAR sparse glyph sharing",
+            "author": "belleve@typeof.net",
+            "commit": "8f8739b9223b7d82c2e07b36bc5e99f102d88b08",
+            "package": "@ot-builder/io-bin-ttf"
+          },
+          {
+            "comment": "Add back 4 byte gap between TVDs in GVAR when gvarForceZeroGapsBetweenTvd  is provided.",
+            "author": "belleve@typeof.net",
+            "commit": "495450c9d1014fca04804adacdb897ed8dcc5f64",
+            "package": "@ot-builder/io-bin-ttf"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/io-bin-ttf_v0.6.0",
       "version": "0.6.0",

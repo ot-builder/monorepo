@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add roundtrip tests for OTL kerning",
-  "packageName": "@ot-builder/common-impl",
-  "email": "belleve@typeof.net",
-  "commit": "5e807e474cde2cad332012cd752daeacbd928c77",
-  "dependentChangeType": "patch",
-  "date": "2020-04-13T05:38:56.078Z"
-}

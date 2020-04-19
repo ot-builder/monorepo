@@ -1,6 +1,20 @@
 # Change Log - @ot-builder/io-bin-sfnt
 
-This log was last generated on Sun, 29 Mar 2020 00:13:11 GMT and should not be manually modified.
+This log was last generated on Sun, 19 Apr 2020 00:10:05 GMT and should not be manually modified.
+
+<!-- Start content -->
+
+## 0.8.0
+
+Sun, 19 Apr 2020 00:10:05 GMT
+
+### Minor changes
+
+- Add TTC support for fontio (belleve@typeof.net)
+
+### Patches
+
+- Add GVAR sparse glyph sharing (belleve@typeof.net)
 
 ## 0.6.0
 Sun, 29 Mar 2020 00:13:11 GMT

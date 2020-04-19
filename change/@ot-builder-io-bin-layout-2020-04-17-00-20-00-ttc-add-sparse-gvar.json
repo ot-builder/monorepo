@@ -1,9 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Cleanup names",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "commit": "3edcee459b0744222b48f629d1113bba7a7ad721",
-  "dependentChangeType": "patch",
-  "date": "2020-04-17T07:20:00.009Z"
-}

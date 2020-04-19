@@ -2,6 +2,21 @@
   "name": "@ot-builder/errors",
   "entries": [
     {
+      "date": "Sun, 19 Apr 2020 00:10:05 GMT",
+      "tag": "@ot-builder/errors_v0.8.0",
+      "version": "0.8.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add CMAP writing overflow check and crafted stress tests",
+            "author": "belleve@typeof.net",
+            "commit": "c238b4f2f0a1c9b15ec2cf26ae15f37381fb61ff",
+            "package": "@ot-builder/errors"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 29 Mar 2020 00:13:11 GMT",
       "tag": "@ot-builder/errors_v0.6.0",
       "version": "0.6.0",
