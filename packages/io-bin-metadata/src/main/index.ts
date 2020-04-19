@@ -5,6 +5,7 @@ import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import {
     Avar,
     Fvar,
+    Gasp,
     Head,
     Maxp,
     MetricHead,
@@ -17,6 +18,7 @@ import { Sfnt } from "@ot-builder/ot-sfnt";
 import { AvarIo } from "../avar";
 import { FontMetadataCfg } from "../cfg";
 import { FvarIo } from "../fvar";
+import { GaspTableIo } from "../gasp";
 import { HeadIo } from "../head";
 import { MaxpIo } from "../maxp";
 import { MetricHeadIo } from "../metric-head";
@@ -53,7 +55,10 @@ export function readOtMetadata(sfnt: Sfnt, cfg: FontMetadataCfg): OtFontIoMetada
     const bAvar = sfnt.tables.get(Avar.Tag);
     const avar = bAvar && fvar ? new BinaryView(bAvar).next(AvarIo, fvar.getDesignSpace()) : null;
 
-    const md = { head, maxp, fvar, hhea, vhea, post, postGlyphNaming, os2, avar };
+    const bGasp = sfnt.tables.get(Gasp.Tag);
+    const gasp = bGasp ? new BinaryView(bGasp).next(GaspTableIo) : null;
+
+    const md = { head, maxp, fvar, hhea, vhea, post, postGlyphNaming, os2, avar, gasp };
 
     const bMvar = sfnt.tables.get(MvarTag);
     if (fvar && bMvar) {
@@ -68,14 +73,15 @@ export function writeOtMetadata(
     cfg: FontMetadataCfg,
     md: OtFontIoMetadata
 ) {
-    if (md.fvar && md.avar) {
-        sink.add(Avar.Tag, Frag.packFrom(AvarIo, md.avar, md.fvar.getDesignSpace()));
-    }
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(MvarTableIo, md.fvar.getDesignSpace(), md, sfEmpty);
         if (!sfEmpty.get()) sink.add(MvarTag, bMvar);
     }
+    if (md.gasp) sink.add(Gasp.Tag, Frag.packFrom(GaspTableIo, md.gasp));
+    if (md.fvar && md.avar)
+        sink.add(Avar.Tag, Frag.packFrom(AvarIo, md.avar, md.fvar.getDesignSpace()));
+
     if (md.os2) sink.add(Os2.Tag, Frag.packFrom(Os2TableIo, md.os2));
     if (md.post) {
         sink.add(
