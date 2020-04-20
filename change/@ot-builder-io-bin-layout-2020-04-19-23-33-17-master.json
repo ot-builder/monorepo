@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Force republish -- try 2",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch",
-  "date": "2020-04-20T06:33:09.175Z"
-}

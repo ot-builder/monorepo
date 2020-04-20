@@ -1,0 +1,20 @@
+{
+  "name": "@ot-builder/cli-proc",
+  "entries": [
+    {
+      "date": "Mon, 20 Apr 2020 06:43:41 GMT",
+      "tag": "@ot-builder/cli-proc_v0.10.5",
+      "version": "0.10.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Force republish -- try 2",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "b840fb34be36255312dc32dae4573d9cdf4fd568",
+            "package": "@ot-builder/cli-proc"
+          }
+        ]
+      }
+    }
+  ]
+}
