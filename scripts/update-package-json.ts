@@ -59,6 +59,10 @@ for (const packageName of packages) {
         ...(packageJSONData.devDependencies || {}),
         ...(packageJSONData.__devDependencies || {})
     };
+    for (const pkgName in devDeps) {
+        const ver = sInternalPackageVersion.get(pkgName);
+        if (ver) devDeps[pkgName] = ver;
+    }
     delete packageJSONData.devDependencies;
     packageJSONData.devDependencies = devDeps;
 
