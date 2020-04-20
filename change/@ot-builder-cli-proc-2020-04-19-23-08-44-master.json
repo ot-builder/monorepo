@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Force restart pcakge versioning due to publish failure",
+  "packageName": "@ot-builder/cli-proc",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch",
+  "date": "2020-04-20T06:08:33.626Z"
+}

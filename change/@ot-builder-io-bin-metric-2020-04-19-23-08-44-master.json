@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Force restart pcakge versioning due to publish failure",
+  "packageName": "@ot-builder/io-bin-metric",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch",
+  "date": "2020-04-20T06:08:37.382Z"
+}
