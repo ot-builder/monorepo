@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-metadata
 
-This log was last generated on Sun, 19 Apr 2020 00:10:05 GMT and should not be manually modified.
+This log was last generated on Mon, 20 Apr 2020 00:05:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.8.1
+
+Mon, 20 Apr 2020 00:05:53 GMT
+
+### Patches
+
+- HOTFIX: FontIO: fix GASP IO procedures (belleve@typeof.net)
 
 ## 0.8.0
 

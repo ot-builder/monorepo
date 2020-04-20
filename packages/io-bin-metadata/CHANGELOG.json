@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-metadata",
   "entries": [
     {
+      "date": "Mon, 20 Apr 2020 00:05:53 GMT",
+      "tag": "@ot-builder/io-bin-metadata_v0.8.1",
+      "version": "0.8.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "HOTFIX: FontIO: fix GASP IO procedures",
+            "author": "belleve@typeof.net",
+            "commit": "2537731ddac0756871b4178bf04601c9edcb1d1c",
+            "package": "@ot-builder/io-bin-metadata"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 19 Apr 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-metadata_v0.8.0",
       "version": "0.8.0",
