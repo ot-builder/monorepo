@@ -35,7 +35,6 @@ for (const packageName of packages) {
     delete packageJSONData.publishConfig;
     delete packageJSONData.jest;
 
-    packageJSONData.version = "0.10.4";
     packageJSONData.main = "./lib/index.js";
     packageJSONData.types = "./lib/index.d.ts";
     packageJSONData.files = ["lib/**/*.js", "lib/**/*.json", "lib/**/*.d.ts"];
@@ -51,7 +50,7 @@ for (const packageName of packages) {
     const deps = packageJSONData.dependencies || {};
     for (const pkgName in deps) {
         const ver = sInternalPackageVersion.get(pkgName);
-        if (ver) deps[pkgName] = "0.10.4";
+        if (ver) deps[pkgName] = ver;
     }
     delete packageJSONData.dependencies;
     packageJSONData.dependencies = deps;
@@ -62,7 +61,7 @@ for (const packageName of packages) {
     };
     for (const pkgName in devDeps) {
         const ver = sInternalPackageVersion.get(pkgName);
-        if (ver) devDeps[pkgName] = "0.10.4";
+        if (ver) devDeps[pkgName] = ver;
     }
     delete packageJSONData.devDependencies;
     packageJSONData.devDependencies = devDeps;

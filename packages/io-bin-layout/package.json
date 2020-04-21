@@ -35,6 +35,8 @@
   "devDependencies": {
     "@ot-builder/io-bin-glyph-store": "0.10.5",
     "@ot-builder/io-bin-metadata": "0.10.5",
+    "@ot-builder/ot-encoding": "0.10.5",
+    "@ot-builder/io-bin-encoding": "0.10.5",
     "@ot-builder/test-util": "0.10.5",
     "@types/jest": "^24.0.15",
     "jest": "^24.8.0"
