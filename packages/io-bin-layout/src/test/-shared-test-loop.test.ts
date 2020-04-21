@@ -28,17 +28,18 @@ export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     const md = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(md.maxp.numGlyphs);
     const gOrd = gs.decideOrder();
-
     const encoding = readEncoding(sfnt, cfg, gOrd, md);
+    const otlRound0 = readOtl(sfnt, gOrd, md);
 
-    const otlPreRoundtrip = readOtl(sfnt, gOrd, md);
+    yield { round: 0, otl: otlRound0, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
 
-    yield { round: 0, otl: otlPreRoundtrip, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
+    let otl = otlRound0;
+    for (let round = 1; round < 4; round++) {
+        const tempSfnt = new Sfnt(0x10000);
+        const sink = new SfntIoTableSink(tempSfnt);
+        writeOtl(sink, otlRound0, gOrd, md);
 
-    const tempSfnt = new Sfnt(0x10000);
-    const sink = new SfntIoTableSink(tempSfnt);
-    writeOtl(sink, otlPreRoundtrip, gOrd, md);
-
-    const otlPostRoundtrip = readOtl(tempSfnt, gOrd, md);
-    yield { round: 1, otl: otlPostRoundtrip, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
+        otl = readOtl(tempSfnt, gOrd, md);
+        yield { round, otl: otl, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
+    }
 }
