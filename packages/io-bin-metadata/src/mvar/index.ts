@@ -30,7 +30,7 @@ class HheaMvarLensSource implements MvarLensSource {
         // yield ["????", new MvarPropAccess(this.hhea, "lineGap")];
         yield ["hcrs", new MvarPropAccess(this.hhea, "caretSlopeRise")];
         yield ["hcrn", new MvarPropAccess(this.hhea, "caretSlopeRun")];
-        yield ["hcof", new MvarPropAccess(this.hhea, "caretSlopeRun")];
+        yield ["hcof", new MvarPropAccess(this.hhea, "caretOffset")];
     }
 }
 class VheaMvarLensSource implements MvarLensSource {

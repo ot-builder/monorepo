@@ -71,6 +71,9 @@
     },
     {
       "path": "../io-bin-glyph-store/tsconfig.prod.json"
+    },
+    {
+      "path": "../io-bin-encoding/tsconfig.prod.json"
     }
   ],
   "include": [
