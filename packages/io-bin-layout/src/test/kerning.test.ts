@@ -30,7 +30,12 @@ test("OTL Integrated Test Loop - Kerning 1", () => {
 });
 
 // prettier-ignore
-const TestPairs = ["ĄJ","Ąg","Ąģ","Ąj","Ąȷ","Qȷ","ąj","ąȷ","gȷ","ģȷ","ıȷ","ųȷ","vȷ","Va","Vá","Vą","Vf","Vﬂ","V."];
+const TestPairs = [
+    "ĄJ", "Ąg", "Ąģ", "Ąj", "Ąȷ", "Qȷ", "ąj", "ąȷ",
+    "gȷ", "ģȷ", "ıȷ", "ųȷ", "vȷ", "Va", "Vá", "Vą",
+    "Vf", "Vﬂ", "V.", "З‼", "Ҙ₮", "ΛΎ", "ҫ₡", "ъŋ",
+    "/,", "/.", "1,", "1.", "3,", "3.", "4,", "4."
+];
 
 test("OTL Integrated Test Loop - Kerning 2", () => {
     const round0Results: number[][] = [];
@@ -42,8 +47,10 @@ test("OTL Integrated Test Loop - Kerning 2", () => {
 
         for (let pairId = 0; pairId < TestPairs.length; pairId++) {
             const pair = TestPairs[pairId];
-            const g1 = cmap.unicode.get(pair.codePointAt(0)!)!;
-            const g2 = cmap.unicode.get(pair.codePointAt(1)!)!;
+            const g1 = cmap.unicode.get(pair.codePointAt(0)!);
+            const g2 = cmap.unicode.get(pair.codePointAt(1)!);
+
+            if (!g1 || !g2) continue;
 
             const [kern] = lookupKern.adjustments.get(g1, g2) || Gpos.ZeroAdjustmentPair;
             const evaluatedKern = [OtVar.Ops.evaluate(kern.dWidth, null)];
@@ -57,8 +64,20 @@ test("OTL Integrated Test Loop - Kerning 2", () => {
 });
 
 test("OTL Integrated Test Loop - Kerning 3", () => {
+    VariableKerningTestLoop(9, "SourceSerifVariable-Roman.ttf");
+});
+
+test("OTL Integrated Test Loop - Kerning 4", () => {
+    VariableKerningTestLoop(9, "SourceSerifVariable-Italic.ttf");
+});
+
+test("OTL Integrated Test Loop - Kerning 5", () => {
+    VariableKerningTestLoop(1, "Inter-V.otf");
+});
+
+function VariableKerningTestLoop(lutIndex: number, file: string) {
     const round0Results: number[][] = [];
-    for (const { round, cmap, otl, fvar } of TestOtlLoop("SourceSerifVariable-Roman.ttf")) {
+    for (const { round, cmap, otl, fvar } of TestOtlLoop(file)) {
         const { gpos } = otl;
         if (!gpos || !fvar) fail("GPOS/FVAR not present");
 
@@ -66,12 +85,14 @@ test("OTL Integrated Test Loop - Kerning 3", () => {
         const thin = new Map([[wght, -1]]);
         const heavy = new Map([[wght, +1]]);
 
-        const lookupKern = gpos.lookups[9] as Gpos.Pair;
+        const lookupKern = gpos.lookups[lutIndex] as Gpos.Pair;
 
         for (let pairId = 0; pairId < TestPairs.length; pairId++) {
             const pair = TestPairs[pairId];
-            const g1 = cmap.unicode.get(pair.codePointAt(0)!)!;
-            const g2 = cmap.unicode.get(pair.codePointAt(1)!)!;
+            const g1 = cmap.unicode.get(pair.codePointAt(0)!);
+            const g2 = cmap.unicode.get(pair.codePointAt(1)!);
+
+            if (!g1 || !g2) continue;
 
             const [kern] = lookupKern.adjustments.get(g1, g2) || Gpos.ZeroAdjustmentPair;
             const evaluatedKern = [
@@ -82,8 +103,11 @@ test("OTL Integrated Test Loop - Kerning 3", () => {
             if (round === 0) {
                 round0Results[pairId] = evaluatedKern;
             } else {
+                if (JSON.stringify(evaluatedKern) !== JSON.stringify(round0Results[pairId])) {
+                    fail(`Pair '${pair}' mismatch.`);
+                }
                 expect(evaluatedKern).toEqual(round0Results[pairId]);
             }
         }
     }
-});
+}

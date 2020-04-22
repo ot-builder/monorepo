@@ -13,7 +13,7 @@ export class OutlierTree<G> {
             mSnd = new Map<G, Gpos.AdjustmentPair>();
             this.mapping.set(fst, mSnd);
         }
-        mSnd.set(snd, adj);
+        if (!mSnd.has(snd)) mSnd.set(snd, adj);
     }
     get size() {
         return this.mapping.size;
@@ -63,7 +63,6 @@ export function shareColumns<G>(cm: ClassMatrix<G>) {
 
 export function analyzeOutlier<G>(cm: ClassMatrix<G>) {
     const outliers = new OutlierTree<G>();
-    OutlierAnalyzerImpl.shareColumnsImpl(cm, outliers);
     OutlierAnalyzerImpl.analyzeOutlierImpl(cm, outliers);
     cm.eliminateZeroClasses();
     return outliers;
