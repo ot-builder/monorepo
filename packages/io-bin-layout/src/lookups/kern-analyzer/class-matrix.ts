@@ -7,7 +7,7 @@ import { GposAdjustment } from "../../shared/gpos-adjust";
 
 export class AdjStore {
     constructor(
-        public indexMatrix: number[][],
+        public indexMatrix: ReadonlyArray<ReadonlyArray<number>>,
         public adjustments: ReadonlyArray<Gpos.AdjustmentPair>
     ) {}
 }
@@ -95,6 +95,70 @@ export class ClassMatrix<G> {
     public measure() {
         return MeasureClassMatrixImpl.measure<G>(this);
     }
+
+    sort(ord: Data.Order<G>) {
+        const [c1Relocation, c2Relocation] = this.getRelocation(ord);
+
+        const c1a: G[][] = [];
+        const c2a: G[][] = [];
+
+        for (let c1 = 0; c1 < c1Relocation.length; c1++) {
+            c1a[c1] = this.cFirst[c1Relocation[c1]];
+        }
+        for (let c2 = 0; c2 < c2Relocation.length; c2++) {
+            c2a[c2] = this.cSecond[c2Relocation[c2]];
+        }
+
+        const indexMatrix: number[][] = [];
+        for (let c1 = 0; c1 < c1Relocation.length; c1++) {
+            indexMatrix[c1] = [];
+            for (let c2 = 0; c2 < c2Relocation.length; c2++) {
+                const srcRow = this.adjStore.indexMatrix[c1Relocation[c1]] || [];
+                indexMatrix[c1][c2] = srcRow[c2Relocation[c2]] || 0;
+            }
+        }
+
+        this.cFirst = c1a;
+        this.cSecond = c2a;
+        this.adjStore = new AdjStore(indexMatrix, this.adjStore.adjustments);
+    }
+
+    private getRelocation(ord: Data.Order<G>) {
+        const c1RelocationRaw: [number, number[]][] = [];
+        const c2RelocationRaw: [number, number[]][] = [];
+
+        for (let c1 = 0; c1 < this.cFirst.length; c1++) {
+            if (c1 === 0 || !this.firstClassValid(c1)) continue;
+            const gids = [];
+            for (const g of this.cFirst[c1]) gids.push(ord.reverse(g));
+            gids.sort((a, b) => a - b);
+            c1RelocationRaw.push([c1, gids]);
+        }
+        for (let c2 = 0; c2 < this.cSecond.length; c2++) {
+            if (c2 === 0 || !this.secondClassValid(c2)) continue;
+            const gids = [];
+            for (const g of this.cSecond[c2]) gids.push(ord.reverse(g));
+            gids.sort((a, b) => a - b);
+            c2RelocationRaw.push([c2, gids]);
+        }
+
+        c1RelocationRaw.sort(compareRelocation);
+        c2RelocationRaw.sort(compareRelocation);
+
+        const c1Relocation = [0, ...c1RelocationRaw.map(x => x[0])];
+        const c2Relocation = [0, ...c2RelocationRaw.map(x => x[0])];
+        return [c1Relocation, c2Relocation];
+    }
+}
+
+function compareRelocation(a: [number, number[]], b: [number, number[]]) {
+    if (a[1].length > b[1].length) return -1;
+    if (a[1].length < b[1].length) return +1;
+    for (let k = 0; k < a[1].length && k < b[1].length; k++) {
+        if (a[1][k] < b[1][k]) return -1;
+        if (a[1][k] > b[1][k]) return +1;
+    }
+    return 0;
 }
 
 namespace AnalyzeClassMatrixImpl {

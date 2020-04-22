@@ -1,6 +1,6 @@
 import { Data } from "@ot-builder/prelude";
 
-type DicingPlan<X> = { cls: number; from: null | number; items: null | X[]; inSet: boolean };
+type DicingPlan = { cls: number; from: null | number; inSet: boolean };
 
 export interface DicingStore<X, Y, D> {
     get(x: X, y: Y): Data.Maybe<D>;
@@ -68,12 +68,13 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         this.dataMatrix[kx][ky] = d;
     }
 
-    private getDicingPlan<X>(coCd: X[][], mdf: Set<X>) {
-        const plans: DicingPlan<X>[] = [];
+    private diceOneDimension<X>(cd: Map<X, number>, coCd: X[][], mdf: Set<X>) {
+        const plans: DicingPlan[] = [];
         let inSet: X[];
         let outSet: X[];
-        let clsNew = coCd.length;
-        for (let cl = 0; cl < coCd.length; cl++) {
+        const nExistingClasses = coCd.length;
+        let nTotalClasses = coCd.length;
+        for (let cl = 0; cl < nExistingClasses; cl++) {
             inSet = [];
             outSet = [];
             const kg = coCd[cl];
@@ -88,14 +89,22 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
             }
             if (inSet.length) {
                 if (outSet.length) {
-                    plans.push({ cls: clsNew++, from: cl, items: inSet, inSet: true });
-                    plans.push({ cls: cl, from: cl, items: outSet, inSet: false });
+                    const clsNew = nTotalClasses++;
+                    for (const x of inSet) cd.set(x, clsNew);
+                    (coCd[clsNew] = inSet), (coCd[cl] = outSet);
+                    plans.push({ cls: clsNew, from: cl, inSet: true });
+                    plans.push({ cls: cl, from: null, inSet: false });
                 } else {
-                    plans.push({ cls: cl, from: cl, items: null, inSet: true });
+                    plans.push({ cls: cl, from: null, inSet: true });
                 }
             }
         }
-        if (mdf.size) plans.push({ cls: clsNew++, from: null, items: [...mdf], inSet: true });
+        if (mdf.size) {
+            const clsNew = nTotalClasses++;
+            for (const x of mdf) cd.set(x, clsNew);
+            coCd[clsNew] = [...mdf];
+            plans.push({ cls: clsNew, from: null, inSet: true });
+        }
         return plans;
     }
 
@@ -107,34 +116,34 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         const mdfXSet = new Set(mdfX);
         const mdfYSet = new Set(mdfY);
         if (!mdfXSet.size || !mdfYSet.size) return;
-        const planX = this.getDicingPlan(this.coClsDefX, mdfXSet);
-        const planY = this.getDicingPlan(this.coClsDefY, mdfYSet);
-        for (const px of planX) {
-            if (!px.items) continue;
-            this.coClsDefX[px.cls] = px.items;
-            if (px.inSet) for (const x of px.items) this.clsDefX.set(x, px.cls);
-        }
-        for (const py of planY) {
-            if (!py.items) continue;
-            this.coClsDefY[py.cls] = py.items;
-            if (py.inSet) for (const y of py.items) this.clsDefY.set(y, py.cls);
-        }
-        for (const px of planX) {
-            for (const py of planY) {
-                if (px.cls === px.from && py.cls === py.from) continue;
-                const original =
-                    px.from !== null && py.from !== null
-                        ? this.getData(px.from, py.from)
-                        : undefined;
-                this.putData(px.cls, py.cls, original);
-            }
-        }
+
+        const nOldClsX = this.coClsDefX.length;
+        const nOldClsY = this.coClsDefY.length;
+        const planX = this.diceOneDimension(this.clsDefX, this.coClsDefX, mdfXSet);
+        const planY = this.diceOneDimension(this.clsDefY, this.coClsDefY, mdfYSet);
 
         for (const px of planX) {
-            if (!px.inSet) continue;
+            if (px.from == null) continue;
+            for (let cy = 0; cy < nOldClsY; cy++) {
+                this.putData(px.cls, cy, this.getData(px.from, cy));
+            }
+        }
+        for (const py of planY) {
+            if (py.from == null) continue;
+            for (let cx = 0; cx < nOldClsX; cx++) {
+                this.putData(cx, py.cls, this.getData(cx, py.from));
+            }
+        }
+        for (const px of planX) {
             for (const py of planY) {
-                if (!py.inSet) continue;
-                this.putData(px.cls, py.cls, fn(this.getData(px.cls, py.cls)));
+                const cx = px.from == null ? px.cls : px.from;
+                const cy = py.from == null ? py.cls : py.from;
+                const orig = this.getData(cx, cy);
+                if (px.inSet && py.inSet) {
+                    this.putData(px.cls, py.cls, fn(orig));
+                } else {
+                    this.putData(px.cls, py.cls, orig);
+                }
             }
         }
     }

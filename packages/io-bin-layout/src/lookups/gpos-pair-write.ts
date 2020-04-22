@@ -91,6 +91,8 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
 
     public createSubtableFragments(lookup: Gpos.Pair, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const cm = ClassMatrix.analyze(lookup.adjustments, ctx);
+        shareColumns(cm);
+        cm.sort(ctx.gOrd);
         const outliers = analyzeOutlier(cm);
         const frags: Frag[] = [];
         this.writeOutliers(frags, outliers, ctx, 0);
