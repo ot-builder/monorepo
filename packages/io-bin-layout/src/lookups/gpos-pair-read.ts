@@ -44,8 +44,8 @@ const SubtableFormat2 = {
         const class1Count = view.uint16();
         const class2Count = view.uint16();
 
-        for (const gid of cov) ClassDefUtil.padClass0(cd1, context.gOrd.at(gid));
-        for (const g of context.gOrd) ClassDefUtil.padClass0(cd2, g);
+        ClassDefUtil.limitToCov(cd1, CovUtils.glyphSetFromGidList(cov, context.gOrd));
+        ClassDefUtil.padClass0(cd2, context.gOrd);
         const scd1 = ClassDefUtil.SplitClassDef(cd1);
         const scd2 = ClassDefUtil.SplitClassDef(cd2);
         for (let c1 = 0; c1 < class1Count; c1++) {
