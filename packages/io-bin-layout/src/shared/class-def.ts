@@ -6,8 +6,15 @@ import { LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 export namespace ClassDefUtil {
-    export function padClass0(cd: LayoutCommon.ClassDef.T<OtGlyph>, g: OtGlyph) {
-        if (!cd.has(g)) cd.set(g, 0);
+    export function padClass0<G>(cd: LayoutCommon.ClassDef.T<G>, gs: Iterable<G>) {
+        for (const g of gs) if (!cd.has(g)) cd.set(g, 0);
+    }
+    export function limitToCov<G>(
+        cd: LayoutCommon.ClassDef.T<G>,
+        cov: LayoutCommon.Coverage.T<G>
+    ) {
+        for (const g of cov) if (!cd.has(g)) cd.set(g, 0);
+        for (const g of cd.keys()) if (!cov.has(g)) cd.delete(g);
     }
     export function SplitClassDef<G>(cd: LayoutCommon.ClassDef.T<G>) {
         const ans: G[][] = [];
@@ -21,6 +28,19 @@ export namespace ClassDefUtil {
         let mc = 1;
         for (const v of cd.values()) if (v + 1 > mc) mc = v + 1;
         return mc;
+    }
+    export function select<G>(
+        targetCls: number,
+        cd: LayoutCommon.ClassDef.T<G>,
+        cov?: null | LayoutCommon.Coverage.T<G>
+    ) {
+        const gs = new Set<G>();
+        for (const [g, cls] of cd) {
+            if (cls === targetCls && (!cov || cov.has(g))) {
+                gs.add(g);
+            }
+        }
+        return gs;
     }
 }
 
@@ -36,7 +56,7 @@ export const ClassDef = {
     write(frag: Frag, cd: Iterable<[OtGlyph, number]>, gOrd: Data.Order<OtGlyph>) {
         const gidMap: [number, number][] = [];
         for (const [glyph, cls] of cd) {
-            gidMap.push([gOrd.reverse(glyph), cls]);
+            if (cls) gidMap.push([gOrd.reverse(glyph), cls]);
         }
         gidMap.sort((a, b) => a[0] - b[0]);
         frag.push(GidClassDef, gidMap);

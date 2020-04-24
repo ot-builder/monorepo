@@ -5,7 +5,7 @@ import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
-import { ClassDef } from "../shared/class-def";
+import { ClassDef, ClassDefUtil } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GlyphCoverage } from "../shared/coverage";
 
 import { SimpleClassIdArray, SimpleCoverageArray, SimpleOffsetArray } from "./shared-types";
@@ -22,11 +22,7 @@ class IndividualResolver<L> implements Resolver {
 class ClassResolver implements Resolver {
     constructor(private cd: GsubGpos.ClassDef, private startCoverageSet: Set<OtGlyph>) {}
     public toGlyphSet(id: number, start: boolean) {
-        const gs = new Set<OtGlyph>();
-        for (const [g, cls] of this.cd) {
-            if (cls === id && (!start || this.startCoverageSet.has(g))) gs.add(g);
-        }
-        return gs;
+        return ClassDefUtil.select(id, this.cd, start ? this.startCoverageSet : null);
     }
 }
 
@@ -165,11 +161,9 @@ class SubtableFormat2<L> {
         const cdLookAhead = isChaining ? view.ptr16().next(ClassDef, ctx.gOrd) : new Map();
 
         const covGlyphSet = CovUtils.glyphSetFromGidList(cov, ctx.gOrd);
-        for (const g of ctx.gOrd) {
-            if (!cdBacktrack.get(g)) cdBacktrack.set(g, 0);
-            if (!cdInput.get(g)) cdInput.set(g, 0);
-            if (!cdLookAhead.get(g)) cdLookAhead.set(g, 0);
-        }
+        ClassDefUtil.padClass0(cdBacktrack, ctx.gOrd);
+        ClassDefUtil.padClass0(cdInput, ctx.gOrd);
+        ClassDefUtil.padClass0(cdLookAhead, ctx.gOrd);
 
         const srBacktrack = new ClassResolver(cdBacktrack, covGlyphSet);
         const srInput = new ClassResolver(cdInput, covGlyphSet);
