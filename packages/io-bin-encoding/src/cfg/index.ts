@@ -1,5 +1,6 @@
 export interface EncodingCfgProps {
     statOs2UnicodeRanges: boolean;
+    forceCmapSubtableFormatToBePresent: boolean;
 }
 export interface EncodingCfg {
     encoding: EncodingCfgProps;
@@ -7,4 +8,7 @@ export interface EncodingCfg {
 export interface EncodingCfgPt {
     encoding?: Partial<EncodingCfgProps>;
 }
-export const DefaultEncodingCfg: EncodingCfgProps = { statOs2UnicodeRanges: true };
+export const DefaultEncodingCfgProps: EncodingCfgProps = {
+    statOs2UnicodeRanges: true,
+    forceCmapSubtableFormatToBePresent: true
+};

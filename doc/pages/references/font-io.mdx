@@ -99,6 +99,10 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         Whether to recalculate `ulUnicodeRange1` ... `ulUnicodeRange4` property in `OS/2` table when writing fonts. Defaults to `true`.
 
+    * <Member optional s={FontIo.FontIoConfig.encoding.forceCmapSubtableFormatToBePresent} type={boolean} />
+
+        Whether to force a `cmap` format 4 subtable to be present even if it is empty or non-buildable (i.e. when all characters are mapped to exactly the same glyph). Under those situations, a “stub” `cmap` format 4 subtable containing no mapping will be created.
+
 * <Item optional s={FontIo.FontIoConfig.glyphNaming}/>:
 
     * <Member optional s={FontIo.FontIoConfig.glyphNaming.namer} type={Ot.GlyphNamer} />

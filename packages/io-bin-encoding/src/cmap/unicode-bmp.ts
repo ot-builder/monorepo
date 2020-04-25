@@ -5,7 +5,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { Int16, UInt16 } from "@ot-builder/primitive";
 
-import { SubtableHandler, SubtableHandlerKey } from "./general";
+import { SubtableHandler, SubtableHandlerKey, SubtableWriteOptions } from "./general";
 import { UnicodeEncodingCollector } from "./unicode-encoding-collector";
 
 export class UnicodeBmp implements SubtableHandler {
@@ -53,10 +53,17 @@ export class UnicodeBmp implements SubtableHandler {
         }
     }
 
-    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) {
-        return new CmapFormat4Writer().getFrag(
-            new UnicodeEncodingCollector(cmap.unicode, gOrd, UInt16.max).collect()
-        );
+    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>, options: SubtableWriteOptions) {
+        const col = new UnicodeEncodingCollector(cmap.unicode, gOrd, UInt16.max).collect();
+        const writer = new CmapFormat4Writer();
+        const buf = writer.getFrag(col);
+        if (!buf) {
+            options.forceWriteUnicodeFull = true;
+            if (options.encoding.forceCmapSubtableFormatToBePresent) return writer.getDummy();
+            else return null;
+        } else {
+            return buf;
+        }
     }
 
     public apply(cmap: Cmap.Table): void {
@@ -182,6 +189,14 @@ class CmapSegDpState {
     }
 }
 
+type CmapCollectedArrays = {
+    endCode: UInt16[];
+    startCode: UInt16[];
+    idDelta: Int16[];
+    idRangeOffsets: UInt16[];
+    glyphIdArray: UInt16[];
+};
+
 class CmapFormat4Writer {
     public runs: Run[] = [];
 
@@ -194,7 +209,7 @@ class CmapFormat4Writer {
         this.runs = dp.getChain();
     }
 
-    private collectArrays() {
+    private collectArrays(): null | CmapCollectedArrays {
         const endCode: UInt16[] = [];
         const startCode: UInt16[] = [];
         const idDelta: Int16[] = [];
@@ -216,8 +231,10 @@ class CmapFormat4Writer {
                 );
 
                 const idRgOffset = UInt16.size * (glyphIdArray.length + (this.runs.length - rid));
-                if (idRgOffset != UInt16.from(idRgOffset))
-                    throw Errors.GeneralOverflow(`idRangeOffset`, idRgOffset);
+                if (idRgOffset != UInt16.from(idRgOffset)) {
+                    // idRangeOffset overflows -- this only happens at crafted situations.
+                    return null;
+                }
                 idRangeOffsets.push(idRgOffset);
                 for (const gid of run.glyphIdArray) glyphIdArray.push(gid);
 
@@ -225,7 +242,7 @@ class CmapFormat4Writer {
             }
         }
 
-        return { endCode, startCode, idDelta, idRangeOffset: idRangeOffsets, glyphIdArray };
+        return { endCode, startCode, idDelta, idRangeOffsets, glyphIdArray };
     }
 
     private computeSearchRange(sc: number) {
@@ -237,34 +254,47 @@ class CmapFormat4Writer {
         return { searchRange, entrySelector: entrySelector - 1, rangeShift: 2 * sc - searchRange };
     }
 
-    private makeTarget() {
+    private makeTarget(ca: CmapCollectedArrays) {
+        const { endCode, startCode, idDelta, idRangeOffsets, glyphIdArray } = ca;
+
         const fr = new Frag();
         fr.uint16(4);
         const hLength = fr.reserve(UInt16);
         fr.uint16(0); // language -- set to 0
 
-        fr.uint16(this.runs.length * 2);
-        const sr = this.computeSearchRange(this.runs.length);
+        fr.uint16(endCode.length * 2);
+        const sr = this.computeSearchRange(endCode.length);
         fr.uint16(sr.searchRange);
         fr.uint16(sr.entrySelector);
         fr.uint16(sr.rangeShift);
 
-        const { endCode, startCode, idDelta, idRangeOffset, glyphIdArray } = this.collectArrays();
         fr.array(UInt16, endCode);
         fr.uint16(0);
         fr.array(UInt16, startCode);
         fr.array(Int16, idDelta);
-        fr.array(UInt16, idRangeOffset);
+        fr.array(UInt16, idRangeOffsets);
         fr.array(UInt16, glyphIdArray);
         hLength.fill(fr.size);
 
         return fr;
     }
 
+    public getDummy() {
+        return this.makeTarget({
+            endCode: [0xffff],
+            startCode: [0xffff],
+            idDelta: [1],
+            idRangeOffsets: [0],
+            glyphIdArray: []
+        });
+    }
+
     public getFrag(collected: [number, number][]) {
         if (!collected || !collected.length) return null;
         this.iterateSegments(collected);
         if (this.runs.length > Int16.max) return null;
-        return this.makeTarget();
+        const ca = this.collectArrays();
+        if (!ca) return null;
+        return this.makeTarget(ca);
     }
 }

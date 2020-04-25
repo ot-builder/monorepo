@@ -5,7 +5,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 
-import { SubtableHandler, SubtableHandlerKey } from "./general";
+import { SubtableHandler, SubtableHandlerKey, SubtableWriteOptions } from "./general";
 import { UnicodeEncodingCollector } from "./unicode-encoding-collector";
 
 export class UnicodeFull implements SubtableHandler {
@@ -41,10 +41,9 @@ export class UnicodeFull implements SubtableHandler {
         }
     }
 
-    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) {
-        return new CmapFormat12Writer().getFrag(
-            new UnicodeEncodingCollector(cmap.unicode, gOrd, UInt32.max).collect()
-        );
+    public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>, options: SubtableWriteOptions) {
+        const col = new UnicodeEncodingCollector(cmap.unicode, gOrd, UInt32.max).collect();
+        return new CmapFormat12Writer().getFrag(col, options);
     }
 
     public createAssignments(frag: Frag) {
@@ -118,14 +117,14 @@ class CmapFormat12Writer {
         return fr;
     }
 
-    public getFrag(collected: [number, number][]) {
+    public getFrag(collected: [number, number][], options: SubtableWriteOptions) {
         if (!collected || !collected.length) return null;
 
         let hasNonBmp = false;
-        for (const [unicode, gid] of collected) {
+        for (const [unicode] of collected) {
             if (unicode >= UInt16.max) hasNonBmp = true;
         }
-        if (!hasNonBmp) return null;
+        if (!options.forceWriteUnicodeFull && !hasNonBmp) return null;
 
         this.iterateSegments(collected);
         return this.makeTarget();

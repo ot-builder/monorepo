@@ -1,4 +1,4 @@
-import { DefaultEncodingCfg, EncodingCfg, EncodingCfgPt } from "@ot-builder/io-bin-encoding";
+import { DefaultEncodingCfgProps, EncodingCfg, EncodingCfgPt } from "@ot-builder/io-bin-encoding";
 import {
     CffCfg,
     CffCfgPt,
@@ -39,6 +39,6 @@ export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
         fontMetadata: { ...DefaultFontMetadataCfgProps, ...partial.fontMetadata },
         glyphStore: { ...DefaultGlyphStoreCfgProps, ...partial.glyphStore },
         glyphNaming: { ...DefaultGlyphNamingCfgProps, ...partial.glyphNaming },
-        encoding: { ...DefaultEncodingCfg, ...partial.encoding }
+        encoding: { ...DefaultEncodingCfgProps, ...partial.encoding }
     };
 }

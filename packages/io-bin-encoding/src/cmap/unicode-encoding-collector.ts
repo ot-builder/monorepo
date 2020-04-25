@@ -12,7 +12,7 @@ export class UnicodeEncodingCollector {
     public collect(): [number, number][] {
         const results: Array<[number, number]> = [];
         for (const [code, glyph] of this.encoding.entries()) {
-            if (code >= this.maxCodePoint) continue;
+            if (code < 0 || code >= this.maxCodePoint) continue;
             const gid = this.gOrd.reverse(glyph);
             if (gid == null) continue;
             results.push([code, gid]);
