@@ -6,6 +6,8 @@ import { Cmap } from "@ot-builder/ot-encoding";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { BimapCtx, CmapIdentity, Disorder, TestFont } from "@ot-builder/test-util";
 
+import { DefaultEncodingCfgProps } from "../cfg";
+
 import { ReadCmap } from "./read";
 import { WriteCmap } from "./write";
 
@@ -24,7 +26,9 @@ function cmapRoundtrip(file: string) {
         cmap.vs = new Cmap.VsEncodingMap(Disorder.shuffleArray([...cmap.vs.entries()]));
     }
 
-    const bufCmap = Frag.pack(Frag.from(WriteCmap, cmap, gOrd));
+    const bufCmap = Frag.pack(
+        Frag.from(WriteCmap, cmap, gOrd, { encoding: DefaultEncodingCfgProps })
+    );
     const cmap1 = new BinaryView(bufCmap).next(ReadCmap, gOrd);
 
     CmapIdentity.test(BimapCtx.from(gOrd, gOrd), cmap, cmap1);
@@ -35,4 +39,10 @@ test("CMAP roundtrip -- Source Serif Variable", () => {
 });
 test("CMAP roundtrip -- KRName (UVS)", () => {
     cmapRoundtrip("KRName-Regular.otf");
+});
+test("CMAP roundtrip -- Adobe Blank 2", () => {
+    cmapRoundtrip("AdobeBlank2-cmap12.ttf");
+});
+test("CMAP roundtrip -- Adobe Blank 2", () => {
+    cmapRoundtrip("AND-Regular.ttf");
 });

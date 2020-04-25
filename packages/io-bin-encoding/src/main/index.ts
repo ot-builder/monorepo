@@ -38,6 +38,6 @@ export function writeEncoding(
         for (const [u, g] of encoding.cmap.unicode.entries()) stat.addEncoding(u);
         stat.settle();
 
-        out.add(Cmap.Tag, Frag.packFrom(WriteCmap, encoding.cmap, gOrd));
+        out.add(Cmap.Tag, Frag.packFrom(WriteCmap, encoding.cmap, gOrd, cfg));
     }
 }

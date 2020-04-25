@@ -1,4 +1,4 @@
-import { readEncoding, DefaultEncodingCfg } from "@ot-builder/io-bin-encoding";
+import { readEncoding, DefaultEncodingCfgProps } from "@ot-builder/io-bin-encoding";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { Cmap } from "@ot-builder/ot-encoding";
@@ -23,7 +23,7 @@ export type TestOtlLoopYield = {
 export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     const bufFont = TestFont.get(file);
     const sfnt = readSfntOtf(bufFont);
-    const cfg = { fontMetadata: {}, encoding: DefaultEncodingCfg };
+    const cfg = { fontMetadata: {}, encoding: DefaultEncodingCfgProps };
 
     const md = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(md.maxp.numGlyphs);
