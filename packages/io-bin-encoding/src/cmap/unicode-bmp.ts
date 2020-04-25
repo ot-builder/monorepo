@@ -242,8 +242,6 @@ class CmapFormat4Writer {
             }
         }
 
-        if (!glyphIdArray.length) glyphIdArray.push(0);
-
         return { endCode, startCode, idDelta, idRangeOffsets, glyphIdArray };
     }
 
@@ -257,18 +255,19 @@ class CmapFormat4Writer {
     }
 
     private makeTarget(ca: CmapCollectedArrays) {
+        const { endCode, startCode, idDelta, idRangeOffsets, glyphIdArray } = ca;
+
         const fr = new Frag();
         fr.uint16(4);
         const hLength = fr.reserve(UInt16);
         fr.uint16(0); // language -- set to 0
 
-        fr.uint16(this.runs.length * 2);
-        const sr = this.computeSearchRange(this.runs.length);
+        fr.uint16(endCode.length * 2);
+        const sr = this.computeSearchRange(endCode.length);
         fr.uint16(sr.searchRange);
         fr.uint16(sr.entrySelector);
         fr.uint16(sr.rangeShift);
 
-        const { endCode, startCode, idDelta, idRangeOffsets, glyphIdArray } = ca;
         fr.array(UInt16, endCode);
         fr.uint16(0);
         fr.array(UInt16, startCode);
@@ -281,21 +280,13 @@ class CmapFormat4Writer {
     }
 
     public getDummy() {
-        const fr = new Frag();
-        fr.uint16(4) // format
-            .uint16(24) //length
-            .uint16(0) //language
-            .uint16(2) //segCountX2
-            .uint16(2) //searchRange
-            .uint16(0) //entrySelector
-            .uint16(0); //rangeShift
-
-        // Dummy range [0xFFFF, 0xFFFF] -> GID 0
-        fr.uint16(0xffff).uint16(0).uint16(0xffff).uint16(1);
-
-        fr.uint16(0);
-
-        return fr;
+        return this.makeTarget({
+            endCode: [0xffff],
+            startCode: [0xffff],
+            idDelta: [1],
+            idRangeOffsets: [0],
+            glyphIdArray: []
+        });
     }
 
     public getFrag(collected: [number, number][]) {
