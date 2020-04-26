@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix kerning roundtrip.",
-  "packageName": "@ot-builder/ot-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-04-22T11:05:38.892Z"
-}

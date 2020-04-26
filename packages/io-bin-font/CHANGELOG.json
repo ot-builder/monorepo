@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sun, 26 Apr 2020 00:09:24 GMT",
+      "tag": "@ot-builder/io-bin-font_v0.10.6",
+      "version": "0.10.6",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add a more comprehensive kerning test.",
+            "author": "belleve@typeof.net",
+            "commit": "8276eda68d0e8008eb490eed8b8c003eeab024d0",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Fix index overflow when building encoding tables on crafted fonts",
+            "author": "belleve@typeof.net",
+            "commit": "e5d760b1ffa6c96d61ab39c16785ffe2f68c319c",
+            "package": "@ot-builder/io-bin-font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/io-bin-font_v0.10.5",
       "version": "0.10.5",

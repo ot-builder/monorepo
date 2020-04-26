@@ -2,6 +2,21 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sun, 26 Apr 2020 00:09:24 GMT",
+      "tag": "ot-builder-cli_v0.10.6",
+      "version": "0.10.6",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add a more comprehensive kerning test.",
+            "author": "belleve@typeof.net",
+            "commit": "8276eda68d0e8008eb490eed8b8c003eeab024d0",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "ot-builder-cli_v0.10.5",
       "version": "0.10.5",

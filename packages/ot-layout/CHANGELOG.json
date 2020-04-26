@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-layout",
   "entries": [
     {
+      "date": "Sun, 26 Apr 2020 00:09:24 GMT",
+      "tag": "@ot-builder/ot-layout_v0.10.6",
+      "version": "0.10.6",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix kerning roundtrip.",
+            "author": "belleve@typeof.net",
+            "commit": "f73eb01cfa6edb93b1a5c859f47f1237283148be",
+            "package": "@ot-builder/ot-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/ot-layout_v0.10.5",
       "version": "0.10.5",

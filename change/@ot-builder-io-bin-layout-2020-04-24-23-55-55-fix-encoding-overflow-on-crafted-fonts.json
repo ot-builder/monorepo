@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix index overflow when building encoding tables on crafted fonts",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-04-25T06:55:55.074Z"
-}

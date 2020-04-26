@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "OTL: Simplify classdef-related implementations",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-04-24T08:46:14.019Z"
-}
