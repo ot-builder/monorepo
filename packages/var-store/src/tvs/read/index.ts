@@ -60,8 +60,6 @@ export const TupleVariationRead = Read(
 
             for (let d = 0; d < dimensions; d++) {
                 const deltas = vwTvd.next(Deltas, points);
-                // const cf = client.contours.map(c => c.map(x => x[d].original));
-                // console.log(`${cf}\n${deltas.filter(x => x != null)}\n${points}`);
                 inferDeltas(dimensions, d, client.contours, tvh.master, deltas);
             }
             startByte += tvh.variationDataSize;

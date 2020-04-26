@@ -206,11 +206,6 @@ export class RuleSet {
                 if (rule.subrId >= 0) currentSize += rule.selfSize;
             }
 
-            // console.log(
-            //     `|NT| ${this.nonTerminalRules.length} |SR| ${srCount} ` +
-            //         `size ${currentSize} min ${bestSize}`
-            // );
-
             // Do we have a better result?
             const currentPlan = this.currentSidPlan();
             if (currentSize < bestSize) {
