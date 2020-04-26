@@ -61,10 +61,8 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         this.currentContour = [];
     }
     public lineTo(x: OtVar.Value, y: OtVar.Value) {
-        // console.log(`L`, x, y);
         this.cx = OtVar.Ops.add(this.cx, x);
         this.cy = OtVar.Ops.add(this.cy, y);
-        // console.log(`CXY`, this.cx, this.cy);
         this.currentContour.push(OtGlyph.Point.create(this.cx, this.cy, OtGlyph.PointType.Corner));
     }
 
@@ -76,7 +74,6 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         x3: OtVar.Value,
         y3: OtVar.Value
     ) {
-        // console.log(`C`, x1, y1, x2, y2, x3, y3);
         const cx1 = OtVar.Ops.add(this.cx, x1);
         const cy1 = OtVar.Ops.add(this.cy, y1);
         const cx2 = OtVar.Ops.add(cx1, x2);
@@ -85,7 +82,6 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         const cy3 = OtVar.Ops.add(cy2, y3);
         this.cx = cx3;
         this.cy = cy3;
-        // console.log(`CXY`, this.cx, this.cy);
         this.currentContour.push(OtGlyph.Point.create(cx1, cy1, OtGlyph.PointType.Lead));
         this.currentContour.push(OtGlyph.Point.create(cx2, cy2, OtGlyph.PointType.Follow));
         this.currentContour.push(OtGlyph.Point.create(cx3, cy3, OtGlyph.PointType.Corner));

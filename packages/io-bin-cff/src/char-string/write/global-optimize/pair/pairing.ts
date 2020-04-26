@@ -120,7 +120,6 @@ export class Session<K> {
         } else {
             if (rFirst.prev.digraph === dig) return null; // Don't overlap
             const digLastOcc = dig.firstOccurrence.prevSameDigraph!;
-            if (!digLastOcc) console.log(dig, rFirst, rSecond);
             rFirst.digraph = dig;
             dig.count++;
             digLastOcc.nextSameDigraph = rFirst;
@@ -179,25 +178,6 @@ export class Session<K> {
             node = node.next;
         }
         return s;
-    }
-
-    public showBuckets() {
-        let s = "";
-        for (const bucket of this.buckets) {
-            if (!bucket) continue;
-            let node = bucket.next;
-            while (node !== bucket) {
-                if (!(node instanceof Digraph)) continue;
-                s +=
-                    node.count +
-                    " " +
-                    this.keyProvider.getIrKey(node.firstOccurrence!.ir) +
-                    this.keyProvider.getIrKey(node.firstOccurrence!.next!.ir) +
-                    "\n";
-                node = node.next;
-            }
-        }
-        console.log(s);
     }
 
     public doSubstitute(dig: Digraph<K>, nonTerminal: K) {
