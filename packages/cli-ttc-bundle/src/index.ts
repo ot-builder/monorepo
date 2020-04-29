@@ -17,6 +17,13 @@ export async function cliMain(argv: string[]) {
         return;
     }
 
+    if (!args.inputs || !args.inputs.length) {
+        throw new Error("Please specify at least one input font. Exit.");
+    }
+    if (!args.output) {
+        throw new Error("Please specify an output. Exit");
+    }
+
     if (!args.unify && !args.sparse) {
         await simpleMerging(args);
     } else {
