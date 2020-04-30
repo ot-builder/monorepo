@@ -1,7 +1,7 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -17,8 +17,9 @@ export const LigCaretList = {
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
         const lcl: Gdef.LigCaretList = new Map();
         for (const gid of gidCov) {
-            const carets = view.ptr16().next(LigGlyph, ivs);
-            lcl.set(gOrd.at(gid), carets);
+            const glyph = gOrd.at(gid);
+            const carets = postReadCaretList(glyph, view.ptr16().next(LigGlyph, ivs));
+            lcl.set(glyph, carets);
         }
         return lcl;
     }),
@@ -38,3 +39,16 @@ export const LigCaretList = {
         }
     )
 };
+
+function postReadCaretList(glyph: OtGlyph, carets: Gdef.LigCaret[]) {
+    const results: Gdef.LigCaret[] = [];
+    for (const caret of carets) results.push(computeCaretXFromPointAttachment(glyph, caret));
+    return results;
+}
+
+function computeCaretXFromPointAttachment(glyph: OtGlyph, caret: Gdef.LigCaret) {
+    if (!caret.pointAttachment) return caret;
+    const glyphPoints = OtGeometryHandler.stat(OtGeometryHandler.ListPoint, glyph.geometry);
+    if (!glyphPoints || caret.pointAttachment.pointIndex >= glyphPoints.length) return caret;
+    return { ...caret, x: glyphPoints[caret.pointAttachment.pointIndex].x };
+}
