@@ -16,8 +16,6 @@ export async function docPublish(cfg: PublishConfig) {
     RimRaf.sync(Out);
     await Next("export");
 
-    return;
-
     // Deploy
     RimRaf.sync(Deploy);
     await FS.mkdir(Deploy);
