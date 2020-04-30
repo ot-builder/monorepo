@@ -51,7 +51,7 @@ describe("GDEF read", () => {
         const { gdef, gOrd } = readGdef("NotoSans-Regular.ttf");
         expect(gdef.ligCarets).toBeTruthy();
         const glyph = gOrd.at(1969); // f_f_i
-        expect(gdef.ligCarets!.get(glyph)).toBeTruthy;
+        expect(gdef.ligCarets!.get(glyph)).toBeTruthy();
         const carets = gdef.ligCarets!.get(glyph)!;
         expect(carets.length).toEqual(2);
         expect(carets[0].x).toBe(315);
