@@ -8,7 +8,7 @@ import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
-import { CaretValue } from "./lig-caret-value";
+import { LigGlyph } from "./lig-glyph";
 
 export const LigCaretList = {
     ...Read((view, gOrd: Data.Order<OtGlyph>, ivs?: Data.Maybe<ReadTimeIVS>) => {
@@ -17,8 +17,7 @@ export const LigCaretList = {
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
         const lcl: Gdef.LigCaretList = new Map();
         for (const gid of gidCov) {
-            const caretCount = view.uint16();
-            const carets = view.array(caretCount, CaretValue, ivs);
+            const carets = view.ptr16().next(LigGlyph, ivs);
             lcl.set(gOrd.at(gid), carets);
         }
         return lcl;
@@ -34,8 +33,7 @@ export const LigCaretList = {
             frag.ptr16New().push(GidCoverage, gidList);
             frag.uint16(gidList.length);
             for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
-                frag.uint16(pl.length);
-                for (const z of pl) frag.push(CaretValue, z, ivs);
+                frag.ptr16New().push(LigGlyph, pl, ivs);
             }
         }
     )
