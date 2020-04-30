@@ -43,4 +43,7 @@ describe("GDEF write", () => {
     test("Scheherazade Regular", () => {
         gdefRoundTrip("Scheherazade-Regular.ttf");
     });
+    test("Noto Sans Regular", () => {
+        gdefRoundTrip("NotoSans-Regular.ttf");
+    });
 });

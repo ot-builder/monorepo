@@ -46,4 +46,15 @@ describe("GDEF read", () => {
             [1075, 1076, 1077, 1078, 1087].map(gid => gOrd.at(gid))
         );
     });
+
+    test("Noto Sans Regular", () => {
+        const { gdef, gOrd } = readGdef("NotoSans-Regular.ttf");
+        expect(gdef.ligCarets).toBeTruthy();
+        const glyph = gOrd.at(1969); // f_f_i
+        expect(gdef.ligCarets!.get(glyph)).toBeTruthy();
+        const carets = gdef.ligCarets!.get(glyph)!;
+        expect(carets.length).toEqual(2);
+        expect(carets[0].x).toBe(315);
+        expect(carets[1].x).toBe(631);
+    });
 });
