@@ -13,6 +13,8 @@ export async function docPublish(cfg: PublishConfig) {
     // Build
     RimRaf.sync(Build);
     await Next("build");
+    RimRaf.sync(Out);
+    await Next("export");
 
     // Deploy
     RimRaf.sync(Deploy);
@@ -27,10 +29,6 @@ export async function docPublish(cfg: PublishConfig) {
     await DocGit("config", "user.name", cfg.GitUser);
     await DocGit("config", "user.email", cfg.GitEmail);
     await DocGit("pull", "origin", "master");
-
-    // CP.spawnSync(Git, ["pull", "origin"], { cwd: Out });
-    RimRaf.sync(Out);
-    await Next("export");
 
     // Clear everything currently there
     RimRaf.sync(Path.join(Deploy, "*"));

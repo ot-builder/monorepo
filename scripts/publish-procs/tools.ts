@@ -11,8 +11,11 @@ export const Doc = Path.resolve(RepositoryDir, "doc");
 export const Build = Path.resolve(Doc, "build");
 export const Out = Path.resolve(Doc, "out");
 
+function npmExecutableDir(dir: string, packageName: string) {
+    return Path.resolve(dir, "node_modules/.bin/" + packageName + OsSuffix);
+}
 function npmExecutable(packageName: string) {
-    return Path.resolve(RepositoryDir, "node_modules/.bin/" + packageName + OsSuffix);
+    return npmExecutableDir(RepositoryDir, packageName);
 }
 
 export function Git(...args: string[]) {
@@ -25,7 +28,7 @@ export function Beachball(...args: string[]) {
     return Spawn(npmExecutable("beachball"), args, { cwd: RepositoryDir, stdio: "inherit" });
 }
 export function Next(...args: string[]) {
-    return Spawn(npmExecutable("next"), args, { cwd: Doc, stdio: "inherit" });
+    return Spawn(npmExecutableDir(Doc, "next"), args, { cwd: Doc, stdio: "inherit" });
 }
 
 export function Spawn(command: string, args: string[], options: CP.SpawnOptions) {
