@@ -2,18 +2,8 @@ import { VarianceDim } from "../interface/dimension";
 
 import { OtVarMaster } from "./master";
 
-const Wght: VarianceDim = {
-    tag: "wght",
-    min: 100,
-    default: 400,
-    max: 900
-};
-const Wdth: VarianceDim = {
-    tag: "wdth",
-    min: 25,
-    default: 100,
-    max: 200
-};
+const Wght = new VarianceDim("wght", 100, 400, 900);
+const Wdth = new VarianceDim("wdth", 25, 100, 200);
 
 test("Variance Region evaluation test", () => {
     const wide = new OtVarMaster([

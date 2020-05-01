@@ -4,18 +4,8 @@ import { OtVar } from "@ot-builder/variance";
 
 import { ReadTimeIVS, WriteTimeIVS } from "./impl";
 
-const Wght: OtVar.Dim = {
-    tag: "wght",
-    min: 100,
-    default: 400,
-    max: 900
-};
-const Wdth: OtVar.Dim = {
-    tag: "wdth",
-    min: 25,
-    default: 100,
-    max: 200
-};
+const Wght = new OtVar.Dim("wght", 100, 400, 900);
+const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
 const Bold = OtVar.Create.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }
