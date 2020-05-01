@@ -4,18 +4,8 @@ import { OtVarMaster } from "./master";
 import { OtVarMasterSet } from "./master-set";
 import { OtVarValueC } from "./value";
 
-const Wght: VarianceDim = {
-    tag: "wght",
-    min: 100,
-    default: 400,
-    max: 900
-};
-const Wdth: VarianceDim = {
-    tag: "wdth",
-    min: 25,
-    default: 100,
-    max: 200
-};
+const Wght = new VarianceDim("wght", 100, 400, 900);
+const Wdth = new VarianceDim("wdth", 25, 100, 200);
 const Bold = new OtVarMaster([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }

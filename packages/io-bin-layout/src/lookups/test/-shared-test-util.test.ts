@@ -73,8 +73,8 @@ export function TuGlyphSet<G>(gOrd: Data.Order<G>, ...ids: number[]) {
 export type TestVariation = { designSpace: OtVar.Dim[]; ivs: WriteTimeIVS };
 export function SetupVariation() {
     const ds: OtVar.Dim[] = [
-        { tag: "wght", min: 0, default: 400, max: 1000 },
-        { tag: "wdth", min: 0, default: 100, max: 200 }
+        new OtVar.Dim("wght", 0, 400, 1000),
+        new OtVar.Dim("wdth", 0, 100, 200)
     ];
     const [wght, wdth] = ds;
     const masters = {
