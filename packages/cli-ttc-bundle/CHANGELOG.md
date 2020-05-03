@@ -1,8 +1,16 @@
 # Change Log - otb-ttc-bundle
 
-This log was last generated on Sun, 26 Apr 2020 00:09:24 GMT and should not be manually modified.
+This log was last generated on Sun, 03 May 2020 00:09:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.7
+
+Sun, 03 May 2020 00:09:28 GMT
+
+### Patches
+
+- Fix argument handler of `-o` (belleve@typeof.net)
 
 ## 0.10.6
 

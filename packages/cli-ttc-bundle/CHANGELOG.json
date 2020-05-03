@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sun, 03 May 2020 00:09:28 GMT",
+      "tag": "otb-ttc-bundle_v0.10.7",
+      "version": "0.10.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix argument handler of `-o`",
+            "author": "belleve@typeof.net",
+            "commit": "6b60751887761fa2486f69e3aed90169aad43ebe",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 26 Apr 2020 00:09:24 GMT",
       "tag": "otb-ttc-bundle_v0.10.6",
       "version": "0.10.6",

@@ -2,6 +2,33 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 03 May 2020 00:09:28 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.7",
+      "version": "0.10.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add post-read procedure for ligature carets for point-attached lig carets (type 2)",
+            "author": "belleve@typeof.net",
+            "commit": "c89bb83f901e9d05cec00ef76f0fec3931aeda97",
+            "package": "@ot-builder/io-bin-layout"
+          },
+          {
+            "comment": "fix GDEF LigCaretList read & write",
+            "author": "c@cyano.cn",
+            "commit": "0088ab4a7a16b3e921261a8af8e5ea0e13873567",
+            "package": "@ot-builder/io-bin-layout"
+          },
+          {
+            "comment": "Make Ot.Var.Dim a class instead of a literal type.",
+            "author": "belleve@typeof.net",
+            "commit": "cde612316e2a0aabeee1f0395e43429e05c9b27e",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 26 Apr 2020 00:09:24 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.6",
       "version": "0.10.6",

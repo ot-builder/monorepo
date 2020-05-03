@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-util",
   "entries": [
     {
+      "date": "Sun, 03 May 2020 00:09:28 GMT",
+      "tag": "@ot-builder/bin-util_v0.10.7",
+      "version": "0.10.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Separate dependencies for docs out",
+            "author": "belleve@typeof.net",
+            "commit": "6545d70d807d6055661509a2b1ee539d31b8e032",
+            "package": "@ot-builder/bin-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/bin-util_v0.10.5",
       "version": "0.10.5",

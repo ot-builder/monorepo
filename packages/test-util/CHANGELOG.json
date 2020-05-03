@@ -2,6 +2,21 @@
   "name": "@ot-builder/test-util",
   "entries": [
     {
+      "date": "Sun, 03 May 2020 00:09:28 GMT",
+      "tag": "@ot-builder/test-util_v0.10.7",
+      "version": "0.10.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Make Ot.Var.Dim a class instead of a literal type.",
+            "author": "belleve@typeof.net",
+            "commit": "cde612316e2a0aabeee1f0395e43429e05c9b27e",
+            "package": "@ot-builder/test-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 26 Apr 2020 00:09:24 GMT",
       "tag": "@ot-builder/test-util_v0.10.6",
       "version": "0.10.6",

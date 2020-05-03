@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sun, 26 Apr 2020 00:09:24 GMT and should not be manually modified.
+This log was last generated on Sun, 03 May 2020 00:09:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.7
+
+Sun, 03 May 2020 00:09:28 GMT
+
+### Patches
+
+- Add post-read procedure for ligature carets for point-attached lig carets (type 2) (belleve@typeof.net)
+- fix GDEF LigCaretList read & write (c@cyano.cn)
+- Make Ot.Var.Dim a class instead of a literal type. (belleve@typeof.net)
 
 ## 0.10.6
 

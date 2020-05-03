@@ -2,6 +2,27 @@
   "name": "@ot-builder/var-store",
   "entries": [
     {
+      "date": "Sun, 03 May 2020 00:09:28 GMT",
+      "tag": "@ot-builder/var-store_v0.10.7",
+      "version": "0.10.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove unnecessary console.log's",
+            "author": "belleve@typeof.net",
+            "commit": "764ea2f80ad1ecf66d1294b49e9f526e0f184538",
+            "package": "@ot-builder/var-store"
+          },
+          {
+            "comment": "Make Ot.Var.Dim a class instead of a literal type.",
+            "author": "belleve@typeof.net",
+            "commit": "cde612316e2a0aabeee1f0395e43429e05c9b27e",
+            "package": "@ot-builder/var-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/var-store_v0.10.5",
       "version": "0.10.5",
