@@ -14,17 +14,15 @@ export interface StatGeometryAlgClass<T> {
 }
 
 export class PointTransformer<PS extends PointSink> {
-    constructor(readonly ps: PS, readonly tf: (z: OtGlyph.Point) => OtGlyph.Point) {}
+    constructor(readonly ps: PS, readonly tf: OtGlyph.Transform2X3) {}
     public addControlKnot(knot: OtGlyph.Point) {
-        this.ps.addControlKnot(this.tf(knot));
+        this.ps.addControlKnot(OtGlyph.PointOps.applyTransform(knot, this.tf));
     }
-    public wrap(tf1: (z: OtGlyph.Point) => OtGlyph.Point) {
-        const tf = this.tf;
-        return new PointTransformer<PS>(this.ps, z => tf1(tf(z)));
+    public wrap(tf1: OtGlyph.Transform2X3) {
+        return new PointTransformer<PS>(this.ps, OtGlyph.PointOps.combineTransform(tf1, this.tf));
     }
-    public coWrap(tf1: (z: OtGlyph.Point) => OtGlyph.Point) {
-        const tf = this.tf;
-        return new PointTransformer<PS>(this.ps, z => tf(tf1(z)));
+    public coWrap(tf1: OtGlyph.Transform2X3) {
+        return new PointTransformer<PS>(this.ps, OtGlyph.PointOps.combineTransform(this.tf, tf1));
     }
 }
 export class OtGhPointAlg<PS extends PointSink> implements GeometryProcessor {
@@ -41,9 +39,7 @@ export class OtGhPointAlg<PS extends PointSink> implements GeometryProcessor {
                 break;
             }
             case OtGlyph.GeometryType.TtReference: {
-                const plRef = new OtGhPointAlg(
-                    this.acc.coWrap(z => OtGlyph.PointOps.applyTransform(z, geom.transform))
-                );
+                const plRef = new OtGhPointAlg(this.acc.coWrap(geom.transform));
                 if (geom.to.geometry) plRef.process(geom.to.geometry);
                 break;
             }

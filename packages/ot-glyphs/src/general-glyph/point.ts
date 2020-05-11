@@ -58,6 +58,40 @@ export namespace Point {
                 );
             }
         }
+
+        public removeScaledOffset(t: Transform2X3.T<X>): Transform2X3.T<X> {
+            // ⎛ xx yx ⎞ ⎛ x + dx ⎞ = ⎛ xx yx ⎞ ⎛ x ⎞ + ⎛ xx yx ⎞ ⎛ x ⎞
+            // ⎝ xy yy ⎠ ⎝ y + dy ⎠ = ⎝ xy yy ⎠ ⎝ y ⎠ + ⎝ xy yy ⎠ ⎝ y ⎠
+            if (!t.scaledOffset) return t;
+
+            return {
+                xx: t.xx,
+                yx: t.yx,
+                xy: t.xy,
+                yy: t.yy,
+                dx: this.vsX.addScale(this.vsX.scale(t.xx, t.dx), t.yx, t.dy),
+                dy: this.vsX.addScale(this.vsX.scale(t.xy, t.dx), t.yy, t.dy)
+            };
+        }
+
+        public combineTransform(_a: Transform2X3.T<X>, _b: Transform2X3.T<X>): Transform2X3.T<X> {
+            // ⎛ a.xx a.yx ⎞ ⎡⎛ b.xx b.yx ⎞ ⎛ x ⎞ + ⎛ b.dx ⎞⎤ + ⎛ a.dx ⎞
+            // ⎝ a.xy a.yy ⎠ ⎣⎝ b.xy b.yy ⎠ ⎝ y ⎠ + ⎝ b.dy ⎠⎦ + ⎝ a.dy ⎠
+            // == ⎛ a.xx a.yx ⎞ ⎛ b.xx b.yx ⎞ ⎛ x ⎞ + ⎡⎛ a.xx a.yx ⎞ ⎛ b.dx ⎞ + ⎛ a.dx ⎞⎤
+            // == ⎝ a.xy a.yy ⎠ ⎝ b.xy b.yy ⎠ ⎝ y ⎠ + ⎣⎝ a.xy a.yy ⎠ ⎝ b.dy ⎠ + ⎝ a.dy ⎠⎦
+
+            const a = this.removeScaledOffset(_a),
+                b = this.removeScaledOffset(_b);
+
+            return {
+                xx: a.xx * b.xx + a.yx * b.xy,
+                yx: a.xx * b.yx + a.yx * b.yy,
+                xy: a.xy * b.xx + a.yy * b.xy,
+                yy: a.xy * b.yx + a.yy * b.yy,
+                dx: this.vsX.addScale(this.vsX.addScale(a.dx, a.xx, b.dx), a.yx, b.dy),
+                dy: this.vsX.addScale(this.vsX.addScale(a.dy, a.xy, b.dx), a.yy, b.dy)
+            };
+        }
     }
 
     export type ContourT<X> = ReadonlyArray<T<X>>;

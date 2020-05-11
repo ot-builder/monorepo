@@ -6,7 +6,7 @@ import { OtGhPointAlg, PointTransformer } from "./shared";
 
 export class OtGhGetBound extends OtGhPointAlg<BoundBoxPointSink> {
     constructor() {
-        super(new PointTransformer(new BoundBoxPointSink(), z => z));
+        super(new PointTransformer(new BoundBoxPointSink(), OtGlyph.Transform2X3.Identity));
     }
     public getResult() {
         return this.acc.ps.getBound();
