@@ -369,25 +369,76 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
     The identity of <R s={Ot.Glyph.Point}/>. Equal to 0.
 
 #### Methods
+
  * <Method s={Ot.Glyph.PointOps.add} args={{x:Ot.Glyph.Point,y:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
+
  * <Method s={Ot.Glyph.PointOps.negate} args={{x:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
+
  * <Method s={Ot.Glyph.PointOps.minus} args={{x:Ot.Glyph.Point,y:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
+
  * <Method s={Ot.Glyph.PointOps.scale} args={{scale:number,y:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
+
  * <Method s={Ot.Glyph.PointOps.addScale} args={{x:Ot.Glyph.Point,scale:number,y:Ot.Glyph.Point}} returns={Ot.Glyph.Point} />
+
  * <Method s={Ot.Glyph.PointOps.applyTransform} args={{x:Ot.Glyph.Point,transform:Ot.Glyph.Transform2X3}} returns={Ot.Glyph.Point} />
 
+   Apply a 2×3 transform to a point.
+
+ * <Method s={Ot.Glyph.PointOps.combineTransform} args={{a:Ot.Glyph.Transform2X3,b:Ot.Glyph.Transform2X3}} returns={Ot.Glyph.Transform2X3} />
+
+   Combine two 2×3 transforms together. Applying the combined transform will be equivalent to applying *b* then *a*.
+
+ * <Method s={Ot.Glyph.PointOps.removeScaledOffset} args={{tfm:Ot.Glyph.Transform2X3}} returns={Ot.Glyph.Transform2X3} />
+
+   Create an equivalent 2×3 transform but without `scaledOffset` property set.
+
 ### Type <Decl s={Ot.Glyph.Transform2X3}/>
+
+#### Constants
+
+  * <Decl s={Ot.Glyph.Transform2X3.Identity} returns={Ot.Glyph.Transform2X3}/>
+
+    The identity transform.
+
+#### Factory Methods
+
+  * <Fn s={Ot.Glyph.Transform2X3.Scale} args={{s:number}} returns={Ot.Glyph.Transform2X3}/>
+
+    Creates a uniform scaling transform.
+
+  * <Fn s={Ot.Glyph.Transform2X3.Translate} args={{dx:Ot.Var.Value, dy:Ot.Var.Value}} returns={Ot.Glyph.Transform2X3}/>
+
+    Creates a translation transform.
+
+  * <Fn s={Ot.Glyph.Transform2X3.Rotate} args={{angle:number}} returns={Ot.Glyph.Transform2X3}/>
+
+    Creates a rotation transform. *angle* is measured in radians, and the positive orientation is counter-colckwise.
 
 #### Properties
 
  * <Member readonly s={Ot.Glyph.Transform2X3.dx} type={Ot.Var.Value} />
+
+   X offset.
+
  * <Member readonly s={Ot.Glyph.Transform2X3.dy} type={Ot.Var.Value} />
+
+   Y offset.
+
  * <Member readonly s={Ot.Glyph.Transform2X3.xx} type={number} />
- * <Member readonly s={Ot.Glyph.Transform2X3.xy} type={number} />
+
+   X scale.
+
  * <Member readonly s={Ot.Glyph.Transform2X3.yx} type={number} />
+
+   X shearing.
+
+ * <Member readonly s={Ot.Glyph.Transform2X3.xy} type={number} />
+
+   Y shearing.
+
  * <Member readonly s={Ot.Glyph.Transform2X3.yy} type={number} />
 
-    2×3 transformation entries.
+   Y scale.
 
  * <Member readonly s={Ot.Glyph.Transform2X3.scaledOffset} type={Data.Maybe(boolean)} />
 

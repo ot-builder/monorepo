@@ -4,7 +4,7 @@ import { OtGhPointAlg, PointTransformer } from "./shared";
 
 export class OtGhPointLister extends OtGhPointAlg<PointCollector> {
     constructor() {
-        super(new PointTransformer(new PointCollector(), z => z));
+        super(new PointTransformer(new PointCollector(), OtGlyph.Transform2X3.Identity));
     }
     public getResult() {
         return this.acc.ps.points;

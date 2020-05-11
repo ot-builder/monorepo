@@ -10,7 +10,7 @@ describe("GLYF data rectification", () => {
             [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)]
         ]);
         const from = new OtGlyph();
-        const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
+        const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);
         const ref2 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Scale(2));
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 0 } };
         from.geometry = new OtGlyph.GeometryList([ref1, ref2]);
@@ -63,10 +63,10 @@ describe("GLYF data rectification", () => {
             [OtGlyph.Point.create(0, 0), OtGlyph.Point.create(0, 1)]
         ]);
         const from = new OtGlyph();
-        const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
-        const ref2 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
+        const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);
+        const ref2 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);
         ref2.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 1 } };
-        const ref3 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Neutral());
+        const ref3 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);
         ref3.pointAttachment = { inner: { pointIndex: 0 }, outer: { pointIndex: 3 } };
         from.geometry = new OtGlyph.GeometryList([ref1, ref2, ref3]);
 

@@ -117,11 +117,26 @@ export namespace OtGlyph {
     export type Transform2X3 = GeneralGlyph.Transform2X3.T<OtVar.Value>;
 
     export namespace Transform2X3 {
-        export function Neutral(): Transform2X3 {
-            return { scaledOffset: false, xx: 1, xy: 0, yx: 0, yy: 1, dx: 0, dy: 0 };
-        }
+        export const Identity: Transform2X3 = {
+            scaledOffset: false,
+            xx: 1,
+            yx: 0,
+            xy: 0,
+            yy: 1,
+            dx: 0,
+            dy: 0
+        };
+
         export function Scale(s: number): Transform2X3 {
-            return { scaledOffset: false, xx: s, xy: 0, yx: 0, yy: s, dx: 0, dy: 0 };
+            return { scaledOffset: false, xx: s, yx: 0, xy: 0, yy: s, dx: 0, dy: 0 };
+        }
+        export function Translate(dx: OtVar.Value, dy: OtVar.Value): Transform2X3 {
+            return { scaledOffset: false, xx: 1, yx: 0, xy: 0, yy: 1, dx: dx, dy: dy };
+        }
+        export function Rotate(angle: number): Transform2X3 {
+            const c = Math.cos(angle),
+                s = Math.sin(angle);
+            return { scaledOffset: false, xx: c, yx: -s, xy: s, yy: c, dx: 0, dy: 0 };
         }
     }
 
