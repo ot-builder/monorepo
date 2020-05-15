@@ -100,7 +100,7 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
         dims.push(mDim);
     }
     return {
-        master: OtVar.Create.Master(dims),
+        master: new OtVar.Master(dims),
         variationDataSize,
         hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS)
     };

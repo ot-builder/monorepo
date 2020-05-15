@@ -35,9 +35,9 @@ test("Reading : TTF, variable", () => {
         {},
         fvar!.getDesignSpace()
     );
-    const thin = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: -1, peak: -1, max: 0 }]);
-    const bold = OtVar.Create.Master([{ dim: fvar!.axes[0].dim, min: 0, peak: +1, max: +1 }]);
-    const cr = OtVar.Create.ValueFactory();
+    const thin = new OtVar.Master([{ dim: fvar!.axes[0].dim, min: -1, peak: -1, max: 0 }]);
+    const bold = new OtVar.Master([{ dim: fvar!.axes[0].dim, min: 0, peak: +1, max: +1 }]);
+    const cr = new OtVar.ValueFactory();
     rectifyGlyphOrder(gOrd);
     {
         const notDef = gOrd.at(0);

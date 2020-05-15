@@ -28,22 +28,22 @@ class MockInterpreter extends CffInterp.Interpreter {
 }
 
 const Axes = TestVariance.createWellKnownAxes();
-const Bold = OtVar.Create.Master([{ dim: Axes.wght, min: 0, peak: 1, max: 1 }]);
-const Wide = OtVar.Create.Master([{ dim: Axes.wdth, min: 0, peak: 1, max: 1 }]);
+const Bold = new OtVar.Master([{ dim: Axes.wght, min: 0, peak: 1, max: 1 }]);
+const Wide = new OtVar.Master([{ dim: Axes.wdth, min: 0, peak: 1, max: 1 }]);
 
 function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
     const boldOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     boldOnly.masterIDs = [0];
     const wideOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     wideOnly.masterIDs = [1];
     const boldAndWide = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        OtVar.Create.ValueFactory(OtVar.Create.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     boldAndWide.masterIDs = [0, 1];
     ivs.itemVariationData = [boldOnly, wideOnly, boldAndWide];
@@ -58,7 +58,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend", () => {
-        const cr = OtVar.Create.ValueFactory();
+        const cr = new OtVar.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 1).operator(CffOperator.Blend);
@@ -69,7 +69,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend of multiple arguments", () => {
-        const cr = OtVar.Create.ValueFactory();
+        const cr = new OtVar.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(1, 2, 3, 4, 2).operator(CffOperator.Blend);
@@ -81,7 +81,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle VSIndex", () => {
-        const cr = OtVar.Create.ValueFactory();
+        const cr = new OtVar.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);
@@ -94,7 +94,7 @@ describe("CFF Interpreter", () => {
     });
 
     test("Should handle blend chaining", () => {
-        const cr = OtVar.Create.ValueFactory();
+        const cr = new OtVar.ValueFactory();
         const ivs = createVS();
         const inter = new MockInterpreter(ivs);
         inter.operand(2).operator(CffOperator.VsIndex);

@@ -49,7 +49,7 @@ export const CvarIo = {
 
 class CvtTvhClient implements TupleVariationGeometryClient {
     constructor(cvt: Cvt.Table) {
-        const ms = OtVar.Create.MasterSet();
+        const ms = new OtVar.MasterSet();
         this.contours = this.createContours(ms, cvt);
     }
 

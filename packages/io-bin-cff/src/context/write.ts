@@ -16,8 +16,7 @@ export class CffWriteContext {
         acceptVariation = true,
         gss: Data.Maybe<OtGlyph.Stat.Sink> = null
     ) {
-        if (version > 1 && acceptVariation)
-            this.ivs = WriteTimeIVS.create(OtVar.Create.MasterSet());
+        if (version > 1 && acceptVariation) this.ivs = WriteTimeIVS.create(new OtVar.MasterSet());
         if (version <= 1) this.strings = new CffStringSink();
         this.stat = new CffGlyphStatSink(gss);
     }

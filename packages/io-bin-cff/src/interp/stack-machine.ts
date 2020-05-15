@@ -6,8 +6,8 @@ import { OtVar } from "@ot-builder/variance";
 export class CffStackMachine {
     public ivd: ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
-    public vms = OtVar.Create.MasterSet();
-    private varCreator = OtVar.Create.ValueFactory(this.vms);
+    public vms = new OtVar.MasterSet();
+    private varCreator = new OtVar.ValueFactory(this.vms);
 
     constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
         if (ivs) this.ivd = ivs.tryGetIVD(0);

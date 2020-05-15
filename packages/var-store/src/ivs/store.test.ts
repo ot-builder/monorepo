@@ -4,30 +4,30 @@ import { WriteTimeIVS } from "./impl";
 
 const Wght = new OtVar.Dim("wght", 100, 400, 900);
 const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
-const Bold = OtVar.Create.Master([
+const Bold = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Bold1 = OtVar.Create.Master([
+const Bold1 = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Bold2 = OtVar.Create.Master([
+const Bold2 = new OtVar.Master([
     { dim: Wdth, min: -1, peak: 0, max: 1 },
     { dim: Wght, min: 0, peak: 1, max: 1 }
 ]);
-const Wide = OtVar.Create.Master([
+const Wide = new OtVar.Master([
     { dim: Wght, min: -1, peak: 0, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
-const Corner = OtVar.Create.Master([
+const Corner = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("Write time IVS : Value management", () => {
-    const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Create.ValueFactory(mc);
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
 
     expect({ outer: 0, inner: 0 }).toEqual(
@@ -56,8 +56,8 @@ test("Write time IVS : Value management", () => {
 });
 
 test("Write time IVS : Value management with overflow", () => {
-    const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Create.ValueFactory(mc);
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
 
     for (let p = 0; p < 0x100; p++) {
@@ -72,8 +72,8 @@ test("Write time IVS : Value management with overflow", () => {
 });
 
 test("Write time IVS : Master-only management (CFF2-ish)", () => {
-    const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Create.ValueFactory(mc);
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();
     const d1 = col.collect(cr.make(100, [Bold, 150], [Wide, 100]));

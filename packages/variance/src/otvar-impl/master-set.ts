@@ -7,30 +7,29 @@ import { OtVarMaster } from "./master";
 
 type VRStep = [number, number, number];
 
-type VRCRecord<A extends VarianceDim> = {
-    readonly master: OtVarMaster<A>;
+type VRCRecord = {
+    readonly master: OtVarMaster;
     readonly index: number;
 };
 
-export class OtVarMasterSet<A extends VarianceDim>
-    implements VarianceMasterSet<A, OtVarMaster<A>> {
+export class OtVarMasterSet implements VarianceMasterSet<VarianceDim, OtVarMaster> {
     private nAxes: number = 0;
-    private axisMap: WeakMap<A, number> = new WeakMap();
+    private axisMap: WeakMap<VarianceDim, number> = new WeakMap();
 
-    private masterList: VRCRecord<A>[] = [];
-    private masterMap = new ImpLib.PathMapImpl<number, VRCRecord<A>>();
-    private masterMapCache = new WeakMap<OtVarMaster<A>, VRCRecord<A>>();
+    private masterList: VRCRecord[] = [];
+    private masterMap = new ImpLib.PathMapImpl<number, VRCRecord>();
+    private masterMapCache = new WeakMap<OtVarMaster, VRCRecord>();
 
     constructor() {}
 
-    private putAxis(a: A) {
+    private putAxis(a: VarianceDim) {
         const axisIndex = this.axisMap.get(a);
         if (axisIndex) return axisIndex;
         this.nAxes += 1;
         this.axisMap.set(a, this.nAxes);
         return this.nAxes;
     }
-    private getStepNumbers(master: OtVarMaster<A>) {
+    private getStepNumbers(master: OtVarMaster) {
         const steps: (undefined | VRStep)[] = [];
         for (const region of master.regions) {
             const aid = this.putAxis(region.dim);
@@ -44,14 +43,14 @@ export class OtVarMasterSet<A extends VarianceDim>
         return stepNumbers;
     }
 
-    private getImpl(master: OtVarMaster<A>) {
+    private getImpl(master: OtVarMaster) {
         const stepNumbers = this.getStepNumbers(master);
         const lens = this.masterMap.createLens();
         lens.focus(stepNumbers);
 
         return lens.get();
     }
-    private getOrPutImpl(master: OtVarMaster<A>) {
+    private getOrPutImpl(master: OtVarMaster) {
         const stepNumbers = this.getStepNumbers(master);
         const lens = this.masterMap.createLens();
         lens.focus(stepNumbers);
@@ -65,11 +64,11 @@ export class OtVarMasterSet<A extends VarianceDim>
         return record;
     }
 
-    public get(master: OtVarMaster<A>) {
+    public get(master: OtVarMaster) {
         if (master.isInvalid()) return undefined;
         else return this.getImpl(master);
     }
-    public getOrPush(master: OtVarMaster<A>) {
+    public getOrPush(master: OtVarMaster) {
         if (master.isInvalid()) {
             return undefined;
         } else {
@@ -84,7 +83,7 @@ export class OtVarMasterSet<A extends VarianceDim>
     get size() {
         return this.masterList.length;
     }
-    public *[Symbol.iterator](): IterableIterator<[OtVarMaster<A>, number]> {
+    public *[Symbol.iterator](): IterableIterator<[OtVarMaster, number]> {
         for (const item of this.masterList) yield [item.master, item.index];
     }
 }

@@ -26,7 +26,7 @@ describe("GDEF write", () => {
             designSpace
         );
 
-        const ivsW = WriteTimeIVS.create(OtVar.Create.MasterSet());
+        const ivsW = WriteTimeIVS.create(new OtVar.MasterSet());
         const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, designSpace));
 
         const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, designSpace);

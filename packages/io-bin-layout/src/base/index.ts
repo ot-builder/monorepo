@@ -39,7 +39,7 @@ export const BaseTableIo = {
         designSpace?: Data.Maybe<OtVar.DesignSpace>
     ) {
         const ivs: null | WriteTimeIVS = designSpace
-            ? WriteTimeIVS.create(OtVar.Create.MasterSet())
+            ? WriteTimeIVS.create(new OtVar.MasterSet())
             : null;
         frag.uint16(1);
         const hMinorVersion = frag.reserve(UInt16);
