@@ -50,13 +50,13 @@ export class MasterProcessor {
                 max: region.max
             };
         }
-        return Ot.Var.Create.Master(steps);
+        return new Ot.Var.Master(steps);
     }
 }
 
 export class ValueProcessor {
     constructor(private readonly mp: MasterProcessor) {}
-    private cr = Ot.Var.Create.ValueFactory();
+    private cr = new Ot.Var.ValueFactory();
 
     public toArrayRep(v: Ot.Var.Value) {
         const variances = Array.from(Ot.Var.Ops.varianceOf(v));

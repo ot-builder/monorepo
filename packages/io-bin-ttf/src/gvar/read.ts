@@ -29,7 +29,7 @@ export const GvarTableRead = Read(
         designSpace: OtVar.DesignSpace
     ) => {
         const header = view.next(GvarHeader, gOrd, cfg, designSpace);
-        const ms = OtVar.Create.MasterSet();
+        const ms = new OtVar.MasterSet();
 
         for (let gid = 0; gid < gOrd.length; gid++) {
             const glyph = gOrd.at(gid);

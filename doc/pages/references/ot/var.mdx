@@ -46,11 +46,11 @@ Defined as <R s={Data.Maybe(readonly(map(Ot.Var.Dim,number)))} />.
  * <Member readonly s={Ot.Var.MasterDim.peak} type={number} />
  * <Member readonly s={Ot.Var.MasterDim.max} type={number} />
 
-### Type <Decl s={Ot.Var.Master} />
+### Class <Decl s={Ot.Var.Master} />
 
-#### Factory Methods
+#### Constructor
 
-* <Fn s={Ot.Var.Create.Master} args={{init:iterable(either(undefined,null,Ot.Var.MasterDim))}} />
+* <Method ctor s={Ot.Var.Master.constructor} args={{init:iterable(either(undefined,null,Ot.Var.MasterDim))}} />
 
   Create a <R s={Ot.Var.Master}/> from per-axis regions. `undefined` and `null` items are ignored.
 
@@ -66,7 +66,7 @@ Defined as <R s={Data.Maybe(readonly(map(Ot.Var.Dim,number)))} />.
  * <Method s={Ot.Var.Master.isSimple} args={{}} returns={boolean} />
 
 
-### Type <Decl s={Ot.Var.MasterSet} />
+### Class <Decl s={Ot.Var.MasterSet} />
 
 A master set collects masters and associates an unique number to masters that are distinguishable. Equivalent masters will share same index.
 
@@ -74,9 +74,9 @@ A master set collects masters and associates an unique number to masters that ar
 
 * <R s={iterable(tuple(Ot.Var.Master, number))} />
 
-#### Factory Methods
+#### Constructor
 
-* <Fn s={Ot.Var.Create.MasterSet} args={{}} returns={Ot.Var.MasterSet} />
+* <Method ctor s={Ot.Var.MasterSet.constructor} args={{}} />
 
 #### Methods
 
@@ -117,11 +117,11 @@ A master set collects masters and associates an unique number to masters that ar
  * <Method s={Ot.Var.Ops.isZero} args={{x:Ot.Var.Value}} returns={boolean} />
 
 
-### Type <Decl s={Ot.Var.ValueFactory}/>
+### Class <Decl s={Ot.Var.ValueFactory}/>
 
-#### Factory Methods
+#### Constructor
 
- * <Fn s={Ot.Var.Create.ValueFactory} args={{ms:optional(Ot.Var.MasterSet)}}/>
+ * <Method ctor s={Ot.Var.ValueFactory.constructor} args={{masterSet:optional(Ot.Var.MasterSet)}}/>
 
 #### Properties
 

@@ -9,21 +9,21 @@ import { mirSeqIsWellFormed } from "./test-util";
 
 const Wght = new OtVar.Dim("wght", 100, 400, 900);
 const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
-const Bold = OtVar.Create.Master([
+const Bold = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Wide = OtVar.Create.Master([
+const Wide = new OtVar.Master([
     { dim: Wght, min: -1, peak: 0, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
-const Corner = OtVar.Create.Master([
+const Corner = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("CFF Encoding: Draw call conversion", () => {
-    const cr = OtVar.Create.ValueFactory();
+    const cr = new OtVar.ValueFactory();
     const ctx = new CffWriteContext(2, 1000);
     const dcrSeq = new CffDrawCallRaw(
         [
@@ -60,7 +60,7 @@ test("CFF Encoding: Draw call conversion", () => {
 });
 
 test("CFF Encoding: Draw call conversion should not overflow", () => {
-    const cr = OtVar.Create.ValueFactory();
+    const cr = new OtVar.ValueFactory();
     const ctx = new CffWriteContext(2, 1000);
     const a: OtVar.Value[] = [];
     for (let x = 0; x < 128; x++) {

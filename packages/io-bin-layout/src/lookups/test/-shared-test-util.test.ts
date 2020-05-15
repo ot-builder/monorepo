@@ -78,12 +78,12 @@ export function SetupVariation() {
     ];
     const [wght, wdth] = ds;
     const masters = {
-        bold: OtVar.Create.Master([{ dim: wght, min: 0, peak: 1, max: 1 }]),
-        wide: OtVar.Create.Master([{ dim: wdth, min: 0, peak: 1, max: 1 }])
+        bold: new OtVar.Master([{ dim: wght, min: 0, peak: 1, max: 1 }]),
+        wide: new OtVar.Master([{ dim: wdth, min: 0, peak: 1, max: 1 }])
     };
-    const ms = OtVar.Create.MasterSet();
+    const ms = new OtVar.MasterSet();
     const ivs = WriteTimeIVS.create(ms);
-    const cr = OtVar.Create.ValueFactory(ms);
+    const cr = new OtVar.ValueFactory(ms);
     const create = (...xs: (number | [OtVar.Master, number])[]) => cr.make(...xs);
     return { designSpace: ds, masters, ivs, masterSet: ms, create };
 }

@@ -25,7 +25,7 @@ export function writeOtl(
 ) {
     let { gsub, gpos, gdef } = otl;
     const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
-    const ivs = md.fvar ? WriteTimeIVS.create(OtVar.Create.MasterSet()) : null;
+    const ivs = md.fvar ? WriteTimeIVS.create(new OtVar.MasterSet()) : null;
     if (ivs && !gdef) gdef = new Gdef.Table();
     const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
 

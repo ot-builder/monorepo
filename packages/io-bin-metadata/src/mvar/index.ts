@@ -130,7 +130,7 @@ export const MvarTableIo = {
         md: OtFontMetadata,
         afEmpty?: ImpLib.Access<boolean>
     ) {
-        const ivs = WriteTimeIVS.create(OtVar.Create.MasterSet());
+        const ivs = WriteTimeIVS.create(new OtVar.MasterSet());
         const lenses = new Map(lensSourcesFromMd(md));
         const rec: [string, number, number][] = [];
         for (const [tag, lens] of lenses) {

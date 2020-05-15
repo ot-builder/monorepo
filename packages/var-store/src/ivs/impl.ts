@@ -31,7 +31,7 @@ const RegionList = {
                 const max = pAxis.next(F2D14);
                 spans.push({ dim: designSpace.at(axisIndex), min, peak, max });
             }
-            ivs.knownMasters.push(OtVar.Create.Master(spans));
+            ivs.knownMasters.push(new OtVar.Master(spans));
         }
     }),
     ...Write((fr, regions: ReadonlyArray<OtVar.Master>, ds: OtVar.DesignSpace) => {
@@ -40,7 +40,7 @@ const RegionList = {
         for (const region of ImpLib.Iterators.ToCount(
             regions,
             regions.length,
-            OtVar.Create.Master([])
+            new OtVar.Master([])
         )) {
             const m: Map<OtVar.Dim, OtVar.MasterDim> = new Map();
             for (const dim of region.regions) {
@@ -56,7 +56,7 @@ const RegionList = {
 
 const IVD = {
     ...Read(vw => {
-        const ivd = new ReadTimeIVD(OtVar.Create.ValueFactory(OtVar.Create.MasterSet()));
+        const ivd = new ReadTimeIVD(new OtVar.ValueFactory(new OtVar.MasterSet()));
         const itemCount = vw.uint16();
         const shortDeltaCount = vw.uint16();
         const regionIndexCount = vw.uint16();

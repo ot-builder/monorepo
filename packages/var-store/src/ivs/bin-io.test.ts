@@ -6,22 +6,22 @@ import { ReadTimeIVS, WriteTimeIVS } from "./impl";
 
 const Wght = new OtVar.Dim("wght", 100, 400, 900);
 const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
-const Bold = OtVar.Create.Master([
+const Bold = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
-const Wide = OtVar.Create.Master([
+const Wide = new OtVar.Master([
     { dim: Wght, min: -1, peak: 0, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
-const Corner = OtVar.Create.Master([
+const Corner = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
     { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("IVS roundtrip -- Traditional", () => {
-    const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Create.ValueFactory(mc);
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
@@ -46,8 +46,8 @@ test("IVS roundtrip -- Traditional", () => {
 });
 
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
-    const mc = OtVar.Create.MasterSet();
-    const cr = OtVar.Create.ValueFactory(mc);
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
     const col = ivs.createCollector();
     col.collect(cr.make(100, [Bold, 150], [Wide, 100]));
