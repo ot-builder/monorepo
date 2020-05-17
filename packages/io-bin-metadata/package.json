@@ -30,7 +30,7 @@
     "@ot-builder/variance": "0.10.8",
     "@ot-builder/ot-sfnt": "0.10.8",
     "@ot-builder/io-bin-sfnt": "0.10.8",
-    "tslib": "^1.9.3"
+    "tslib": "^1.13.0"
   },
   "devDependencies": {
     "@ot-builder/test-util": "0.10.8",

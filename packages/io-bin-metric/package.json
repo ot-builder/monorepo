@@ -28,7 +28,7 @@
     "@ot-builder/primitive": "0.10.8",
     "@ot-builder/var-store": "0.10.8",
     "@ot-builder/variance": "0.10.8",
-    "tslib": "^1.9.3"
+    "tslib": "^1.13.0"
   },
   "devDependencies": {
     "@ot-builder/ot-sfnt": "0.10.8",

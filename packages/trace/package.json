@@ -23,7 +23,7 @@
     "@ot-builder/ot-metadata": "0.10.8",
     "@ot-builder/prelude": "0.10.8",
     "@ot-builder/variance": "0.10.8",
-    "tslib": "^1.9.3"
+    "tslib": "^1.13.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

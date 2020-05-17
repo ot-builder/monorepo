@@ -20,7 +20,7 @@
     "access": "public"
   },
   "dependencies": {
-    "tslib": "^1.9.3",
+    "tslib": "^1.13.0",
     "chalk": "^3.0.0",
     "fs-extra": "^9.0.0",
     "ot-builder": "0.10.8"

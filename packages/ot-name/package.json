@@ -19,7 +19,7 @@
   "dependencies": {
     "@ot-builder/prelude": "0.10.8",
     "@ot-builder/primitive": "0.10.8",
-    "tslib": "^1.9.3"
+    "tslib": "^1.13.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
