@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-composite-types",
   "entries": [
     {
+      "date": "Sun, 17 May 2020 05:28:46 GMT",
+      "tag": "@ot-builder/bin-composite-types_v0.10.9",
+      "version": "0.10.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update tslib dep version",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "7019f9ba1aa3b2495d36d0bf9449bfd6dfc8406d",
+            "package": "@ot-builder/bin-composite-types"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/bin-composite-types_v0.10.5",
       "version": "0.10.5",

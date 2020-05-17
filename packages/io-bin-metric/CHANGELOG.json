@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-metric",
   "entries": [
     {
+      "date": "Sun, 17 May 2020 05:28:46 GMT",
+      "tag": "@ot-builder/io-bin-metric_v0.10.9",
+      "version": "0.10.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update tslib dep version",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "7019f9ba1aa3b2495d36d0bf9449bfd6dfc8406d",
+            "package": "@ot-builder/io-bin-metric"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 17 May 2020 03:58:40 GMT",
       "tag": "@ot-builder/io-bin-metric_v0.10.8",
       "version": "0.10.8",

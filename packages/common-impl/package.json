@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/common-impl",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/prelude": "0.10.8",
+    "@ot-builder/prelude": "0.10.9",
     "tslib": "^1.13.0"
   },
   "devDependencies": {
