@@ -1,5 +1,8 @@
 name: Publish
 
+# We use actions/checkout@V1 only in publishing.
+# Otherwise, beachball cannot properly push the commit that clears change files.
+
 on:
   schedule:
     - cron: '0 0 * * 0'
