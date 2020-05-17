@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-glyphs",
   "entries": [
     {
+      "date": "Sun, 17 May 2020 03:58:40 GMT",
+      "tag": "@ot-builder/ot-glyphs_v0.10.8",
+      "version": "0.10.8",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Transformation API refinement",
+            "author": "belleve@typeof.net",
+            "commit": "8d082136d3912454d0155f7ead22053992d97538",
+            "package": "@ot-builder/ot-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 20 Apr 2020 06:43:41 GMT",
       "tag": "@ot-builder/ot-glyphs_v0.10.5",
       "version": "0.10.5",

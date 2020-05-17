@@ -2,6 +2,21 @@
   "name": "@ot-builder/var-store",
   "entries": [
     {
+      "date": "Sun, 17 May 2020 03:58:40 GMT",
+      "tag": "@ot-builder/var-store_v0.10.8",
+      "version": "0.10.8",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Move data types in Ot.Var from structs to classes.",
+            "author": "belleve@typeof.net",
+            "commit": "f709bd6066c732494b3b6fc15d7d2bc39e44a4e6",
+            "package": "@ot-builder/var-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 03 May 2020 00:09:28 GMT",
       "tag": "@ot-builder/var-store_v0.10.7",
       "version": "0.10.7",
