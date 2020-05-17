@@ -10,7 +10,7 @@ export async function publish(cfg: PublishConfig) {
 
     await Git("config", "user.name", cfg.GitUser);
     await Git("config", "user.email", cfg.GitEmail);
-    // await Git("remote", "set-url", "origin", repoUrl);
+    await Git("remote", "set-url", "origin", repoUrl);
 
     // Do the publish
     await Beachball("publish", "--yes", "--no-publish", "-n", cfg.NpmToken);
