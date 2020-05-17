@@ -3,10 +3,12 @@ name: Publish
 on:
   schedule:
     - cron: '0 0 * * 0'
+  repository_dispatch:
+    types: manual-publish
 
 jobs:
   publish:
-    name: Daily publish
+    name: Publish
     runs-on: ubuntu-latest
 
     steps:
