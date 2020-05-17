@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Update tslib dep version",
+  "packageName": "@ot-builder/cli-proc",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch",
+  "date": "2020-05-17T04:55:45.392Z"
+}
