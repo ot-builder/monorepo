@@ -1,9 +1,9 @@
 export * as CliProc from "@ot-builder/cli-proc";
 export * as FontIo from "@ot-builder/io-bin-font";
 export * as Ot from "@ot-builder/ot";
+export { Data, Sigma } from "@ot-builder/prelude";
 export * as Rectify from "@ot-builder/rectify";
 export * as Trace from "@ot-builder/trace";
-export { Data, Sigma, Thunk } from "@ot-builder/prelude";
 
 // re-export primitive types from Primitive
 import * as PrimitiveLib from "@ot-builder/primitive";

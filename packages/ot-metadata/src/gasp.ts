@@ -1,4 +1,3 @@
-import { UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 export namespace Gasp {
