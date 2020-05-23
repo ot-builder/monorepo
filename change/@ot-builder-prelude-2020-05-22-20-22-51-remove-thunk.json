@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Remove `Thunk` since it is never used now.",
+  "packageName": "@ot-builder/prelude",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-05-23T03:22:51.943Z"
+}

@@ -4,8 +4,6 @@ export const Data = createTopLevelExport("Data");
 setPage(Data, "Prelude");
 export const Sigma = createTopLevelExport("Sigma");
 setPage(Sigma, "Prelude");
-export const Thunk = createTopLevelExport("Thunk");
-setPage(Thunk, "Prelude");
 export const Tag = createTopLevelExport("Tag");
 setPage(Tag, "Primitives");
 

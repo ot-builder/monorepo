@@ -103,11 +103,3 @@ Represents an optional object. Frequently used in the rest parts of the `ot-buil
 * <Method s={Sigma.PropertyBag.set("T")} args={{tid:Sigma.TypeID("T"),value:"T"}} returns={"void"}/>
 * <Method s={Sigma.PropertyBag.delete("T")} args={{tid:Sigma.TypeID("T")}} returns={"void"}/>
 * <Method s={Sigma.PropertyBag.entries} returns={app("IterableIterator",Sigma.DependentPair)}/>
-
-## Thunks
-
-### Interface <Decl s={Thunk("T")}/>
-
-#### Methods
-
-* <Method s={Thunk.force} args={{}} returns={"T"}/>

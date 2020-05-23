@@ -1,4 +1,4 @@
-import { Int16, Tag, UInt16, UInt32, UInt8 } from "@ot-builder/primitive";
+import { Int16, Tag, UInt16, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 export namespace Os2 {

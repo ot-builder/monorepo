@@ -1,12 +1,11 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { CaseCreator, CaseType, FallbackPropCreator, Data } from "@ot-builder/prelude";
+import { CaseCreator, CaseType, Data, FallbackPropCreator } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import { LayoutCommon } from "../common";
 import { DicingStore } from "../dicing-store";
 
-import { CreateTable } from "./factories";
 import * as FeatureParamLib from "./feature-params";
 import * as GeneralLookup from "./general/lookup";
 import * as LT from "./general/lookup-type";

@@ -1,4 +1,4 @@
-import { Read, BinaryView } from "@ot-builder/bin-util";
+import { BinaryView } from "@ot-builder/bin-util";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag } from "@ot-builder/primitive";
 
