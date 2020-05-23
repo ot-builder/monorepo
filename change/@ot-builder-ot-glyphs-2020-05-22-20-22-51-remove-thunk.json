@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Remove `Thunk` since it is never used now.",
+  "packageName": "@ot-builder/ot-glyphs",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-05-23T03:22:50.583Z"
+}
