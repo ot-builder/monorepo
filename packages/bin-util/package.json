@@ -7,7 +7,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.9",
+  "version": "0.10.10",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -19,8 +19,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/errors": "0.10.9",
-    "@ot-builder/prelude": "0.10.9",
+    "@ot-builder/errors": "0.10.10",
+    "@ot-builder/prelude": "0.10.10",
     "tslib": "^1.13.0"
   },
   "devDependencies": {

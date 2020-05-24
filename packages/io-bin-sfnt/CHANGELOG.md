@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-sfnt
 
-This log was last generated on Sun, 17 May 2020 05:28:46 GMT and should not be manually modified.
+This log was last generated on Sun, 24 May 2020 00:09:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.10
+
+Sun, 24 May 2020 00:09:20 GMT
+
+### Patches
+
+- Remove `Thunk` since it is never used now. (belleve@typeof.net)
 
 ## 0.10.9
 

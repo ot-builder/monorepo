@@ -2,6 +2,21 @@
   "name": "ot-builder",
   "entries": [
     {
+      "date": "Sun, 24 May 2020 00:09:20 GMT",
+      "tag": "ot-builder_v0.10.10",
+      "version": "0.10.10",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove `Thunk` since it is never used now.",
+            "author": "belleve@typeof.net",
+            "commit": "3af806720eacbdd2ab2be9791f30563cce97d334",
+            "package": "ot-builder"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 17 May 2020 05:28:46 GMT",
       "tag": "ot-builder_v0.10.9",
       "version": "0.10.9",
