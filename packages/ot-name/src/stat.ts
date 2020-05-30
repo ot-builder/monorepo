@@ -11,8 +11,13 @@ export namespace Stat {
         ) {}
     }
 
+    export enum NameFlags {
+        OlderSiblingFontAttribute = 1,
+        ElidableAxisValueName = 2
+    }
+
     export class NameAssignment {
-        constructor(public readonly flags: UInt16, public readonly valueNameID: UInt16) {}
+        constructor(public readonly flags: NameFlags, public readonly valueNameID: UInt16) {}
     }
 
     export namespace AxisValue {
