@@ -7,7 +7,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.10",
+  "version": "0.10.11",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -19,23 +19,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.10",
-    "@ot-builder/common-impl": "0.10.10",
-    "@ot-builder/errors": "0.10.10",
-    "@ot-builder/ot-glyphs": "0.10.10",
-    "@ot-builder/ot-metadata": "0.10.10",
-    "@ot-builder/prelude": "0.10.10",
-    "@ot-builder/primitive": "0.10.10",
-    "@ot-builder/stat-glyphs": "0.10.10",
-    "@ot-builder/var-store": "0.10.10",
-    "@ot-builder/variance": "0.10.10",
+    "@ot-builder/bin-util": "0.10.11",
+    "@ot-builder/common-impl": "0.10.11",
+    "@ot-builder/errors": "0.10.11",
+    "@ot-builder/ot-glyphs": "0.10.11",
+    "@ot-builder/ot-metadata": "0.10.11",
+    "@ot-builder/prelude": "0.10.11",
+    "@ot-builder/primitive": "0.10.11",
+    "@ot-builder/stat-glyphs": "0.10.11",
+    "@ot-builder/var-store": "0.10.11",
+    "@ot-builder/variance": "0.10.11",
     "tslib": "^1.13.0"
   },
   "devDependencies": {
-    "@ot-builder/ot-sfnt": "0.10.10",
-    "@ot-builder/io-bin-metadata": "0.10.10",
-    "@ot-builder/io-bin-sfnt": "0.10.10",
-    "@ot-builder/test-util": "0.10.10",
+    "@ot-builder/ot-sfnt": "0.10.11",
+    "@ot-builder/io-bin-metadata": "0.10.11",
+    "@ot-builder/io-bin-sfnt": "0.10.11",
+    "@ot-builder/test-util": "0.10.11",
     "@types/jest": "^24.0.15",
     "jest": "^24.8.0"
   }

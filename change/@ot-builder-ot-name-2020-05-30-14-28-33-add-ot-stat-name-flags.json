@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add Ot.Stat.NameFlags",
-  "packageName": "@ot-builder/ot-name",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-05-30T21:28:33.050Z"
-}

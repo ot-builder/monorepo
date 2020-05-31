@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/ot-name
 
-This log was last generated on Sun, 17 May 2020 05:28:46 GMT and should not be manually modified.
+This log was last generated on Sun, 31 May 2020 00:09:29 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.11
+
+Sun, 31 May 2020 00:09:29 GMT
+
+### Patches
+
+- Add Ot.Stat.NameFlags (belleve@typeof.net)
 
 ## 0.10.9
 

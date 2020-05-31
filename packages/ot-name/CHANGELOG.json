@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-name",
   "entries": [
     {
+      "date": "Sun, 31 May 2020 00:09:29 GMT",
+      "tag": "@ot-builder/ot-name_v0.10.11",
+      "version": "0.10.11",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add Ot.Stat.NameFlags",
+            "author": "belleve@typeof.net",
+            "commit": "627f63091308fbe617b7321d42a2155143764e0d",
+            "package": "@ot-builder/ot-name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 17 May 2020 05:28:46 GMT",
       "tag": "@ot-builder/ot-name_v0.10.9",
       "version": "0.10.9",
