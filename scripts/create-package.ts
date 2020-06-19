@@ -20,11 +20,11 @@ const packageJSONData = {
     types: "./lib/index.d.ts",
     files: ["lib", "src"],
     dependencies: {
-        tslib: "^1.9.3"
+        tslib: "^1.13.0"
     },
     devDependencies: {
-        jest: "^24.8.0",
-        "@types/jest": "^24.0.15"
+        jest: "^26.0.0",
+        "@types/jest": "^26.0.0"
     },
     scripts: {
         build: "tsc -b ./tsconfig.package.json",

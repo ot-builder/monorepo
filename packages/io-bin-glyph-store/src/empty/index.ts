@@ -3,7 +3,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { ReadGlyphStoreImpl } from "../general/read";
 import { WriteGlyphStoreImpl } from "../general/write";
 
-export const SkipReadGlyphs: ReadGlyphStoreImpl<{}, null> = {
+export const SkipReadGlyphs: ReadGlyphStoreImpl<unknown, null> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {
         for (let gid = 0; gid < gOrd.length; gid++) {
             const glyph = gOrd.at(gid);
@@ -15,7 +15,7 @@ export const SkipReadGlyphs: ReadGlyphStoreImpl<{}, null> = {
         return null;
     }
 };
-export const SkipWriteGlyphs: WriteGlyphStoreImpl<{}, null> = {
+export const SkipWriteGlyphs: WriteGlyphStoreImpl<unknown, null> = {
     writeMetricVariance: true,
     writeGlyphs(sink, cfg, coGlyphs, gOrd, ctx) {
         ctx.stat.setNumGlyphs(gOrd.length);
