@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Upgrade dependencies",
+  "packageName": "@ot-builder/common-impl",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-06-19T06:23:10.589Z"
+}
