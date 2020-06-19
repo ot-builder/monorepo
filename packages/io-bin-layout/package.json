@@ -38,7 +38,7 @@
     "@ot-builder/ot-encoding": "0.10.11",
     "@ot-builder/io-bin-encoding": "0.10.11",
     "@ot-builder/test-util": "0.10.11",
-    "@types/jest": "^24.0.15",
-    "jest": "^24.8.0"
+    "@types/jest": "^26.0.0",
+    "jest": "^26.0.1"
   }
 }

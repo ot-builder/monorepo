@@ -21,18 +21,43 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: NPM Setup
       run: |
-        npm run boot
+        npm run init
       env:
         CI: true
     - name: Building
       run: |
         npm run build
-        npm run lint
       env:
         CI: true
     - name: Unit test
       run: |
         npm run test
+      env:
+        CI: true
+
+  lint:
+    name: PR Lint
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
+        node-version: [14.x] # Current and LTS. No history versions
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: NPM Setup
+      run: |
+        npm run init
+      env:
+        CI: true
+    - name: Linting
+      run: |
+        npm run lint
       env:
         CI: true
 
@@ -53,7 +78,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: NPM Setup
       run: |
-        npm run boot:prod
+        npm run init:prod
       env:
         CI: true
     - name: Building
@@ -78,7 +103,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: NPM Setup
       run: |
-        npm run boot
+        npm run init
       env:
         CI: true
     - name: Check change-file
@@ -103,7 +128,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: NPM Setup
       run: |
-        npm run boot
+        npm run init
       env:
         CI: true
     - name: Doc build

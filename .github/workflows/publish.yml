@@ -22,7 +22,7 @@ jobs:
         node-version: '12.x'
     - name: NPM Setup
       run: |
-        npm run boot:prod
+        npm run init:prod
       env:
         CI: true
     - name: Production Build

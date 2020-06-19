@@ -31,7 +31,7 @@ module.exports = {
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "prefer-const": ["error", { destructuring: "all", ignoreReadBeforeAssign: false }],
-        "@typescript-eslint/camelcase": ["error", { allow: ["^Lib_", "^TID_", "^TAG_"] }],
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "import/order": [
             "error",
             {
