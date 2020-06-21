@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-metadata
 
-This log was last generated on Sun, 17 May 2020 05:28:46 GMT and should not be manually modified.
+This log was last generated on Sun, 21 Jun 2020 00:10:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.12
+
+Sun, 21 Jun 2020 00:10:05 GMT
+
+### Patches
+
+- Upgrade dependencies (belleve@typeof.net)
 
 ## 0.10.9
 

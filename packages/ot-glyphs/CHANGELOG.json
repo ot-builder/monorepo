@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-glyphs",
   "entries": [
     {
+      "date": "Sun, 21 Jun 2020 00:10:05 GMT",
+      "tag": "@ot-builder/ot-glyphs_v0.10.12",
+      "version": "0.10.12",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "8306bc7722ea5324c16ce5b91e797c6aa2fb3af6",
+            "package": "@ot-builder/ot-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 24 May 2020 00:09:20 GMT",
       "tag": "@ot-builder/ot-glyphs_v0.10.10",
       "version": "0.10.10",

@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-name",
   "entries": [
     {
+      "date": "Sun, 21 Jun 2020 00:10:05 GMT",
+      "tag": "@ot-builder/io-bin-name_v0.10.12",
+      "version": "0.10.12",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "8306bc7722ea5324c16ce5b91e797c6aa2fb3af6",
+            "package": "@ot-builder/io-bin-name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 17 May 2020 05:28:46 GMT",
       "tag": "@ot-builder/io-bin-name_v0.10.9",
       "version": "0.10.9",

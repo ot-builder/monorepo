@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-name",
   "entries": [
     {
+      "date": "Sun, 21 Jun 2020 00:10:05 GMT",
+      "tag": "@ot-builder/ot-name_v0.10.12",
+      "version": "0.10.12",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "8306bc7722ea5324c16ce5b91e797c6aa2fb3af6",
+            "package": "@ot-builder/ot-name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 31 May 2020 00:09:29 GMT",
       "tag": "@ot-builder/ot-name_v0.10.11",
       "version": "0.10.11",
