@@ -7,7 +7,10 @@ import { LookupReader, LookupReaderFactory, LookupWriter, LookupWriterFactory } 
 import { CReadLookupList } from "./read-lookup-list";
 import { WriteLookupList } from "./write-lookup-list";
 
+const MockLookupType: unique symbol = Symbol();
+type MockLookupSymbolType = typeof MockLookupType;
 class MockLookup implements GsubGpos.LookupProp {
+    public readonly type: MockLookupSymbolType = MockLookupType;
     public rightToLeft = false;
     public ignoreGlyphs = null;
     constructor(public count: number) {}
@@ -44,6 +47,9 @@ class MockLookupWriter implements LookupWriter<GsubGpos.LookupProp, MockLookup> 
     }
     public getLookupType() {
         return 1;
+    }
+    public getLookupTypeSymbol() {
+        return MockLookupType;
     }
     public createSubtableFragments(lookup: MockLookup) {
         const frag = new Frag();

@@ -127,7 +127,9 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
     public getLookupType() {
         return 1;
     }
-
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.Single;
+    }
     private pickJaggedData(jagged: [number, Gpos.Adjustment][]) {
         let fmt = 0;
         for (const [gid, adj] of jagged) fmt |= GposAdjustment.decideFormat(adj);

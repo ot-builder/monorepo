@@ -344,6 +344,9 @@ export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
     public getLookupType() {
         return 4;
     }
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.MarkToBase;
+    }
     public createSubtableFragments(
         lookup: Gpos.MarkToBase,
         ctx: SubtableWriteContext<Gpos.Lookup>
@@ -359,6 +362,9 @@ export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
     public getLookupType() {
         return 5;
     }
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.MarkToLigature;
+    }
     public createSubtableFragments(
         lookup: Gpos.MarkToLigature,
         ctx: SubtableWriteContext<Gpos.Lookup>
@@ -373,6 +379,9 @@ export class GposMarkToMarkWriter extends GposMarkToBaseWriterBase
     }
     public getLookupType() {
         return 6;
+    }
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.MarkToMark;
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToMark,

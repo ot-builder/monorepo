@@ -88,7 +88,9 @@ export class GposCursiveWriter implements LookupWriter<Gpos.Lookup, Gpos.Cursive
     public getLookupType() {
         return 3;
     }
-
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.Cursive;
+    }
     public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<Gpos.Lookup>) {
         if (!state.mapping.size) return;
         frags.push(Frag.from(SubtableFormat1, state.mapping, ctx));

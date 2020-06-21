@@ -4,7 +4,7 @@ import { Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, GsubGpos } from "@ot-builder/ot-layout";
+import { Gdef, GsubGpos, Gsub, Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 import { WriteTimeIVS } from "@ot-builder/var-store";
@@ -31,6 +31,7 @@ export interface LookupWriteContext<L> {
 
 interface LookupHeader {
     lookupType: number;
+    origLookupType: symbol;
     flags: number;
     markFilteringSet: Data.Maybe<number>;
     subtableStubs: SubtableStub[];
@@ -77,6 +78,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         for (const writer of lwf.writers()) {
             if (!writer.canBeUsed(lookup)) continue;
             const header: LookupHeader = {
+                origLookupType: writer.getLookupTypeSymbol(lookup),
                 lookupType: writer.getLookupType(lookup),
                 flags,
                 markFilteringSet,
@@ -128,13 +130,23 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
             return blob;
         }
     }
-
+    private getLookupOrderingPriority(h: LookupHeader, trick: number) {
+        return (
+            8 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2) +
+            (h.origLookupType === Gsub.LookupType.Reverse
+                ? 1
+                : h.origLookupType === Gsub.LookupType.Chaining ||
+                  h.origLookupType === Gpos.LookupType.Chaining
+                ? 2
+                : 4)
+        );
+    }
     private addSubtables(h: LookupHeader, sts: ReadonlyArray<Frag>, trick: number = 0) {
         const pm = Frag.packMany(sts);
         const blob0: SubtableBlob = {
             buffer: pm.buffer,
             relOffset: 0,
-            priority: trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2
+            priority: this.getLookupOrderingPriority(h, trick)
         };
         const blob = this.addBlob(blob0);
 

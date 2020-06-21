@@ -115,6 +115,9 @@ export class GsubLigatureWriter implements LookupWriter<Gsub.Lookup, Gsub.Ligatu
     public getLookupType() {
         return 4;
     }
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Ligature;
+    }
     public flush(frags: Frag[], state: State, ctx: SubtableWriteContext<Gsub.Lookup>) {
         if (!state.mapping.size) return;
         frags.push(Frag.from(SubtableFormat1, state.mapping, ctx));
