@@ -18,7 +18,9 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
     public getLookupType() {
         return 2;
     }
-
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.Pair;
+    }
     private writeOutliers(
         results: Frag[],
         dt: OutlierTree<OtGlyph>,

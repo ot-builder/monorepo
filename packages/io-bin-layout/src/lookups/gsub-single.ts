@@ -110,7 +110,9 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
     public getLookupType() {
         return 1;
     }
-
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Single;
+    }
     private buildJagged(frags: Frag[], forceFormat2: boolean, jagged: [number, number][]) {
         const data = CovUtils.sortAuxMap(
             [...jagged].slice(0, SubtableSizeLimit / (2 * UInt16.size))

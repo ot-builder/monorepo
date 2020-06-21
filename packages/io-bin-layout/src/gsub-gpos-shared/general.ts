@@ -25,8 +25,8 @@ export interface LookupReader<L, C extends L> {
 
 export interface LookupWriter<L, C extends L> {
     canBeUsed(lookup: L): lookup is L & C;
-
     getLookupType(lookup: C): number;
+    getLookupTypeSymbol(lookup: C): symbol;
     createSubtableFragments(lookup: C, context: SubtableWriteContext<L>): Frag[];
 }
 

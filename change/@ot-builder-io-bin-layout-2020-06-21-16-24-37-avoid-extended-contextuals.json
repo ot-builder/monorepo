@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Avoid contextual lookups to be hidden behind extensions",
+  "packageName": "@ot-builder/io-bin-layout",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-06-21T23:24:37.338Z"
+}

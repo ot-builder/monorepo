@@ -88,6 +88,9 @@ export class GsubReverseWriter implements LookupWriter<Gsub.Lookup, Gsub.Reverse
     public getLookupType() {
         return 8;
     }
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Reverse;
+    }
     public createSubtableFragments(
         lookup: Gsub.ReverseSub,
         ctx: SubtableWriteContext<Gsub.Lookup>

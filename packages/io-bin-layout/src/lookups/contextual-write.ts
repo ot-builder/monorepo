@@ -265,7 +265,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         return chain;
     }
     public abstract getLookupType(lookup: C): number;
-
+    public abstract getLookupTypeSymbol(lookup: C): symbol;
     public abstract canBeUsed(l: L): l is C;
 
     private covSubtable(
@@ -349,6 +349,9 @@ export class GsubChainingContextualWriter extends ChainingContextualWriter<
     public getLookupType(lookup: Gsub.Chaining) {
         return this.useChainingLookup(lookup) ? 6 : 5;
     }
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Chaining;
+    }
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Chaining {
         return l.type === Gsub.LookupType.Chaining;
     }
@@ -359,6 +362,9 @@ export class GposChainingContextualWriter extends ChainingContextualWriter<
 > {
     public getLookupType(lookup: Gpos.Chaining) {
         return this.useChainingLookup(lookup) ? 8 : 7;
+    }
+    public getLookupTypeSymbol() {
+        return Gpos.LookupType.Chaining;
     }
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Chaining {
         return l.type === Gpos.LookupType.Chaining;

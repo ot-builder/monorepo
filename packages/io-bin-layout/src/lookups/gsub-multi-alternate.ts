@@ -124,6 +124,9 @@ export class GsubMultiWriter extends GsubMultiAlternateWriterBase
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Multiple {
         return l.type === Gsub.LookupType.Multi;
     }
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Multi;
+    }
     public getLookupType() {
         return 2;
     }
@@ -132,6 +135,9 @@ export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Alternate> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Alternate {
         return l.type === Gsub.LookupType.Alternate;
+    }
+    public getLookupTypeSymbol() {
+        return Gsub.LookupType.Alternate;
     }
     public getLookupType() {
         return 3;
