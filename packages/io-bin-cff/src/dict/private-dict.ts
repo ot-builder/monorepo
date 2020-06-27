@@ -84,6 +84,12 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
             case CffOperator.nominalWidthX:
                 this.result.nominalWidthX = OtVar.Ops.originOf(this.st.pop());
                 break;
+            case CffOperator.ForceBold:
+                this.result.forceBold = Boolean(OtVar.Ops.originOf(this.st.pop()));
+                break;
+            case CffOperator.initialRandomSeed:
+                this.result.initialRandomSeed = OtVar.Ops.originOf(this.st.pop());
+                break;
             default:
                 throw Errors.Cff.OperatorNotSupported(opCode);
         }
@@ -138,6 +144,19 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
             defaultPd.languageGroup,
             CffOperator.LanguageGroup
         );
+
+        if (ctx.version === 1) {
+            yield* this.emitNumber(
+                Number(pd.forceBold),
+                Number(defaultPd.forceBold),
+                CffOperator.ForceBold
+            );
+            yield* this.emitNumber(
+                pd.initialRandomSeed,
+                defaultPd.initialRandomSeed,
+                CffOperator.initialRandomSeed
+            );
+        }
     }
 
     public processPointers(

@@ -25,6 +25,10 @@ export namespace Cff {
         public defaultWidthX: number = 0;
         public nominalWidthX: number = 0;
 
+        // CFF1 specific properties
+        public forceBold: boolean = false;
+        public initialRandomSeed: number = 0;
+
         // This filed is used only during reading CFF table
         public localSubroutines: Buffer[] | null = null;
         public inheritedVsIndex = 0;
