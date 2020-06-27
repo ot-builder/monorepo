@@ -35,7 +35,7 @@
 
 * Create an initial build:
 
-  * `npm run boot` to install the dependencies and set everything up.
+  * `npm run init` to install the dependencies and set everything up.
   * `npm run build` to create the initial build.
 
 * Make your changes:
