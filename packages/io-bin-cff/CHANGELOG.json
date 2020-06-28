@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sun, 28 Jun 2020 00:10:02 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.10.13",
+      "version": "0.10.13",
+      "comments": {
+        "patch": [
+          {
+            "comment": "add CFF1-specific private dict properties",
+            "author": "c@cyano.cn",
+            "commit": "d61c3d6af6f16a7d5e039a0526015cf1c8cc5351",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-cff_v0.10.12",
       "version": "0.10.12",

@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 28 Jun 2020 00:10:02 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.13",
+      "version": "0.10.13",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Avoid contextual lookups to be hidden behind extensions",
+            "author": "belleve@typeof.net",
+            "commit": "6044289a087a5eee7e16c440d645bb709218171d",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.12",
       "version": "0.10.12",

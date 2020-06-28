@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-cff
 
-This log was last generated on Sun, 21 Jun 2020 00:10:05 GMT and should not be manually modified.
+This log was last generated on Sun, 28 Jun 2020 00:10:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.13
+
+Sun, 28 Jun 2020 00:10:02 GMT
+
+### Patches
+
+- add CFF1-specific private dict properties (c@cyano.cn)
 
 ## 0.10.12
 

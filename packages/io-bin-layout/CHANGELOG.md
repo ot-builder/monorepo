@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sun, 21 Jun 2020 00:10:05 GMT and should not be manually modified.
+This log was last generated on Sun, 28 Jun 2020 00:10:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.13
+
+Sun, 28 Jun 2020 00:10:02 GMT
+
+### Patches
+
+- Avoid contextual lookups to be hidden behind extensions (belleve@typeof.net)
 
 ## 0.10.12
 

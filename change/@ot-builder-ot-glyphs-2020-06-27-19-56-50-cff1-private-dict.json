@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "add CFF1-specific private dict properties",
-  "packageName": "@ot-builder/ot-glyphs",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch",
-  "date": "2020-06-27T11:56:50.150Z"
-}
