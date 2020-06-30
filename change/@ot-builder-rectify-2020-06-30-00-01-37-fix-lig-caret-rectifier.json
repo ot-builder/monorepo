@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Fix lig caret rectifier",
+  "packageName": "@ot-builder/rectify",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-06-30T07:01:37.960Z"
+}
