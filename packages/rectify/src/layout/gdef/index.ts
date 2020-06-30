@@ -1,3 +1,4 @@
+import { ImpLib } from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/ot";
 
 import {
@@ -35,29 +36,25 @@ export function rectifyGdef(
         );
     }
     if (gdef.ligCarets) {
-        newTable.ligCarets = rectifyLigCaretListPointAttachment(
-            recGlyphRef,
-            recPA,
-            RectifyImpl.mapSomeT(
-                recCoord,
-                gdef.ligCarets,
-                RectifyImpl.Id,
-                rectifyLigCaretArrayCoord
-            )
-        );
+        newTable.ligCarets = new ImpLib.FunctionHelper.Chain(gdef.ligCarets)
+            .apply(_ => RectifyImpl.Glyph.mapSome(recGlyphRef, _))
+            .apply(_ => RectifyImpl.mapSomeT(recCoord, _, RectifyImpl.Id, ligCaretArrayCoord))
+            .apply(_ => RectifyImpl.mapSome2T(recPA, _, RectifyImpl.Id, ligCaretArrayPA)).result;
     }
     return newTable;
 }
 
-function rectifyLigCaretCoord(rec: CoordRectifier, lc: Ot.Gdef.LigCaret): Ot.Gdef.LigCaret {
+function ligCaretArrayCoord(r: CoordRectifier, lcs: Ot.Gdef.LigCaret[]) {
+    return RectifyImpl.listSomeT(r, lcs, ligCaretCoord);
+}
+function ligCaretCoord(rec: CoordRectifier, lc: Ot.Gdef.LigCaret): Ot.Gdef.LigCaret {
     return { ...lc, x: rec.coord(lc.x) };
 }
 
-function rectifyLigCaretArrayCoord(r: CoordRectifier, lcs: Ot.Gdef.LigCaret[]) {
-    return RectifyImpl.listSomeT(r, lcs, rectifyLigCaretCoord);
+function ligCaretArrayPA(rec: PointAttachmentRectifier, g: Ot.Glyph, lcs: Ot.Gdef.LigCaret[]) {
+    return RectifyImpl.listSomeT(rec, lcs, (rec, lc) => ligCaretPointAttachment(rec, g, lc));
 }
-
-function rectifyLigCaretPointAttachment(
+function ligCaretPointAttachment(
     rectifier: PointAttachmentRectifier,
     context: Ot.Glyph,
     lc: Ot.Gdef.LigCaret
@@ -76,24 +73,4 @@ function rectifyLigCaretPointAttachment(
         case PointAttachmentRectifyManner.TrustCoordinate:
             return { ...lc, pointAttachment: null };
     }
-}
-
-function rectifyLigCaretArrayPointAttachment(
-    rec: PointAttachmentRectifier,
-    g: Ot.Glyph,
-    lcs: Ot.Gdef.LigCaret[]
-) {
-    return RectifyImpl.listSomeT(rec, lcs, (rec, lc) =>
-        rectifyLigCaretPointAttachment(rec, g, lc)
-    );
-}
-
-function rectifyLigCaretListPointAttachment(
-    recGlyphRef: GlyphReferenceRectifier,
-    rec: PointAttachmentRectifier,
-    lcs: Ot.Gdef.LigCaretList
-): Ot.Gdef.LigCaretList {
-    return RectifyImpl.mapSome2T(recGlyphRef, lcs, RectifyImpl.Id, (rg, g, lc) =>
-        rectifyLigCaretArrayPointAttachment(rec, g, lc)
-    );
 }

@@ -1,6 +1,7 @@
 import * as _Access from "./access";
 import * as _Arith from "./arith";
 import * as _BitMask from "./bitmask";
+import * as _Chain from "./function-helper/chain";
 import * as _Iterators from "./iterators";
 import * as _Order from "./order";
 import * as PathMapImplLib from "./path-map";
@@ -23,5 +24,9 @@ export namespace ImpLib {
 
     export namespace Tuple {
         export const Tie = _Tie.Tie;
+    }
+
+    export namespace FunctionHelper {
+        export import Chain = _Chain.Chain;
     }
 }
