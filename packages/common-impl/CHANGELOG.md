@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sun, 21 Jun 2020 00:10:05 GMT and should not be manually modified.
+This log was last generated on Sun, 05 Jul 2020 00:10:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.14
+
+Sun, 05 Jul 2020 00:10:15 GMT
+
+### Patches
+
+- Fix lig caret rectifier (belleve@typeof.net)
 
 ## 0.10.12
 

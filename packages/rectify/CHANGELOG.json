@@ -2,6 +2,21 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sun, 05 Jul 2020 00:10:15 GMT",
+      "tag": "@ot-builder/rectify_v0.10.14",
+      "version": "0.10.14",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix lig caret rectifier",
+            "author": "belleve@typeof.net",
+            "commit": "fa3517c77e9a53331370706f4a414c48e92a548b",
+            "package": "@ot-builder/rectify"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/rectify_v0.10.12",
       "version": "0.10.12",
