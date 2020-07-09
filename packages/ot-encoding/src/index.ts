@@ -1,23 +1,13 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
-import { EncodingMapT } from "./encoding-map-impl";
-import { VsEncodingMapT } from "./vs-encoding-map-impl";
+import { Cmap } from "./cmap";
+import { XPrv } from "./xprv";
 
-export { VsEncodingMapT as CmapGeneralVsEncodingMapT } from "./vs-encoding-map-impl";
-
-export namespace Cmap {
-    export const Tag = "cmap";
-
-    export class EncodingMap extends EncodingMapT<OtGlyph> {}
-    export class VsEncodingMap extends VsEncodingMapT<OtGlyph> {}
-
-    export class Table {
-        public unicode = new EncodingMap();
-        public vs = new VsEncodingMap();
-    }
-}
+export { Cmap } from "./cmap";
+export { VsEncodingMapT as CmapGeneralVsEncodingMapT } from "./cmap/vs-encoding-map-impl";
+export { XPrv } from "./xprv";
 
 export interface OtEncoding {
     cmap?: Data.Maybe<Cmap.Table>;
+    xPrv?: Data.Maybe<XPrv.Table>;
 }
