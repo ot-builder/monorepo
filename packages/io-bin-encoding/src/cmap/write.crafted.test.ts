@@ -18,9 +18,7 @@ function cmapCraftedRoundtrip(count: number, fn: (gid: number, codeLast: number)
         if (codeLast > 0) cmap.unicode.set(codeLast, gOrd.at(gid));
     }
 
-    const bufCmap = Frag.pack(
-        Frag.from(WriteCmap, cmap, gOrd, { encoding: DefaultEncodingCfgProps })
-    );
+    const bufCmap = Frag.packFrom(WriteCmap, cmap, gOrd, { encoding: DefaultEncodingCfgProps });
     const cmap1 = new BinaryView(bufCmap).next(ReadCmap, gOrd);
 
     CmapIdentity.test(BimapCtx.from(gOrd, gOrd), cmap, cmap1);

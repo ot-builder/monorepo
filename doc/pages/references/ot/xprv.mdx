@@ -1,0 +1,24 @@
+import { Layout } from "templates/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "api-doc/tyfmt"
+import { map, string, Data, Ot, Tag } from "api-doc/exports"
+import { optional, tuple } from "api-doc/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.XPrv} />
+
+## Table Types
+
+### Cosntant <Decl s={Ot.XPrv.Tag}/> = `"XPRV"`
+
+### Class <Decl s={Ot.XPrv.Table} />
+
+#### Cosntructor
+
+* <Method ctor s={Ot.XPrv.Table.constructor} />
+
+#### Properties
+
+* <Member s={Ot.XPrv.Table.shared} type={Data.Maybe(Ot.XPrv.Blob)} />
+* <Member s={Ot.XPrv.Table.perGlyph} type={Data.Maybe(map(Ot.Glyph,Ot.XPrv.Blob))} />
+
+### Type <Decl s={Ot.XPrv.Blob} /> = <R s={map(string, "Buffer")}/>.

@@ -47,7 +47,7 @@ export type GlyphStoreFactoryWithDefault<
 > = Data.OrderStoreFactoryWithDefault<OtGlyph, GS>;
 export type GlyphOrder = Data.Order<OtGlyph>;
 
-export { Cmap, OtEncoding as Encoding } from "@ot-builder/ot-encoding";
+export { Cmap, OtEncoding as Encoding, XPrv } from "@ot-builder/ot-encoding";
 export { Name, Stat, Meta } from "@ot-builder/ot-name";
 export {
     DicingStore,

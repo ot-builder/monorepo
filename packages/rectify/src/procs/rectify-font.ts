@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { rectifyGlyphCmap } from "../encoding";
+import { rectifyGlyphCmap, rectifyExtPrivate } from "../encoding";
 import { rectifyCffTable } from "../glyph-store/cff";
 import { rectifyCoordCvtTable } from "../glyph-store/cvt";
 import { rectifyGlyphs } from "../glyph/rectify-alg";
@@ -40,6 +40,9 @@ function rectifyCmap<GS extends Ot.GlyphStore>(
 ) {
     if (font.cmap) {
         font.cmap = rectifyGlyphCmap(recGlyphRef, font.cmap);
+    }
+    if (font.xPrv) {
+        font.xPrv = rectifyExtPrivate(recGlyphRef, font.xPrv);
     }
 }
 function rectifyFontMetadata<GS extends Ot.GlyphStore>(
