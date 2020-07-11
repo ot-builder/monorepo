@@ -1,4 +1,13 @@
 export { FontIoConfig } from "./config";
-export * from "./read";
-export * from "./write";
-export * from "./sfnt-wrapper";
+export { readFont } from "./read";
+export { writeFont } from "./write";
+export {
+    readSfntOtf,
+    readSfntTtcView,
+    TableSlice,
+    TableSliceCollection,
+    writeSfntOtf,
+    writeSfntOtfFromTableSlices,
+    writeSfntTtc,
+    writeSfntTtcFromTableSlices
+} from "@ot-builder/io-bin-sfnt";

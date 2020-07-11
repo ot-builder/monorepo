@@ -15,9 +15,9 @@ import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
 export function readFont<GS extends Ot.GlyphStore>(
     sfnt: Sfnt,
     gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
-    config: FontIoConfig = {}
+    partialConfig: FontIoConfig = {}
 ): Ot.Font<GS> {
-    const fullCfg = createConfig(config);
+    const fullCfg = createConfig(partialConfig);
     const md = readOtMetadata(sfnt, fullCfg);
     const names = readNames(sfnt);
 
