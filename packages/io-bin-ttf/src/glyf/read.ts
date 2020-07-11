@@ -183,7 +183,6 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
 
         ref.roundXyToGrid = !!(ComponentFlag.ROUND_XY_TO_GRID & flags);
         ref.useMyMetrics = !!(ComponentFlag.USE_MY_METRICS & flags);
-        ref.overlapCompound = !!(ComponentFlag.OVERLAP_COMPOUND & flags);
 
         if (ComponentFlag.ARGS_ARE_XY_VALUES & flags) {
             ref.transform = { ...ref.transform, dx: arg1, dy: arg2 };

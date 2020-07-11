@@ -80,7 +80,6 @@ export class OtGhRectifyGeomPointAttachmentAlg {
             });
             ref1.roundXyToGrid = ref.roundXyToGrid;
             ref1.useMyMetrics = ref.useMyMetrics;
-            ref1.overlapCompound = ref.overlapCompound;
             ref1.pointAttachment = ref.pointAttachment;
             const innerPoints = RectifyImpl.getGlyphPoints(to1);
             this.processTtReferenceImpl(innerPoints, st, ref1);

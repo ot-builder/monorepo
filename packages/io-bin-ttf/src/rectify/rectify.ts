@@ -91,7 +91,6 @@ class AttachmentPointToCoordAlg {
             const geom = new OtGlyph.TtReference(ref.to, tfm);
             geom.roundXyToGrid = ref.roundXyToGrid;
             geom.useMyMetrics = ref.useMyMetrics;
-            geom.overlapCompound = ref.overlapCompound;
             geom.pointAttachment = ref.pointAttachment;
             for (const z of innerPoints) {
                 st.points.push(OtGlyph.PointOps.applyTransform(z, tfm));

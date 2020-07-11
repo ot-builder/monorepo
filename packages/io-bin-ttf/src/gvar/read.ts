@@ -182,7 +182,6 @@ class TtReferenceHolder implements GeomHolder {
         const ref1 = new OtGlyph.TtReference(this.ref.to, this.ref.transform);
         ref1.roundXyToGrid = this.ref.roundXyToGrid;
         ref1.useMyMetrics = this.ref.useMyMetrics;
-        ref1.overlapCompound = this.ref.overlapCompound;
         ref1.pointAttachment = this.ref.pointAttachment;
         return ref1;
     }

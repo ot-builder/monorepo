@@ -82,7 +82,6 @@ class GeometryClassifier {
         const ref = new OtGlyph.TtReference(refProps.to, refProps.transform);
         ref.roundXyToGrid = refProps.roundXyToGrid;
         ref.useMyMetrics = refProps.useMyMetrics;
-        ref.overlapCompound = refProps.overlapCompound;
         ref.pointAttachment = refProps.pointAttachment;
         this.collectedReferences.push(ref);
     }

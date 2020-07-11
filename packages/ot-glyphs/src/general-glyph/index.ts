@@ -15,7 +15,6 @@ export namespace GeneralGlyph {
         transform: Transform2X3.T<X>;
         roundXyToGrid?: boolean;
         useMyMetrics?: boolean;
-        overlapCompound?: boolean;
         pointAttachment?: Data.Maybe<Lib_General_Point.PointAttachment>;
     }
     export interface GeometryListPropsT<E> {
