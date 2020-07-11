@@ -52,12 +52,12 @@ class WritePostNaming implements Data.Naming.Source<number> {
 
 export function writeFont<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    config: FontIoConfig = {}
+    partialConfig: FontIoConfig = {}
 ): Sfnt {
     const sfnt = new Sfnt(Ot.Font.isCff(font) ? 0x4f54544f : 0x00010000);
     const sink = new SfntIoTableSink(sfnt);
 
-    const fullCfg = createConfig(config);
+    const fullCfg = createConfig(partialConfig);
     const gOrd = font.glyphs.decideOrder();
 
     // Alias fonts
@@ -72,6 +72,11 @@ export function writeFont<GS extends Ot.GlyphStore>(
     writeNames(sink, Names(font));
     writeOtMetadata(sink, fullCfg, md);
     writeExtPrivate(sink, fullCfg, ExtPrivate(font), gOrd, md);
+
+    if (fullCfg.generateDummyDigitalSignature) {
+        sink.add("DSIG", Buffer.from([0, 0, 0, 1, 0, 0, 0, 0]));
+        console.log(sfnt.tables.get("DSIG"));
+    }
 
     return sfnt;
 }

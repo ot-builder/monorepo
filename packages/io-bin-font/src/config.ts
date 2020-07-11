@@ -3,20 +3,29 @@ import * as IoBinExtPrivate from "@ot-builder/io-bin-ext-private";
 import * as IoBinGlyphStore from "@ot-builder/io-bin-glyph-store";
 import * as IoBinMetadata from "@ot-builder/io-bin-metadata";
 
+export type FontIoDigitalSignatureCfg = {
+    generateDummyDigitalSignature: boolean;
+};
+export type FontIoDigitalSignatureCfgPt = {
+    generateDummyDigitalSignature?: boolean;
+};
+
 export type FontIoCfgFinal = IoBinGlyphStore.CffCfg &
     IoBinGlyphStore.TtfCfg &
     IoBinMetadata.FontMetadataCfg &
     IoBinGlyphStore.GlyphStoreCfg &
     IoBinEncoding.EncodingCfg &
     IoBinGlyphStore.GlyphNamingCfg &
-    IoBinExtPrivate.ExtPrivateCfg;
+    IoBinExtPrivate.ExtPrivateCfg &
+    FontIoDigitalSignatureCfg;
 export type FontIoConfig = IoBinMetadata.FontMetadataCfgPt &
     IoBinGlyphStore.GlyphStoreCfgPt &
     IoBinGlyphStore.CffCfgPt &
     IoBinGlyphStore.TtfCfgPt &
     IoBinEncoding.EncodingCfgPt &
     IoBinGlyphStore.GlyphNamingCfgPt &
-    IoBinExtPrivate.ExtPrivateCfgPt;
+    IoBinExtPrivate.ExtPrivateCfgPt &
+    FontIoDigitalSignatureCfgPt;
 
 export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
     return {
@@ -26,6 +35,7 @@ export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
         glyphStore: { ...IoBinGlyphStore.DefaultGlyphStoreCfgProps, ...partial.glyphStore },
         glyphNaming: { ...IoBinGlyphStore.DefaultGlyphNamingCfgProps, ...partial.glyphNaming },
         encoding: { ...IoBinEncoding.DefaultEncodingCfgProps, ...partial.encoding },
-        extPrivate: { ...IoBinExtPrivate.DefaultExtPrivateCfgProps, ...partial.extPrivate }
+        extPrivate: { ...IoBinExtPrivate.DefaultExtPrivateCfgProps, ...partial.extPrivate },
+        generateDummyDigitalSignature: !!partial.generateDummyDigitalSignature
     };
 }
