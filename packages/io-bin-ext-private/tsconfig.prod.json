@@ -6,7 +6,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/cbc9c8400d771996d3f4878d053de3a236ae6e15b4cc7cd6acb60d20a878fae9"
+    "tsBuildInfoFile": "../../.cache/d0d31be5e75a84c3a584be587760f4ecb17992b7f3b620484e29bc868284c8bc"
   },
   "references": [
     {
@@ -70,40 +70,10 @@
       "path": "../io-bin-ttf/tsconfig.prod.json"
     },
     {
-      "path": "../io-bin-glyph-store/tsconfig.prod.json"
-    },
-    {
       "path": "../ot-ext-private/tsconfig.prod.json"
     },
     {
-      "path": "../io-bin-encoding/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-name/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-standard-glyph-namer/tsconfig.prod.json"
-    },
-    {
-      "path": "../io-bin-ext-private/tsconfig.prod.json"
-    },
-    {
-      "path": "../io-bin-layout/tsconfig.prod.json"
-    },
-    {
-      "path": "../io-bin-name/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot/tsconfig.prod.json"
-    },
-    {
-      "path": "../io-bin-font/tsconfig.prod.json"
-    },
-    {
-      "path": "../rectify/tsconfig.prod.json"
-    },
-    {
-      "path": "../trace/tsconfig.prod.json"
+      "path": "../io-bin-glyph-store/tsconfig.prod.json"
     }
   ],
   "include": [

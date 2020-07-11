@@ -6,7 +6,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/d1261eebe451b5c40771ef30de5baffd7864e4515bccd830981b116f094dcb77"
+    "tsBuildInfoFile": "../../.cache/af1bdfbfb410661bf4cf9cc6221b49d594006547d24d5c292cc9ff9958a884ad"
   },
   "references": [
     {
@@ -32,27 +32,6 @@
     },
     {
       "path": "../ot-glyphs/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-encoding/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-layout/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-metadata/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-ext-private/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-name/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-standard-glyph-namer/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-sfnt/tsconfig.prod.json"
     }
   ],
   "include": [

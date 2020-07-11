@@ -103,7 +103,9 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         Whether to force a `cmap` format 4 subtable to be present even if it is empty or non-buildable (i.e. when all characters are mapped to exactly the same glyph). Under those situations, a “stub” `cmap` format 4 subtable containing no mapping will be created. Defaults to `true`.
 
-    * <Member optional s={FontIo.FontIoConfig.encoding.processExtPrivateTable} type={boolean} />
+* <Item optional s={FontIo.FontIoConfig.extPrivate}/>:
+
+    * <Member optional s={FontIo.FontIoConfig.extPrivate.processExtPrivateTable} type={boolean} />
 
         Whether process the Extensible Privates Table (`XPRV`). Defaults to `true`.
 

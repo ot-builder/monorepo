@@ -1,5 +1,5 @@
 import { Read, Write, Frag } from "@ot-builder/bin-util";
-import { XPrv } from "@ot-builder/ot-encoding";
+import { XPrv } from "@ot-builder/ot-ext-private";
 
 export const ReadBlob = Read<XPrv.Blob>(view => {
     const nEntries = view.uint32();

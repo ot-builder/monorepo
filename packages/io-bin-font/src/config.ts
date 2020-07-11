@@ -1,44 +1,31 @@
-import { DefaultEncodingCfgProps, EncodingCfg, EncodingCfgPt } from "@ot-builder/io-bin-encoding";
-import {
-    CffCfg,
-    CffCfgPt,
-    DefaultCffCfgProps,
-    DefaultGlyphNamingCfgProps,
-    DefaultGlyphStoreCfgProps,
-    DefaultTtfCfgProps,
-    GlyphNamingCfg,
-    GlyphNamingCfgPt,
-    GlyphStoreCfg,
-    GlyphStoreCfgPt,
-    TtfCfg,
-    TtfCfgPt
-} from "@ot-builder/io-bin-glyph-store";
-import {
-    DefaultFontMetadataCfgProps,
-    FontMetadataCfg,
-    FontMetadataCfgPt
-} from "@ot-builder/io-bin-metadata";
+import * as IoBinEncoding from "@ot-builder/io-bin-encoding";
+import * as IoBinExtPrivate from "@ot-builder/io-bin-ext-private";
+import * as IoBinGlyphStore from "@ot-builder/io-bin-glyph-store";
+import * as IoBinMetadata from "@ot-builder/io-bin-metadata";
 
-export type FontIoCfgFinal = CffCfg &
-    TtfCfg &
-    FontMetadataCfg &
-    GlyphStoreCfg &
-    EncodingCfg &
-    GlyphNamingCfg;
-export type FontIoConfig = FontMetadataCfgPt &
-    GlyphStoreCfgPt &
-    CffCfgPt &
-    TtfCfgPt &
-    EncodingCfgPt &
-    GlyphNamingCfgPt;
+export type FontIoCfgFinal = IoBinGlyphStore.CffCfg &
+    IoBinGlyphStore.TtfCfg &
+    IoBinMetadata.FontMetadataCfg &
+    IoBinGlyphStore.GlyphStoreCfg &
+    IoBinEncoding.EncodingCfg &
+    IoBinGlyphStore.GlyphNamingCfg &
+    IoBinExtPrivate.ExtPrivateCfg;
+export type FontIoConfig = IoBinMetadata.FontMetadataCfgPt &
+    IoBinGlyphStore.GlyphStoreCfgPt &
+    IoBinGlyphStore.CffCfgPt &
+    IoBinGlyphStore.TtfCfgPt &
+    IoBinEncoding.EncodingCfgPt &
+    IoBinGlyphStore.GlyphNamingCfgPt &
+    IoBinExtPrivate.ExtPrivateCfgPt;
 
 export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
     return {
-        cff: { ...DefaultCffCfgProps, ...partial.cff },
-        ttf: { ...DefaultTtfCfgProps, ...partial.ttf },
-        fontMetadata: { ...DefaultFontMetadataCfgProps, ...partial.fontMetadata },
-        glyphStore: { ...DefaultGlyphStoreCfgProps, ...partial.glyphStore },
-        glyphNaming: { ...DefaultGlyphNamingCfgProps, ...partial.glyphNaming },
-        encoding: { ...DefaultEncodingCfgProps, ...partial.encoding }
+        cff: { ...IoBinGlyphStore.DefaultCffCfgProps, ...partial.cff },
+        ttf: { ...IoBinGlyphStore.DefaultTtfCfgProps, ...partial.ttf },
+        fontMetadata: { ...IoBinMetadata.DefaultFontMetadataCfgProps, ...partial.fontMetadata },
+        glyphStore: { ...IoBinGlyphStore.DefaultGlyphStoreCfgProps, ...partial.glyphStore },
+        glyphNaming: { ...IoBinGlyphStore.DefaultGlyphNamingCfgProps, ...partial.glyphNaming },
+        encoding: { ...IoBinEncoding.DefaultEncodingCfgProps, ...partial.encoding },
+        extPrivate: { ...IoBinExtPrivate.DefaultExtPrivateCfgProps, ...partial.extPrivate }
     };
 }

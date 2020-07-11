@@ -43,6 +43,9 @@
       "path": "../ot-metadata/tsconfig.prod.json"
     },
     {
+      "path": "../ot-ext-private/tsconfig.prod.json"
+    },
+    {
       "path": "../ot-name/tsconfig.prod.json"
     },
     {

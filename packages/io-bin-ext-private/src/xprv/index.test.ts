@@ -1,8 +1,8 @@
-import { Frag, BinaryView } from "@ot-builder/bin-util";
-import { XPrv } from "@ot-builder/ot-encoding";
+import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { XPrv } from "@ot-builder/ot-ext-private";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 
-import { WriteXPrv, ReadXPrv } from "./index";
+import { ReadXPrv, WriteXPrv } from "./index";
 
 test("ExtPrivate roundtrip", () => {
     const count = 0x100;

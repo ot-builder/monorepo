@@ -1,4 +1,5 @@
 import { readEncoding } from "@ot-builder/io-bin-encoding";
+import { readExtPrivate } from "@ot-builder/io-bin-ext-private";
 import { ReadCffGlyphs, readGlyphStore, ReadTtfGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtl } from "@ot-builder/io-bin-layout";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
@@ -39,11 +40,12 @@ export function readFont<GS extends Ot.GlyphStore>(
 
     const encoding = readEncoding(sfnt, fullCfg, gOrd, md);
     const otl = readOtl(sfnt, gOrd, md);
+    const OtExtPrivate = readExtPrivate(sfnt, fullCfg, gOrd, md);
 
     // Glyph name
     nameGlyphs(md, gOrd, cffGlyphNaming, encoding, fullCfg);
 
-    return { ...md, ...names, glyphs, ...coGlyphs, ...encoding, ...otl };
+    return { ...md, ...names, glyphs, ...coGlyphs, ...encoding, ...otl, ...OtExtPrivate };
 }
 
 function nameGlyphs(

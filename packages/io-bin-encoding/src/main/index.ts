@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { Cmap, OtEncoding, XPrv } from "@ot-builder/ot-encoding";
+import { Cmap, OtEncoding } from "@ot-builder/ot-encoding";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Sfnt } from "@ot-builder/ot-sfnt";
@@ -12,7 +12,6 @@ import { WriteCmap } from "../cmap/write";
 import { EmptyStat } from "../stat/interface";
 import { Os2MinMaxCharStat } from "../stat/os2-min-max-char-index";
 import { Os2UnicodeRangeStat } from "../stat/os2-unicode-range";
-import { WriteXPrv, ReadXPrv } from "../xprv";
 
 export function readEncoding(
     sfnt: Sfnt,
@@ -23,10 +22,7 @@ export function readEncoding(
     const result: OtEncoding = {};
     const bCmap = sfnt.tables.get(Cmap.Tag);
     if (bCmap) result.cmap = new BinaryView(bCmap).next(ReadCmap, gOrd);
-    if (cfg.encoding.processExtPrivateTable) {
-        const bXPrv = sfnt.tables.get(XPrv.Tag);
-        if (bXPrv) result.xPrv = new BinaryView(bXPrv).next(ReadXPrv, gOrd);
-    }
+
     return result;
 }
 export function writeEncoding(
@@ -45,8 +41,5 @@ export function writeEncoding(
         stat.settle();
 
         out.add(Cmap.Tag, Frag.packFrom(WriteCmap, encoding.cmap, gOrd, cfg));
-    }
-    if (cfg.encoding.processExtPrivateTable && encoding.xPrv) {
-        out.add(XPrv.Tag, Frag.packFrom(WriteXPrv, encoding.xPrv, gOrd));
     }
 }

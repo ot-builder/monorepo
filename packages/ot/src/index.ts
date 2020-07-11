@@ -1,5 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtEncoding } from "@ot-builder/ot-encoding";
+import { OtExtPrivate } from "@ot-builder/ot-ext-private";
 import { CffCoGlyphs, OtGlyph, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
 import { OtFontLayoutData } from "@ot-builder/ot-layout";
 import { OtFontMetadata } from "@ot-builder/ot-metadata";
@@ -11,7 +12,7 @@ export type Font<GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>>
     | Font.Ttf<GS>;
 export namespace Font {
     // TypeDefs
-    type OtFontShared = OtFontMetadata & OtEncoding & OtFontLayoutData & OtNameData;
+    type OtFontShared = OtFontMetadata & OtEncoding & OtFontLayoutData & OtNameData & OtExtPrivate;
     export type Cff<
         GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>
     > = OtFontShared & CffCoGlyphs & { glyphs: GS };
@@ -47,7 +48,8 @@ export type GlyphStoreFactoryWithDefault<
 > = Data.OrderStoreFactoryWithDefault<OtGlyph, GS>;
 export type GlyphOrder = Data.Order<OtGlyph>;
 
-export { Cmap, OtEncoding as Encoding, XPrv } from "@ot-builder/ot-encoding";
+export { Cmap, OtEncoding as Encoding } from "@ot-builder/ot-encoding";
+export { XPrv } from "@ot-builder/ot-ext-private";
 export { Name, Stat, Meta } from "@ot-builder/ot-name";
 export {
     DicingStore,
