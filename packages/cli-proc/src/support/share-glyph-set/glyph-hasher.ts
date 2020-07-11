@@ -137,12 +137,7 @@ class HashGeometry {
         hr.number(ref.transform.xx, ref.transform.xy, ref.transform.yx, ref.transform.yy);
         hr.numbers(this.vp.toArrayRep(ref.transform.dx));
         hr.numbers(this.vp.toArrayRep(ref.transform.dy));
-        hr.flag(
-            !!ref.transform.scaledOffset,
-            !!ref.useMyMetrics,
-            !!ref.overlapCompound,
-            !!ref.pointAttachment
-        );
+        hr.flag(!!ref.transform.scaledOffset, !!ref.useMyMetrics, !!ref.pointAttachment);
         if (ref.pointAttachment) {
             hr.begin().number(
                 ref.pointAttachment.outer.pointIndex,

@@ -10,7 +10,7 @@ import { LocaTable } from "./loca";
 import { ComponentFlag, GlyfOffsetAlign, SimpleGlyphFlag } from "./shared";
 
 class FlagShrinker {
-    public flags: number[] = [];
+    private flags: number[] = [];
     private repeating = 0;
     private last = 0;
     private count = 0;
@@ -35,6 +35,14 @@ class FlagShrinker {
             this.flags.push(flag);
         }
         this.count++;
+    }
+
+    finalizeAndGetFlags() {
+        // Always set overlapping flag
+        if (this.flags.length) {
+            this.flags[0] |= SimpleGlyphFlag.OVERLAP_SIMPLE;
+        }
+        return this.flags;
     }
 
     public static decideAndWrite(
@@ -100,7 +108,7 @@ function collectSimpleGlyphOutlineData(sg: SimpleGlyph) {
         }
     }
 
-    return { flags: shrinker.flags, fragX, fragY, endPtsOfContoursArray };
+    return { flags: shrinker.finalizeAndGetFlags(), fragX, fragY, endPtsOfContoursArray };
 }
 
 const SimpleGlyphData = Write((frag: Frag, sg: SimpleGlyph) => {
@@ -142,7 +150,6 @@ function analyzeComponent(ref: OtGlyph.TtReference) {
     else flag |= ComponentFlag.UNSCALED_COMPONENT_OFFSET;
     if (ref.roundXyToGrid) flag |= ComponentFlag.ROUND_XY_TO_GRID;
     if (ref.useMyMetrics) flag |= ComponentFlag.USE_MY_METRICS;
-    if (ref.overlapCompound) flag |= ComponentFlag.OVERLAP_COMPOUND;
 
     const { xx, xy, yx, yy } = ref.transform;
     if (xy || yx) flag |= ComponentFlag.WE_HAVE_A_TWO_BY_TWO;
@@ -198,6 +205,7 @@ const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: Data.Ord
     for (let rid = 0; rid < cg.references.length; rid++) {
         const ref = cg.references[rid];
         let { flag, arg1, arg2 } = analyzeComponent(ref);
+        if (rid === 0) flag |= ComponentFlag.OVERLAP_COMPOUND; // Always set overlapping flag
         if (rid + 1 < cg.references.length) flag |= ComponentFlag.MORE_COMPONENTS;
         else if (cg.instructions.byteLength) flag |= ComponentFlag.WE_HAVE_INSTRUCTIONS;
 
