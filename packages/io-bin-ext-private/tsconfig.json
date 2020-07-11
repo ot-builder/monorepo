@@ -6,7 +6,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/c39a0a1110dc285fbfe3bacfaf9bdf5e14e095ccbe5f27d463f7022880b7db24"
+    "tsBuildInfoFile": "../../.cache/d0d31be5e75a84c3a584be587760f4ecb17992b7f3b620484e29bc868284c8bc"
   },
   "references": [
     {
@@ -70,46 +70,10 @@
       "path": "../io-bin-ttf/tsconfig.json"
     },
     {
-      "path": "../io-bin-glyph-store/tsconfig.json"
-    },
-    {
       "path": "../ot-ext-private/tsconfig.json"
     },
     {
-      "path": "../io-bin-encoding/tsconfig.json"
-    },
-    {
-      "path": "../ot-name/tsconfig.json"
-    },
-    {
-      "path": "../ot-standard-glyph-namer/tsconfig.json"
-    },
-    {
-      "path": "../io-bin-ext-private/tsconfig.json"
-    },
-    {
-      "path": "../io-bin-layout/tsconfig.json"
-    },
-    {
-      "path": "../io-bin-name/tsconfig.json"
-    },
-    {
-      "path": "../ot/tsconfig.json"
-    },
-    {
-      "path": "../io-bin-font/tsconfig.json"
-    },
-    {
-      "path": "../rectify/tsconfig.json"
-    },
-    {
-      "path": "../trace/tsconfig.json"
-    },
-    {
-      "path": "../cli-proc/tsconfig.json"
-    },
-    {
-      "path": "../index/tsconfig.json"
+      "path": "../io-bin-glyph-store/tsconfig.json"
     }
   ]
 }

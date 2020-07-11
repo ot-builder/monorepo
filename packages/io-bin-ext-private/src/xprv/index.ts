@@ -1,15 +1,18 @@
-import { BinaryView, Read, Write, Frag } from "@ot-builder/bin-util";
-import { Assert } from "@ot-builder/errors";
-import { XPrv } from "@ot-builder/ot-encoding";
+import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { Assert, Errors } from "@ot-builder/errors";
+import { XPrv } from "@ot-builder/ot-ext-private";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
+import { Tag } from "@ot-builder/primitive";
 
 import { ReadBlob, WriteBlob } from "./blob";
 
 export const ReadXPrv = Read((view: BinaryView, gOrd: Data.Order<OtGlyph>) => {
+    const magic = view.next(Tag);
+    if (magic !== XPrv.Tag) throw Errors.FormatNotSupported("ExpPrivateTable::Magic", magic);
     const majorVersion = view.uint16();
     const minorVersion = view.uint16();
-    Assert.SubVersionSupported("ExtPrivateTable", majorVersion, minorVersion, [0, 1]);
+    Assert.SubVersionSupported("ExtPrivateTable::Version", majorVersion, minorVersion, [0, 1]);
     const table = new XPrv.Table();
     const pSharedBlob = view.ptr32Nullable();
     const pPerGlyphBlob = view.ptr32Nullable();
@@ -29,6 +32,7 @@ export const ReadXPrv = Read((view: BinaryView, gOrd: Data.Order<OtGlyph>) => {
 });
 
 export const WriteXPrv = Write((fr, table: XPrv.Table, gOrd: Data.Order<OtGlyph>) => {
+    fr.push(Tag, XPrv.Tag);
     fr.uint16(0).uint16(1); // version
     fr.ptr32(table.shared ? Frag.from(WriteBlob, table.shared) : null);
     if (!table.perGlyph) {

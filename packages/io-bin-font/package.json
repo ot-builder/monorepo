@@ -19,6 +19,7 @@
   "dependencies": {
     "tslib": "^1.13.0",
     "@ot-builder/io-bin-encoding": "0.10.14",
+    "@ot-builder/io-bin-ext-private": "0.10.14",
     "@ot-builder/io-bin-glyph-store": "0.10.14",
     "@ot-builder/io-bin-layout": "0.10.14",
     "@ot-builder/io-bin-metadata": "0.10.14",
@@ -30,6 +31,7 @@
     "@ot-builder/ot-sfnt": "0.10.14",
     "@ot-builder/prelude": "0.10.14",
     "@ot-builder/ot-encoding": "0.10.14",
+    "@ot-builder/ot-ext-private": "0.10.14",
     "@ot-builder/ot-layout": "0.10.14",
     "@ot-builder/ot-name": "0.10.14",
     "@ot-builder/bin-util": "0.10.14"

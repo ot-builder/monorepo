@@ -67,6 +67,9 @@
       "path": "./io-bin-glyph-store/tsconfig.json"
     },
     {
+      "path": "./ot-ext-private/tsconfig.json"
+    },
+    {
       "path": "./io-bin-encoding/tsconfig.json"
     },
     {
@@ -74,6 +77,9 @@
     },
     {
       "path": "./ot-standard-glyph-namer/tsconfig.json"
+    },
+    {
+      "path": "./io-bin-ext-private/tsconfig.json"
     },
     {
       "path": "./io-bin-layout/tsconfig.json"
