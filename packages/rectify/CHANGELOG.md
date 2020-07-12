@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/rectify
 
-This log was last generated on Sun, 05 Jul 2020 00:10:15 GMT and should not be manually modified.
+This log was last generated on Sun, 12 Jul 2020 00:09:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.15
+
+Sun, 12 Jul 2020 00:09:55 GMT
+
+### Patches
+
+- Add a new ExtPrivate table (XPRV) (belleve@typeof.net)
+- ExtPrivate: Move to separate package (belleve@typeof.net)
+- TTF: Always set overlapping flags (belleve@typeof.net)
 
 ## 0.10.14
 

@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add a new ExtPrivate table (XPRV)",
-  "packageName": "@ot-builder/ot",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-07-09T01:52:40.478Z"
-}

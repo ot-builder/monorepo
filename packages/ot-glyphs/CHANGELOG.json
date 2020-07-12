@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-glyphs",
   "entries": [
     {
+      "date": "Sun, 12 Jul 2020 00:09:55 GMT",
+      "tag": "@ot-builder/ot-glyphs_v0.10.15",
+      "version": "0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "TTF: Always set overlapping flags",
+            "author": "belleve@typeof.net",
+            "commit": "f195a2106681e934cc2f9ddd9e7aa299b5f62f7d",
+            "package": "@ot-builder/ot-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 28 Jun 2020 00:10:02 GMT",
       "tag": "@ot-builder/ot-glyphs_v0.10.13",
       "version": "0.10.13",

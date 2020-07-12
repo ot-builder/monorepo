@@ -2,6 +2,33 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sun, 12 Jul 2020 00:09:55 GMT",
+      "tag": "@ot-builder/rectify_v0.10.15",
+      "version": "0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add a new ExtPrivate table (XPRV)",
+            "author": "belleve@typeof.net",
+            "commit": "405e9c68802177fab2dc8cc5134dd87920a3a6e9",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "ExtPrivate: Move to separate package",
+            "author": "belleve@typeof.net",
+            "commit": "a2eda62320a5eefc429d9e1a7caf59523dfa18d2",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "TTF: Always set overlapping flags",
+            "author": "belleve@typeof.net",
+            "commit": "f195a2106681e934cc2f9ddd9e7aa299b5f62f7d",
+            "package": "@ot-builder/rectify"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 05 Jul 2020 00:10:15 GMT",
       "tag": "@ot-builder/rectify_v0.10.14",
       "version": "0.10.14",

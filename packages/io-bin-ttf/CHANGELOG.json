@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-ttf",
   "entries": [
     {
+      "date": "Sun, 12 Jul 2020 00:09:55 GMT",
+      "tag": "@ot-builder/io-bin-ttf_v0.10.15",
+      "version": "0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "TTF: Always set overlapping flags",
+            "author": "belleve@typeof.net",
+            "commit": "f195a2106681e934cc2f9ddd9e7aa299b5f62f7d",
+            "package": "@ot-builder/io-bin-ttf"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-ttf_v0.10.12",
       "version": "0.10.12",

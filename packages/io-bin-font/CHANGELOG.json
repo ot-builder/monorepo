@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sun, 12 Jul 2020 00:09:55 GMT",
+      "tag": "@ot-builder/io-bin-font_v0.10.15",
+      "version": "0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "ExtPrivate: Move to separate package",
+            "author": "belleve@typeof.net",
+            "commit": "a2eda62320a5eefc429d9e1a7caf59523dfa18d2",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Add dummy DSIG generation",
+            "author": "belleve@typeof.net",
+            "commit": "ebe89d41165c2340657c51e775b72fe6b61a0195",
+            "package": "@ot-builder/io-bin-font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-font_v0.10.12",
       "version": "0.10.12",

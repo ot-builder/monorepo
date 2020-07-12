@@ -2,6 +2,21 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sun, 12 Jul 2020 00:09:55 GMT",
+      "tag": "ot-builder-cli_v0.10.15",
+      "version": "0.10.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "ExtPrivate: Move to separate package",
+            "author": "belleve@typeof.net",
+            "commit": "a2eda62320a5eefc429d9e1a7caf59523dfa18d2",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "ot-builder-cli_v0.10.12",
       "version": "0.10.12",
