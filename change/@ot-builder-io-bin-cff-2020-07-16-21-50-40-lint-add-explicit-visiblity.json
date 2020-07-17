@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Lint: Add explicit visibility",
+  "packageName": "@ot-builder/io-bin-cff",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-07-17T04:50:40.244Z"
+}
