@@ -14,9 +14,9 @@ export interface FeatureConsolidationSource<L> {
 
 type FeaturePair<L> = [Ot.GsubGpos.FeatureT<L>, Ot.GsubGpos.FeatureT<L>];
 export class FeatureConsolidator<L> {
-    hash: string;
-    result: Ot.GsubGpos.FeatureT<L>;
-    resultFeatureVariation: Ot.GsubGpos.FeatureVariationT<L>[];
+    public hash: string;
+    public result: Ot.GsubGpos.FeatureT<L>;
+    public resultFeatureVariation: Ot.GsubGpos.FeatureVariationT<L>[];
 
     constructor(
         private readonly env: FeatureConsolidationSource<L>,
@@ -34,7 +34,7 @@ export class FeatureConsolidator<L> {
         this.hash = hash;
     }
 
-    resolve() {
+    public resolve() {
         const primeLookupSet = new Set<L>();
         for (const feature of this.featureList) {
             for (const lookup of feature.lookups) primeLookupSet.add(lookup);

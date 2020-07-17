@@ -27,7 +27,7 @@ export class IndexAllocator implements Allocator<number> {
     public next() {
         return this.index++;
     }
-    get count() {
+    public get count() {
         return this.index;
     }
 }

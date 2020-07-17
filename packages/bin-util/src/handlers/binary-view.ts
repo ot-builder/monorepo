@@ -25,7 +25,7 @@ export class BinaryView {
         public cursor: number = displace
     ) {}
 
-    get sourceBufferSize() {
+    public get sourceBufferSize() {
         return this.buffer.byteLength;
     }
 

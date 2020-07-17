@@ -1,14 +1,14 @@
 export class ArgParser {
-    inputs: string[] = [];
-    output?: string;
-    unify = false;
-    sparse = false;
-    displayHelp = false;
+    public inputs: string[] = [];
+    public output?: string;
+    public unify = false;
+    public sparse = false;
+    public displayHelp = false;
 
     private acceptArgs = true;
     private argName: null | string = null;
 
-    arg(x: string) {
+    public arg(x: string) {
         if (x[0] === "-" && this.acceptArgs) {
             this.handleOption(x);
         } else {

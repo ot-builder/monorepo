@@ -1,7 +1,7 @@
 import { CompareContext } from "./context";
 
 export class EmptyCtx implements CompareContext<EmptyCtx> {
-    private constructor(readonly derived: boolean = false) {}
+    private constructor(public readonly derived: boolean = false) {}
     public CreateForward() {
         return new EmptyCtx(true);
     }

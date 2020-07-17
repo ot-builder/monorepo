@@ -40,7 +40,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
 
     private dataMatrix: Data.Maybe<D>[][] = [];
 
-    static FromRep<X, Y, D>(rep?: Data.Maybe<DicingStoreRep<X, Y, D>>) {
+    public static FromRep<X, Y, D>(rep?: Data.Maybe<DicingStoreRep<X, Y, D>>) {
         const store = new DicingStoreImpl<X, Y, D>();
         if (!rep) return store;
         store.clsDefX = toClassMap(rep.xClasses);
@@ -51,7 +51,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         return store;
     }
 
-    toRep(): DicingStoreRep<X, Y, D> {
+    public toRep(): DicingStoreRep<X, Y, D> {
         return {
             xClasses: duplicateArray2(this.coClsDefX),
             yClasses: duplicateArray2(this.coClsDefY),

@@ -6,10 +6,10 @@ import { packageVersion } from "../../package-version";
 
 export class StartSyntax<T> implements Syntax<T> {
     constructor(private readonly body: Syntax<T>) {}
-    handle(st0: ParseState, grammar: Grammar) {
+    public handle(st0: ParseState, grammar: Grammar) {
         return this.body.handle(st0, grammar);
     }
-    displayHelp(shower: CliHelpShower) {
+    public displayHelp(shower: CliHelpShower) {
         shower
             .message()
             .message('ot-builder CLI utility program "otb-cli",', "version", packageVersion)

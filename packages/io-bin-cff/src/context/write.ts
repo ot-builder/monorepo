@@ -11,8 +11,8 @@ export class CffWriteContext {
     public stat: CffGlyphStatSink;
 
     constructor(
-        readonly version: number,
-        readonly upm: number,
+        public readonly version: number,
+        public readonly upm: number,
         acceptVariation = true,
         gss: Data.Maybe<OtGlyph.Stat.Sink> = null
     ) {

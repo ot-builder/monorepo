@@ -80,7 +80,7 @@ export class OtVarMasterSet implements VarianceMasterSet<VarianceDim, OtVarMaste
             return put;
         }
     }
-    get size() {
+    public get size() {
         return this.masterList.length;
     }
     public *[Symbol.iterator](): IterableIterator<[OtVarMaster, number]> {

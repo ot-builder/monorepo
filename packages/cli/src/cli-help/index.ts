@@ -2,10 +2,10 @@ import { CONSOLE_WIDTH, AnsiRegex } from "./style";
 
 export class CliHelpShower {
     constructor(private readonly indentPrefix = "", private readonly bulletPrefix = "") {}
-    indent(bullet = "") {
+    public indent(bullet = "") {
         return new CliHelpShower(this.indentPrefix + "  ", bullet);
     }
-    message(...text: (string | null | undefined)[]) {
+    public message(...text: (string | null | undefined)[]) {
         const words = text
             .filter(t => !!t)
             .map(t => (t ? t.split(" ") : []))

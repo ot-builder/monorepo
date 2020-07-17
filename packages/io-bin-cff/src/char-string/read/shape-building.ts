@@ -4,7 +4,7 @@ import { OtVar } from "@ot-builder/variance";
 import { CffCharStringDataSink } from "./interpreter";
 
 export class CffGlyphBuilder implements CffCharStringDataSink {
-    constructor(readonly glyph: OtGlyph) {}
+    constructor(public readonly glyph: OtGlyph) {}
     public stemQuantity: number = 0;
     public transient: OtVar.Value[] = [];
 

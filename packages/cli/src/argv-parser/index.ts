@@ -38,17 +38,17 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         this.option = this.argument = this.argv[cp];
     }
 
-    readonly eof: boolean;
-    readonly option: string;
-    readonly argument: string;
+    public readonly eof: boolean;
+    public readonly option: string;
+    public readonly argument: string;
 
-    next(): ParseState {
+    public next(): ParseState {
         return new ParseArgvImpl(this.argv, this.cp + 1);
     }
-    isEof() {
+    public isEof() {
         return this.cp >= this.argv.length;
     }
-    isOption(...options: string[]) {
+    public isOption(...options: string[]) {
         if (this.isEof()) return false;
         const opt = this.argv[this.cp];
         if (opt[0] !== "-" && opt[0] !== "+") return false;
@@ -59,10 +59,10 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         }
         return false;
     }
-    isArgument() {
+    public isArgument() {
         return !this.isEof() && !this.isOption();
     }
-    nextArgument() {
+    public nextArgument() {
         const nx = this.next();
         if (nx.isArgument()) {
             return ParseResult(nx, nx.argument);
@@ -70,7 +70,7 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
             throw new TypeError("Not argument.");
         }
     }
-    reportParseErrorPosition() {
+    public reportParseErrorPosition() {
         let s = "";
         for (let cp = 0; cp < this.argv.length; cp++) {
             if (cp === 0) continue;

@@ -9,7 +9,11 @@ import { ValueProcessor } from "../design-unifier/value-process";
 import { Hasher, HashRep } from "./hash-rep";
 
 class SharedGlyphProp {
-    constructor(readonly glyph: Ot.Glyph, readonly fid: number, readonly priority: number) {}
+    constructor(
+        public readonly glyph: Ot.Glyph,
+        public readonly fid: number,
+        public readonly priority: number
+    ) {}
     public compare(b: SharedGlyphProp) {
         return this.fid - b.fid || this.priority - b.priority;
     }
@@ -30,7 +34,7 @@ export class GlyphSharingRectifier implements Rectify.GlyphReferenceRectifier {
     private rankMap = new Map<string, number>();
     private mapping = new Map<Ot.Glyph, Ot.Glyph>();
 
-    constructor(readonly gs: SharedGlyphStore) {}
+    constructor(public readonly gs: SharedGlyphStore) {}
 
     private amendHashByRank(rawHash: string) {
         const rank = this.rankMap.get(rawHash) || 0;

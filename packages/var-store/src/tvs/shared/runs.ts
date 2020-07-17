@@ -89,7 +89,7 @@ function DpUpdateTrack<R extends DpRun>(src: (null | R)[], track: number, ...run
 export namespace DeltaRunDp {
     class ZeroRun implements DpRun {
         public readonly cost: number;
-        constructor(readonly link: null | DpRun, readonly size: number) {
+        constructor(public readonly link: null | DpRun, public readonly size: number) {
             this.cost = 1 + (link ? link.cost : 0);
         }
         public write(frag: Frag) {
@@ -108,7 +108,7 @@ export namespace DeltaRunDp {
     }
     class ByteRun implements DpRun {
         public readonly cost: number;
-        constructor(readonly link: null | DpRun, readonly data: readonly number[]) {
+        constructor(public readonly link: null | DpRun, public readonly data: readonly number[]) {
             this.cost = 1 + data.length + (link ? link.cost : 0);
         }
         public write(frag: Frag) {
@@ -128,7 +128,7 @@ export namespace DeltaRunDp {
     }
     class WordRun implements DpRun {
         public readonly cost: number;
-        constructor(readonly link: null | DpRun, readonly data: readonly number[]) {
+        constructor(public readonly link: null | DpRun, public readonly data: readonly number[]) {
             this.cost = 1 + 2 * data.length + (link ? link.cost : 0);
         }
         public write(frag: Frag) {
@@ -202,7 +202,7 @@ export namespace DeltaRunDp {
 export namespace PointNumberRunDp {
     class ByteRun implements DpRun {
         public readonly cost: number;
-        constructor(readonly link: null | DpRun, readonly data: readonly number[]) {
+        constructor(public readonly link: null | DpRun, public readonly data: readonly number[]) {
             this.cost = 1 + data.length + (link ? link.cost : 0);
         }
         public write(frag: Frag) {
@@ -222,7 +222,7 @@ export namespace PointNumberRunDp {
     }
     class WordRun implements DpRun {
         public readonly cost: number;
-        constructor(readonly link: null | DpRun, readonly data: readonly number[]) {
+        constructor(public readonly link: null | DpRun, public readonly data: readonly number[]) {
             this.cost = 1 + 2 * data.length + (link ? link.cost : 0);
         }
         public write(frag: Frag) {

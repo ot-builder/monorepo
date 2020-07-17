@@ -4,7 +4,7 @@ import { CompareContext } from "./context";
 
 export class BimapCtx<G> implements CompareContext<BimapCtx<G>> {
     private constructor(
-        readonly derived: boolean,
+        public readonly derived: boolean,
         private readonly a: Data.Order<G>,
         private readonly b: Data.Order<G>
     ) {}

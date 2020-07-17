@@ -14,7 +14,7 @@ export interface StatGeometryAlgClass<T> {
 }
 
 export class PointTransformer<PS extends PointSink> {
-    constructor(readonly ps: PS, readonly tf: OtGlyph.Transform2X3) {}
+    constructor(public readonly ps: PS, public readonly tf: OtGlyph.Transform2X3) {}
     public addControlKnot(knot: OtGlyph.Point) {
         this.ps.addControlKnot(OtGlyph.PointOps.applyTransform(knot, this.tf));
     }

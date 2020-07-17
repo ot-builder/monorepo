@@ -4,7 +4,7 @@ import { Syntax, Grammar } from "../../command";
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
     constructor(private readonly body: Syntax<null | T>) {}
-    handle(st0: ParseState, grammar: Grammar) {
+    public handle(st0: ParseState, grammar: Grammar) {
         const results: T[] = [];
         let st = st0;
         for (;;) {
@@ -17,7 +17,7 @@ export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
             }
         }
     }
-    displayHelp(shower: CliHelpShower) {
+    public displayHelp(shower: CliHelpShower) {
         this.body.displayHelp(shower);
     }
 }

@@ -5,10 +5,10 @@ import { Grammar, Syntax } from "../../command";
 
 export class MainCommandSyntax<T> implements Syntax<T> {
     constructor(private readonly body: Syntax<T>) {}
-    handle(st0: ParseState, grammar: Grammar) {
+    public handle(st0: ParseState, grammar: Grammar) {
         return this.body.handle(st0, grammar);
     }
-    displayHelp(shower: CliHelpShower) {
+    public displayHelp(shower: CliHelpShower) {
         shower.message(
             CliCmdStyle`otb-cli`,
             CliParamStyle`command 1`,

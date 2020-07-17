@@ -35,7 +35,7 @@ export class CffDrawCallRaw extends CffDrawCallRawT<OtVar.Value> {}
 export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
     public stackRidge: number;
     public stackRise: number;
-    public constructor(
+    constructor(
         public readonly ivd: WriteTimeIVD | null,
         args: readonly (number | CffBlendPrimitive)[],
         operator: number,
@@ -56,7 +56,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         this.stackRise = sp;
     }
 
-    get masterCount() {
+    public get masterCount() {
         return this.ivd ? this.ivd.masterIDs.length : 0;
     }
 

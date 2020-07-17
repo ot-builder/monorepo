@@ -96,7 +96,7 @@ export class ClassMatrix<G> {
         return MeasureClassMatrixImpl.measure<G>(this);
     }
 
-    sort(ord: Data.Order<G>) {
+    public sort(ord: Data.Order<G>) {
         const [c1Relocation, c2Relocation] = this.getRelocation(ord);
 
         const c1a: G[][] = [];

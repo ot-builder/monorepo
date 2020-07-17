@@ -10,7 +10,7 @@ export class VsEncodingMapT<G> {
         }
     }
 
-    get size() {
+    public get size() {
         if (this.sizeCache != null) return this.sizeCache;
         this.sizeCache = 0;
         for (const selector of this.mapping.values()) this.sizeCache += selector.size;
