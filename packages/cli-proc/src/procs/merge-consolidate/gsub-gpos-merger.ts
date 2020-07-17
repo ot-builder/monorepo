@@ -8,15 +8,15 @@ import { mergeMapAlt } from "./utils";
 
 export class GsubGposMerger<L> implements FeatureConsolidationSource<L> {
     constructor(
-        readonly variationDimensions: Data.Order<Ot.Var.Dim>,
-        readonly preferred: Ot.GsubGpos.TableT<L>,
-        readonly less: Ot.GsubGpos.TableT<L>
+        public readonly variationDimensions: Data.Order<Ot.Var.Dim>,
+        public readonly preferred: Ot.GsubGpos.TableT<L>,
+        public readonly less: Ot.GsubGpos.TableT<L>
     ) {
         this.fordPreferred = ImpLib.Order.fromList("Features", preferred.features);
         this.fordLess = ImpLib.Order.fromList("Features", less.features);
     }
 
-    resolve(): Ot.GsubGpos.TableT<L> {
+    public resolve(): Ot.GsubGpos.TableT<L> {
         const lookups = this.getLookups();
         const scripts = this.mergeScriptList();
         for (const plan of this.featureMergingPlans.values()) plan.resolve();
@@ -117,15 +117,15 @@ export class GsubGposMerger<L> implements FeatureConsolidationSource<L> {
 
     private fordPreferred: Data.Order<Ot.GsubGpos.FeatureT<L>>;
     private fordLess: Data.Order<Ot.GsubGpos.FeatureT<L>>;
-    featureVariationCollection: Map<string, Ot.GsubGpos.FeatureVariationT<L>> = new Map();
+    public featureVariationCollection: Map<string, Ot.GsubGpos.FeatureVariationT<L>> = new Map();
 
-    getFeatureHash(feature: Ot.GsubGpos.FeatureT<L>) {
+    public getFeatureHash(feature: Ot.GsubGpos.FeatureT<L>) {
         const fidPreferred = this.fordPreferred.tryReverseFallback(feature, -1);
         const fidLess = this.fordLess.tryReverseFallback(feature, -1);
         return `${fidPreferred};${fidLess}`;
     }
 
-    *getFeatureVariations() {
+    public *getFeatureVariations() {
         yield* this.preferred.featureVariations || [];
         yield* this.less.featureVariations || [];
     }

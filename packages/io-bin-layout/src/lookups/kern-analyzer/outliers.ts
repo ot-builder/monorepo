@@ -15,7 +15,7 @@ export class OutlierTree<G> {
         }
         if (!mSnd.has(snd)) mSnd.set(snd, adj);
     }
-    get size() {
+    public get size() {
         return this.mapping.size;
     }
     public measure() {

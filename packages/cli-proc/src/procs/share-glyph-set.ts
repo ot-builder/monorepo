@@ -19,19 +19,19 @@ export class GlyphSharer<GS extends Ot.GlyphStore> {
 
     public fonts: Ot.Font<GS>[] = [];
 
-    addFont(inputFont: Ot.Font<GS>) {
+    public addFont(inputFont: Ot.Font<GS>) {
         if (this.fonts.length > 0) unifyDesignSpacesImpl(this.session, this.fonts[0], inputFont);
         unifyGlyphByHash(inputFont, this.gsf, this.session, this.sharedGs, this.fonts.length);
         this.fonts.push(inputFont);
     }
 
-    unifyGlyphList() {
+    public unifyGlyphList() {
         for (const font of this.fonts) {
             font.glyphs = this.gsf.createStoreFromList(this.sharedGs.decideOrder());
         }
     }
 
-    getGlyphList() {
+    public getGlyphList() {
         return Array.from(this.sharedGs.decideOrder());
     }
 }

@@ -73,7 +73,7 @@ export class Frag {
     private bw = new BufferWriter();
     public pointers: FragPointerRecord[] = [];
 
-    get size() {
+    public get size() {
         return this.bw.length;
     }
     public push<T, A extends unknown[], TW extends T, AW extends A>(

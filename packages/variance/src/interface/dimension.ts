@@ -1,10 +1,10 @@
 import { Tag } from "@ot-builder/primitive";
 
 export class VarianceDim {
-    readonly tag: Tag;
-    readonly min: number;
-    readonly default: number;
-    readonly max: number;
+    public readonly tag: Tag;
+    public readonly min: number;
+    public readonly default: number;
+    public readonly max: number;
 
     // This property is added to prevent literals being recognized as Dim
     protected readonly __dimensionType = 1;

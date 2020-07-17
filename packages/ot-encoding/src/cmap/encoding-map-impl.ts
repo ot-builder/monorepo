@@ -8,7 +8,7 @@ export class EncodingMapT<G> {
         }
     }
 
-    get size() {
+    public get size() {
         return this.mapping.size;
     }
     public get(code: number) {

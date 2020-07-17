@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
@@ -22,6 +24,19 @@ module.exports = {
         ],
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                accessibility: "explicit",
+                overrides: {
+                    accessors: "explicit",
+                    constructors: "no-public",
+                    methods: "explicit",
+                    properties: "explicit",
+                    parameterProperties: "explicit"
+                }
+            }
+        ],
         "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-namespace": "off",

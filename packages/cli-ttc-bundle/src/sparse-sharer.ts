@@ -76,7 +76,7 @@ export class SparseGlyphSharer extends CliProc.GlyphSharer<Ot.ListGlyphStore> {
         return sharedGlyphMap;
     }
 
-    sparseSharing(commonWidth: number, commonHeight: number) {
+    public sparseSharing(commonWidth: number, commonHeight: number) {
         const { speList, postSpace } = this.padSparseSharingList(commonWidth, commonHeight);
 
         const sharedGlyphMap = this.getGidMap(speList);

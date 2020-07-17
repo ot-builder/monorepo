@@ -9,7 +9,7 @@ export namespace MetricVariance {
     }
 
     export class Table {
-        constructor(readonly isVertical: boolean) {}
+        constructor(public readonly isVertical: boolean) {}
         public measures: Measure[] = [];
     }
 }

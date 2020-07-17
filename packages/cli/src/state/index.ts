@@ -2,16 +2,16 @@ import { Ot } from "ot-builder";
 
 export class CliState {
     private stack: CliStackEntry[] = [];
-    push(c: CliStackEntry) {
+    public push(c: CliStackEntry) {
         this.stack.push(c);
     }
-    pop() {
+    public pop() {
         return this.stack.pop();
     }
-    shift() {
+    public shift() {
         return this.stack.shift();
     }
-    popAll() {
+    public popAll() {
         const s = this.stack;
         this.stack = [];
         return s;
@@ -20,10 +20,10 @@ export class CliState {
 
 export class CliStackEntryPlaceholder {
     constructor(public readonly identifier: string) {}
-    toString() {
+    public toString() {
         return `[${this.identifier}]`;
     }
-    fill(font: Ot.Font) {
+    public fill(font: Ot.Font) {
         return new CliStackEntry(this.identifier, font);
     }
 }

@@ -52,7 +52,7 @@ export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<
 export class WriteTimeIVD {
     private allocator = new ImpLib.IndexAllocator();
     public mapping = new ImpLib.PathMapImpl<number, number>();
-    constructor(public readonly outerIndex: number, readonly masterIDs: number[]) {}
+    constructor(public readonly outerIndex: number, public readonly masterIDs: number[]) {}
 
     public find(deltas: number[]) {
         return this.mapping.get(deltas);
@@ -65,7 +65,7 @@ export class WriteTimeIVD {
     public entries() {
         return this.mapping.entries();
     }
-    get size() {
+    public get size() {
         return this.allocator.count;
     }
 }

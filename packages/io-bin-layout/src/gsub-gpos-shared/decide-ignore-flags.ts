@@ -40,7 +40,7 @@ class HasAllState {
         if (x) this.has = true;
         else this.all = false;
     }
-    get mix() {
+    public get mix() {
         return this.has && !this.all;
     }
 }

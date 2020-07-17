@@ -37,7 +37,7 @@ class FlagShrinker {
         this.count++;
     }
 
-    finalizeAndGetFlags() {
+    public finalizeAndGetFlags() {
         // Always set overlapping flag
         if (this.flags.length) {
             this.flags[0] |= SimpleGlyphFlag.OVERLAP_SIMPLE;

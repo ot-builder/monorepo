@@ -3,7 +3,7 @@ import { CompareContext } from "./context";
 
 export class LookupCtx<A, B> implements CompareContext<LookupCtx<A, B>> {
     private constructor(
-        readonly derived: boolean,
+        public readonly derived: boolean,
         public readonly glyphs: BimapCtx<A>,
         public readonly lookups: BimapCtx<B>
     ) {}

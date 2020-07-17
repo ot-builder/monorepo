@@ -68,7 +68,11 @@ class CvtTvhClient implements TupleVariationGeometryClient {
     }
 }
 class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
-    constructor(ms: OtVar.MasterSet, readonly cvt: Cvt.Table, readonly cvtId: number) {
+    constructor(
+        ms: OtVar.MasterSet,
+        public readonly cvt: Cvt.Table,
+        public readonly cvtId: number
+    ) {
         super(ms);
         this.original = OtVar.Ops.originOf(cvt.items[cvtId] || 0);
     }

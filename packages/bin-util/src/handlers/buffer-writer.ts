@@ -17,13 +17,13 @@ export class BufferWriter {
 
     protected _wb: Buffer;
 
-    get capacity() {
+    public get capacity() {
         return this._capacity;
     }
-    get length() {
+    public get length() {
         return this._length;
     }
-    get currentOffset() {
+    public get currentOffset() {
         return this._offset;
     }
     public toBuffer() {
