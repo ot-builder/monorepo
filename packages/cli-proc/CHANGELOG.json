@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sun, 19 Jul 2020 00:10:47 GMT",
+      "tag": "@ot-builder/cli-proc_v0.10.16",
+      "version": "0.10.16",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Lint: Add explicit visibility",
+            "author": "belleve@typeof.net",
+            "commit": "48ae27cef58deb3d98ff0f449512607514609019",
+            "package": "@ot-builder/cli-proc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 12 Jul 2020 00:09:55 GMT",
       "tag": "@ot-builder/cli-proc_v0.10.15",
       "version": "0.10.15",
