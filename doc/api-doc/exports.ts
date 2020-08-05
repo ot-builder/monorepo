@@ -59,7 +59,7 @@ export const Trace = createTopLevelExport("Trace");
 setPage(Trace);
 
 export const CliProc = createTopLevelExport("CliProc");
-setPage(CliProc);
+setPage(CliProc, "cli-proc");
 
 export const string = "string";
 export const number = "number";
