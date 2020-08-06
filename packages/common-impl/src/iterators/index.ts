@@ -32,6 +32,14 @@ export function* ToCountIndex<T>(
         yield [fallback, c];
     }
 }
+
+export function* Zip<A, B>(as: ReadonlyArray<A>, bs: ReadonlyArray<B>): IterableIterator<[A, B]> {
+    if (as.length !== bs.length) throw new Error("length mismatch");
+    for (let id = 0; id < as.length; id++) {
+        yield [as[id], bs[id]];
+    }
+}
+
 export function* ZipWithIndex<A, B>(
     as: ReadonlyArray<A>,
     bs: ReadonlyArray<B>

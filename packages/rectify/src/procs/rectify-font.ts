@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { rectifyGlyphCmap, rectifyExtPrivate } from "../encoding";
+import { rectifyExtPrivate, rectifyGlyphCmap } from "../encoding";
 import { rectifyCffTable } from "../glyph-store/cff";
 import { rectifyCoordCvtTable } from "../glyph-store/cvt";
 import { rectifyGlyphs } from "../glyph/rectify-alg";
@@ -13,6 +13,7 @@ import {
 import { rectifyBaseTable } from "../layout/base";
 import { rectifyGdef } from "../layout/gdef";
 import { rectifyGpos, rectifyGsub } from "../layout/gsub-gpos";
+import { rectifyMathTable } from "../layout/math";
 import { rectifyAxisAvar } from "../meta/avar";
 import { rectifyAxisFvar } from "../meta/fvar";
 import { rectifyCoordGasp } from "../meta/gasp";
@@ -72,7 +73,6 @@ function rectifyCoGlyphs<GS extends Ot.GlyphStore>(
 }
 function rectifyLayout<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
-
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
@@ -89,5 +89,8 @@ function rectifyLayout<GS extends Ot.GlyphStore>(
     }
     if (font.base) {
         font.base = rectifyBaseTable(recGlyphRef, recCoord, recPA, font.base);
+    }
+    if (font.math) {
+        font.math = rectifyMathTable(recGlyphRef, recCoord, font.math);
     }
 }

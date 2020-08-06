@@ -1,0 +1,240 @@
+import { Layout } from "templates/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "api-doc/tyfmt"
+import { number, map, set, array, iterable, Data, Ot, Tag } from "api-doc/exports"
+import { optional, tuple, readonly } from "api-doc/tycon"
+export default Layout
+
+# Namespace <Decl s={Ot.Math}/>
+
+## Math Table
+
+### Constant <Decl s={Ot.Math.Tag}/> = `"MATH"`
+
+### Class <Decl s={Ot.Math.Table}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Base.Table.constructor} args={{
+    constants:optional(Data.Maybe(Ot.Math.Constants)),
+    glyphInfo:optional(Data.Maybe(Ot.Math.GlyphInfo)),
+    variants:optional(Data.Maybe(Ot.Math.Variants)),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.Table.constants} type={Data.Maybe(Ot.Math.Constants)}/>
+* <Member s={Ot.Math.Table.glyphInfo} type={Data.Maybe(Ot.Math.GlyphInfo)}/>
+* <Member s={Ot.Math.Table.variants} type={Data.Maybe(Ot.Math.Variants)}/>
+
+## Math Constants
+
+### Class <Decl s={Ot.Math.Constants}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Math.Constants.constructor}/>
+
+#### Properties
+
+ * <Member s={Ot.Math.Constants.scriptPercentScaleDown} type={number}/>
+ * <Member s={Ot.Math.Constants.scriptScriptPercentScaleDown} type={number}/>
+ * <Member s={Ot.Math.Constants.delimitedSubFormulaMinHeight} type={Ot.Var.Value}/>
+ * <Member s={Ot.Math.Constants.displayOperatorMinHeight} type={Ot.Var.Value}/>
+ * <Member s={Ot.Math.Constants.mathLeading} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.axisHeight} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.accentBaseHeight} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.flattenedAccentBaseHeight} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.subscriptShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.subscriptTopMax} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.subscriptBaselineDropMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.superscriptShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.superscriptShiftUpCramped} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.superscriptBottomMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.superscriptBaselineDropMax} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.subSuperscriptGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.superscriptBottomMaxWithSubscript} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.spaceAfterScript} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.upperLimitGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.upperLimitBaselineRiseMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.lowerLimitGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.lowerLimitBaselineDropMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackTopShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackTopDisplayStyleShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackBottomShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackBottomDisplayStyleShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stackDisplayStyleGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stretchStackTopShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stretchStackBottomShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stretchStackGapAboveMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.stretchStackGapBelowMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionNumeratorShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionNumeratorDisplayStyleShiftUp} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionDenominatorShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionDenominatorDisplayStyleShiftDown} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionNumeratorGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionNumDisplayStyleGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionRuleThickness} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionDenominatorGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.fractionDenomDisplayStyleGapMin} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.skewedFractionHorizontalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.skewedFractionVerticalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.overbarVerticalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.overbarRuleThickness} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.overbarExtraAscender} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.underbarVerticalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.underbarRuleThickness} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.underbarExtraDescender} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalVerticalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalDisplayStyleVerticalGap} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalRuleThickness} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalExtraAscender} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalKernBeforeDegree} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalKernAfterDegree} type={Ot.Math.ValueRecord}/>
+ * <Member s={Ot.Math.Constants.radicalDegreeBottomRaisePercent} type={number}/>
+
+## Math Glyph Info
+
+### Class <Decl s={Ot.Math.GlyphInfo}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.GlyphInfo.constructor} args={{
+    italicCorrections:optional(map(Ot.Glyph,Ot.Math.ValueRecord)),
+    topAccentAttachments:optional(map(Ot.Glyph,Ot.Math.ValueRecord)),
+    extendedShapes:optional(Data.Maybe(set(Ot.Glyph))),
+    kernInfos:optional(map(Ot.Glyph,Ot.Math.KernInfo)),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.GlyphInfo.italicCorrections} type={map(Ot.Glyph,Ot.Math.ValueRecord)}/>
+* <Member s={Ot.Math.GlyphInfo.topAccentAttachments} type={map(Ot.Glyph,Ot.Math.ValueRecord)}/>
+* <Member s={Ot.Math.GlyphInfo.extendedShapes} type={Data.Maybe(set(Ot.Glyph))}/>
+* <Member s={Ot.Math.GlyphInfo.kernInfos} type={map(Ot.Glyph,Ot.Math.KernInfo)}/>
+
+### Class <Decl s={Ot.Math.KernInfo}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.KernInfo.constructor} args={{
+    topRight:optional(Data.Maybe(Ot.Math.Kern)),
+    topLeft:optional(Data.Maybe(Ot.Math.Kern)),
+    bottomRight:optional(Data.Maybe(Ot.Math.Kern)),
+    bottomLeft:optional(Data.Maybe(Ot.Math.Kern)),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.KernInfo.topRight} type={Data.Maybe(Ot.Math.Kern)}/>
+* <Member s={Ot.Math.KernInfo.topLeft} type={Data.Maybe(Ot.Math.Kern)}/>
+* <Member s={Ot.Math.KernInfo.bottomRight} type={Data.Maybe(Ot.Math.Kern)}/>
+* <Member s={Ot.Math.KernInfo.bottomLeft} type={Data.Maybe(Ot.Math.Kern)}/>
+
+### Class <Decl s={Ot.Math.Kern}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.Kern.constructor} args={{
+    kernValue:optional(Ot.Math.ValueRecord),
+    corrections:optional(array(tuple(Ot.Math.ValueRecord,Ot.Math.ValueRecord))),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.Kern.kernValue} type={Ot.Math.ValueRecord}/>
+* <Member s={Ot.Math.Kern.corrections} type={array(tuple(Ot.Math.ValueRecord,Ot.Math.ValueRecord))}/>
+
+## Math Variants
+
+### Class <Decl s={Ot.Math.Variants}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.Variants.constructor} args={{
+    minConnectorOverlap: optional(Ot.Var.Value),
+    vertical: optional(Data.Maybe(map(Ot.Glyph,Ot.Math.GlyphConstruction))),
+    horizontal: optional(Data.Maybe(map(Ot.Glyph,Ot.Math.GlyphConstruction))),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.Variants.minConnectorOverlap} type={Ot.Var.Value}/>
+* <Member s={Ot.Math.Variants.vertical} type={Data.Maybe(map(Ot.Glyph,Ot.Math.GlyphConstruction))}/>
+* <Member s={Ot.Math.Variants.horizontal} type={Data.Maybe(map(Ot.Glyph,Ot.Math.GlyphConstruction))}/>
+
+### Class <Decl s={Ot.Math.GlyphConstruction}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.GlyphConstruction.constructor} args={{
+    assembly: optional(Data.Maybe(Ot.Math.GlyphAssembly)),
+    variants: optional(array(Ot.Math.GlyphVariantRecord)),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.GlyphConstruction.assembly} type={Data.Maybe(Ot.Math.GlyphAssembly)}/>
+* <Member s={Ot.Math.GlyphConstruction.variants} type={array(Ot.Math.GlyphVariantRecord)}/>
+
+### Class <Decl s={Ot.Math.GlyphVariantRecord}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.GlyphVariantRecord.constructor} args={{
+    variantGlyph: Ot.Glyph,
+    advanceMeasurement: Ot.Var.Value,
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.GlyphVariantRecord.variantGlyph} type={Ot.Glyph}/>
+* <Member s={Ot.Math.GlyphVariantRecord.advanceMeasurement} type={Ot.Var.Value}/>
+
+### Class <Decl s={Ot.Math.GlyphAssembly}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.GlyphAssembly.constructor} args={{
+    italicCorrection: Ot.Math.ValueRecord,
+    parts: array(Ot.Math.GlyphPart),
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.GlyphAssembly.italicCorrection} type={Ot.Math.ValueRecord}/>
+* <Member s={Ot.Math.GlyphAssembly.parts} type={array(Ot.Math.GlyphPart)}/>
+
+### Class <Decl s={Ot.Math.GlyphPart}/>
+
+#### Constructor
+
+* <Method ctor long s={Ot.Math.GlyphPart.constructor} args={{
+    partGlyph: Ot.Glyph,
+    startConnectorLength: Ot.Var.Value,
+    endConnectorLength: Ot.Var.Value,
+    fullAdvance: Ot.Var.Value,
+    flags: Ot.Math.GlyphPartFlags,
+    }}/>
+
+#### Properties
+
+* <Member s={Ot.Math.GlyphPart.partGlyph} type={Ot.Glyph}/>
+* <Member s={Ot.Math.GlyphPart.startConnectorLength} type={Ot.Var.Value}/>
+* <Member s={Ot.Math.GlyphPart.endConnectorLength} type={Ot.Var.Value}/>
+* <Member s={Ot.Math.GlyphPart.fullAdvance} type={Ot.Var.Value}/>
+* <Member s={Ot.Math.GlyphPart.flags} type={Ot.Math.GlyphPartFlags}/>
+
+### Enumeration <Decl s={Ot.Math.GlyphPartFlags}/>
+
+* <Item s={Ot.Math.GlyphPartFlags.Extender}/> = 1
+
+
+## Math Value
+
+### Datatype <Decl s={Ot.Math.ValueRecord}/>
+
+#### Properties
+
+* <Member readonly s={Ot.Math.ValueRecord.value} type={Ot.Var.Value}/>
+* <Member readonly optional s={Ot.Math.ValueRecord.device} type={Data.Maybe(readonly(array(number)))}/>

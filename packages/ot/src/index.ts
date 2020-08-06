@@ -58,7 +58,8 @@ export {
     Gsub,
     Gpos,
     GsubGpos,
-    Base
+    Base,
+    Math
 } from "@ot-builder/ot-layout";
 export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
 
