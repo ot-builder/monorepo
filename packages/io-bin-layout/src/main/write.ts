@@ -1,7 +1,7 @@
 import { Frag } from "@ot-builder/bin-util";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ot-layout";
+import { Base, Gdef, Gpos, Gsub, Math as OtMath, OtFontLayoutData } from "@ot-builder/ot-layout";
 import { OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
 import { WriteTimeIVS } from "@ot-builder/var-store";
@@ -12,6 +12,7 @@ import { GdefTableIo } from "../gdef";
 import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
 import { TableWriteContext } from "../gsub-gpos-shared/table";
+import { MathTableIo } from "../math";
 import { EmptyStat, Os2Stat } from "../stat";
 
 export function writeOtl(
@@ -36,4 +37,5 @@ export function writeOtl(
     stat.settle();
 
     if (otl.base) outSink.add(Base.Tag, Frag.packFrom(BaseTableIo, otl.base, gOrd, designSpace));
+    if (otl.math) outSink.add(OtMath.Tag, Frag.packFrom(MathTableIo, otl.math, gOrd));
 }

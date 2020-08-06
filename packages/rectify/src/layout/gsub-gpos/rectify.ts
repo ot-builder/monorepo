@@ -113,7 +113,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     private gsubMulti(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
         return RStub(new Ot.Gsub.Multiple(), ret => {
             this.setMeta(props, ret);
-            ret.mapping = RectifyImpl.Glyph.mapSomeT(
+            ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
                 RectifyImpl.Glyph.listAll
@@ -124,7 +124,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     private gsubAlternate(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
         return RStub(new Ot.Gsub.Alternate(), ret => {
             this.setMeta(props, ret);
-            ret.mapping = RectifyImpl.Glyph.mapSomeT(
+            ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
                 RectifyImpl.Glyph.listAll
@@ -190,7 +190,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposSingle(props: Ot.Gpos.SingleProp): RStub<Ot.Gpos.Lookup> {
         return RStub(new Ot.Gpos.Single(), ret => {
             this.setMeta(props, ret);
-            ret.adjustments = RectifyImpl.Glyph.mapSomeT(this.rg, props.adjustments, (rec, x) =>
+            ret.adjustments = RectifyImpl.Glyph.mapSomeTX(this.rg, props.adjustments, (rec, x) =>
                 rectifyAdjustment(this.rc, x)
             );
         });
@@ -225,7 +225,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposCursive(props: Ot.Gpos.CursiveProp): RStub<Ot.Gpos.Lookup> {
         return RStub(new Ot.Gpos.Cursive(), ret => {
             this.setMeta(props, ret);
-            ret.attachments = RectifyImpl.mapSome2T(
+            ret.attachments = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.attachments,
                 (rg, g) => rg.glyphRef(g),
@@ -237,13 +237,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposMarkToBase(props: Ot.Gpos.MarkToBaseProp): RStub<Ot.Gpos.Lookup> {
         return RStub(new Ot.Gpos.MarkToBase(), ret => {
             this.setMeta(props, ret);
-            ret.marks = RectifyImpl.mapSome2T(
+            ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
-            ret.bases = RectifyImpl.mapSome2T(
+            ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),
@@ -255,13 +255,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposMarkToMark(props: Ot.Gpos.MarkToMarkProp): RStub<Ot.Gpos.Lookup> {
         return RStub(new Ot.Gpos.MarkToMark(), ret => {
             this.setMeta(props, ret);
-            ret.marks = RectifyImpl.mapSome2T(
+            ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
-            ret.baseMarks = RectifyImpl.mapSome2T(
+            ret.baseMarks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.baseMarks,
                 (rg, g) => rg.glyphRef(g),
@@ -273,13 +273,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     public gposMarkToLigature(props: Ot.Gpos.MarkToLigatureProp): RStub<Ot.Gpos.Lookup> {
         return RStub(new Ot.Gpos.MarkToLigature(), ret => {
             this.setMeta(props, ret);
-            ret.marks = RectifyImpl.mapSome2T(
+            ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
                 (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
-            ret.bases = RectifyImpl.mapSome2T(
+            ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),

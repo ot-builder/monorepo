@@ -4,12 +4,14 @@ import { GlyphTracer } from "../interface";
 
 import { traceGlyphDependents } from "./glyphs";
 import { traceGpos, traceGsub } from "./gsub-gpos";
+import { traceMath } from "./math";
 
 function traceGlyphsImpl<GS extends Ot.GlyphStore>(font: Ot.Font<GS>, tracer: GlyphTracer) {
     const gOrd = font.glyphs.decideOrder();
     for (const g of gOrd) traceGlyphDependents(g)(tracer);
     if (font.gsub) traceGsub(font.gsub)(tracer);
     if (font.gpos) traceGpos(font.gpos)(tracer);
+    if (font.math) traceMath(font.math)(tracer);
 }
 
 export function traceGlyphs<GS extends Ot.GlyphStore>(tracer: GlyphTracer, font: Ot.Font<GS>) {

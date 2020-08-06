@@ -39,7 +39,7 @@ export function rectifyGdef(
         newTable.ligCarets = new ImpLib.FunctionHelper.Chain(gdef.ligCarets)
             .apply(_ => RectifyImpl.Glyph.mapSome(recGlyphRef, _))
             .apply(_ => RectifyImpl.mapSomeT(recCoord, _, RectifyImpl.Id, ligCaretArrayCoord))
-            .apply(_ => RectifyImpl.mapSome2T(recPA, _, RectifyImpl.Id, ligCaretArrayPA)).result;
+            .apply(_ => RectifyImpl.mapSomeT2(recPA, _, RectifyImpl.Id, ligCaretArrayPA)).result;
     }
     return newTable;
 }

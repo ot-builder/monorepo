@@ -1,6 +1,6 @@
 import { BinaryView } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Base, Gdef, Gpos, Gsub, OtFontLayoutData } from "@ot-builder/ot-layout";
+import { Base, Gdef, Gpos, Gsub, Math as OtMath, OtFontLayoutData } from "@ot-builder/ot-layout";
 import { OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Sfnt } from "@ot-builder/ot-sfnt";
 import { Data } from "@ot-builder/prelude";
@@ -11,6 +11,7 @@ import { GdefTableIo } from "../gdef";
 import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
 import { TableReadContext } from "../gsub-gpos-shared/table";
+import { MathTableIo } from "../math";
 
 export function readOtl(
     sfnt: Sfnt,
@@ -38,5 +39,8 @@ export function readOtl(
     const bBase = sfnt.tables.get(Base.Tag);
     const base = bBase ? new BinaryView(bBase).next(BaseTableIo, gOrd, designSpace) : null;
 
-    return { gdef, gsub, gpos, base };
+    const bMath = sfnt.tables.get(OtMath.Tag);
+    const math = bMath ? new BinaryView(bMath).next(MathTableIo, gOrd) : null;
+
+    return { gdef, gsub, gpos, base, math };
 }
