@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-layout",
   "entries": [
     {
+      "date": "Sun, 09 Aug 2020 00:10:53 GMT",
+      "tag": "@ot-builder/ot-layout_v0.10.17",
+      "version": "0.10.17",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add MATH",
+            "author": "belleve@typeof.net",
+            "commit": "051ce54e871152c51b657d97f62f031d42e441ba",
+            "package": "@ot-builder/ot-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 19 Jul 2020 00:10:47 GMT",
       "tag": "@ot-builder/ot-layout_v0.10.16",
       "version": "0.10.16",

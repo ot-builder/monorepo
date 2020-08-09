@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sun, 19 Jul 2020 00:10:47 GMT and should not be manually modified.
+This log was last generated on Sun, 09 Aug 2020 00:10:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.17
+
+Sun, 09 Aug 2020 00:10:53 GMT
+
+### Patches
+
+- Add MATH (belleve@typeof.net)
 
 ## 0.10.16
 

@@ -2,6 +2,21 @@
   "name": "@ot-builder/trace",
   "entries": [
     {
+      "date": "Sun, 09 Aug 2020 00:10:53 GMT",
+      "tag": "@ot-builder/trace_v0.10.17",
+      "version": "0.10.17",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add MATH",
+            "author": "belleve@typeof.net",
+            "commit": "051ce54e871152c51b657d97f62f031d42e441ba",
+            "package": "@ot-builder/trace"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 12 Jul 2020 00:09:55 GMT",
       "tag": "@ot-builder/trace_v0.10.15",
       "version": "0.10.15",
