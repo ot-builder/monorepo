@@ -60,6 +60,10 @@ class OrVarOpsImpl implements VariableOps<VarianceDim, OtVarMaster, OtVarValue> 
         if (typeof a === "number") return a;
         else return a.origin;
     }
+    public varianceDeltaOf(a: OtVarValue, m: OtVarMaster) {
+        if (typeof a === "number") return 0;
+        else return a.getDelta(m);
+    }
     public varianceOf(a: OtVarValue): Iterable<[OtVarMaster, number]> {
         if (typeof a === "number") return [];
         else return a.variance();

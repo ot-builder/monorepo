@@ -10,7 +10,7 @@ export type OtVarValue = number | OtVarValueC;
 
 export class OtVarValueC {
     /** delta values */
-    private readonly deltaValues: number[] = [];
+    private deltaValues: null | Float64Array = null;
 
     private constructor(
         private readonly masterSet: VarianceMasterSet<VarianceDim, OtVarMaster>,
@@ -18,17 +18,37 @@ export class OtVarValueC {
     ) {}
 
     private getVarianceByIndex(index: number) {
-        if (index < this.deltaValues.length) {
-            return this.deltaValues[index] || 0;
+        if (!this.deltaValues) {
+            return 0;
+        } else if (index < this.deltaValues.length) {
+            return this.deltaValues[index];
         } else {
             return 0;
         }
     }
-    private setVarianceByIndex(index: number, value: number) {
+    private inPlaceSetVarianceByIndex(index: number, value: number) {
+        if (!this.deltaValues) {
+            this.deltaValues = new Float64Array(index + 1);
+        } else if (this.deltaValues.length <= index) {
+            const v1 = new Float64Array(index + 1);
+            for (let id = 0; id < this.deltaValues.length; id++) {
+                v1[id] = this.deltaValues[id];
+            }
+            this.deltaValues = v1;
+        }
         this.deltaValues[index] = value;
     }
-    private addVarianceByIndex(index: number, value: number) {
-        this.deltaValues[index] = value + this.getVarianceByIndex(index);
+    private inPlaceAddVarianceByIndex(index: number, value: number) {
+        if (!this.deltaValues) {
+            this.deltaValues = new Float64Array(index + 1);
+        } else if (this.deltaValues.length <= index) {
+            const v1 = new Float64Array(index + 1);
+            for (let id = 0; id < this.deltaValues.length; id++) {
+                v1[id] = this.deltaValues[id];
+            }
+            this.deltaValues = v1;
+        }
+        this.deltaValues[index] = value + this.deltaValues[index];
     }
 
     public getDelta(master: OtVarMaster) {
@@ -38,11 +58,12 @@ export class OtVarValueC {
     }
     private setDelta(master: OtVarMaster, value: number) {
         const rec = this.masterSet.getOrPush(master);
-        if (rec) this.setVarianceByIndex(rec.index, value);
+        if (rec) this.inPlaceSetVarianceByIndex(rec.index, value);
     }
     private addDelta(master: OtVarMaster, value: number) {
         const rec = this.masterSet.getOrPush(master);
-        if (rec) this.setVarianceByIndex(rec.index, value + this.getVarianceByIndex(rec.index));
+        if (rec)
+            this.inPlaceSetVarianceByIndex(rec.index, value + this.getVarianceByIndex(rec.index));
     }
     public *variance(): IterableIterator<[OtVarMaster, number]> {
         for (const [m, index] of this.masterSet) {
@@ -61,8 +82,11 @@ export class OtVarValueC {
 
     public scaleAddNumber(thisScale: number, other: number) {
         const v1 = new OtVarValueC(this.masterSet, this.origin * thisScale + other);
-        for (let mid = 0; mid < this.deltaValues.length; mid++) {
-            v1.deltaValues[mid] = thisScale * (this.deltaValues[mid] || 0);
+        if (this.deltaValues) {
+            v1.deltaValues = new Float64Array(this.deltaValues.length);
+            for (let mid = 0; mid < this.deltaValues.length; mid++) {
+                v1.deltaValues[mid] = thisScale * (this.deltaValues[mid] || 0);
+            }
         }
         return v1;
     }
@@ -73,15 +97,30 @@ export class OtVarValueC {
         );
 
         if (other.masterSet === this.masterSet) {
-            for (let mid = 0; mid < this.deltaValues.length; mid++) {
-                v1.addVarianceByIndex(mid, thisScale * this.getVarianceByIndex(mid));
-            }
-            for (let mid = 0; mid < other.deltaValues.length; mid++) {
-                v1.addVarianceByIndex(mid, otherScale * other.getVarianceByIndex(mid));
+            if (this.deltaValues || other.deltaValues) {
+                v1.deltaValues = new Float64Array(
+                    Math.max(
+                        this.deltaValues ? this.deltaValues.length : 0,
+                        other.deltaValues ? other.deltaValues.length : 0
+                    )
+                );
+                if (this.deltaValues) {
+                    for (let mid = 0; mid < this.deltaValues.length; mid++) {
+                        v1.inPlaceAddVarianceByIndex(mid, thisScale * this.deltaValues[mid]);
+                    }
+                }
+                if (other.deltaValues) {
+                    for (let mid = 0; mid < other.deltaValues.length; mid++) {
+                        v1.inPlaceAddVarianceByIndex(mid, otherScale * other.deltaValues[mid]);
+                    }
+                }
             }
         } else {
-            for (const [master, variance] of this.variance()) {
-                v1.addDelta(master, thisScale * variance);
+            if (this.deltaValues) {
+                v1.deltaValues = new Float64Array(this.deltaValues ? this.deltaValues.length : 0);
+                for (let mid = 0; mid < this.deltaValues.length; mid++) {
+                    v1.inPlaceAddVarianceByIndex(mid, thisScale * this.deltaValues[mid]);
+                }
             }
             for (const [master, variance] of other.variance()) {
                 v1.addDelta(master, otherScale * variance);

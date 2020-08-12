@@ -10,6 +10,7 @@ import { VarianceMaster, VarianceMasterSet } from "./master";
 export interface VariableOps<A extends VarianceDim, M extends VarianceMaster<A>, X>
     extends Algebra.VectorSpace<X, number> {
     originOf(x: X): number;
+    varianceDeltaOf(x: X, m: M): number;
     varianceOf(x: X): Iterable<[M, number]>;
     removeOrigin(x: X): X;
     evaluate(a: X, instance: VarianceInstance<A>): number;
