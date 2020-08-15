@@ -41,7 +41,7 @@ class ClassDefsAnalyzeState<L> {
         for (const g of gs) {
             const gk = cd.get(g);
             if (gk == null) return undefined;
-            if (firstClass === undefined) firstClass = gk;
+            if (firstClass == null) firstClass = gk;
             else if (gk !== firstClass) return undefined;
         }
         if (firstClass == null) return undefined;
@@ -58,8 +58,9 @@ class ClassDefsAnalyzeState<L> {
             const gk = cd.get(g);
             if (gk != null) return undefined;
         }
-        let introClass = 0;
+        let introClass = 1;
         for (const [g, cls] of cd) if (cls + 1 > introClass) introClass = cls + 1;
+        for (const g of gs) cd.set(g, introClass);
         return introClass;
     }
 
@@ -111,18 +112,21 @@ class ClassDefsAnalyzeState<L> {
         };
     }
 
+    public estimateCurrentSize() {
+        return (
+            UInt16.size *
+            (8 +
+                2 * (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size) +
+                this.ruleComplexity)
+        );
+    }
+
     private compatibleRuleComplexity(comp: CompatibleRuleResult<L>) {
         return 8 + comp.cr.match.length + 2 * comp.cr.applications.length;
     }
 
     private estimateUpdatedSubtableSize(comp: CompatibleRuleResult<L>) {
-        return (
-            UInt16.size *
-            (8 +
-                2 * (comp.cdBacktrack.size + comp.cdInput.size + comp.cdLookAhead.size) +
-                this.ruleComplexity +
-                this.compatibleRuleComplexity(comp))
-        );
+        return this.estimateCurrentSize() + UInt16.size * this.compatibleRuleComplexity(comp);
     }
 
     private addCompatibleRule(rule: GsubGpos.ChainingRule<L>, comp: CompatibleRuleResult<L>) {
@@ -268,6 +272,15 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
     public abstract getLookupTypeSymbol(lookup: C): symbol;
     public abstract canBeUsed(l: L): l is C;
 
+    private estimateCovRuleSize(rule: GsubGpos.ChainingRule<L>) {
+        let s = UInt16.size * (8 + rule.match.length + 2 * rule.applications.length);
+        for (let idGs = 0; idGs < rule.match.length; idGs++) {
+            const gs = rule.match[idGs];
+            s += UInt16.size * (1 + 2 * gs.size);
+        }
+        return s;
+    }
+
     private covSubtable(
         rule: GsubGpos.ChainingRule<L>,
         isChaining: boolean,
@@ -296,11 +309,11 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         for (const rule of s.rules) {
             const st = this.covSubtable(rule, isChaining, ctx);
             subtablesCov.push(st);
-            subtableCovSize += UInt16.size + st.size;
+            subtableCovSize += UInt16.size + this.estimateCovRuleSize(rule);
         }
 
         const subtableClasses = this.clsSubtable(s, isChaining, ctx);
-        if (this.shouldUseClassBasedSubtable(ctx, subtableClasses, subtableCovSize)) {
+        if (this.shouldUseClassBasedSubtable(ctx, s, subtableCovSize)) {
             results.push(subtableClasses);
         } else {
             for (const st of subtablesCov) results.push(st);
@@ -309,36 +322,51 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
 
     private shouldUseClassBasedSubtable(
         ctx: SubtableWriteContext<L>,
-        subtableClasses: Frag,
+        s: ClassDefsAnalyzeState<L>,
         subtableCovSize: number
     ) {
         return (
             ctx.trick & SubtableWriteTrick.ChainingForceFormat2 ||
-            subtableClasses.size + UInt16.size <= subtableCovSize
+            s.estimateCurrentSize() + UInt16.size <= subtableCovSize
         );
     }
 
     public createSubtableFragments(lookup: C, ctx: SubtableWriteContext<L>): Array<Frag> {
         const isChaining = this.useChainingLookup(lookup);
-        const results: Frag[] = [];
-        let state = new ClassDefsAnalyzeState<L>();
+
+        const covLookups: Frag[] = [];
+        const covLookupSizes: number[] = [];
         for (const rule of lookup.rules) {
-            ctx.stat.setContext(rule.match.length);
-            if (ctx.trick & SubtableWriteTrick.ChainingForceFormat3) {
-                results.push(this.covSubtable(rule, isChaining, ctx));
-            } else {
-                // Try to add into current state
-                if (state.tryAddRule(rule)) continue;
-                // Not working? clear state and try again
-                this.flushState(isChaining, state, results, ctx);
-                state = new ClassDefsAnalyzeState();
-                if (state.tryAddRule(rule)) continue;
-                // Still not working, give up and fallback to format 3
-                results.push(this.covSubtable(rule, isChaining, ctx));
-            }
+            covLookups.push(this.covSubtable(rule, isChaining, ctx));
+            covLookupSizes.push(this.estimateCovRuleSize(rule));
         }
-        this.flushState(isChaining, state, results, ctx);
-        return results;
+        if (ctx.trick & SubtableWriteTrick.ChainingForceFormat3) return covLookups;
+
+        // Do dynamic programming to find out an optimal arrangement
+        const bestResults: [number, Frag[]][] = [];
+        bestResults[lookup.rules.length] = [0, []];
+        for (let iRule = lookup.rules.length; iRule-- > 0; ) {
+            const bestResult: [number, Frag[]] = [
+                covLookupSizes[iRule] + bestResults[iRule + 1][0],
+                [covLookups[iRule], ...bestResults[iRule + 1][1]]
+            ];
+
+            const state = new ClassDefsAnalyzeState<L>();
+            for (let jRule = iRule; jRule < lookup.rules.length; jRule += 1) {
+                if (!state.tryAddRule(lookup.rules[jRule])) break;
+                const sizeUsingClassDef = state.estimateCurrentSize() + bestResults[jRule + 1][0];
+                if (sizeUsingClassDef < bestResult[0]) {
+                    bestResult[0] = sizeUsingClassDef;
+                    bestResult[1] = [
+                        this.clsSubtable(state, isChaining, ctx),
+                        ...bestResults[jRule + 1][1]
+                    ];
+                }
+            }
+            bestResults[iRule] = bestResult;
+        }
+
+        return bestResults[0][1];
     }
 }
 

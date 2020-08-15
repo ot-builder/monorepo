@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 
 import { Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
-import { Assert } from "@ot-builder/errors";
+import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef, GsubGpos, Gsub, Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
@@ -34,26 +34,47 @@ interface LookupHeader {
     origLookupType: symbol;
     flags: number;
     markFilteringSet: Data.Maybe<number>;
-    subtableStubs: SubtableStub[];
+    rank: number;
+    subtableIDs: number[];
     useExtension: boolean;
-}
-interface SubtableStub {
-    blob: SubtableBlob;
-    startOffset: number;
-}
-interface SubtableBlob {
-    priority: number;
-    buffer: Buffer;
-    relOffset: number;
 }
 
 const SizeOfExtSubtable = UInt16.size * 2 + UInt32.size;
+
+class SubtableArranger {
+    private frags: Frag[] = [];
+    private fragOffsets: number[] = [];
+
+    public relOffset = 0;
+    public size = 0;
+    public buffer: null | Buffer = null;
+
+    public addSubtableFrag(fr: Frag) {
+        const n = this.frags.length;
+        this.frags[n] = fr;
+        return n;
+    }
+
+    public consolidate() {
+        if (!this.buffer) {
+            const { buffer, rootOffsets } = Frag.packMany(this.frags);
+            this.buffer = buffer;
+            this.size = buffer.byteLength;
+            this.fragOffsets = [...rootOffsets];
+        }
+    }
+
+    public getOffset(frIndex: number) {
+        this.consolidate();
+        return this.fragOffsets[frIndex];
+    }
+}
 
 class LookupListWriter<L extends GsubGpos.LookupProp> {
     /** Measure lookup header size without extension -- used when writing headers */
     private measureHeaderSize(h: LookupHeader) {
         return (
-            UInt16.size * (3 + h.subtableStubs.length) +
+            UInt16.size * (3 + h.subtableIDs.length) +
             (h.markFilteringSet != null ? UInt16.size : 0)
         );
     }
@@ -61,12 +82,11 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
     private measureHeaderSizeWithExtension(h: LookupHeader) {
         return (
             this.measureHeaderSize(h) +
-            (h.useExtension ? SizeOfExtSubtable * h.subtableStubs.length : 0)
+            (h.useExtension ? SizeOfExtSubtable * h.subtableIDs.length : 0)
         );
     }
     private lookupHeaders: LookupHeader[] = [];
-    private subtableBlobs: SubtableBlob[] = [];
-    private subtableBlobHash: Map<string, SubtableBlob> = new Map();
+    private arrangers: (null | SubtableArranger)[] = [];
 
     public pushLookup(
         lookup: L,
@@ -82,13 +102,27 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
                 lookupType: writer.getLookupType(lookup),
                 flags,
                 markFilteringSet,
-                useExtension: false,
-                subtableStubs: []
+                rank: this.getLookupRank(writer.getLookupTypeSymbol(lookup), context.trick),
+                subtableIDs: [],
+                useExtension: false
             };
             this.lookupHeaders.push(header);
             const subtables = writer.createSubtableFragments(lookup, context);
             this.addSubtables(header, subtables, context.trick);
         }
+    }
+
+    private getLookupRank(origType: symbol, trick: number) {
+        const rankTrick = 8 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2);
+        const rankType =
+            origType === Gsub.LookupType.Reverse
+                ? 1
+                : origType === Gsub.LookupType.Chaining || origType === Gpos.LookupType.Chaining
+                ? 2
+                : origType === Gsub.LookupType.Single || origType === Gpos.LookupType.Single
+                ? 4
+                : 3;
+        return rankTrick + rankType;
     }
 
     private getIgnoreFlags(lookup: L, gdef: Data.Maybe<Gdef.Table>) {
@@ -115,75 +149,57 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         return { flags, markFilteringSet };
     }
 
-    private addBlob(blob: SubtableBlob) {
-        const sha = crypto.createHash("sha256");
-        sha.update(blob.buffer);
-        const hash = sha.digest("hex");
-
-        const existing = this.subtableBlobHash.get(hash);
-        if (existing) {
-            existing.priority = Math.max(existing.priority, blob.priority);
-            return existing;
-        } else {
-            this.subtableBlobs.push(blob);
-            this.subtableBlobHash.set(hash, blob);
-            return blob;
-        }
-    }
-    private getLookupOrderingPriority(h: LookupHeader, trick: number) {
-        return (
-            8 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2) +
-            (h.origLookupType === Gsub.LookupType.Reverse
-                ? 1
-                : h.origLookupType === Gsub.LookupType.Chaining ||
-                  h.origLookupType === Gpos.LookupType.Chaining
-                ? 2
-                : 4)
-        );
-    }
     private addSubtables(h: LookupHeader, sts: ReadonlyArray<Frag>, trick: number = 0) {
-        const pm = Frag.packMany(sts);
-        const blob0: SubtableBlob = {
-            buffer: pm.buffer,
-            relOffset: 0,
-            priority: this.getLookupOrderingPriority(h, trick)
-        };
-        const blob = this.addBlob(blob0);
-
-        for (let stid = 0; stid < sts.length; stid++) {
-            h.subtableStubs.push({ blob, startOffset: pm.rootOffsets[stid] });
+        const arranger = this.getArrangerOf(h);
+        for (const st of sts) h.subtableIDs.push(arranger.addSubtableFrag(st));
+    }
+    private getArrangerOf(h: LookupHeader) {
+        let arr = this.arrangers[h.rank];
+        if (!arr) {
+            arr = new SubtableArranger();
+            this.arrangers[h.rank] = arr;
         }
+        return arr;
     }
 
     private allocateOffset() {
-        this.subtableBlobs.sort(
-            (a, b) => a.priority - b.priority || a.buffer.byteLength - b.buffer.byteLength
-        );
         let off = 0;
-        for (const st of this.subtableBlobs) {
-            st.relOffset = off;
-            off += st.buffer.byteLength;
+        for (const arranger of this.arrangers) {
+            if (!arranger) continue;
+            arranger.relOffset = off;
+            arranger.consolidate();
+            off += arranger.size;
         }
     }
     private tryStabilize() {
         const headerSize = this.getHeaderTotalSize();
 
         let headerOffset = 0;
-        for (let lid = 0; lid < this.lookupHeaders.length; lid++) {
+        let lidConvertible = -1;
+        let lidConvertibleRank = 0;
+        for (let lid = this.lookupHeaders.length; lid-- > 0; ) {
             const h = this.lookupHeaders[lid];
-            for (const stub of h.subtableStubs) {
+            const arranger = this.getArrangerOf(h);
+            for (const stid of h.subtableIDs) {
+                const stOffset = arranger.getOffset(stid);
                 if (
                     !h.useExtension &&
-                    stub.blob.relOffset + stub.startOffset + headerSize - headerOffset > 0xfffe
+                    arranger.relOffset + stOffset + headerSize - headerOffset > 0xfffe
                 ) {
-                    h.useExtension = true;
-                    return true;
+                    if (lidConvertible < 0 || h.rank > lidConvertibleRank) {
+                        lidConvertible = lid;
+                        lidConvertibleRank = h.rank;
+                    }
                 }
             }
             headerOffset += this.measureHeaderSizeWithExtension(this.lookupHeaders[lid]);
         }
-
-        return false;
+        if (lidConvertible >= 0) {
+            this.lookupHeaders[lidConvertible].useExtension = true;
+            return true;
+        } else {
+            return false;
+        }
     }
     public stabilize() {
         for (const h of this.lookupHeaders) h.useExtension = false;
@@ -230,25 +246,30 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
             const hsNonExt = this.measureHeaderSize(h);
             frag.uint16(h.useExtension ? lwf.extendedFormat : h.lookupType);
             frag.uint16(h.flags);
-            frag.uint16(h.subtableStubs.length);
+            frag.uint16(h.subtableIDs.length);
             if (h.useExtension) {
                 let oExt = hsNonExt;
-                for (const stub of h.subtableStubs) {
+                for (const stid of h.subtableIDs) {
                     frag.uint16(oExt);
                     oExt += SizeOfExtSubtable;
                 }
             } else {
-                for (const stub of h.subtableStubs) {
-                    frag.uint16(stub.blob.relOffset + stub.startOffset + hps + hts - o);
+                const arranger = this.getArrangerOf(h);
+                for (const stid of h.subtableIDs) {
+                    const stOffset = arranger.getOffset(stid);
+                    frag.uint16(arranger.relOffset + stOffset + hps + hts - o);
                 }
             }
             if (h.markFilteringSet != null) frag.uint16(h.markFilteringSet);
             if (h.useExtension) {
                 let oExt = o + hsNonExt;
-                for (const stub of h.subtableStubs) {
+                const arranger = this.getArrangerOf(h);
+
+                for (const stid of h.subtableIDs) {
+                    const stOffset = arranger.getOffset(stid);
                     frag.uint16(1);
                     frag.uint16(h.lookupType);
-                    frag.uint32(stub.blob.relOffset + stub.startOffset + hps + hts - oExt);
+                    frag.uint32(arranger.relOffset + stOffset + hps + hts - oExt);
                     oExt += SizeOfExtSubtable;
                 }
             }
@@ -256,9 +277,11 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         Assert.SizeMatch("HPS+HTS", frag.size, hps + hts);
 
         // Write subtable bytes
-        for (const blob of this.subtableBlobs) {
-            Assert.OffsetMatch("Subtable", frag.size, hps + hts + blob.relOffset);
-            frag.bytes(blob.buffer);
+        for (const arranger of this.arrangers) {
+            if (!arranger) continue;
+            Assert.OffsetMatch("Subtable", frag.size, hps + hts + arranger.relOffset);
+            if (!arranger.buffer) throw Errors.Unreachable();
+            frag.bytes(arranger.buffer);
         }
     }
 }
