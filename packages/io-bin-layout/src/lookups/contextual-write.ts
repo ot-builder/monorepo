@@ -276,7 +276,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         let s = UInt16.size * (8 + rule.match.length + 2 * rule.applications.length);
         for (let idGs = 0; idGs < rule.match.length; idGs++) {
             const gs = rule.match[idGs];
-            s += UInt16.size * (1 + 2 * gs.size);
+            s += UInt16.size * (2 + gs.size);
         }
         return s;
     }
