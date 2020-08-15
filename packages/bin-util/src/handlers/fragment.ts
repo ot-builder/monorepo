@@ -288,13 +288,6 @@ export class Frag {
     }
 }
 
-function byRank<F>(
-    [, rank1, index1]: [F, number, number],
-    [, rank2, index2]: [F, number, number]
-) {
-    return rank1 - rank2 || index1 - index2;
-}
-
 class Sorter {
     private marked = new Set<Frag>();
     private sorted: Frag[] = [];
