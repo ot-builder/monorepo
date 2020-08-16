@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.17",
+  "version": "0.10.18",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -17,10 +17,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-glyphs": "0.10.17",
-    "@ot-builder/prelude": "0.10.17",
-    "@ot-builder/primitive": "0.10.17",
-    "@ot-builder/variance": "0.10.17",
+    "@ot-builder/ot-glyphs": "0.10.18",
+    "@ot-builder/prelude": "0.10.18",
+    "@ot-builder/primitive": "0.10.18",
+    "@ot-builder/variance": "0.10.18",
     "tslib": "^1.13.0"
   },
   "devDependencies": {

@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-util",
   "entries": [
     {
+      "date": "Sun, 16 Aug 2020 00:11:27 GMT",
+      "tag": "@ot-builder/bin-util_v0.10.18",
+      "version": "0.10.18",
+      "comments": {
+        "patch": [
+          {
+            "comment": "OTL: Make cross-lookup sharing more efficient",
+            "author": "belleve@typeof.net",
+            "commit": "0795b5743e7be733a60adce48efae54b1084eca7",
+            "package": "@ot-builder/bin-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 19 Jul 2020 00:10:47 GMT",
       "tag": "@ot-builder/bin-util_v0.10.16",
       "version": "0.10.16",

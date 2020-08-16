@@ -2,6 +2,21 @@
   "name": "@ot-builder/variance",
   "entries": [
     {
+      "date": "Sun, 16 Aug 2020 00:11:27 GMT",
+      "tag": "@ot-builder/variance_v0.10.18",
+      "version": "0.10.18",
+      "comments": {
+        "patch": [
+          {
+            "comment": "OtVar: Optimize OtVar.Value with typed array",
+            "author": "belleve@typeof.net",
+            "commit": "da425661d4cd0b2a0b11b52562496893fcdd5afb",
+            "package": "@ot-builder/variance"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 19 Jul 2020 00:10:47 GMT",
       "tag": "@ot-builder/variance_v0.10.16",
       "version": "0.10.16",

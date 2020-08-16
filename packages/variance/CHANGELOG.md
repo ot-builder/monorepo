@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/variance
 
-This log was last generated on Sun, 19 Jul 2020 00:10:47 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Aug 2020 00:11:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.18
+
+Sun, 16 Aug 2020 00:11:27 GMT
+
+### Patches
+
+- OtVar: Optimize OtVar.Value with typed array (belleve@typeof.net)
 
 ## 0.10.16
 
