@@ -19,10 +19,10 @@
   "dependencies": {
     "@ot-builder/ot-glyphs": "0.10.18",
     "@ot-builder/prelude": "0.10.18",
-    "tslib": "^1.13.0"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
+    "@types/jest": "^26.0.10",
+    "jest": "^26.4.1"
   }
 }

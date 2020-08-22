@@ -21,11 +21,11 @@
   "dependencies": {
     "@ot-builder/errors": "0.10.18",
     "@ot-builder/prelude": "0.10.18",
-    "tslib": "^1.13.0"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^26.0.10",
     "@types/node": "^14.0.13",
-    "jest": "^26.0.1"
+    "jest": "^26.4.1"
   }
 }

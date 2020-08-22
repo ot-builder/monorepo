@@ -20,13 +20,13 @@
     "access": "public"
   },
   "dependencies": {
-    "tslib": "^1.13.0",
+    "tslib": "^2.0.0",
     "chalk": "^4.1.0",
     "ot-builder": "0.10.18",
     "fs-extra": "^9.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
+    "@types/jest": "^26.0.10",
+    "jest": "^26.4.1"
   }
 }
