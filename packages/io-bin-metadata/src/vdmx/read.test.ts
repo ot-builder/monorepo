@@ -3,7 +3,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Vdmx } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
-import { VdmxTableIo } from ".";
+import { VdmxTableIo } from "./index";
 
 test("Reading : VDMX", () => {
     const bufFont = TestFont.get("vdmx.ttf");

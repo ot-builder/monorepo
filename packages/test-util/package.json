@@ -25,9 +25,9 @@
     "@ot-builder/ot-layout": "0.10.18",
     "@ot-builder/prelude": "0.10.18",
     "@ot-builder/variance": "0.10.18",
-    "jest": "^26.0.1",
-    "tslib": "^1.13.0",
-    "@types/jest": "^26.0.0"
+    "jest": "^26.4.1",
+    "tslib": "^2.0.0",
+    "@types/jest": "^26.0.10"
   },
   "devDependencies": {}
 }

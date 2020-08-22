@@ -23,8 +23,8 @@ const packageJSONData = {
         tslib: "^1.13.0"
     },
     devDependencies: {
-        jest: "^26.0.0",
-        "@types/jest": "^26.0.0"
+        jest: "^26.4.1",
+        "@types/jest": "^26.0.10"
     },
     scripts: {
         build: "tsc -b ./tsconfig.package.json",

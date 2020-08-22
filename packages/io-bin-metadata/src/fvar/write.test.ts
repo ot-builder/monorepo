@@ -3,7 +3,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Fvar } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
-import { FvarIo } from ".";
+import { FvarIo } from "./index";
 
 test("Read-write roundtrip : FVAR", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");

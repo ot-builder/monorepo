@@ -3,7 +3,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Head } from "@ot-builder/ot-metadata";
 import { TestFont } from "@ot-builder/test-util";
 
-import { HeadIo } from ".";
+import { HeadIo } from "./index";
 
 test("Read-write roundtrip : head", () => {
     const bufFont = TestFont.get("SourceSerifVariable-Roman.ttf");

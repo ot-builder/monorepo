@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "tslib": "^1.13.0",
+    "tslib": "^2.0.0",
     "@ot-builder/io-bin-encoding": "0.10.18",
     "@ot-builder/io-bin-ext-private": "0.10.18",
     "@ot-builder/io-bin-glyph-store": "0.10.18",
@@ -37,7 +37,7 @@
     "@ot-builder/bin-util": "0.10.18"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "jest": "^26.0.1"
+    "@types/jest": "^26.0.10",
+    "jest": "^26.4.1"
   }
 }
