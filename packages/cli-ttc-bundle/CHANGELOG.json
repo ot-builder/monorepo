@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sun, 23 Aug 2020 00:15:35 GMT",
+      "tag": "otb-ttc-bundle_v0.10.19",
+      "version": "0.10.19",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade to TypeScript 4",
+            "author": "belleve@typeof.net",
+            "commit": "93a38332682c1182025ff4c6ad15b56a06bee0bb",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 19 Jul 2020 00:10:47 GMT",
       "tag": "otb-ttc-bundle_v0.10.16",
       "version": "0.10.16",

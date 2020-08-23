@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/cli-proc
 
-This log was last generated on Sun, 19 Jul 2020 00:10:47 GMT and should not be manually modified.
+This log was last generated on Sun, 23 Aug 2020 00:15:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.19
+
+Sun, 23 Aug 2020 00:15:35 GMT
+
+### Patches
+
+- Upgrade to TypeScript 4 (belleve@typeof.net)
 
 ## 0.10.16
 

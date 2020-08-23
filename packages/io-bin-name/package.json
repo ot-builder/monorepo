@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.18",
+  "version": "0.10.19",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -17,23 +17,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.18",
-    "@ot-builder/common-impl": "0.10.18",
-    "@ot-builder/errors": "0.10.18",
-    "@ot-builder/ot-glyphs": "0.10.18",
-    "@ot-builder/ot-metadata": "0.10.18",
-    "@ot-builder/ot-name": "0.10.18",
-    "@ot-builder/prelude": "0.10.18",
-    "@ot-builder/primitive": "0.10.18",
-    "@ot-builder/ot-sfnt": "0.10.18",
-    "@ot-builder/io-bin-sfnt": "0.10.18",
+    "@ot-builder/bin-util": "0.10.19",
+    "@ot-builder/common-impl": "0.10.19",
+    "@ot-builder/errors": "0.10.19",
+    "@ot-builder/ot-glyphs": "0.10.19",
+    "@ot-builder/ot-metadata": "0.10.19",
+    "@ot-builder/ot-name": "0.10.19",
+    "@ot-builder/prelude": "0.10.19",
+    "@ot-builder/primitive": "0.10.19",
+    "@ot-builder/ot-sfnt": "0.10.19",
+    "@ot-builder/io-bin-sfnt": "0.10.19",
     "iconv-lite": "^0.6.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/io-bin-glyph-store": "0.10.18",
-    "@ot-builder/io-bin-metadata": "0.10.18",
-    "@ot-builder/test-util": "0.10.18",
+    "@ot-builder/io-bin-glyph-store": "0.10.19",
+    "@ot-builder/io-bin-metadata": "0.10.19",
+    "@ot-builder/test-util": "0.10.19",
     "@types/jest": "^26.0.10",
     "jest": "^26.4.1"
   }

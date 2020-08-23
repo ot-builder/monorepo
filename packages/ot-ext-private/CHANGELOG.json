@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-ext-private",
   "entries": [
     {
+      "date": "Sun, 23 Aug 2020 00:15:35 GMT",
+      "tag": "@ot-builder/ot-ext-private_v0.10.19",
+      "version": "0.10.19",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade to TypeScript 4",
+            "author": "belleve@typeof.net",
+            "commit": "93a38332682c1182025ff4c6ad15b56a06bee0bb",
+            "package": "@ot-builder/ot-ext-private"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 12 Jul 2020 00:09:55 GMT",
       "tag": "@ot-builder/ot-ext-private_v0.10.15",
       "version": "0.10.15",

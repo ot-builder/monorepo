@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-glyph-store",
   "entries": [
     {
+      "date": "Sun, 23 Aug 2020 00:15:35 GMT",
+      "tag": "@ot-builder/io-bin-glyph-store_v0.10.19",
+      "version": "0.10.19",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade to TypeScript 4",
+            "author": "belleve@typeof.net",
+            "commit": "93a38332682c1182025ff4c6ad15b56a06bee0bb",
+            "package": "@ot-builder/io-bin-glyph-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 21 Jun 2020 00:10:05 GMT",
       "tag": "@ot-builder/io-bin-glyph-store_v0.10.12",
       "version": "0.10.12",
