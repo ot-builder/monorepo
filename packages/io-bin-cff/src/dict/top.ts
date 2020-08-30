@@ -14,7 +14,8 @@ import { DictEncoder } from "./encoder";
 import { CffFontDictDataCollector, CffFontDictInterpreterBase } from "./font-dict";
 import { CffDictDataCollector, CffDictInterpreter, CffDictReadT, CffDictWriteT } from "./general";
 
-export class CffTopDictInterpreter extends CffFontDictInterpreterBase
+export class CffTopDictInterpreter
+    extends CffFontDictInterpreterBase
     implements CffDictInterpreter<CffTopDictRead> {
     constructor(ctx: CffReadContext) {
         super(ctx);

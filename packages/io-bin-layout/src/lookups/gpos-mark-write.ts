@@ -336,7 +336,8 @@ class GposMarkToBaseWriterBase {
     }
 }
 
-export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
+export class GposMarkToBaseWriter
+    extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToBase {
         return l.type === Gpos.LookupType.MarkToBase;
@@ -354,7 +355,8 @@ export class GposMarkToBaseWriter extends GposMarkToBaseWriterBase
         return this.createSubtableFragmentsForMarkBase(lookup.marks, lookup.bases, ctx);
     }
 }
-export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
+export class GposMarkToLigatureWriter
+    extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToLigature {
         return l.type === Gpos.LookupType.MarkToLigature;
@@ -372,7 +374,8 @@ export class GposMarkToLigatureWriter extends GposMarkToBaseWriterBase
         return this.createSubtableFragmentsForMarkLigature(lookup.marks, lookup.bases, ctx);
     }
 }
-export class GposMarkToMarkWriter extends GposMarkToBaseWriterBase
+export class GposMarkToMarkWriter
+    extends GposMarkToBaseWriterBase
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToMark {
         return l.type === Gpos.LookupType.MarkToMark;
