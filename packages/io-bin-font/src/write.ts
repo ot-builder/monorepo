@@ -75,7 +75,6 @@ export function writeFont<GS extends Ot.GlyphStore>(
 
     if (fullCfg.generateDummyDigitalSignature) {
         sink.add("DSIG", Buffer.from([0, 0, 0, 1, 0, 0, 0, 0]));
-        console.log(sfnt.tables.get("DSIG"));
     }
 
     return sfnt;
