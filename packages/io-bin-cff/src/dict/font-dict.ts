@@ -131,7 +131,8 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
     }
 }
 
-export class CffFontDictInterpreter extends CffFontDictInterpreterBase
+export class CffFontDictInterpreter
+    extends CffFontDictInterpreterBase
     implements CffDictInterpreter<Cff.FontDict> {
     public getResult() {
         return this.fd;

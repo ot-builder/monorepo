@@ -7,7 +7,8 @@ export class ListStoreFactory<T> implements Data.OrderStoreFactory<T, ListStore<
         return new ListStore(this.sourceKind, [...items]);
     }
 }
-export class ListStoreFactoryWithDefault<T> extends ListStoreFactory<T>
+export class ListStoreFactoryWithDefault<T>
+    extends ListStoreFactory<T>
     implements Data.OrderStoreFactoryWithDefault<T, ListStore<T>> {
     constructor(sourceKind: string, private readonly create: () => T) {
         super(sourceKind);

@@ -107,19 +107,22 @@ class GsubMultiAlternateWriterBase {
     }
 }
 
-export class GsubMultiReader extends GsubMultiAlternateReaderBase
+export class GsubMultiReader
+    extends GsubMultiAlternateReaderBase
     implements LookupReader<Gsub.Lookup, Gsub.Multiple> {
     public createLookup() {
         return new Gsub.Multiple();
     }
 }
-export class GsubAlternateReader extends GsubMultiAlternateReaderBase
+export class GsubAlternateReader
+    extends GsubMultiAlternateReaderBase
     implements LookupReader<Gsub.Lookup, Gsub.Alternate> {
     public createLookup() {
         return new Gsub.Alternate();
     }
 }
-export class GsubMultiWriter extends GsubMultiAlternateWriterBase
+export class GsubMultiWriter
+    extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Multiple> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Multiple {
         return l.type === Gsub.LookupType.Multi;
@@ -131,7 +134,8 @@ export class GsubMultiWriter extends GsubMultiAlternateWriterBase
         return 2;
     }
 }
-export class GsubAlternateWriter extends GsubMultiAlternateWriterBase
+export class GsubAlternateWriter
+    extends GsubMultiAlternateWriterBase
     implements LookupWriter<Gsub.Lookup, Gsub.Alternate> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Alternate {
         return l.type === Gsub.LookupType.Alternate;
