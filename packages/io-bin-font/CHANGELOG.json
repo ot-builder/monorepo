@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sun, 06 Sep 2020 00:10:37 GMT",
+      "tag": "@ot-builder/io-bin-font_v0.10.20",
+      "version": "0.10.20",
+      "comments": {
+        "patch": [
+          {
+            "comment": "DSIG: Add signing for TTC",
+            "author": "belleve@typeof.net",
+            "commit": "7963b013220e41ab5e51481191f7c0afcce2b7fc",
+            "package": "@ot-builder/io-bin-font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 23 Aug 2020 00:15:35 GMT",
       "tag": "@ot-builder/io-bin-font_v0.10.19",
       "version": "0.10.19",

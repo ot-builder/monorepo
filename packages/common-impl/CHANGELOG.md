@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sun, 23 Aug 2020 00:15:35 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Sep 2020 00:10:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.20
+
+Sun, 06 Sep 2020 00:10:37 GMT
+
+### Patches
+
+- Fix ESLint errors (belleve@typeof.net)
 
 ## 0.10.19
 
