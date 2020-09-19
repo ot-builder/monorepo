@@ -38,16 +38,11 @@ An opaque factory object that implements <R s={Data.OrderStoreFactoryWithDefault
 
 The <R s={Ot.Glyph}/> class represents one glyph. Object identity of <R s={Ot.Glyph}/>'s carry the semantics of glyph identity. Many parts of the font, even some geometries inside the glyph, will hold references to <R s={Ot.Glyph}/>'s.
 
-#### Implements
-
- * <R s ={Ot.Glyph.Props}/>
-
 #### Constructor
 
  * <Method ctor s={Ot.Glyph.constructor}/>
 
-    Create a blank <R s={Ot.Glyph}/> with default implementation.
-
+    Create an empty <R s={Ot.Glyph}/>.
 
 #### Properties
 
@@ -71,31 +66,11 @@ The <R s={Ot.Glyph}/> class represents one glyph. Object identity of <R s={Ot.Gl
 
     The vertical metric.
 
-### Datatype <Decl s={Ot.Glyph.Props}/>
+#### Methods
 
-This datatype defines properties of <R s={Ot.Glyph}/>'s. This is a datatype therefore all the properties are _read only_.
+ * <Method static s={Ot.Glyph.shallowCopy} args={{from:Ot.Glyph}} returns={Ot.Glyph}/>
 
-#### Properties
-
- * <Member readonly s={Ot.Glyph.name} type={Data.Maybe(string)}/>
-
-    The glyph name. Optional.
-
- * <Member readonly s={Ot.Glyph.geometry} type={Data.Maybe(Ot.Glyph.Geometry)}/>
-
-    The geometry. Optional. When absent, the glyph is considered a space.
-
- * <Member readonly s={Ot.Glyph.hints} type={Data.Maybe(Ot.Glyph.Hints)}/>
-
-    The hints. Optional.
-
- * <Member readonly s={Ot.Glyph.horizontal} type={Data.Maybe(Ot.Glyph.Metric)}/>
-
-    The horizontal metric.
-
- * <Member readonly s={Ot.Glyph.vertical} type={Data.Maybe(Ot.Glyph.Metric)}/>
-
-    The vertical metric.
+   Perform a shallow copy of another glyph.
 
 ## Metrics
 
@@ -107,7 +82,7 @@ Defines a metric advance of a glyph.
 
  * <Member readonly s={Ot.Glyph.Metric.start} type={Ot.Var.Value} />
 
-    Start coordiante.
+    Start coordinate.
 
  * <Member readonly s={Ot.Glyph.Metric.end} type={Ot.Var.Value} />
 

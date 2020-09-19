@@ -4,7 +4,7 @@ import * as Rectify from "@ot-builder/rectify";
 import { StdPointAttachRectifier } from "../support/point-rectifier";
 
 export function rebaseFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>, newUpm: number) {
-    Rectify.rectifyFont(
+    Rectify.inPlaceRectifyFont(
         { glyphRef: g => g },
         createAxisRectifier(),
         createValueRectifier(newUpm, font.head.unitsPerEm),

@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { CoordRectifier } from "../interface";
 
-export function rectifyCoordPost(rec: CoordRectifier, table: Ot.Post.Table) {
+export function rectifyPostTable(rec: CoordRectifier, table: Ot.Post.Table) {
     const newTable = new Ot.Post.Table(table.majorVersion, table.minorVersion);
     newTable.italicAngle = table.italicAngle;
     newTable.underlinePosition = rec.coord(table.underlinePosition);

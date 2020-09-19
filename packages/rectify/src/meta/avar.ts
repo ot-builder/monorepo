@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { AxisRectifier } from "../interface";
 
-export function rectifyAxisAvar(rec: AxisRectifier, avar: Ot.Avar.Table) {
+export function rectifyAvarTable(rec: AxisRectifier, avar: Ot.Avar.Table) {
     const maps1: Map<Ot.Var.Dim, Ot.Avar.SegmentMap> = new Map();
     for (const [dim, sgm] of avar.segmentMaps) {
         const mappedDim = rec.dim(dim);

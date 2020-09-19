@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { CoordRectifier } from "../interface";
 
-function inPlaceRectifyCoordHhea(
+function inPlaceRectifyHheaVheaTable(
     rec: CoordRectifier,
     newTable: Ot.MetricHead.Table,
     table: Ot.MetricHead.Table
@@ -25,14 +25,14 @@ function inPlaceRectifyCoordHhea(
     newTable.caretOffset = rec.coord(newTable.caretOffset);
 }
 
-export function rectifyCoordHhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
+export function rectifyHheaTable(rec: CoordRectifier, table: Ot.MetricHead.Table) {
     const newTable = new Ot.MetricHead.Hhea(table.majorVersion, table.minorVersion);
-    inPlaceRectifyCoordHhea(rec, newTable, table);
+    inPlaceRectifyHheaVheaTable(rec, newTable, table);
     return newTable;
 }
 
-export function rectifyCoordVhea(rec: CoordRectifier, table: Ot.MetricHead.Table) {
+export function rectifyVheaTable(rec: CoordRectifier, table: Ot.MetricHead.Table) {
     const newTable = new Ot.MetricHead.Vhea(table.majorVersion, table.minorVersion);
-    inPlaceRectifyCoordHhea(rec, newTable, table);
+    inPlaceRectifyHheaVheaTable(rec, newTable, table);
     return newTable;
 }

@@ -24,7 +24,7 @@ function fnGposLookupRemovable(lookup: Ot.Gpos.Lookup) {
     return LookupRemovableAlg.process(lookup);
 }
 
-export function rectifyGsub(
+export function rectifyGsubTable(
     recGlyphs: GlyphReferenceRectifier,
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
@@ -45,7 +45,7 @@ export function rectifyGsub(
     return newTable;
 }
 
-export function rectifyGpos(
+export function rectifyGposTable(
     recGlyphs: GlyphReferenceRectifier,
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,

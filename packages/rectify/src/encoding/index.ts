@@ -3,7 +3,7 @@ import * as Ot from "@ot-builder/ot";
 import { GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 
-export function rectifyGlyphCmap(rec: GlyphReferenceRectifier, table: Ot.Cmap.Table) {
+export function rectifyCmapTable(rec: GlyphReferenceRectifier, table: Ot.Cmap.Table) {
     const newTable = new Ot.Cmap.Table();
     for (const [encoding, glyph] of table.unicode.entries()) {
         const g1 = rec.glyphRef(glyph);
@@ -16,7 +16,7 @@ export function rectifyGlyphCmap(rec: GlyphReferenceRectifier, table: Ot.Cmap.Ta
     return newTable;
 }
 
-export function rectifyExtPrivate(rec: GlyphReferenceRectifier, table: Ot.XPrv.Table) {
+export function rectifyExtPrivateTable(rec: GlyphReferenceRectifier, table: Ot.XPrv.Table) {
     const newTable = new Ot.XPrv.Table();
     newTable.shared = table.shared;
     if (table.perGlyph) {

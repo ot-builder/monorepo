@@ -9,5 +9,5 @@ export function gcFont<GS extends Ot.GlyphStore>(
 ) {
     const { glyphs, rectifier } = createSubsetRectifier(font, { has: () => true });
     font.glyphs = gsf.createStoreFromList(glyphs);
-    Rectify.rectifyFontGlyphReferences(rectifier, font);
+    Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);
 }

@@ -7,11 +7,17 @@ import {
     IdPointAttachmentRectifier
 } from "../interface";
 
-import { rectifyFont } from "./rectify-font";
+import { inPlaceRectifyFont } from "./rectify-font";
 
-export function rectifyFontGlyphReferences<GS extends Ot.GlyphStore>(
+export function inPlaceRectifyFontGlyphReferences<GS extends Ot.GlyphStore>(
     rec: GlyphReferenceRectifier,
     font: Ot.Font<GS>
 ) {
-    return rectifyFont(rec, IdAxisRectifier, IdCoordRectifier, IdPointAttachmentRectifier, font);
+    return inPlaceRectifyFont(
+        rec,
+        IdAxisRectifier,
+        IdCoordRectifier,
+        IdPointAttachmentRectifier,
+        font
+    );
 }

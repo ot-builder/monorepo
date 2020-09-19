@@ -29,7 +29,7 @@ export function consolidateFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>) {
     const rectifier: Rectify.GlyphReferenceRectifier = {
         glyphRef: g => (gs.has(g) ? g : null)
     };
-    Rectify.rectifyFontGlyphReferences(rectifier, font);
+    Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);
 
     if (font.gpos) font.gpos = consolidateGsubGpos(font.fvar, font.gpos);
     if (font.gsub) font.gsub = consolidateGsubGpos(font.fvar, font.gsub);

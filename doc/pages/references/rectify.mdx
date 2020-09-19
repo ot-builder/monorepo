@@ -6,7 +6,92 @@ export default Layout
 
 # Namespace <Decl s={Rectify}/>
 
-## Glyph Reference Rectification
+## Perform Rectification over the Font
+
+### Function <Fn long s={Rectify.inPlaceRectifyFont(extend("GS",Ot.GlyphStore))} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+Perform in-place rectification of `font` using a given rectifiers. The procedure will rectify all the glyph references, including the cross-references from the glyph geometries, **but will not change** the object identity of the glyph store and glyph objects within it.
+
+### Function <Fn long s={Rectify.inPlaceRectifyFontAxes(extend("GS",Ot.GlyphStore))} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+### Function <Fn long s={Rectify.inPlaceRectifyFontCoords(extend("GS",Ot.GlyphStore))} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+
+### Function <Fn long s={Rectify.inPlaceRectifyFontGlyphReferences(extend("GS",Ot.GlyphStore))} args={{rec:annot(Rectify.GlyphReferenceRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
+
+## Perform Rectification over Font Structures
+
+The functions below provides rectification over fonts' inner structures.
+
+### Function <Fn long s={Rectify.inPlaceRectifyGlyphStore(extend("GS",Ot.GlyphStore))} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),gs:annot("GS","The glyph store to process")}} returns={"GS"}/>
+
+Perform in-place rectification of a glyph store using a given rectifiers. The procedure will rectify all the glyph references, including the cross-references from the glyph geometries, **but will not change** the object identity of the glyph store and glyph objects within it.
+
+### Function <Fn long s={Rectify.rectifyCffTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Cff.Table,"The table to process")}} returns={Ot.Cff.Table}/>
+
+Perform rectification for <R s={Ot.Cff.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyCvtTable} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Cvt.Table,"The table to process")}} returns={Ot.Cvt.Table}/>
+
+Perform rectification for <R s={Ot.Cvt.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyBaseTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),table:annot(Ot.Base.Table,"The table to process")}} returns={Ot.Base.Table}/>
+
+Perform rectification for <R s={Ot.Base.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyGdefTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),table:annot(Ot.Gdef.Table,"The table to process")}} returns={Ot.Gdef.Table}/>
+
+Perform rectification for <R s={Ot.Gdef.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyGsubTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),table:annot(Ot.Gsub.Table,"The table to process")}} returns={Ot.Gsub.Table}/>
+
+Perform rectification for <R s={Ot.Gsub.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyGposTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),table:annot(Ot.Gpos.Table,"The table to process")}} returns={Ot.Gpos.Table}/>
+
+Perform rectification for <R s={Ot.Gpos.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyMathTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Math.Table,"The table to process")}} returns={Ot.Math.Table}/>
+
+Perform rectification for <R s={Ot.Math.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyCmapTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),table:annot(Ot.Cmap.Table,"The table to process")}} returns={Ot.Cmap.Table}/>
+
+Perform rectification for <R s={Ot.Cmap.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyFvarTable} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),table:annot(Ot.Fvar.Table,"The table to process")}} returns={Ot.Fvar.Table}/>
+
+Perform rectification for <R s={Ot.Fvar.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyAvarTable} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),table:annot(Ot.Avar.Table,"The table to process")}} returns={Ot.Avar.Table}/>
+
+Perform rectification for <R s={Ot.Avar.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyHheaTable} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Hhea.Table,"The table to process")}} returns={Ot.Hhea.Table}/>
+
+Perform rectification for <R s={Ot.Hhea.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyVheaTable} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Vhea.Table,"The table to process")}} returns={Ot.Vhea.Table}/>
+
+Perform rectification for <R s={Ot.Vhea.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyGaspTable} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Gasp.Table,"The table to process")}} returns={Ot.Gasp.Table}/>
+
+Perform rectification for <R s={Ot.Gasp.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyOs2Table} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Os2.Table,"The table to process")}} returns={Ot.Os2.Table}/>
+
+Perform rectification for <R s={Ot.Os2.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyPostTable} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),table:annot(Ot.Post.Table,"The table to process")}} returns={Ot.Post.Table}/>
+
+Perform rectification for <R s={Ot.Post.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+### Function <Fn long s={Rectify.rectifyExtPrivateTable} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),table:annot(Ot.XPrv.Table,"The table to process")}} returns={Ot.XPrv.Table}/>
+
+Perform rectification for <R s={Ot.XPrv.Table}/>. Returns a new table with properties updated (no table-specific data structures are shared with the original).
+
+## Glyph Reference Rectifier
 
 ### Interface <Decl s={Rectify.GlyphReferenceRectifier}/>
 
@@ -18,11 +103,7 @@ export default Layout
 
 The identity (Nop) glyph reference rectifier.
 
-### Function <Fn long s={Rectify.rectifyFontGlyphReferences(extend("GS",Ot.GlyphStore))} args={{rec:annot(Rectify.GlyphReferenceRectifier,"The Rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
-
-Perform in-place rectification of `font` using a given `Rectify.GlyphReferenceRectifier`. The procedure will rectify all the glyph references, including the cross-references from the glyph geometries, **but not** the glyph store itself.
-
-## Axis, Coordinate and Point Attachment Rectification
+## Axis, Coordinate and Point Attachment Rectifier
 
 ### Interface <Decl s={Rectify.AxisRectifier}/>
 
@@ -68,11 +149,3 @@ The identity (Nop) coordinate rectifier.
 ### Constant <Decl s={Rectify.IdPointAttachmentRectifier}/> : <R s={Rectify.PointAttachmentRectifier}/>
 
 The identity (Nop) point Attachment rectifier.
-
-### Function <Fn long s={Rectify.rectifyFontAxes(extend("GS",Ot.GlyphStore))} args={{recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
-
-### Function <Fn long s={Rectify.rectifyFontCoords(extend("GS",Ot.GlyphStore))} args={{recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
-
-## Run All Rectification at Once
-
-### Function <Fn long s={Rectify.rectifyFont(extend("GS",Ot.GlyphStore))} args={{recGlyphRef:annot(Rectify.GlyphReferenceRectifier,"Glyph reference rectifier"),recAxes:annot(Rectify.AxisRectifier,"Axis rectifier"),recCoord:annot(Rectify.CoordRectifier,"Coordinate rectifier"),recPA:annot(Rectify.PointAttachmentRectifier,"Point Attachment rectifier"),font:annot(Ot.Font("GS"),"The font to process")}} returns="void"/>
