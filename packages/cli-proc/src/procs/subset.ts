@@ -13,5 +13,5 @@ export function subsetFont<GS extends Ot.GlyphStore>(
         new Set([...text].map(s => s.codePointAt(0)!))
     );
     font.glyphs = gsf.createStoreFromList(glyphs);
-    Rectify.rectifyFontGlyphReferences(rectifier, font);
+    Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);
 }

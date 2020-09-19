@@ -1,9 +1,9 @@
 import * as Ot from "@ot-builder/ot";
 
-import { rectifyExtPrivate, rectifyGlyphCmap } from "../encoding";
+import { rectifyExtPrivateTable, rectifyCmapTable } from "../encoding";
+import { inPlaceRectifyGlyphStore } from "../glyph";
 import { rectifyCffTable } from "../glyph-store/cff";
-import { rectifyCoordCvtTable } from "../glyph-store/cvt";
-import { rectifyGlyphs } from "../glyph/rectify-alg";
+import { rectifyCvtTable } from "../glyph-store/cvt";
 import {
     AxisRectifier,
     CoordRectifier,
@@ -11,17 +11,17 @@ import {
     PointAttachmentRectifier
 } from "../interface";
 import { rectifyBaseTable } from "../layout/base";
-import { rectifyGdef } from "../layout/gdef";
-import { rectifyGpos, rectifyGsub } from "../layout/gsub-gpos";
+import { rectifyGdefTable } from "../layout/gdef";
+import { rectifyGposTable, rectifyGsubTable } from "../layout/gsub-gpos";
 import { rectifyMathTable } from "../layout/math";
-import { rectifyAxisAvar } from "../meta/avar";
-import { rectifyAxisFvar } from "../meta/fvar";
-import { rectifyCoordGasp } from "../meta/gasp";
-import { rectifyCoordHhea, rectifyCoordVhea } from "../meta/hhea-vhea";
-import { rectifyCoordOs2 } from "../meta/os2";
-import { rectifyCoordPost } from "../meta/post";
+import { rectifyAvarTable } from "../meta/avar";
+import { rectifyFvarTable } from "../meta/fvar";
+import { rectifyGaspTable } from "../meta/gasp";
+import { rectifyHheaTable, rectifyVheaTable } from "../meta/hhea-vhea";
+import { rectifyOs2Table } from "../meta/os2";
+import { rectifyPostTable } from "../meta/post";
 
-export function rectifyFont<GS extends Ot.GlyphStore>(
+export function inPlaceRectifyFont<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
@@ -40,10 +40,10 @@ function rectifyCmap<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>
 ) {
     if (font.cmap) {
-        font.cmap = rectifyGlyphCmap(recGlyphRef, font.cmap);
+        font.cmap = rectifyCmapTable(recGlyphRef, font.cmap);
     }
     if (font.xPrv) {
-        font.xPrv = rectifyExtPrivate(recGlyphRef, font.xPrv);
+        font.xPrv = rectifyExtPrivateTable(recGlyphRef, font.xPrv);
     }
 }
 function rectifyFontMetadata<GS extends Ot.GlyphStore>(
@@ -51,15 +51,22 @@ function rectifyFontMetadata<GS extends Ot.GlyphStore>(
     recCoord: CoordRectifier,
     font: Ot.Font<GS>
 ) {
-    if (font.fvar) font.fvar = rectifyAxisFvar(recAxes, font.fvar);
-    if (font.avar) font.avar = rectifyAxisAvar(recAxes, font.avar);
-    if (font.hhea) font.hhea = rectifyCoordHhea(recCoord, font.hhea);
-    if (font.vhea) font.vhea = rectifyCoordVhea(recCoord, font.vhea);
-    if (font.post) font.post = rectifyCoordPost(recCoord, font.post);
-    if (font.os2) font.os2 = rectifyCoordOs2(recCoord, font.os2);
-    if (font.gasp) font.gasp = rectifyCoordGasp(recCoord, font.gasp);
+    if (font.fvar) font.fvar = rectifyFvarTable(recAxes, font.fvar);
+    if (font.avar) font.avar = rectifyAvarTable(recAxes, font.avar);
+    if (font.hhea) font.hhea = rectifyHheaTable(recCoord, font.hhea);
+    if (font.vhea) font.vhea = rectifyVheaTable(recCoord, font.vhea);
+    if (font.post) font.post = rectifyPostTable(recCoord, font.post);
+    if (font.os2) font.os2 = rectifyOs2Table(recCoord, font.os2);
+    if (font.gasp) font.gasp = rectifyGaspTable(recCoord, font.gasp);
 }
-
+function rectifyGlyphs<GS extends Ot.GlyphStore>(
+    recGlyphRef: GlyphReferenceRectifier,
+    recCoord: CoordRectifier,
+    recPA: PointAttachmentRectifier,
+    font: Ot.Font<GS>
+) {
+    inPlaceRectifyGlyphStore(recGlyphRef, recCoord, recPA, font.glyphs);
+}
 function rectifyCoGlyphs<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
@@ -68,7 +75,7 @@ function rectifyCoGlyphs<GS extends Ot.GlyphStore>(
     if (Ot.Font.isCff(font)) {
         font.cff = rectifyCffTable(recGlyphRef, recCoord, font.cff);
     } else {
-        if (font.cvt) font.cvt = rectifyCoordCvtTable(recCoord, font.cvt);
+        if (font.cvt) font.cvt = rectifyCvtTable(recCoord, font.cvt);
     }
 }
 function rectifyLayout<GS extends Ot.GlyphStore>(
@@ -79,13 +86,13 @@ function rectifyLayout<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>
 ) {
     if (font.gdef) {
-        font.gdef = rectifyGdef(recGlyphRef, recCoord, recPA, font.gdef);
+        font.gdef = rectifyGdefTable(recGlyphRef, recCoord, recPA, font.gdef);
     }
     if (font.gsub) {
-        font.gsub = rectifyGsub(recGlyphRef, recAxes, recCoord, recPA, font.gsub);
+        font.gsub = rectifyGsubTable(recGlyphRef, recAxes, recCoord, recPA, font.gsub);
     }
     if (font.gpos) {
-        font.gpos = rectifyGpos(recGlyphRef, recAxes, recCoord, recPA, font.gpos);
+        font.gpos = rectifyGposTable(recGlyphRef, recAxes, recCoord, recPA, font.gpos);
     }
     if (font.base) {
         font.base = rectifyBaseTable(recGlyphRef, recCoord, recPA, font.base);

@@ -9,28 +9,28 @@ import { OtGlyphCoStat } from "./co-stat";
 import * as Lib_Point from "./point";
 import { OtGlyphStat } from "./stat";
 
-export interface OtGlyphProps {
-    readonly name?: string;
-    readonly horizontal: GeneralGlyph.Metric.T<OtVar.Value>;
-    readonly vertical: GeneralGlyph.Metric.T<OtVar.Value>;
-    readonly geometry: Data.Maybe<OtGlyph.Geometry>;
-    readonly hints: Data.Maybe<OtGlyph.Hint>;
-}
-
 // This dual-export is intensional.
 // eslint-disable-next-line import/export
-export class OtGlyph implements OtGlyphProps {
+export class OtGlyph {
     public name?: string;
     public horizontal: GeneralGlyph.Metric.T<OtVar.Value> = { start: 0, end: 0 };
     public vertical: GeneralGlyph.Metric.T<OtVar.Value> = { start: 0, end: 0 };
     public geometry: Data.Maybe<OtGlyph.Geometry> = null;
     public hints: Data.Maybe<OtGlyph.Hint> = null;
+
+    public static shallowCopy(g: OtGlyph) {
+        const g1 = new OtGlyph();
+        g1.name = g.name;
+        g1.horizontal = g.horizontal;
+        g1.vertical = g.vertical;
+        g1.geometry = g.geometry;
+        g1.hints = g.hints;
+        return g1;
+    }
 }
 
 // eslint-disable-next-line import/export
 export namespace OtGlyph {
-    export type Props = OtGlyphProps;
-
     // Exported geometry types
     export type Geometry = ContourSet | TtReference | GeometryList;
 

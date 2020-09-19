@@ -12,15 +12,15 @@ import {
     PointAttachmentRectifier
 } from "../interface";
 
-import { rectifyFont } from "./rectify-font";
+import { inPlaceRectifyFont } from "./rectify-font";
 
 type OtGlyphStore = Data.OrderStore<OtGlyph>;
 
-export function rectifyFontAxes<GS extends OtGlyphStore>(
+export function inPlaceRectifyFontAxes<GS extends OtGlyphStore>(
     recAxes: AxisRectifier,
     font: Ot.Font<GS>
 ) {
-    return rectifyFont(
+    return inPlaceRectifyFont(
         IdGlyphRefRectifier,
         recAxes,
         IdCoordRectifier,
@@ -28,10 +28,10 @@ export function rectifyFontAxes<GS extends OtGlyphStore>(
         font
     );
 }
-export function rectifyFontCoords<GS extends OtGlyphStore>(
+export function inPlaceRectifyFontCoords<GS extends OtGlyphStore>(
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     font: Ot.Font<GS>
 ) {
-    return rectifyFont(IdGlyphRefRectifier, IdAxisRectifier, recCoord, recPA, font);
+    return inPlaceRectifyFont(IdGlyphRefRectifier, IdAxisRectifier, recCoord, recPA, font);
 }

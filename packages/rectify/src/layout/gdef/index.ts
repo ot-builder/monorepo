@@ -9,7 +9,7 @@ import {
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
-export function rectifyGdef(
+export function rectifyGdefTable(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,

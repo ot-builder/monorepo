@@ -65,6 +65,6 @@ function unifyGlyphByHash<GS extends Ot.GlyphStore>(
         result[gid] = sharedGlyph;
     }
 
-    Rectify.rectifyFontGlyphReferences(sharing, font);
+    Rectify.inPlaceRectifyFontGlyphReferences(sharing, font);
     font.glyphs = gsf.createStoreFromList(result);
 }

@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { AxisRectifier } from "../interface";
 
-export function rectifyAxisFvar(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
+export function rectifyFvarTable(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
     const axes = rectifyAxesImpl(rec, fvar);
     const instances = rectifyInstances(rec, rec.addedAxes, fvar);
     return new Ot.Fvar.Table(axes, instances);

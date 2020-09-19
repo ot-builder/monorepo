@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { CoordRectifier } from "../interface";
 
-export function rectifyCoordOs2(rec: CoordRectifier, table: Ot.Os2.Table) {
+export function rectifyOs2Table(rec: CoordRectifier, table: Ot.Os2.Table) {
     const newTable = new Ot.Os2.Table(table.version);
     newTable.xAvgCharWidth = table.xAvgCharWidth;
     newTable.usWeightClass = table.usWeightClass;

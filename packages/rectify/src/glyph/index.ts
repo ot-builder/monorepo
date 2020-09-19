@@ -3,9 +3,9 @@ import { Data } from "@ot-builder/prelude";
 
 import {
     CoordRectifier,
+    GlyphReferenceRectifier,
     PointAttachmentRectifier,
-    PointAttachmentRectifyManner,
-    GlyphReferenceRectifier
+    PointAttachmentRectifyManner
 } from "../interface";
 import { RectifyImpl } from "../shared";
 
@@ -217,13 +217,13 @@ function processGlyph(
     gs.processed.add(glyph);
 }
 
-export function rectifyGlyphs<GS extends Ot.GlyphStore>(
+export function inPlaceRectifyGlyphStore<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    font: Ot.Font<GS>
+    glyphs: GS
 ) {
-    const gOrd = font.glyphs.decideOrder();
+    const gOrd = glyphs.decideOrder();
     const st: PointAttachmentGlobalState = { processed: new Set() };
 
     for (const g of gOrd) processGlyph(recGlyphRef, recCoord, recPA, g, st);
