@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.20",
+  "version": "0.10.21",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -17,17 +17,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-encoding": "0.10.20",
-    "@ot-builder/ot-glyphs": "0.10.20",
-    "@ot-builder/ot-layout": "0.10.20",
-    "@ot-builder/ot-metadata": "0.10.20",
-    "@ot-builder/ot-ext-private": "0.10.20",
-    "@ot-builder/ot-name": "0.10.20",
-    "@ot-builder/prelude": "0.10.20",
-    "@ot-builder/variance": "0.10.20",
-    "@ot-builder/common-impl": "0.10.20",
-    "@ot-builder/ot-standard-glyph-namer": "0.10.20",
-    "@ot-builder/ot-sfnt": "0.10.20",
+    "@ot-builder/ot-encoding": "0.10.21",
+    "@ot-builder/ot-glyphs": "0.10.21",
+    "@ot-builder/ot-layout": "0.10.21",
+    "@ot-builder/ot-metadata": "0.10.21",
+    "@ot-builder/ot-ext-private": "0.10.21",
+    "@ot-builder/ot-name": "0.10.21",
+    "@ot-builder/prelude": "0.10.21",
+    "@ot-builder/variance": "0.10.21",
+    "@ot-builder/common-impl": "0.10.21",
+    "@ot-builder/ot-standard-glyph-namer": "0.10.21",
+    "@ot-builder/ot-sfnt": "0.10.21",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

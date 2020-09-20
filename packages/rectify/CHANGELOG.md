@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/rectify
 
-This log was last generated on Sun, 23 Aug 2020 00:15:35 GMT and should not be manually modified.
+This log was last generated on Sun, 20 Sep 2020 00:12:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.21
+
+Sun, 20 Sep 2020 00:12:15 GMT
+
+### Patches
+
+- Export per-table functions for rectification (belleve@typeof.net)
 
 ## 0.10.19
 

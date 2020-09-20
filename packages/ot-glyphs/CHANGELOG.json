@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-glyphs",
   "entries": [
     {
+      "date": "Sun, 20 Sep 2020 00:12:15 GMT",
+      "tag": "@ot-builder/ot-glyphs_v0.10.21",
+      "version": "0.10.21",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Export per-table functions for rectification",
+            "author": "belleve@typeof.net",
+            "commit": "6ef7c45540b5d77af3997ac342e6d07e4aec91be",
+            "package": "@ot-builder/ot-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 23 Aug 2020 00:15:35 GMT",
       "tag": "@ot-builder/ot-glyphs_v0.10.19",
       "version": "0.10.19",
