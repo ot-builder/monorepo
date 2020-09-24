@@ -1,11 +1,10 @@
 import * as Path from "path";
 
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const SaveHeadSyntax: Syntax<null | CliAction> = {
@@ -22,15 +21,15 @@ export const SaveHeadSyntax: Syntax<null | CliAction> = {
     },
     displayHelp(shower: CliHelpShower) {
         shower.message(
-            CliOptionStyle`+o`,
-            CliParamStyle`path`,
+            Style.Option`+o`,
+            Style.Param`path`,
             `;`,
-            CliOptionStyle`++save`,
-            CliParamStyle`path`
+            Style.Option`++save`,
+            Style.Param`path`
         );
         shower
             .indent()
-            .message(`Shift the stack bottom font and save into the`, CliParamStyle`path`, `.`)
+            .message(`Shift the stack bottom font and save into the`, Style.Param`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
     }
 };

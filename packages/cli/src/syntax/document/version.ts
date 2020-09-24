@@ -1,12 +1,12 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliCmdStyle, CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { packageVersion } from "../../package-version";
 
 export const VersionSyntax: Syntax<null | CliAction[]> = {
     handle: (st, sy) => {
-        if (!st.isOption("--version")) return ParseResult(st, null);
+        if (!st.isOption("--version", "-v")) return ParseResult(st, null);
 
         return ParseResult(st.next(), [
             async state => {
@@ -15,7 +15,13 @@ export const VersionSyntax: Syntax<null | CliAction[]> = {
         ]);
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliCmdStyle`otb-cli`, CliOptionStyle`--version`);
+        shower.message(
+            Style.Cmd`otb-cli`,
+            Style.Option`-v`,
+            `;`,
+            Style.Cmd`otb-cli`,
+            Style.Option`--version`
+        );
         shower.indent("").message("Display version of this utility.");
     }
 };

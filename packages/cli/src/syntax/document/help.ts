@@ -1,6 +1,6 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliCmdStyle, CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const HelpSyntax: Syntax<null | CliAction[]> = {
@@ -16,11 +16,11 @@ export const HelpSyntax: Syntax<null | CliAction[]> = {
     },
     displayHelp(shower: CliHelpShower) {
         shower.message(
-            CliCmdStyle`otb-cli`,
-            CliOptionStyle`-h`,
+            Style.Cmd`otb-cli`,
+            Style.Option`-h`,
             `;`,
-            CliCmdStyle`otb-cli`,
-            CliOptionStyle`--help`
+            Style.Cmd`otb-cli`,
+            Style.Option`--help`
         );
         shower.indent("").message("Display help message.");
     }

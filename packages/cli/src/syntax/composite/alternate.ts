@@ -1,6 +1,6 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+
 import { ParseState, ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { Bullet } from "../../cli-help/style";
 import { Syntax, Grammar } from "../../command";
 
 export class AlternateSyntax<T> implements Syntax<null | T> {
@@ -13,7 +13,7 @@ export class AlternateSyntax<T> implements Syntax<null | T> {
         return ParseResult(st, null);
     }
     public displayHelp(shower: CliHelpShower) {
-        const indented = shower.indent(Bullet);
+        const indented = shower.indent(Style.Bullet);
         for (const alt of this.alternatives) {
             alt.displayHelp(indented);
         }

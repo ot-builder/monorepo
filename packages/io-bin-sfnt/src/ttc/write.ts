@@ -89,6 +89,7 @@ export function writeSfntTtc(sfntList: Sfnt[]) {
     for (const sfnt of sfntList) {
         const ds: TableSliceCollection = { version: sfnt.version, tables: new Map() };
         for (const [tag, table] of sfnt.tables) ds.tables.set(tag, BufferToSlice(table));
+        dss.push(ds);
     }
     return writeSfntTtcFromTableSlices(dss);
 }

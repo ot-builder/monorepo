@@ -1,8 +1,7 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const GcSyntax: Syntax<null | CliAction> = {
@@ -23,7 +22,7 @@ export const GcSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliOptionStyle`--gc`);
+        shower.message(Style.Option`--gc`);
         shower.indent("").message("Perform garbage collection of the font at the stack top.");
     }
 };

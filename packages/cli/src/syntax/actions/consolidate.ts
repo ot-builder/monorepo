@@ -1,8 +1,7 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const ConsolidateSyntax: Syntax<null | CliAction> = {
@@ -19,7 +18,7 @@ export const ConsolidateSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliOptionStyle`--consolidate`);
+        shower.message(Style.Option`--consolidate`);
         shower.indent("").message("Perform consolidation of the font at the stack top.");
     }
 };

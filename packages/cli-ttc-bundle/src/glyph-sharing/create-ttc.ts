@@ -3,14 +3,14 @@ import { FontIo, Ot } from "ot-builder";
 import { sparseShareGlyfData } from "./sparse-glyf-data-processor";
 import { sparseShareGvarData } from "./sparse-gvar-data-processor";
 
-export function createTtc(input: Buffer[], sharing: null | number[][]) {
+export function createTtcSlices(input: Buffer[], sharing: null | number[][]) {
     const fonts: FontIo.TableSliceCollection[] = [];
     for (const file of input) fonts.push(convertSfntToCustom(FontIo.readSfntOtf(file)));
     if (sharing) {
         sparseShareGlyfData(fonts, sharing);
         sparseShareGvarData(fonts, sharing);
     }
-    return FontIo.writeSfntTtcFromTableSlices(fonts);
+    return fonts;
 }
 
 function convertSfntToCustom(sfnt: Ot.Sfnt) {

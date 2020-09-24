@@ -3,7 +3,7 @@ export { readFont } from "./read";
 export { writeFont } from "./write";
 export {
     readSfntOtf,
-    readSfntTtcView,
+    readSfntTtc,
     TableSlice,
     TableSliceCollection,
     writeSfntOtf,

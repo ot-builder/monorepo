@@ -1,6 +1,7 @@
+import { CliHelpShower } from "@ot-builder/cli-help-shower";
+
 import { ParseResult, ParseState } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { Syntax, Grammar } from "../../command";
+import { Grammar, Syntax } from "../../command";
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
     constructor(private readonly body: Syntax<null | T>) {}
