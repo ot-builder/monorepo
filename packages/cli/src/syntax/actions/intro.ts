@@ -1,11 +1,10 @@
 import * as Path from "path";
 
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 import { CliStackEntryPlaceholder } from "../../state";
 
@@ -22,10 +21,10 @@ export const IntroSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliParamStyle`path`);
+        shower.message(Style.Param`path`);
         shower
             .indent()
-            .message(`Introduces a font into the stack from`, CliParamStyle`path`, `.`)
+            .message(`Introduces a font into the stack from`, Style.Param`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
     }
 };

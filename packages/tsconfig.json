@@ -106,6 +106,9 @@
       "path": "./index/tsconfig.json"
     },
     {
+      "path": "./cli-help-shower/tsconfig.json"
+    },
+    {
       "path": "./cli/tsconfig.json"
     },
     {

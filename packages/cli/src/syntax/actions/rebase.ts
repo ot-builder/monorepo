@@ -1,8 +1,7 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const RebaseSyntax: Syntax<null | CliAction> = {
@@ -20,7 +19,7 @@ export const RebaseSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliOptionStyle`--rebase`, CliParamStyle`upm`);
+        shower.message(Style.Option`--rebase`, Style.Param`upm`);
         shower.indent("").message("Change the unit-per-em value of the font at the stack top.");
     }
 };

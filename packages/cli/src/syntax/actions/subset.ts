@@ -1,8 +1,7 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliOptionStyle, CliParamStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const SubsetSyntax: Syntax<null | CliAction> = {
@@ -24,7 +23,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliOptionStyle`--subset`, CliParamStyle`text`);
+        shower.message(Style.Option`--subset`, Style.Param`text`);
         shower.indent("").message("Subset the font at the stack top according to the text given.");
     }
 };

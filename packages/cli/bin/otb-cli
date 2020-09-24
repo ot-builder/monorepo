@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-env node */
+
 const Cli = require("../lib/index");
 
 Cli.cliMain(process.argv).catch(function (e) {

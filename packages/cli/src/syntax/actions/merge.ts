@@ -1,8 +1,7 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliArgStyle, CliCmdStyle, CliOptionStyle } from "../../cli-help/style";
 import { CliAction, Syntax } from "../../command";
 
 export const MergeSyntax: Syntax<null | CliAction> = {
@@ -28,31 +27,31 @@ export const MergeSyntax: Syntax<null | CliAction> = {
         });
     },
     displayHelp(shower: CliHelpShower) {
-        shower.message(CliOptionStyle`--merge`, `[`, CliOptionStyle`--override`, `]`);
+        shower.message(Style.Option`--merge`, `[`, Style.Option`--override`, `]`);
         shower
             .indent("")
             .message("Merge the font on the stack top to the font below it.")
             .message(
                 `In a typical use like:`,
-                CliCmdStyle`otb-cli`,
-                CliArgStyle`a.ttf`,
-                CliArgStyle`b.ttf`,
-                CliOptionStyle`--merge`,
-                CliOptionStyle`-o`,
-                CliArgStyle`ab.ttf`,
+                Style.Cmd`otb-cli`,
+                Style.Arg`a.ttf`,
+                Style.Arg`b.ttf`,
+                Style.Option`--merge`,
+                Style.Option`-o`,
+                Style.Arg`ab.ttf`,
                 `, metadata and naming will follow`,
-                CliArgStyle`a.ttf`,
+                Style.Arg`a.ttf`,
                 `while glyphs from`,
-                CliArgStyle`b.ttf`,
+                Style.Arg`b.ttf`,
                 `will be added to it.`
             )
             .message(
                 `When`,
-                CliOptionStyle(`--override`),
+                Style.Option(`--override`),
                 `is provided, characters from`,
-                CliArgStyle`b.ttf`,
+                Style.Arg`b.ttf`,
                 `will be preferred; otherwise, characters from`,
-                CliArgStyle`a.ttf`,
+                Style.Arg`a.ttf`,
                 `will be preferred.`
             );
     }

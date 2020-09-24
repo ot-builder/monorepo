@@ -110,6 +110,9 @@
     },
     {
       "path": "../index/tsconfig.json"
+    },
+    {
+      "path": "../cli-help-shower/tsconfig.json"
     }
   ]
 }

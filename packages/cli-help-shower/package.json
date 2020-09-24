@@ -1,5 +1,5 @@
 {
-  "name": "ot-builder-cli",
+  "name": "@ot-builder/cli-help-shower",
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -21,10 +21,7 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "chalk": "^4.1.0",
-    "ot-builder": "0.10.21",
-    "@ot-builder/cli-help-shower": "0.10.21",
-    "fs-extra": "^9.0.1"
+    "chalk": "^4.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",

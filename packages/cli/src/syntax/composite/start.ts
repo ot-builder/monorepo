@@ -1,6 +1,6 @@
+import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+
 import { ParseState } from "../../argv-parser";
-import { CliHelpShower } from "../../cli-help";
-import { CliRule } from "../../cli-help/style";
 import { Grammar, Syntax } from "../../command";
 import { packageVersion } from "../../package-version";
 
@@ -13,7 +13,7 @@ export class StartSyntax<T> implements Syntax<T> {
         shower
             .message()
             .message('ot-builder CLI utility program "otb-cli",', "version", packageVersion)
-            .message(CliRule)
+            .message(Style.Rule)
             .message(`Usage :`);
         this.body.displayHelp(shower);
     }

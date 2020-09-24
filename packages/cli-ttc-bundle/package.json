@@ -23,7 +23,8 @@
     "tslib": "^2.0.0",
     "chalk": "^4.1.0",
     "fs-extra": "^9.0.1",
-    "ot-builder": "0.10.21"
+    "ot-builder": "0.10.21",
+    "@ot-builder/cli-help-shower": "0.10.21"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
