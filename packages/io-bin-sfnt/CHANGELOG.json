@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-sfnt",
   "entries": [
     {
+      "date": "Fri, 25 Sep 2020 09:16:28 GMT",
+      "tag": "@ot-builder/io-bin-sfnt_v0.10.25",
+      "version": "0.10.25",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Lift out CLI help shower to separate module; Add TTC input for TTC bundler",
+            "author": "belleve@typeof.net",
+            "commit": "18463c312a75db7285d0939b8f775edbf04eac90",
+            "package": "@ot-builder/io-bin-sfnt"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 06 Sep 2020 00:10:37 GMT",
       "tag": "@ot-builder/io-bin-sfnt_v0.10.20",
       "version": "0.10.20",

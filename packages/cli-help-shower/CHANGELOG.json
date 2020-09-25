@@ -1,0 +1,20 @@
+{
+  "name": "@ot-builder/cli-help-shower",
+  "entries": [
+    {
+      "date": "Fri, 25 Sep 2020 09:16:28 GMT",
+      "tag": "@ot-builder/cli-help-shower_v0.10.25",
+      "version": "0.10.25",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Lift out CLI help shower to separate module; Add TTC input for TTC bundler",
+            "author": "belleve@typeof.net",
+            "commit": "18463c312a75db7285d0939b8f775edbf04eac90",
+            "package": "@ot-builder/cli-help-shower"
+          }
+        ]
+      }
+    }
+  ]
+}

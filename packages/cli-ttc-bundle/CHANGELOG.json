@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Fri, 25 Sep 2020 09:16:28 GMT",
+      "tag": "otb-ttc-bundle_v0.10.25",
+      "version": "0.10.25",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Lift out CLI help shower to separate module; Add TTC input for TTC bundler",
+            "author": "belleve@typeof.net",
+            "commit": "18463c312a75db7285d0939b8f775edbf04eac90",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 23 Aug 2020 00:15:35 GMT",
       "tag": "otb-ttc-bundle_v0.10.19",
       "version": "0.10.19",
