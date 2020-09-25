@@ -5,7 +5,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.23",
+  "version": "0.10.24",
   "bin": {
     "otb-ttc-bundle": "./bin/otb-ttc-bundle"
   },
@@ -23,8 +23,8 @@
     "tslib": "^2.0.0",
     "chalk": "^4.1.0",
     "fs-extra": "^9.0.1",
-    "ot-builder": "0.10.23",
-    "@ot-builder/cli-help-shower": "0.10.23"
+    "ot-builder": "0.10.24",
+    "@ot-builder/cli-help-shower": "0.10.24"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
