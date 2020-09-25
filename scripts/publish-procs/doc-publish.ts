@@ -16,10 +16,6 @@ export async function docPublish(cfg: PublishConfig) {
     RimRaf.sync(Out);
     await Next("export");
 
-    // Deploy
-    RimRaf.sync(Deploy);
-    await FS.mkdir(Deploy);
-
     // Repository
     await DocGit("config", "user.name", cfg.GitUser);
     await DocGit("config", "user.email", cfg.GitEmail);
