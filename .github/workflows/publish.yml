@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - run: git checkout HEAD^
+    - run: git checkout --detach
     - name: Use Node.js v12
       uses: actions/setup-node@v1
       with:
