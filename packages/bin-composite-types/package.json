@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/bin-composite-types",
-  "version": "0.10.22",
+  "version": "0.10.23",
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
@@ -17,9 +17,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.22",
-    "@ot-builder/errors": "0.10.22",
-    "@ot-builder/prelude": "0.10.22",
+    "@ot-builder/bin-util": "0.10.23",
+    "@ot-builder/errors": "0.10.23",
+    "@ot-builder/prelude": "0.10.23",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
