@@ -48,6 +48,5 @@ export function Spawn(command: string, args: string[], options: CP.SpawnOptions)
 export type PublishConfig = {
     GitUser: string;
     GitEmail: string;
-    GitToken: string;
     NpmToken: string;
 };

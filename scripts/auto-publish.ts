@@ -4,7 +4,6 @@ import { PublishConfig } from "./publish-procs/tools";
 
 const GitUser = "otbbuilder-dev";
 const GitEmail = "otbbuilder-dev@users.noreply.github.com";
-const GitToken = process.env.SECRET_GITHUB_TOKEN;
 const NpmToken = process.env.SECRET_NPM_TOKEN;
 
 main().catch(e => {
@@ -13,11 +12,11 @@ main().catch(e => {
 });
 
 async function main() {
-    if (!GitToken || !NpmToken) {
+    if (!NpmToken) {
         console.error("Attempt to execute publish action on a fork. Exit.");
         return;
     } else {
-        const cfg: PublishConfig = { GitUser, GitEmail, GitToken, NpmToken };
+        const cfg: PublishConfig = { GitUser, GitEmail, NpmToken };
         await publish(cfg);
         await docPublish(cfg);
     }

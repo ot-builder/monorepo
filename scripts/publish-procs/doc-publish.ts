@@ -21,14 +21,8 @@ export async function docPublish(cfg: PublishConfig) {
     await FS.mkdir(Deploy);
 
     // Repository
-    const DocRemote = cfg.GitToken
-        ? `https://${cfg.GitUser}:${cfg.GitToken}@github.com/ot-builder/ot-builder.github.io.git`
-        : "https://github.com/ot-builder/ot-builder.github.io.git";
-    await DocGit("init");
-    await DocGit("remote", "add", "origin", DocRemote);
     await DocGit("config", "user.name", cfg.GitUser);
     await DocGit("config", "user.email", cfg.GitEmail);
-    await DocGit("pull", "origin", "master");
 
     // Clear everything currently there
     RimRaf.sync(Path.join(Deploy, "*"));
