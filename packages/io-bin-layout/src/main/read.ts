@@ -7,6 +7,7 @@ import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS } from "@ot-builder/var-store";
 
 import { BaseTableIo } from "../base";
+import { LayoutCfg } from "../cfg";
 import { GdefTableIo } from "../gdef";
 import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
@@ -15,6 +16,7 @@ import { MathTableIo } from "../math";
 
 export function readOtl(
     sfnt: Sfnt,
+    cfg: LayoutCfg,
     gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ): OtFontLayoutData {
@@ -33,8 +35,8 @@ export function readOtl(
     let gsub: Data.Maybe<Gsub.Table> = null;
     let gpos: Data.Maybe<Gpos.Table> = null;
     const trc: TableReadContext = { gOrd, gdef, designSpace, ivs };
-    if (bGsub) gsub = new BinaryView(bGsub).next(GsubTableIo, trc);
-    if (bGpos) gpos = new BinaryView(bGpos).next(GposTableIo, trc);
+    if (bGsub) gsub = new BinaryView(bGsub).next(GsubTableIo, cfg, trc);
+    if (bGpos) gpos = new BinaryView(bGpos).next(GposTableIo, cfg, trc);
 
     const bBase = sfnt.tables.get(Base.Tag);
     const base = bBase ? new BinaryView(bBase).next(BaseTableIo, gOrd, designSpace) : null;

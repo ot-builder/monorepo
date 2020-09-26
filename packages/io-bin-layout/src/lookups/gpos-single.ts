@@ -148,12 +148,12 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
 
     private buildJagged(
         frags: Frag[],
-        forceFormat2Cov: boolean,
+        forceFormat1Cov: boolean,
         jagged: [number, Gpos.Adjustment][],
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const { fmt, data } = this.pickJaggedData(jagged);
-        frags.push(Frag.from(SubtableFormat2, data, fmt, forceFormat2Cov, ctx));
+        frags.push(Frag.from(SubtableFormat2, data, fmt, forceFormat1Cov, ctx));
         return data.length;
     }
 
@@ -170,7 +170,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
 
     public createSubtableFragments(lookup: Gpos.Single, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
-        const forceFormat2 = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverageForSingleLookup);
+        const forceFormat1Cov = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage);
         const st = new GsubSingleWriterState();
         for (const [from, to] of lookup.adjustments) {
             st.addRecord(ctx.gOrd.reverse(from), to, ctx);
@@ -180,7 +180,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         // jagged
         const jagged = st.collectJagged(singleLookup);
         while (jagged.length) {
-            const len = this.buildJagged(frags, forceFormat2, jagged, ctx);
+            const len = this.buildJagged(frags, forceFormat1Cov, jagged, ctx);
             jagged.splice(0, len);
         }
 

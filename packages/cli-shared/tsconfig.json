@@ -6,14 +6,14 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/402b0417143c82e3755fb57bcbf0b3c0f6b3d03414da569d16047fb3360e63a7"
+    "tsBuildInfoFile": "../../.cache/180b0160b310452bf3fc60b8d3c20deec0dd2539604c99c65a07a3aeb91e1fc5"
   },
   "references": [
     {
-      "path": "../errors/tsconfig.json"
+      "path": "../prelude/tsconfig.json"
     },
     {
-      "path": "../prelude/tsconfig.json"
+      "path": "../errors/tsconfig.json"
     },
     {
       "path": "../bin-util/tsconfig.json"
@@ -40,13 +40,22 @@
       "path": "../ot-layout/tsconfig.json"
     },
     {
+      "path": "../ot-metadata/tsconfig.json"
+    },
+    {
+      "path": "../ot-ext-private/tsconfig.json"
+    },
+    {
+      "path": "../ot-name/tsconfig.json"
+    },
+    {
+      "path": "../ot-standard-glyph-namer/tsconfig.json"
+    },
+    {
       "path": "../ot-sfnt/tsconfig.json"
     },
     {
       "path": "../test-util/tsconfig.json"
-    },
-    {
-      "path": "../ot-metadata/tsconfig.json"
     },
     {
       "path": "../var-store/tsconfig.json"
@@ -73,16 +82,7 @@
       "path": "../io-bin-glyph-store/tsconfig.json"
     },
     {
-      "path": "../ot-ext-private/tsconfig.json"
-    },
-    {
       "path": "../io-bin-encoding/tsconfig.json"
-    },
-    {
-      "path": "../ot-name/tsconfig.json"
-    },
-    {
-      "path": "../ot-standard-glyph-namer/tsconfig.json"
     },
     {
       "path": "../io-bin-ext-private/tsconfig.json"
@@ -98,24 +98,6 @@
     },
     {
       "path": "../io-bin-font/tsconfig.json"
-    },
-    {
-      "path": "../rectify/tsconfig.json"
-    },
-    {
-      "path": "../trace/tsconfig.json"
-    },
-    {
-      "path": "../cli-proc/tsconfig.json"
-    },
-    {
-      "path": "../index/tsconfig.json"
-    },
-    {
-      "path": "../cli-help-shower/tsconfig.json"
-    },
-    {
-      "path": "../cli-shared/tsconfig.json"
     }
   ]
 }

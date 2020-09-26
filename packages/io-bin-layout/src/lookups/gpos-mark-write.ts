@@ -7,7 +7,8 @@ import { UInt16 } from "@ot-builder/primitive";
 import {
     LookupWriter,
     SubtableSizeLimit,
-    SubtableWriteContext
+    SubtableWriteContext,
+    SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
 import { CovAuxMappingT, CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
@@ -213,8 +214,16 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
         const axmBases = CovUtils.auxMapFromMapExcl(this.bases, ctx.gOrd, this.exclude);
 
         frag.uint16(1)
-            .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(axmMarks))
-            .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(axmBases))
+            .push(
+                Ptr16GidCoverage,
+                CovUtils.gidListFromAuxMap(axmMarks),
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
+            .push(
+                Ptr16GidCoverage,
+                CovUtils.gidListFromAuxMap(axmBases),
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
             .uint16(this.relocation.reward.length)
             .ptr16(Frag.from(MarkArray, axmMarks, this.relocation, ctx))
             .ptr16(Frag.from(BaseArray, axmBases, this.relocation, ctx));
@@ -272,8 +281,16 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
         const axmBases = CovUtils.auxMapFromMapExcl(this.bases, ctx.gOrd, this.exclude);
 
         frag.uint16(1)
-            .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(axmMarks))
-            .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(axmBases))
+            .push(
+                Ptr16GidCoverage,
+                CovUtils.gidListFromAuxMap(axmMarks),
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
+            .push(
+                Ptr16GidCoverage,
+                CovUtils.gidListFromAuxMap(axmBases),
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
             .uint16(this.relocation.reward.length)
             .ptr16(Frag.from(MarkArray, axmMarks, this.relocation, ctx))
             .ptr16(Frag.from(LigatureArray, axmBases, this.relocation, ctx));

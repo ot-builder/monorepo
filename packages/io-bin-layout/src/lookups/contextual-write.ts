@@ -178,16 +178,34 @@ class CCoverageRule<L> {
         const lookAheadSets = rule.match.slice(rule.inputEnds);
         if (isChaining) {
             frag.uint16(backtrackSets.length);
-            for (const set of backtrackSets) frag.push(Ptr16GlyphCoverage, set, ctx.gOrd);
+            for (const set of backtrackSets)
+                frag.push(
+                    Ptr16GlyphCoverage,
+                    set,
+                    ctx.gOrd,
+                    !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+                );
         }
 
         frag.uint16(inputSets.length);
         if (!isChaining) frag.uint16(rule.applications.length);
-        for (const set of inputSets) frag.push(Ptr16GlyphCoverage, set, ctx.gOrd);
+        for (const set of inputSets)
+            frag.push(
+                Ptr16GlyphCoverage,
+                set,
+                ctx.gOrd,
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            );
 
         if (isChaining) {
             frag.uint16(lookAheadSets.length);
-            for (const set of lookAheadSets) frag.push(Ptr16GlyphCoverage, set, ctx.gOrd);
+            for (const set of lookAheadSets)
+                frag.push(
+                    Ptr16GlyphCoverage,
+                    set,
+                    ctx.gOrd,
+                    !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+                );
 
             frag.uint16(rule.applications.length);
         }
@@ -234,7 +252,12 @@ class CClassRuleSet<L> {
         ctx: SubtableWriteContext<L>
     ) {
         frag.uint16(2);
-        frag.push(Ptr16GlyphCoverage, s.firstGlyphSet, ctx.gOrd);
+        frag.push(
+            Ptr16GlyphCoverage,
+            s.firstGlyphSet,
+            ctx.gOrd,
+            !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+        );
         if (isChaining) frag.push(Ptr16ClassDef, s.cdBacktrack, ctx.gOrd);
         frag.push(Ptr16ClassDef, s.cdInput, ctx.gOrd);
         if (isChaining) frag.push(Ptr16ClassDef, s.cdLookAhead, ctx.gOrd);
@@ -295,40 +318,6 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         ctx: SubtableWriteContext<L>
     ) {
         return Frag.from(this.wClassRuleSet, isChaining, s, ctx);
-    }
-
-    private flushState(
-        isChaining: boolean,
-        s: ClassDefsAnalyzeState<L>,
-        results: Frag[],
-        ctx: SubtableWriteContext<L>
-    ) {
-        if (!s.rules.length) return;
-        const subtablesCov: Frag[] = [];
-        let subtableCovSize: number = 0;
-        for (const rule of s.rules) {
-            const st = this.covSubtable(rule, isChaining, ctx);
-            subtablesCov.push(st);
-            subtableCovSize += UInt16.size + this.estimateCovRuleSize(rule);
-        }
-
-        const subtableClasses = this.clsSubtable(s, isChaining, ctx);
-        if (this.shouldUseClassBasedSubtable(ctx, s, subtableCovSize)) {
-            results.push(subtableClasses);
-        } else {
-            for (const st of subtablesCov) results.push(st);
-        }
-    }
-
-    private shouldUseClassBasedSubtable(
-        ctx: SubtableWriteContext<L>,
-        s: ClassDefsAnalyzeState<L>,
-        subtableCovSize: number
-    ) {
-        return (
-            ctx.trick & SubtableWriteTrick.ChainingForceFormat2 ||
-            s.estimateCurrentSize() + UInt16.size <= subtableCovSize
-        );
     }
 
     public createSubtableFragments(lookup: C, ctx: SubtableWriteContext<L>): Array<Frag> {

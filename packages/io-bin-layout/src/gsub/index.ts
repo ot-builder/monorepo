@@ -2,6 +2,7 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Gsub } from "@ot-builder/ot-layout";
 
+import { LayoutCfg } from "../cfg";
 import {
     LookupReader,
     LookupReaderFactory,
@@ -57,11 +58,11 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
 };
 
 export const GsubTableIo = {
-    read(view: BinaryView, trc: TableReadContext) {
-        const o = view.next(new CGsubGposTable<Gsub.Lookup>(), gsub, trc);
+    read(view: BinaryView, cfg: LayoutCfg, trc: TableReadContext) {
+        const o = view.next(new CGsubGposTable<Gsub.Lookup>(), cfg, gsub, trc);
         return new Gsub.Table(o.scripts, o.features, o.lookups, o.featureVariations);
     },
-    write(frag: Frag, table: Gsub.Table, twc: TableWriteContext) {
-        return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, gsub, twc);
+    write(frag: Frag, table: Gsub.Table, cfg: LayoutCfg, twc: TableWriteContext) {
+        return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, cfg, gsub, twc);
     }
 };

@@ -1,6 +1,11 @@
+import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
 import { Ot } from "ot-builder";
 
-export class CliState {
+export class CliState implements CliArgSource {
+    // Options
+    public optimizationLevel = OptimizationLevel.None;
+    public recalcOs2XAvgCharWidth = true;
+    // Argument stack
     private stack: CliStackEntry[] = [];
     public push(c: CliStackEntry) {
         this.stack.push(c);

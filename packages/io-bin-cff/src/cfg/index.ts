@@ -10,5 +10,5 @@ export interface CffCfgPt {
 }
 export const DefaultCffCfgProps: CffCfgProps = {
     doLocalOptimization: true,
-    doGlobalOptimization: true
+    doGlobalOptimization: false
 };

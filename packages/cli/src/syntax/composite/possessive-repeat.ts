@@ -3,8 +3,12 @@ import { CliHelpShower } from "@ot-builder/cli-help-shower";
 import { ParseResult, ParseState } from "../../argv-parser";
 import { Grammar, Syntax } from "../../command";
 
-export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
-    constructor(private readonly body: Syntax<null | T>) {}
+export interface Join<T> {
+    join(items: T[]): T;
+}
+
+export class PossessiveRepeatSyntax<T> implements Syntax<T> {
+    constructor(private readonly joiner: Join<T>, private readonly body: Syntax<null | T>) {}
     public handle(st0: ParseState, grammar: Grammar) {
         const results: T[] = [];
         let st = st0;
@@ -14,7 +18,7 @@ export class PossessiveRepeatSyntax<T> implements Syntax<T[]> {
                 st = pr.progress;
                 results.push(pr.result);
             } else {
-                return ParseResult(st, results);
+                return ParseResult(st, this.joiner.join(results));
             }
         }
     }

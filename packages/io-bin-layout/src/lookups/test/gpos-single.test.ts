@@ -40,9 +40,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick:
-                SubtableWriteTrick.AvoidBreakSubtable |
-                SubtableWriteTrick.UseFlatCoverageForSingleLookup
+            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
         });
     });
     test("Very same", () => {
@@ -60,9 +58,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick:
-                SubtableWriteTrick.AvoidBreakSubtable |
-                SubtableWriteTrick.UseFlatCoverageForSingleLookup
+            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
         });
     });
     test("Variable", () => {

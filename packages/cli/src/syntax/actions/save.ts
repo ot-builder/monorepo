@@ -1,6 +1,7 @@
 import * as Path from "path";
 
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { inferSaveCfg } from "@ot-builder/cli-shared";
 import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
@@ -16,7 +17,7 @@ export const SaveSyntax: Syntax<null | CliAction> = {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to save.");
             console.log(`Save ${entry} -> ${prPath.result}`);
-            await saveFontToFile(prPath.result, entry.font);
+            await saveFontToFile(prPath.result, entry.font, inferSaveCfg(state, entry.font));
         });
     },
     displayHelp(shower: CliHelpShower) {
@@ -37,7 +38,7 @@ export const SaveSyntax: Syntax<null | CliAction> = {
 export async function saveFontToFile<GS extends Ot.GlyphStore>(
     path: string,
     font: Ot.Font<GS>,
-    cfg?: FontIo.FontIoConfig
+    cfg: FontIo.FontIoConfig
 ) {
     const buf1 = FontIo.writeSfntOtf(FontIo.writeFont(font, cfg));
     await Fs.writeFile(Path.resolve(path), buf1);

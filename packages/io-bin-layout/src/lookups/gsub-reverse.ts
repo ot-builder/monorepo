@@ -7,7 +7,8 @@ import {
     LookupReader,
     LookupWriter,
     SubtableReadingContext,
-    SubtableWriteContext
+    SubtableWriteContext,
+    SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -53,9 +54,23 @@ const SubtableFormat1 = {
         gm = CovUtils.sortAuxMap(gm);
 
         frag.uint16(1)
-            .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(gm))
-            .push(SimpleCoverageArray, rule.match.slice(0, rule.doSubAt), ctx.gOrd)
-            .push(SimpleCoverageArray, rule.match.slice(rule.doSubAt + 1), ctx.gOrd)
+            .push(
+                Ptr16GidCoverage,
+                CovUtils.gidListFromAuxMap(gm),
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
+            .push(
+                SimpleCoverageArray,
+                rule.match.slice(0, rule.doSubAt),
+                ctx.gOrd,
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
+            .push(
+                SimpleCoverageArray,
+                rule.match.slice(rule.doSubAt + 1),
+                ctx.gOrd,
+                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
+            )
             .uint16(gm.length)
             .array(UInt16, CovUtils.valueListFromAuxMap(gm));
     }

@@ -23,13 +23,13 @@ export type TestOtlLoopYield = {
 export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     const bufFont = TestFont.get(file);
     const sfnt = readSfntOtf(bufFont);
-    const cfg = { fontMetadata: {}, encoding: DefaultEncodingCfgProps };
+    const cfg = { fontMetadata: {}, encoding: DefaultEncodingCfgProps, layout: {} };
 
     const md = readOtMetadata(sfnt, cfg);
     const gs = OtListGlyphStoreFactory.createStoreFromSize(md.maxp.numGlyphs);
     const gOrd = gs.decideOrder();
     const encoding = readEncoding(sfnt, cfg, gOrd, md);
-    const otlRound0 = readOtl(sfnt, gOrd, md);
+    const otlRound0 = readOtl(sfnt, cfg, gOrd, md);
 
     yield { round: 0, otl: otlRound0, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
 
@@ -37,9 +37,9 @@ export function* TestOtlLoop(file: string): IterableIterator<TestOtlLoopYield> {
     for (let round = 1; round < 4; round++) {
         const tempSfnt = new Sfnt(0x10000);
         const sink = new SfntIoTableSink(tempSfnt);
-        writeOtl(sink, otlRound0, gOrd, md);
+        writeOtl(sink, otlRound0, cfg, gOrd, md);
 
-        otl = readOtl(tempSfnt, gOrd, md);
+        otl = readOtl(tempSfnt, cfg, gOrd, md);
         yield { round, otl: otl, gOrd, fvar: md.fvar, cmap: encoding.cmap! };
     }
 }

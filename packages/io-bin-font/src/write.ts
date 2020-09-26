@@ -62,7 +62,7 @@ export function writeFont<GS extends Ot.GlyphStore>(
 
     // Alias fonts
     const md = MD(font, new WritePostNaming(gOrd));
-    writeOtl(sink, OTL(font), gOrd, md);
+    writeOtl(sink, OTL(font), fullCfg, gOrd, md);
     writeEncoding(sink, fullCfg, Encoding(font), gOrd, md);
     if (Ot.Font.isCff(font)) {
         writeGlyphStore(sink, fullCfg, md, CffCoGlyphs(font), gOrd, WriteCffGlyphs);

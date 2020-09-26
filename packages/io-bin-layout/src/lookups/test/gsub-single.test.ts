@@ -31,9 +31,7 @@ describe("GSUB single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick:
-                SubtableWriteTrick.AvoidBreakSubtable |
-                SubtableWriteTrick.UseFlatCoverageForSingleLookup
+            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
         });
     });
 });

@@ -1,3 +1,4 @@
+import { inferSaveCfg } from "@ot-builder/cli-shared";
 import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
@@ -72,11 +73,13 @@ async function glyphSharingMerging(args: ArgParser) {
 
     if (args.output) {
         const resultBuffers: Buffer[] = [];
-        const cfg = {
-            glyphStore: { statOs2XAvgCharWidth: false },
-            ttf: { gvarForceProduceGVD: args.sparse, gvarForceZeroGapsBetweenGVD: args.sparse }
-        };
         for (const font of sharer.fonts) {
+            const cfg: FontIo.FontIoConfig = inferSaveCfg(args, font);
+            cfg.ttf = {
+                ...cfg.ttf,
+                gvarForceProduceGVD: args.sparse,
+                gvarForceZeroGapsBetweenGVD: args.sparse
+            };
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));
         }
         const slices = createTtcSlices(resultBuffers, sharing);

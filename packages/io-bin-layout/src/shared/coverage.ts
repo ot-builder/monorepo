@@ -106,9 +106,14 @@ export const GlyphCoverage = {
         const cov = view.next(GidCoverage);
         return CovUtils.glyphSetFromGidList(cov, gOrd);
     },
-    write(frag: Frag, gs: ReadonlySet<OtGlyph>, gOrd: Data.Order<OtGlyph>) {
+    write(
+        frag: Frag,
+        gs: ReadonlySet<OtGlyph>,
+        gOrd: Data.Order<OtGlyph>,
+        forceFormat1?: boolean
+    ) {
         const gl = CovUtils.gidListFromGlyphSet(gs, gOrd);
-        frag.push(GidCoverage, gl);
+        frag.push(GidCoverage, gl, forceFormat1);
     }
 };
 export const NullablePtr16GlyphCoverage = NullablePtr16(GlyphCoverage);

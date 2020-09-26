@@ -3,7 +3,11 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos, GsubGpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
+import {
+    LookupWriter,
+    SubtableWriteContext,
+    SubtableWriteTrick
+} from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
@@ -138,7 +142,7 @@ const SubtableFormat1 = {
                 fPairSet.push(GposAdjustment, adj[1], format2, ctx.ivs);
             }
         }
-        fCoverage.push(GidCoverage, cov);
+        fCoverage.push(GidCoverage, cov, !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage));
         hPairSetCount.fill(cov.length);
     }
 };

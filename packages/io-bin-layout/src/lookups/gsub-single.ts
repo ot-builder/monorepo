@@ -113,11 +113,11 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
     public getLookupTypeSymbol() {
         return Gsub.LookupType.Single;
     }
-    private buildJagged(frags: Frag[], forceFormat2: boolean, jagged: [number, number][]) {
+    private buildJagged(frags: Frag[], forceFormat1Cov: boolean, jagged: [number, number][]) {
         const data = CovUtils.sortAuxMap(
             [...jagged].slice(0, SubtableSizeLimit / (2 * UInt16.size))
         );
-        frags.push(Frag.from(SubtableFormat2, forceFormat2, data));
+        frags.push(Frag.from(SubtableFormat2, forceFormat1Cov, data));
         return data.length;
     }
 
@@ -129,7 +129,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
 
     public createSubtableFragments(lookup: Gsub.Single, ctx: SubtableWriteContext<Gsub.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
-        const forceFormat2 = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverageForSingleLookup);
+        const forceFormat1Cov = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage);
         const st = new GsubSingleWriterState();
         for (const [from, to] of lookup.mapping) {
             st.addGidDiff(ctx.gOrd.reverse(from), ctx.gOrd.reverse(to));
@@ -139,7 +139,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         // jagged
         const jagged = st.collectJagged(singleLookup);
         while (jagged.length) {
-            const len = this.buildJagged(frags, forceFormat2, jagged);
+            const len = this.buildJagged(frags, forceFormat1Cov, jagged);
             jagged.splice(0, len);
         }
 

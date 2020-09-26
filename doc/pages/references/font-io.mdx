@@ -103,17 +103,27 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         Whether to force a `cmap` format 4 subtable to be present even if it is empty or non-buildable (i.e. when all characters are mapped to exactly the same glyph). Under those situations, a “stub” `cmap` format 4 subtable containing no mapping will be created. Defaults to `true`.
 
-* <Item optional s={FontIo.FontIoConfig.extPrivate}/>:
-
-    * <Member optional s={FontIo.FontIoConfig.extPrivate.processExtPrivateTable} type={boolean} />
-
-        Whether process the Extensible Privates Table (`XPRV`). Defaults to `true`.
-
 * <Item optional s={FontIo.FontIoConfig.glyphNaming}/>:
 
     * <Member optional s={FontIo.FontIoConfig.glyphNaming.namer} type={Ot.GlyphNamer} />
 
         The glyph namer. Defaults to <R s={Ot.StandardOtGlyphNamer}/>.
+
+* <Item optional s={FontIo.FontIoConfig.layout}/>:
+
+    * <Member optional s={FontIo.FontIoConfig.layout.lookupWriteTricks} type={map(Ot.GsubGpos.LookupProp, number)} />
+
+        Specific options to control writing behavior when writing `GSUB` and `GPOS` lookups, to provide platform-specific optimizations. The number is a flag-field and could be assigned as:
+
+        * `0x0001`: Avoid lookup being lifted as an extension lookup;
+        * `0x0002`: Force single substitution and single position lookups to form one single subtable;
+        * `0x0004`: Force single substitution and single position lookups to use flat (format 1) coverage table;
+
+* <Item optional s={FontIo.FontIoConfig.extPrivate}/>:
+
+    * <Member optional s={FontIo.FontIoConfig.extPrivate.processExtPrivateTable} type={boolean} />
+
+        Whether process the Extensible Privates Table (`XPRV`). Defaults to `true`.
 
 * <Member optional s={FontIo.FontIoConfig.generateDummyDigitalSignature} type={boolean} />
 

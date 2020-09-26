@@ -6,14 +6,14 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "composite": true,
-    "tsBuildInfoFile": "../../.cache/c39a0a1110dc285fbfe3bacfaf9bdf5e14e095ccbe5f27d463f7022880b7db24"
+    "tsBuildInfoFile": "../../.cache/180b0160b310452bf3fc60b8d3c20deec0dd2539604c99c65a07a3aeb91e1fc5"
   },
   "references": [
     {
-      "path": "../errors/tsconfig.prod.json"
+      "path": "../prelude/tsconfig.prod.json"
     },
     {
-      "path": "../prelude/tsconfig.prod.json"
+      "path": "../errors/tsconfig.prod.json"
     },
     {
       "path": "../bin-util/tsconfig.prod.json"
@@ -40,13 +40,22 @@
       "path": "../ot-layout/tsconfig.prod.json"
     },
     {
+      "path": "../ot-metadata/tsconfig.prod.json"
+    },
+    {
+      "path": "../ot-ext-private/tsconfig.prod.json"
+    },
+    {
+      "path": "../ot-name/tsconfig.prod.json"
+    },
+    {
+      "path": "../ot-standard-glyph-namer/tsconfig.prod.json"
+    },
+    {
       "path": "../ot-sfnt/tsconfig.prod.json"
     },
     {
       "path": "../test-util/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-metadata/tsconfig.prod.json"
     },
     {
       "path": "../var-store/tsconfig.prod.json"
@@ -73,16 +82,7 @@
       "path": "../io-bin-glyph-store/tsconfig.prod.json"
     },
     {
-      "path": "../ot-ext-private/tsconfig.prod.json"
-    },
-    {
       "path": "../io-bin-encoding/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-name/tsconfig.prod.json"
-    },
-    {
-      "path": "../ot-standard-glyph-namer/tsconfig.prod.json"
     },
     {
       "path": "../io-bin-ext-private/tsconfig.prod.json"
@@ -98,24 +98,6 @@
     },
     {
       "path": "../io-bin-font/tsconfig.prod.json"
-    },
-    {
-      "path": "../rectify/tsconfig.prod.json"
-    },
-    {
-      "path": "../trace/tsconfig.prod.json"
-    },
-    {
-      "path": "../cli-proc/tsconfig.prod.json"
-    },
-    {
-      "path": "../index/tsconfig.prod.json"
-    },
-    {
-      "path": "../cli-help-shower/tsconfig.prod.json"
-    },
-    {
-      "path": "../cli-shared/tsconfig.prod.json"
     }
   ],
   "include": [

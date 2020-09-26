@@ -1,14 +1,11 @@
 {
-  "name": "ot-builder-cli",
+  "name": "@ot-builder/cli-shared",
   "scripts": {
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
   "version": "0.10.25",
-  "bin": {
-    "otb-cli": "./bin/otb-cli"
-  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -21,11 +18,9 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "chalk": "^4.1.0",
-    "ot-builder": "0.10.25",
-    "@ot-builder/cli-help-shower": "0.10.25",
-    "@ot-builder/cli-shared": "0.10.25",
-    "fs-extra": "^9.0.1"
+    "@ot-builder/ot": "0.10.25",
+    "@ot-builder/io-bin-font": "0.10.25",
+    "chalk": "^4.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
