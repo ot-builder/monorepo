@@ -34,4 +34,17 @@ describe("GSUB single lookup handler", () => {
             trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
         });
     });
+    test("Unusual", () => {
+        const lookup: Gsub.Single = new Gsub.Single();
+        for (let gid = 0; gid < gOrd.length; gid++) {
+            lookup.mapping.set(gOrd.at(gid), gOrd.at((gid * gid + gid + 0x30) % gOrd.length));
+        }
+        lookup.mapping = Disorder.shuffleMap(lookup.mapping);
+
+        LookupRoundTripTest(lookup, roundtripConfig);
+        LookupRoundTripTest(lookup, {
+            ...roundtripConfig,
+            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
+        });
+    });
 });

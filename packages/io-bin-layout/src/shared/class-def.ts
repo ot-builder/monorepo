@@ -7,7 +7,7 @@ import { Data } from "@ot-builder/prelude";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 
-export const MaxClsDefItemWords = 2;
+export const MaxClsDefItemWords = 3;
 
 export namespace ClassDefUtil {
     export function padClass0<G>(cd: LayoutCommon.ClassDef.T<G>, gs: Iterable<G>) {

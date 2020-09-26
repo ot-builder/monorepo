@@ -43,7 +43,7 @@ export interface LookupWriterFactory<L> {
     writers(): Iterable<LookupWriter<L, any>>;
 }
 
-export const SubtableSizeLimit = 0x8000;
+export const SubtableSizeLimit = 0xf000;
 
 export enum LookupFlag {
     RightToLeft = 1,

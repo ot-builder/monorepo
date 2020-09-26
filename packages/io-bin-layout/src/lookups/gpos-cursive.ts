@@ -67,7 +67,7 @@ export class GposCursiveReader implements LookupReader<Gpos.Lookup, Gpos.Cursive
 
 class State {
     public mapping: Map<OtGlyph, Gpos.CursiveAnchorPair> = new Map();
-    public size = UInt16.size * 3;
+    public size = UInt16.size * 4;
 
     public tryAddMapping(from: OtGlyph, to: Gpos.CursiveAnchorPair) {
         const deltaSize =

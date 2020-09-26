@@ -65,18 +65,18 @@ export const GposAnchor = {
     },
     measure(a: Data.Maybe<Gpos.Anchor>) {
         if (!a) return 0;
-        const s = Int16.size * 3;
-        if (a.attachToPoint) return s + Int16.size;
-        else {
-            if (!anchorNeedsFormat3(a)) {
-                return s;
-            } else {
-                return (
-                    UInt16.size * 8 +
-                    (a.xDevice ? a.xDevice.length : 0) +
-                    (a.yDevice ? a.yDevice.length : 0)
-                );
-            }
+        const staticSize = Int16.size * 3;
+        if (a.attachToPoint) {
+            return staticSize + Int16.size;
+        } else if (!anchorNeedsFormat3(a)) {
+            return staticSize;
+        } else {
+            return (
+                staticSize +
+                UInt16.size * 8 +
+                (a.xDevice ? a.xDevice.length : 0) +
+                (a.yDevice ? a.yDevice.length : 0)
+            );
         }
     }
 };
