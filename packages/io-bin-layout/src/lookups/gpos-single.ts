@@ -35,7 +35,7 @@ const SubtableFormat1 = {
     ) {
         const fmt = GposAdjustment.decideFormat(adj);
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, data);
+        frag.push(Ptr16GidCoverage, data, ctx.trick);
         frag.uint16(fmt);
         frag.push(GposAdjustment, adj, fmt, ctx.ivs);
     }
@@ -62,11 +62,11 @@ const SubtableFormat2 = {
         frag: Frag,
         data: [number, Gpos.Adjustment][],
         fmt: number,
-        flat: boolean,
+
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         frag.uint16(2);
-        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), !!flat);
+        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(fmt);
         frag.uint16(data.length);
         frag.array(GposAdjustment, CovUtils.valueListFromAuxMap(data), fmt, ctx.ivs);
@@ -148,12 +148,11 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
 
     private buildJagged(
         frags: Frag[],
-        forceFormat1Cov: boolean,
         jagged: [number, Gpos.Adjustment][],
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const { fmt, data } = this.pickJaggedData(jagged);
-        frags.push(Frag.from(SubtableFormat2, data, fmt, forceFormat1Cov, ctx));
+        frags.push(Frag.from(SubtableFormat2, data, fmt, ctx));
         return data.length;
     }
 
@@ -170,7 +169,6 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
 
     public createSubtableFragments(lookup: Gpos.Single, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
-        const forceFormat1Cov = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage);
         const st = new GsubSingleWriterState();
         for (const [from, to] of lookup.adjustments) {
             st.addRecord(ctx.gOrd.reverse(from), to, ctx);
@@ -180,7 +178,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         // jagged
         const jagged = st.collectJagged(singleLookup);
         while (jagged.length) {
-            const len = this.buildJagged(frags, forceFormat1Cov, jagged, ctx);
+            const len = this.buildJagged(frags, jagged, ctx);
             jagged.splice(0, len);
         }
 

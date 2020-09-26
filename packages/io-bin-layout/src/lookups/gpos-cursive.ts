@@ -9,8 +9,7 @@ import {
     LookupWriter,
     SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext,
-    SubtableWriteTrick
+    SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
@@ -36,7 +35,7 @@ const SubtableFormat1 = {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, gidList, !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage));
+        frag.push(Ptr16GidCoverage, gidList, ctx.trick);
         frag.uint16(values.length);
         for (const to of values) {
             frag.push(NullablePtr16GposAnchor, to.entry, ctx.ivs);

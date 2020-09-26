@@ -179,33 +179,17 @@ class CCoverageRule<L> {
         if (isChaining) {
             frag.uint16(backtrackSets.length);
             for (const set of backtrackSets)
-                frag.push(
-                    Ptr16GlyphCoverage,
-                    set,
-                    ctx.gOrd,
-                    !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
-                );
+                frag.push(Ptr16GlyphCoverage, set, ctx.gOrd, ctx.trick);
         }
 
         frag.uint16(inputSets.length);
         if (!isChaining) frag.uint16(rule.applications.length);
-        for (const set of inputSets)
-            frag.push(
-                Ptr16GlyphCoverage,
-                set,
-                ctx.gOrd,
-                !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
-            );
+        for (const set of inputSets) frag.push(Ptr16GlyphCoverage, set, ctx.gOrd, ctx.trick);
 
         if (isChaining) {
             frag.uint16(lookAheadSets.length);
             for (const set of lookAheadSets)
-                frag.push(
-                    Ptr16GlyphCoverage,
-                    set,
-                    ctx.gOrd,
-                    !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
-                );
+                frag.push(Ptr16GlyphCoverage, set, ctx.gOrd, ctx.trick);
 
             frag.uint16(rule.applications.length);
         }
@@ -252,12 +236,7 @@ class CClassRuleSet<L> {
         ctx: SubtableWriteContext<L>
     ) {
         frag.uint16(2);
-        frag.push(
-            Ptr16GlyphCoverage,
-            s.firstGlyphSet,
-            ctx.gOrd,
-            !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage)
-        );
+        frag.push(Ptr16GlyphCoverage, s.firstGlyphSet, ctx.gOrd, ctx.trick);
         if (isChaining) frag.push(Ptr16ClassDef, s.cdBacktrack, ctx.gOrd);
         frag.push(Ptr16ClassDef, s.cdInput, ctx.gOrd);
         if (isChaining) frag.push(Ptr16ClassDef, s.cdLookAhead, ctx.gOrd);

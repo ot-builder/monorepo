@@ -58,6 +58,7 @@ export enum SubtableWriteTrick {
     AvoidUseExtension = 1,
     AvoidBreakSubtable = 2,
     UseFlatCoverage = 4,
+    UseFastCoverage = 8,
 
     ChainingForceFormat3 = 0x10000,
     ChainingForceFormat2 = 0x20000

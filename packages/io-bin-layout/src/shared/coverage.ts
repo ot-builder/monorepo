@@ -4,6 +4,8 @@ import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
+import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+
 // When parsing a coverage we may often run into a situation that
 // something like a "map" will depend on the order of the coverage's items
 // Therefore we need some auxillary data types to record them
@@ -106,14 +108,9 @@ export const GlyphCoverage = {
         const cov = view.next(GidCoverage);
         return CovUtils.glyphSetFromGidList(cov, gOrd);
     },
-    write(
-        frag: Frag,
-        gs: ReadonlySet<OtGlyph>,
-        gOrd: Data.Order<OtGlyph>,
-        forceFormat1?: boolean
-    ) {
+    write(frag: Frag, gs: ReadonlySet<OtGlyph>, gOrd: Data.Order<OtGlyph>, trick: number = 0) {
         const gl = CovUtils.gidListFromGlyphSet(gs, gOrd);
-        frag.push(GidCoverage, gl, forceFormat1);
+        frag.push(GidCoverage, gl, trick);
     }
 };
 export const NullablePtr16GlyphCoverage = NullablePtr16(GlyphCoverage);
@@ -133,9 +130,21 @@ export const GidCoverage = {
                 throw Errors.FormatNotSupported("coverage", format);
         }
     }),
-    ...Write((frag: Frag, gidList: ReadonlyArray<number>, forceFormat1?: boolean) => {
-        if (forceFormat1) {
+    ...Write((frag: Frag, gidList: ReadonlyArray<number>, trick: number = 0) => {
+        if (trick & SubtableWriteTrick.UseFlatCoverage) {
             frag.push(OtGidCoverageFormat1, gidList);
+        } else if (trick & SubtableWriteTrick.UseFastCoverage) {
+            const collector = new CoverageRunCollector();
+            for (let item = 0; item < gidList.length; item++) {
+                collector.update(gidList[item], item);
+            }
+            collector.end();
+
+            if (collector.runs.length < gidList.length) {
+                frag.push(OtGidCoverageFormat2FromCollector, collector);
+            } else {
+                frag.push(OtGidCoverageFormat1, gidList);
+            }
         } else {
             const format1 = Frag.from(OtGidCoverageFormat1, gidList);
             const format2 = Frag.from(OtGidCoverageFormat2, gidList);
@@ -238,10 +247,15 @@ const OtGidCoverageFormat2 = {
         }
         collector.end();
 
+        frag.push(OtGidCoverageFormat2FromCollector, collector);
+    })
+};
+
+const OtGidCoverageFormat2FromCollector = {
+    ...Write((frag, collector: CoverageRunCollector) => {
         frag.uint16(2).uint16(collector.runs.length);
         for (const run of collector.runs) {
             frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.startCoverageIndex);
         }
-        return frag;
     })
 };

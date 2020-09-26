@@ -142,7 +142,7 @@ const SubtableFormat1 = {
                 fPairSet.push(GposAdjustment, adj[1], format2, ctx.ivs);
             }
         }
-        fCoverage.push(GidCoverage, cov, !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage));
+        fCoverage.push(GidCoverage, cov, ctx.trick);
         hPairSetCount.fill(cov.length);
     }
 };
@@ -157,7 +157,7 @@ const SubtableFormat2 = {
         const classCount1 = ClassDefUtil.getClassCount(fcm.cd1);
         const classCount2 = ClassDefUtil.getClassCount(fcm.cd2);
         frag.uint16(2)
-            .push(Ptr16GidCoverage, cov)
+            .push(Ptr16GidCoverage, cov, ctx.trick)
             .uint16(format1)
             .uint16(format2)
             .push(Ptr16ClassDef, fcm.cd1, ctx.gOrd)

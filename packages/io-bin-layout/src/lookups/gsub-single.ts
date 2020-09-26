@@ -25,9 +25,14 @@ const SubtableFormat1 = {
             lookup.mapping.set(gSource, context.gOrd.at((gid + deltaGlyphId + 0x20000) % 0x10000));
         }
     },
-    write(frag: Frag, gidDiff: number, data: [number, number][]) {
+    write(
+        frag: Frag,
+        gidDiff: number,
+        data: [number, number][],
+        ctx: SubtableWriteContext<Gsub.Lookup>
+    ) {
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data));
+        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(gidDiff);
     }
 };
@@ -48,9 +53,9 @@ const SubtableFormat2 = {
             lookup.mapping.set(gSource, context.gOrd.at(substituteGlyphID));
         }
     },
-    write(frag: Frag, flat: boolean, data: [number, number][]) {
+    write(frag: Frag, data: [number, number][], ctx: SubtableWriteContext<Gsub.Lookup>) {
         frag.uint16(2);
-        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), !!flat);
+        frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(data.length);
         frag.array(UInt16, CovUtils.valueListFromAuxMap(data));
     }
@@ -113,23 +118,31 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
     public getLookupTypeSymbol() {
         return Gsub.LookupType.Single;
     }
-    private buildJagged(frags: Frag[], forceFormat1Cov: boolean, jagged: [number, number][]) {
+    private buildJagged(
+        frags: Frag[],
+        jagged: [number, number][],
+        ctx: SubtableWriteContext<Gsub.Lookup>
+    ) {
         const data = CovUtils.sortAuxMap(
             [...jagged].slice(0, SubtableSizeLimit / (2 * UInt16.size))
         );
-        frags.push(Frag.from(SubtableFormat2, forceFormat1Cov, data));
+        frags.push(Frag.from(SubtableFormat2, data, ctx));
         return data.length;
     }
 
-    private buildUniform(frags: Frag[], gidDiff: number, mappings: [number, number][]) {
+    private buildUniform(
+        frags: Frag[],
+        gidDiff: number,
+        mappings: [number, number][],
+        ctx: SubtableWriteContext<Gsub.Lookup>
+    ) {
         const data = CovUtils.sortAuxMap([...mappings].slice(0, SubtableSizeLimit / UInt16.size));
-        frags.push(Frag.from(SubtableFormat1, gidDiff, data));
+        frags.push(Frag.from(SubtableFormat1, gidDiff, data, ctx));
         return data.length;
     }
 
     public createSubtableFragments(lookup: Gsub.Single, ctx: SubtableWriteContext<Gsub.Lookup>) {
         const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
-        const forceFormat1Cov = !!(ctx.trick & SubtableWriteTrick.UseFlatCoverage);
         const st = new GsubSingleWriterState();
         for (const [from, to] of lookup.mapping) {
             st.addGidDiff(ctx.gOrd.reverse(from), ctx.gOrd.reverse(to));
@@ -139,7 +152,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         // jagged
         const jagged = st.collectJagged(singleLookup);
         while (jagged.length) {
-            const len = this.buildJagged(frags, forceFormat1Cov, jagged);
+            const len = this.buildJagged(frags, jagged, ctx);
             jagged.splice(0, len);
         }
 
@@ -147,7 +160,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         for (const [gidDiff, mappings] of st.mappings) {
             if (mappings && mappings.length) {
                 while (mappings.length) {
-                    const len = this.buildUniform(frags, gidDiff, mappings);
+                    const len = this.buildUniform(frags, gidDiff, mappings, ctx);
                     mappings.splice(0, len);
                 }
             }

@@ -117,7 +117,8 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         * `0x0001`: Avoid lookup being lifted as an extension lookup;
         * `0x0002`: Force single substitution and single position lookups to form one single subtable;
-        * `0x0004`: Force single substitution and single position lookups to use flat (format 1) coverage table;
+        * `0x0004`: Force lookups to use flat (format 1) coverage table;
+        * `0x0008`: Force lookups to use coverage tables with less items instead of smaller footprint;
 
 * <Item optional s={FontIo.FontIoConfig.extPrivate}/>:
 
