@@ -3,7 +3,11 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos, GsubGpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
+import {
+    LookupWriter,
+    SubtableWriteContext,
+    SubtableWriteTrick
+} from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
@@ -138,7 +142,7 @@ const SubtableFormat1 = {
                 fPairSet.push(GposAdjustment, adj[1], format2, ctx.ivs);
             }
         }
-        fCoverage.push(GidCoverage, cov);
+        fCoverage.push(GidCoverage, cov, ctx.trick);
         hPairSetCount.fill(cov.length);
     }
 };
@@ -153,11 +157,11 @@ const SubtableFormat2 = {
         const classCount1 = ClassDefUtil.getClassCount(fcm.cd1);
         const classCount2 = ClassDefUtil.getClassCount(fcm.cd2);
         frag.uint16(2)
-            .push(Ptr16GidCoverage, cov)
+            .push(Ptr16GidCoverage, cov, ctx.trick)
             .uint16(format1)
             .uint16(format2)
-            .push(Ptr16ClassDef, fcm.cd1, ctx.gOrd)
-            .push(Ptr16ClassDef, fcm.cd2, ctx.gOrd)
+            .push(Ptr16ClassDef, fcm.cd1, ctx.gOrd, ctx.trick)
+            .push(Ptr16ClassDef, fcm.cd2, ctx.gOrd, ctx.trick)
             .uint16(classCount1)
             .uint16(classCount2);
 

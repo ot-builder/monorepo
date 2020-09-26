@@ -9,6 +9,6 @@ export interface Syntax<T> {
     displayHelp(shower: CliHelpShower): void;
 }
 export type Grammar = {
-    start: Syntax<null | CliAction[]>;
+    start: Syntax<null | CliAction>;
     element: Syntax<null | CliAction>;
 };

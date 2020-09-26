@@ -4,15 +4,13 @@ import { ParseResult } from "../../argv-parser";
 import { CliAction, Syntax } from "../../command";
 import { packageVersion } from "../../package-version";
 
-export const VersionSyntax: Syntax<null | CliAction[]> = {
+export const VersionSyntax: Syntax<null | CliAction> = {
     handle: (st, sy) => {
         if (!st.isOption("--version", "-v")) return ParseResult(st, null);
 
-        return ParseResult(st.next(), [
-            async state => {
-                console.log(packageVersion);
-            }
-        ]);
+        return ParseResult(st.next(), async state => {
+            console.log(packageVersion);
+        });
     },
     displayHelp(shower: CliHelpShower) {
         shower.message(

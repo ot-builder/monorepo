@@ -1,8 +1,9 @@
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
 
 import { packageVersion } from "./package-version";
 
-export class ArgParser {
+export class ArgParser implements CliArgSource {
     public inputs: string[] = [];
     public output?: string;
     public unify = false;
@@ -10,6 +11,9 @@ export class ArgParser {
     public displayVersion = false;
     public displayHelp = false;
     public verbose = false;
+
+    public optimizationLevel = OptimizationLevel.None;
+    public recalcOs2XAvgCharWidth = false; // Never re-calculate this
 
     private acceptArgs = true;
     private argName: null | string = null;
@@ -48,6 +52,14 @@ export class ArgParser {
                 return;
             case "-o":
                 this.argName = x;
+                return;
+            case `--optimize-speed`:
+            case `-Op`:
+                this.optimizationLevel = OptimizationLevel.Speed;
+                return;
+            case `--optimize-size`:
+            case `-Oz`:
+                this.optimizationLevel = OptimizationLevel.Size;
                 return;
             default:
                 throw new Error("Unrecognized option " + x);
@@ -94,30 +106,36 @@ export function displayHelp() {
         .withIndent(Style.Bullet, s => {
             s.hangingIndent("  ").message(
                 Style.Cmd`otb-ttc-bundle`,
-                ...Style.OptRun(
-                    ...Style.AltRun(
-                        ...[Style.Option`-u`, Style.Option`--unify`],
-                        ...[Style.Option`-x`, Style.Option`--sparse`],
-                        Style.Option`--verbose`
-                    )
-                ),
+                ...Style.OptRun(`options`),
                 ...Style.OptRun(Style.Option`-o`, Style.Param`output`),
-                ...[Style.Param`input_1`, Style.Param`input_2`, `...`, Style.Param`input_n`]
+                ...[Style.Param`input_1`, `...`, Style.Param`input_n`]
             );
             s.indent("").message(`Bundles multiple TTF into one TTC with glyph sharing.`);
             s.withIndent(Style.Bullet, s => {
+                s.message(Style.Option`-o`, Style.Param`output`)
+                    .indent(``)
+                    .message(`Set output file path.`);
+                s.message(Style.Param`input_1`, `...`, Style.Param`input_n`)
+                    .indent(``)
+                    .message(`Input files, could be either TTF, OTF or TTC.`);
+            });
+            s.indent("").message(``).message(`Options:`);
+            s.withIndent(Style.Bullet, s => {
+                s.message(Style.Option`--verbose`)
+                    .indent(``)
+                    .message(`Set to verbose mode.`);
                 s.message(Style.Option`-u`, `;`, Style.Option`--unify`)
                     .indent(``)
                     .message(`Unify glyph set.`);
                 s.message(Style.Option`-x`, `;`, Style.Option`--sparse`)
                     .indent(``)
                     .message(`Enable sparse glyph sharing (TrueType outline only).`);
-                s.message(Style.Option`-o`, Style.Param`output`)
+                s.message(Style.Option`-Op`, `;`, Style.Option`--optimize-speed`)
                     .indent(``)
-                    .message(`Set output file path.`);
-                s.message(Style.Param`input_1`, Style.Param`input_2`, `...`, Style.Param`input_n`)
+                    .message(`Optimize the output data arrangement for faster layout.`);
+                s.message(Style.Option`-Oz`, `;`, Style.Option`--optimize-speed`)
                     .indent(``)
-                    .message(`Input files, could be either TTF, OTF or TTC.`);
+                    .message(`Optimize the output data arrangement for smaller file size.`);
             });
         });
 }

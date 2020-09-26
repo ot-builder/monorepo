@@ -7,6 +7,7 @@ import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
+import { LayoutCfg } from "../cfg";
 import { OtlStat } from "../stat";
 
 import { CFeatureList } from "./feature-list";
@@ -34,7 +35,12 @@ export interface TableWriteContext {
 }
 
 export class CGsubGposTable<L extends GsubGpos.LookupProp> {
-    public read(view: BinaryView, lrf: LookupReaderFactory<L>, trc: TableReadContext) {
+    public read(
+        view: BinaryView,
+        cfg: LayoutCfg,
+        lrf: LookupReaderFactory<L>,
+        trc: TableReadContext
+    ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         Assert.SubVersionSupported("Table", majorVersion, minorVersion, [1, 0], [1, 1]);
@@ -61,10 +67,11 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
     public write(
         frag: Frag,
         table: GsubGpos.TableT<L>,
+        cfg: LayoutCfg,
         lwf: LookupWriterFactory<L>,
         twc: TableWriteContext
     ) {
-        const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table) };
+        const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table, cfg) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
         const lOrd = ImpLib.Order.fromList(`Lookups`, table.lookups);
         // Feature list is sorted by tag

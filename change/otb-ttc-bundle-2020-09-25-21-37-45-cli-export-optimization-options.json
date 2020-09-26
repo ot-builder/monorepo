@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "CLI: Export optimization options",
+  "packageName": "otb-ttc-bundle",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-09-26T04:37:45.118Z"
+}

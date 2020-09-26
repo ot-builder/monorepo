@@ -1,0 +1,29 @@
+{
+  "name": "@ot-builder/cli-shared",
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
+  "version": "0.10.25",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "lib/**/*.d.ts"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0",
+    "@ot-builder/ot": "0.10.25",
+    "@ot-builder/io-bin-font": "0.10.25",
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "jest": "^26.4.1"
+  }
+}

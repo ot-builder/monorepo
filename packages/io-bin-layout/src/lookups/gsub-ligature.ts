@@ -11,7 +11,7 @@ import {
     SubtableSizeLimit,
     SubtableWriteContext
 } from "../gsub-gpos-shared/general";
-import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
+import { CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
 const SubtableFormat1 = {
     read(view: BinaryView, lookup: Gsub.Ligature, context: SubtableReadingContext<Gsub.Lookup>) {
@@ -49,7 +49,7 @@ const SubtableFormat1 = {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, gidList);
+        frag.push(Ptr16GidCoverage, gidList, ctx.trick);
         frag.uint16(values.length);
         for (const ligSet of values) {
             const fLigSet = frag.ptr16New();
@@ -94,7 +94,7 @@ class State {
     public size = UInt16.size * 4;
 
     public tryAddMapping(from: OtGlyph, [components, to]: LigatureCont) {
-        const deltaSize = UInt16.size * (3 + components.length);
+        const deltaSize = UInt16.size * (2 + MaxCovItemWords + components.length);
         if (this.size + deltaSize > SubtableSizeLimit) return false;
 
         let arr = this.mapping.get(from);

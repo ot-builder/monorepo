@@ -24,6 +24,7 @@
     "chalk": "^4.1.0",
     "ot-builder": "0.10.25",
     "@ot-builder/cli-help-shower": "0.10.25",
+    "@ot-builder/cli-shared": "0.10.25",
     "fs-extra": "^9.0.1"
   },
   "devDependencies": {

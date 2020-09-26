@@ -57,8 +57,9 @@ export enum LookupFlag {
 export enum SubtableWriteTrick {
     AvoidUseExtension = 1,
     AvoidBreakSubtable = 2,
-    UseFlatCoverageForSingleLookup = 4,
+    UseFlatCoverage = 4,
+    UseFastCoverage = 8,
 
-    ChainingForceFormat3 = 0x100,
-    ChainingForceFormat2 = 0x200
+    ChainingForceFormat3 = 0x10000,
+    ChainingForceFormat2 = 0x20000
 }

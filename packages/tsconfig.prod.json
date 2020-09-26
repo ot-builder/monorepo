@@ -109,6 +109,9 @@
       "path": "./cli-help-shower/tsconfig.prod.json"
     },
     {
+      "path": "./cli-shared/tsconfig.prod.json"
+    },
+    {
       "path": "./cli/tsconfig.prod.json"
     },
     {

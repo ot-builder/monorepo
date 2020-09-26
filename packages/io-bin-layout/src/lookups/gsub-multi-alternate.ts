@@ -11,7 +11,7 @@ import {
     SubtableSizeLimit,
     SubtableWriteContext
 } from "../gsub-gpos-shared/general";
-import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
+import { CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
 import { SimpleGidArray } from "./shared-types";
 
@@ -42,7 +42,7 @@ const SubtableFormat1 = {
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, gidList);
+        frag.push(Ptr16GidCoverage, gidList, ctx.trick);
         frag.uint16(values.length);
         for (const to of values) {
             const fSeq = frag.ptr16New();
@@ -77,7 +77,7 @@ class State {
     public size = UInt16.size * 4;
 
     public tryAddMapping(from: OtGlyph, to: ReadonlyArray<OtGlyph>) {
-        const deltaSize = UInt16.size * (2 + to.length);
+        const deltaSize = UInt16.size * (1 + MaxCovItemWords + to.length);
         if (this.size + deltaSize > SubtableSizeLimit) return false;
         this.mapping.set(from, to);
         this.size += deltaSize;

@@ -7,7 +7,12 @@ import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import { LookupReader, LookupWriter, SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import {
+    LookupReader,
+    LookupWriter,
+    SubtableWriteContext,
+    SubtableWriteTrick
+} from "../../gsub-gpos-shared/general";
 import { EmptyStat } from "../../stat";
 
 export interface LookupRoundTripConfig<L, C extends L> {
@@ -24,6 +29,14 @@ export function LookupRoundTripTest<L, C extends L>(
     expected: C,
     cfg: LookupRoundTripConfig<L, C>
 ) {
+    LookupRoundTripTestImpl(expected, cfg);
+    if (!cfg.trick) {
+        LookupRoundTripTestImpl(expected, { ...cfg, trick: SubtableWriteTrick.UseFastCoverage });
+        LookupRoundTripTestImpl(expected, { ...cfg, trick: SubtableWriteTrick.UseFlatCoverage });
+    }
+}
+
+function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTripConfig<L, C>) {
     const lOrd = cfg.lOrd || ImpLib.Order.fromList(`Lookups`, []);
     const writer = cfg.writer();
     const swc: SubtableWriteContext<L> = {

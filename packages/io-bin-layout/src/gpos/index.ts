@@ -2,6 +2,7 @@ import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ot-layout";
 
+import { LayoutCfg } from "../cfg";
 import {
     LookupReader,
     LookupReaderFactory,
@@ -65,11 +66,11 @@ const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> 
 };
 
 export const GposTableIo = {
-    read(view: BinaryView, trc: TableReadContext) {
-        const o = view.next(new CGsubGposTable<Gpos.Lookup>(), gpos, trc);
+    read(view: BinaryView, cfg: LayoutCfg, trc: TableReadContext) {
+        const o = view.next(new CGsubGposTable<Gpos.Lookup>(), cfg, gpos, trc);
         return new Gpos.Table(o.scripts, o.features, o.lookups, o.featureVariations);
     },
-    write(frag: Frag, table: Gpos.Table, twc: TableWriteContext) {
-        return frag.push(new CGsubGposTable<Gpos.Lookup>(), table, gpos, twc);
+    write(frag: Frag, table: Gpos.Table, cfg: LayoutCfg, twc: TableWriteContext) {
+        return frag.push(new CGsubGposTable<Gpos.Lookup>(), table, cfg, gpos, twc);
     }
 };

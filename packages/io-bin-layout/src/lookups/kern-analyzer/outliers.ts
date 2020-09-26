@@ -1,6 +1,8 @@
 import { Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ot-layout";
+import { UInt16 } from "@ot-builder/primitive";
 
+import { MaxCovItemWords } from "../../shared/coverage";
 import { GposAdjustment } from "../../shared/gpos-adjust";
 
 import { ClassMatrix } from "./class-matrix";
@@ -19,7 +21,9 @@ export class OutlierTree<G> {
         return this.mapping.size;
     }
     public measure() {
-        let s = 10 + this.mapping.size * 6;
+        let s =
+            UInt16.size *
+            (5 + this.mapping.size * (2 /* ptr + pair value count */ + MaxCovItemWords));
         let format1: number = 0;
         let format2: number = 0;
         for (const m of this.mapping.values()) {
@@ -33,7 +37,7 @@ export class OutlierTree<G> {
         for (const m of this.mapping.values()) {
             for (const entryAdj of m.values()) {
                 s +=
-                    2 +
+                    UInt16.size +
                     GposAdjustment.measure(entryAdj[0], format1) +
                     GposAdjustment.measure(entryAdj[1], format2);
             }

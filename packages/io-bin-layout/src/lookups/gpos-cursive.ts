@@ -11,7 +11,7 @@ import {
     SubtableSizeLimit,
     SubtableWriteContext
 } from "../gsub-gpos-shared/general";
-import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
+import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
 
 const SubtableFormat1 = {
@@ -35,7 +35,7 @@ const SubtableFormat1 = {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
         frag.uint16(1);
-        frag.push(Ptr16GidCoverage, gidList);
+        frag.push(Ptr16GidCoverage, gidList, ctx.trick);
         frag.uint16(values.length);
         for (const to of values) {
             frag.push(NullablePtr16GposAnchor, to.entry, ctx.ivs);
@@ -71,7 +71,7 @@ class State {
 
     public tryAddMapping(from: OtGlyph, to: Gpos.CursiveAnchorPair) {
         const deltaSize =
-            UInt16.size * 3 + // 1 gid + 2 ptr
+            UInt16.size * (2 + MaxCovItemWords) + // 1 cov + 2 ptr
             GposAnchor.measure(to.entry) +
             GposAnchor.measure(to.exit);
         if (this.size + deltaSize > SubtableSizeLimit) return false;

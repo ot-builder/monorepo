@@ -39,7 +39,7 @@ export function readFont<GS extends Ot.GlyphStore>(
     }
 
     const encoding = readEncoding(sfnt, fullCfg, gOrd, md);
-    const otl = readOtl(sfnt, gOrd, md);
+    const otl = readOtl(sfnt, fullCfg, gOrd, md);
     const OtExtPrivate = readExtPrivate(sfnt, fullCfg, gOrd, md);
 
     // Glyph name

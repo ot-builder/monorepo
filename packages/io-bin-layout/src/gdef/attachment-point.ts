@@ -6,6 +6,7 @@ import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
+import { LayoutCfg } from "../cfg";
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 export const GdefAttachmentPointList = {
@@ -24,9 +25,10 @@ export const GdefAttachmentPointList = {
         }
         return atp;
     }),
-    ...Write((frag, atl: Gdef.AttachPointList, gOrd: Data.Order<OtGlyph>) => {
+    ...Write((frag, atl: Gdef.AttachPointList, cfg: LayoutCfg, gOrd: Data.Order<OtGlyph>) => {
+        const trick = cfg.layout.gdefWriteTrick || 0;
         const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
-        frag.ptr16New().push(GidCoverage, gidList);
+        frag.ptr16New().push(GidCoverage, gidList, trick);
         frag.uint16(gidList.length);
         for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
             frag.uint16(pl.length);

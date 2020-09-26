@@ -6,9 +6,6 @@
     "test": "jest --passWithNoTests"
   },
   "version": "0.10.25",
-  "bin": {
-    "otb-cli": "./bin/otb-cli"
-  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [

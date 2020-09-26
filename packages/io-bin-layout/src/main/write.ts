@@ -8,6 +8,7 @@ import { WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { BaseTableIo } from "../base";
+import { LayoutCfg } from "../cfg";
 import { GdefTableIo } from "../gdef";
 import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
@@ -21,6 +22,7 @@ export function writeOtl(
     // inOut
     // in
     otl: OtFontLayoutData,
+    cfg: LayoutCfg,
     gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata
 ) {
@@ -31,9 +33,9 @@ export function writeOtl(
     const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
 
     const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
-    if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, twc));
-    if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, twc));
-    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, gOrd, ivs, designSpace));
+    if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, cfg, twc));
+    if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, cfg, twc));
+    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, cfg, gOrd, ivs, designSpace));
     stat.settle();
 
     if (otl.base) outSink.add(Base.Tag, Frag.packFrom(BaseTableIo, otl.base, gOrd, designSpace));

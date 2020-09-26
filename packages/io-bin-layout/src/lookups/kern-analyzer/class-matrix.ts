@@ -1,8 +1,11 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { DicingStore, Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
+import { UInt16 } from "@ot-builder/primitive";
 
 import { SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import { MaxClsDefItemWords } from "../../shared/class-def";
+import { MaxCovItemWords } from "../../shared/coverage";
 import { GposAdjustment } from "../../shared/gpos-adjust";
 
 export class AdjStore {
@@ -282,9 +285,10 @@ namespace MeasureClassMatrixImpl {
             effFst,
             effSnd,
             size:
-                16 +
-                effFst.glyphs * 6 + // 1 coverage + 1 class def
-                effSnd.glyphs * 4 + // 1 class def
+                UInt16.size *
+                    (8 +
+                        effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) + // 1 cov + 1 cls
+                        effSnd.glyphs * MaxClsDefItemWords) + // 1 class def
                 dataSize // Actual Data
         };
     }
