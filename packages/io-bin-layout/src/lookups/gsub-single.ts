@@ -11,7 +11,7 @@ import {
     SubtableWriteContext,
     SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
-import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
+import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
 const SubtableFormat1 = {
     read(view: BinaryView, lookup: Gsub.Single, context: SubtableReadingContext<Gsub.Lookup>) {
@@ -124,7 +124,10 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const data = CovUtils.sortAuxMap(
-            [...jagged].slice(0, SubtableSizeLimit / (2 * UInt16.size))
+            [...jagged].slice(
+                0,
+                Math.floor(SubtableSizeLimit / ((MaxCovItemWords + 1) * UInt16.size))
+            )
         );
         frags.push(Frag.from(SubtableFormat2, data, ctx));
         return data.length;
@@ -136,7 +139,9 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         mappings: [number, number][],
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
-        const data = CovUtils.sortAuxMap([...mappings].slice(0, SubtableSizeLimit / UInt16.size));
+        const data = CovUtils.sortAuxMap(
+            [...mappings].slice(0, SubtableSizeLimit / (UInt16.size * MaxCovItemWords))
+        );
         frags.push(Frag.from(SubtableFormat1, gidDiff, data, ctx));
         return data.length;
     }

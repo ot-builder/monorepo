@@ -11,7 +11,7 @@ import {
     SubtableWriteContext,
     SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
-import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
+import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
 
 const SubtableFormat1 = {
@@ -136,7 +136,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         let size = 0,
             picks = 0;
         for (const [gid, adj] of jagged) {
-            const dSize = UInt16.size + GposAdjustment.measure(adj, fmt);
+            const dSize = UInt16.size * MaxCovItemWords + GposAdjustment.measure(adj, fmt);
             if (size + dSize > SubtableSizeLimit) break;
             size += dSize;
             picks += 1;
@@ -162,7 +162,9 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         gids: number[],
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        const data = CovUtils.sortGidList([...gids].slice(0, SubtableSizeLimit / UInt16.size));
+        const data = CovUtils.sortGidList(
+            [...gids].slice(0, SubtableSizeLimit / (UInt16.size * MaxCovItemWords))
+        );
         frags.push(Frag.from(SubtableFormat1, adj, data, ctx));
         return data.length;
     }

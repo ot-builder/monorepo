@@ -9,7 +9,7 @@ import {
     SubtableSizeLimit,
     SubtableWriteContext
 } from "../gsub-gpos-shared/general";
-import { CovAuxMappingT, CovUtils, Ptr16GidCoverage } from "../shared/coverage";
+import { CovAuxMappingT, CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
 
 type SingleMarkRecord<G> = {
@@ -169,11 +169,13 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
-            size += UInt16.size * 2 + GposAnchor.measure(rec.anchor);
+            size +=
+                UInt16.size * (2 + MaxCovItemWords) + // 1 cov item + 1 mark class id + 1 ptr
+                GposAnchor.measure(rec.anchor);
         }
         for (const [g, br] of this.bases) {
             if (this.exclude.has(g)) continue;
-            size += UInt16.size * (1 + this.relocation.reward.length);
+            size += UInt16.size * (MaxCovItemWords + this.relocation.reward.length); // cov + ptr arr
             for (let clsAnchor = 0; clsAnchor < this.relocation.reward.length; clsAnchor++) {
                 size += GposAnchor.measure(getBaseAnchor(clsAnchor, br, this.relocation));
             }
@@ -225,11 +227,15 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
-            size += UInt16.size * 2 + GposAnchor.measure(rec.anchor);
+            size += UInt16.size * (2 + MaxCovItemWords) + GposAnchor.measure(rec.anchor);
         }
         for (const [g, br] of this.bases) {
             if (this.exclude.has(g)) continue;
-            size += UInt16.size * (3 + br.baseAnchors.length * this.relocation.reward.length);
+            size +=
+                UInt16.size *
+                (2 +
+                    MaxCovItemWords + //1 cov + 1 ptr + 1 component count
+                    br.baseAnchors.length * this.relocation.reward.length);
             for (let component = 0; component < br.baseAnchors.length; component++) {
                 for (let clsAnchor = 0; clsAnchor < this.relocation.reward.length; clsAnchor++) {
                     size += GposAnchor.measure(

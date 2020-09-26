@@ -9,7 +9,7 @@ import {
     SubtableWriteContext,
     SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
-import { Ptr16ClassDef } from "../shared/class-def";
+import { MaxClsDefItemWords, Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 
 type CompatibleRuleResult<L> = {
@@ -116,7 +116,8 @@ class ClassDefsAnalyzeState<L> {
         return (
             UInt16.size *
             (8 +
-                2 * (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size) +
+                MaxClsDefItemWords *
+                    (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size) +
                 this.ruleComplexity)
         );
     }
