@@ -93,16 +93,18 @@ class State {
     public mapping: Map<OtGlyph, LigatureCont[]> = new Map();
     public size = UInt16.size * 4;
 
-    public tryAddMapping(from: OtGlyph, [components, to]: LigatureCont) {
-        const deltaSize = UInt16.size * (2 + MaxCovItemWords + components.length);
+    public tryAddMapping(firstComponent: OtGlyph, [restComponents, to]: LigatureCont) {
+        const deltaSize = this.mapping.has(firstComponent)
+            ? UInt16.size * (3 + restComponents.length)
+            : UInt16.size * (4 + MaxCovItemWords + restComponents.length);
         if (this.size + deltaSize > SubtableSizeLimit) return false;
 
-        let arr = this.mapping.get(from);
+        let arr = this.mapping.get(firstComponent);
         if (!arr) {
             arr = [];
-            this.mapping.set(from, arr);
+            this.mapping.set(firstComponent, arr);
         }
-        arr.push([components, to]);
+        arr.push([restComponents, to]);
         this.size += deltaSize;
         return true;
     }

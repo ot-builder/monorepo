@@ -108,6 +108,13 @@ class GsubSingleWriterState {
     }
 }
 
+const MaxJaggedItems = Math.floor(
+    (SubtableSizeLimit - UInt16.size * 16) / ((MaxCovItemWords + 1) * UInt16.size)
+);
+const MaxUniformItems = Math.floor(
+    (SubtableSizeLimit - UInt16.size * 16) / (MaxCovItemWords * UInt16.size)
+);
+
 export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> {
     public canBeUsed(l: Gsub.Lookup): l is Gsub.Single {
         return l.type === Gsub.LookupType.Single;
@@ -123,12 +130,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         jagged: [number, number][],
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
-        const data = CovUtils.sortAuxMap(
-            [...jagged].slice(
-                0,
-                Math.floor(SubtableSizeLimit / ((MaxCovItemWords + 1) * UInt16.size))
-            )
-        );
+        const data = CovUtils.sortAuxMap([...jagged].slice(0, MaxJaggedItems));
         frags.push(Frag.from(SubtableFormat2, data, ctx));
         return data.length;
     }
@@ -139,9 +141,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         mappings: [number, number][],
         ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
-        const data = CovUtils.sortAuxMap(
-            [...mappings].slice(0, SubtableSizeLimit / (UInt16.size * MaxCovItemWords))
-        );
+        const data = CovUtils.sortAuxMap([...mappings].slice(0, MaxUniformItems));
         frags.push(Frag.from(SubtableFormat1, gidDiff, data, ctx));
         return data.length;
     }

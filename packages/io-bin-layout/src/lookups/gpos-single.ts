@@ -120,6 +120,10 @@ class GsubSingleWriterState {
     }
 }
 
+const MaxUniformItems = Math.floor(
+    (SubtableSizeLimit - UInt16.size * 16) / (UInt16.size * MaxCovItemWords)
+);
+
 export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Single {
         return l.type === Gpos.LookupType.Single;
@@ -133,7 +137,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
     private pickJaggedData(jagged: [number, Gpos.Adjustment][]) {
         let fmt = 0;
         for (const [gid, adj] of jagged) fmt |= GposAdjustment.decideFormat(adj);
-        let size = 0,
+        let size = UInt16.size * 4,
             picks = 0;
         for (const [gid, adj] of jagged) {
             const dSize = UInt16.size * MaxCovItemWords + GposAdjustment.measure(adj, fmt);
@@ -162,9 +166,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         gids: number[],
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        const data = CovUtils.sortGidList(
-            [...gids].slice(0, SubtableSizeLimit / (UInt16.size * MaxCovItemWords))
-        );
+        const data = CovUtils.sortGidList([...gids].slice(0, MaxUniformItems));
         frags.push(Frag.from(SubtableFormat1, adj, data, ctx));
         return data.length;
     }

@@ -3,7 +3,6 @@ import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
-import { UInt16 } from "@ot-builder/primitive";
 
 import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 
@@ -14,7 +13,7 @@ import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
 export type CovAuxMappingT<T> = Array<[number, T]>;
 export type CovSplitLists<T> = { gidList: Array<number>; values: Array<T> };
 
-export const MaxCovItemWords = 2;
+export const MaxCovItemWords = 3;
 
 export namespace CovUtils {
     function byGID<T>(a: [number, T], b: [number, T]) {
