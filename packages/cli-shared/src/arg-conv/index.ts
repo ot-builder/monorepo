@@ -22,7 +22,7 @@ export function inferSaveCfg<GS extends Ot.GlyphStore>(state: CliArgSource, font
             const m = new Map<Ot.GsubGpos.LookupProp, number>();
             if (font.gsub) for (const lookup of font.gsub.lookups) m.set(lookup, 10);
             if (font.gpos) for (const lookup of font.gpos.lookups) m.set(lookup, 10);
-            cfg.layout = { lookupWriteTricks: m };
+            cfg.layout = { gdefWriteTrick: 10, lookupWriteTricks: m };
             break;
         }
         case OptimizationLevel.Size: {

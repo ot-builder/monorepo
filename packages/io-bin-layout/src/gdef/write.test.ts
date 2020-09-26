@@ -15,7 +15,7 @@ describe("GDEF write", () => {
     function gdefRoundTrip(file: string) {
         const bufFont = TestFont.get(file);
         const sfnt = readSfntOtf(bufFont);
-        const cfg = { fontMetadata: {}, glyphStore: {} };
+        const cfg = { fontMetadata: {}, glyphStore: {}, layout: {} };
         const md = readOtMetadata(sfnt, cfg);
         const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
 
@@ -27,7 +27,9 @@ describe("GDEF write", () => {
         );
 
         const ivsW = WriteTimeIVS.create(new OtVar.MasterSet());
-        const gdefBuf = Frag.pack(Frag.from(GdefTableIo, gdefDat.gdef, gOrd, ivsW, designSpace));
+        const gdefBuf = Frag.pack(
+            Frag.from(GdefTableIo, gdefDat.gdef, cfg, gOrd, ivsW, designSpace)
+        );
 
         const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, designSpace);
 

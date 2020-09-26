@@ -35,7 +35,7 @@ export function writeOtl(
     const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
     if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, cfg, twc));
     if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, cfg, twc));
-    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, gOrd, ivs, designSpace));
+    if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, cfg, gOrd, ivs, designSpace));
     stat.settle();
 
     if (otl.base) outSink.add(Base.Tag, Frag.packFrom(BaseTableIo, otl.base, gOrd, designSpace));

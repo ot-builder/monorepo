@@ -6,6 +6,7 @@ import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
+import { LayoutCfg } from "../cfg";
 import { ClassDef } from "../shared/class-def";
 
 import { GdefAttachmentPointList } from "./attachment-point";
@@ -44,24 +45,26 @@ export const GdefTableIo = {
         (
             frag,
             gdef: Gdef.Table,
+            cfg: LayoutCfg,
             gOrd: Data.Order<OtGlyph>,
             ivs: Data.Maybe<WriteTimeIVS>,
             designSpace: Data.Maybe<OtVar.DesignSpace>
         ) => {
+            const trick = cfg.layout.gdefWriteTrick || 0;
             const fClassDef = gdef.glyphClassDef
-                ? Frag.from(ClassDef, gdef.glyphClassDef, gOrd)
+                ? Frag.from(ClassDef, gdef.glyphClassDef, gOrd, trick)
                 : null;
             const fAttachList = gdef.attachList
-                ? Frag.from(GdefAttachmentPointList, gdef.attachList, gOrd)
+                ? Frag.from(GdefAttachmentPointList, gdef.attachList, cfg, gOrd)
                 : null;
             const fLigCaretList = gdef.ligCarets
-                ? Frag.from(LigCaretList, gdef.ligCarets, gOrd, ivs)
+                ? Frag.from(LigCaretList, gdef.ligCarets, cfg, gOrd, ivs)
                 : null;
             const fMarkAttachClassDef = gdef.markAttachClassDef
-                ? Frag.from(ClassDef, gdef.markAttachClassDef, gOrd)
+                ? Frag.from(ClassDef, gdef.markAttachClassDef, gOrd, trick)
                 : null;
             const fMarkGlyphSets = gdef.markGlyphSets
-                ? Frag.from(MarkGlyphSets, gdef.markGlyphSets, gOrd)
+                ? Frag.from(MarkGlyphSets, gdef.markGlyphSets, cfg, gOrd)
                 : null;
             const fIVS =
                 !ivs || !designSpace || ivs.isEmpty()

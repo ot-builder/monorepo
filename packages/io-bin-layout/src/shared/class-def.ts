@@ -5,6 +5,8 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
+import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+
 export namespace ClassDefUtil {
     export function padClass0<G>(cd: LayoutCommon.ClassDef.T<G>, gs: Iterable<G>) {
         for (const g of gs) if (!cd.has(g)) cd.set(g, 0);
@@ -53,13 +55,18 @@ export const ClassDef = {
         }
         return mapping;
     },
-    write(frag: Frag, cd: Iterable<[OtGlyph, number]>, gOrd: Data.Order<OtGlyph>) {
+    write(
+        frag: Frag,
+        cd: Iterable<[OtGlyph, number]>,
+        gOrd: Data.Order<OtGlyph>,
+        trick: number = 0
+    ) {
         const gidMap: [number, number][] = [];
         for (const [glyph, cls] of cd) {
             if (cls) gidMap.push([gOrd.reverse(glyph), cls]);
         }
         gidMap.sort((a, b) => a[0] - b[0]);
-        frag.push(GidClassDef, gidMap);
+        frag.push(GidClassDef, gidMap, trick);
     }
 };
 export const Ptr16ClassDef = NonNullablePtr16(ClassDef);
@@ -79,13 +86,30 @@ export const GidClassDef = {
                 throw Errors.FormatNotSupported("classDef", format);
         }
     }),
-    ...Write((frag, map: Iterable<[number, number]>) => {
-        const fragFormat1 = OtGidClassDefFormat1.writeOpt(map);
-        const fragFormat2 = Frag.from(OtGidClassDefFormat2, map);
-        if (fragFormat1 && fragFormat1.size < fragFormat2.size) {
-            frag.embed(fragFormat1);
+    ...Write((frag, map: Iterable<[number, number]>, trick: number = 0) => {
+        const mapping = [...map];
+        const fragFormat1 = OtGidClassDefFormat1.writeOpt(mapping);
+        if (!fragFormat1) {
+            frag.push(OtGidClassDefFormat2, mapping);
+            return;
+        }
+        if (trick & SubtableWriteTrick.UseFastCoverage) {
+            const collector = new ClassRunCollector();
+            for (const [gid, cls] of mapping) collector.update(gid, cls);
+            collector.end();
+
+            if (collector.runs.length < mapping.length) {
+                frag.push(OtGidClassDefFormat2FromCollector, collector);
+            } else {
+                frag.embed(fragFormat1);
+            }
         } else {
-            frag.embed(fragFormat2);
+            const fragFormat2 = Frag.from(OtGidClassDefFormat2, mapping);
+            if (fragFormat2.size < fragFormat1.size) {
+                frag.embed(fragFormat2);
+            } else {
+                frag.embed(fragFormat2);
+            }
         }
     })
 };
@@ -134,7 +158,7 @@ interface ClassRun {
     endGlyphID: number;
     class: number;
 }
-class CoverageRunCollector {
+class ClassRunCollector {
     public runs: ClassRun[] = [];
     public last: ClassRun | null = null;
 
@@ -178,16 +202,19 @@ const OtGidClassDefFormat2 = {
         return cd;
     }),
     ...Write((frag, mapping: Iterable<[number, number]>) => {
-        const collector = new CoverageRunCollector();
+        const collector = new ClassRunCollector();
         for (const [gid, cls] of mapping) {
             collector.update(gid, cls);
         }
         collector.end();
 
-        frag.uint16(2).uint16(collector.runs.length);
-        for (const run of collector.runs) {
-            frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.class);
-        }
-        return frag;
+        frag.push(OtGidClassDefFormat2FromCollector, collector);
     })
 };
+
+const OtGidClassDefFormat2FromCollector = Write((frag, collector: ClassRunCollector) => {
+    frag.uint16(2).uint16(collector.runs.length);
+    for (const run of collector.runs) {
+        frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.class);
+    }
+});

@@ -160,8 +160,8 @@ const SubtableFormat2 = {
             .push(Ptr16GidCoverage, cov, ctx.trick)
             .uint16(format1)
             .uint16(format2)
-            .push(Ptr16ClassDef, fcm.cd1, ctx.gOrd)
-            .push(Ptr16ClassDef, fcm.cd2, ctx.gOrd)
+            .push(Ptr16ClassDef, fcm.cd1, ctx.gOrd, ctx.trick)
+            .push(Ptr16ClassDef, fcm.cd2, ctx.gOrd, ctx.trick)
             .uint16(classCount1)
             .uint16(classCount2);
 

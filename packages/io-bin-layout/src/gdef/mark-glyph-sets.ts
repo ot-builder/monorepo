@@ -4,6 +4,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
+import { LayoutCfg } from "../cfg";
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 type MarkGlyphSets = Array<Gdef.Coverage>;
@@ -19,11 +20,12 @@ export const MarkGlyphSets = {
         }
         return ans;
     }),
-    ...Write((frag, markGlyphSets: MarkGlyphSets, gOrd: Data.Order<OtGlyph>) => {
+    ...Write((frag, markGlyphSets: MarkGlyphSets, cfg: LayoutCfg, gOrd: Data.Order<OtGlyph>) => {
+        const trick = cfg.layout.gdefWriteTrick || 0;
         frag.uint16(1);
         frag.uint16(markGlyphSets.length);
         for (const mgs of markGlyphSets) {
-            frag.ptr32New().push(GidCoverage, CovUtils.gidListFromGlyphSet(mgs, gOrd));
+            frag.ptr32New().push(GidCoverage, CovUtils.gidListFromGlyphSet(mgs, gOrd), trick);
         }
     })
 };

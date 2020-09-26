@@ -6,6 +6,7 @@ import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
+import { LayoutCfg } from "../cfg";
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 import { LigGlyph } from "./lig-glyph";
@@ -26,12 +27,14 @@ export const LigCaretList = {
     ...Write(
         (
             frag,
-            atl: Gdef.LigCaretList,
+            lcl: Gdef.LigCaretList,
+            cfg: LayoutCfg,
             gOrd: Data.Order<OtGlyph>,
             ivs?: Data.Maybe<WriteTimeIVS>
         ) => {
-            const { gidList, values: points } = CovUtils.splitListFromMap(atl, gOrd);
-            frag.ptr16New().push(GidCoverage, gidList);
+            const trick = cfg.layout.gdefWriteTrick || 0;
+            const { gidList, values: points } = CovUtils.splitListFromMap(lcl, gOrd);
+            frag.ptr16New().push(GidCoverage, gidList, trick);
             frag.uint16(gidList.length);
             for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
                 frag.ptr16New().push(LigGlyph, pl, ivs);
