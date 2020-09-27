@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sun, 27 Sep 2020 12:15:06 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.10.27",
+      "version": "0.10.27",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix outstanding CFF1 bugs",
+            "author": "belleve@typeof.net",
+            "commit": "63b32a73b62a88b952181d397c51fc8d9cf06545",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 27 Sep 2020 00:12:54 GMT",
       "tag": "@ot-builder/io-bin-cff_v0.10.26",
       "version": "0.10.26",
