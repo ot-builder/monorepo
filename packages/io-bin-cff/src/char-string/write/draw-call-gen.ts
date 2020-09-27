@@ -8,7 +8,7 @@ import { CffDrawCall, CffDrawCallRaw } from "./draw-call";
 
 type CompileTimeMask = {
     at: OtGlyph.PointRef;
-    isContour: boolean;
+    isCounter: boolean;
     flags: number[];
 };
 
@@ -80,7 +80,27 @@ class CffCodeGenState {
         ) {
             const mask = this.masks[this.maskIndex];
             this.maskIndex += 1;
-            if (mask.isContour) {
+            this.addMask(mask);
+        }
+    }
+
+    private addMask(mask: CompileTimeMask) {
+        if (
+            this.rawDrawCalls.length &&
+            (this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
+                CharStringOperator.VStem ||
+                this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
+                    CharStringOperator.VStemHM)
+        ) {
+            this.rawDrawCalls[this.rawDrawCalls.length - 1] = {
+                args: this.rawDrawCalls[this.rawDrawCalls.length - 1].args,
+                operator: mask.isCounter
+                    ? CharStringOperator.CntrMask
+                    : CharStringOperator.HintMask,
+                flags: mask.flags
+            };
+        } else {
+            if (mask.isCounter) {
                 this.pushRawCall(new CffDrawCallRaw([], CharStringOperator.CntrMask, mask.flags));
             } else {
                 this.pushRawCall(new CffDrawCallRaw([], CharStringOperator.HintMask, mask.flags));
@@ -121,23 +141,24 @@ class CffHintHandler {
 
     public process(h: OtGlyph.Hint) {
         if (h.type === OtGlyph.HintType.CffHint) {
-            const hasMask =
-                (h.hintMasks.length || h.counterMasks.length) &&
-                (h.hStems.length || h.vStems.length);
+            const hasHints = h.hStems.length || h.vStems.length;
+            const hasHintMask = hasHints && h.hintMasks.length;
+            const hasCounterMask = hasHints && h.counterMasks.length;
+
             this.pushStemList(
-                hasMask ? CharStringOperator.HStemHM : CharStringOperator.HStem,
+                hasHintMask ? CharStringOperator.HStemHM : CharStringOperator.HStem,
                 h.hStems
             );
             this.pushStemList(
-                hasMask ? CharStringOperator.VStemHM : CharStringOperator.VStem,
+                hasHintMask ? CharStringOperator.VStemHM : CharStringOperator.VStem,
                 h.vStems
             );
-            if (hasMask) {
-                for (const mask of h.hintMasks) {
-                    this.st.masks.push(this.makeCtMask(h, false, mask));
-                }
+            if (hasHintMask || hasCounterMask) {
                 for (const mask of h.counterMasks) {
                     this.st.masks.push(this.makeCtMask(h, true, mask));
+                }
+                for (const mask of h.hintMasks) {
+                    this.st.masks.push(this.makeCtMask(h, false, mask));
                 }
                 this.st.masks.sort(byMaskPosition);
             }
@@ -170,7 +191,7 @@ class CffHintHandler {
             if (mask.maskV.has(s)) flags.push(1);
             else flags.push(0);
         }
-        return { at: mask.at, isContour: contour, flags };
+        return { at: mask.at, isCounter: contour, flags };
     }
 }
 
@@ -265,7 +286,7 @@ class CffContourHandler {
     public end() {
         // Close contour
         this.st.addContourStat(this.knotsHandled);
-        if (this.firstKnot) {
+        if (this.firstKnot && this.pendingKnots.length) {
             this.addKnotImpl({ ...this.firstKnot, kind: OtGlyph.PointType.Corner });
         }
         this.st.advance(0, 1, 0);

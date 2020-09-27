@@ -61,9 +61,8 @@ test("Draw call generator test", () => {
     1 0 RLineTo
     0 1 RLineTo
     -1 0 RLineTo
-    0 -1 RLineTo
     HintMask[1 0]
-    9 9 RMoveTo
+    9 8 RMoveTo
     10 0 RLineTo
     0 10 -10 0 0 -10 RRCurveTo
     HintMask[1 1]

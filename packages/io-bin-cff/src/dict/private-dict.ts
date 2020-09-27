@@ -78,10 +78,10 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
             case CffOperator.ExpansionFactor:
                 this.result.expansionFactor = this.st.pop();
                 break;
-            case CffOperator.defaultWidthX:
+            case CffOperator.DefaultWidthX:
                 this.result.defaultWidthX = OtVar.Ops.originOf(this.st.pop());
                 break;
-            case CffOperator.nominalWidthX:
+            case CffOperator.NominalWidthX:
                 this.result.nominalWidthX = OtVar.Ops.originOf(this.st.pop());
                 break;
             case CffOperator.ForceBold:
@@ -146,6 +146,16 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         );
 
         if (ctx.version === 1) {
+            yield* this.emitNumber(
+                pd.defaultWidthX,
+                defaultPd.defaultWidthX,
+                CffOperator.DefaultWidthX
+            );
+            yield* this.emitNumber(
+                pd.nominalWidthX,
+                defaultPd.nominalWidthX,
+                CffOperator.NominalWidthX
+            );
             yield* this.emitNumber(
                 Number(pd.forceBold),
                 Number(defaultPd.forceBold),

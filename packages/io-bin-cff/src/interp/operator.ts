@@ -20,8 +20,8 @@ export enum CffOperator {
     CharStrings         = 0x11, LanguageGroup         = 0x0c11,
     Private             = 0x12, ExpansionFactor       = 0x0c12,
     Subrs               = 0x13, initialRandomSeed     = 0x0c13,
-    defaultWidthX       = 0x14, SyntheticBase         = 0x0c14,
-    nominalWidthX       = 0x15, PostScript            = 0x0c15,
+    DefaultWidthX       = 0x14, SyntheticBase         = 0x0c14,
+    NominalWidthX       = 0x15, PostScript            = 0x0c15,
     VsIndex             = 0x16, BaseFontName          = 0x0c16,
     Blend               = 0x17, BaseFontBlend         = 0x0c17,
     VStore              = 0x18, /* 0x0c18 Reserved */
