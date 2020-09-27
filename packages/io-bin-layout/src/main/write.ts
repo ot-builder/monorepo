@@ -14,7 +14,7 @@ import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
 import { TableWriteContext } from "../gsub-gpos-shared/table";
 import { MathTableIo } from "../math";
-import { EmptyStat, Os2Stat } from "../stat";
+import { EmptyStat, Os2MaxContextStat } from "../stat";
 
 export function writeOtl(
     // out
@@ -30,7 +30,7 @@ export function writeOtl(
     const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
     const ivs = md.fvar ? WriteTimeIVS.create(new OtVar.MasterSet()) : null;
     if (ivs && !gdef) gdef = new Gdef.Table();
-    const stat = md.os2 ? new Os2Stat(md.os2) : new EmptyStat();
+    const stat = md.os2 ? new Os2MaxContextStat(md.os2) : new EmptyStat();
 
     const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
     if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, cfg, twc));
