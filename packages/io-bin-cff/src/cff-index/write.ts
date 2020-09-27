@@ -29,8 +29,9 @@ export class CffWriteIndex<T> implements Write<readonly T[], [CffWriteContext]> 
     }
     public write(frag: Frag, items: readonly T[], context: CffWriteContext) {
         Assert.NoGap("CFF Index items", items);
+        frag.push(CffIndexCount, items.length, context.version); // Item count
+        if (!items.length) return; // Exit if index is empty
         const { dataSize, offsets, frags } = this.collectOffsets(items, context);
-        frag.push(CffIndexCount, items.length, context.version);
         const offSize = this.offsetSize(dataSize);
         frag.push(CffOffSize, offSize);
         for (const item of offsets) frag.push(CffOffset, item, offSize);

@@ -23,12 +23,12 @@ const FdSelectFormat0 = {
     })
 };
 const CffCharSetFormat12 = {
-    ...Read((view, sink: CffCharSetSink, rdSid: Read<number> & Sized) => {
+    ...Read((view, sink: CffCharSetSink, wdRest: Read<number> & Sized) => {
         const nGlyphs = sink.getGlyphCount();
         let nGlyphsCovered = 1;
         while (nGlyphsCovered < nGlyphs) {
             const sidFirst = view.uint16();
-            const sidLeft = view.next(rdSid);
+            const sidLeft = view.next(wdRest);
             for (let sid = 0; sid <= sidLeft; sid++) {
                 sink.put(nGlyphsCovered + sid, sidFirst + sid);
             }
@@ -40,15 +40,15 @@ const CffCharSetFormat12 = {
             frag: Frag,
             format: UInt8,
             values: readonly number[],
-            wdSid: Write<number> & Sized & Ranged
+            wdRest: Write<number> & Sized & Ranged
         ) => {
             frag.uint8(format);
             let lastSid = -1;
             let rest = 0;
             const gidStart = 1;
             for (let gid = gidStart; gid < values.length; gid++) {
-                if (gid === gidStart || lastSid + 1 !== values[gid] || rest >= wdSid.max) {
-                    if (gid > gidStart) frag.push(wdSid, rest);
+                if (gid === gidStart || lastSid + 1 !== values[gid] || rest >= wdRest.max) {
+                    if (gid > gidStart) frag.push(wdRest, rest);
                     frag.uint16(values[gid]);
                     lastSid = values[gid];
                     rest = 0;
@@ -57,7 +57,7 @@ const CffCharSetFormat12 = {
                     rest++;
                 }
             }
-            frag.push(wdSid, rest);
+            frag.push(wdRest, rest);
         }
     )
 };

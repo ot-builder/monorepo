@@ -66,7 +66,6 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
     public fdDC = new CffFontDictDataCollector();
 
     public *collectDrawCalls(td: CffTopDictWrite, ctx: CffWriteContext, rest: void) {
-        yield* this.fdDC.collectDrawCalls(td.fd, ctx, rest);
         if (td.cidROS) {
             if (!ctx.strings) throw Errors.Cff.ShouldHaveStrings();
             yield new CffDrawCallRaw(
@@ -78,6 +77,7 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
                 CffOperator.ROS
             );
         }
+        yield* this.fdDC.collectDrawCalls(td.fd, ctx, rest);
         if (ctx.version <= 1) {
             const bBox = ctx.stat.fontBBox.getResult();
             yield new CffDrawCallRaw(
@@ -100,11 +100,11 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
         rest: void
     ) {
         this.fdDC.processPointers(encoder, td.fd, ctx, rest);
-        if (td.fgFDSelect) encoder.absPointer(td.fgFDSelect, CffOperator.FDSelect);
-        if (td.fgFDArray) encoder.absPointer(td.fgFDArray, CffOperator.FDArray);
-        if (td.fgCharStrings) encoder.absPointer(td.fgCharStrings, CffOperator.CharStrings);
         if (td.fgVarStore) encoder.absPointer(td.fgVarStore, CffOperator.VStore);
         if (td.fgCharSet) encoder.absPointer(td.fgCharSet, CffOperator.Charset);
+        if (td.fgCharStrings) encoder.absPointer(td.fgCharStrings, CffOperator.CharStrings);
+        if (td.fgFDSelect) encoder.absPointer(td.fgFDSelect, CffOperator.FDSelect);
+        if (td.fgFDArray) encoder.absPointer(td.fgFDArray, CffOperator.FDArray);
     }
 }
 

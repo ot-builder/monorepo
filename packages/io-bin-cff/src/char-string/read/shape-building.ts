@@ -30,7 +30,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
             if (sid < this.hints.hStems.length) {
                 if (masked) ssHorizontal.add(this.hints.hStems[sid]);
             } else {
-                if (masked) ssVertical.add(this.hints.hStems[sid - this.hints.hStems.length]);
+                if (masked) ssVertical.add(this.hints.vStems[sid - this.hints.hStems.length]);
             }
         }
         const hm = OtGlyph.CffHint.createMask(
