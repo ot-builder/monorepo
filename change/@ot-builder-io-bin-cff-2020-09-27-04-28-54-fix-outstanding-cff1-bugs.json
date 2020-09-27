@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Fix outstanding CFF1 bugs",
+  "packageName": "@ot-builder/io-bin-cff",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-09-27T11:28:54.419Z"
+}
