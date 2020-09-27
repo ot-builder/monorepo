@@ -2,7 +2,7 @@ import { Os2 } from "@ot-builder/ot-metadata";
 
 import { OtlStat } from "./interface";
 
-export class Os2Stat implements OtlStat {
+export class Os2MaxContextStat implements OtlStat {
     constructor(private os2: Os2.Table) {}
 
     private usMaxContext = 1;
