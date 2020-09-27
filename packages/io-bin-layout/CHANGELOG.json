@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 27 Sep 2020 00:12:54 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.26",
+      "version": "0.10.26",
+      "comments": {
+        "patch": [
+          {
+            "comment": "CLI: Export optimization options",
+            "author": "belleve@typeof.net",
+            "commit": "7dec567dd81f5b16f5ff514f55559e70dbebf6cb",
+            "package": "@ot-builder/io-bin-layout"
+          },
+          {
+            "comment": "Fix max classdef item size: it should be 3 words instead of 2.",
+            "author": "belleve@typeof.net",
+            "commit": "510b2156334918d6aa6fec881431356fe7eeeefc",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 06 Sep 2020 00:10:37 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.20",
       "version": "0.10.20",

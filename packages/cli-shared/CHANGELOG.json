@@ -1,0 +1,20 @@
+{
+  "name": "@ot-builder/cli-shared",
+  "entries": [
+    {
+      "date": "Sun, 27 Sep 2020 00:12:54 GMT",
+      "tag": "@ot-builder/cli-shared_v0.10.26",
+      "version": "0.10.26",
+      "comments": {
+        "patch": [
+          {
+            "comment": "CLI: Export optimization options",
+            "author": "belleve@typeof.net",
+            "commit": "7dec567dd81f5b16f5ff514f55559e70dbebf6cb",
+            "package": "@ot-builder/cli-shared"
+          }
+        ]
+      }
+    }
+  ]
+}

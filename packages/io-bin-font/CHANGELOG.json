@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sun, 27 Sep 2020 00:12:54 GMT",
+      "tag": "@ot-builder/io-bin-font_v0.10.26",
+      "version": "0.10.26",
+      "comments": {
+        "patch": [
+          {
+            "comment": "CLI: Export optimization options",
+            "author": "belleve@typeof.net",
+            "commit": "7dec567dd81f5b16f5ff514f55559e70dbebf6cb",
+            "package": "@ot-builder/io-bin-font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Sep 2020 09:16:28 GMT",
       "tag": "@ot-builder/io-bin-font_v0.10.25",
       "version": "0.10.25",
