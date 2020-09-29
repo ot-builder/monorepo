@@ -1,10 +1,8 @@
-import * as crypto from "crypto";
-
 import { Frag, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, GsubGpos, Gsub, Gpos } from "@ot-builder/ot-layout";
+import { Gdef, Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 import { WriteTimeIVS } from "@ot-builder/var-store";

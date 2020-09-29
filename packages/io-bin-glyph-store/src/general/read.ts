@@ -1,4 +1,3 @@
-import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Head, Maxp, OtFontIoMetadata } from "@ot-builder/ot-metadata";
 import { Sfnt } from "@ot-builder/ot-sfnt";

@@ -1,5 +1,4 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
 import { readGlyphStore, SkipReadGlyphs } from "@ot-builder/io-bin-glyph-store";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf } from "@ot-builder/io-bin-sfnt";

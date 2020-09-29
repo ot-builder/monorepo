@@ -1,7 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
-import { OtVar } from "@ot-builder/variance";
 
 import { BimapCtx, StdCompare } from "../compar-util";
 import { FastMatch } from "../fast-match";
