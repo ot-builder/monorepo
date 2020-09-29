@@ -1,5 +1,4 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 

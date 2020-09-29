@@ -3,11 +3,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos, GsubGpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
-import {
-    LookupWriter,
-    SubtableWriteContext,
-    SubtableWriteTrick
-} from "../gsub-gpos-shared/general";
+import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
