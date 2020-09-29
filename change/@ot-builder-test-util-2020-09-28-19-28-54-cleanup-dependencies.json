@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Cleanup dependencies",
+  "packageName": "@ot-builder/test-util",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch",
+  "date": "2020-09-29T02:28:54.083Z"
+}
