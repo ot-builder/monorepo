@@ -7,7 +7,7 @@
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
   },
-  "version": "0.10.27",
+  "version": "0.10.28",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [

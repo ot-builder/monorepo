@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Cleanup dependencies",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch",
-  "date": "2020-09-29T02:28:53.571Z"
-}

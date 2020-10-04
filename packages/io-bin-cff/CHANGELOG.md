@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-cff
 
-This log was last generated on Sun, 27 Sep 2020 12:15:06 GMT and should not be manually modified.
+This log was last generated on Sun, 04 Oct 2020 00:12:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.28
+
+Sun, 04 Oct 2020 00:12:30 GMT
+
+### Patches
+
+- Cleanup dependencies (belleve@typeof.net)
 
 ## 0.10.27
 

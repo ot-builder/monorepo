@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-encoding",
   "entries": [
     {
+      "date": "Sun, 04 Oct 2020 00:12:30 GMT",
+      "tag": "@ot-builder/io-bin-encoding_v0.10.28",
+      "version": "0.10.28",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Cleanup OS/2 stating",
+            "author": "belleve@typeof.net",
+            "commit": "821d6358f23d0f17a0f13b2c6e9aa21e4e4e38aa",
+            "package": "@ot-builder/io-bin-encoding"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 23 Aug 2020 00:15:35 GMT",
       "tag": "@ot-builder/io-bin-encoding_v0.10.19",
       "version": "0.10.19",

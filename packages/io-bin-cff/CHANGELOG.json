@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sun, 04 Oct 2020 00:12:30 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.10.28",
+      "version": "0.10.28",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Cleanup dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "7986b7ebebd67eced08ba14d3674c2e2826b2390",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 27 Sep 2020 12:15:06 GMT",
       "tag": "@ot-builder/io-bin-cff_v0.10.27",
       "version": "0.10.27",

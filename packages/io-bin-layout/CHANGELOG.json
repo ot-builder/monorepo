@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 04 Oct 2020 00:12:30 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.28",
+      "version": "0.10.28",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Cleanup OS/2 stating",
+            "author": "belleve@typeof.net",
+            "commit": "821d6358f23d0f17a0f13b2c6e9aa21e4e4e38aa",
+            "package": "@ot-builder/io-bin-layout"
+          },
+          {
+            "comment": "Cleanup dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "7986b7ebebd67eced08ba14d3674c2e2826b2390",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 27 Sep 2020 00:12:54 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.26",
       "version": "0.10.26",

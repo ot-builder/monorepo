@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-glyph-store",
   "entries": [
     {
+      "date": "Sun, 04 Oct 2020 00:12:30 GMT",
+      "tag": "@ot-builder/io-bin-glyph-store_v0.10.28",
+      "version": "0.10.28",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Cleanup dependencies",
+            "author": "belleve@typeof.net",
+            "commit": "7986b7ebebd67eced08ba14d3674c2e2826b2390",
+            "package": "@ot-builder/io-bin-glyph-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 23 Aug 2020 00:15:35 GMT",
       "tag": "@ot-builder/io-bin-glyph-store_v0.10.19",
       "version": "0.10.19",

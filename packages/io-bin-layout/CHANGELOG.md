@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sun, 27 Sep 2020 00:12:54 GMT and should not be manually modified.
+This log was last generated on Sun, 04 Oct 2020 00:12:30 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.28
+
+Sun, 04 Oct 2020 00:12:30 GMT
+
+### Patches
+
+- Cleanup OS/2 stating (belleve@typeof.net)
+- Cleanup dependencies (belleve@typeof.net)
 
 ## 0.10.26
 
