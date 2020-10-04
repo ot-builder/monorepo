@@ -11,6 +11,7 @@ jobs:
   prime-build:
     name: Prime Build
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'ot-builder/monorepo'
 
     strategy:
       matrix:
@@ -33,6 +34,7 @@ jobs:
   prime-ut:
     name: Prime UT
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'ot-builder/monorepo'
 
     strategy:
       matrix:
