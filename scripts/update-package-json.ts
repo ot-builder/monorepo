@@ -29,12 +29,21 @@ for (const packageName of packages) {
 
     const packageJSONData = JSON.parse(fs.readFileSync(packageJSONPath).toString());
 
+    delete packageJSONData.license;
+    delete packageJSONData.repository;
     delete packageJSONData.main;
     delete packageJSONData.types;
     delete packageJSONData.files;
+    delete packageJSONData.scripts;
     delete packageJSONData.publishConfig;
     delete packageJSONData.jest;
 
+    packageJSONData.license = "MIT";
+    packageJSONData.repository = {
+        type: "git",
+        url: "https://github.com/ot-builder/monorepo.git",
+        directory: `packages/${packageName}`
+    };
     packageJSONData.main = "./lib/index.js";
     packageJSONData.types = "./lib/index.d.ts";
     packageJSONData.files = ["lib/**/*.js", "lib/**/*.json", "lib/**/*.d.ts"];

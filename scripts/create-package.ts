@@ -16,6 +16,12 @@ const packageJSONPath = path.join(packagesRoot, packageName, "package.json");
 const packageJSONData = {
     name: `@ot-builder/${packageName}`,
     version: lernaJsonRoot.version,
+    license: "MIT",
+    repository: {
+        type: "git",
+        url: "https://github.com/ot-builder/monorepo.git",
+        directory: `packages/${packageName}`
+    },
     main: "./lib/index.js",
     types: "./lib/index.d.ts",
     files: ["lib", "src"],

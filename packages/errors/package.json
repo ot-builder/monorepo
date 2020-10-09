@@ -1,13 +1,13 @@
 {
   "name": "@ot-builder/errors",
   "description": "",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc -b ./tsconfig.package.json",
-    "clean": "rimraf lib .cache",
-    "test": "jest --passWithNoTests"
-  },
   "version": "0.10.28",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ot-builder/monorepo.git",
+    "directory": "packages/errors"
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -15,6 +15,11 @@
     "lib/**/*.json",
     "lib/**/*.d.ts"
   ],
+  "scripts": {
+    "build": "tsc -b ./tsconfig.package.json",
+    "clean": "rimraf lib .cache",
+    "test": "jest --passWithNoTests"
+  },
   "publishConfig": {
     "access": "public"
   },
