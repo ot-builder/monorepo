@@ -2,6 +2,7 @@
 
 module.exports = {
     bumpDeps: true,
+    gitTags: false,
     groups: [
         {
             name: "ot-builder",
