@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sun, 11 Oct 2020 00:13:03 GMT and should not be manually modified.
+This log was last generated on Sun, 11 Oct 2020 04:50:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.30
+
+Sun, 11 Oct 2020 04:50:57 GMT
+
+### Patches
+
+- Fix LookupFlag MarkAttachmentType shifting value (otbbuilder-dev@users.noreply.github.com)
 
 ## 0.10.29
 

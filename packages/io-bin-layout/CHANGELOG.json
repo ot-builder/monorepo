@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sun, 11 Oct 2020 04:50:57 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.30",
+      "version": "0.10.30",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix LookupFlag MarkAttachmentType shifting value",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "b96924b290333e1195f5f6e5823a56b0e33a0199",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 11 Oct 2020 00:13:03 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.29",
       "version": "0.10.29",
