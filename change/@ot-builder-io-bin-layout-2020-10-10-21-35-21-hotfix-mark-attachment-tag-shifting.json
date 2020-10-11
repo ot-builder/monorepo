@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Fix LookupFlag MarkAttachmentType shifting value",
+  "packageName": "@ot-builder/io-bin-layout",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch",
+  "date": "2020-10-11T04:35:21.161Z"
+}
