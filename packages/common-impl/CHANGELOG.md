@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sun, 06 Sep 2020 00:10:37 GMT and should not be manually modified.
+This log was last generated on Sun, 11 Oct 2020 00:13:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.29
+
+Sun, 11 Oct 2020 00:13:03 GMT
+
+### Patches
+
+- Add repository data to Packages' package.json (otbbuilder-dev@users.noreply.github.com)
 
 ## 0.10.20
 

@@ -2,6 +2,21 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Sun, 11 Oct 2020 00:13:03 GMT",
+      "tag": "@ot-builder/common-impl_v0.10.29",
+      "version": "0.10.29",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add repository data to Packages' package.json",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "cf9c159d8036dee65dd8819cc1e8df5feecd87bc",
+            "package": "@ot-builder/common-impl"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 06 Sep 2020 00:10:37 GMT",
       "tag": "@ot-builder/common-impl_v0.10.20",
       "version": "0.10.20",

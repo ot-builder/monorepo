@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sun, 11 Oct 2020 00:13:03 GMT",
+      "tag": "@ot-builder/cli-proc_v0.10.29",
+      "version": "0.10.29",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add repository data to Packages' package.json",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "cf9c159d8036dee65dd8819cc1e8df5feecd87bc",
+            "package": "@ot-builder/cli-proc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 20 Sep 2020 00:12:15 GMT",
       "tag": "@ot-builder/cli-proc_v0.10.21",
       "version": "0.10.22",

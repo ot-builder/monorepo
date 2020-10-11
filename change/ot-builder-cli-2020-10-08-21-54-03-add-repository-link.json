@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add repository data to Packages' package.json",
-  "packageName": "ot-builder-cli",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch",
-  "date": "2020-10-09T04:53:56.431Z"
-}
