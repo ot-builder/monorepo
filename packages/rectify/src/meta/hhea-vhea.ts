@@ -17,12 +17,12 @@ function inPlaceRectifyHheaVheaTable(
     newTable._reserved3 = table._reserved3;
     newTable.numberOfLongMetrics = table.numberOfLongMetrics;
 
-    newTable.ascender = rec.coord(newTable.ascender);
-    newTable.descender = rec.coord(newTable.descender);
-    newTable.lineGap = rec.coord(newTable.lineGap);
-    newTable.caretSlopeRise = rec.coord(newTable.caretSlopeRise);
-    newTable.caretSlopeRun = rec.coord(newTable.caretSlopeRun);
-    newTable.caretOffset = rec.coord(newTable.caretOffset);
+    newTable.ascender = rec.coord(table.ascender);
+    newTable.descender = rec.coord(table.descender);
+    newTable.lineGap = rec.coord(table.lineGap);
+    newTable.caretSlopeRise = rec.coord(table.caretSlopeRise);
+    newTable.caretSlopeRun = rec.coord(table.caretSlopeRun);
+    newTable.caretOffset = rec.coord(table.caretOffset);
 }
 
 export function rectifyHheaTable(rec: CoordRectifier, table: Ot.MetricHead.Table) {
