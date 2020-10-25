@@ -2,6 +2,21 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sun, 25 Oct 2020 04:32:53 GMT",
+      "tag": "@ot-builder/rectify_v0.10.31",
+      "version": "0.10.31",
+      "comments": {
+        "patch": [
+          {
+            "comment": "fix typo in rectify hhea/vhea",
+            "author": "c@cyano.cn",
+            "commit": "4d49b8ff6f6c99d1e9db8680bb2fedb9d9b3c7e0",
+            "package": "@ot-builder/rectify"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 11 Oct 2020 00:13:03 GMT",
       "tag": "@ot-builder/rectify_v0.10.29",
       "version": "0.10.29",

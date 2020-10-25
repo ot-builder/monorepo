@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix typo in rectify hhea/vhea",
-  "packageName": "@ot-builder/rectify",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch",
-  "date": "2020-10-25T03:42:55.212Z"
-}

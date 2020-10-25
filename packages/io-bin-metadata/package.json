@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-metadata",
   "description": "",
-  "version": "0.10.30",
+  "version": "0.10.31",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,21 +24,21 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "0.10.30",
-    "@ot-builder/bin-util": "0.10.30",
-    "@ot-builder/common-impl": "0.10.30",
-    "@ot-builder/errors": "0.10.30",
-    "@ot-builder/ot-metadata": "0.10.30",
-    "@ot-builder/prelude": "0.10.30",
-    "@ot-builder/primitive": "0.10.30",
-    "@ot-builder/var-store": "0.10.30",
-    "@ot-builder/variance": "0.10.30",
-    "@ot-builder/ot-sfnt": "0.10.30",
-    "@ot-builder/io-bin-sfnt": "0.10.30",
+    "@ot-builder/bin-composite-types": "0.10.31",
+    "@ot-builder/bin-util": "0.10.31",
+    "@ot-builder/common-impl": "0.10.31",
+    "@ot-builder/errors": "0.10.31",
+    "@ot-builder/ot-metadata": "0.10.31",
+    "@ot-builder/prelude": "0.10.31",
+    "@ot-builder/primitive": "0.10.31",
+    "@ot-builder/var-store": "0.10.31",
+    "@ot-builder/variance": "0.10.31",
+    "@ot-builder/ot-sfnt": "0.10.31",
+    "@ot-builder/io-bin-sfnt": "0.10.31",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/test-util": "0.10.30",
+    "@ot-builder/test-util": "0.10.31",
     "@types/jest": "^26.0.10",
     "jest": "^26.4.1"
   }

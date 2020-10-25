@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/rectify
 
-This log was last generated on Sun, 11 Oct 2020 00:13:03 GMT and should not be manually modified.
+This log was last generated on Sun, 25 Oct 2020 04:32:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.31
+
+Sun, 25 Oct 2020 04:32:53 GMT
+
+### Patches
+
+- fix typo in rectify hhea/vhea (c@cyano.cn)
 
 ## 0.10.29
 

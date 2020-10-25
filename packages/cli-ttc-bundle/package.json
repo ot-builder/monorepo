@@ -1,6 +1,6 @@
 {
   "name": "otb-ttc-bundle",
-  "version": "0.10.30",
+  "version": "0.10.31",
   "bin": {
     "otb-ttc-bundle": "./bin/otb-ttc-bundle"
   },
@@ -29,9 +29,9 @@
     "tslib": "^2.0.0",
     "chalk": "^4.1.0",
     "fs-extra": "^9.0.1",
-    "ot-builder": "0.10.30",
-    "@ot-builder/cli-help-shower": "0.10.30",
-    "@ot-builder/cli-shared": "0.10.30"
+    "ot-builder": "0.10.31",
+    "@ot-builder/cli-help-shower": "0.10.31",
+    "@ot-builder/cli-shared": "0.10.31"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
