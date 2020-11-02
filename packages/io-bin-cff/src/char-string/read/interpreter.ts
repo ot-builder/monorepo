@@ -56,6 +56,8 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     public halt = false;
     public end = false;
 
+    // Justification: This is a dispatch table and does not contain substantial complexity
+    // eslint-disable-next-line complexity
     protected doOperator(opCode: number) {
         this.state.log += CharStringOperator[opCode] + " ";
         switch (opCode) {

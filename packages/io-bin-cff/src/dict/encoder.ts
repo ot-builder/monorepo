@@ -56,25 +56,7 @@ export class DictEncoder extends CffInterp.Encoder<Frag> {
         for (let digit = 0; digit < valStr.length; ) {
             const cur = valStr.charCodeAt(digit);
             const next = digit < valStr.length - 1 ? valStr.charCodeAt(digit + 1) : 0;
-            if (cur === DOT) {
-                nibbles.push(0x0a);
-                digit++;
-            } else if (cur >= ZERO && cur <= ZERO + 9) {
-                nibbles.push(cur - ZERO);
-                digit++;
-            } else if ((cur === Em || cur === E) && next === MINUS) {
-                nibbles.push(0x0c);
-                digit += 2;
-            } else if ((cur === Em || cur === E) && next === PLUS) {
-                nibbles.push(0x0b);
-                digit += 2;
-            } else if (cur === Em || cur === E) {
-                nibbles.push(0x0b);
-                digit += 1;
-            } else if (cur === MINUS) {
-                nibbles.push(0x0e);
-                digit += 1;
-            }
+            digit += this.encodeRealDigit(cur, next, nibbles);
         }
         nibbles.push(0x0f);
         if (nibbles.length % 2) nibbles.push(0x0f);
@@ -82,6 +64,29 @@ export class DictEncoder extends CffInterp.Encoder<Frag> {
         for (let digit = 0; digit < nibbles.length; digit += 2) {
             this.frag.uint8((nibbles[digit] << 4) | nibbles[digit + 1]);
         }
+    }
+
+    private encodeRealDigit(cur: number, next: number, nibbles: number[]) {
+        if (cur === DOT) {
+            nibbles.push(0x0a);
+            return 1;
+        } else if (cur >= ZERO && cur <= ZERO + 9) {
+            nibbles.push(cur - ZERO);
+            return 1;
+        } else if ((cur === Em || cur === E) && next === MINUS) {
+            nibbles.push(0x0c);
+            return 2;
+        } else if ((cur === Em || cur === E) && next === PLUS) {
+            nibbles.push(0x0b);
+            return 2;
+        } else if (cur === Em || cur === E) {
+            nibbles.push(0x0b);
+            return 1;
+        } else if (cur === MINUS) {
+            nibbles.push(0x0e);
+            return 1;
+        }
+        return 0;
     }
 
     protected operator(opCode: number, flags?: Data.Maybe<number[]>) {

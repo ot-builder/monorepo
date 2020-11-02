@@ -18,6 +18,7 @@ module.exports = {
     ],
     rules: {
         "linebreak-style": ["error", "unix"],
+        complexity: ["warn", 16],
         "no-restricted-imports": [
             "error",
             { paths: ["@ot-builder"], patterns: ["@ot-builder/*/src", "@ot-builder/*/lib"] }

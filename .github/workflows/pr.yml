@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
-        node-version: [12.x, 14.x] # Current and LTS. No history versions
+        node-version: [12.x, 14.x, 15.x] # Current and LTS. No history versions
 
     steps:
     - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
-        node-version: [12.x, 14.x] # Current and LTS. No history versions
+        node-version: [12.x, 14.x, 15.x] # Current and LTS. No history versions
 
     steps:
     - uses: actions/checkout@v2
@@ -68,7 +68,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x] # Current and LTS. No history versions
+        node-version: [14.x] # Current and LTS. No history versions
 
     steps:
     - uses: actions/checkout@v2
@@ -93,7 +93,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x] # Current and LTS. No history versions
+        node-version: [14.x] # Current and LTS. No history versions
 
     steps:
     - uses: actions/checkout@v2

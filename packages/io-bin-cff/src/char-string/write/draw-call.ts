@@ -66,8 +66,25 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         eo: CffEncodingOptions,
         from: CffDrawCallRawT<OtVar.Value>[]
     ) {
-        const intermediate: CffDrawCallRawT<number | WriteTimeDelayValue>[] = [];
         const to: CffDrawCall[] = [];
+        const { ivd, intermediate } = CffDrawCall.intermediateSeqFromRawSeqImpl(ctx, from);
+        for (const dci of intermediate) {
+            const args = CffDrawCall.convertCallArgs(dci, ivd, eo);
+            to.push(new CffDrawCall(ivd, args, dci.operator, dci.flags));
+        }
+
+        // Always emitting a VxIndex operator since we don't know what is the corresponded PD's
+        // inherited VS index. The global optimizer should hide most of them into subroutines.
+        if (ivd) to.unshift(new CffDrawCall(ivd, [ivd.outerIndex], eo.vsIndexOperator));
+
+        return to;
+    }
+
+    private static intermediateSeqFromRawSeqImpl(
+        ctx: CffWriteContext,
+        from: CffDrawCallRawT<OtVar.Value>[]
+    ) {
+        const intermediate: CffDrawCallRawT<number | WriteTimeDelayValue>[] = [];
         const col = ctx.ivs ? ctx.ivs.createCollector() : null;
         for (const dc of from) {
             const args: Array<number | WriteTimeDelayValue> = [];
@@ -80,41 +97,43 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
             }
             intermediate.push(new CffDrawCallRawT(args, dc.operator, dc.flags));
         }
+
         const ivd = col ? col.getIVD() : null;
-        for (const dci of intermediate) {
-            const args: (number | CffBlendPrimitive)[] = [];
-            let hasBlend = false;
-            for (const arg of dci.args) {
-                if (typeof arg === "number") {
-                    args.push(arg);
-                } else if (!ivd) {
-                    throw Errors.Unreachable();
-                } else {
-                    args.push(new CffBlendPrimitive(ivd, arg.origin, arg.resolve()));
-                    hasBlend = true;
-                }
-            }
-            if (hasBlend && ivd && eo.forceBlendToPleaseTtx) {
-                for (let aid = 0; aid < args.length; aid++) {
-                    const arg = args[aid];
-                    if (typeof arg === "number") {
-                        args[aid] = new CffBlendPrimitive(
-                            ivd,
-                            arg,
-                            new Array(ivd.masterIDs.length).fill(0)
-                        );
-                    }
-                }
-            }
-            to.push(new CffDrawCall(ivd, args, dci.operator, dci.flags));
-        }
-        if (ivd) {
-            // Always emitting a VxIndex operator since we don't know what is the corresponded PD's
-            // inherited VS index. The global optimizer should hide most of them into subroutines.
-            to.unshift(new CffDrawCall(ivd, [ivd.outerIndex], eo.vsIndexOperator));
-        }
-        return to;
+        return { ivd, intermediate };
     }
+
+    private static convertCallArgs(
+        dci: CffDrawCallRawT<number | WriteTimeDelayValue>,
+        ivd: WriteTimeIVD | null,
+        eo: CffEncodingOptions
+    ) {
+        const args: (number | CffBlendPrimitive)[] = [];
+        let hasBlend = false;
+        for (const arg of dci.args) {
+            if (typeof arg === "number") {
+                args.push(arg);
+            } else if (!ivd) {
+                throw Errors.Unreachable();
+            } else {
+                args.push(new CffBlendPrimitive(ivd, arg.origin, arg.resolve()));
+                hasBlend = true;
+            }
+        }
+        if (hasBlend && ivd && eo.forceBlendToPleaseTtx) {
+            for (let aid = 0; aid < args.length; aid++) {
+                const arg = args[aid];
+                if (typeof arg === "number") {
+                    args[aid] = new CffBlendPrimitive(
+                        ivd,
+                        arg,
+                        new Array(ivd.masterIDs.length).fill(0)
+                    );
+                }
+            }
+        }
+        return args;
+    }
+
     public static charStringSeqFromRawSeq(
         ctx: CffWriteContext,
         from: CffDrawCallRawT<OtVar.Value>[]
