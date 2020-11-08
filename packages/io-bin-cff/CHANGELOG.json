@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sun, 08 Nov 2020 00:11:09 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.10.32",
+      "version": "0.10.32",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Enforce ESLint complexity check",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "c3d10b6e80c3ed099dd17fe7cd174f1fd779abe3",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 11 Oct 2020 00:13:03 GMT",
       "tag": "@ot-builder/io-bin-cff_v0.10.29",
       "version": "0.10.29",

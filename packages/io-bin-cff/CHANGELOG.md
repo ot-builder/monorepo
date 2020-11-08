@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-cff
 
-This log was last generated on Sun, 11 Oct 2020 00:13:03 GMT and should not be manually modified.
+This log was last generated on Sun, 08 Nov 2020 00:11:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.32
+
+Sun, 08 Nov 2020 00:11:09 GMT
+
+### Patches
+
+- Enforce ESLint complexity check (otbbuilder-dev@users.noreply.github.com)
 
 ## 0.10.29
 

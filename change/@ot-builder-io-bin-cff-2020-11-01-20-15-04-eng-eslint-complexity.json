@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Enforce ESLint complexity check",
-  "packageName": "@ot-builder/io-bin-cff",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch",
-  "date": "2020-11-02T04:15:04.602Z"
-}
