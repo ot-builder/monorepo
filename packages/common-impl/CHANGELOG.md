@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sun, 11 Oct 2020 00:13:03 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Nov 2020 07:14:20 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.33
+
+Fri, 13 Nov 2020 07:14:20 GMT
+
+### Patches
+
+- HOTFIX: Iteration order caused overflow of lookup offset (otbbuilder-dev@users.noreply.github.com)
 
 ## 0.10.29
 

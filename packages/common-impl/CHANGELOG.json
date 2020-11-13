@@ -2,6 +2,21 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Fri, 13 Nov 2020 07:14:20 GMT",
+      "tag": "@ot-builder/common-impl_v0.10.33",
+      "version": "0.10.33",
+      "comments": {
+        "patch": [
+          {
+            "comment": "HOTFIX: Iteration order caused overflow of lookup offset",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "6c09b35b0ca6c90e33ea6509adacbdb435abd768",
+            "package": "@ot-builder/common-impl"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 11 Oct 2020 00:13:03 GMT",
       "tag": "@ot-builder/common-impl_v0.10.29",
       "version": "0.10.29",
