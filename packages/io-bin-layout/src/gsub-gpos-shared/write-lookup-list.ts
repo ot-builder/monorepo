@@ -170,27 +170,20 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         }
     }
     private tryStabilize() {
-        const headerSize = this.getHeaderTotalSize();
-
-        let headerOffset = 0;
+        const hts = this.getHeaderTotalSize();
+        const ho = this.getHeaderOffsets(0);
         let lidConvertible = -1;
         let lidConvertibleRank = 0;
-        for (let lid = this.lookupHeaders.length; lid-- > 0; ) {
-            const h = this.lookupHeaders[lid];
+        for (const [h, o, lid] of ImpLib.Iterators.ZipWithIndexReverse(this.lookupHeaders, ho)) {
             const arranger = this.getArrangerOf(h);
             for (const stid of h.subtableIDs) {
                 const stOffset = arranger.getOffset(stid);
-                if (
-                    !h.useExtension &&
-                    arranger.relOffset + stOffset + headerSize - headerOffset > 0xfffe
-                ) {
-                    if (lidConvertible < 0 || h.rank > lidConvertibleRank) {
-                        lidConvertible = lid;
-                        lidConvertibleRank = h.rank;
-                    }
+                if (h.useExtension || arranger.relOffset + stOffset + hts - o <= 0xfffe) continue;
+                if (lidConvertible < 0 || h.rank > lidConvertibleRank) {
+                    lidConvertible = lid;
+                    lidConvertibleRank = h.rank;
                 }
             }
-            headerOffset += this.measureHeaderSizeWithExtension(this.lookupHeaders[lid]);
         }
         if (lidConvertible >= 0) {
             this.lookupHeaders[lidConvertible].useExtension = true;

@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "HOTFIX: Iteration order caused overflow of lookup offset",
+  "packageName": "@ot-builder/common-impl",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch",
+  "date": "2020-11-13T06:37:00.578Z"
+}

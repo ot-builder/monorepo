@@ -49,6 +49,15 @@ export function* ZipWithIndex<A, B>(
         yield [as[id], bs[id], id];
     }
 }
+export function* ZipWithIndexReverse<A, B>(
+    as: ReadonlyArray<A>,
+    bs: ReadonlyArray<B>
+): IterableIterator<[A, B, number]> {
+    if (as.length !== bs.length) throw new Error("length mismatch");
+    for (let id = as.length; id-- > 0; ) {
+        yield [as[id], bs[id], id];
+    }
+}
 export function* Zip3WithIndex<A, B, C>(
     as: ReadonlyArray<A>,
     bs: ReadonlyArray<B>,
