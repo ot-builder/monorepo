@@ -16,21 +16,30 @@ export function* ToCount<T>(iter: Iterable<T>, count: number, fallback: T): Iter
         yield fallback;
     }
 }
-export function* ToCountIndex<T>(
-    iter: Iterable<T>,
-    count: number,
+export function ArrToCount<T>(iter: ReadonlyArray<T>, fallback: T) {
+    return ToCount(iter, iter.length, fallback);
+}
+export function* FlatMatrixSized<T>(
+    mat: ReadonlyArray<ReadonlyArray<T>>,
+    columns: number,
     fallback: T
-): Iterable<[T, number]> {
-    let c = 0;
-    for (const x of iter) {
-        if (x === undefined) yield [fallback, c];
-        else yield [x, c];
-        c += 1;
-        if (c >= count) return;
+) {
+    const rows = mat.length;
+    for (let p = 0; p < rows; p++) {
+        const row = mat[p];
+        for (let q = 0; q < columns; q++) {
+            if (!row) yield [fallback, p, q];
+            else yield [row[q] ?? fallback, p, q];
+        }
     }
-    for (; c < count; c++) {
-        yield [fallback, c];
+}
+export function FlatMatrixAutoSize<T>(mat: ReadonlyArray<ReadonlyArray<T>>, fallback: T) {
+    const rows = mat.length;
+    let columns = 0;
+    for (let p = 0; p < rows; p++) {
+        if (mat[p] && mat[p].length > columns) columns = mat[p].length;
     }
+    return FlatMatrixSized(mat, columns, fallback);
 }
 
 export function* Zip<A, B>(as: ReadonlyArray<A>, bs: ReadonlyArray<B>): IterableIterator<[A, B]> {
