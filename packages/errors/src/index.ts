@@ -136,6 +136,10 @@ export namespace Assert {
         for (const x of expected) if (actual === x) return;
         throw Errors.OffsetMismatch(kind1, actual);
     };
+    export const NotOverflow = (kind1: string, actual: number, limit: number) => {
+        if (actual < limit) return;
+        throw Errors.OffsetMismatch(kind1, actual);
+    };
     export function NoGap<A>(kind: string, arr: readonly A[]) {
         for (let index = 0; index < arr.length; index++) {
             if (arr[index] === undefined) throw new TypeError(`Gap found in array ${kind}`);

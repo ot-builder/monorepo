@@ -1,5 +1,6 @@
 import { ImpLib } from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
+import { Algebra } from "@ot-builder/prelude";
 import { GeneralVar } from "@ot-builder/variance";
 
 import { DelayValueCollector } from "../common/value-collector";
@@ -14,7 +15,7 @@ export class ReadTimeIVD<A extends GeneralVar.Dim, M extends GeneralVar.Master<A
 }
 
 export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<A>, X> {
-    constructor() {}
+    constructor(private readonly monoidX: Algebra.Monoid<X>) {}
     public knownMasters: M[] = [];
     public itemVariationData: ReadTimeIVD<A, M, X>[] = [];
 
@@ -44,6 +45,7 @@ export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<
         return ivd.valueCreator.create(0, variance);
     }
     public queryValue(outer: number, inner: number) {
+        if (outer === 0xffff && inner === 0xffff) return this.monoidX.neutral;
         const ivd = this.getIVD(outer);
         return this.buildValue(ivd, ivd.deltas[inner]);
     }

@@ -35,28 +35,32 @@ const RegionList = {
         }
     }),
     ...Write((fr, regions: ReadonlyArray<OtVar.Master>, ds: OtVar.DesignSpace) => {
+        Assert.NotOverflow("VariationRegionList::regionCount", regions.length, 0x7fff);
         fr.uint16(ds.length); // axesCount
-        fr.uint16(regions.length);
-        for (const region of ImpLib.Iterators.ToCount(
-            regions,
-            regions.length,
-            new OtVar.Master([])
-        )) {
+        fr.uint16(regions.length); // regionCount
+        for (const region of ImpLib.Iterators.ArrToCount(regions, new OtVar.Master([]))) {
             const m: Map<OtVar.Dim, OtVar.MasterDim> = new Map();
             for (const dim of region.regions) {
                 m.set(dim.dim, dim);
             }
             for (const dim of ds) {
                 const mDim = m.get(dim);
-                fr.array(F2D14, [mDim ? mDim.min : -1, mDim ? mDim.peak : 0, mDim ? mDim.max : 1]);
+                fr.array(F2D14, mDim ? [mDim.min, mDim.peak, mDim.max] : [-1, 0, 1]);
             }
         }
     })
 };
 
+function createIVD() {
+    return new ReadTimeIVD(new OtVar.ValueFactory(new OtVar.MasterSet()));
+}
+function createIVS() {
+    return new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>(OtVar.Ops);
+}
+
 const IVD = {
     ...Read(vw => {
-        const ivd = new ReadTimeIVD(new OtVar.ValueFactory(new OtVar.MasterSet()));
+        const ivd = createIVD();
         const itemCount = vw.uint16();
         const shortDeltaCount = vw.uint16();
         const regionIndexCount = vw.uint16();
@@ -74,54 +78,49 @@ const IVD = {
         return ivd;
     }),
     ...Write((fr, ivd: WriteTimeIVD) => {
-        const regionIndexCount = ivd.masterIDs.length;
+        const regionCount = ivd.masterIDs.length;
         let shortDeltaCount = 0;
 
-        const deltaMatrix: number[][] = [];
-
-        for (const [deltas, innerID] of ivd.entries()) {
-            for (let mid = shortDeltaCount; mid < regionIndexCount; mid++) {
-                const delta = deltas[mid] || 0;
+        const deltas: number[][] = [];
+        for (const [deltaRow, innerID] of ivd.entries()) {
+            for (let mid = shortDeltaCount; mid < regionCount; mid++) {
+                const delta = deltaRow[mid] || 0;
                 if (Int8.from(delta) !== delta) shortDeltaCount = mid + 1;
             }
-            deltaMatrix[innerID] = [...deltas];
+            deltas[innerID] = [...deltaRow];
         }
 
-        fr.uint16(deltaMatrix.length);
+        fr.uint16(deltas.length);
         fr.uint16(shortDeltaCount);
-        fr.uint16(regionIndexCount);
-        fr.arrayNF(UInt16, regionIndexCount, ivd.masterIDs, 0);
-        for (const deltas of ImpLib.Iterators.ToCount(deltaMatrix, deltaMatrix.length, [])) {
-            for (const [delta, dim] of ImpLib.Iterators.ToCountIndex(
-                deltas,
-                regionIndexCount,
-                0
-            )) {
-                if (dim < shortDeltaCount) fr.int16(delta);
-                else fr.int8(delta);
-            }
+        fr.uint16(regionCount);
+        fr.arrayNF(UInt16, regionCount, ivd.masterIDs, 0);
+        for (const [delta, , dim] of ImpLib.Iterators.FlatMatrixSized(deltas, regionCount, 0)) {
+            if (dim < shortDeltaCount) fr.int16(delta);
+            else fr.int8(delta);
         }
     })
 };
 
 export type ReadTimeIVS = CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>;
 export const ReadTimeIVS = {
-    Create() {
-        return new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>();
-    },
+    Create: createIVS,
     ...Read((vw, designSpace: OtVar.DesignSpace) => {
         const format = vw.uint16();
         if (format !== 1) throw Errors.FormatNotSupported("IVS", format);
 
-        const ivs = new CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>();
+        const ivs = createIVS();
 
         const pRegionList = vw.ptr32();
         pRegionList.next(RegionList, designSpace, ivs);
 
         const ivdCount = vw.uint16();
         for (const [pIVDOffset] of vw.repeat(ivdCount)) {
-            const pIVD = pIVDOffset.ptr32();
-            ivs.itemVariationData.push(pIVD.next(IVD));
+            const pIVD = pIVDOffset.ptr32Nullable();
+            if (pIVD) {
+                ivs.itemVariationData.push(pIVD.next(IVD));
+            } else {
+                ivs.itemVariationData.push(createIVD());
+            }
         }
 
         return ivs;
