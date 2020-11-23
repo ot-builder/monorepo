@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/stat-glyphs",
   "description": "",
-  "version": "0.10.33",
+  "version": "0.10.34",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,13 +24,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "0.10.33",
-    "@ot-builder/common-impl": "0.10.33",
-    "@ot-builder/ot-glyphs": "0.10.33",
-    "@ot-builder/ot-metadata": "0.10.33",
-    "@ot-builder/prelude": "0.10.33",
-    "@ot-builder/primitive": "0.10.33",
-    "@ot-builder/variance": "0.10.33",
+    "@ot-builder/bin-composite-types": "0.10.34",
+    "@ot-builder/common-impl": "0.10.34",
+    "@ot-builder/ot-glyphs": "0.10.34",
+    "@ot-builder/ot-metadata": "0.10.34",
+    "@ot-builder/prelude": "0.10.34",
+    "@ot-builder/primitive": "0.10.34",
+    "@ot-builder/variance": "0.10.34",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

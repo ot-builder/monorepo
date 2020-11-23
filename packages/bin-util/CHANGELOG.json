@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-util",
   "entries": [
     {
+      "date": "Mon, 23 Nov 2020 01:14:22 GMT",
+      "tag": "@ot-builder/bin-util_v0.10.34",
+      "version": "0.10.34",
+      "comments": {
+        "patch": [
+          {
+            "comment": "OT184 IVD change",
+            "author": "c@cyano.cn",
+            "commit": "b1e4ea8a6fc06fa40af892956f275194b439fb9c",
+            "package": "@ot-builder/bin-util"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 11 Oct 2020 00:13:03 GMT",
       "tag": "@ot-builder/bin-util_v0.10.29",
       "version": "0.10.29",

@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Mon, 23 Nov 2020 01:14:22 GMT",
+      "tag": "@ot-builder/io-bin-cff_v0.10.34",
+      "version": "0.10.34",
+      "comments": {
+        "patch": [
+          {
+            "comment": "OT184 IVD change",
+            "author": "c@cyano.cn",
+            "commit": "b1e4ea8a6fc06fa40af892956f275194b439fb9c",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 08 Nov 2020 00:11:09 GMT",
       "tag": "@ot-builder/io-bin-cff_v0.10.32",
       "version": "0.10.32",

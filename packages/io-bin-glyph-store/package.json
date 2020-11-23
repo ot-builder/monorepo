@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-glyph-store",
   "description": "",
-  "version": "0.10.33",
+  "version": "0.10.34",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,26 +24,26 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.33",
-    "@ot-builder/common-impl": "0.10.33",
-    "@ot-builder/errors": "0.10.33",
-    "@ot-builder/ot-glyphs": "0.10.33",
-    "@ot-builder/ot-metadata": "0.10.33",
-    "@ot-builder/io-bin-cff": "0.10.33",
-    "@ot-builder/io-bin-metric": "0.10.33",
-    "@ot-builder/io-bin-ttf": "0.10.33",
-    "@ot-builder/prelude": "0.10.33",
-    "@ot-builder/primitive": "0.10.33",
-    "@ot-builder/stat-glyphs": "0.10.33",
-    "@ot-builder/var-store": "0.10.33",
-    "@ot-builder/variance": "0.10.33",
-    "@ot-builder/ot-sfnt": "0.10.33",
-    "@ot-builder/io-bin-sfnt": "0.10.33",
+    "@ot-builder/bin-util": "0.10.34",
+    "@ot-builder/common-impl": "0.10.34",
+    "@ot-builder/errors": "0.10.34",
+    "@ot-builder/ot-glyphs": "0.10.34",
+    "@ot-builder/ot-metadata": "0.10.34",
+    "@ot-builder/io-bin-cff": "0.10.34",
+    "@ot-builder/io-bin-metric": "0.10.34",
+    "@ot-builder/io-bin-ttf": "0.10.34",
+    "@ot-builder/prelude": "0.10.34",
+    "@ot-builder/primitive": "0.10.34",
+    "@ot-builder/stat-glyphs": "0.10.34",
+    "@ot-builder/var-store": "0.10.34",
+    "@ot-builder/variance": "0.10.34",
+    "@ot-builder/ot-sfnt": "0.10.34",
+    "@ot-builder/io-bin-sfnt": "0.10.34",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/io-bin-metadata": "0.10.33",
-    "@ot-builder/test-util": "0.10.33",
+    "@ot-builder/io-bin-metadata": "0.10.34",
+    "@ot-builder/test-util": "0.10.34",
     "@types/jest": "^26.0.10",
     "jest": "^26.4.1"
   }

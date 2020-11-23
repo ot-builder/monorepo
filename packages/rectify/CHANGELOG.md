@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/rectify
 
-This log was last generated on Sun, 25 Oct 2020 04:32:53 GMT and should not be manually modified.
+This log was last generated on Mon, 23 Nov 2020 01:14:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.34
+
+Mon, 23 Nov 2020 01:14:22 GMT
+
+### Patches
+
+- OT184 IVD change (c@cyano.cn)
 
 ## 0.10.31
 

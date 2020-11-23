@@ -2,6 +2,21 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Mon, 23 Nov 2020 01:14:22 GMT",
+      "tag": "@ot-builder/common-impl_v0.10.34",
+      "version": "0.10.34",
+      "comments": {
+        "patch": [
+          {
+            "comment": "OT184 IVD change",
+            "author": "c@cyano.cn",
+            "commit": "b1e4ea8a6fc06fa40af892956f275194b439fb9c",
+            "package": "@ot-builder/common-impl"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 13 Nov 2020 07:14:20 GMT",
       "tag": "@ot-builder/common-impl_v0.10.33",
       "version": "0.10.33",

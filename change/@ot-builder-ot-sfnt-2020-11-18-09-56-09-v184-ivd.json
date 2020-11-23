@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "OT184 IVD change",
-  "packageName": "@ot-builder/ot-sfnt",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch",
-  "date": "2020-11-18T01:55:59.648Z"
-}
