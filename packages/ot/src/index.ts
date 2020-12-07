@@ -29,38 +29,29 @@ export namespace Font {
     }
 }
 
+export { Sfnt } from "@ot-builder/ot-sfnt";
+
 export { OtVar as Var, GeneralVar } from "@ot-builder/variance";
 
 export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ot-metadata";
 
 export { OtGlyph as Glyph, GeneralGlyph } from "@ot-builder/ot-glyphs";
 export { Cff, Cvt, Fpgm, Prep } from "@ot-builder/ot-glyphs";
-export {
-    OtGlyphNamingSource as GlyphNamingSource,
-    OtGlyphNamer as GlyphNamer
-} from "@ot-builder/ot-glyphs";
-export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+export { OtGlyphNamingSource as GlyphNamingSource } from "@ot-builder/ot-glyphs";
+export { OtGlyphNamer as GlyphNamer } from "@ot-builder/ot-glyphs";
+export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
+
+export type GlyphOrder = Data.Order<OtGlyph>;
 export type ListGlyphStore = ImpLib.Order.ListStore<OtGlyph>;
 export type GlyphStore = Data.OrderStore<OtGlyph>;
 export type GlyphStoreFactory<GS extends GlyphStore> = Data.OrderStoreFactory<OtGlyph, GS>;
 export type GlyphStoreFactoryWithDefault<
     GS extends GlyphStore
 > = Data.OrderStoreFactoryWithDefault<OtGlyph, GS>;
-export type GlyphOrder = Data.Order<OtGlyph>;
+export { OtListGlyphStoreFactory as ListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 
 export { Cmap, OtEncoding as Encoding } from "@ot-builder/ot-encoding";
-export { XPrv } from "@ot-builder/ot-ext-private";
 export { Name, Stat, Meta } from "@ot-builder/ot-name";
-export {
-    DicingStore,
-    DicingStoreRep,
-    Gdef,
-    Gsub,
-    Gpos,
-    GsubGpos,
-    Base,
-    Math
-} from "@ot-builder/ot-layout";
-export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
-
-export { Sfnt } from "@ot-builder/ot-sfnt";
+export { DicingStore, DicingStoreRep } from "@ot-builder/ot-layout";
+export { Gdef, Gsub, Gpos, GsubGpos, Base, Math } from "@ot-builder/ot-layout";
+export { XPrv } from "@ot-builder/ot-ext-private";
