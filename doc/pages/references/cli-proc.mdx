@@ -6,7 +6,7 @@ export default Layout
 
 # Namespace <Decl s={CliProc}/>
 
-The namespace <R s={CliProc}/> contains programmatical implementations of various CLI functionality.
+The namespace <R s={CliProc}/> contains programmatic implementations of various CLI functionality.
 
 ## Consolidation
 
@@ -19,19 +19,19 @@ Consolidates the font, including:
 
 ## Garbage Collection
 
-### Function <Fn s={CliProc.gcFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+### Function <Fn s={CliProc.gcFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),gsf:Ot.GlyphStoreFactory("GS")}} returns={"void"} />
 
 Reduces the _font_'s glyph set to all glyphs accessible.
 
 ## Subsetting
 
-### Function <Fn s={CliProc.subsetFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),text:iterable(string),gsf:Ot.GlyphstoreFactory("GS")}} returns={"void"} />
+### Function <Fn s={CliProc.subsetFont(extend("GS", Ot.GlyphStore))} args={{font:Ot.Font("GS"),text:iterable(string),gsf:Ot.GlyphStoreFactory("GS")}} returns={"void"} />
 
 Reduces the _font_'s glyph set to all glyphs accessible from _text_.
 
 ## Font Merging
 
-### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),gsf:Ot.GlyphstoreFactory("GS1"),options:optional(CliProc.MergeOptions)}}/>
+### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),gsf:Ot.GlyphStoreFactory("GS1"),options:optional(CliProc.MergeOptions)}}/>
 
 Create a combined font _override_ into font _basis_, which will have a new glyph store and new `cmap`, `GSUB`, `GPOS` and `GDEF` tables. The remaining tables will be shared with _basis_.
 
@@ -39,7 +39,7 @@ Create a combined font _override_ into font _basis_, which will have a new glyph
 
 #### Members
 
-- <Member s={CliProc.MergeOptions.perferOverride} type={optional(boolean)}/>
+- <Member s={CliProc.MergeOptions.preferOverride} type={optional(boolean)}/>
 
     When set, the character mapping and OTL will prefer the mapping in _override_ over _basis_.
 
@@ -57,7 +57,7 @@ Unify the design space of the input when they are compatible; Otherwise raise er
 
 ## Glyph Set Sharing
 
-### Function <Fn s={CliProc.shareGlyphSet(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), gsf:Ot.GlyphstoreFactory("GS"), options:optional(CliProc.ShareGlyphSetOptions)}} returns={"void"} />
+### Function <Fn s={CliProc.shareGlyphSet(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), gsf:Ot.GlyphStoreFactory("GS"), options:optional(CliProc.ShareGlyphSetOptions)}} returns={"void"} />
 
 Unify the glyph set by glyph shape. This procedure is usually used when creating TTC files from TTF files.
 

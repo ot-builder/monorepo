@@ -16,7 +16,7 @@ The type <R s={Ot.Font} /> is generic, and it supports any glyph store types (<R
 
 A pre-supplied implementation is <R s={Ot.ListGlyphStore} />. The factory creating <R s={Ot.ListGlyphStore} />'s is <R s={Ot.ListGlyphStoreFactory} />.
 
-When the <R s="GS"/> parameter is absent, it will deault to <R s={Data.OrderStore(Ot.Glyph)}/>.
+When the <R s="GS"/> parameter is absent, it will default to <R s={Data.OrderStore(Ot.Glyph)}/>.
 
 An <R s={Ot.Font("GS")}/> could be either <R s={Ot.Font.Cff("GS")}/> or <R s={Ot.Font.Ttf("GS")}/>, depending on whether the <code>cff</code> property exists. When present, the font is considered CFF. Utility functions <R s={Ot.Font.isCff}/> and <R s={Ot.Font.isTtf}/> could be used to detect the types.
 
@@ -27,7 +27,7 @@ An <R s={Ot.Font("GS")}/> could be either <R s={Ot.Font.Cff("GS")}/> or <R s={Ot
 
     The glyph store.
 
-* CFF-specfic
+* CFF-specific
 
     * <Member s={Ot.Font.cff} type={Ot.Cff.Table} />
 

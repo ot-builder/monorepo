@@ -10,7 +10,32 @@ on:
     types: manual-publish
 
 jobs:
+  pre-publish-validation:
+    name: Prime UT
+    runs-on: ${{ matrix.os }}
+    if: github.repository == 'ot-builder/monorepo'
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest] # All operating systems
+        node-version: [12.x, 14.x, 15.x] # Current and LTS. No history versions
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Validation
+      run: |
+        npm run init
+        npm run build
+        npm run test
+      env:
+        CI: true
+
   publish:
+    needs: pre-publish-validation
     name: Publish
     runs-on: ubuntu-latest
     if: github.repository == 'ot-builder/monorepo'
