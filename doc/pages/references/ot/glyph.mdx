@@ -10,7 +10,7 @@ The type-namespace duplex <R s={Ot.Glyph}/> defines the datatype, related dataty
 
 ## Glyph Store
 
-A <R s={Ot.Font}/> support any datatypt implemented <R s={Data.OrderStore(Ot.Glyph)}/> to be the glyph store. `ot-builder` provided <R s={Ot.ListGlyphStore} /> as the default glyph store implementation.
+A <R s={Ot.Font}/> support any datatype implemented <R s={Data.OrderStore(Ot.Glyph)}/> to be the glyph store. `ot-builder` provided <R s={Ot.ListGlyphStore} /> as the default glyph store implementation.
 
 ### Interface <Decl s={Ot.GlyphStore} />
 
@@ -383,7 +383,7 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 
   * <Fn s={Ot.Glyph.Transform2X3.Rotate} args={{angle:number}} returns={Ot.Glyph.Transform2X3}/>
 
-    Creates a rotation transform. *angle* is measured in radians, and the positive orientation is counter-colckwise.
+    Creates a rotation transform. *angle* is measured in radians, and the positive orientation is counter-clockwise.
 
 #### Properties
 
@@ -423,11 +423,11 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 
  * <Item s={Ot.Glyph.PointType.Lead} /> = 1
 
-    This point is the first control point of a cubic Beizer curve.
+    This point is the first control point of a cubic Bezier curve.
 
  * <Item s={Ot.Glyph.PointType.Follow} /> = 2
 
-    This point is the second control point of a cubic Beizer curve.
+    This point is the second control point of a cubic Bezier curve.
 
  * <Item s={Ot.Glyph.PointType.Quad} /> = 3
 

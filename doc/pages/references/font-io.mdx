@@ -10,7 +10,7 @@ export default Layout
 
 ### <Fn long s={FontIo.readFont(extend("GS",Data.Order(Ot.Glyph)))} args={{sfnt:annot(Ot.Sfnt,"SFNT to parse"),gsf:annot(Data.OrderStoreFactoryWithDefault(Ot.Glyph,"GS"),"Factory to create a glyph store"),config:optional(annot(FontIo.FontIoConfig,"IO configuration"))}} returns={Ot.Font("GS")}/>
 
-Creates a <R s={Ot.Font}/> form a <R s={Ot.Sfnt}/>. The paraemter *`gsf`* is used to provide the glyph store factory to create the glyph store. When using with <R s={Ot.ListGlyphStore}/>, <R s={Ot.ListGlyphStoreFactory}/> is recommended to be provided for *`gsf`* parameter.
+Creates a <R s={Ot.Font}/> form a <R s={Ot.Sfnt}/>. The parameter *`gsf`* is used to provide the glyph store factory to create the glyph store. When using with <R s={Ot.ListGlyphStore}/>, <R s={Ot.ListGlyphStoreFactory}/> is recommended to be provided for *`gsf`* parameter.
 
 ### <Fn long s={FontIo.writeFont(extend("GS",Data.Order(Ot.Glyph)))} args={{font:annot(Ot.Font("GS"),"The font to write"),config:optional(annot(FontIo.FontIoConfig,"IO configuration"))}} returns={Ot.Sfnt}/>
 

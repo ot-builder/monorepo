@@ -10,6 +10,7 @@
         "Carian",
         "Chiki",
         "Cntr",
+        "Codepage",
         "Coord",
         "DOGRAY",
         "DSIG",
@@ -95,6 +96,7 @@
         "annot",
         "beachball",
         "bitmask",
+        "buildable",
         "canonicalize",
         "cmap",
         "comap",
@@ -158,6 +160,7 @@
         "tyrep",
         "underbar",
         "unds",
+        "unhinted",
         "vasc",
         "vcof",
         "vcrn",
@@ -172,8 +175,8 @@
         "wght",
         "xhgt"
     ],
-	"codemetrics.basics.EnabledForJS": false,
-	"codemetrics.basics.EnabledForTS": false,
+    "codemetrics.basics.EnabledForJS": false,
+    "codemetrics.basics.EnabledForTS": false,
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -183,7 +186,10 @@
         "node_modules": true,
         "packages/*/node_modules": true,
         "packages/*/lib": true,
-        "**/.cache": true
+        "**/.cache": true,
+        "doc/build": true,
+        "doc/node_modules": true,
+        "tmp": true
     },
     "typescript.tsdk": "./node_modules/typescript/lib",
     "typescript.preferences.importModuleSpecifier": "non-relative",
