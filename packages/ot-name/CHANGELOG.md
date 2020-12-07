@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/ot-name
 
-This log was last generated on Mon, 23 Nov 2020 01:14:22 GMT and should not be manually modified.
+This log was last generated on Mon, 07 Dec 2020 06:17:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.35
+
+Mon, 07 Dec 2020 06:17:59 GMT
+
+### Patches
+
+- Export NameID enumeration (belleve@typeof.net)
 
 ## 0.10.34
 

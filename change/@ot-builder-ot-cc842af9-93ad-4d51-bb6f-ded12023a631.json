@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Export NameID enumeration",
-  "packageName": "@ot-builder/ot",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}

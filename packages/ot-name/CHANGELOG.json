@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-name",
   "entries": [
     {
+      "date": "Mon, 07 Dec 2020 06:17:59 GMT",
+      "tag": "@ot-builder/ot-name_v0.10.35",
+      "version": "0.10.35",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Export NameID enumeration",
+            "author": "belleve@typeof.net",
+            "commit": "b59418fba513e99dbfee63020835529e4048c437",
+            "package": "@ot-builder/ot-name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "@ot-builder/ot-name_v0.10.34",
       "version": "0.10.34",
