@@ -1,6 +1,4 @@
-import { Writable } from "stream";
-
-import { Frag, Write } from "@ot-builder/bin-util";
+import { Frag } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
