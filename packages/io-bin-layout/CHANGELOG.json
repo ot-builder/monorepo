@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Wed, 30 Dec 2020 06:40:38 GMT",
+      "tag": "@ot-builder/io-bin-layout_v0.10.36",
+      "version": "0.10.36",
+      "comments": {
+        "patch": [
+          {
+            "comment": "GPOS: Fix base filtering when writing mark-related lookups.",
+            "author": "belleve@typeof.net",
+            "commit": "7e75874c73687af7e3c9c9ba53f5fea6df4eabbe",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "@ot-builder/io-bin-layout_v0.10.34",
       "version": "0.10.34",

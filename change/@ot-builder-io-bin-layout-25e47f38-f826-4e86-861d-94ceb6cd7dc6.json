@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "GPOS: Fix base filtering when writing mark-related lookups.",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}

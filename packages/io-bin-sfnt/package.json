@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-sfnt",
   "description": "",
-  "version": "0.10.35",
+  "version": "0.10.36",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,16 +24,16 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.35",
-    "@ot-builder/common-impl": "0.10.35",
-    "@ot-builder/ot-sfnt": "0.10.35",
-    "@ot-builder/prelude": "0.10.35",
-    "@ot-builder/primitive": "0.10.35",
-    "@ot-builder/errors": "0.10.35",
+    "@ot-builder/bin-util": "0.10.36",
+    "@ot-builder/common-impl": "0.10.36",
+    "@ot-builder/ot-sfnt": "0.10.36",
+    "@ot-builder/prelude": "0.10.36",
+    "@ot-builder/primitive": "0.10.36",
+    "@ot-builder/errors": "0.10.36",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/test-util": "0.10.35",
+    "@ot-builder/test-util": "0.10.36",
     "@types/jest": "^26.0.10",
     "jest": "^26.4.1"
   }

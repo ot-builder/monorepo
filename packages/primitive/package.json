@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/primitive",
   "description": "",
-  "version": "0.10.35",
+  "version": "0.10.36",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,9 +24,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "0.10.35",
-    "@ot-builder/errors": "0.10.35",
-    "@ot-builder/prelude": "0.10.35",
+    "@ot-builder/bin-util": "0.10.36",
+    "@ot-builder/errors": "0.10.36",
+    "@ot-builder/prelude": "0.10.36",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Mon, 23 Nov 2020 01:14:22 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Dec 2020 06:40:38 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.36
+
+Wed, 30 Dec 2020 06:40:38 GMT
+
+### Patches
+
+- GPOS: Fix base filtering when writing mark-related lookups. (belleve@typeof.net)
 
 ## 0.10.34
 

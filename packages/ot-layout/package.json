@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/ot-layout",
-  "version": "0.10.35",
+  "version": "0.10.36",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,10 +23,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-glyphs": "0.10.35",
-    "@ot-builder/prelude": "0.10.35",
-    "@ot-builder/primitive": "0.10.35",
-    "@ot-builder/variance": "0.10.35",
+    "@ot-builder/ot-glyphs": "0.10.36",
+    "@ot-builder/prelude": "0.10.36",
+    "@ot-builder/primitive": "0.10.36",
+    "@ot-builder/variance": "0.10.36",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
