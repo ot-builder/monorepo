@@ -303,39 +303,91 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<
     }
 }
 
-class GposMarkToBaseWriterBase {
-    private getMarkPlans<G>(marks: Map<G, Gpos.MarkRecord>) {
-        const covMap: Map<G, number> = new Map();
-        let collected = 0;
-        const plans: SingleMarkRecord<G>[][] = [];
+abstract class GposMarkToBaseWriterBase<G, B> {
+    protected abstract baseCoversMarkClass(mc: number, base: B): boolean;
 
-        do {
-            collected = 0;
-            const plan: SingleMarkRecord<G>[] = [];
-            for (const [g, ma] of marks) {
-                const clsStart = covMap.get(g) || 0;
-                for (let clsMark = clsStart; clsMark < ma.markAnchors.length; clsMark++) {
-                    const anchor = ma.markAnchors[clsMark];
-                    if (!anchor) continue;
-                    plan.push({ glyph: g, class: clsMark, anchor });
-                    covMap.set(g, clsMark + 1);
-                    collected += 1;
-                    break;
-                }
-            }
+    private getMarkPlans(marks: Map<G, Gpos.MarkRecord>, bases: Map<G, B>) {
+        const maxCls = this.getMaxAnchorClass(marks);
+        const plans: SingleMarkRecord<G>[][] = [];
+        const clsSetAdded = new Set<number>();
+
+        for (;;) {
+            const plan = this.getValidMarkPlan(marks, bases, maxCls, clsSetAdded);
+            console.log(clsSetAdded);
             if (plan.length) plans.push(plan);
-        } while (collected > 0);
+            else break;
+        }
 
         return plans;
     }
 
-    protected createSubtableFragmentsImpl<G, B, R extends MarkWritePlanBase<G, B, R>>(
+    private getMaxAnchorClass(marks: Map<G, Gpos.MarkRecord>) {
+        let mc = 0;
+        for (const [g, ma] of marks) {
+            for (let cls = 0; cls < ma.markAnchors.length; cls++) {
+                if (ma.markAnchors[cls] && cls + 1 > mc) mc = cls + 1;
+            }
+        }
+        return mc;
+    }
+
+    private getValidMarkPlan(
+        marks: Map<G, Gpos.MarkRecord>,
+        bases: Map<G, B>,
+        maxCls: number,
+        clsSetAdded: Set<number>
+    ) {
+        let firstClass = true;
+        const baseCoverage = new Set<G>();
+
+        const accumulatedCovSet = new Set<G>();
+        const accumulatedPlan: SingleMarkRecord<G>[] = [];
+
+        loopCls: for (let c = 0; c < maxCls; c++) {
+            if (clsSetAdded.has(c)) continue;
+
+            // Process mark list: ensure this class doesn't conflict with existing marks
+            let conflict = false;
+            const currentClassCovSet = new Set<G>();
+            const currentClassPlan: SingleMarkRecord<G>[] = [];
+
+            for (const [g, ma] of marks) {
+                const anchor = ma.markAnchors[c];
+                if (anchor) {
+                    currentClassCovSet.add(g);
+                    currentClassPlan.push({ glyph: g, class: c, anchor });
+                    if (accumulatedCovSet.has(g)) conflict = true;
+                }
+            }
+            if (conflict) continue loopCls;
+
+            // Ensure the base array is a rectangular matrix
+            if (firstClass) {
+                firstClass = false;
+                for (const [g, br] of bases) {
+                    if (this.baseCoversMarkClass(c, br)) baseCoverage.add(g);
+                }
+            } else {
+                for (const [g, br] of bases) {
+                    if (baseCoverage.has(g) !== this.baseCoversMarkClass(c, br)) continue loopCls;
+                }
+            }
+
+            for (const g of currentClassCovSet) accumulatedCovSet.add(g);
+            for (const mr of currentClassPlan) accumulatedPlan.push(mr);
+            clsSetAdded.add(c);
+        }
+
+        return accumulatedPlan;
+    }
+
+    protected createSubtableFragmentsImpl<R extends MarkWritePlanBase<G, B, R>>(
         cls: MarkPlanClass<G, B, R>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        const markPlans = this.getMarkPlans(marks);
+        const markPlans = this.getMarkPlans(marks, bases);
         const frags: Frag[] = [];
         for (const mp of markPlans) {
             const stpStart = new cls(mp, new Set(), bases);
@@ -350,8 +402,11 @@ class GposMarkToBaseWriterBase {
 }
 
 export class GposMarkToBaseWriter
-    extends GposMarkToBaseWriterBase
+    extends GposMarkToBaseWriterBase<OtGlyph, Gpos.BaseRecord>
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase> {
+    protected baseCoversMarkClass(mc: number, br: Gpos.BaseRecord) {
+        return br && !!br.baseAnchors[mc];
+    }
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToBase {
         return l.type === Gpos.LookupType.MarkToBase;
     }
@@ -374,8 +429,12 @@ export class GposMarkToBaseWriter
     }
 }
 export class GposMarkToLigatureWriter
-    extends GposMarkToBaseWriterBase
+    extends GposMarkToBaseWriterBase<OtGlyph, Gpos.LigatureBaseRecord>
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature> {
+    protected baseCoversMarkClass(mc: number, br: Gpos.LigatureBaseRecord) {
+        for (const component of br.baseAnchors) if (component[mc]) return true;
+        return false;
+    }
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToLigature {
         return l.type === Gpos.LookupType.MarkToLigature;
     }
@@ -398,8 +457,11 @@ export class GposMarkToLigatureWriter
     }
 }
 export class GposMarkToMarkWriter
-    extends GposMarkToBaseWriterBase
+    extends GposMarkToBaseWriterBase<OtGlyph, Gpos.BaseRecord>
     implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark> {
+    protected baseCoversMarkClass(mc: number, br: Gpos.BaseRecord) {
+        return br && !!br.baseAnchors[mc];
+    }
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToMark {
         return l.type === Gpos.LookupType.MarkToMark;
     }
