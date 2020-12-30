@@ -5,7 +5,7 @@ import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
-import { ClassDef, ClassDefUtil } from "../shared/class-def";
+import { ClassDef, ClassDefUtil, EmptyAsNullPtr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GlyphCoverage } from "../shared/coverage";
 
 import { SimpleClassIdArray, SimpleCoverageArray, SimpleOffsetArray } from "./shared-types";
@@ -156,9 +156,9 @@ class SubtableFormat2<L> {
 
         const cov = view.ptr16().next(GidCoverage);
 
-        const cdBacktrack = isChaining ? view.ptr16().next(ClassDef, ctx.gOrd) : new Map();
+        const cdBacktrack = isChaining ? view.next(EmptyAsNullPtr16ClassDef, ctx.gOrd) : new Map();
         const cdInput = view.ptr16().next(ClassDef, ctx.gOrd);
-        const cdLookAhead = isChaining ? view.ptr16().next(ClassDef, ctx.gOrd) : new Map();
+        const cdLookAhead = isChaining ? view.next(EmptyAsNullPtr16ClassDef, ctx.gOrd) : new Map();
 
         const covGlyphSet = CovUtils.glyphSetFromGidList(cov, ctx.gOrd);
         ClassDefUtil.padClass0(cdBacktrack, ctx.gOrd);

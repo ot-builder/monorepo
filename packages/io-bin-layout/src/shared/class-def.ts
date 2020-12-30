@@ -74,6 +74,21 @@ export const ClassDef = {
 export const Ptr16ClassDef = NonNullablePtr16(ClassDef);
 export const NullablePtr16ClassDef = NullablePtr16(ClassDef);
 
+export const EmptyAsNullPtr16ClassDef = {
+    read(view: BinaryView, gOrd: Data.Order<OtGlyph>) {
+        const p = view.ptr16Nullable();
+        if (!p) return new Map<OtGlyph, number>();
+        else return p.next(ClassDef, gOrd);
+    },
+    write(frag: Frag, cd: Map<OtGlyph, number>, gOrd: Data.Order<OtGlyph>, trick: number = 0) {
+        if (!cd.size) {
+            frag.ptr16(null);
+        } else {
+            frag.ptr16New().push(ClassDef, cd, gOrd, trick);
+        }
+    }
+};
+
 export const GidClassDef = {
     ...Read(view => {
         const format = view.lift(0).uint16();
