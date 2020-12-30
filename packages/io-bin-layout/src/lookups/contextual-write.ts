@@ -9,7 +9,7 @@ import {
     SubtableWriteContext,
     SubtableWriteTrick
 } from "../gsub-gpos-shared/general";
-import { EmptyAsNullPtr16ClassDef, MaxClsDefItemWords, Ptr16ClassDef } from "../shared/class-def";
+import { MaxClsDefItemWords, Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 
 type CompatibleRuleResult<L> = {
@@ -238,9 +238,9 @@ class CClassRuleSet<L> {
     ) {
         frag.uint16(2);
         frag.push(Ptr16GlyphCoverage, s.firstGlyphSet, ctx.gOrd, ctx.trick);
-        if (isChaining) frag.push(EmptyAsNullPtr16ClassDef, s.cdBacktrack, ctx.gOrd, ctx.trick);
+        if (isChaining) frag.push(Ptr16ClassDef, s.cdBacktrack, ctx.gOrd, ctx.trick);
         frag.push(Ptr16ClassDef, s.cdInput, ctx.gOrd, ctx.trick);
-        if (isChaining) frag.push(EmptyAsNullPtr16ClassDef, s.cdLookAhead, ctx.gOrd, ctx.trick);
+        if (isChaining) frag.push(Ptr16ClassDef, s.cdLookAhead, ctx.gOrd, ctx.trick);
         frag.uint16(s.maxFirstClass + 1);
         for (let c = 0; c <= s.maxFirstClass; c++) {
             const a = s.classRules.get(c);
