@@ -92,10 +92,10 @@ const LigatureArray = {
     }
 };
 
-interface MarkPlanClass<G, B, R> {
-    new (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>): R;
+interface MarkPlanClass<G, B> {
+    new (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>): MarkWritePlan<G, B>;
 }
-abstract class MarkWritePlanBase<G, B, R> {
+abstract class MarkWritePlan<G, B> {
     protected readonly relocation: MarkClassRelocation;
     constructor(
         public readonly marks: SingleMarkRecord<G>[],
@@ -105,7 +105,12 @@ abstract class MarkWritePlanBase<G, B, R> {
         this.relocation = this.getMarkPlanRelocation(marks);
     }
 
-    public abstract autoBisect(limit: number): R[];
+    public abstract measure(): number;
+    protected abstract sub(
+        marks: SingleMarkRecord<G>[],
+        exclude: Set<G>,
+        bases: Map<G, B>
+    ): MarkWritePlan<G, B>;
     public abstract write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>): void;
 
     public isEmpty() {
@@ -132,15 +137,39 @@ abstract class MarkWritePlanBase<G, B, R> {
         return { forward: relocation, reward: revRelocation };
     }
 
-    protected bisectImplByMarks<R>(cls: MarkPlanClass<G, B, R>): [R, R] {
+    public autoBisect(limit: number, d = 0): MarkWritePlan<G, B>[] {
+        if (this.measure() < limit) {
+            return [this];
+        } else {
+            const [lower, upper] = this.bisect();
+            return [...lower.autoBisect(limit, d + 1), ...upper.autoBisect(limit, d + 1)];
+        }
+    }
+
+    protected bisect() {
+        let planMark: null | [MarkWritePlan<G, B>, MarkWritePlan<G, B>] = null;
+        if (this.marks.length > 1) planMark = this.bisectImplByMarks();
+        const planBase = this.bisectImplByBases();
+        if (
+            planMark &&
+            planMark[0].measure() + planMark[1].measure() <
+                planBase[0].measure() + planBase[1].measure()
+        ) {
+            return planMark;
+        } else {
+            return planBase;
+        }
+    }
+
+    protected bisectImplByMarks(): [MarkWritePlan<G, B>, MarkWritePlan<G, B>] {
         const n = Math.floor(this.marks.length / 2);
         return [
-            new cls(this.marks.slice(0, n), this.exclude, this.bases),
-            new cls(this.marks.slice(n), this.exclude, this.bases)
+            this.sub(this.marks.slice(0, n), this.exclude, this.bases),
+            this.sub(this.marks.slice(n), this.exclude, this.bases)
         ];
     }
 
-    protected bisectImplByBases<R>(cls: MarkPlanClass<G, B, R>): [R, R] {
+    protected bisectImplByBases(): [MarkWritePlan<G, B>, MarkWritePlan<G, B>] {
         const excludeLower: Set<G> = new Set(),
             excludeUpper: Set<G> = new Set();
         let nth = 0;
@@ -158,8 +187,8 @@ abstract class MarkWritePlanBase<G, B, R> {
             }
         }
         return [
-            new cls(this.marks, excludeLower, this.bases),
-            new cls(this.marks, excludeUpper, this.bases)
+            this.sub(this.marks, excludeLower, this.bases),
+            this.sub(this.marks, excludeUpper, this.bases)
         ];
     }
 
@@ -168,7 +197,7 @@ abstract class MarkWritePlanBase<G, B, R> {
     }
 }
 
-class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord, MarkBaseWritePlan> {
+class MarkBaseWritePlan extends MarkWritePlan<OtGlyph, Gpos.BaseRecord> {
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -185,27 +214,12 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord, Mark
         }
         return size;
     }
-    public bisect() {
-        let planMark: null | [MarkBaseWritePlan, MarkBaseWritePlan] = null;
-        if (this.marks.length > 1) planMark = this.bisectImplByMarks(MarkBaseWritePlan);
-        const planBase = this.bisectImplByBases(MarkBaseWritePlan);
-        if (
-            planMark &&
-            planMark[0].measure() + planMark[1].measure() <
-                planBase[0].measure() + planBase[1].measure()
-        ) {
-            return planMark;
-        } else {
-            return planBase;
-        }
-    }
-    public autoBisect(limit: number, d = 0): MarkBaseWritePlan[] {
-        if (this.measure() < limit) {
-            return [this];
-        } else {
-            const [lower, upper] = this.bisect();
-            return [...lower.autoBisect(limit, d + 1), ...upper.autoBisect(limit, d + 1)];
-        }
+    protected sub(
+        marks: SingleMarkRecord<OtGlyph>[],
+        exclude: Set<OtGlyph>,
+        bases: Map<OtGlyph, Gpos.BaseRecord>
+    ) {
+        return new MarkBaseWritePlan(marks, exclude, bases);
     }
     public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const axmMarks = this.getMarkAxm(ctx.gOrd);
@@ -220,11 +234,7 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord, Mark
     }
 }
 
-class MarkLigatureWritePlan extends MarkWritePlanBase<
-    OtGlyph,
-    Gpos.LigatureBaseRecord,
-    MarkLigatureWritePlan
-> {
+class MarkLigatureWritePlan extends MarkWritePlan<OtGlyph, Gpos.LigatureBaseRecord> {
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -247,26 +257,12 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<
         }
         return size;
     }
-    public bisect() {
-        let planMark: null | [MarkLigatureWritePlan, MarkLigatureWritePlan] = null;
-        if (this.marks.length > 1) planMark = this.bisectImplByMarks(MarkLigatureWritePlan);
-        const planBase = this.bisectImplByBases(MarkLigatureWritePlan);
-        if (
-            planMark &&
-            planMark[0].measure() + planMark[1].measure() <
-                planBase[0].measure() + planBase[1].measure()
-        ) {
-            return planMark;
-        } else {
-            return planBase;
-        }
-    }
-    public autoBisect(limit: number): MarkLigatureWritePlan[] {
-        if (this.measure() < limit) return [this];
-        else {
-            const [lower, upper] = this.bisect();
-            return [...lower.autoBisect(limit), ...upper.autoBisect(limit)];
-        }
+    protected sub(
+        marks: SingleMarkRecord<OtGlyph>[],
+        exclude: Set<OtGlyph>,
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>
+    ) {
+        return new MarkLigatureWritePlan(marks, exclude, bases);
     }
     public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
         const axmMarks = this.getMarkAxm(ctx.gOrd);
@@ -284,8 +280,8 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<
 abstract class GposMarkToBaseWriterBase<G, B> {
     protected abstract baseCoversMarkClass(mc: number, base: B): boolean;
 
-    protected createSubtableFragmentsImpl<R extends MarkWritePlanBase<G, B, R>>(
-        cls: MarkPlanClass<G, B, R>,
+    protected createSubtableFragmentsImpl(
+        cls: MarkPlanClass<G, B>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
         ctx: SubtableWriteContext<Gpos.Lookup>
@@ -301,11 +297,11 @@ abstract class GposMarkToBaseWriterBase<G, B> {
         return frags;
     }
 
-    private *getInitialPlans<R extends MarkWritePlanBase<G, B, R>>(
-        cls: MarkPlanClass<G, B, R>,
+    private *getInitialPlans(
+        cls: MarkPlanClass<G, B>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>
-    ): IterableIterator<R> {
+    ): IterableIterator<MarkWritePlan<G, B>> {
         const maxCls = this.getMaxAnchorClass(marks);
         const clsSetAdded = new Set<number>();
 
@@ -326,8 +322,8 @@ abstract class GposMarkToBaseWriterBase<G, B> {
         return mc;
     }
 
-    private fetchValidPlan<R extends MarkWritePlanBase<G, B, R>>(
-        cls: MarkPlanClass<G, B, R>,
+    private fetchValidPlan(
+        cls: MarkPlanClass<G, B>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
         maxCls: number,
