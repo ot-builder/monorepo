@@ -92,21 +92,25 @@ const LigatureArray = {
     }
 };
 
+interface MarkPlanClass<G, B, R> {
+    new (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>): R;
+}
 abstract class MarkWritePlanBase<G, B> {
+    public readonly bases: Map<G, B>;
     protected readonly relocation: MarkClassRelocation;
-    public baseCount: number;
     constructor(
         public readonly marks: SingleMarkRecord<G>[],
         public readonly exclude: Set<G>,
-        public readonly bases: Map<G, B>
+        rawBases: Map<G, B>
     ) {
         this.relocation = this.getMarkPlanRelocation(marks);
-        let baseCount = 0;
-        for (const [g, br] of this.bases) {
-            if (!this.exclude.has(g)) baseCount++;
+        this.bases = new Map();
+        for (const [g, br] of rawBases) {
+            if (!this.exclude.has(g) && this.baseIsSubstantial(br)) this.bases.set(g, br);
         }
-        this.baseCount = baseCount;
     }
+
+    protected abstract baseIsSubstantial(base: B): boolean;
 
     private getMarkPlanRelocation(plan: SingleMarkRecord<G>[]): MarkClassRelocation {
         const hasCls: number[] = [];
@@ -128,35 +132,34 @@ abstract class MarkWritePlanBase<G, B> {
         return { forward: relocation, reward: revRelocation };
     }
 
-    protected bisectImplByMarks<R>(
-        derive: (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>) => R
-    ): [R, R] {
+    protected bisectImplByMarks<R>(cls: MarkPlanClass<G, B, R>): [R, R] {
         const n = Math.floor(this.marks.length / 2);
         return [
-            derive(this.marks.slice(0, n), this.exclude, this.bases),
-            derive(this.marks.slice(n), this.exclude, this.bases)
+            new cls(this.marks.slice(0, n), this.exclude, this.bases),
+            new cls(this.marks.slice(n), this.exclude, this.bases)
         ];
     }
 
-    protected bisectImplByBases<R>(
-        derive: (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>) => R
-    ): [R, R] {
-        const excludeUpper: Set<G> = new Set(),
-            excludeLower: Set<G> = new Set();
+    protected bisectImplByBases<R>(cls: MarkPlanClass<G, B, R>): [R, R] {
+        const excludeLower: Set<G> = new Set(),
+            excludeUpper: Set<G> = new Set();
         let nth = 0;
         for (const [g, br] of this.bases) {
             if (this.exclude.has(g)) {
-                excludeUpper.add(g);
                 excludeLower.add(g);
+                excludeUpper.add(g);
             } else {
-                if (nth * 2 < this.baseCount) excludeUpper.add(g);
-                else excludeLower.add(g);
+                if (nth * 2 < this.bases.size) {
+                    excludeUpper.add(g);
+                } else {
+                    excludeLower.add(g);
+                }
                 nth++;
             }
         }
         return [
-            derive(this.marks, excludeUpper, this.bases),
-            derive(this.marks, excludeLower, this.bases)
+            new cls(this.marks, excludeLower, this.bases),
+            new cls(this.marks, excludeUpper, this.bases)
         ];
     }
 
@@ -166,6 +169,11 @@ abstract class MarkWritePlanBase<G, B> {
 }
 
 class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
+    protected baseIsSubstantial(br: Gpos.BaseRecord) {
+        for (const bc of this.relocation.reward) if (br.baseAnchors[bc]) return true;
+        return false;
+    }
+
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -184,14 +192,8 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
     }
     public bisect() {
         let planMark: null | [MarkBaseWritePlan, MarkBaseWritePlan] = null;
-        if (this.marks.length > 1) {
-            planMark = this.bisectImplByMarks(
-                (marks, exclude, bases) => new MarkBaseWritePlan(marks, exclude, bases)
-            );
-        }
-        const planBase = this.bisectImplByBases(
-            (marks, exclude, bases) => new MarkBaseWritePlan(marks, exclude, bases)
-        );
+        if (this.marks.length > 1) planMark = this.bisectImplByMarks(MarkBaseWritePlan);
+        const planBase = this.bisectImplByBases(MarkBaseWritePlan);
         if (
             planMark &&
             planMark[0].measure() + planMark[1].measure() <
@@ -206,8 +208,8 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
         if (this.measure() < limit) {
             return [this];
         } else {
-            const [upper, lower] = this.bisect();
-            return [...upper.autoBisect(limit, d + 1), ...lower.autoBisect(limit, d + 1)];
+            const [lower, upper] = this.bisect();
+            return [...lower.autoBisect(limit, d + 1), ...upper.autoBisect(limit, d + 1)];
         }
     }
     public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
@@ -224,6 +226,15 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
 }
 
 class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBaseRecord> {
+    protected baseIsSubstantial(br: Gpos.LigatureBaseRecord) {
+        for (const bc of this.relocation.reward) {
+            for (const component of br.baseAnchors) {
+                if (component && component[bc]) return true;
+            }
+        }
+        return false;
+    }
+
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -248,14 +259,8 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
     }
     public bisect() {
         let planMark: null | [MarkLigatureWritePlan, MarkLigatureWritePlan] = null;
-        if (this.marks.length > 1) {
-            planMark = this.bisectImplByMarks(
-                (marks, exclude, bases) => new MarkLigatureWritePlan(marks, exclude, bases)
-            );
-        }
-        const planBase = this.bisectImplByBases(
-            (marks, exclude, bases) => new MarkLigatureWritePlan(marks, exclude, bases)
-        );
+        if (this.marks.length > 1) planMark = this.bisectImplByMarks(MarkLigatureWritePlan);
+        const planBase = this.bisectImplByBases(MarkLigatureWritePlan);
         if (
             planMark &&
             planMark[0].measure() + planMark[1].measure() <
@@ -269,8 +274,8 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBase
     public autoBisect(limit: number): MarkLigatureWritePlan[] {
         if (this.measure() < limit) return [this];
         else {
-            const [upper, lower] = this.bisect();
-            return [...upper.autoBisect(limit), ...lower.autoBisect(limit)];
+            const [lower, upper] = this.bisect();
+            return [...lower.autoBisect(limit), ...upper.autoBisect(limit)];
         }
     }
     public write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>) {
