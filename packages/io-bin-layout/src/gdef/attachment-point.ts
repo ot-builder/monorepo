@@ -1,4 +1,4 @@
-import { Read, Write } from "@ot-builder/bin-util";
+import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
@@ -16,8 +16,9 @@ export const GdefAttachmentPointList = {
         Assert.SizeMatch("AttachList::glyphCount", glyphCount, gidCov.length);
         const atp: Gdef.AttachPointList = new Map();
         for (const gid of gidCov) {
-            const pointCount = view.uint16();
-            const pointIndices = view.array(pointCount, UInt16);
+            const pAttachPoint = view.ptr16();
+            const pointCount = pAttachPoint.uint16();
+            const pointIndices = pAttachPoint.array(pointCount, UInt16);
             atp.set(
                 gOrd.at(gid),
                 pointIndices.map(z => ({ pointIndex: z }))
@@ -31,8 +32,9 @@ export const GdefAttachmentPointList = {
         frag.ptr16New().push(GidCoverage, gidList, trick);
         frag.uint16(gidList.length);
         for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
-            frag.uint16(pl.length);
-            for (const z of pl) frag.uint16(z.pointIndex);
+            const frAttPoint = frag.ptr16New();
+            frAttPoint.uint16(pl.length);
+            for (const z of pl) frAttPoint.uint16(z.pointIndex);
         }
     })
 };
