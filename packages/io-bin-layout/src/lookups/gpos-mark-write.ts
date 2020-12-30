@@ -1,4 +1,6 @@
-import { Frag } from "@ot-builder/bin-util";
+import { Writable } from "stream";
+
+import { Frag, Write } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
@@ -95,7 +97,7 @@ const LigatureArray = {
 interface MarkPlanClass<G, B, R> {
     new (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>): R;
 }
-abstract class MarkWritePlanBase<G, B> {
+abstract class MarkWritePlanBase<G, B, R> {
     public readonly bases: Map<G, B>;
     protected readonly relocation: MarkClassRelocation;
     constructor(
@@ -111,6 +113,12 @@ abstract class MarkWritePlanBase<G, B> {
     }
 
     protected abstract baseIsSubstantial(base: B): boolean;
+    public abstract autoBisect(limit: number): R[];
+    public abstract write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>): void;
+
+    public isEmpty() {
+        return !this.marks.length || !this.bases.size;
+    }
 
     private getMarkPlanRelocation(plan: SingleMarkRecord<G>[]): MarkClassRelocation {
         const hasCls: number[] = [];
@@ -168,7 +176,7 @@ abstract class MarkWritePlanBase<G, B> {
     }
 }
 
-class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
+class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord, MarkBaseWritePlan> {
     protected baseIsSubstantial(br: Gpos.BaseRecord) {
         for (const bc of this.relocation.reward) if (br.baseAnchors[bc]) return true;
         return false;
@@ -225,7 +233,11 @@ class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord> {
     }
 }
 
-class MarkLigatureWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.LigatureBaseRecord> {
+class MarkLigatureWritePlan extends MarkWritePlanBase<
+    OtGlyph,
+    Gpos.LigatureBaseRecord,
+    MarkLigatureWritePlan
+> {
     protected baseIsSubstantial(br: Gpos.LigatureBaseRecord) {
         for (const bc of this.relocation.reward) {
             for (const component of br.baseAnchors) {
@@ -316,34 +328,24 @@ class GposMarkToBaseWriterBase {
 
         return plans;
     }
-    // TODO: merge these methods
-    protected createSubtableFragmentsForMarkBase(
-        marks: Map<OtGlyph, Gpos.MarkRecord>,
-        bases: Map<OtGlyph, Gpos.BaseRecord>,
+
+    protected createSubtableFragmentsImpl<G, B, R extends MarkWritePlanBase<G, B, R>>(
+        cls: MarkPlanClass<G, B, R>,
+        marks: Map<G, Gpos.MarkRecord>,
+        bases: Map<G, B>,
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const markPlans = this.getMarkPlans(marks);
-        const plans: MarkBaseWritePlan[] = [];
+        const frags: Frag[] = [];
         for (const mp of markPlans) {
-            const stpStart = new MarkBaseWritePlan(mp, new Set(), bases);
+            const stpStart = new cls(mp, new Set(), bases);
             const stPlans = stpStart.autoBisect(SubtableSizeLimit);
-            for (const stp of stPlans) plans.push(stp);
+            for (const stp of stPlans) {
+                if (stp.isEmpty()) continue;
+                frags.push(Frag.from(stp, ctx));
+            }
         }
-        return plans.map(plan => Frag.from(plan, ctx));
-    }
-    protected createSubtableFragmentsForMarkLigature(
-        marks: Map<OtGlyph, Gpos.MarkRecord>,
-        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
-    ) {
-        const markPlans = this.getMarkPlans(marks);
-        const plans: MarkLigatureWritePlan[] = [];
-        for (const mp of markPlans) {
-            const stpStart = new MarkLigatureWritePlan(mp, new Set(), bases);
-            const stPlans = stpStart.autoBisect(SubtableSizeLimit);
-            for (const stp of stPlans) plans.push(stp);
-        }
-        return plans.map(plan => Frag.from(plan, ctx));
+        return frags;
     }
 }
 
@@ -363,7 +365,12 @@ export class GposMarkToBaseWriter
         lookup: Gpos.MarkToBase,
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        return this.createSubtableFragmentsForMarkBase(lookup.marks, lookup.bases, ctx);
+        return this.createSubtableFragmentsImpl(
+            MarkBaseWritePlan,
+            lookup.marks,
+            lookup.bases,
+            ctx
+        );
     }
 }
 export class GposMarkToLigatureWriter
@@ -382,7 +389,12 @@ export class GposMarkToLigatureWriter
         lookup: Gpos.MarkToLigature,
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        return this.createSubtableFragmentsForMarkLigature(lookup.marks, lookup.bases, ctx);
+        return this.createSubtableFragmentsImpl(
+            MarkLigatureWritePlan,
+            lookup.marks,
+            lookup.bases,
+            ctx
+        );
     }
 }
 export class GposMarkToMarkWriter
@@ -401,6 +413,11 @@ export class GposMarkToMarkWriter
         lookup: Gpos.MarkToMark,
         ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
-        return this.createSubtableFragmentsForMarkBase(lookup.marks, lookup.baseMarks, ctx);
+        return this.createSubtableFragmentsImpl(
+            MarkBaseWritePlan,
+            lookup.marks,
+            lookup.baseMarks,
+            ctx
+        );
     }
 }
