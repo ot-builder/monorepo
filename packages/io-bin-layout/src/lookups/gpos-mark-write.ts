@@ -98,21 +98,15 @@ interface MarkPlanClass<G, B, R> {
     new (marks: SingleMarkRecord<G>[], exclude: Set<G>, bases: Map<G, B>): R;
 }
 abstract class MarkWritePlanBase<G, B, R> {
-    public readonly bases: Map<G, B>;
     protected readonly relocation: MarkClassRelocation;
     constructor(
         public readonly marks: SingleMarkRecord<G>[],
         public readonly exclude: Set<G>,
-        rawBases: Map<G, B>
+        public readonly bases: Map<G, B>
     ) {
         this.relocation = this.getMarkPlanRelocation(marks);
-        this.bases = new Map();
-        for (const [g, br] of rawBases) {
-            if (!this.exclude.has(g) && this.baseIsSubstantial(br)) this.bases.set(g, br);
-        }
     }
 
-    protected abstract baseIsSubstantial(base: B): boolean;
     public abstract autoBisect(limit: number): R[];
     public abstract write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>): void;
 
@@ -177,11 +171,6 @@ abstract class MarkWritePlanBase<G, B, R> {
 }
 
 class MarkBaseWritePlan extends MarkWritePlanBase<OtGlyph, Gpos.BaseRecord, MarkBaseWritePlan> {
-    protected baseIsSubstantial(br: Gpos.BaseRecord) {
-        for (const bc of this.relocation.reward) if (br.baseAnchors[bc]) return true;
-        return false;
-    }
-
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -238,15 +227,6 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<
     Gpos.LigatureBaseRecord,
     MarkLigatureWritePlan
 > {
-    protected baseIsSubstantial(br: Gpos.LigatureBaseRecord) {
-        for (const bc of this.relocation.reward) {
-            for (const component of br.baseAnchors) {
-                if (component && component[bc]) return true;
-            }
-        }
-        return false;
-    }
-
     public measure() {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
@@ -306,19 +286,36 @@ class MarkLigatureWritePlan extends MarkWritePlanBase<
 abstract class GposMarkToBaseWriterBase<G, B> {
     protected abstract baseCoversMarkClass(mc: number, base: B): boolean;
 
-    private getMarkPlans(marks: Map<G, Gpos.MarkRecord>, bases: Map<G, B>) {
+    protected createSubtableFragmentsImpl<R extends MarkWritePlanBase<G, B, R>>(
+        cls: MarkPlanClass<G, B, R>,
+        marks: Map<G, Gpos.MarkRecord>,
+        bases: Map<G, B>,
+        ctx: SubtableWriteContext<Gpos.Lookup>
+    ) {
+        const frags: Frag[] = [];
+        for (const stpStart of this.getInitialPlans(cls, marks, bases)) {
+            const stPlans = stpStart.autoBisect(SubtableSizeLimit);
+            for (const stp of stPlans) {
+                if (stp.isEmpty()) continue;
+                frags.push(Frag.from(stp, ctx));
+            }
+        }
+        return frags;
+    }
+
+    private *getInitialPlans<R extends MarkWritePlanBase<G, B, R>>(
+        cls: MarkPlanClass<G, B, R>,
+        marks: Map<G, Gpos.MarkRecord>,
+        bases: Map<G, B>
+    ): IterableIterator<R> {
         const maxCls = this.getMaxAnchorClass(marks);
-        const plans: SingleMarkRecord<G>[][] = [];
         const clsSetAdded = new Set<number>();
 
         for (;;) {
-            const plan = this.getValidMarkPlan(marks, bases, maxCls, clsSetAdded);
-            console.log(clsSetAdded);
-            if (plan.length) plans.push(plan);
+            const plan = this.fetchValidPlan(cls, marks, bases, maxCls, clsSetAdded);
+            if (plan) yield plan;
             else break;
         }
-
-        return plans;
     }
 
     private getMaxAnchorClass(marks: Map<G, Gpos.MarkRecord>) {
@@ -331,33 +328,29 @@ abstract class GposMarkToBaseWriterBase<G, B> {
         return mc;
     }
 
-    private getValidMarkPlan(
+    private fetchValidPlan<R extends MarkWritePlanBase<G, B, R>>(
+        cls: MarkPlanClass<G, B, R>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
         maxCls: number,
         clsSetAdded: Set<number>
     ) {
         let firstClass = true;
-        const baseCoverage = new Set<G>();
-
-        const accumulatedCovSet = new Set<G>();
-        const accumulatedPlan: SingleMarkRecord<G>[] = [];
+        const planBases = new Map<G, B>();
+        const planMarks = new Map<G, SingleMarkRecord<G>>();
 
         loopCls: for (let c = 0; c < maxCls; c++) {
             if (clsSetAdded.has(c)) continue;
 
-            // Process mark list: ensure this class doesn't conflict with existing marks
             let conflict = false;
-            const currentClassCovSet = new Set<G>();
-            const currentClassPlan: SingleMarkRecord<G>[] = [];
+            const currentClassMarks = new Map<G, SingleMarkRecord<G>>();
 
+            // Process mark list: ensure this class doesn't conflict with existing marks
             for (const [g, ma] of marks) {
                 const anchor = ma.markAnchors[c];
-                if (anchor) {
-                    currentClassCovSet.add(g);
-                    currentClassPlan.push({ glyph: g, class: c, anchor });
-                    if (accumulatedCovSet.has(g)) conflict = true;
-                }
+                if (!anchor) continue;
+                currentClassMarks.set(g, { glyph: g, class: c, anchor });
+                if (planMarks.has(g)) conflict = true;
             }
             if (conflict) continue loopCls;
 
@@ -365,39 +358,24 @@ abstract class GposMarkToBaseWriterBase<G, B> {
             if (firstClass) {
                 firstClass = false;
                 for (const [g, br] of bases) {
-                    if (this.baseCoversMarkClass(c, br)) baseCoverage.add(g);
+                    if (this.baseCoversMarkClass(c, br)) planBases.set(g, br);
                 }
             } else {
                 for (const [g, br] of bases) {
-                    if (baseCoverage.has(g) !== this.baseCoversMarkClass(c, br)) continue loopCls;
+                    if (planBases.has(g) !== this.baseCoversMarkClass(c, br)) continue loopCls;
                 }
             }
 
-            for (const g of currentClassCovSet) accumulatedCovSet.add(g);
-            for (const mr of currentClassPlan) accumulatedPlan.push(mr);
+            // Copy
+            for (const [g, mr] of currentClassMarks) planMarks.set(g, mr);
             clsSetAdded.add(c);
         }
 
-        return accumulatedPlan;
-    }
-
-    protected createSubtableFragmentsImpl<R extends MarkWritePlanBase<G, B, R>>(
-        cls: MarkPlanClass<G, B, R>,
-        marks: Map<G, Gpos.MarkRecord>,
-        bases: Map<G, B>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
-    ) {
-        const markPlans = this.getMarkPlans(marks, bases);
-        const frags: Frag[] = [];
-        for (const mp of markPlans) {
-            const stpStart = new cls(mp, new Set(), bases);
-            const stPlans = stpStart.autoBisect(SubtableSizeLimit);
-            for (const stp of stPlans) {
-                if (stp.isEmpty()) continue;
-                frags.push(Frag.from(stp, ctx));
-            }
+        if (planMarks.size && planBases.size) {
+            return new cls(Array.from(planMarks.values()), new Set(), planBases);
+        } else {
+            return null;
         }
-        return frags;
     }
 }
 
