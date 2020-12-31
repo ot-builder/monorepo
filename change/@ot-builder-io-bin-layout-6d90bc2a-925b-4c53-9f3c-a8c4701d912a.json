@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix GDEF attachment point IO",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}

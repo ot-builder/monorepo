@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Wed, 30 Dec 2020 06:40:38 GMT and should not be manually modified.
+This log was last generated on Thu, 31 Dec 2020 17:03:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.10.37
+
+Thu, 31 Dec 2020 17:03:58 GMT
+
+### Patches
+
+- Fix GDEF attachment point IO (belleve@typeof.net)
+- GPOS: When breaking down MARK lookup into subtables, ensure mark class precedence. (belleve@typeof.net)
 
 ## 0.10.36
 

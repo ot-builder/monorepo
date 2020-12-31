@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "GPOS: When breaking down MARK lookup into subtables, ensure mark class precedence.",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}
