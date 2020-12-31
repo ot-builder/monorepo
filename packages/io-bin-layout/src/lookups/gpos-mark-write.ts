@@ -354,7 +354,7 @@ abstract class GposMarkWriterBase<G, B> {
                 currentClassMarks.set(g, { glyph: g, class: c, anchor });
                 if (planMarks.has(g)) conflict = true;
             }
-            if (conflict) continue loopCls;
+            if (conflict) break loopCls;
 
             // Ensure the base array is a rectangular matrix
             if (firstClass) {
@@ -364,7 +364,7 @@ abstract class GposMarkWriterBase<G, B> {
                 }
             } else {
                 for (const [g, br] of bases) {
-                    if (planBases.has(g) !== cls.baseCoversMarkClass(c, br)) continue loopCls;
+                    if (planBases.has(g) !== cls.baseCoversMarkClass(c, br)) break loopCls;
                 }
             }
 
