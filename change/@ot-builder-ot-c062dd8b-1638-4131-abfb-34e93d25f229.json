@@ -1,0 +1,7 @@
+{
+  "type": "major",
+  "comment": "Finalize V1 interface changes",
+  "packageName": "@ot-builder/ot",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch"
+}
