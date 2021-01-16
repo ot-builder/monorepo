@@ -2,6 +2,57 @@
   "name": "ot-builder",
   "entries": [
     {
+      "date": "Sat, 16 Jan 2021 01:31:22 GMT",
+      "tag": "ot-builder_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/io-bin-font to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/cli-proc to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/ot to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/rectify to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/trace to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/primitive to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          },
+          {
+            "comment": "Bump @ot-builder/prelude to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "ot-builder_v0.10.34",
       "version": "0.10.34",

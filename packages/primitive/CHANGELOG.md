@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/primitive
 
-This log was last generated on Mon, 23 Nov 2020 01:14:22 GMT and should not be manually modified.
+This log was last generated on Sat, 16 Jan 2021 01:31:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Sat, 16 Jan 2021 01:31:22 GMT
+
+### Patches
+
+- Bump @ot-builder/prelude to v1.0.0 (belleve@typeof.net)
+- Bump @ot-builder/bin-util to v1.0.0 (belleve@typeof.net)
+- Bump @ot-builder/errors to v1.0.0 (belleve@typeof.net)
 
 ## 0.10.34
 

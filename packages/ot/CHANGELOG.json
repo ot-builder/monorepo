@@ -2,6 +2,89 @@
   "name": "@ot-builder/ot",
   "entries": [
     {
+      "date": "Sat, 16 Jan 2021 01:31:22 GMT",
+      "tag": "@ot-builder/ot_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "major": [
+          {
+            "comment": "Finalize V1 interface changes",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/variance to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-glyphs to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-encoding to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-ext-private to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-layout to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-standard-glyph-namer to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-metadata to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-name to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-sfnt to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/prelude to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          },
+          {
+            "comment": "Bump @ot-builder/common-impl to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/ot"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 07 Dec 2020 06:17:59 GMT",
       "tag": "@ot-builder/ot_v0.10.35",
       "version": "0.10.35",

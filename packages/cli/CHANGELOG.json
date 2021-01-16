@@ -2,6 +2,33 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sat, 16 Jan 2021 01:31:22 GMT",
+      "tag": "ot-builder-cli_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump ot-builder to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder-cli"
+          },
+          {
+            "comment": "Bump @ot-builder/cli-shared to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder-cli"
+          },
+          {
+            "comment": "Bump @ot-builder/cli-help-shower to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "ot-builder-cli_v0.10.34",
       "version": "0.10.34",

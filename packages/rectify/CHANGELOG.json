@@ -2,6 +2,51 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sat, 16 Jan 2021 01:31:22 GMT",
+      "tag": "@ot-builder/rectify_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/variance to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-glyphs to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "Bump @ot-builder/ot to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-metadata to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "Bump @ot-builder/prelude to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          },
+          {
+            "comment": "Bump @ot-builder/common-impl to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/rectify"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "@ot-builder/rectify_v0.10.34",
       "version": "0.10.34",

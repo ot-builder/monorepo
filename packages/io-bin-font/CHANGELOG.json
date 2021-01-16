@@ -2,6 +2,117 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sat, 16 Jan 2021 01:31:22 GMT",
+      "tag": "@ot-builder/io-bin-font_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-encoding to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-layout to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-ext-private to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-name to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-glyphs to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-encoding to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-ext-private to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-layout to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-metadata to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-name to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/ot-sfnt to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/prelude to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          },
+          {
+            "comment": "Bump @ot-builder/bin-util to v1.0.0",
+            "author": "belleve@typeof.net",
+            "commit": "d542d28ca2ab0db8873cf4426fc325cb4924ae8f",
+            "package": "@ot-builder/io-bin-font"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "@ot-builder/io-bin-font_v0.10.34",
       "version": "0.10.34",

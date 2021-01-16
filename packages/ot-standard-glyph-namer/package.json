@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/ot-standard-glyph-namer",
-  "version": "0.10.37",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-glyphs": "0.10.37",
-    "@ot-builder/prelude": "0.10.37",
+    "@ot-builder/ot-glyphs": "1.0.0",
+    "@ot-builder/prelude": "1.0.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
