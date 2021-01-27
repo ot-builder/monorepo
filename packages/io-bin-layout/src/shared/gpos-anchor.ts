@@ -1,3 +1,5 @@
+import * as crypto from "crypto";
+
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { ImpLib } from "@ot-builder/common-impl";
@@ -9,6 +11,7 @@ import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "./device-table";
+import { hashVarVal } from "./gpos-adjust";
 
 function anchorNeedsFormat3(a: Gpos.Anchor) {
     return !OtVar.Ops.isConstant(a.x) || !OtVar.Ops.isConstant(a.y) || a.xDevice || a.yDevice;
@@ -77,6 +80,28 @@ export const GposAnchor = {
                 (a.xDevice ? a.xDevice.length : 0) +
                 (a.yDevice ? a.yDevice.length : 0)
             );
+        }
+    },
+    hash(a: Gpos.Anchor, ivs: Data.Maybe<WriteTimeIVS>) {
+        const hasher = new ImpLib.Hasher();
+        hashVarVal(hasher.begin(), ivs, a.x, a.xDevice);
+        hashVarVal(hasher.begin(), ivs, a.y, a.yDevice);
+        if (a.attachToPoint) {
+            hasher.beginSubObj("attachToPoint").number(a.attachToPoint.pointIndex);
+        }
+
+        const sink = crypto.createHash("sha256");
+        hasher.transfer(sink);
+        return sink.digest("hex");
+    },
+    hashMeasure(col: Set<string>, ivs: Data.Maybe<WriteTimeIVS>, anchor: Data.Maybe<Gpos.Anchor>) {
+        if (!anchor) return 0;
+        const hash = GposAnchor.hash(anchor, ivs);
+        if (col.has(hash)) {
+            return 0;
+        } else {
+            col.add(hash);
+            return GposAnchor.measure(anchor);
         }
     }
 };

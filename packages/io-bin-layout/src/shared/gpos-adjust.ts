@@ -175,37 +175,41 @@ export const GposAdjustment = {
         return f;
     },
     hash(adj: Gpos.Adjustment, ivs?: Data.Maybe<WriteTimeIVS>) {
-        const fm = GposAdjustment.decideFormat(adj);
-        if (!fm) return null;
-        const fr = Frag.pack(Frag.from(GposAdjustment, adj, fm, ivs));
-        return getHash(fr);
+        const hasher = new ImpLib.Hasher();
+        hashVarVal(hasher.begin(), ivs, adj.dX, adj.dXDevice);
+        hashVarVal(hasher.begin(), ivs, adj.dY, adj.dYDevice);
+        hashVarVal(hasher.begin(), ivs, adj.dWidth, adj.dWidthDevice);
+        hashVarVal(hasher.begin(), ivs, adj.dHeight, adj.dHeightDevice);
+
+        const sink = crypto.createHash("sha256");
+        hasher.transfer(sink);
+        return sink.digest("hex");
     },
     hashPair(adj: Gpos.AdjustmentPair, ivs?: Data.Maybe<WriteTimeIVS>) {
-        const f1 = GposAdjustment.decideFormat(adj[0]);
-        const f2 = GposAdjustment.decideFormat(adj[1]);
-        if (!f1 && !f2) return null;
+        const hasher = new ImpLib.Hasher();
+        hashVarVal(hasher.begin(), ivs, adj[0].dX, adj[0].dXDevice);
+        hashVarVal(hasher.begin(), ivs, adj[0].dY, adj[0].dYDevice);
+        hashVarVal(hasher.begin(), ivs, adj[0].dWidth, adj[0].dWidthDevice);
+        hashVarVal(hasher.begin(), ivs, adj[0].dHeight, adj[0].dHeightDevice);
+        hashVarVal(hasher.begin(), ivs, adj[1].dX, adj[1].dXDevice);
+        hashVarVal(hasher.begin(), ivs, adj[1].dY, adj[1].dYDevice);
+        hashVarVal(hasher.begin(), ivs, adj[1].dWidth, adj[1].dWidthDevice);
+        hashVarVal(hasher.begin(), ivs, adj[1].dHeight, adj[1].dHeightDevice);
 
-        const bFirst = Frag.pack(Frag.from(GposAdjustment, adj[0], f1, ivs));
-        const bSecond = Frag.pack(Frag.from(GposAdjustment, adj[1], f2, ivs));
-        return getHash2(bFirst, bSecond);
+        const sink = crypto.createHash("sha256");
+        hasher.transfer(sink);
+        return sink.digest("hex");
     }
 };
 
-function BufFromInt(x: number) {
-    const buf = Buffer.allocUnsafe(4);
-    buf.writeUInt32BE(x, 0);
-    return buf;
-}
-function getHash(buf: Buffer) {
-    const shaSum = crypto.createHash("sha256");
-    shaSum.update(buf);
-    return shaSum.digest("hex");
-}
-function getHash2(buf1: Buffer, buf2: Buffer) {
-    const shaSum = crypto.createHash("sha256");
-    shaSum.update(BufFromInt(buf1.byteLength));
-    shaSum.update(buf1);
-    shaSum.update(BufFromInt(buf2.byteLength));
-    shaSum.update(buf2);
-    return shaSum.digest("hex");
+export function hashVarVal(
+    h: ImpLib.Hasher,
+    ivs: Data.Maybe<WriteTimeIVS>,
+    x: OtVar.Value,
+    device: Data.Maybe<ReadonlyArray<number>>
+) {
+    h.number(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(x)));
+    const oi = ivs?.valueToInnerOuterID(x);
+    if (oi) h.number(1, oi.outer, oi.inner);
+    if (device) h.number(2).numbers(device);
 }

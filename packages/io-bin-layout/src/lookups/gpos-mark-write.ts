@@ -3,6 +3,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
+import { WriteTimeIVS } from "@ot-builder/var-store";
 
 import {
     LookupWriter,
@@ -107,7 +108,7 @@ abstract class MarkWritePlan<G, B> {
         }
     }
 
-    public abstract measure(): number;
+    public abstract measure(ivs: Data.Maybe<WriteTimeIVS>): number;
     protected abstract baseIsSubstantial(base: B): boolean;
     protected abstract sub(marks: SingleMarkRecord<G>[], bases: Map<G, B>): MarkWritePlan<G, B>;
     public abstract write(frag: Frag, ctx: SubtableWriteContext<Gpos.Lookup>): void;
@@ -136,18 +137,21 @@ abstract class MarkWritePlan<G, B> {
         return { forward: relocation, reward: revRelocation };
     }
 
-    public autoBisect(limit: number, d = 0): MarkWritePlan<G, B>[] {
-        if (this.measure() < limit) {
+    public autoBisect(ivs: Data.Maybe<WriteTimeIVS>, limit: number, d = 0): MarkWritePlan<G, B>[] {
+        if (this.measure(ivs) < limit) {
             return [this];
         } else {
-            const plan = this.bisect();
+            const plan = this.bisect(ivs);
             if (!plan) return [this];
             const [lower, upper] = plan;
-            return [...lower.autoBisect(limit, d + 1), ...upper.autoBisect(limit, d + 1)];
+            return [
+                ...lower.autoBisect(ivs, limit, d + 1),
+                ...upper.autoBisect(ivs, limit, d + 1)
+            ];
         }
     }
 
-    protected bisect() {
+    protected bisect(ivs: Data.Maybe<WriteTimeIVS>) {
         let planMark: null | [MarkWritePlan<G, B>, MarkWritePlan<G, B>] = null;
         let planBase: null | [MarkWritePlan<G, B>, MarkWritePlan<G, B>] = null;
         if (this.marks.length > 1) planMark = this.bisectImplByMarks();
@@ -155,8 +159,8 @@ abstract class MarkWritePlan<G, B> {
         if (!planBase) return planMark;
         if (
             planMark &&
-            planMark[0].measure() + planMark[1].measure() <
-                planBase[0].measure() + planBase[1].measure()
+            planMark[0].measure(ivs) + planMark[1].measure(ivs) <
+                planBase[0].measure(ivs) + planBase[1].measure(ivs)
         ) {
             return planMark;
         } else {
@@ -198,17 +202,19 @@ class MarkBaseWritePlan extends MarkWritePlan<OtGlyph, Gpos.BaseRecord> {
             if (MarkBaseWritePlan.baseCoversMarkClass(bc, br)) return true;
         return false;
     }
-    public measure() {
+    public measure(ivs: Data.Maybe<WriteTimeIVS>) {
+        const anchorSet = new Set<string>();
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
             size +=
                 UInt16.size * (2 + MaxCovItemWords) + // 1 cov item + 1 mark class id + 1 ptr
-                GposAnchor.measure(rec.anchor);
+                GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
         }
         for (const [g, br] of this.bases) {
             size += UInt16.size * (MaxCovItemWords + this.relocation.reward.length); // cov + ptr arr
             for (let clsAnchor = 0; clsAnchor < this.relocation.reward.length; clsAnchor++) {
-                size += GposAnchor.measure(getBaseAnchor(clsAnchor, br, this.relocation));
+                const anchor = getBaseAnchor(clsAnchor, br, this.relocation);
+                size += GposAnchor.hashMeasure(anchorSet, ivs, anchor);
             }
         }
         return size;
@@ -240,10 +246,13 @@ class MarkLigatureWritePlan extends MarkWritePlan<OtGlyph, Gpos.LigatureBaseReco
         }
         return false;
     }
-    public measure() {
+    public measure(ivs: Data.Maybe<WriteTimeIVS>) {
+        const anchorSet = new Set<string>();
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
-            size += UInt16.size * (2 + MaxCovItemWords) + GposAnchor.measure(rec.anchor);
+            size +=
+                UInt16.size * (2 + MaxCovItemWords) +
+                GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
         }
         for (const [g, br] of this.bases) {
             size +=
@@ -253,9 +262,8 @@ class MarkLigatureWritePlan extends MarkWritePlan<OtGlyph, Gpos.LigatureBaseReco
                     br.baseAnchors.length * this.relocation.reward.length);
             for (let component = 0; component < br.baseAnchors.length; component++) {
                 for (let clsAnchor = 0; clsAnchor < this.relocation.reward.length; clsAnchor++) {
-                    size += GposAnchor.measure(
-                        getLigatureAnchor(clsAnchor, component, br, this.relocation)
-                    );
+                    const anchor = getLigatureAnchor(clsAnchor, component, br, this.relocation);
+                    size += GposAnchor.hashMeasure(anchorSet, ivs, anchor);
                 }
             }
         }
@@ -294,7 +302,7 @@ abstract class GposMarkWriterBase<G, B> {
     ) {
         const frags: Frag[] = [];
         for (const stpStart of this.getInitialPlans(cls, marks, bases)) {
-            const stPlans = stpStart.autoBisect(SubtableSizeLimit);
+            const stPlans = stpStart.autoBisect(ctx.ivs, SubtableSizeLimit);
             for (const stp of stPlans) {
                 if (stp.isEmpty()) continue;
                 frags.push(Frag.from(stp, ctx));
