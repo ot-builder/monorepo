@@ -24,7 +24,7 @@ class HrString extends HashRep {
 }
 
 class HrNumbers extends HashRep {
-    constructor(private readonly s: number[]) {
+    constructor(private readonly s: ReadonlyArray<number>) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -90,27 +90,37 @@ export class Hasher extends HashRep {
     }
     public string(s: string) {
         this.parts.push(new HrString(s));
+        return this;
     }
     public number(...n: number[]) {
         this.parts.push(new HrNumbers(n));
+        return this;
     }
     public flag(...n: boolean[]) {
         this.parts.push(new HrFlags(n));
+        return this;
     }
-    public numbers(n: number[]) {
+    public numbers(n: ReadonlyArray<number>) {
         this.parts.push(new HrNumbers(n));
+        return this;
     }
     public buffer(s: Buffer) {
         this.parts.push(new HrBuffer(s));
+        return this;
     }
     public include(hr: HashRep) {
         const wrap = new HrIsolate(hr);
         this.parts.push(wrap);
+        return this;
     }
     public begin() {
         const hasher = new Hasher();
         const wrap = new HrIsolate(hasher);
         this.parts.push(wrap);
         return hasher;
+    }
+    public beginSubObj(s: string) {
+        this.string(s);
+        return this.begin();
     }
 }

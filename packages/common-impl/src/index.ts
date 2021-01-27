@@ -2,6 +2,7 @@ import * as _Access from "./access";
 import * as _Arith from "./arith";
 import * as _BitMask from "./bitmask";
 import * as _Chain from "./function-helper/chain";
+import * as _Hasher from "./hasher";
 import * as _Iterators from "./iterators";
 import * as _Order from "./order";
 import * as PathMapImplLib from "./path-map";
@@ -21,6 +22,8 @@ export namespace ImpLib {
     export import Access = _Access.Access;
     export const State = _Access.State;
     export import Order = _Order;
+    export import HashRep = _Hasher.HashRep;
+    export import Hasher = _Hasher.Hasher;
 
     export namespace Tuple {
         export const Tie = _Tie.Tie;
