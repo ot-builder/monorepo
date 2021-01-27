@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Optimize mark lookup writer to produce less subtables",
+  "packageName": "@ot-builder/common-impl",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch"
+}
