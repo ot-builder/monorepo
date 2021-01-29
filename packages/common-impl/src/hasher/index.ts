@@ -3,7 +3,26 @@ import * as Crypto from "crypto";
 const TY_BEGIN = 0x01;
 const TY_END = 0x02;
 const TY_STRING = 0x10;
-const TY_NUMBER = 0x10;
+const TY_NUMBER = 0x11;
+const TY_FLAGS = 0x12;
+const TY_BUFFER = 0x13;
+
+const g_bufSize1 = Buffer.allocUnsafe(1);
+const g_bufSize4 = Buffer.allocUnsafe(4);
+const g_bufSize8 = Buffer.allocUnsafe(8);
+
+function transferUInt8(h: Crypto.Hash, x: number) {
+    g_bufSize1.writeUInt8(x, 0);
+    h.update(g_bufSize1);
+}
+function transferUInt32(h: Crypto.Hash, x: number) {
+    g_bufSize4.writeUInt32LE(x, 0);
+    h.update(g_bufSize4);
+}
+function transferFloat64(h: Crypto.Hash, x: number) {
+    g_bufSize8.writeDoubleLE(x, 0);
+    h.update(g_bufSize8);
+}
 
 export abstract class HashRep {
     public abstract transfer(h: Crypto.Hash): void;
@@ -15,11 +34,9 @@ class HrString extends HashRep {
     }
     public transfer(h: Crypto.Hash) {
         const bufRaw = Buffer.from(this.s, "utf-8");
-        const bufDst = Buffer.allocUnsafe(bufRaw.byteLength + 8);
-        bufDst.writeUInt32LE(TY_STRING, 0);
-        bufDst.writeUInt32LE(bufRaw.byteLength, 4);
-        bufRaw.copy(bufDst, 8);
-        h.update(bufDst);
+        transferUInt32(h, TY_STRING);
+        transferUInt32(h, bufRaw.byteLength);
+        h.update(bufRaw);
     }
 }
 
@@ -28,13 +45,11 @@ class HrNumbers extends HashRep {
         super();
     }
     public transfer(h: Crypto.Hash) {
-        const bufDst = Buffer.allocUnsafe(this.s.length * 8 + 8);
-        bufDst.writeUInt32LE(TY_NUMBER, 0);
-        bufDst.writeUInt32LE(this.s.length, 4);
+        transferUInt32(h, TY_NUMBER);
+        transferUInt32(h, this.s.length);
         for (let index = 0; index < this.s.length; index++) {
-            bufDst.writeDoubleLE(this.s[index] || 0, 8 + index * 8);
+            transferFloat64(h, this.s[index] || 0);
         }
-        h.update(bufDst);
     }
 }
 
@@ -43,13 +58,11 @@ class HrFlags extends HashRep {
         super();
     }
     public transfer(h: Crypto.Hash) {
-        const bufDst = Buffer.allocUnsafe(this.s.length + 8);
-        bufDst.writeUInt32LE(TY_NUMBER, 0);
-        bufDst.writeUInt32LE(this.s.length, 4);
+        transferUInt32(h, TY_FLAGS);
+        transferUInt32(h, this.s.length);
         for (let index = 0; index < this.s.length; index++) {
-            bufDst.writeUInt8(this.s[index] ? 1 : 0, 8 + index);
+            transferUInt8(h, this.s[index] ? 1 : 0);
         }
-        h.update(bufDst);
     }
 }
 
@@ -58,11 +71,9 @@ class HrBuffer extends HashRep {
         super();
     }
     public transfer(h: Crypto.Hash) {
-        const bufDst = Buffer.allocUnsafe(this.s.byteLength + 8);
-        bufDst.writeUInt32LE(TY_NUMBER, 0);
-        bufDst.writeUInt32LE(this.s.length, 4);
-        this.s.copy(bufDst, 8);
-        h.update(bufDst);
+        transferUInt32(h, TY_BUFFER);
+        transferUInt32(h, this.s.byteLength);
+        h.update(this.s);
     }
 }
 
@@ -71,15 +82,9 @@ class HrIsolate extends HashRep {
         super();
     }
     public transfer(h: Crypto.Hash) {
-        const bufBegin = Buffer.allocUnsafe(4);
-        bufBegin.writeUInt32LE(TY_BEGIN, 0);
-
-        const bufEnd = Buffer.allocUnsafe(4);
-        bufEnd.writeUInt32LE(TY_END, 0);
-
-        h.update(bufBegin);
+        transferUInt32(h, TY_BEGIN);
         this.r.transfer(h);
-        h.update(bufEnd);
+        transferUInt32(h, TY_END);
     }
 }
 
