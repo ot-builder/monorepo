@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sat, 30 Jan 2021 01:02:12 GMT",
+      "tag": "@ot-builder/io-bin-layout_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Optimize mark lookup writer to produce less subtables",
+            "author": "belleve@typeof.net",
+            "commit": "d68b671bee79584e3bd644a9826cb1f18e1b76d0",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 16 Jan 2021 01:31:22 GMT",
       "tag": "@ot-builder/io-bin-layout_v1.0.0",
       "version": "1.0.0",

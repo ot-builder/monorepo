@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Optimize hasher memory usage by using pre-allocated small buffers",
-  "packageName": "@ot-builder/common-impl",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}

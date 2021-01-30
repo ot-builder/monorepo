@@ -1,6 +1,6 @@
 {
   "name": "ot-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,13 +24,13 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "@ot-builder/io-bin-font": "1.0.0",
-    "@ot-builder/primitive": "1.0.0",
-    "@ot-builder/rectify": "1.0.0",
-    "@ot-builder/trace": "1.0.0",
-    "@ot-builder/prelude": "1.0.0",
-    "@ot-builder/ot": "1.0.0",
-    "@ot-builder/cli-proc": "1.0.0"
+    "@ot-builder/io-bin-font": "1.0.1",
+    "@ot-builder/primitive": "1.0.1",
+    "@ot-builder/rectify": "1.0.1",
+    "@ot-builder/trace": "1.0.1",
+    "@ot-builder/prelude": "1.0.1",
+    "@ot-builder/ot": "1.0.1",
+    "@ot-builder/cli-proc": "1.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",

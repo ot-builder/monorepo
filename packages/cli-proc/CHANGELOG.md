@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/cli-proc
 
-This log was last generated on Sat, 16 Jan 2021 01:31:22 GMT and should not be manually modified.
+This log was last generated on Sat, 30 Jan 2021 01:02:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.1
+
+Sat, 30 Jan 2021 01:02:12 GMT
+
+### Patches
+
+- Optimize mark lookup writer to produce less subtables (belleve@typeof.net)
 
 ## 1.0.0
 
