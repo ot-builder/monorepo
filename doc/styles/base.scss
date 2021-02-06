@@ -1,0 +1,29 @@
+@import "./fonts.scss";
+@import "./colors.scss";
+
+body {
+    font-family: BodyText, sans-serif;
+    color: $BodyTextColor;
+}
+
+pre,
+code,
+kbd {
+    font-family: CodeText, monospace;
+}
+
+$linkIndentDistance: 0.1em;
+
+a {
+    text-decoration: none;
+    color: $BodyTextColor;
+    padding: 0 $linkIndentDistance;
+    margin: 0 0 - $linkIndentDistance;
+    box-shadow: 0 -0.2em 0 change-color($AccentColor, $alpha: 0.15) inset;
+    &:hover {
+        box-shadow: 0 -0.6em 0 change-color($AccentColor, $alpha: 0.2) inset;
+    }
+    &:active {
+        box-shadow: 0 -0.6em 0 change-color($AccentColor, $alpha: 0.4) inset;
+    }
+}

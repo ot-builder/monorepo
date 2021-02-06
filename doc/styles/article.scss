@@ -1,52 +1,64 @@
-@import './colors.styl';
+@import "./colors.scss";
 
-article
+article {
     line-height: 1.5;
 
-    p
+    p {
         margin: 0.75rem 0;
+    }
 
-    ul, ol
+    ul,
+    ol {
         margin: 0.75rem 0;
         padding: 0 0 0 3ch;
+    }
 
-    li > ul, li > ol
+    li > ul,
+    li > ol {
         margin: 0;
+    }
 
-    h1
+    h1 {
         font-size: 4rem;
         margin: 3rem 0 3rem 0;
         font-weight: 375;
-
-        .api-doc-declaration, .api-doc-declaration .api-doc-link.anchor
+        .api-doc-declaration,
+        .api-doc-declaration .api-doc-link.anchor {
             font-weight: 375;
-
-        &:first-child
+        }
+        &:first-child {
             margin-top: 0;
+        }
+    }
 
-    h2
+    h2 {
         font-size: 2rem;
         margin: 3rem -1ch 1.5rem;
-        border-top: alpha(BodyTextColor, 25%) dotted 1px;
+        border-top: change-color($BodyTextColor, $alpha: 0.25) dotted 1px;
         padding: 1rem 1ch 0 1ch;
         font-weight: 560;
+    }
 
-    h3
+    h3 {
         font-size: 1rem;
         margin: 3rem 0 0.75rem;
         font-weight: 800;
         position: relative;
-
-        &::before
-            content: '•';
-            color: AccentColor;
+        &::before {
+            content: "•";
+            color: $AccentColor;
             position: absolute;
             left: -2ch;
+        }
+    }
 
-    h2 + h3
+    h2 + h3 {
         margin-top: 1.5rem;
+    }
 
-    h4
+    h4 {
         font-size: 1rem;
         margin: 0.75rem 0;
         font-weight: 500;
+    }
+}

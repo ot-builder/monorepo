@@ -1,7 +1,5 @@
 import { NextRouter, withRouter } from "next/router";
 
-import "../styles/index.styl";
-
 export const AsideNav = (props: { children: React.ReactNode }) => (
     <aside className="side">
         <section className="site-nav">

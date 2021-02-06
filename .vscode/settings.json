@@ -188,6 +188,7 @@
         "packages/*/node_modules": true,
         "packages/*/lib": true,
         "**/.cache": true,
+        "doc/.next": true,
         "doc/build": true,
         "doc/node_modules": true,
         "tmp": true
