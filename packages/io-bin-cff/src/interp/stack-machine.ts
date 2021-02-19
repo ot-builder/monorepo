@@ -84,14 +84,13 @@ export class CffStackMachine {
         const results: OtVar.Value[] = [];
         for (let ixVal = 0; ixVal < nValues; ixVal++) {
             const orig = args[ixVal],
-                variance: [OtVar.Master, number][] = [];
+                variance: number[] = [];
             for (let ixMaster = 0; ixMaster < nMasters; ixMaster++) {
-                variance[ixMaster] = [
-                    this.ivs.getMaster(this.ivd.masterIDs[ixMaster]),
-                    OtVar.Ops.originOf(args[nValues + ixVal * nMasters + ixMaster])
-                ];
+                variance[ixMaster] = OtVar.Ops.originOf(
+                    args[nValues + ixVal * nMasters + ixMaster]
+                );
             }
-            results.push(OtVar.Ops.add(orig, this.varCreator.create(0, variance)));
+            results.push(OtVar.Ops.add(orig, this.ivs.buildValue(this.ivd, variance)));
         }
         for (const x of results) {
             this.stack.push(x);
