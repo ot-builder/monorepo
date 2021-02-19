@@ -31,12 +31,6 @@ export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<
         if (!master) throw Errors.Variation.IndexOverflow(`master`, id);
         return master;
     }
-    public getMasterList(outer: number): M[] {
-        const ivd = this.getIVD(outer);
-        const masters: M[] = [];
-        for (const id of ivd.masterIDs) masters.push(this.getMaster(id));
-        return masters;
-    }
     public buildValue(ivd: ReadTimeIVD<A, M, X>, deltas: number[]) {
         const variance: [M, number][] = [];
         for (let mu = 0; mu < deltas.length; mu++) {
