@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "CFF: Cleanup stack value building by using CReadTimeIVS::BuildValue",
+  "packageName": "@ot-builder/io-bin-cff",
+  "email": "belleve@typeof.net",
+  "dependentChangeType": "patch"
+}
