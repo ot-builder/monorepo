@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/rectify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,12 +23,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot": "1.0.1",
-    "@ot-builder/common-impl": "1.0.1",
-    "@ot-builder/ot-glyphs": "1.0.1",
-    "@ot-builder/ot-metadata": "1.0.1",
-    "@ot-builder/prelude": "1.0.1",
-    "@ot-builder/variance": "1.0.1",
+    "@ot-builder/ot": "1.0.2",
+    "@ot-builder/common-impl": "1.0.2",
+    "@ot-builder/ot-glyphs": "1.0.2",
+    "@ot-builder/ot-metadata": "1.0.2",
+    "@ot-builder/prelude": "1.0.2",
+    "@ot-builder/variance": "1.0.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

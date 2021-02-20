@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/cli-proc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,13 +25,13 @@
   "dependencies": {
     "tslib": "^2.0.0",
     "chalk": "^4.1.0",
-    "@ot-builder/io-bin-font": "1.0.1",
-    "@ot-builder/primitive": "1.0.1",
-    "@ot-builder/common-impl": "1.0.1",
-    "@ot-builder/rectify": "1.0.1",
-    "@ot-builder/trace": "1.0.1",
-    "@ot-builder/prelude": "1.0.1",
-    "@ot-builder/ot": "1.0.1"
+    "@ot-builder/io-bin-font": "1.0.2",
+    "@ot-builder/primitive": "1.0.2",
+    "@ot-builder/common-impl": "1.0.2",
+    "@ot-builder/rectify": "1.0.2",
+    "@ot-builder/trace": "1.0.2",
+    "@ot-builder/prelude": "1.0.2",
+    "@ot-builder/ot": "1.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",

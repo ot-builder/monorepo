@@ -2,6 +2,21 @@
   "name": "@ot-builder/var-store",
   "entries": [
     {
+      "date": "Sat, 20 Feb 2021 00:57:43 GMT",
+      "tag": "@ot-builder/var-store_v1.0.2",
+      "version": "1.0.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "CFF: Cleanup stack value building by using CReadTimeIVS::BuildValue",
+            "author": "belleve@typeof.net",
+            "commit": "8ca7995342c07e516e323970b598c8230e31a3e9",
+            "package": "@ot-builder/var-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 16 Jan 2021 01:31:22 GMT",
       "tag": "@ot-builder/var-store_v1.0.0",
       "version": "1.0.0",

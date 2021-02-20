@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-cff
 
-This log was last generated on Sat, 16 Jan 2021 01:31:22 GMT and should not be manually modified.
+This log was last generated on Sat, 20 Feb 2021 00:57:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.2
+
+Sat, 20 Feb 2021 00:57:43 GMT
+
+### Patches
+
+- CFF: Cleanup stack value building by using CReadTimeIVS::BuildValue (belleve@typeof.net)
 
 ## 1.0.0
 
