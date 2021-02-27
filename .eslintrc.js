@@ -13,8 +13,7 @@ module.exports = {
         "plugin:import/warnings",
         "plugin:import/typescript",
         "plugin:monorepo-cop/recommended",
-        "prettier",
-        "prettier/@typescript-eslint"
+        "prettier"
     ],
     rules: {
         "linebreak-style": ["error", "unix"],

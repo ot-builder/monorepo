@@ -31,10 +31,10 @@
     "ot-builder": "1.0.2",
     "@ot-builder/cli-help-shower": "1.0.2",
     "@ot-builder/cli-shared": "1.0.2",
-    "fs-extra": "^9.0.1"
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
-    "jest": "^26.4.1"
+    "jest": "^26.6.3"
   }
 }
