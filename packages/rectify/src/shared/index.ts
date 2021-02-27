@@ -317,7 +317,10 @@ export namespace RectifyImpl {
         function single(rec: CoordRectifier, x: Ot.Var.Value) {
             return rec.coord(x);
         }
-        export function list(rec: CoordRectifier, arr: ReadonlyArray<Ot.Var.Value>) {
+        export function list(
+            rec: CoordRectifier,
+            arr: ReadonlyArray<Ot.Var.Value>
+        ): Ot.Var.Value[] {
             return RectifyImpl.listSomeT(rec, arr, single);
         }
     }
