@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sat, 27 Feb 2021 08:18:21 GMT",
+      "tag": "@ot-builder/cli-proc_v1.0.3",
+      "version": "1.0.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade to TS 4.2.2",
+            "author": "belleve@typeof.net",
+            "commit": "c9a29938dc1f00c97b5feb92eae81670c9d6e57a",
+            "package": "@ot-builder/cli-proc"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 30 Jan 2021 01:02:12 GMT",
       "tag": "@ot-builder/cli-proc_v1.0.1",
       "version": "1.0.1",

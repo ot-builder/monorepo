@@ -2,6 +2,21 @@
   "name": "@ot-builder/errors",
   "entries": [
     {
+      "date": "Sat, 27 Feb 2021 08:18:21 GMT",
+      "tag": "@ot-builder/errors_v1.0.3",
+      "version": "1.0.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade to TS 4.2.2",
+            "author": "belleve@typeof.net",
+            "commit": "c9a29938dc1f00c97b5feb92eae81670c9d6e57a",
+            "package": "@ot-builder/errors"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 23 Nov 2020 01:14:22 GMT",
       "tag": "@ot-builder/errors_v0.10.34",
       "version": "0.10.34",

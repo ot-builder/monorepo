@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade to TS 4.2.2",
-  "packageName": "@ot-builder/test-util",
-  "email": "belleve@typeof.net",
-  "dependentChangeType": "patch"
-}

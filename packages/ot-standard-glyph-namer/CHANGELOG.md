@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/ot-standard-glyph-namer
 
-This log was last generated on Sat, 16 Jan 2021 01:31:22 GMT and should not be manually modified.
+This log was last generated on Sat, 27 Feb 2021 08:18:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.3
+
+Sat, 27 Feb 2021 08:18:21 GMT
+
+### Patches
+
+- Upgrade to TS 4.2.2 (belleve@typeof.net)
 
 ## 1.0.0
 
