@@ -172,7 +172,7 @@ export const MetricVarianceIo = {
             if (pEmpty) pEmpty.set(empty);
 
             frag.uint16(1).uint16(0); // Format
-            frag.ptr32(Frag.from(WriteTimeIVS, ivs, designSpace)); // itemVariationStoreOffset
+            frag.ptr32(Frag.from(WriteTimeIVS, ivs, { designSpace })); // itemVariationStoreOffset
             frag.ptr32(Frag.from(DeltaMapping, advanceMap)); // Advance mappings
             frag.ptr32(null); // LSB/RSB/TSB/BSB mappings are always set to empty
             frag.ptr32(null); // due to the limitation of OTVAR variation (no min/max functions)

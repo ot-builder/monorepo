@@ -69,7 +69,7 @@ export const GdefTableIo = {
             const fIVS =
                 !ivs || !designSpace || ivs.isEmpty()
                     ? null
-                    : Frag.from(WriteTimeIVS, ivs, designSpace);
+                    : Frag.from(WriteTimeIVS, ivs, { designSpace });
 
             let minorVersion = 3;
             if (!fIVS) minorVersion = 2;

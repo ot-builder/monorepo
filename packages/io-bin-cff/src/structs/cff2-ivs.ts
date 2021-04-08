@@ -8,7 +8,7 @@ export const Cff2IVS = {
         return view.liftRelative(0).next(ReadTimeIVS, designSpace);
     }),
     ...Write((frag, ivs: WriteTimeIVS, designSpace: OtVar.DesignSpace) => {
-        const bContent = Frag.pack(Frag.from(WriteTimeIVS, ivs, designSpace));
+        const bContent = Frag.pack(Frag.from(WriteTimeIVS, ivs, { designSpace }));
         frag.uint16(bContent.byteLength).bytes(bContent);
     })
 };

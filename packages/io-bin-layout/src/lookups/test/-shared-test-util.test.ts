@@ -53,11 +53,9 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
     let ivsR: Data.Maybe<ReadTimeIVS> = null;
     if (cfg.variation) {
         const bufIvs = Frag.pack(
-            Frag.from(
-                WriteTimeIVS,
-                cfg.variation.ivs,
-                ImpLib.Order.fromList("Axes", cfg.variation.designSpace)
-            )
+            Frag.from(WriteTimeIVS, cfg.variation.ivs, {
+                designSpace: ImpLib.Order.fromList("Axes", cfg.variation.designSpace)
+            })
         );
         ivsR = new BinaryView(bufIvs).next(
             ReadTimeIVS,

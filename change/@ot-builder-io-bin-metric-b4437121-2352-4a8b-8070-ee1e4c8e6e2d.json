@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add support for long deltas",
+  "packageName": "@ot-builder/io-bin-metric",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

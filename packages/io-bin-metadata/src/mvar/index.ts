@@ -146,7 +146,7 @@ export const MvarTableIo = {
             .uint16(Tag.size + UInt16.size * 2)
             .uint16(rec.length);
         if (rec.length) {
-            frag.ptr16(Frag.solidFrom(WriteTimeIVS, ivs, designSpace));
+            frag.ptr16(Frag.solidFrom(WriteTimeIVS, ivs, { designSpace }));
             for (const [tag, outer, inner] of rec) {
                 frag.push(Tag, tag).uint16(outer).uint16(inner);
             }

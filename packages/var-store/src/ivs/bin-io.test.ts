@@ -27,7 +27,9 @@ test("IVS roundtrip -- Traditional", () => {
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, 100]));
     ivs.valueToInnerOuterID(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
-    const frag = new Frag().push(WriteTimeIVS, ivs, ImpLib.Order.fromList("Axes", [Wght, Wdth]));
+    const frag = new Frag().push(WriteTimeIVS, ivs, {
+        designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    });
     const ivs1 = new BinaryView(Frag.pack(frag)).next(
         ReadTimeIVS,
         ImpLib.Order.fromList("Axes", [Wght, Wdth])
@@ -45,6 +47,25 @@ test("IVS roundtrip -- Traditional", () => {
     ).toBe(true);
 });
 
+test("IVS roundtrip -- Long deltas", () => {
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
+    const ivs = WriteTimeIVS.create(mc);
+    ivs.valueToInnerOuterID(cr.make(100000, [Bold, 100000], [Wide, 500000]));
+    const frag = new Frag().push(WriteTimeIVS, ivs, {
+        designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth]),
+        allowLongDeltas: true
+    });
+    const ivs1 = new BinaryView(Frag.pack(frag)).next(
+        ReadTimeIVS,
+        ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    );
+
+    expect(
+        OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 100000], [Wide, 500000]))
+    ).toBe(true);
+});
+
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     const mc = new OtVar.MasterSet();
     const cr = new OtVar.ValueFactory(mc);
@@ -56,7 +77,9 @@ test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     col.collect(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
     col.getIVD();
 
-    const frag = new Frag().push(WriteTimeIVS, ivs, ImpLib.Order.fromList("Axes", [Wght, Wdth]));
+    const frag = new Frag().push(WriteTimeIVS, ivs, {
+        designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    });
     const ivs1 = new BinaryView(Frag.pack(frag)).next(
         ReadTimeIVS,
         ImpLib.Order.fromList("Axes", [Wght, Wdth])

@@ -47,7 +47,7 @@ export const BaseTableIo = {
         frag.push(Ptr16AxisTableNullable, table.vertical, gOrd, ivs);
         if (designSpace && ivs && !ivs.isEmpty()) {
             hMinorVersion.fill(1);
-            frag.ptr32New().push(WriteTimeIVS, ivs, designSpace);
+            frag.ptr32New().push(WriteTimeIVS, ivs, { designSpace });
         } else {
             hMinorVersion.fill(0);
         }
