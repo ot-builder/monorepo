@@ -22,8 +22,8 @@ const SubtableFormat1 = {
         const ligatureSetCount = view.uint16();
         Assert.SizeMatch(
             `LigatureSubstFormat1::ligatureSetCount`,
-            coverage.length,
-            ligatureSetCount
+            ligatureSetCount,
+            coverage.length
         );
 
         for (const gidFirst of coverage) {

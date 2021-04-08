@@ -44,7 +44,7 @@ const SubtableFormat2 = {
 
         const coverage = view.ptr16().next(GidCoverage);
         const glyphCount = view.uint16();
-        Assert.SizeMatch(`SingleSubstFormat2::glyphCount`, coverage.length, glyphCount);
+        Assert.SizeMatch(`SingleSubstFormat2::glyphCount`, glyphCount, coverage.length);
 
         for (const gid of coverage) {
             const substituteGlyphID = view.uint16();

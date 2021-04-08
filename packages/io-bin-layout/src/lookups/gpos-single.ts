@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gpos } from "@ot-builder/ot-layout";
+import { Gpos, LayoutCommon } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
@@ -49,13 +49,20 @@ const SubtableFormat2 = {
         const coverage = view.ptr16().next(GidCoverage);
         const valueFormat = view.uint16();
         const glyphCount = view.uint16();
-        Assert.SizeMatch(`SinglePosFormat2::glyphCount`, coverage.length, glyphCount);
 
-        for (const gid of coverage) {
-            const adj = view.next(GposAdjustment, valueFormat, context.ivs);
-            const gSource = context.gOrd.at(gid);
-            if (lookup.adjustments.has(gSource)) continue;
-            lookup.adjustments.set(gSource, adj);
+        if (!valueFormat) {
+            for (const gid of coverage) {
+                const gSource = context.gOrd.at(gid);
+                lookup.adjustments.set(gSource, Gpos.ZeroAdjustment);
+            }
+        } else {
+            Assert.SizeMatch(`SinglePosFormat2::glyphCount`, glyphCount, coverage.length);
+            for (const gid of coverage) {
+                const adj = view.next(GposAdjustment, valueFormat, context.ivs);
+                const gSource = context.gOrd.at(gid);
+                if (lookup.adjustments.has(gSource)) continue;
+                lookup.adjustments.set(gSource, adj);
+            }
         }
     },
     write(

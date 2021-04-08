@@ -32,8 +32,8 @@ const SubtableFormat1 = {
         const glyphCount = view.uint16();
         Assert.SizeMatch(
             `ReverseChainSingleSubstFormat1::glyphCount`,
-            glyphCount,
-            covInput.length
+            covInput.length,
+            glyphCount
         );
 
         for (const from of covInput) {

@@ -2,14 +2,17 @@ export namespace Errors {
     export const Unreachable = () => new Error("Unreachable");
     export const NullPtr = (reason?: string) =>
         new TypeError(`Null pointer detected${reason ? " : " + reason : ""}`);
-    export const FormatNotSupported = (what: string, ver: number | string) =>
-        new TypeError(`${what} format unsupported : ${ver}`);
-    export const SizeMismatch = (what: string, ver: number | string) =>
-        new TypeError(`${what} size mismatch : ${ver}`);
-    export const OffsetMismatch = (what: string, ver: number | string) =>
-        new TypeError(`${what} offset mismatch : ${ver}`);
+    export const FormatNotSupported = (
+        what: string,
+        ver: number | string,
+        ...expected: (number | string)[]
+    ) => new TypeError(`${what} format unsupported : ${ver} (Expected: ${expected})`);
     export const VersionNotSupported = (what: string, ver: number | string) =>
         new TypeError(`${what} version unsupported : ${ver}`);
+    export const SizeMismatch = (what: string, actual: number, ...expected: number[]) =>
+        new TypeError(`${what} size mismatch : ${actual} (Expected: ${expected})`);
+    export const OffsetMismatch = (what: string, actual: number, ...expected: number[]) =>
+        new TypeError(`${what} offset mismatch : ${expected} (Expected: ${expected})`);
     export const MissingKeyTable = (tag: string) => new TypeError(`Table ${tag} missing.`);
     export const GeneralOverflow = (kind: string, value: number) =>
         new RangeError(`${kind} overflow: ${value}.`);
@@ -126,15 +129,15 @@ export namespace Assert {
     };
     export const FormatSupported = (kind1: string, actual: number, ...expected: number[]) => {
         for (const x of expected) if (actual === x) return;
-        throw Errors.FormatNotSupported(kind1, actual);
+        throw Errors.FormatNotSupported(kind1, actual, ...expected);
     };
     export const SizeMatch = (kind1: string, actual: number, ...expected: number[]) => {
         for (const x of expected) if (actual === x) return;
-        throw Errors.SizeMismatch(kind1, actual);
+        throw Errors.SizeMismatch(kind1, actual, ...expected);
     };
     export const OffsetMatch = (kind1: string, actual: number, ...expected: number[]) => {
         for (const x of expected) if (actual === x) return;
-        throw Errors.OffsetMismatch(kind1, actual);
+        throw Errors.OffsetMismatch(kind1, actual, ...expected);
     };
     export const NotOverflow = (kind1: string, actual: number, limit: number) => {
         if (actual < limit) return;
