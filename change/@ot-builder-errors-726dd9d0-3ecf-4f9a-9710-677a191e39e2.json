@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "GPOS Single: If value format is 0, bypass adjustment reading",
-  "packageName": "@ot-builder/errors",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

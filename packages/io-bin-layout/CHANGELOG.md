@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sat, 27 Feb 2021 08:18:21 GMT and should not be manually modified.
+This log was last generated on Sat, 10 Apr 2021 01:18:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.4
+
+Sat, 10 Apr 2021 01:18:31 GMT
+
+### Patches
+
+- Add support for long deltas (otbbuilder-dev@users.noreply.github.com)
+- GPOS Single: If value format is 0, bypass adjustment reading (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.3
 

@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sat, 10 Apr 2021 01:18:31 GMT",
+      "tag": "@ot-builder/io-bin-layout_v1.0.4",
+      "version": "1.0.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add support for long deltas",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "969bcab10d4fb9e28a966d39a526c58369827090",
+            "package": "@ot-builder/io-bin-layout"
+          },
+          {
+            "comment": "GPOS Single: If value format is 0, bypass adjustment reading",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "a9a3282145393893e6e8fa3e6040f0edd338a088",
+            "package": "@ot-builder/io-bin-layout"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Feb 2021 08:18:21 GMT",
       "tag": "@ot-builder/io-bin-layout_v1.0.3",
       "version": "1.0.3",

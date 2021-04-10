@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/cli-shared",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "@ot-builder/ot": "1.0.3",
-    "@ot-builder/io-bin-font": "1.0.3",
+    "@ot-builder/ot": "1.0.4",
+    "@ot-builder/io-bin-font": "1.0.4",
     "chalk": "^4.1.0"
   },
   "devDependencies": {

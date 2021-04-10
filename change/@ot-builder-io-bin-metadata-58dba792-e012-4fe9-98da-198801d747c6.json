@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add support for long deltas",
-  "packageName": "@ot-builder/io-bin-metadata",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
