@@ -1,5 +1,6 @@
+import * as Fs from "fs";
+
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
 import { ArgParser, displayHelp, displayVersion } from "./arg-parser";
@@ -31,7 +32,7 @@ async function simpleMerging(args: ArgParser) {
     const sfntList: Ot.Sfnt[] = [];
     for (const input of args.inputs) {
         if (args.verbose) process.stderr.write(`Processing ${input}\n`);
-        const bufFont = await Fs.readFile(input);
+        const bufFont = await Fs.promises.readFile(input);
         if (bufFont.readUInt32BE(0) === tagToUInt32("ttcf")) {
             const ttc = FontIo.readSfntTtc(bufFont);
             for (const sub of ttc) sfntList.push(sub);
@@ -42,7 +43,7 @@ async function simpleMerging(args: ArgParser) {
     if (args.verbose) process.stderr.write(`${sfntList.length} sub-fonts found.\n`);
     if (args.output) {
         const bufTtc = FontIo.writeSfntTtc(sfntList);
-        await Fs.writeFile(args.output, bufTtc);
+        await Fs.promises.writeFile(args.output, bufTtc);
     }
 }
 
@@ -51,7 +52,7 @@ async function glyphSharingMerging(args: ArgParser) {
     const sharer = new SparseGlyphSharer(gsf);
     for (const input of args.inputs) {
         if (args.verbose) process.stderr.write(`Processing ${input}\n`);
-        const bufFont = await Fs.readFile(input);
+        const bufFont = await Fs.promises.readFile(input);
         if (bufFont.readUInt32BE(0) === tagToUInt32("ttcf")) {
             const ttc = FontIo.readSfntTtc(bufFont);
             for (const sub of ttc) sharer.addFont(FontIo.readFont(sub, gsf));
@@ -83,7 +84,7 @@ async function glyphSharingMerging(args: ArgParser) {
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));
         }
         const slices = createTtcSlices(resultBuffers, sharing);
-        await Fs.writeFile(args.output, FontIo.writeSfntTtcFromTableSlices(slices));
+        await Fs.promises.writeFile(args.output, FontIo.writeSfntTtcFromTableSlices(slices));
     }
 }
 

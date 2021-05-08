@@ -1,6 +1,6 @@
 import * as Path from "path";
 
-import * as FS from "fs-extra";
+import * as FSE from "fs-extra";
 import * as RimRaf from "rimraf";
 
 import { Build, Deploy, DocGit, Next, Out, PublishConfig } from "./tools";
@@ -23,9 +23,9 @@ export async function docPublish(cfg: PublishConfig) {
     // Clear everything currently there
     RimRaf.sync(Path.join(Deploy, "*"));
     // Add ".nojekyll"
-    await FS.writeFile(Path.resolve(Deploy, ".nojekyll"), "");
+    await FSE.writeFile(Path.resolve(Deploy, ".nojekyll"), "");
     // Copy doc output
-    await FS.copy(Out, Deploy);
+    await FSE.copy(Out, Deploy);
     RimRaf.sync(Out);
 
     // Commit and push

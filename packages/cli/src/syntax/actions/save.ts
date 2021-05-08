@@ -1,8 +1,8 @@
+import * as Fs from "fs";
 import * as Path from "path";
 
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import * as Fs from "fs-extra";
 import { FontIo, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
@@ -41,5 +41,5 @@ export async function saveFontToFile<GS extends Ot.GlyphStore>(
     cfg: FontIo.FontIoConfig
 ) {
     const buf1 = FontIo.writeSfntOtf(FontIo.writeFont(font, cfg));
-    await Fs.writeFile(Path.resolve(path), buf1);
+    await Fs.promises.writeFile(Path.resolve(path), buf1);
 }

@@ -30,8 +30,7 @@
     "chalk": "^4.1.0",
     "ot-builder": "1.0.4",
     "@ot-builder/cli-help-shower": "1.0.4",
-    "@ot-builder/cli-shared": "1.0.4",
-    "fs-extra": "^9.1.0"
+    "@ot-builder/cli-shared": "1.0.4"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
