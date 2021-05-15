@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-metric",
   "entries": [
     {
+      "date": "Sat, 15 May 2021 06:59:10 GMT",
+      "tag": "@ot-builder/io-bin-metric_v1.0.6",
+      "version": "1.0.6",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add publishConfig to sub-packages",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "ed593f939f111c801ccdffd8e8da2114f7f0f3c0",
+            "package": "@ot-builder/io-bin-metric"
+          },
+          {
+            "comment": "Further fixup publish config",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "3e9817b7c9f5cf850546191dde54ce42c2ecee05",
+            "package": "@ot-builder/io-bin-metric"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 10 Apr 2021 01:18:31 GMT",
       "tag": "@ot-builder/io-bin-metric_v1.0.4",
       "version": "1.0.4",

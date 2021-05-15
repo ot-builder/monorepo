@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Further fixup publish config",
-  "packageName": "otb-ttc-bundle",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

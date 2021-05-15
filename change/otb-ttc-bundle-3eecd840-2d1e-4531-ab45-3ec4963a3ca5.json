@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add publishConfig to sub-packages",
-  "packageName": "otb-ttc-bundle",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

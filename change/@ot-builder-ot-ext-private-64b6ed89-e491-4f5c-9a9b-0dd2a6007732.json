@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Further fixup publish config",
-  "packageName": "@ot-builder/ot-ext-private",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

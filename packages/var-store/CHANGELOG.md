@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/var-store
 
-This log was last generated on Sat, 10 Apr 2021 01:18:31 GMT and should not be manually modified.
+This log was last generated on Sat, 15 May 2021 06:59:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.6
+
+Sat, 15 May 2021 06:59:10 GMT
+
+### Patches
+
+- Add publishConfig to sub-packages (otbbuilder-dev@users.noreply.github.com)
+- Further fixup publish config (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.4
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add publishConfig to sub-packages",
-  "packageName": "@ot-builder/cli-help-shower",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
