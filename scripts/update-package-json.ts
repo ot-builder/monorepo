@@ -46,18 +46,19 @@ for (const packageName of packages) {
     };
     packageJSONData.main = "./lib/index.js";
     packageJSONData.types = "./lib/index.d.ts";
-    packageJSONData.publishConfig = {
-        main: "./lib/index.js",
-        types: "./lib/index.d.ts"
-    };
     packageJSONData.files = ["lib/**/*.js", "lib/**/*.json", "lib/**/*.d.ts"];
     packageJSONData.scripts = {
         build: "tsc -b ./tsconfig.package.json",
         clean: "rimraf lib .cache",
         test: "jest --passWithNoTests"
     };
+
+    packageJSONData.publishConfig = {
+        main: "./lib/index.js",
+        types: "./lib/index.d.ts"
+    };
     if (!packageJSONData.private) {
-        packageJSONData.publishConfig = { access: "public" };
+        packageJSONData.publishConfig.access = "public";
     }
 
     const deps = packageJSONData.dependencies || {};
