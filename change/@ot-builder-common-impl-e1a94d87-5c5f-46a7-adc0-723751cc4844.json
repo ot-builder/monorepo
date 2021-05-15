@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Further fixup publish config",
+  "packageName": "@ot-builder/common-impl",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
