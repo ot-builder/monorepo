@@ -10,6 +10,9 @@
   },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "lib/**/*.js",
     "lib/**/*.json",
@@ -19,9 +22,6 @@
     "build": "tsc -b ./tsconfig.package.json",
     "clean": "rimraf lib .cache",
     "test": "jest --passWithNoTests"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "@ot-builder/bin-composite-types": "1.0.5",

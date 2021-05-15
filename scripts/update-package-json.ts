@@ -46,6 +46,10 @@ for (const packageName of packages) {
     };
     packageJSONData.main = "./lib/index.js";
     packageJSONData.types = "./lib/index.d.ts";
+    packageJSONData.publishConfig = {
+        main: "./lib/index.js",
+        types: "./lib/index.d.ts"
+    };
     packageJSONData.files = ["lib/**/*.js", "lib/**/*.json", "lib/**/*.d.ts"];
     packageJSONData.scripts = {
         build: "tsc -b ./tsconfig.package.json",
