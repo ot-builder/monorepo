@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/trace",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,12 +23,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot": "1.0.4",
-    "@ot-builder/common-impl": "1.0.4",
-    "@ot-builder/ot-glyphs": "1.0.4",
-    "@ot-builder/ot-metadata": "1.0.4",
-    "@ot-builder/prelude": "1.0.4",
-    "@ot-builder/variance": "1.0.4",
+    "@ot-builder/ot": "1.0.5",
+    "@ot-builder/common-impl": "1.0.5",
+    "@ot-builder/ot-glyphs": "1.0.5",
+    "@ot-builder/ot-metadata": "1.0.5",
+    "@ot-builder/prelude": "1.0.5",
+    "@ot-builder/variance": "1.0.5",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

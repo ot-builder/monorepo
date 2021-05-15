@@ -1,8 +1,16 @@
 # Change Log - ot-builder-cli
 
-This log was last generated on Sat, 27 Feb 2021 08:18:21 GMT and should not be manually modified.
+This log was last generated on Sat, 15 May 2021 01:11:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.5
+
+Sat, 15 May 2021 01:11:43 GMT
+
+### Patches
+
+- Upgrade dependenceis and remove in-package dependency of fs-extra (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.3
 

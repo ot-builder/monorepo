@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/common-impl",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/prelude": "1.0.4",
+    "@ot-builder/prelude": "1.0.5",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 15 May 2021 01:11:43 GMT",
+      "tag": "otb-ttc-bundle_v1.0.5",
+      "version": "1.0.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade dependenceis and remove in-package dependency of fs-extra",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "b98bdd11b96d8fbdd04d85bbfe3dc329e4bcc7b8",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Feb 2021 08:18:21 GMT",
       "tag": "otb-ttc-bundle_v1.0.3",
       "version": "1.0.3",

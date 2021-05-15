@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade dependenceis and remove in-package dependency of fs-extra",
-  "packageName": "otb-ttc-bundle",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

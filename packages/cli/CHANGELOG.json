@@ -2,6 +2,21 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sat, 15 May 2021 01:11:43 GMT",
+      "tag": "ot-builder-cli_v1.0.5",
+      "version": "1.0.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Upgrade dependenceis and remove in-package dependency of fs-extra",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "b98bdd11b96d8fbdd04d85bbfe3dc329e4bcc7b8",
+            "package": "ot-builder-cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 27 Feb 2021 08:18:21 GMT",
       "tag": "ot-builder-cli_v1.0.3",
       "version": "1.0.3",
