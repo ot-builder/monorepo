@@ -33,6 +33,18 @@ test("Draw call generator test", () => {
             new Set()
         )
     ];
+    hints.counterMasks = [
+        OtGlyph.CffHint.createMask(
+            { geometry: 0, contour: 0, index: 0 },
+            new Set([hints.hStems[0]]),
+            new Set()
+        ),
+        OtGlyph.CffHint.createMask(
+            { geometry: 0, contour: 0, index: 0 },
+            new Set([hints.hStems[1]]),
+            new Set()
+        )
+    ];
     glyph.hints = hints;
 
     glyph.geometry = new OtGlyph.ContourSet([
@@ -55,6 +67,8 @@ test("Draw call generator test", () => {
     expect(Mir.rectifyMirStr(Mir.printCharString(mirSeq))).toBe(
         Mir.rectifyMirStr(`
     1 1 1 1 HStemHM
+    CntrMask[1 0]
+    CntrMask[0 1]
     HintMask[1 0]
     1 1 RMoveTo
     HintMask[0 1]
