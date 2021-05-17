@@ -241,7 +241,8 @@ class SubtableFormat3<L> {
 }
 
 abstract class ChainingContextualReader<L, CL extends L & GsubGpos.ChainingProp<L>>
-    implements LookupReader<L, CL> {
+    implements LookupReader<L, CL>
+{
     constructor(private chaining: boolean) {}
     public abstract createLookup(): CL;
 

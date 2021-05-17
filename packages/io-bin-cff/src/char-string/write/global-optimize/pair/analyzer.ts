@@ -27,7 +27,8 @@ function buildInput(limits: CffLimits, session: Session<Mir>, source: Iterable<M
 }
 
 export class PairingAnalyzer
-    implements NonTerminalBuilder<Mir>, RuleBuilder<Mir, NTRuleStub, Rule>, SubroutineAnalyzer {
+    implements NonTerminalBuilder<Mir>, RuleBuilder<Mir, NTRuleStub, Rule>, SubroutineAnalyzer
+{
     private pairSession = new Session(MirKeyProvider);
 
     private inputs: Input<Mir>[] = [];

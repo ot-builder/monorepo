@@ -9,7 +9,8 @@ export class ListStoreFactory<T> implements Data.OrderStoreFactory<T, ListStore<
 }
 export class ListStoreFactoryWithDefault<T>
     extends ListStoreFactory<T>
-    implements Data.OrderStoreFactoryWithDefault<T, ListStore<T>> {
+    implements Data.OrderStoreFactoryWithDefault<T, ListStore<T>>
+{
     constructor(sourceKind: string, private readonly create: () => T) {
         super(sourceKind);
     }

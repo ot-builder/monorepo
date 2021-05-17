@@ -258,7 +258,8 @@ class CClassRuleSet<L> {
 }
 
 abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L>>
-    implements LookupWriter<L, C> {
+    implements LookupWriter<L, C>
+{
     private wCoverageRule = new CCoverageRule<L>();
     private wClassRuleSet = new CClassRuleSet<L>();
 

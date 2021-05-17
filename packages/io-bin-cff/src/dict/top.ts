@@ -16,7 +16,8 @@ import { CffDictDataCollector, CffDictInterpreter, CffDictReadT, CffDictWriteT }
 
 export class CffTopDictInterpreter
     extends CffFontDictInterpreterBase
-    implements CffDictInterpreter<CffTopDictRead> {
+    implements CffDictInterpreter<CffTopDictRead>
+{
     constructor(ctx: CffReadContext) {
         super(ctx);
         this.td = new CffTopDictRead(this.fd);

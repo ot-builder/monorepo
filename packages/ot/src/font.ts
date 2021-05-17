@@ -12,12 +12,10 @@ export type Font<GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>>
 export namespace Font {
     // TypeDefs
     type OtFontShared = OtFontMetadata & OtEncoding & OtFontLayoutData & OtNameData & OtExtPrivate;
-    export type Cff<
-        GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>
-    > = OtFontShared & CffCoGlyphs & { glyphs: GS };
-    export type Ttf<
-        GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>
-    > = OtFontShared & TtfCoGlyphs & { glyphs: GS };
+    export type Cff<GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>> =
+        OtFontShared & CffCoGlyphs & { glyphs: GS };
+    export type Ttf<GS extends Data.OrderStore<OtGlyph> = Data.OrderStore<OtGlyph>> =
+        OtFontShared & TtfCoGlyphs & { glyphs: GS };
 
     export function isCff<GS extends Data.OrderStore<OtGlyph>>(font: Font<GS>): font is Cff<GS> {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -6,7 +6,8 @@ import { CffCharStringInterpState } from "./interpreter";
 
 export class CffCharStringInterpStateImpl
     extends CffStackMachine
-    implements CffCharStringInterpState {
+    implements CffCharStringInterpState
+{
     public getRandom() {
         return 0;
     }

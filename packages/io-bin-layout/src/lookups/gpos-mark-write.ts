@@ -391,7 +391,8 @@ abstract class GposMarkWriterBase<G, B> {
 
 export class GposMarkToBaseWriter
     extends GposMarkWriterBase<OtGlyph, Gpos.BaseRecord>
-    implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase> {
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToBase>
+{
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToBase {
         return l.type === Gpos.LookupType.MarkToBase;
     }
@@ -415,7 +416,8 @@ export class GposMarkToBaseWriter
 }
 export class GposMarkToLigatureWriter
     extends GposMarkWriterBase<OtGlyph, Gpos.LigatureBaseRecord>
-    implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature> {
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToLigature>
+{
     public canBeUsed(l: Gpos.Lookup): l is Gpos.MarkToLigature {
         return l.type === Gpos.LookupType.MarkToLigature;
     }
@@ -439,7 +441,8 @@ export class GposMarkToLigatureWriter
 }
 export class GposMarkToMarkWriter
     extends GposMarkWriterBase<OtGlyph, Gpos.BaseRecord>
-    implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark> {
+    implements LookupWriter<Gpos.Lookup, Gpos.MarkToMark>
+{
     protected baseCoversMarkClass(mc: number, br: Gpos.BaseRecord) {
         return br && !!br.baseAnchors[mc];
     }

@@ -148,7 +148,8 @@ class GposMarkReaderBase {
 
 export class GposMarkToBaseReader
     extends GposMarkReaderBase
-    implements LookupReader<Gpos.Lookup, Gpos.MarkToBase> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToBase>
+{
     public createLookup() {
         return new Gpos.MarkToBase();
     }
@@ -162,7 +163,8 @@ export class GposMarkToBaseReader
 }
 export class GposMarkToLigatureReader
     extends GposMarkReaderBase
-    implements LookupReader<Gpos.Lookup, Gpos.MarkToLigature> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToLigature>
+{
     public createLookup() {
         return new Gpos.MarkToLigature();
     }
@@ -176,7 +178,8 @@ export class GposMarkToLigatureReader
 }
 export class GposMarkToMarkReader
     extends GposMarkReaderBase
-    implements LookupReader<Gpos.Lookup, Gpos.MarkToMark> {
+    implements LookupReader<Gpos.Lookup, Gpos.MarkToMark>
+{
     public createLookup() {
         return new Gpos.MarkToMark();
     }
