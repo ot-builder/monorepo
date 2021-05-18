@@ -104,7 +104,7 @@ function renameGlyphs(uniqueNames: Set<string>, font: Ot.Font) {
         } else {
             let u = 2,
                 qn;
-            for (; (qn = `u${u}_${purposedName}`), uniqueNames.has(qn); u++);
+            for (; (qn = `.u${u}.${purposedName}`), uniqueNames.has(qn); u++);
             uniqueNames.add(qn);
             glyph.name = qn;
         }
