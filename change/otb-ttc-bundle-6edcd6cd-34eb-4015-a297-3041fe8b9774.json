@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "CLI-TTC-BUNDLE: Ensure glyph names are unique in the TTC if the glyph set is shared",
+  "packageName": "otb-ttc-bundle",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

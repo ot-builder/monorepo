@@ -50,14 +50,21 @@ async function simpleMerging(args: ArgParser) {
 async function glyphSharingMerging(args: ArgParser) {
     const gsf = Ot.ListGlyphStoreFactory;
     const sharer = new SparseGlyphSharer(gsf);
+    const uniqueNames = new Set<string>();
     for (const input of args.inputs) {
         if (args.verbose) process.stderr.write(`Processing ${input}\n`);
         const bufFont = await Fs.promises.readFile(input);
         if (bufFont.readUInt32BE(0) === tagToUInt32("ttcf")) {
             const ttc = FontIo.readSfntTtc(bufFont);
-            for (const sub of ttc) sharer.addFont(FontIo.readFont(sub, gsf));
+            for (const sub of ttc) {
+                const subFont = FontIo.readFont(sub, gsf);
+                if (!args.sparse) renameGlyphs(uniqueNames, subFont);
+                sharer.addFont(subFont);
+            }
         } else {
-            sharer.addFont(FontIo.readFont(FontIo.readSfntOtf(bufFont), gsf));
+            const subFont = FontIo.readFont(FontIo.readSfntOtf(bufFont), gsf);
+            if (!args.sparse) renameGlyphs(uniqueNames, subFont);
+            sharer.addFont(subFont);
         }
     }
     if (args.verbose) process.stderr.write(`${sharer.fonts.length} sub-fonts found.\n`);
@@ -85,6 +92,22 @@ async function glyphSharingMerging(args: ArgParser) {
         }
         const slices = createTtcSlices(resultBuffers, sharing);
         await Fs.promises.writeFile(args.output, FontIo.writeSfntTtcFromTableSlices(slices));
+    }
+}
+
+function renameGlyphs(uniqueNames: Set<string>, font: Ot.Font) {
+    for (const [gid, glyph] of font.glyphs.decideOrder().entries()) {
+        const purposedName = glyph.name || `.gid${gid}`;
+        if (!uniqueNames.has(purposedName)) {
+            uniqueNames.add(purposedName);
+            glyph.name = purposedName;
+        } else {
+            let u = 2,
+                qn;
+            for (; (qn = `u${u}_${purposedName}`), uniqueNames.has(qn); u++);
+            uniqueNames.add(qn);
+            glyph.name = qn;
+        }
     }
 }
 
