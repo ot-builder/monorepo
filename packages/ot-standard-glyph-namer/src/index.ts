@@ -1,8 +1,7 @@
 import { OtGlyph, OtGlyphNamer, OtGlyphNamingSource } from "@ot-builder/ot-glyphs";
+import * as AglfnData from "aglfn";
 
-import { AglfnData } from "./aglfn";
-
-const AglfnMap = new Map(AglfnData);
+const AglfnMap = new Map(AglfnData.map(x => [parseInt(x.unicodeValue, 16), x.glyphName]));
 
 export class OtStandardGlyphNamer implements OtGlyphNamer {
     private existingNames: Set<string> = new Set();

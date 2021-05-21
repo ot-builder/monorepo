@@ -27,7 +27,8 @@
   "dependencies": {
     "@ot-builder/ot-glyphs": "1.0.6",
     "@ot-builder/prelude": "1.0.6",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "aglfn": "^1.0.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.10",
