@@ -2,6 +2,27 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sat, 22 May 2021 01:16:00 GMT",
+      "tag": "@ot-builder/io-bin-cff_v1.0.7",
+      "version": "1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "UT: Add unit tests for repeating CNTRMask",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "76518bbc81490753f89612c14acfbb92cd767325",
+            "package": "@ot-builder/io-bin-cff"
+          },
+          {
+            "comment": "Fix eslint",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "211814830d74a229043d5e813e38b59c0048d4a2",
+            "package": "@ot-builder/io-bin-cff"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "@ot-builder/io-bin-cff_v1.0.6",
       "version": "1.0.6",

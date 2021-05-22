@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 22 May 2021 01:16:00 GMT",
+      "tag": "otb-ttc-bundle_v1.0.7",
+      "version": "1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "CLI-TTC-BUNDLE: Ensure glyph names are unique in the TTC if the glyph set is shared",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "20f1622d8a6cc105e6758ebf80d99546d25848a3",
+            "package": "otb-ttc-bundle"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "otb-ttc-bundle_v1.0.6",
       "version": "1.0.6",

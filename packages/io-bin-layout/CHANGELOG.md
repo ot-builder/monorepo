@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sat, 15 May 2021 06:59:10 GMT and should not be manually modified.
+This log was last generated on Sat, 22 May 2021 01:16:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.7
+
+Sat, 22 May 2021 01:16:00 GMT
+
+### Patches
+
+- Fix eslint (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.6
 

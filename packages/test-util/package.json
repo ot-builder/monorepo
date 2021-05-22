@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/test-util",
   "description": "",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,12 +26,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/common-impl": "1.0.6",
-    "@ot-builder/ot-encoding": "1.0.6",
-    "@ot-builder/ot-glyphs": "1.0.6",
-    "@ot-builder/ot-layout": "1.0.6",
-    "@ot-builder/prelude": "1.0.6",
-    "@ot-builder/variance": "1.0.6",
+    "@ot-builder/common-impl": "1.0.7",
+    "@ot-builder/ot-encoding": "1.0.7",
+    "@ot-builder/ot-glyphs": "1.0.7",
+    "@ot-builder/ot-layout": "1.0.7",
+    "@ot-builder/prelude": "1.0.7",
+    "@ot-builder/variance": "1.0.7",
     "jest": "^26.6.3",
     "tslib": "^2.0.0",
     "@types/jest": "^26.0.10"

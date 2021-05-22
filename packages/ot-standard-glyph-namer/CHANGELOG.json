@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-standard-glyph-namer",
   "entries": [
     {
+      "date": "Sat, 22 May 2021 01:16:00 GMT",
+      "tag": "@ot-builder/ot-standard-glyph-namer_v1.0.7",
+      "version": "1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Move out AGLFN to external dependency",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "2ae55cf626e0a01c985cb8982a4b99535d801409",
+            "package": "@ot-builder/ot-standard-glyph-namer"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "@ot-builder/ot-standard-glyph-namer_v1.0.6",
       "version": "1.0.6",

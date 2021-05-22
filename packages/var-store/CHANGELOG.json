@@ -2,6 +2,21 @@
   "name": "@ot-builder/var-store",
   "entries": [
     {
+      "date": "Sat, 22 May 2021 01:16:00 GMT",
+      "tag": "@ot-builder/var-store_v1.0.7",
+      "version": "1.0.7",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix eslint",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "211814830d74a229043d5e813e38b59c0048d4a2",
+            "package": "@ot-builder/var-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "@ot-builder/var-store_v1.0.6",
       "version": "1.0.6",
