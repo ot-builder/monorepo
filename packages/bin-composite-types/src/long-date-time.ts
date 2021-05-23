@@ -1,7 +1,7 @@
 import { Read, Write } from "@ot-builder/bin-util";
 
 const Power2To32 = 0x0100000000;
-const EpochDifference = new Date(1970, 1, 1).getTime() - new Date(1904, 1, 1).getTime();
+const EpochDifference = Date.UTC(1970, 1, 1) - Date.UTC(1904, 1, 1);
 
 export const LongDateTime = {
     ...Read<Date>(view => {
