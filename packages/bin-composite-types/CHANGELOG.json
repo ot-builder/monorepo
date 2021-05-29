@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-composite-types",
   "entries": [
     {
+      "date": "Sat, 29 May 2021 01:51:16 GMT",
+      "tag": "@ot-builder/bin-composite-types_v1.0.8",
+      "version": "1.0.8",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix ot-builder#98",
+            "author": "c@cyano.cn",
+            "commit": "9174eb3d6235f50add0a0a1c0227909673f6fe87",
+            "package": "@ot-builder/bin-composite-types"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "@ot-builder/bin-composite-types_v1.0.6",
       "version": "1.0.6",

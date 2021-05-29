@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/bin-composite-types
 
-This log was last generated on Sat, 15 May 2021 06:59:10 GMT and should not be manually modified.
+This log was last generated on Sat, 29 May 2021 01:51:16 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.8
+
+Sat, 29 May 2021 01:51:16 GMT
+
+### Patches
+
+- Fix ot-builder#98 (c@cyano.cn)
 
 ## 1.0.6
 

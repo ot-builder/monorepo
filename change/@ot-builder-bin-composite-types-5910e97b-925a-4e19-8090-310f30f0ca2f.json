@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix ot-builder#98",
-  "packageName": "@ot-builder/bin-composite-types",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch"
-}

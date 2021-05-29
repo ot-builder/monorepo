@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/ot-sfnt",
   "description": "",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,8 +26,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/prelude": "1.0.7",
-    "@ot-builder/primitive": "1.0.7",
+    "@ot-builder/prelude": "1.0.8",
+    "@ot-builder/primitive": "1.0.8",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
