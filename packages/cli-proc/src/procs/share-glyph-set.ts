@@ -18,10 +18,18 @@ export class GlyphSharer<GS extends Ot.GlyphStore> {
     private readonly sharedGs = new SharedGlyphStore();
 
     public fonts: Ot.Font<GS>[] = [];
+    public fontUnificationResults: GlyphUnificationResults[] = [];
 
     public addFont(inputFont: Ot.Font<GS>) {
         if (this.fonts.length > 0) unifyDesignSpacesImpl(this.session, this.fonts[0], inputFont);
-        unifyGlyphByHash(inputFont, this.gsf, this.session, this.sharedGs, this.fonts.length);
+        const ur = unifyGlyphByHash(
+            inputFont,
+            this.gsf,
+            this.session,
+            this.sharedGs,
+            this.fonts.length
+        );
+        this.fontUnificationResults.push(ur);
         this.fonts.push(inputFont);
     }
 
@@ -46,6 +54,10 @@ export function shareGlyphSet<GS extends Ot.GlyphStore>(
     if (options.unifyGlyphList) sharer.unifyGlyphList();
 }
 
+export type GlyphUnificationResults = {
+    originalNames: WeakMap<Ot.Glyph, string>;
+};
+
 function unifyGlyphByHash<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
     gsf: Ot.GlyphStoreFactory<GS>,
@@ -58,13 +70,19 @@ function unifyGlyphByHash<GS extends Ot.GlyphStore>(
     const sharing = new GlyphSharingRectifier(sharedGs);
     const result: Ot.Glyph[] = [];
 
+    const originalNames = new WeakMap<Ot.Glyph, string>();
+
     for (let gid = 0; gid < gOrd.length; gid++) {
         const g = gOrd.at(gid);
         const hash = hasher.compute(g);
         const sharedGlyph = sharing.put(g, hash, id, gid);
         result[gid] = sharedGlyph;
+
+        if (gid && g.name) originalNames.set(sharedGlyph, g.name);
     }
 
     Rectify.inPlaceRectifyFontGlyphReferences(sharing, font);
     font.glyphs = gsf.createStoreFromList(result);
+
+    return { originalNames };
 }

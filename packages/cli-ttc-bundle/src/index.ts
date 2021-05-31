@@ -1,7 +1,7 @@
 import * as Fs from "fs";
 
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import { FontIo, Ot } from "ot-builder";
+import { CliProc, FontIo, Ot } from "ot-builder";
 
 import { ArgParser, displayHelp, displayVersion } from "./arg-parser";
 import { createTtcSlices } from "./glyph-sharing/create-ttc";
@@ -50,7 +50,6 @@ async function simpleMerging(args: ArgParser) {
 async function glyphSharingMerging(args: ArgParser) {
     const gsf = Ot.ListGlyphStoreFactory;
     const sharer = new SparseGlyphSharer(gsf);
-    const uniqueNames = new Set<string>();
     for (const input of args.inputs) {
         if (args.verbose) process.stderr.write(`Processing ${input}\n`);
         const bufFont = await Fs.promises.readFile(input);
@@ -58,12 +57,10 @@ async function glyphSharingMerging(args: ArgParser) {
             const ttc = FontIo.readSfntTtc(bufFont);
             for (const sub of ttc) {
                 const subFont = FontIo.readFont(sub, gsf);
-                if (!args.sparse) renameGlyphs(uniqueNames, subFont);
                 sharer.addFont(subFont);
             }
         } else {
             const subFont = FontIo.readFont(FontIo.readSfntOtf(bufFont), gsf);
-            if (!args.sparse) renameGlyphs(uniqueNames, subFont);
             sharer.addFont(subFont);
         }
     }
@@ -81,7 +78,9 @@ async function glyphSharingMerging(args: ArgParser) {
 
     if (args.output) {
         const resultBuffers: Buffer[] = [];
-        for (const font of sharer.fonts) {
+        for (const [iFont, font] of sharer.fonts.entries()) {
+            const fur = sharer.fontUnificationResults[iFont];
+            if (!args.sparse) renameGlyphs(iFont, font, fur);
             const cfg: FontIo.FontIoConfig = inferSaveCfg(args, font);
             cfg.ttf = {
                 ...cfg.ttf,
@@ -95,18 +94,40 @@ async function glyphSharingMerging(args: ArgParser) {
     }
 }
 
-function renameGlyphs(uniqueNames: Set<string>, font: Ot.Font) {
-    for (const [gid, glyph] of font.glyphs.decideOrder().entries()) {
-        const purposedName = glyph.name || `.gid${gid}`;
-        if (!uniqueNames.has(purposedName)) {
-            uniqueNames.add(purposedName);
-            glyph.name = purposedName;
+function renameGlyphs(iFont: number, font: Ot.Font, ur: CliProc.GlyphUnificationResults) {
+    const gOrd = font.glyphs.decideOrder();
+    const conflictSet = new Set<string>();
+    // Delete all glyph names
+    for (const [gid, g] of gOrd.entries()) g.name = undefined;
+    // Populate "proper" names
+    for (const [gid, g] of gOrd.entries()) {
+        if (!gid) {
+            nameGlyphWithoutConflict(g, ".notdef", conflictSet);
         } else {
-            let u = 2,
-                qn;
-            for (; (qn = `.u${u}.${purposedName}`), uniqueNames.has(qn); u++);
-            uniqueNames.add(qn);
-            glyph.name = qn;
+            const urName = ur.originalNames.get(g);
+            if (urName) nameGlyphWithoutConflict(g, urName, conflictSet);
+        }
+    }
+    // Populate name for unused glyphs
+    for (const [gid, g] of gOrd.entries()) {
+        if (g.name) continue;
+        nameGlyphWithoutConflict(g, `.unused${gid}`, conflictSet);
+    }
+}
+
+function nameGlyphWithoutConflict(g: Ot.Glyph, desired: string, conflictSet: Set<string>) {
+    if (!conflictSet.has(desired)) {
+        g.name = desired;
+        conflictSet.add(desired);
+        return;
+    }
+
+    for (let n = 2; ; n++) {
+        const nameT = desired + "." + n;
+        if (!conflictSet.has(nameT)) {
+            g.name = nameT;
+            conflictSet.add(nameT);
+            return;
         }
     }
 }
