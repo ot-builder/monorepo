@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/ot-standard-glyph-namer
 
-This log was last generated on Sat, 22 May 2021 01:16:00 GMT and should not be manually modified.
+This log was last generated on Sat, 05 Jun 2021 01:38:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.9
+
+Sat, 05 Jun 2021 01:38:42 GMT
+
+### Patches
+
+- Bump @ot-builder/ot-standard-glyph-namer to v1.0.9 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.7
 

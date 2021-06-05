@@ -2,6 +2,21 @@
   "name": "@ot-builder/stat-glyphs",
   "entries": [
     {
+      "date": "Sat, 05 Jun 2021 01:38:42 GMT",
+      "tag": "@ot-builder/stat-glyphs_v1.0.9",
+      "version": "1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/stat-glyphs to v1.0.9",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "80e143620017342699ae8f221ed1593d4a9ffc76",
+            "package": "@ot-builder/stat-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 May 2021 06:59:10 GMT",
       "tag": "@ot-builder/stat-glyphs_v1.0.6",
       "version": "1.0.6",

@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-composite-types",
   "entries": [
     {
+      "date": "Sat, 05 Jun 2021 01:38:42 GMT",
+      "tag": "@ot-builder/bin-composite-types_v1.0.9",
+      "version": "1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/bin-composite-types to v1.0.9",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "80e143620017342699ae8f221ed1593d4a9ffc76",
+            "package": "@ot-builder/bin-composite-types"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 29 May 2021 01:51:16 GMT",
       "tag": "@ot-builder/bin-composite-types_v1.0.8",
       "version": "1.0.8",

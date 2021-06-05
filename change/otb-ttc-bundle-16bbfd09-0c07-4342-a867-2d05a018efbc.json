@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "TTC Bundle: Improve how glyph names are processed.",
-  "packageName": "otb-ttc-bundle",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

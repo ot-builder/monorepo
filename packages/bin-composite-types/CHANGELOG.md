@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/bin-composite-types
 
-This log was last generated on Sat, 29 May 2021 01:51:16 GMT and should not be manually modified.
+This log was last generated on Sat, 05 Jun 2021 01:38:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.9
+
+Sat, 05 Jun 2021 01:38:42 GMT
+
+### Patches
+
+- Bump @ot-builder/bin-composite-types to v1.0.9 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.8
 

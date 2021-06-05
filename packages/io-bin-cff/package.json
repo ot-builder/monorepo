@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-cff",
   "description": "",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,24 +26,24 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "1.0.8",
-    "@ot-builder/bin-util": "1.0.8",
-    "@ot-builder/common-impl": "1.0.8",
-    "@ot-builder/errors": "1.0.8",
-    "@ot-builder/ot-glyphs": "1.0.8",
-    "@ot-builder/ot-metadata": "1.0.8",
-    "@ot-builder/prelude": "1.0.8",
-    "@ot-builder/primitive": "1.0.8",
-    "@ot-builder/stat-glyphs": "1.0.8",
-    "@ot-builder/var-store": "1.0.8",
-    "@ot-builder/variance": "1.0.8",
+    "@ot-builder/bin-composite-types": "1.0.9",
+    "@ot-builder/bin-util": "1.0.9",
+    "@ot-builder/common-impl": "1.0.9",
+    "@ot-builder/errors": "1.0.9",
+    "@ot-builder/ot-glyphs": "1.0.9",
+    "@ot-builder/ot-metadata": "1.0.9",
+    "@ot-builder/prelude": "1.0.9",
+    "@ot-builder/primitive": "1.0.9",
+    "@ot-builder/stat-glyphs": "1.0.9",
+    "@ot-builder/var-store": "1.0.9",
+    "@ot-builder/variance": "1.0.9",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/ot-sfnt": "1.0.8",
-    "@ot-builder/io-bin-metadata": "1.0.8",
-    "@ot-builder/io-bin-sfnt": "1.0.8",
-    "@ot-builder/test-util": "1.0.8",
+    "@ot-builder/ot-sfnt": "1.0.9",
+    "@ot-builder/io-bin-metadata": "1.0.9",
+    "@ot-builder/io-bin-sfnt": "1.0.9",
+    "@ot-builder/test-util": "1.0.9",
     "@types/jest": "^26.0.10",
     "jest": "^26.6.3"
   }
