@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Cleanup deps",
+  "packageName": "@ot-builder/rectify",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
