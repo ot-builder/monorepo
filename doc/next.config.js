@@ -9,6 +9,9 @@ module.exports = withMDX({
     webpack5: true,
     distDir: "build",
     pageExtensions: ["tsx", "mdx"],
+    eslint: {
+        ignoreDuringBuilds: true
+    },
     webpack(config, options) {
         config.resolve.alias["components"] = path.join(__dirname, "components");
         config.resolve.alias["api-doc"] = path.join(__dirname, "api-doc");
