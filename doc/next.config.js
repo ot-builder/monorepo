@@ -6,7 +6,7 @@ const path = require("path");
 const withMDX = require("@next/mdx")({ extension: /\.mdx?$/ });
 
 module.exports = withMDX({
-    future: { webpack5: true },
+    webpack5: true,
     distDir: "build",
     pageExtensions: ["tsx", "mdx"],
     webpack(config, options) {

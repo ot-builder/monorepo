@@ -10,13 +10,13 @@
     },
     "dependencies": {
         "@mdx-js/loader": "^1.6.22",
-        "@next/mdx": "^10.2.0",
-        "@types/react": "^17.0.5",
-        "next": "^10.2.0",
+        "@next/mdx": "^11.0.1",
+        "@types/react": "^17.0.11",
+        "next": "^11.0.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "rimraf": "^3.0.2",
-        "webpack": "^5.36.2",
-        "sass": "^1.32.12"
+        "webpack": "^5.41.1",
+        "sass": "^1.35.1"
     }
 }
