@@ -46,7 +46,7 @@
   "devDependencies": {
     "@ot-builder/io-bin-metadata": "1.0.9",
     "@ot-builder/test-util": "1.0.9",
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.23",
     "jest": "^27.0.6"
   }
 }

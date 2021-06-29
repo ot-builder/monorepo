@@ -31,7 +31,7 @@
     "aglfn": "^1.0.2"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.23",
     "jest": "^27.0.6"
   }
 }

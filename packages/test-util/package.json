@@ -33,8 +33,9 @@
     "@ot-builder/prelude": "1.0.9",
     "@ot-builder/variance": "1.0.9",
     "jest": "^27.0.6",
-    "tslib": "^2.0.0",
-    "@types/jest": "^26.0.10"
+    "tslib": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/jest": "^26.0.23"
+  }
 }

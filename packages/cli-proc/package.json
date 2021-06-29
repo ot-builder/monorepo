@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "chalk": "^4.1.0",
     "@ot-builder/io-bin-font": "1.0.9",
     "@ot-builder/primitive": "1.0.9",
     "@ot-builder/common-impl": "1.0.9",
@@ -36,7 +35,7 @@
     "@ot-builder/ot": "1.0.9"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.10",
+    "@types/jest": "^26.0.23",
     "jest": "^27.0.6"
   }
 }
