@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Cleanup deps",
-  "packageName": "otb-ttc-bundle",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/ot-name",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,8 +25,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/prelude": "1.0.9",
-    "@ot-builder/primitive": "1.0.9",
+    "@ot-builder/prelude": "1.0.10",
+    "@ot-builder/primitive": "1.0.10",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

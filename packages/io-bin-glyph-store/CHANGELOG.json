@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-glyph-store",
   "entries": [
     {
+      "date": "Sat, 03 Jul 2021 01:07:58 GMT",
+      "tag": "@ot-builder/io-bin-glyph-store_v1.0.10",
+      "version": "1.0.10",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.0.10",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "09e4766daf9cbbac090bfbd958c0496becde30e6",
+            "package": "@ot-builder/io-bin-glyph-store"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 05 Jun 2021 01:38:42 GMT",
       "tag": "@ot-builder/io-bin-glyph-store_v1.0.9",
       "version": "1.0.9",

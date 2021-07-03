@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/io-bin-name
 
-This log was last generated on Sat, 05 Jun 2021 01:38:42 GMT and should not be manually modified.
+This log was last generated on Sat, 03 Jul 2021 01:07:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.10
+
+Sat, 03 Jul 2021 01:07:58 GMT
+
+### Patches
+
+- Bump @ot-builder/io-bin-name to v1.0.10 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.9
 
