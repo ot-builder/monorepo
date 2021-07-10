@@ -307,25 +307,27 @@ namespace BisectClassMatrixImpl {
         let diffCount = 0;
         for (let c2 = 0; c2 < cm.cSecond.length; c2++) {
             if (!cm.secondClassValid(c2)) continue;
-            if (!!cm.adjStore.indexMatrix[c1p][c2] !== !!cm.adjStore.indexMatrix[c1t][c2]) {
-                diffCount++;
-            }
+            const presenceDifferent =
+                !!cm.adjStore.indexMatrix[c1p][c2] !== !!cm.adjStore.indexMatrix[c1t][c2];
+            const valueDifferent =
+                cm.adjStore.indexMatrix[c1p][c2] !== cm.adjStore.indexMatrix[c1t][c2];
+            diffCount += (presenceDifferent ? 4 : 1) * (valueDifferent ? 1 : 0);
         }
         return diffCount;
     }
 
-    function findRowWithMinNonZero<G>(cm: ClassMatrix<G>) {
-        let c1MinNonZero = -1,
-            minNonZeroCount = 0xffff;
+    function findRowWithMaxNonZero<G>(cm: ClassMatrix<G>) {
+        let c1MaxNonZero = -1,
+            maxNonZeroCount = 0;
         for (let c1 = 0; c1 < cm.cFirst.length; c1++) {
             if (!cm.firstClassValid(c1)) continue;
             const n = computeC1NonzeroCount(cm, c1);
-            if (n < minNonZeroCount) {
-                minNonZeroCount = n;
-                c1MinNonZero = c1;
+            if (n > maxNonZeroCount) {
+                maxNonZeroCount = n;
+                c1MaxNonZero = c1;
             }
         }
-        return c1MinNonZero;
+        return c1MaxNonZero;
     }
 
     const UnevenMultiplier = 16;
@@ -344,8 +346,13 @@ namespace BisectClassMatrixImpl {
         const cm1 = cm.derive();
         const cm2 = cm.derive();
 
-        const c1MinNonZero = findRowWithMinNonZero(cm);
-        if (c1MinNonZero < 0) return bisectClassMatrixEvenly(cm);
+        // Leave first class 0 empty
+        cm1.cFirst[0] = [];
+        cm2.cFirst[0] = [];
+
+        // Pick a row with most non-zero entries -- use it as pivot for bisecting
+        const c1MaxNonZero = findRowWithMaxNonZero(cm);
+        if (c1MaxNonZero < 0) return bisectClassMatrixEvenly(cm);
 
         const c1DiffArray: number[] = [];
         let sumDiff = 0,
@@ -353,7 +360,7 @@ namespace BisectClassMatrixImpl {
 
         for (let c1 = 0; c1 < cm.cFirst.length; c1++) {
             if (!cm.firstClassValid(c1)) continue;
-            const diff = computeC1Difference(cm, c1MinNonZero, c1);
+            const diff = computeC1Difference(cm, c1MaxNonZero, c1);
             sumDiff += diff;
             nDiff += 1;
             c1DiffArray[c1] = diff;
@@ -361,10 +368,6 @@ namespace BisectClassMatrixImpl {
 
         // We'd like to bisect the subtable by selecting the rows that "not differ too much"
         // with the chosen row
-
-        // Leave first class 0 empty
-        cm1.cFirst[0] = [];
-        cm2.cFirst[0] = [];
 
         // Process non-zero classes
         let upperHalfClassCount = 0,
