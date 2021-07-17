@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-name",
   "entries": [
     {
+      "date": "Sat, 17 Jul 2021 01:08:07 GMT",
+      "tag": "@ot-builder/ot-name_v1.0.11",
+      "version": "1.0.11",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @ot-builder/ot-name to v1.0.11",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "7f243f6eb75ed28e2d367af7ed0423d0327529ff",
+            "package": "@ot-builder/ot-name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 03 Jul 2021 01:07:58 GMT",
       "tag": "@ot-builder/ot-name_v1.0.10",
       "version": "1.0.10",

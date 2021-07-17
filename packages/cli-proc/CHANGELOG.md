@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/cli-proc
 
-This log was last generated on Sat, 03 Jul 2021 01:07:58 GMT and should not be manually modified.
+This log was last generated on Sat, 17 Jul 2021 01:08:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.11
+
+Sat, 17 Jul 2021 01:08:07 GMT
+
+### Patches
+
+- Bump @ot-builder/cli-proc to v1.0.11 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.10
 
