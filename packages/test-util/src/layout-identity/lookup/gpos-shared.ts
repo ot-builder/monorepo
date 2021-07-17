@@ -1,7 +1,7 @@
 import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
-import { FastMatch } from "../../fast-match";
+import * as FastMatch from "../../fast-match";
 
 // TODO: compare device tables / anchor attachments
 export function GposAdjIdentity(expected: Gpos.Adjustment, actual: Gpos.Adjustment, place = "") {
