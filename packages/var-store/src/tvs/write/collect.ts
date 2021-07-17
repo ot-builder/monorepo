@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { OtVar } from "@ot-builder/variance";
 
 import { DelayValueCollector } from "../../common/value-collector";

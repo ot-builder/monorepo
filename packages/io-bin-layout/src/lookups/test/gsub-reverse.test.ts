@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gsub } from "@ot-builder/ot-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";

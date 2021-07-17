@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { OtVar } from "@ot-builder/variance";
 
 import { ReadTimeIVS, WriteTimeIVS } from "./impl";

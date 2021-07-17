@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Algebra } from "@ot-builder/prelude";
 import { GeneralVar } from "@ot-builder/variance";
@@ -66,7 +66,7 @@ export class WriteTimeIVD {
     }
 }
 
-export class WriteTimeIVDAllocator implements ImpLib.Allocator<WriteTimeIVD, [number[]]> {
+export class WriteTimeIVDAllocator implements ImpLib.PathMapAllocator<WriteTimeIVD, [number[]]> {
     private allocOuterID = new ImpLib.IndexAllocator();
     private ivdList: WriteTimeIVD[] = [];
     public next(r: number[]) {
@@ -106,7 +106,7 @@ export class WriteTimeIVDBlossom {
 }
 
 export class WriteTimeIVDBlossomAllocator
-    implements ImpLib.Allocator<WriteTimeIVDBlossom, [number[]]>
+    implements ImpLib.PathMapAllocator<WriteTimeIVDBlossom, [number[]]>
 {
     constructor(private nodeAlloc: WriteTimeIVDAllocator, private maxInnerIndex: number) {}
     public next(masterIDs: number[]) {

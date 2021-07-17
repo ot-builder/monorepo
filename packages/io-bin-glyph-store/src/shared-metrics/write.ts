@@ -1,5 +1,5 @@
 import { Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";

@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";

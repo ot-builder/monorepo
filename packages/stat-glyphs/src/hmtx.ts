@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { MetricBasic, MetricVariance, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Fvar, Head, MetricHead } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";

@@ -1,6 +1,6 @@
 import * as Crypto from "crypto";
 
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/ot";
 import * as Rectify from "@ot-builder/rectify";
 

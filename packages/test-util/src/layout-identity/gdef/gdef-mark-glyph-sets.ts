@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { LayoutCommon } from "@ot-builder/ot-layout";
 

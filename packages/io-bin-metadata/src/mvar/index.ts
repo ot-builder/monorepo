@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { Gasp, MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ot-metadata";
 import { Tag, UInt16 } from "@ot-builder/primitive";

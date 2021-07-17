@@ -1,35 +1,10 @@
-import * as _Access from "./access";
-import * as _Arith from "./arith";
-import * as _BitMask from "./bitmask";
-import * as _Chain from "./function-helper/chain";
-import * as _Hasher from "./hasher";
-import * as _Iterators from "./iterators";
-import * as _Order from "./order";
-import * as PathMapImplLib from "./path-map";
-import * as PathMapInterfaceLib from "./path-map/interface";
-import * as _Tie from "./typing-helper/tie";
-
-export namespace ImpLib {
-    export import Iterators = _Iterators;
-    export import Arith = _Arith;
-    export import BitMask = _BitMask.BitMask;
-    export import ReadonlyBitMask = _BitMask.ReadonlyBitMask;
-    export import PathMapImpl = PathMapImplLib.PathMapImpl;
-    export import IndexAllocator = PathMapImplLib.IndexAllocator;
-    export import PathMap = PathMapInterfaceLib.PathMap;
-    export import Allocator = PathMapInterfaceLib.Allocator;
-    export import PathMapLens = PathMapInterfaceLib.PathMapLens;
-    export import Access = _Access.Access;
-    export const State = _Access.State;
-    export import Order = _Order;
-    export import HashRep = _Hasher.HashRep;
-    export import Hasher = _Hasher.Hasher;
-
-    export namespace Tuple {
-        export const Tie = _Tie.Tie;
-    }
-
-    export namespace FunctionHelper {
-        export import Chain = _Chain.Chain;
-    }
-}
+export { Access, State } from "./access";
+export * as Arith from "./arith";
+export { BitMask, ReadonlyBitMask } from "./bitmask";
+export * as FunctionHelper from "./function-helper/chain";
+export { Hasher, HashRep } from "./hasher";
+export * as Iterators from "./iterators";
+export * as Order from "./order";
+export * from "./path-map";
+export * from "./path-map/interface";
+export * as Tuple from "./typing-helper/tuple";
