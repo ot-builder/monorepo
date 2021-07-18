@@ -2,10 +2,10 @@ import * as Ot from "@ot-builder/ot";
 
 import { GlyphTraceProc } from "../interface";
 
-import { TraceImpl } from "./shared";
+import * as TraceImpl_Glyph from "./trace-impl/glyph";
 
 export function traceMath(table: Ot.Math.Table): GlyphTraceProc {
-    if (!table.variants) return TraceImpl.Glyph.Nop;
+    if (!table.variants) return TraceImpl_Glyph.Nop;
     const procs: GlyphTraceProc[] = [];
     if (table.variants.vertical)
         for (const [from, to] of table.variants.vertical)
@@ -13,7 +13,7 @@ export function traceMath(table: Ot.Math.Table): GlyphTraceProc {
     if (table.variants.horizontal)
         for (const [from, to] of table.variants.horizontal)
             procs.push(traceGlyphConstruction(from, to));
-    return TraceImpl.Glyph.Seq(procs);
+    return TraceImpl_Glyph.Seq(procs);
 }
 
 function traceGlyphConstruction(from: Ot.Glyph, to: Ot.Math.GlyphConstruction): GlyphTraceProc {

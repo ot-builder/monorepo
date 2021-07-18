@@ -2,7 +2,7 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { OtVar } from "@ot-builder/variance";
 
-import { CffInterp } from "../../interp/ir";
+import * as CffInterp from "../../interp/ir";
 import { CharStringIrSource } from "../../interp/ir-source";
 import { CharStringOperator } from "../../interp/operator";
 import { CffStackMachine } from "../../interp/stack-machine";

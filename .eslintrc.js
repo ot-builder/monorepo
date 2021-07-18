@@ -55,6 +55,8 @@ module.exports = {
                 alphabetize: { order: "asc", caseInsensitive: true }
             }
         ],
+        "import/export": "off", // we have TS
+        "import/namespace": "off", // we have TS
         "import/no-extraneous-dependencies": "error",
         "import/newline-after-import": ["error", { count: 1 }],
         "prettier/prettier": "error"

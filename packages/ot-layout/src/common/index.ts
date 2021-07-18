@@ -1,11 +1,5 @@
-import { LayoutAdjustment } from "./adjust";
-import { LayoutAnchor, LayoutCursiveAnchorPair } from "./anchor";
-import { LayoutClassDef, LayoutCoverage } from "./matching";
-
-export namespace LayoutCommon {
-    export import Adjust = LayoutAdjustment;
-    export import Anchor = LayoutAnchor;
-    export import CursiveAnchorPair = LayoutCursiveAnchorPair;
-    export import Coverage = LayoutCoverage;
-    export import ClassDef = LayoutClassDef;
-}
+export * as Adjust from "./adjust";
+export * as Anchor from "./anchor";
+export * as CursiveAnchorPair from "./cursive-anchor-pair";
+export * as Coverage from "./coverage";
+export * as ClassDef from "./class-def";

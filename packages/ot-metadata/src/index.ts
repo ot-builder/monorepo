@@ -1,4 +1,4 @@
-export * from "./metadata";
+export * from "./aggregated";
 export * as Avar from "./tables/avar";
 export * as Fvar from "./tables/fvar";
 export * as Gasp from "./tables/gasp";

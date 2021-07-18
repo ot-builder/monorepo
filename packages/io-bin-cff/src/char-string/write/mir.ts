@@ -1,7 +1,7 @@
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
 
-import { CffInterp } from "../../interp/ir";
+import * as CffInterp from "../../interp/ir";
 import { CharStringOperator } from "../../interp/operator";
 
 export enum MirType {
