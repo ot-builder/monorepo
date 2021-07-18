@@ -1,4 +1,8 @@
-export { Cff, CffCoGlyphs, CffCoGlyphsWithNaming } from "./cff";
+export { CffCoGlyphs, CffCoGlyphsWithNaming } from "./cff/co-glyphs";
+export * as Cff from "./cff/table";
 export * from "./impl";
 export * from "./naming";
-export { Cvt, Fpgm, Prep, TtfCoGlyphs } from "./ttf";
+export { TtfCoGlyphs } from "./ttf/co-glyphs";
+export * as Cvt from "./ttf/cvt";
+export * as Fpgm from "./ttf/fpgm";
+export * as Prep from "./ttf/prep";

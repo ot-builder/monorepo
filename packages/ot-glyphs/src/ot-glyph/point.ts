@@ -1,6 +1,6 @@
 import { OtVar } from "@ot-builder/variance";
 
-import { GeneralGlyph } from "../general-glyph";
+import * as GeneralGlyph from "../general-glyph";
 
 export enum PointType {
     Corner = 0,
