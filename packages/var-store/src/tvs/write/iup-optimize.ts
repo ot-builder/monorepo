@@ -2,7 +2,7 @@
 // The algorithm comes form:
 //   - https://github.com/fonttools/fonttools/blob/master/Lib/fontTools/varLib/iup.py
 
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 
 import { iup } from "../shared/iup";
 

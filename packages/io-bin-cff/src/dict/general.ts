@@ -6,7 +6,7 @@ import { CffDrawCall, CffDrawCallRaw } from "../char-string/write/draw-call";
 import { Mir } from "../char-string/write/mir";
 import { CffReadContext } from "../context/read";
 import { CffWriteContext } from "../context/write";
-import { CffInterp } from "../interp/ir";
+import * as CffInterp from "../interp/ir";
 import { CffDictIrSource } from "../interp/ir-source";
 import { CffStackMachine } from "../interp/stack-machine";
 

@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/ot";
 import { Data } from "@ot-builder/prelude";
 import * as Rectify from "@ot-builder/rectify";

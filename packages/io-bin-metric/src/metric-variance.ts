@@ -1,5 +1,5 @@
 import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { MetricVariance } from "@ot-builder/ot-glyphs";
 import { Maxp } from "@ot-builder/ot-metadata";

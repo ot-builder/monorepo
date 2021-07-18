@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 
 import { VarianceDim } from "../interface/dimension";
 import { VarianceMasterSet } from "../interface/master";

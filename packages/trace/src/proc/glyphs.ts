@@ -2,7 +2,7 @@ import * as Ot from "@ot-builder/ot";
 
 import { GlyphTraceProc, GlyphTracer } from "../interface";
 
-import { TraceImpl } from "./shared";
+import * as TraceImpl_Glyph from "./trace-impl/glyph";
 
 export function traceGlyphDependents(g: Ot.Glyph): GlyphTraceProc {
     return tracer => {
@@ -24,10 +24,10 @@ class TraceGlyphsAlg {
         }
     }
     public contourSet(geom: Ot.Glyph.ContourSetProps) {
-        return TraceImpl.Glyph.Nop();
+        return TraceImpl_Glyph.Nop();
     }
     public geometryList(children: GlyphTraceProc[]) {
-        return TraceImpl.Glyph.Seq(children);
+        return TraceImpl_Glyph.Seq(children);
     }
     public ttReference(ref: Ot.Glyph.TtReferenceProps): GlyphTraceProc {
         return RefProc(ref.to);

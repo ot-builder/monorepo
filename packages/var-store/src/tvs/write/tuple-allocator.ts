@@ -1,4 +1,4 @@
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 

@@ -2,7 +2,7 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { F16D16 } from "@ot-builder/primitive";
 
-import { CffInterp } from "./ir";
+import * as CffInterp from "./ir";
 
 abstract class BinaryIrSource implements CffInterp.IrSource {
     protected view: BinaryView;

@@ -1,4 +1,4 @@
-import { Allocator, PathMap, PathMapLens } from "./interface";
+import { PathMapAllocator, PathMap, PathMapLens } from "./interface";
 
 class PathMapNode<Step, Value> {
     public value: Value | undefined;
@@ -22,7 +22,7 @@ class PathMapNode<Step, Value> {
     }
 }
 
-export class IndexAllocator implements Allocator<number> {
+export class IndexAllocator implements PathMapAllocator<number> {
     private index = 0;
     public next() {
         return this.index++;
@@ -52,7 +52,7 @@ class PathMapLensImpl<Step, Value> implements PathMapLens<Step, Value> {
             return existing;
         }
     }
-    public getOrAlloc<R extends unknown[] = []>(alloc: Allocator<Value, R>, ...r: R) {
+    public getOrAlloc<R extends unknown[] = []>(alloc: PathMapAllocator<Value, R>, ...r: R) {
         const existing = this.current.value;
         if (existing === undefined) {
             const value = alloc.next(...r);

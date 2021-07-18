@@ -1,7 +1,7 @@
 import { Frag } from "@ot-builder/bin-util";
 
 import { CffLimits, CffWriteContext } from "../../../context/write";
-import { CffInterp } from "../../../interp/ir";
+import * as CffInterp from "../../../interp/ir";
 import { CharStringOperator } from "../../../interp/operator";
 import { CharStringEncoder } from "../encoder";
 import { Mir } from "../mir";

@@ -1,5 +1,5 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef, GsubGpos } from "@ot-builder/ot-layout";

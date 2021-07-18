@@ -4,7 +4,7 @@ import { TestVariance } from "@ot-builder/test-util";
 import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import { CffInterp } from "./ir";
+import * as CffInterp from "./ir";
 import { CffOperator } from "./operator";
 import { CffStackMachine } from "./stack-machine";
 

@@ -1,6 +1,6 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Math as OtMath } from "@ot-builder/ot-layout";
 
 import { MathValueRecord } from "../shared/math-value-record";

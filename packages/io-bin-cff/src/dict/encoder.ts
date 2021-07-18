@@ -1,7 +1,7 @@
 import { Frag, FragPointerEmbedding } from "@ot-builder/bin-util";
 import { Data } from "@ot-builder/prelude";
 
-import { CffInterp } from "../interp/ir";
+import * as CffInterp from "../interp/ir";
 import { CffOperator } from "../interp/operator";
 
 const EPSILON = 1e-8;

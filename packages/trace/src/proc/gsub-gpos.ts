@@ -2,16 +2,16 @@ import * as Ot from "@ot-builder/ot";
 
 import { GlyphTraceProc } from "../interface";
 
-import { TraceImpl } from "./shared";
+import * as TraceImpl_Glyph from "./trace-impl/glyph";
 
 export function traceGsub(table: Ot.Gsub.Table): GlyphTraceProc {
     const alg = new ItTraceGlyph<{ ref: Ot.Gsub.Lookup }>();
-    return TraceImpl.Glyph.Seq(table.lookups.map(lookup => alg.process(lookup)));
+    return TraceImpl_Glyph.Seq(table.lookups.map(lookup => alg.process(lookup)));
 }
 
 export function traceGpos(table: Ot.Gpos.Table): GlyphTraceProc {
     const alg = new ItTraceGlyph<{ ref: Ot.Gpos.Lookup }>();
-    return TraceImpl.Glyph.Seq(table.lookups.map(lookup => alg.process(lookup)));
+    return TraceImpl_Glyph.Seq(table.lookups.map(lookup => alg.process(lookup)));
 }
 
 class ItTraceGlyph<E> {

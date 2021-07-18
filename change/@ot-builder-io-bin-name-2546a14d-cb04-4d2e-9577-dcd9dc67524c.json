@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Cleanup unnecessary namespaces",
+  "packageName": "@ot-builder/io-bin-name",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

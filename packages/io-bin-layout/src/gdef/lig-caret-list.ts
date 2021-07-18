@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";

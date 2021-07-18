@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";

@@ -1,5 +1,3 @@
-import { Point } from "./point";
+import * as Point from "./point/point";
 
-export namespace Contour {
-    export type T<X> = Array<Point.T<X>>;
-}
+export type T<X> = Array<Point.T<X>>;

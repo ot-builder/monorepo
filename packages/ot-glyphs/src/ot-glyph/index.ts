@@ -1,13 +1,14 @@
 import { CaseCreator, CaseType, Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
-import { GeneralGlyph } from "../general-glyph";
-import * as Lib_General_Point from "../general-glyph/point";
-import * as TAG from "../general-glyph/type-tags";
+import * as GeneralGlyph from "../general-glyph";
+import * as Lib_General_Point from "../general-glyph/point/ref";
+import * as TAG_GeometryType from "../general-glyph/type-tags/geometry-type";
+import * as TAG_HintType from "../general-glyph/type-tags/hint-type";
 
-import { OtGlyphCoStat } from "./co-stat";
+import * as OtGlyphCoStat from "./co-stat";
 import * as Lib_Point from "./point";
-import { OtGlyphStat } from "./stat";
+import * as OtGlyphStat from "./stat";
 
 // This dual-export is intensional.
 // eslint-disable-next-line import/export
@@ -35,23 +36,23 @@ export namespace OtGlyph {
     export type Geometry = ContourSet | TtReference | GeometryList;
 
     export type ContourSetProps = GeneralGlyph.ContourSetPropsT<OtVar.Value>;
-    export type ContourSet = CaseType<typeof TAG.GeometryType.ContourSet, ContourSetProps>;
+    export type ContourSet = CaseType<typeof TAG_GeometryType.ContourSet, ContourSetProps>;
     export const ContourSet = CaseCreator(
-        TAG.GeometryType.ContourSet,
+        TAG_GeometryType.ContourSet,
         (contours: Contour[] = []): ContourSetProps => ({ contours: [...contours] })
     );
 
     export type GeometryListProps = GeneralGlyph.GeometryListPropsT<Geometry>;
-    export type GeometryList = CaseType<typeof TAG.GeometryType.GeometryList, GeometryListProps>;
+    export type GeometryList = CaseType<typeof TAG_GeometryType.GeometryList, GeometryListProps>;
     export const GeometryList = CaseCreator(
-        TAG.GeometryType.GeometryList,
+        TAG_GeometryType.GeometryList,
         (items: Geometry[] = []): GeometryListProps => ({ items: [...items] })
     );
 
     export type TtReferenceProps = GeneralGlyph.TtReferencePropsT<OtGlyph, OtVar.Value>;
-    export type TtReference = CaseType<typeof TAG.GeometryType.TtReference, TtReferenceProps>;
+    export type TtReference = CaseType<typeof TAG_GeometryType.TtReference, TtReferenceProps>;
     export const TtReference = CaseCreator(
-        TAG.GeometryType.TtReference,
+        TAG_GeometryType.TtReference,
         (to: OtGlyph, transform: Transform2X3): TtReferenceProps => ({ to, transform })
     );
 
@@ -59,19 +60,19 @@ export namespace OtGlyph {
     export type Hint = TtInstruction | CffHint;
 
     export type TtInstructionProps = GeneralGlyph.TtInstructionPropsT<OtVar.Value>;
-    export type TtInstruction = CaseType<typeof TAG.HintType.TtInstruction, TtInstructionProps>;
+    export type TtInstruction = CaseType<typeof TAG_HintType.TtInstruction, TtInstructionProps>;
     export const TtInstruction = CaseCreator(
-        TAG.HintType.TtInstruction,
+        TAG_HintType.TtInstruction,
         (instructions: Buffer): TtInstructionProps => ({ instructions })
     );
 
     export type CffHintProps = GeneralGlyph.CffHintPropsT<OtVar.Value>;
-    export type CffHint = CaseType<typeof TAG.HintType.CffHint, CffHintProps>;
+    export type CffHint = CaseType<typeof TAG_HintType.CffHint, CffHintProps>;
     export type CffHintStem = GeneralGlyph.CffHintStemT<OtVar.Value>;
     export type CffHintMask = GeneralGlyph.CffHintMaskT<OtVar.Value>;
     export const CffHint = Object.assign(
         CaseCreator(
-            TAG.HintType.CffHint,
+            TAG_HintType.CffHint,
             (): CffHintProps => ({
                 hStems: [],
                 vStems: [],
@@ -144,6 +145,6 @@ export namespace OtGlyph {
     export import Stat = OtGlyphStat;
     export import CoStat = OtGlyphCoStat;
 
-    export import GeometryType = TAG.GeometryType;
-    export import HintType = TAG.HintType;
+    export import GeometryType = TAG_GeometryType;
+    export import HintType = TAG_HintType;
 }

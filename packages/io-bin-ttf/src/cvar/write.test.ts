@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { ImpLib } from "@ot-builder/common-impl";
+import * as ImpLib from "@ot-builder/common-impl";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Cvt } from "@ot-builder/ot-glyphs";

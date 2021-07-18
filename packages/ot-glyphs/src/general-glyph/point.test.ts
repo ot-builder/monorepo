@@ -1,7 +1,7 @@
 import { Algebra } from "@ot-builder/prelude";
 
-import { Point } from "./point";
-import { Transform2X3 } from "./transform-2x3";
+import * as Point from "./point/point";
+import * as Transform2X3 from "./transform-2x3";
 
 const StaticPointFactory: Point.PointFactoryT<number> = {
     create: (x, y, kind) => ({ x, y, kind })
