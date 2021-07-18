@@ -1,5 +1,5 @@
 {
-  "type": "patch",
+  "type": "minor",
   "comment": "Cleanup unnecessary namespaces",
   "packageName": "@ot-builder/rectify",
   "email": "otbbuilder-dev@users.noreply.github.com",
