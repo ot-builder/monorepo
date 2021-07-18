@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Cleanup unnecessary namespaces",
-  "packageName": "@ot-builder/var-store",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

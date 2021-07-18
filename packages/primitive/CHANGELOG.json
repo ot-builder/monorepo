@@ -2,6 +2,21 @@
   "name": "@ot-builder/primitive",
   "entries": [
     {
+      "date": "Sun, 18 Jul 2021 02:14:19 GMT",
+      "tag": "@ot-builder/primitive_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Bump @ot-builder/primitive to v1.1.0",
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "commit": "c79ab97437319873bfe49602a21eab95d78083e3",
+            "package": "@ot-builder/primitive"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 17 Jul 2021 01:08:07 GMT",
       "tag": "@ot-builder/primitive_v1.0.11",
       "version": "1.0.11",

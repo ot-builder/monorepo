@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/ot-sfnt
 
-This log was last generated on Sat, 17 Jul 2021 01:08:07 GMT and should not be manually modified.
+This log was last generated on Sun, 18 Jul 2021 02:14:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.0
+
+Sun, 18 Jul 2021 02:14:19 GMT
+
+### Minor changes
+
+- Bump @ot-builder/ot-sfnt to v1.1.0 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.0.11
 
