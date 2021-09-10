@@ -62,6 +62,12 @@ const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> 
         yield new GposMarkToLigatureWriter();
         yield new GposMarkToMarkWriter();
         yield new GposChainingContextualWriter();
+    },
+    queryDependencies(lookup: Gpos.Lookup) {
+        if (lookup.type !== Gpos.LookupType.Chaining) return [];
+        const sink: Gpos.Lookup[] = [];
+        for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
+        return sink;
     }
 };
 

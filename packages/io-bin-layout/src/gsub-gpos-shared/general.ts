@@ -41,6 +41,7 @@ export interface LookupWriterFactory<L> {
     // Actually: ReadonlyArray<∃C. LookupWriter<L, C>>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     writers(): Iterable<LookupWriter<L, any>>;
+    queryDependencies(lookup: L): ReadonlyArray<L>;
 }
 
 export const SubtableSizeLimit = 0xf000;

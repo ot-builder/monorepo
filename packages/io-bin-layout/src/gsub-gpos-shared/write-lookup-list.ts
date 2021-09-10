@@ -88,6 +88,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
 
     public pushLookup(
         lookup: L,
+        lookupIsDependency: boolean,
         lwf: LookupWriterFactory<L>,
         gdef: Data.Maybe<Gdef.Table>,
         context: SubtableWriteContext<L>
@@ -100,7 +101,11 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
                 lookupType: writer.getLookupType(lookup),
                 flags,
                 markFilteringSet,
-                rank: this.getLookupRank(writer.getLookupTypeSymbol(lookup), context.trick),
+                rank: this.getLookupRank(
+                    writer.getLookupTypeSymbol(lookup),
+                    lookupIsDependency,
+                    context.trick
+                ),
                 subtableIDs: [],
                 useExtension: false
             };
@@ -110,16 +115,16 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         }
     }
 
-    private getLookupRank(origType: symbol, trick: number) {
-        const rankTrick = 8 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2);
+    private getLookupRank(origType: symbol, isDependency: boolean, trick: number) {
+        const rankTrick = 16 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2);
         const rankType =
             origType === Gsub.LookupType.Reverse
                 ? 1
                 : origType === Gsub.LookupType.Chaining || origType === Gpos.LookupType.Chaining
                 ? 2
                 : origType === Gsub.LookupType.Single || origType === Gpos.LookupType.Single
-                ? 4
-                : 3;
+                ? 4 + (isDependency ? 0 : 3)
+                : 3 + (isDependency ? 0 : 3);
         return rankTrick + rankType;
     }
 
@@ -285,9 +290,13 @@ export const WriteLookupList = Write(function <L extends GsubGpos.LookupProp>(
 ) {
     const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
     const llw = new LookupListWriter();
+    const dependentLookups: Set<L> = new Set();
+    for (const lookup of lookups) {
+        for (const dep of lwf.queryDependencies(lookup)) dependentLookups.add(dep);
+    }
     for (const lookup of lookups) {
         const trick = lwc.tricks ? lwc.tricks.get(lookup) || 0 : 0;
-        llw.pushLookup(lookup, lwf, lwc.gdef, {
+        llw.pushLookup(lookup, dependentLookups.has(lookup), lwf, lwc.gdef, {
             trick,
             gOrd: lwc.gOrd,
             crossReferences,

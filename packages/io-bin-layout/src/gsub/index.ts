@@ -54,6 +54,12 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
         yield new GsubLigatureWriter();
         yield new GsubChainingContextualWriter();
         yield new GsubReverseWriter();
+    },
+    queryDependencies(lookup: Gsub.Lookup) {
+        if (lookup.type !== Gsub.LookupType.Chaining) return [];
+        const sink: Gsub.Lookup[] = [];
+        for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
+        return sink;
     }
 };
 
