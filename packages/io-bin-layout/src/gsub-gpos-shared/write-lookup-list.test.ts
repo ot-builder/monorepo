@@ -60,6 +60,9 @@ class MockLookupWriter implements LookupWriter<GsubGpos.LookupProp, MockLookup> 
 class MockLookupWriterFactory implements LookupWriterFactory<Gsub.Lookup> {
     public extendedFormat = 0x10;
     public writers = () => [new MockLookupWriter()];
+    public queryDependencies() {
+        return [];
+    }
 }
 
 describe("Lookup list writer", () => {
