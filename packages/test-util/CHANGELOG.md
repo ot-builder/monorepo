@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/test-util
 
-This log was last generated on Sun, 18 Jul 2021 02:14:19 GMT and should not be manually modified.
+This log was last generated on Sat, 11 Sep 2021 01:09:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.1
+
+Sat, 11 Sep 2021 01:09:21 GMT
+
+### Patches
+
+- Bump @ot-builder/test-util to v1.1.1 (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.1.0
 

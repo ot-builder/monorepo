@@ -2,6 +2,21 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 11 Sep 2021 01:09:21 GMT",
+      "tag": "otb-ttc-bundle_v1.1.1",
+      "version": "1.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "otb-ttc-bundle",
+            "commit": "28bc4c48910f10dcabb090ab68e610ce499caa95",
+            "comment": "Bump otb-ttc-bundle to v1.1.1"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 18 Jul 2021 02:14:19 GMT",
       "tag": "otb-ttc-bundle_v1.1.0",
       "version": "1.1.0",
