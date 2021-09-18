@@ -9,8 +9,12 @@ import {
 } from "../interface";
 import { RectifyImpl } from "../shared";
 
+enum TraverseProgress {
+    PROCESSING = 1,
+    PROCESSED = 2
+}
 interface GlyphRectifyGlobalState {
-    processedGlyphs: Set<Ot.Glyph>;
+    progress: Map<Ot.Glyph, TraverseProgress>;
 }
 interface GlyphRectifyHandlerState {
     points: Data.XY<Ot.Var.Value>[];
@@ -194,12 +198,17 @@ function processGlyph(
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     glyph: Ot.Glyph,
-    gs: GlyphRectifyGlobalState
+    state: GlyphRectifyGlobalState
 ) {
-    if (gs.processedGlyphs.has(glyph)) return;
+    const preProgress = state.progress.get(glyph);
+    if (preProgress === TraverseProgress.PROCESSING)
+        throw new Error(`Circular reference found around glyph ${glyph.name}`);
+    if (preProgress === TraverseProgress.PROCESSED) return;
+
+    state.progress.set(glyph, TraverseProgress.PROCESSING);
 
     if (glyph.geometry) {
-        const alg = new GeometryProcessor(recGlyphRef, recCoord, recPA, gs);
+        const alg = new GeometryProcessor(recGlyphRef, recCoord, recPA, state);
         glyph.geometry = alg.process(glyph.geometry, { points: [] });
     }
     if (glyph.hints) {
@@ -214,7 +223,7 @@ function processGlyph(
         end: recCoord.coord(glyph.vertical.end)
     };
 
-    gs.processedGlyphs.add(glyph);
+    state.progress.set(glyph, TraverseProgress.PROCESSED);
 }
 
 export function inPlaceRectifyGlyphStore<GS extends Ot.GlyphStore>(
@@ -224,7 +233,7 @@ export function inPlaceRectifyGlyphStore<GS extends Ot.GlyphStore>(
     glyphs: GS
 ) {
     const gOrd = glyphs.decideOrder();
-    const st: GlyphRectifyGlobalState = { processedGlyphs: new Set() };
+    const st: GlyphRectifyGlobalState = { progress: new Map() };
 
     for (const g of gOrd) processGlyph(recGlyphRef, recCoord, recPA, g, st);
 }
