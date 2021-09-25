@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Improve rectification performance by removing unnecessary currying when rectify geometries",
-  "packageName": "@ot-builder/rectify",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

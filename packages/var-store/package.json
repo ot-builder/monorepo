@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/var-store",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,17 +26,17 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "1.1.1",
-    "@ot-builder/bin-util": "1.1.1",
-    "@ot-builder/common-impl": "1.1.1",
-    "@ot-builder/errors": "1.1.1",
-    "@ot-builder/prelude": "1.1.1",
-    "@ot-builder/primitive": "1.1.1",
-    "@ot-builder/variance": "1.1.1",
+    "@ot-builder/bin-composite-types": "1.1.2",
+    "@ot-builder/bin-util": "1.1.2",
+    "@ot-builder/common-impl": "1.1.2",
+    "@ot-builder/errors": "1.1.2",
+    "@ot-builder/prelude": "1.1.2",
+    "@ot-builder/primitive": "1.1.2",
+    "@ot-builder/variance": "1.1.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/test-util": "1.1.1",
+    "@ot-builder/test-util": "1.1.2",
     "@types/jest": "^26.0.23",
     "jest": "^27.0.6"
   }

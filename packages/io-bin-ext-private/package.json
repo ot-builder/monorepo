@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-ext-private",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,21 +26,21 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "1.1.1",
-    "@ot-builder/errors": "1.1.1",
-    "@ot-builder/ot-ext-private": "1.1.1",
-    "@ot-builder/ot-glyphs": "1.1.1",
-    "@ot-builder/ot-metadata": "1.1.1",
-    "@ot-builder/prelude": "1.1.1",
-    "@ot-builder/primitive": "1.1.1",
-    "@ot-builder/ot-sfnt": "1.1.1",
-    "@ot-builder/io-bin-sfnt": "1.1.1",
+    "@ot-builder/bin-util": "1.1.2",
+    "@ot-builder/errors": "1.1.2",
+    "@ot-builder/ot-ext-private": "1.1.2",
+    "@ot-builder/ot-glyphs": "1.1.2",
+    "@ot-builder/ot-metadata": "1.1.2",
+    "@ot-builder/prelude": "1.1.2",
+    "@ot-builder/primitive": "1.1.2",
+    "@ot-builder/ot-sfnt": "1.1.2",
+    "@ot-builder/io-bin-sfnt": "1.1.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/io-bin-glyph-store": "1.1.1",
-    "@ot-builder/io-bin-metadata": "1.1.1",
-    "@ot-builder/test-util": "1.1.1",
+    "@ot-builder/io-bin-glyph-store": "1.1.2",
+    "@ot-builder/io-bin-metadata": "1.1.2",
+    "@ot-builder/test-util": "1.1.2",
     "@types/jest": "^26.0.23",
     "jest": "^27.0.6"
   }

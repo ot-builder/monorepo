@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/variance",
   "description": "",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-composite-types": "1.1.1",
-    "@ot-builder/common-impl": "1.1.1",
-    "@ot-builder/prelude": "1.1.1",
-    "@ot-builder/primitive": "1.1.1",
+    "@ot-builder/bin-composite-types": "1.1.2",
+    "@ot-builder/common-impl": "1.1.2",
+    "@ot-builder/prelude": "1.1.2",
+    "@ot-builder/primitive": "1.1.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
