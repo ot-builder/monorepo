@@ -5,6 +5,8 @@ import { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
+import { TtfWritingExtraInfoSink } from "../extra-info-sink/index";
+
 import { CompositeGlyph, GlyphClassifier, SimpleGlyph } from "./classifier";
 import { LocaTable } from "./loca";
 import { ComponentFlag, GlyfOffsetAlign, SimpleGlyphFlag } from "./shared";
@@ -195,45 +197,74 @@ function writeComponentTransform(frag: Frag, flag: number, transform: OtGlyph.Tr
         frag.push(F2D14, transform.yy);
     }
 }
-const CompositeGlyphData = Write((frag: Frag, cg: CompositeGlyph, gOrd: Data.Order<OtGlyph>) => {
-    const st = cg.getStatData();
-    frag.int16(-1)
-        .int16(st.extent.xMin)
-        .int16(st.extent.yMin)
-        .int16(st.extent.xMax)
-        .int16(st.extent.yMax);
-    for (let rid = 0; rid < cg.references.length; rid++) {
-        const ref = cg.references[rid];
-        let { flag, arg1, arg2 } = analyzeComponent(ref);
-        if (rid === 0) flag |= ComponentFlag.OVERLAP_COMPOUND; // Always set overlapping flag
-        if (rid + 1 < cg.references.length) flag |= ComponentFlag.MORE_COMPONENTS;
-        else if (cg.instructions.byteLength) flag |= ComponentFlag.WE_HAVE_INSTRUCTIONS;
+const CompositeGlyphData = Write(
+    (
+        frag: Frag,
+        cg: CompositeGlyph,
+        iGlyph: number,
+        gOrd: Data.Order<OtGlyph>,
+        extraInfoSink: TtfWritingExtraInfoSink
+    ) => {
+        const st = cg.getStatData();
+        frag.int16(-1)
+            .int16(st.extent.xMin)
+            .int16(st.extent.yMin)
+            .int16(st.extent.xMax)
+            .int16(st.extent.yMax);
+        for (let rid = 0; rid < cg.references.length; rid++) {
+            const ref = cg.references[rid];
+            let { flag, arg1, arg2 } = analyzeComponent(ref);
+            if (rid === 0) flag |= ComponentFlag.OVERLAP_COMPOUND; // Always set overlapping flag
+            if (rid + 1 < cg.references.length) flag |= ComponentFlag.MORE_COMPONENTS;
+            else if (cg.instructions.byteLength) flag |= ComponentFlag.WE_HAVE_INSTRUCTIONS;
 
-        frag.uint16(flag);
-        frag.uint16(gOrd.reverse(ref.to));
-        writeComponentArgs(frag, flag, arg1, arg2);
-        writeComponentTransform(frag, flag, ref.transform);
-        if (flag & ComponentFlag.WE_HAVE_INSTRUCTIONS) {
-            frag.uint16(cg.instructions.byteLength);
-            frag.bytes(cg.instructions);
+            const targetGID = gOrd.reverse(ref.to);
+
+            frag.uint16(flag);
+            frag.uint16(targetGID);
+            writeComponentArgs(frag, flag, arg1, arg2);
+            writeComponentTransform(frag, flag, ref.transform);
+            if (flag & ComponentFlag.WE_HAVE_INSTRUCTIONS) {
+                frag.uint16(cg.instructions.byteLength);
+                frag.bytes(cg.instructions);
+            }
+            extraInfoSink.setComponentInfo(
+                iGlyph,
+                rid,
+                flag,
+                targetGID,
+                arg1,
+                arg2,
+                ref.transform.xx,
+                ref.transform.yx,
+                ref.transform.xy,
+                ref.transform.yy
+            );
         }
     }
-});
+);
 
 export const GlyfTableWrite = Write(
-    (frag, gOrd: Data.Order<OtGlyph>, outLoca: LocaTable, stat: OtGlyph.Stat.Sink) => {
+    (
+        frag,
+        gOrd: Data.Order<OtGlyph>,
+        outLoca: LocaTable,
+        stat: OtGlyph.Stat.Sink,
+        extraInfoSink: TtfWritingExtraInfoSink
+    ) => {
         const sink = new StdGlyfDataSink(outLoca, frag);
         sink.begin();
         stat.setNumGlyphs(gOrd.length);
         const classifier = new GlyphClassifier(gOrd);
-        for (const glyph of gOrd) {
+        for (let iGlyph = 0; iGlyph < gOrd.length; iGlyph++) {
+            const glyph = gOrd.at(iGlyph);
             const cg = classifier.classify(glyph);
             cg.stat(stat);
             const fGlyph = new Frag();
             if (cg instanceof SimpleGlyph) {
                 fGlyph.push(SimpleGlyphData, cg);
             } else if (cg instanceof CompositeGlyph) {
-                fGlyph.push(CompositeGlyphData, cg, gOrd);
+                fGlyph.push(CompositeGlyphData, cg, iGlyph, gOrd, extraInfoSink);
             }
             sink.add(fGlyph);
         }

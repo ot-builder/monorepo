@@ -10,6 +10,8 @@ export const VersionNotSupported = (what: string, ver: number | string) =>
     new TypeError(`${what} version unsupported : ${ver}`);
 export const SizeMismatch = (what: string, actual: number, ...expected: number[]) =>
     new TypeError(`${what} size mismatch : ${actual} (Expected: ${expected})`);
+export const TagMismatch = (what: string, actual: string, ...expected: string[]) =>
+    new TypeError(`${what} tag mismatch : ${actual} (Expected: ${expected})`);
 export const OffsetMismatch = (what: string, actual: number, ...expected: number[]) =>
     new TypeError(`${what} offset mismatch : ${expected} (Expected: ${expected})`);
 export const MissingKeyTable = (tag: string) => new TypeError(`Table ${tag} missing.`);

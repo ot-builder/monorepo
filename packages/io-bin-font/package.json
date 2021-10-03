@@ -33,6 +33,7 @@
     "@ot-builder/io-bin-metadata": "1.1.2",
     "@ot-builder/io-bin-name": "1.1.2",
     "@ot-builder/io-bin-sfnt": "1.1.2",
+    "@ot-builder/io-bin-vtt-private": "1.1.2",
     "@ot-builder/ot": "1.1.2",
     "@ot-builder/ot-glyphs": "1.1.2",
     "@ot-builder/ot-metadata": "1.1.2",
@@ -42,6 +43,7 @@
     "@ot-builder/ot-ext-private": "1.1.2",
     "@ot-builder/ot-layout": "1.1.2",
     "@ot-builder/ot-name": "1.1.2",
+    "@ot-builder/ot-vtt-private": "1.1.2",
     "@ot-builder/bin-util": "1.1.2"
   },
   "devDependencies": {

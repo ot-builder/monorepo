@@ -1,6 +1,6 @@
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";
+import { DefaultTtfCfgProps, NopTtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { CvtIdentity, EmptyCtx, GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
@@ -27,7 +27,7 @@ function ttfGsRoundTrip(file: string) {
 
     const gOrd = glyphs.decideOrder();
     const sink = new SfntIoTableSink(sfnt);
-    writeGlyphStore(sink, cfg, md, coGlyf, gOrd, WriteTtfGlyphs);
+    writeGlyphStore(sink, cfg, md, coGlyf, gOrd, new NopTtfWritingExtraInfoSink(), WriteTtfGlyphs);
     const timeWritten = new Date();
 
     const { glyphs: glyphs1, coGlyphs: coGlyf1 } = readGlyphStore(

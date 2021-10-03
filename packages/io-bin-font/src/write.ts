@@ -5,6 +5,7 @@ import { writeOtl } from "@ot-builder/io-bin-layout";
 import { writeOtMetadata } from "@ot-builder/io-bin-metadata";
 import { writeNames } from "@ot-builder/io-bin-name";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { VttExtraInfoSinkImpl, writeVttPrivate } from "@ot-builder/io-bin-vtt-private";
 import * as Ot from "@ot-builder/ot";
 import { OtEncoding } from "@ot-builder/ot-encoding";
 import { OtExtPrivate } from "@ot-builder/ot-ext-private";
@@ -13,6 +14,7 @@ import { OtFontLayoutData } from "@ot-builder/ot-layout";
 import { OtFontIoMetadata } from "@ot-builder/ot-metadata";
 import { OtNameData } from "@ot-builder/ot-name";
 import { Sfnt } from "@ot-builder/ot-sfnt";
+import { OtVttPrivate } from "@ot-builder/ot-vtt-private";
 import { Data } from "@ot-builder/prelude";
 
 import { createConfig, FontIoConfig } from "./config";
@@ -42,6 +44,9 @@ function OTL<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtFontLayoutData {
 function ExtPrivate<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtExtPrivate {
     return font;
 }
+function VttPrivate<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtVttPrivate {
+    return font;
+}
 
 class WritePostNaming implements Data.Naming.Source<number> {
     constructor(private readonly gOrd: Data.Order<Ot.Glyph>) {}
@@ -64,14 +69,16 @@ export function writeFont<GS extends Ot.GlyphStore>(
     const md = MD(font, new WritePostNaming(gOrd));
     writeOtl(sink, OTL(font), fullCfg, gOrd, md);
     writeEncoding(sink, fullCfg, Encoding(font), gOrd, md);
+    const extraInfoSink = new VttExtraInfoSinkImpl();
     if (Ot.Font.isCff(font)) {
-        writeGlyphStore(sink, fullCfg, md, CffCoGlyphs(font), gOrd, WriteCffGlyphs);
+        writeGlyphStore(sink, fullCfg, md, CffCoGlyphs(font), gOrd, extraInfoSink, WriteCffGlyphs);
     } else {
-        writeGlyphStore(sink, fullCfg, md, TtfCoGlyphs(font), gOrd, WriteTtfGlyphs);
+        writeGlyphStore(sink, fullCfg, md, TtfCoGlyphs(font), gOrd, extraInfoSink, WriteTtfGlyphs);
     }
     writeNames(sink, Names(font));
     writeOtMetadata(sink, fullCfg, md);
     writeExtPrivate(sink, fullCfg, ExtPrivate(font), gOrd, md);
+    writeVttPrivate(sink, fullCfg, VttPrivate(font), gOrd, md, extraInfoSink);
 
     if (fullCfg.generateDummyDigitalSignature) {
         sink.add("DSIG", Buffer.from([0, 0, 0, 1, 0, 0, 0, 0]));

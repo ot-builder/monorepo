@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add support for VTT private tables",
+  "packageName": "@ot-builder/io-bin-vtt-private",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

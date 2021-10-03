@@ -50,6 +50,9 @@ setPage(Ot.Gsub, "Ot.Gsub-Gpos");
 setPage(Ot.Gpos, "Ot.Gsub-Gpos");
 setPage(Ot.Math);
 setPage(Ot.XPrv);
+setPage(Ot.TSI0123, "Ot.Vtt");
+setPage(Ot.TSI5, "Ot.Vtt");
+setPage(Ot.TSIC, "Ot.Vtt");
 
 export const FontIo = createTopLevelExport("FontIo");
 setPage(FontIo, "font-io");

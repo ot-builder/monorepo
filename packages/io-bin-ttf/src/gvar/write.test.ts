@@ -5,6 +5,7 @@ import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
 import { DefaultTtfCfgProps, TtfCfgProps } from "../cfg";
+import { NopTtfWritingExtraInfoSink } from "../extra-info-sink";
 import { LocaTable, LocaTableIo, LocaTag } from "../glyf/loca";
 import { GlyfTableRead } from "../glyf/read";
 import { GlyfTag } from "../glyf/shared";
@@ -50,7 +51,13 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
     let gvarBuf: null | Buffer = null;
     if (designSpace) gvarBuf = Frag.packFrom(GvarTableWrite, gOrd1, cfg, designSpace);
 
-    const bufGlyf = Frag.packFrom(GlyfTableWrite, gOrd1, loca1, stat);
+    const bufGlyf = Frag.packFrom(
+        GlyfTableWrite,
+        gOrd1,
+        loca1,
+        stat,
+        new NopTtfWritingExtraInfoSink()
+    );
     expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
     for (const offset of loca1.glyphOffsets) expect(offset % 4).toBe(0);
     const bufLoca = Frag.packFrom(LocaTableIo, loca1, head);

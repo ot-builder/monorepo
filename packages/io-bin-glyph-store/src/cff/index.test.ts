@@ -1,6 +1,7 @@
 import { DefaultCffCfgProps } from "@ot-builder/io-bin-cff";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { NopTtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
@@ -31,7 +32,7 @@ function cffGsRoundTrip(file: string) {
 
     const gOrd = glyphs.decideOrder();
     const sink = new SfntIoTableSink(sfnt);
-    writeGlyphStore(sink, cfg, md, cff, gOrd, WriteCffGlyphs);
+    writeGlyphStore(sink, cfg, md, cff, gOrd, new NopTtfWritingExtraInfoSink(), WriteCffGlyphs);
     const timeWritten = new Date();
 
     const { glyphs: glyphs1, coGlyphs: cff1 } = readGlyphStore(

@@ -1,0 +1,66 @@
+import { Layout } from "templates/api-doc"
+import { R, Method, Fn, Member, Decl, Item, NthBit } from "api-doc/tyfmt"
+import { map, string, number, array, Data, Ot, Tag } from "api-doc/exports"
+import { optional, tuple } from "api-doc/tycon"
+export default Layout
+
+# VTT Private Data
+
+## Programs (Namespace <Decl s={Ot.TSI0123}/>)
+
+### Constant <Decl s={Ot.TSI0123.TagTSI0}/> = `"TSI0"`
+### Constant <Decl s={Ot.TSI0123.TagTSI1}/> = `"TSI1"`
+### Constant <Decl s={Ot.TSI0123.TagTSI2}/> = `"TSI2"`
+### Constant <Decl s={Ot.TSI0123.TagTSI3}/> = `"TSI3"`
+
+### Class <Decl s={Ot.TSI0123.Table}/>
+
+#### Properties
+
+ * <Member s={Ot.TSI0123.Table.glyphPrograms} type={map(Ot.Glyph, string)} />
+ * <Member s={Ot.TSI0123.Table.preProgram} type={Data.Maybe(string)} />
+ * <Member s={Ot.TSI0123.Table.cvtProgram} type={Data.Maybe(string)} />
+ * <Member s={Ot.TSI0123.Table.fpgmProgram} type={Data.Maybe(string)} />
+
+
+
+## Character Group (Namespace <Decl s={Ot.TSI5}/>)
+
+### Constant <Decl s={Ot.TSI5.Tag}/> = `"TSI5"`
+
+### Enumeration <Decl s={Ot.TSI5.CharacterGroup}/>
+
+ * <Item s={Ot.TSI5.CharacterGroup.Unknown}/> = 0
+ * <Item s={Ot.TSI5.CharacterGroup.Other}/> = 1
+ * <Item s={Ot.TSI5.CharacterGroup.Uppercase}/> = 2
+ * <Item s={Ot.TSI5.CharacterGroup.Lowercase}/> = 3
+ * <Item s={Ot.TSI5.CharacterGroup.Figure}/> = 4
+ * <Item s={Ot.TSI5.CharacterGroup.NonLatin}/> = 5
+
+### Class <Decl s={Ot.TSI5.Table}/>
+
+#### Properties
+
+ * <Member s={Ot.TSI5.Table.charGroupFlags} type={map(Ot.Glyph, Ot.TSI5.CharacterGroup)} />
+
+
+
+## Variation CVT Window Source (Namespace <Decl s={Ot.TSIC}/>)
+
+### Constant <Decl s={Ot.TSIC.Tag}/> = `"TSIC"`
+
+### Type <Decl s={Ot.TSIC.Location}/> = <R s={map(Ot.Var.Dim, number)}/>
+
+### Datatype <Decl s={Ot.TSIC.Record}/>
+
+#### Properties
+
+ * <Member optional s={Ot.TSIC.Record.name} type={Data.Maybe(string)} />
+ * <Member s={Ot.TSIC.Record.location} type={Ot.TSIC.Location} />
+ * <Member s={Ot.TSIC.Record.cvtValues} type={map(number, number)} />
+
+### Class <Decl s={Ot.TSIC.Table}/>
+
+#### Properties
+
+ * <Member s={Ot.TSIC.Table.records} type={array(Ot.TSIC.Record)} />

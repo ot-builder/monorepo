@@ -51,6 +51,7 @@ export const ApiRefNavigation = () => {
                 <NavLink dir="/references/ot/base" text="Ot.Base" />
                 <NavLink dir="/references/ot/gsub-gpos" text="Ot.Gsub + Ot.Gpos" />
                 <NavLink dir="/references/ot/math" text="Ot.Math" />
+                <NavLink dir="/references/ot/vtt" text="Ot.TSI* (VTT)" />
             </ApiRefNavList>
         </>
     );

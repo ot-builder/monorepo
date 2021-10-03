@@ -1,4 +1,5 @@
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Head, Maxp, OtFontMetadata } from "@ot-builder/ot-metadata";
 import { Data } from "@ot-builder/prelude";
@@ -8,11 +9,13 @@ import { OtVar } from "@ot-builder/variance";
 import { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
 import { writeHMetrics, writeVMetrics } from "../shared-metrics/write";
 
+export interface GlyphStoreWriteExtraInfoSink extends TtfWritingExtraInfoSink {}
 export type GlyphStoreWriteImplCtx = {
     head: Head.Table;
     maxp: Maxp.Table;
     designSpace?: Data.Maybe<OtVar.DesignSpace>;
     stat: OtGlyph.Stat.Sink;
+    extraInfoSink: GlyphStoreWriteExtraInfoSink;
 };
 
 export interface WriteGlyphStoreImpl<C, T> {
@@ -36,6 +39,7 @@ export function writeGlyphStore<C, T>(
     // in
     coGlyphs: T,
     gOrd: Data.Order<OtGlyph>,
+    extraInfoSink: GlyphStoreWriteExtraInfoSink,
     cb: WriteGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, os2, hhea, vhea } = md;
@@ -53,7 +57,13 @@ export function writeGlyphStore<C, T>(
 
     // Build glyphs and co-glyphs
     stat.setNumGlyphs(gOrd.length);
-    cb.writeGlyphs(sink, cfg, coGlyphs, gOrd, { head, maxp, designSpace: designSpace, stat });
+    cb.writeGlyphs(sink, cfg, coGlyphs, gOrd, {
+        head,
+        maxp,
+        designSpace: designSpace,
+        stat,
+        extraInfoSink
+    });
     stat.settle();
 
     // Write metrics

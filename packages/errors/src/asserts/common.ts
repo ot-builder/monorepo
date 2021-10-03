@@ -21,6 +21,10 @@ export const SizeMatch = (kind1: string, actual: number, ...expected: number[]) 
     for (const x of expected) if (actual === x) return;
     throw Errors.SizeMismatch(kind1, actual, ...expected);
 };
+export const TagMatch = (kind1: string, actual: string, ...expected: string[]) => {
+    for (const x of expected) if (actual === x) return;
+    throw Errors.TagMismatch(kind1, actual, ...expected);
+};
 export const OffsetMatch = (kind1: string, actual: number, ...expected: number[]) => {
     for (const x of expected) if (actual === x) return;
     throw Errors.OffsetMismatch(kind1, actual, ...expected);

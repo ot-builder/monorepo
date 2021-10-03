@@ -127,6 +127,16 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
         Whether process the Extensible Privates Table (`XPRV`). Defaults to `true`.
 
+* <Item optional s={FontIo.FontIoConfig.vttPrivate}/>:
+
+    * <Member optional s={FontIo.FontIoConfig.vttPrivate.processVttPrivateTables} type={boolean} />
+
+        Whether process the VTT private data tables (TSI-tables). Defaults to `true`.
+
+    * <Member optional s={FontIo.FontIoConfig.vttPrivate.recalculatePseudoInstructions} type={boolean} />
+
+        Whether recalculate composite glyphs’ pseudo-instructions. Defaults to `true`.
+
 * <Member optional s={FontIo.FontIoConfig.generateDummyDigitalSignature} type={boolean} />
 
     Whether generate an 8-byte dummy digital signature (`DSIG` table) to the final SFNT.

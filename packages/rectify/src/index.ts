@@ -20,3 +20,4 @@ export { rectifyGaspTable } from "./meta/gasp";
 export { rectifyHheaTable, rectifyVheaTable } from "./meta/hhea-vhea";
 export { rectifyOs2Table } from "./meta/os2";
 export { rectifyPostTable } from "./meta/post";
+export { rectifyTSI0123Table, rectifyTSI5Table } from "./private/vtt";

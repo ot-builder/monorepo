@@ -49,6 +49,9 @@
       "path": "../ot-name/tsconfig.prod.json"
     },
     {
+      "path": "../ot-vtt-private/tsconfig.prod.json"
+    },
+    {
       "path": "../ot-standard-glyph-namer/tsconfig.prod.json"
     },
     {

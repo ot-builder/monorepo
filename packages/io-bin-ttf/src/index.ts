@@ -10,8 +10,10 @@ export * from "./cvt/index";
 export * from "./cvar/index";
 export * from "./fpgm-prep/index";
 
-export * from "./cfg";
+export * from "./cfg/index";
+export * from "./extra-info-sink/index";
 export * from "./rectify/rectify";
+export * from "./glyf/shared";
 
 export namespace Loca {
     export type Table = LocaTable;

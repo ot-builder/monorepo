@@ -31,6 +31,7 @@
     "@ot-builder/ot-metadata": "1.1.2",
     "@ot-builder/ot-ext-private": "1.1.2",
     "@ot-builder/ot-name": "1.1.2",
+    "@ot-builder/ot-vtt-private": "1.1.2",
     "@ot-builder/prelude": "1.1.2",
     "@ot-builder/variance": "1.1.2",
     "@ot-builder/common-impl": "1.1.2",

@@ -16,7 +16,7 @@ export enum ComponentFlag {
     ARGS_ARE_XY_VALUES = 0x02,
     ROUND_XY_TO_GRID = 0x04,
     WE_HAVE_A_SCALE = 0x08,
-    RESERVED = 0x10,
+    NON_OVERLAPPING = 0x10,
     MORE_COMPONENTS = 0x20,
     WE_HAVE_AN_X_AND_Y_SCALE = 0x40,
     WE_HAVE_A_TWO_BY_TWO = 0x80,

@@ -1,4 +1,3 @@
-import { BinaryView } from "@ot-builder/bin-util";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";

@@ -16,3 +16,4 @@ export { Name, Stat, Meta } from "@ot-builder/ot-name";
 export { DicingStore, DicingStoreRep } from "@ot-builder/ot-layout";
 export { Gdef, Gsub, Gpos, GsubGpos, Base, Math } from "@ot-builder/ot-layout";
 export { XPrv } from "@ot-builder/ot-ext-private";
+export { TSI0123, TSI5, TSIC } from "@ot-builder/ot-vtt-private";

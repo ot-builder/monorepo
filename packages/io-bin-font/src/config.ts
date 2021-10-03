@@ -3,6 +3,7 @@ import * as IoBinExtPrivate from "@ot-builder/io-bin-ext-private";
 import * as IoBinGlyphStore from "@ot-builder/io-bin-glyph-store";
 import * as IoBinLayout from "@ot-builder/io-bin-layout";
 import * as IoBinMetadata from "@ot-builder/io-bin-metadata";
+import * as IoBinVttPrivate from "@ot-builder/io-bin-vtt-private";
 
 export type FontIoDigitalSignatureCfg = {
     generateDummyDigitalSignature: boolean;
@@ -19,6 +20,7 @@ export type FontIoCfgFinal = IoBinGlyphStore.CffCfg &
     IoBinEncoding.EncodingCfg &
     IoBinLayout.LayoutCfg &
     IoBinExtPrivate.ExtPrivateCfg &
+    IoBinVttPrivate.VttPrivateCfg &
     FontIoDigitalSignatureCfg;
 export type FontIoConfig = IoBinMetadata.FontMetadataCfgPt &
     IoBinGlyphStore.GlyphStoreCfgPt &
@@ -28,6 +30,7 @@ export type FontIoConfig = IoBinMetadata.FontMetadataCfgPt &
     IoBinEncoding.EncodingCfgPt &
     IoBinLayout.LayoutCfgPt &
     IoBinExtPrivate.ExtPrivateCfgPt &
+    IoBinVttPrivate.VttPrivateCfgPt &
     FontIoDigitalSignatureCfgPt;
 
 export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
@@ -40,6 +43,7 @@ export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
         encoding: { ...IoBinEncoding.DefaultEncodingCfgProps, ...partial.encoding },
         layout: { ...IoBinLayout.DefaultLayoutProps, ...partial.layout },
         extPrivate: { ...IoBinExtPrivate.DefaultExtPrivateCfgProps, ...partial.extPrivate },
+        vttPrivate: { ...IoBinVttPrivate.DefaultVttPrivateCfgProps, ...partial.vttPrivate },
         generateDummyDigitalSignature: !!partial.generateDummyDigitalSignature
     };
 }

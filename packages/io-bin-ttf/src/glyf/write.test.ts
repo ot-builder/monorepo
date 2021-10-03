@@ -4,6 +4,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
+import { NopTtfWritingExtraInfoSink } from "../extra-info-sink/index";
 import { rectifyGlyphOrder } from "../rectify/rectify";
 
 import { LocaTable, LocaTableIo, LocaTag } from "./loca";
@@ -36,7 +37,13 @@ function roundTripTest(file: string, padSpace: boolean) {
     const gOrd1 = gs.decideOrder();
     const loca1: LocaTable = { glyphOffsets: [] };
     const stat = new OtGlyph.Stat.Forward();
-    const bufGlyf = Frag.packFrom(GlyfTableWrite, gOrd1, loca1, stat);
+    const bufGlyf = Frag.packFrom(
+        GlyfTableWrite,
+        gOrd1,
+        loca1,
+        stat,
+        new NopTtfWritingExtraInfoSink()
+    );
     expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
     for (const offset of loca1.glyphOffsets) expect(offset % 4).toBe(0);
     const bufLoca = Frag.packFrom(LocaTableIo, loca1, head);
