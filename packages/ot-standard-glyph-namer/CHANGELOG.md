@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/ot-standard-glyph-namer
 
-This log was last generated on Sat, 25 Sep 2021 01:08:03 GMT and should not be manually modified.
+This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Sat, 09 Oct 2021 01:06:40 GMT
+
+### Minor changes
+
+- Bump @ot-builder/ot-glyphs to v1.2.0
+- Bump @ot-builder/prelude to v1.2.0
 
 ## 1.1.2
 

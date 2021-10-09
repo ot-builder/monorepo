@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/errors
 
-This log was last generated on Sat, 11 Sep 2021 01:09:21 GMT and should not be manually modified.
+This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Sat, 09 Oct 2021 01:06:40 GMT
+
+### Minor changes
+
+- Add support for VTT private tables (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.1.1
 

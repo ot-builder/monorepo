@@ -1,8 +1,19 @@
 # Change Log - ot-builder-cli
 
-This log was last generated on Sat, 25 Sep 2021 01:08:03 GMT and should not be manually modified.
+This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Sat, 09 Oct 2021 01:06:40 GMT
+
+### Minor changes
+
+- Add support for VTT private tables (otbbuilder-dev@users.noreply.github.com)
+- Bump ot-builder to v1.2.0
+- Bump @ot-builder/cli-help-shower to v1.2.0
+- Bump @ot-builder/cli-shared to v1.2.0
 
 ## 1.1.2
 
