@@ -108,13 +108,13 @@ function rectifyPrivate<GS extends Ot.GlyphStore>(
 
     font: Ot.Font<GS>
 ) {
-    if (font.TSI01) {
-        font.TSI01 = rectifyTSI0123Table(recGlyphRef, font.TSI01);
+    if (font.tsi01) {
+        font.tsi01 = rectifyTSI0123Table(recGlyphRef, font.tsi01);
     }
-    if (font.TSI23) {
-        font.TSI23 = rectifyTSI0123Table(recGlyphRef, font.TSI23);
+    if (font.tsi23) {
+        font.tsi23 = rectifyTSI0123Table(recGlyphRef, font.tsi23);
     }
-    if (font.TSI5) {
-        font.TSI5 = rectifyTSI5Table(recGlyphRef, font.TSI5);
+    if (font.tsi5) {
+        font.tsi5 = rectifyTSI5Table(recGlyphRef, font.tsi5);
     }
 }

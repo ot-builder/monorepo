@@ -24,23 +24,23 @@ export function readVttPrivate(
         const bTSI0 = sfnt.tables.get(TSI0123.TagTSI0);
         const bTSI1 = sfnt.tables.get(TSI0123.TagTSI1);
         if (bTSI0 && bTSI1) {
-            result.TSI01 = readTSI0123(new BinaryView(bTSI0), new BinaryView(bTSI1), gOrd);
+            result.tsi01 = readTSI0123(new BinaryView(bTSI0), new BinaryView(bTSI1), gOrd);
         }
 
         const bTSI2 = sfnt.tables.get(TSI0123.TagTSI2);
         const bTSI3 = sfnt.tables.get(TSI0123.TagTSI3);
         if (bTSI2 && bTSI3) {
-            result.TSI23 = readTSI0123(new BinaryView(bTSI2), new BinaryView(bTSI3), gOrd);
+            result.tsi23 = readTSI0123(new BinaryView(bTSI2), new BinaryView(bTSI3), gOrd);
         }
 
         const bTSI5 = sfnt.tables.get(TSI5.Tag);
         if (bTSI5) {
-            result.TSI5 = new BinaryView(bTSI5).next(TSI5Table, gOrd);
+            result.tsi5 = new BinaryView(bTSI5).next(TSI5Table, gOrd);
         }
 
         const bTSIC = sfnt.tables.get(TSIC.Tag);
         if (bTSIC && md.fvar) {
-            result.TSIC = new BinaryView(bTSIC).next(TsicTable, md.fvar.getDesignSpace());
+            result.tsic = new BinaryView(bTSIC).next(TsicTable, md.fvar.getDesignSpace());
         }
     }
     return result;
@@ -55,27 +55,27 @@ export function writeVttPrivate(
     eis: VttExtraInfoSource
 ) {
     if (!cfg.vttPrivate.processVttPrivateTables) return;
-    if (otVttPrivate.TSI01) {
+    if (otVttPrivate.tsi01) {
         const frTSI0 = new Frag();
         const frTSI1 = new Frag();
         const textProcessor = cfg.vttPrivate.recalculatePseudoInstructions
             ? new TSI01Processor(eis)
             : new NopProcessor();
-        writeTSI0123(frTSI0, frTSI1, otVttPrivate.TSI01, gOrd, textProcessor);
+        writeTSI0123(frTSI0, frTSI1, otVttPrivate.tsi01, gOrd, textProcessor);
         out.add(TSI0123.TagTSI0, Frag.pack(frTSI0));
         out.add(TSI0123.TagTSI1, Frag.pack(frTSI1));
     }
-    if (otVttPrivate.TSI23) {
+    if (otVttPrivate.tsi23) {
         const frTSI2 = new Frag();
         const frTSI3 = new Frag();
-        writeTSI0123(frTSI2, frTSI3, otVttPrivate.TSI23, gOrd, new NopProcessor());
+        writeTSI0123(frTSI2, frTSI3, otVttPrivate.tsi23, gOrd, new NopProcessor());
         out.add(TSI0123.TagTSI2, Frag.pack(frTSI2));
         out.add(TSI0123.TagTSI3, Frag.pack(frTSI3));
     }
-    if (otVttPrivate.TSI5) {
-        out.add(TSI5.Tag, Frag.packFrom(TSI5Table, otVttPrivate.TSI5, gOrd));
+    if (otVttPrivate.tsi5) {
+        out.add(TSI5.Tag, Frag.packFrom(TSI5Table, otVttPrivate.tsi5, gOrd));
     }
-    if (otVttPrivate.TSIC && md.fvar) {
-        out.add(TSIC.Tag, Frag.packFrom(TsicTable, otVttPrivate.TSIC, md.fvar.getDesignSpace()));
+    if (otVttPrivate.tsic && md.fvar) {
+        out.add(TSIC.Tag, Frag.packFrom(TsicTable, otVttPrivate.tsic, md.fvar.getDesignSpace()));
     }
 }

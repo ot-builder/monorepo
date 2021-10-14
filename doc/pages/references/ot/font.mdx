@@ -23,49 +23,59 @@ An <R s={Ot.Font("GS")}/> could be either <R s={Ot.Font.Cff("GS")}/> or <R s={Ot
 #### Members
 
 * Glyph store
-    * <Member s={Ot.Font.glyphs} type="GS" />
 
-    The glyph store.
+    + Glyph data, applies to both CFF and TTF
 
-* CFF-specific
+        - <Member s={Ot.Font.glyphs} type="GS" />
 
-    * <Member s={Ot.Font.cff} type={Ot.Cff.Table} />
+    + CFF-specific
 
-* TrueType-specific
+        - <Member s={Ot.Font.cff} type={Ot.Cff.Table} />
 
-    * <Member s={Ot.Font.fpgm} type={optional(Ot.Fpgm.Table)} />
-    * <Member s={Ot.Font.prep} type={optional(Ot.Prep.Table)} />
-    * <Member s={Ot.Font.cvt} type={optional(Ot.Cvt.Table)} />
+    + TrueType-specific
+
+        - <Member s={Ot.Font.fpgm} type={optional(Ot.Fpgm.Table)} />
+        - <Member s={Ot.Font.prep} type={optional(Ot.Prep.Table)} />
+        - <Member s={Ot.Font.cvt} type={optional(Ot.Cvt.Table)} />
 
 * Metadata
 
-    * <Member s={Ot.Font.head} type={Ot.Head.Table} />
-    * <Member s={Ot.Font.maxp} type={Ot.Maxp.Table} />
-    * <Member s={Ot.Font.fvar} type={optional(Ot.Fvar.Table)} />
-    * <Member s={Ot.Font.post} type={optional(Ot.Post.Table)} />
-    * <Member s={Ot.Font.os2} type={optional(Ot.Os2.Table)} />
-    * <Member s={Ot.Font.hhea} type={optional(Ot.MetricHead.Table)} />
-    * <Member s={Ot.Font.vhea} type={optional(Ot.MetricHead.Table)} />
-    * <Member s={Ot.Font.avar} type={optional(Ot.Avar.Table)} />
-    * <Member s={Ot.Font.gasp} type={optional(Ot.Gasp.Table)} />
-    * <Member s={Ot.Font.vdmx} type={optional(Ot.Vdmx.Table)} />
+    + <Member s={Ot.Font.head} type={Ot.Head.Table} />
+    + <Member s={Ot.Font.maxp} type={Ot.Maxp.Table} />
+    + <Member s={Ot.Font.fvar} type={optional(Ot.Fvar.Table)} />
+    + <Member s={Ot.Font.post} type={optional(Ot.Post.Table)} />
+    + <Member s={Ot.Font.os2} type={optional(Ot.Os2.Table)} />
+    + <Member s={Ot.Font.hhea} type={optional(Ot.MetricHead.Table)} />
+    + <Member s={Ot.Font.vhea} type={optional(Ot.MetricHead.Table)} />
+    + <Member s={Ot.Font.avar} type={optional(Ot.Avar.Table)} />
+    + <Member s={Ot.Font.gasp} type={optional(Ot.Gasp.Table)} />
+    + <Member s={Ot.Font.vdmx} type={optional(Ot.Vdmx.Table)} />
 
 * Naming
 
-    * <Member s={Ot.Font.name} type={optional(Ot.Name.Table)} />
-    * <Member s={Ot.Font.meta} type={optional(Ot.Meta.Table)} />
-    * <Member s={Ot.Font.stat} type={optional(Ot.Stat.Table)} />
+    + <Member s={Ot.Font.name} type={optional(Ot.Name.Table)} />
+    + <Member s={Ot.Font.meta} type={optional(Ot.Meta.Table)} />
+    + <Member s={Ot.Font.stat} type={optional(Ot.Stat.Table)} />
 
 * Encoding
 
-    * <Member s={Ot.Font.cmap} type={optional(Ot.Cmap.Table)} />
+    + <Member s={Ot.Font.cmap} type={optional(Ot.Cmap.Table)} />
 
 * OpenType Layout
 
-    * <Member s={Ot.Font.gdef} type={optional(Ot.Gdef.Table)} />
-    * <Member s={Ot.Font.gsub} type={optional(Ot.Gsub.Table)} />
-    * <Member s={Ot.Font.gpos} type={optional(Ot.Gpos.Table)} />
-    * <Member s={Ot.Font.base} type={optional(Ot.Base.Table)} />
+    + <Member s={Ot.Font.gdef} type={optional(Ot.Gdef.Table)} />
+    + <Member s={Ot.Font.gsub} type={optional(Ot.Gsub.Table)} />
+    + <Member s={Ot.Font.gpos} type={optional(Ot.Gpos.Table)} />
+    + <Member s={Ot.Font.base} type={optional(Ot.Base.Table)} />
+
+* Privates
+
+    + VTT
+
+        - <Member s={Ot.Font.tsi01} type={optional(Ot.TSI0123.Table)} />
+        - <Member s={Ot.Font.tsi23} type={optional(Ot.TSI0123.Table)} />
+        - <Member s={Ot.Font.tsi5} type={optional(Ot.TSI5.Table)} />
+        - <Member s={Ot.Font.tsic} type={optional(Ot.TSIC.Table)} />
 
 ### Type <Decl s={Ot.Font.Cff(defaultTo(extend("GS", Data.OrderStore(Ot.Glyph)), Data.OrderStore(Ot.Glyph)))}/>
 

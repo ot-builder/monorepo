@@ -9,8 +9,8 @@ export * as TSI5 from "./tsi5/index";
 export * as TSIC from "./tsic/index";
 
 export interface OtVttPrivate {
-    TSI01?: Data.Maybe<TSI0123.Table>;
-    TSI23?: Data.Maybe<TSI0123.Table>;
-    TSI5?: Data.Maybe<TSI5.Table>;
-    TSIC?: Data.Maybe<TSIC.Table>;
+    tsi01?: Data.Maybe<TSI0123.Table>;
+    tsi23?: Data.Maybe<TSI0123.Table>;
+    tsi5?: Data.Maybe<TSI5.Table>;
+    tsic?: Data.Maybe<TSIC.Table>;
 }
