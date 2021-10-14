@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Fix casing of TSI tables in font data structure",
+  "packageName": "@ot-builder/io-bin-vtt-private",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
