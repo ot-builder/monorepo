@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/cli-shared
 
-This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
+This log was last generated on Sat, 16 Oct 2021 01:18:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.0
+
+Sat, 16 Oct 2021 01:18:42 GMT
+
+### Minor changes
+
+- Bump @ot-builder/ot to v1.3.0
+- Bump @ot-builder/io-bin-font to v1.3.0
 
 ## 1.2.0
 

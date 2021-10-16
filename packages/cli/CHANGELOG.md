@@ -1,8 +1,18 @@
 # Change Log - ot-builder-cli
 
-This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
+This log was last generated on Sat, 16 Oct 2021 01:18:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.0
+
+Sat, 16 Oct 2021 01:18:42 GMT
+
+### Minor changes
+
+- Bump ot-builder to v1.3.0
+- Bump @ot-builder/cli-help-shower to v1.3.0
+- Bump @ot-builder/cli-shared to v1.3.0
 
 ## 1.2.0
 
