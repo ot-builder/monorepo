@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Add support for DeltaSetIndexMap v1",
+  "packageName": "@ot-builder/io-bin-metric",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
