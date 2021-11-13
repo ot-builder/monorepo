@@ -1,8 +1,18 @@
 # Change Log - otb-ttc-bundle
 
-This log was last generated on Sat, 16 Oct 2021 01:18:42 GMT and should not be manually modified.
+This log was last generated on Sat, 13 Nov 2021 01:06:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.1
+
+Sat, 13 Nov 2021 01:06:17 GMT
+
+### Patches
+
+- Bump ot-builder to v1.3.1
+- Bump @ot-builder/cli-help-shower to v1.3.1
+- Bump @ot-builder/cli-shared to v1.3.1
 
 ## 1.3.0
 

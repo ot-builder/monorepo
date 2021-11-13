@@ -2,6 +2,57 @@
   "name": "ot-builder",
   "entries": [
     {
+      "date": "Sat, 13 Nov 2021 01:06:17 GMT",
+      "tag": "ot-builder_v1.3.1",
+      "version": "1.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/io-bin-font to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/primitive to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/rectify to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/trace to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/prelude to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/ot to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/cli-proc to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 16 Oct 2021 01:18:42 GMT",
       "tag": "ot-builder_v1.3.0",
       "version": "1.3.0",

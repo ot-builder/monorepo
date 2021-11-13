@@ -2,6 +2,99 @@
   "name": "@ot-builder/io-bin-metric",
   "entries": [
     {
+      "date": "Sat, 13 Nov 2021 01:06:17 GMT",
+      "tag": "@ot-builder/io-bin-metric_v1.3.1",
+      "version": "1.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-metric",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f",
+            "comment": "Add support for DeltaSetIndexMap v1"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/bin-util to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/common-impl to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/errors to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/ot-metadata to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/prelude to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/primitive to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/var-store to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/variance to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metric",
+            "comment": "Bump @ot-builder/test-util to v1.3.1",
+            "commit": "98f8cd01e51e2d1837d83598afacc5c1502d143f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 16 Oct 2021 01:18:42 GMT",
       "tag": "@ot-builder/io-bin-metric_v1.3.0",
       "version": "1.3.0",
