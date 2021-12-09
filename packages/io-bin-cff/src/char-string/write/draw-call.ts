@@ -98,7 +98,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
             intermediate.push(new CffDrawCallRawT(args, dc.operator, dc.flags));
         }
 
-        const ivd = col ? col.getIVD() : null;
+        const ivd = col ? col.getIVD(false, 1) : null;
         return { ivd, intermediate };
     }
 
