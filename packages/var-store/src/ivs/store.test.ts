@@ -55,6 +55,28 @@ test("Write time IVS : Value management", () => {
     expect(null).toEqual(ivs.valueToInnerOuterID(cr.make(100)));
 });
 
+test("Write time IVS : Multiple values management", () => {
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
+    const ivs = WriteTimeIVS.create(mc);
+
+    expect({ outer: 0, inner: 0 }).toEqual(
+        ivs.multiValueToInnerOuterID([
+            cr.make(100, [Bold, 150], [Wide, 100]),
+            cr.make(100, [Bold, 150], [Wide, 100])
+        ])
+    );
+    expect({ outer: 0, inner: 2 }).toEqual(
+        ivs.multiValueToInnerOuterID([
+            cr.make(100, [Bold, 150], [Wide, 100]),
+            cr.make(100, [Bold, 100], [Wide, 100])
+        ])
+    );
+    expect({ outer: 1, inner: 0 }).toEqual(
+        ivs.multiValueToInnerOuterID([cr.make(100, [Bold, 150], [Wide, 100])])
+    );
+});
+
 test("Write time IVS : Value management with overflow", () => {
     const mc = new OtVar.MasterSet();
     const cr = new OtVar.ValueFactory(mc);
@@ -81,7 +103,7 @@ test("Write time IVS : Master-only management (CFF2-ish)", () => {
     const d3 = col.collect(cr.make(100, [Bold2, 123], [Wide, 456]));
     const d4 = col.collect(cr.make(100, [Corner, 50]));
 
-    const ivd = col.getIVD()!;
+    const ivd = col.getIVD(false, 1)!;
     expect(col.size).toBe(3); // 3 meaningful masters
     expect(ivd.masterIDs).toEqual([0, 1, 2]);
     expect(d1.resolve()).toEqual([150, 100, 0]);

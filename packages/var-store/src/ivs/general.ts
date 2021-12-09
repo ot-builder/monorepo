@@ -47,31 +47,43 @@ export class CReadTimeIVS<A extends GeneralVar.Dim, M extends GeneralVar.Master<
 
 export class WriteTimeIVD {
     private allocator = new ImpLib.IndexAllocator();
-    public mapping = new ImpLib.PathMapImpl<number, number>();
-    constructor(public readonly outerIndex: number, public readonly masterIDs: number[]) {}
+    private mapping = new ImpLib.PathMapImpl<number, number>(); // Path length = arity * mIDs.length
+    constructor(
+        public readonly long: boolean,
+        public readonly arity: number,
+        public readonly outerIndex: number,
+        public readonly masterIDs: number[]
+    ) {}
 
-    public find(deltas: number[]) {
-        return this.mapping.get(deltas);
-    }
     public enter(deltas: number[]) {
         const lens = this.mapping.createLens();
         lens.focus(deltas);
-        return lens.getOrAlloc(this.allocator);
+        return lens.getOrAlloc(this.allocator) * this.arity;
     }
-    public entries() {
-        return this.mapping.entries();
+    public *entries(): IterableIterator<[number[], number]> {
+        for (const [deltaRowEntire, innerIDRaw] of this.mapping.entries()) {
+            for (let m = 0; m < this.arity; m++) {
+                yield [
+                    deltaRowEntire.slice(
+                        this.masterIDs.length * m,
+                        this.masterIDs.length * (m + 1)
+                    ),
+                    innerIDRaw * this.arity + m
+                ];
+            }
+        }
     }
     public get size() {
-        return this.allocator.count;
+        return this.allocator.count * this.arity;
     }
 }
 
-export class WriteTimeIVDAllocator implements ImpLib.PathMapAllocator<WriteTimeIVD, [number[]]> {
+export class WriteTimeIVDAllocator {
     private allocOuterID = new ImpLib.IndexAllocator();
     private ivdList: WriteTimeIVD[] = [];
-    public next(r: number[]) {
+    public next(fLong: boolean, arity: number, r: number[]) {
         const outerID = this.allocOuterID.next();
-        const ivd = new WriteTimeIVD(outerID, r);
+        const ivd = new WriteTimeIVD(fLong, arity, outerID, r);
         this.ivdList[outerID] = ivd;
         return ivd;
     }
@@ -84,23 +96,27 @@ export class WriteTimeIVDAllocator implements ImpLib.PathMapAllocator<WriteTimeI
 }
 
 export class WriteTimeIVDBlossom {
-    private readonly ivdList: WriteTimeIVD[] = [];
+    private readonly ivdListShort: WriteTimeIVD[][] = [];
+    private readonly ivdListLong: WriteTimeIVD[][] = [];
     constructor(
         private nodeAlloc: WriteTimeIVDAllocator,
         private maxInnerIndex: number,
         private readonly masterIDs: number[]
     ) {}
 
-    public getFreeIVD() {
-        if (
-            !this.ivdList.length ||
-            this.ivdList[this.ivdList.length - 1].size >= this.maxInnerIndex
-        ) {
-            const ivd = this.nodeAlloc.next(this.masterIDs);
-            this.ivdList.push(ivd);
+    public getFreeIVD(fLong: boolean, arity: number) {
+        const ivdListCollection = fLong ? this.ivdListLong : this.ivdListShort;
+        let ivdList = ivdListCollection[arity];
+        if (!ivdList) {
+            ivdList = [];
+            ivdListCollection[arity] = ivdList;
+        }
+        if (!ivdList.length || ivdList[ivdList.length - 1].size >= this.maxInnerIndex) {
+            const ivd = this.nodeAlloc.next(fLong, arity, this.masterIDs);
+            ivdList.push(ivd);
             return ivd;
         } else {
-            return this.ivdList[this.ivdList.length - 1];
+            return ivdList[ivdList.length - 1];
         }
     }
 }
@@ -132,16 +148,16 @@ export class WriteTimeIVCollector<
         return new DelayDeltaValue(this, origin, deltaMA);
     }
 
-    public getIVD() {
+    public getIVD(fLong: boolean, arity: number) {
         this.settleDown();
         if (!this.relocation.length) return null;
         const lens = this.pmBlossom.createLens();
         lens.focus(this.relocation);
         const blossom = lens.getOrAlloc(this.acBlossom, this.relocation);
-        return blossom.getFreeIVD();
+        return blossom.getFreeIVD(fLong, arity);
     }
 
-    public forceGetIVD(master: M) {
+    public forceGetIVD(fLong: boolean, arity: number, master: M) {
         this.settleDown();
         if (!this.relocation.length) {
             this.addMaster(master);
@@ -150,7 +166,7 @@ export class WriteTimeIVCollector<
         const lens = this.pmBlossom.createLens();
         lens.focus(this.relocation);
         const blossom = lens.getOrAlloc(this.acBlossom, this.relocation);
-        return blossom.getFreeIVD();
+        return blossom.getFreeIVD(fLong, arity);
     }
 }
 
@@ -188,25 +204,67 @@ export class GeneralWriteTimeIVStore<A extends GeneralVar.Dim, M extends General
         );
     }
 
-    public valueToInnerOuterID(x: X) {
+    private valueToInnerOuterIDImpl(fLong: boolean, xs: X[]) {
         const collector = this.createCollector();
-        const dv = collector.collect(x);
-        const ivd = collector.getIVD();
+        const dvs = [];
+        for (const item of xs) dvs.push(collector.collect(item));
+
+        const ivd = collector.getIVD(fLong, dvs.length);
         if (!ivd) return null;
-        const deltas = dv.resolve();
+
+        const deltas: number[] = [];
+        for (const dv of dvs) {
+            for (const delta of dv.resolve()) deltas.push(delta);
+        }
+
+        const innerIndex = ivd.enter(deltas);
+        return { outer: ivd.outerIndex, inner: innerIndex };
+    }
+    private valueToInnerOuterIDForceImpl(fLong: boolean, xs: X[], fallbackMaster: M) {
+        const collector = this.createCollector();
+        const dvs = [];
+        for (const item of xs) dvs.push(collector.collect(item));
+
+        let ivd = collector.getIVD(fLong, dvs.length);
+        if (!ivd) ivd = collector.forceGetIVD(fLong, dvs.length, fallbackMaster);
+
+        const deltas: number[] = [];
+        for (const dv of dvs) {
+            for (const delta of dv.resolve()) deltas.push(delta);
+        }
+
         const innerIndex = ivd.enter(deltas);
         return { outer: ivd.outerIndex, inner: innerIndex };
     }
 
-    public valueToInnerOuterIDForce(x: X, fallbackMaster: M) {
-        const collector = this.createCollector();
-        const dv = collector.collect(x);
-        let ivd = collector.getIVD();
-        if (!ivd) ivd = collector.forceGetIVD(fallbackMaster);
-        const deltas = dv.resolve();
-        const innerIndex = ivd.enter(deltas);
-        return { outer: ivd.outerIndex, inner: innerIndex };
+    // Target data type being short
+    public valueToInnerOuterID(x: X) {
+        return this.valueToInnerOuterIDImpl(false, [x]);
     }
+    public valueToInnerOuterIDForce(x: X, fallbackMaster: M) {
+        return this.valueToInnerOuterIDForceImpl(false, [x], fallbackMaster);
+    }
+    public multiValueToInnerOuterID(xs: X[]) {
+        return this.valueToInnerOuterIDImpl(false, xs);
+    }
+    public multiValueToInnerOuterIDForce(xs: X[], fallbackMaster: M) {
+        return this.valueToInnerOuterIDForceImpl(false, xs, fallbackMaster);
+    }
+
+    // Target data type being long
+    public longValueToInnerOuterID(x: X) {
+        return this.valueToInnerOuterIDImpl(true, [x]);
+    }
+    public longValueToInnerOuterIDForce(x: X, fallbackMaster: M) {
+        return this.valueToInnerOuterIDForceImpl(true, [x], fallbackMaster);
+    }
+    public multiLongValueToInnerOuterID(xs: X[]) {
+        return this.valueToInnerOuterIDImpl(true, xs);
+    }
+    public multiLongValueToInnerOuterIDForce(xs: X[], fallbackMaster: M) {
+        return this.valueToInnerOuterIDForceImpl(true, xs, fallbackMaster);
+    }
+
     public isEmpty() {
         return this.masterCollector.size === 0 || this.acIVD.isEmpty();
     }

@@ -90,6 +90,7 @@
         "Malloc",
         "maxp",
         "Monoid",
+        "Mult",
         "Mvar",
         "Nagri",
         "nojekyll",

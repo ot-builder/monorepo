@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "IVS support for multi-ary entries",
+  "packageName": "@ot-builder/var-store",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

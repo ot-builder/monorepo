@@ -23,10 +23,10 @@ test("IVS roundtrip -- Traditional", () => {
     const mc = new OtVar.MasterSet();
     const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
-    ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]));
-    ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]));
-    ivs.valueToInnerOuterID(cr.make(100, [Bold, 100]));
-    ivs.valueToInnerOuterID(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
+    ivs.valueToInnerOuterID(cr.make(100, [Bold, 2], [Wide, 1]));
+    ivs.valueToInnerOuterID(cr.make(100, [Bold, 2], [Wide, 4]));
+    ivs.valueToInnerOuterID(cr.make(100, [Bold, 1]));
+    ivs.valueToInnerOuterID(cr.make(100, [Bold, 5], [Wide, 6], [Corner, 3]));
     const frag = new Frag().push(WriteTimeIVS, ivs, {
         designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth])
     });
@@ -35,23 +35,81 @@ test("IVS roundtrip -- Traditional", () => {
         ImpLib.Order.fromList("Axes", [Wght, Wdth])
     );
 
-    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 150], [Wide, 100]))).toBe(
-        true
-    );
-    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 150], [Wide, 200]))).toBe(
-        true
-    );
-    expect(OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 100], [Wide, 0]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 2], [Wide, 1]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 2], [Wide, 4]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 1], [Wide, 0]))).toBe(true);
     expect(
-        OtVar.Ops.equal(ivs1.queryValue(2, 0), cr.make(0, [Bold, -10], [Wide, 20], [Corner, 3]))
+        OtVar.Ops.equal(ivs1.queryValue(2, 0), cr.make(0, [Bold, 5], [Wide, 6], [Corner, 3]))
     ).toBe(true);
+});
+
+test("IVS roundtrip -- Multiple Values", () => {
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
+    const ivs = WriteTimeIVS.create(mc);
+    ivs.multiValueToInnerOuterID([
+        cr.make(0, [Bold, 1], [Wide, 1]),
+        cr.make(0, [Bold, 1], [Wide, 2])
+    ]);
+    ivs.multiValueToInnerOuterID([
+        cr.make(0, [Bold, 1], [Wide, 1]),
+        cr.make(0, [Bold, 1], [Wide, 2])
+    ]);
+    ivs.multiValueToInnerOuterID([
+        cr.make(0, [Bold, 1], [Wide, 1]),
+        cr.make(0, [Bold, 1], [Wide, 3])
+    ]);
+    ivs.valueToInnerOuterID(cr.make(0, [Bold, 1], [Wide, 1]));
+
+    const frag = new Frag().push(WriteTimeIVS, ivs, {
+        designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    });
+    const ivs1 = new BinaryView(Frag.pack(frag)).next(
+        ReadTimeIVS,
+        ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    );
+
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 1], [Wide, 1]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 1), cr.make(0, [Bold, 1], [Wide, 2]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 2), cr.make(0, [Bold, 1], [Wide, 1]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(0, 3), cr.make(0, [Bold, 1], [Wide, 3]))).toBe(true);
+    expect(OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 1], [Wide, 1]))).toBe(true);
+});
+
+test("IVS roundtrip -- overflow handling", () => {
+    const mc = new OtVar.MasterSet();
+    const cr = new OtVar.ValueFactory(mc);
+    const ivs = WriteTimeIVS.create(mc);
+
+    const pairs: [{ outer: number; inner: number }, OtVar.Value][] = [];
+    for (let p = 0; p < 0x100; p++) {
+        for (let q = 0; q < 0x100; q++) {
+            const v = cr.make(0, [Bold, 1 + p], [Wide, 1 + q]);
+            pairs.push([ivs.valueToInnerOuterID(v)!, v]);
+        }
+    }
+
+    const frag = new Frag().push(WriteTimeIVS, ivs, {
+        designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth]),
+        allowLongDeltas: true
+    });
+    const ivs1 = new BinaryView(Frag.pack(frag)).next(
+        ReadTimeIVS,
+        ImpLib.Order.fromList("Axes", [Wght, Wdth])
+    );
+
+    for (const [{ outer, inner }, v] of pairs) {
+        expect(OtVar.Ops.equal(ivs1.queryValue(outer, inner), v)).toBeTruthy();
+    }
 });
 
 test("IVS roundtrip -- Long deltas", () => {
     const mc = new OtVar.MasterSet();
     const cr = new OtVar.ValueFactory(mc);
     const ivs = WriteTimeIVS.create(mc);
-    ivs.valueToInnerOuterID(cr.make(100000, [Bold, 100000], [Wide, 500000]));
+    ivs.valueToInnerOuterID(cr.make(100000, [Bold, 100], [Wide, 500]));
+    ivs.longValueToInnerOuterID(cr.make(100000, [Bold, 100000], [Wide, 500000]));
+    ivs.longValueToInnerOuterID(cr.make(100000, [Bold, 100], [Wide, 500]));
     const frag = new Frag().push(WriteTimeIVS, ivs, {
         designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth]),
         allowLongDeltas: true
@@ -62,8 +120,14 @@ test("IVS roundtrip -- Long deltas", () => {
     );
 
     expect(
-        OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 100000], [Wide, 500000]))
-    ).toBe(true);
+        OtVar.Ops.equal(ivs1.queryValue(0, 0), cr.make(0, [Bold, 100], [Wide, 500]))
+    ).toBeTruthy();
+    expect(
+        OtVar.Ops.equal(ivs1.queryValue(1, 0), cr.make(0, [Bold, 100000], [Wide, 500000]))
+    ).toBeTruthy();
+    expect(
+        OtVar.Ops.equal(ivs1.queryValue(1, 1), cr.make(0, [Bold, 100], [Wide, 500]))
+    ).toBeTruthy();
 });
 
 test("IVS roundtrip -- Master only (CFF2-ish)", () => {
@@ -75,7 +139,7 @@ test("IVS roundtrip -- Master only (CFF2-ish)", () => {
     col.collect(cr.make(100, [Bold, 150], [Wide, 200]));
     col.collect(cr.make(100, [Bold, 100]));
     col.collect(cr.make(100, [Bold, -10], [Wide, 20], [Corner, 3]));
-    col.getIVD();
+    col.getIVD(false, 1);
 
     const frag = new Frag().push(WriteTimeIVS, ivs, {
         designSpace: ImpLib.Order.fromList("Axes", [Wght, Wdth])
