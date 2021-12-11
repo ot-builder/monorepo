@@ -1,8 +1,22 @@
 # Change Log - @ot-builder/stat-glyphs
 
-This log was last generated on Sat, 13 Nov 2021 01:06:17 GMT and should not be manually modified.
+This log was last generated on Sat, 11 Dec 2021 01:10:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.2
+
+Sat, 11 Dec 2021 01:10:33 GMT
+
+### Patches
+
+- Bump @ot-builder/bin-composite-types to v1.3.2
+- Bump @ot-builder/common-impl to v1.3.2
+- Bump @ot-builder/ot-glyphs to v1.3.2
+- Bump @ot-builder/ot-metadata to v1.3.2
+- Bump @ot-builder/prelude to v1.3.2
+- Bump @ot-builder/primitive to v1.3.2
+- Bump @ot-builder/variance to v1.3.2
 
 ## 1.3.1
 

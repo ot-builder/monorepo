@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/common-impl
 
-This log was last generated on Sat, 13 Nov 2021 01:06:17 GMT and should not be manually modified.
+This log was last generated on Sat, 11 Dec 2021 01:10:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.2
+
+Sat, 11 Dec 2021 01:10:33 GMT
+
+### Patches
+
+- Bump @ot-builder/prelude to v1.3.2
 
 ## 1.3.1
 

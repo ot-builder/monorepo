@@ -1,6 +1,6 @@
 {
   "name": "ot-builder-cli",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "bin": {
     "otb-cli": "./bin/otb-cli"
   },
@@ -30,9 +30,9 @@
   "dependencies": {
     "tslib": "^2.0.0",
     "chalk": "^4.1.1",
-    "ot-builder": "1.3.1",
-    "@ot-builder/cli-help-shower": "1.3.1",
-    "@ot-builder/cli-shared": "1.3.1"
+    "ot-builder": "1.3.2",
+    "@ot-builder/cli-help-shower": "1.3.2",
+    "@ot-builder/cli-shared": "1.3.2"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
