@@ -16,13 +16,13 @@
       "path": "../errors/tsconfig.json"
     },
     {
+      "path": "../common-impl/tsconfig.json"
+    },
+    {
       "path": "../bin-util/tsconfig.json"
     },
     {
       "path": "../bin-composite-types/tsconfig.json"
-    },
-    {
-      "path": "../common-impl/tsconfig.json"
     },
     {
       "path": "../primitive/tsconfig.json"

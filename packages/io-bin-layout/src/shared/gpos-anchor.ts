@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import * as Crypto from "crypto";
 
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { BinaryView, Frag } from "@ot-builder/bin-util";
@@ -90,7 +90,7 @@ export const GposAnchor = {
             hasher.beginSubObj("attachToPoint").number(a.attachToPoint.pointIndex);
         }
 
-        const sink = crypto.createHash("sha256");
+        const sink = Crypto.createHash("sha256");
         hasher.transfer(sink);
         return sink.digest("hex");
     },

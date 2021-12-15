@@ -4,8 +4,9 @@ const TY_BEGIN = 0x01;
 const TY_END = 0x02;
 const TY_STRING = 0x10;
 const TY_NUMBER = 0x11;
-const TY_FLAGS = 0x12;
-const TY_BUFFER = 0x13;
+const TY_INTEGER = 0x12;
+const TY_FLAGS = 0x13;
+const TY_BUFFER = 0x14;
 
 const g_bufSize1 = Buffer.allocUnsafe(1);
 const g_bufSize4 = Buffer.allocUnsafe(4);
@@ -14,6 +15,10 @@ const g_bufSize8 = Buffer.allocUnsafe(8);
 function transferUInt8(h: Crypto.Hash, x: number) {
     g_bufSize1.writeUInt8(x, 0);
     h.update(g_bufSize1);
+}
+function transferInt32(h: Crypto.Hash, x: number) {
+    g_bufSize4.writeInt32LE(x, 0);
+    h.update(g_bufSize4);
 }
 function transferUInt32(h: Crypto.Hash, x: number) {
     g_bufSize4.writeUInt32LE(x, 0);
@@ -37,6 +42,19 @@ class HrString extends HashRep {
         transferUInt32(h, TY_STRING);
         transferUInt32(h, bufRaw.byteLength);
         h.update(bufRaw);
+    }
+}
+
+class HrIntegers extends HashRep {
+    constructor(private readonly s: ReadonlyArray<number>) {
+        super();
+    }
+    public transfer(h: Crypto.Hash) {
+        transferUInt32(h, TY_INTEGER);
+        transferUInt32(h, this.s.length);
+        for (let index = 0; index < this.s.length; index++) {
+            transferInt32(h, this.s[index] || 0);
+        }
     }
 }
 
@@ -95,6 +113,10 @@ export class Hasher extends HashRep {
     }
     public string(s: string) {
         this.parts.push(new HrString(s));
+        return this;
+    }
+    public integer(...n: number[]) {
+        this.parts.push(new HrIntegers(n));
         return this;
     }
     public number(...n: number[]) {

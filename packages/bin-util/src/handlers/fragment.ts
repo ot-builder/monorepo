@@ -1,5 +1,6 @@
-import * as crypto from "crypto";
+import * as Crypto from "crypto";
 
+import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Data } from "@ot-builder/prelude";
 
@@ -53,20 +54,6 @@ interface FragPointerRecord {
     offset: number;
     createdOffset: number;
     embedding: FragPointerEmbedding;
-}
-
-class FragHashSink {
-    public forward = new Map<Frag, string>();
-    public reward = new Map<string, Frag>();
-    public resolve(frag: Frag) {
-        const hash = this.forward.get(frag);
-        if (!hash) return frag;
-        else return this.reward.get(hash) || frag;
-    }
-    public add(frag: Frag, hash: string) {
-        this.forward.set(frag, hash);
-        if (!this.reward.has(hash)) this.reward.set(hash, frag);
-    }
 }
 
 export class Frag {
@@ -317,30 +304,91 @@ class Sorter {
     }
 }
 
-class Packing {
-    public hash(frag: Frag, sink: FragHashSink) {
-        const h = crypto.createHash("sha256");
-        h.update(frag.getDataBuffer());
+class Unifier {
+    private hashCache = new WeakMap<Frag, string>();
+    private hashToFragMap = new Map<string, Frag[]>();
+    private unifyCache = new WeakMap<Frag, Frag>();
+
+    private hash(frag: Frag) {
+        const cached = this.hashCache.get(frag);
+        if (cached) return cached;
+
+        const hr = new ImpLib.Hasher();
+        hr.buffer(frag.getDataBuffer());
+
         for (const ptr of frag.pointers) {
-            const targetHash = ptr.to ? this.hash(ptr.to, sink) : "NULL";
-            h.update(
-                `{${ptr.size},${ptr.offset},${ptr.createdOffset},${ptr.embedding.id},${targetHash}}`
-            );
+            const targetHash = ptr.to ? this.hash(ptr.to) : "NULL";
+            hr.string(targetHash);
+            hr.integer(ptr.size, ptr.offset, ptr.createdOffset);
+            hr.string(ptr.embedding.id);
         }
+
+        const h = Crypto.createHash("sha256");
+        hr.transfer(h);
         const result = h.digest("hex");
-        sink.add(frag, result);
+        this.hashCache.set(frag, result);
         return result;
     }
 
-    public shareBlocks(root: Frag) {
-        const sink = new FragHashSink();
-        this.hash(root, sink);
-        for (const frag of sink.forward.keys()) {
-            for (const ptr of frag.pointers) {
-                if (!ptr.to) continue;
-                ptr.to = sink.resolve(ptr.to);
+    private compare(a: null | Frag, b: null | Frag): boolean {
+        if (!a) {
+            return !b;
+        } else if (!b) {
+            return false;
+        } else {
+            if (a === b) return true;
+            if (this.hash(a) !== this.hash(b)) return false;
+            return this.compareByContents(a, b);
+        }
+    }
+    private compareByContents(a: Frag, b: Frag) {
+        if (Buffer.compare(a.getDataBuffer(), b.getDataBuffer()) !== 0) return false;
+        if (a.pointers.length !== b.pointers.length) return false;
+        for (let index = 0; index < a.pointers.length; index++) {
+            const p1 = a.pointers[index],
+                p2 = b.pointers[index];
+            if (p1.size !== p2.size) return false;
+            if (p1.offset !== p2.offset) return false;
+            if (p1.embedding.id !== p2.embedding.id) return false;
+            if (p1.createdOffset !== p2.createdOffset) return false;
+            if (!this.compare(p1.to, p2.to)) return false;
+        }
+        return true;
+    }
+
+    public unify(frag: Frag): Frag {
+        const cached = this.unifyCache.get(frag);
+        if (cached) return cached;
+
+        // Unify sub-pointers
+        for (const ptr of frag.pointers) {
+            if (ptr.to) ptr.to = this.unify(ptr.to);
+        }
+        const h = this.hash(frag);
+        let matches = this.hashToFragMap.get(h);
+        if (!matches) {
+            matches = [];
+            this.hashToFragMap.set(h, matches);
+        }
+        for (const candidate of matches) {
+            if (this.compare(frag, candidate)) {
+                return this.cacheUnification(frag, candidate, h, matches);
             }
         }
+
+        return this.cacheUnification(frag, frag, h, matches);
+    }
+    private cacheUnification(frag: Frag, unifiedTo: Frag, hash: string, hashSink: Frag[]) {
+        this.unifyCache.set(frag, unifiedTo);
+        hashSink.push(unifiedTo);
+        return unifiedTo;
+    }
+}
+
+class Packing {
+    public shareBlocks(root: Frag) {
+        const sink = new Unifier();
+        sink.unify(root);
     }
 
     private allocateOffsets(root: Frag) {

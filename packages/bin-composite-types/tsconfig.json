@@ -10,10 +10,13 @@
   },
   "references": [
     {
+      "path": "../prelude/tsconfig.json"
+    },
+    {
       "path": "../errors/tsconfig.json"
     },
     {
-      "path": "../prelude/tsconfig.json"
+      "path": "../common-impl/tsconfig.json"
     },
     {
       "path": "../bin-util/tsconfig.json"

@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import * as Crypto from "crypto";
 
 import { alignBufferSize } from "@ot-builder/bin-util";
 import { Tag, UInt32 } from "@ot-builder/primitive";
@@ -35,7 +35,7 @@ export function collectTableData(tag: Tag, slice: TableSlice, blobStore: BlobSto
     // Pad buffer with 0
     const b = alignBufferSize(slice.data, 4);
 
-    const hasher = crypto.createHash("sha256");
+    const hasher = Crypto.createHash("sha256");
     hasher.update(b);
     const hash = hasher.digest("hex");
 

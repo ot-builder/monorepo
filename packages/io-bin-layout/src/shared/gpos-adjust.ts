@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import * as Crypto from "crypto";
 
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
@@ -181,7 +181,7 @@ export const GposAdjustment = {
         hashVarVal(hasher.begin(), ivs, adj.dWidth, adj.dWidthDevice);
         hashVarVal(hasher.begin(), ivs, adj.dHeight, adj.dHeightDevice);
 
-        const sink = crypto.createHash("sha256");
+        const sink = Crypto.createHash("sha256");
         hasher.transfer(sink);
         return sink.digest("hex");
     },
@@ -196,7 +196,7 @@ export const GposAdjustment = {
         hashVarVal(hasher.begin(), ivs, adj[1].dWidth, adj[1].dWidthDevice);
         hashVarVal(hasher.begin(), ivs, adj[1].dHeight, adj[1].dHeightDevice);
 
-        const sink = crypto.createHash("sha256");
+        const sink = Crypto.createHash("sha256");
         hasher.transfer(sink);
         return sink.digest("hex");
     }
