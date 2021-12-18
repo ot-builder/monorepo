@@ -1,8 +1,19 @@
 # Change Log - @ot-builder/bin-composite-types
 
-This log was last generated on Sat, 11 Dec 2021 01:10:33 GMT and should not be manually modified.
+This log was last generated on Sat, 18 Dec 2021 01:19:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.3
+
+Sat, 18 Dec 2021 01:19:54 GMT
+
+### Patches
+
+- Optimize frag unifier (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.3.3
+- Bump @ot-builder/errors to v1.3.3
+- Bump @ot-builder/prelude to v1.3.3
 
 ## 1.3.2
 

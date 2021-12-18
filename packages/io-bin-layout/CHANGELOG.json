@@ -2,6 +2,129 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sat, 18 Dec 2021 01:19:54 GMT",
+      "tag": "@ot-builder/io-bin-layout_v1.3.3",
+      "version": "1.3.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-layout",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71",
+            "comment": "Optimize frag unifier"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/bin-util to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/errors to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-layout to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-metadata to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/prelude to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/primitive to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/var-store to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/variance to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/common-impl to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-encoding to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-encoding to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/test-util to v1.3.3",
+            "commit": "df0486c2b6942815176c652a3150870ba8eacc71"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Dec 2021 01:10:33 GMT",
       "tag": "@ot-builder/io-bin-layout_v1.3.2",
       "version": "1.3.2",

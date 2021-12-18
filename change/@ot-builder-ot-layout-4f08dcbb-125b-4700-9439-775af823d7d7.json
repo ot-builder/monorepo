@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Optimize frag unifier",
-  "packageName": "@ot-builder/ot-layout",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

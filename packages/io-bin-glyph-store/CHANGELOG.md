@@ -1,8 +1,33 @@
 # Change Log - @ot-builder/io-bin-glyph-store
 
-This log was last generated on Sat, 11 Dec 2021 01:10:33 GMT and should not be manually modified.
+This log was last generated on Sat, 18 Dec 2021 01:19:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.3
+
+Sat, 18 Dec 2021 01:19:54 GMT
+
+### Patches
+
+- Optimize frag unifier (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.3.3
+- Bump @ot-builder/common-impl to v1.3.3
+- Bump @ot-builder/errors to v1.3.3
+- Bump @ot-builder/ot-glyphs to v1.3.3
+- Bump @ot-builder/ot-metadata to v1.3.3
+- Bump @ot-builder/io-bin-cff to v1.3.3
+- Bump @ot-builder/io-bin-metric to v1.3.3
+- Bump @ot-builder/io-bin-ttf to v1.3.3
+- Bump @ot-builder/prelude to v1.3.3
+- Bump @ot-builder/primitive to v1.3.3
+- Bump @ot-builder/stat-glyphs to v1.3.3
+- Bump @ot-builder/var-store to v1.3.3
+- Bump @ot-builder/variance to v1.3.3
+- Bump @ot-builder/ot-sfnt to v1.3.3
+- Bump @ot-builder/io-bin-sfnt to v1.3.3
+- Bump @ot-builder/io-bin-metadata to v1.3.3
+- Bump @ot-builder/test-util to v1.3.3
 
 ## 1.3.2
 
