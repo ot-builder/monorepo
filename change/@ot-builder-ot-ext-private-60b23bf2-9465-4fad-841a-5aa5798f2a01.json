@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Enhance OTBCLI with better subset, drop and transform-glyphs",
+  "packageName": "@ot-builder/ot-ext-private",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
