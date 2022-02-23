@@ -127,8 +127,8 @@ export class SimpleGlyph extends SpaceGlyph {
         public instructions: Buffer
     ) {
         super(gid, hm, vm);
-        const bound = OtGeometryHandler.stat(OtGeometryHandler.GetBound, ...this.outlines);
-        const pointCount = OtGeometryHandler.stat(OtGeometryHandler.CountPoint, ...this.outlines);
+        const bound = OtGeometryHandler.apply(OtGeometryHandler.GetBound, ...this.outlines);
+        const pointCount = OtGeometryHandler.apply(OtGeometryHandler.CountPoint, ...this.outlines);
         let contourCount = 0;
         for (const cs of outlines) contourCount += cs.contours.length;
         this.st = {
@@ -176,7 +176,7 @@ export class CompositeGlyph extends SpaceGlyph {
             totalPoints += stat.totalPoints;
         }
 
-        const bound = OtGeometryHandler.stat(OtGeometryHandler.GetBound, ...references);
+        const bound = OtGeometryHandler.apply(OtGeometryHandler.GetBound, ...references);
         this.st = {
             eigenContours: 0,
             eigenPoints: 0,

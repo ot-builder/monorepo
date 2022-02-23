@@ -47,6 +47,6 @@
     "@ot-builder/io-bin-metadata": "1.3.3",
     "@ot-builder/test-util": "1.3.3",
     "@types/jest": "^26.0.23",
-    "jest": "^27.0.6"
+    "jest": "^27.5.1"
   }
 }

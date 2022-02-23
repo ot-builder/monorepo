@@ -13,6 +13,8 @@ export class OtGhPointLister extends OtGhPointAlg<PointCollector> {
 
 class PointCollector {
     public points: OtGlyph.Point[] = [];
+    public beginContour() {}
+    public endContour() {}
     public addControlKnot(knot: OtGlyph.Point) {
         this.points.push(knot);
     }

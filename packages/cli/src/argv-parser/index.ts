@@ -4,8 +4,9 @@ export interface ParseState {
     next(): ParseState;
     isEof(): this is ParsingEof;
     isOption(...options: string[]): this is ParsingOption;
+    expectOption(...options: string[]): string;
     isArgument(): this is ParsingArgument;
-    nextArgument(): ParseResult<string>;
+    expectArgument(): string;
     reportParseErrorPosition(): string;
 }
 export interface ParsingEof {
@@ -34,7 +35,7 @@ export function StartParseArgv(argv: string[], index = 0): ParseState {
 
 class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArgument {
     constructor(private readonly argv: string[], private readonly cp: number) {
-        this.eof = this.cp < this.argv.length;
+        this.eof = this.cp >= this.argv.length;
         this.option = this.argument = this.argv[cp];
     }
 
@@ -46,7 +47,7 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         return new ParseArgvImpl(this.argv, this.cp + 1);
     }
     public isEof() {
-        return this.cp >= this.argv.length;
+        return this.eof;
     }
     public isOption(...options: string[]) {
         if (this.isEof()) return false;
@@ -59,8 +60,17 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         }
         return false;
     }
+    public expectOption(...options: string[]) {
+        if (!this.isOption(...options)) throw new TypeError("Not option.");
+        return this.option;
+    }
+
     public isArgument() {
         return !this.isEof() && !this.isOption();
+    }
+    public expectArgument() {
+        if (!this.isArgument()) throw new TypeError("Not argument.");
+        return this.argument;
     }
     public nextArgument() {
         const nx = this.next();

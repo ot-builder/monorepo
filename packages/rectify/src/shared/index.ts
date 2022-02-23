@@ -381,6 +381,6 @@ export namespace RectifyImpl {
     }
 
     export function getGlyphPoints(g: Ot.Glyph) {
-        return OtGeometryHandler.stat(OtGeometryHandler.ListPoint, g.geometry);
+        return OtGeometryHandler.apply(OtGeometryHandler.ListPoint, g.geometry);
     }
 }

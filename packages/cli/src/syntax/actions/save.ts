@@ -11,13 +11,14 @@ import { CliAction, Syntax } from "../../command";
 export const SaveSyntax: Syntax<null | CliAction> = {
     handle: st => {
         if (!st.isOption("-o", "--save")) return ParseResult(st, null);
+        st = st.next();
 
-        const prPath = st.nextArgument();
-        return ParseResult(prPath.progress.next(), async state => {
+        const path = st.expectArgument();
+        return ParseResult(st.next(), async state => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to save.");
-            console.log(`Save ${entry} -> ${prPath.result}`);
-            await saveFontToFile(prPath.result, entry.font, inferSaveCfg(state, entry.font));
+            console.log(`Save ${entry} -> ${path}`);
+            await saveFontToFile(path, entry.font, inferSaveCfg(state, entry.font));
         });
     },
     displayHelp(shower: CliHelpShower) {

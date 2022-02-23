@@ -1,0 +1,36 @@
+---
+import { RangeDecl } from "./datatypes";
+---
+
+start       := __ rgs=Ranges __
+                .ranges = RangeDecl[] { return this.rgs.ranges }
+
+Ranges      := car=Range Separator cdr=Ranges
+                .ranges = RangeDecl[] { return [this.car.codeRange, ...this.cdr.ranges] }
+             | range=Range
+                .ranges = RangeDecl[] { return [this.range.codeRange] }
+
+Range       := _ exclude='-'? _ start=CodePoint _ '..' _ end=CodePoint _
+                .codeRange = RangeDecl {
+                    return {
+                        isExclusion: !!this.exclude,
+                        start: this.start.value,
+                        end:this.end.value
+                    }
+                }
+             | _ exclude='-'? _ at=CodePoint _
+                .codeRange = RangeDecl {
+                    return { isExclusion: !!this.exclude, start: this.at.value, end:this.at.value }
+                }
+
+CodePoint   := Prefix? literal='[0-9A-Fa-f]+'
+                .value = number { return parseInt(this.literal, 16) }
+
+Prefix      := 'U\+' | '0x' | '0X'
+
+Separator   := _ '[,;]' __
+             | ___
+
+_           := '[ \t]*'
+__          := '(?:[ \t]|(?:#[^\r\n]*)?[\r\n])*'
+___         := _ '(?:#[^\r\n]*)?[\r\n]' __

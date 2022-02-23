@@ -8,4 +8,5 @@ export {
     ShareGlyphSetOptions,
     GlyphUnificationResults
 } from "./procs/share-glyph-set";
+export { inPlaceTransformFontGlyph } from "./procs/transform-glyphs";
 export { unifyDesignSpaces } from "./support/design-unifier/index";
