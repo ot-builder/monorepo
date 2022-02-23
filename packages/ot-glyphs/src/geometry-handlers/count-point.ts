@@ -16,6 +16,8 @@ class PointCount {
     public getResult() {
         return this.pc;
     }
+    public beginContour() {}
+    public endContour() {}
     public addControlKnot(knot: OtGlyph.Point) {
         this.pc++;
     }

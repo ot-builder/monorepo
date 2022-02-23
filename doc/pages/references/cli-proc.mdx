@@ -68,3 +68,9 @@ Unify the glyph set by glyph shape. This procedure is usually used when creating
 - <Member s={CliProc.ShareGlyphSetOptions.unifyGlyphList} type={optional(boolean)}/>
 
     Whether to make the glyph list the same. When set to false, only the glyph references will be unified.
+
+## Glyph Geometry Transformation
+
+### Function <Fn s={CliProc.inPlaceTransformFontGlyph(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), transform: Ot.Glyph.Transform2X3}} returns={"void"} />
+
+Perform a 2x3 affine transform on all glyphs' geometries. Composite glyphs will get flatten.

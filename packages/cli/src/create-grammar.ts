@@ -1,6 +1,7 @@
 import { CliAction, Grammar } from "./command";
 import { CliState } from "./state";
 import { ConsolidateSyntax } from "./syntax/actions/consolidate";
+import { DropSyntax } from "./syntax/actions/drop";
 import { GcSyntax } from "./syntax/actions/gc";
 import { IntroSyntax } from "./syntax/actions/intro";
 import { MergeSyntax } from "./syntax/actions/merge";
@@ -8,6 +9,7 @@ import { RebaseSyntax } from "./syntax/actions/rebase";
 import { SaveSyntax } from "./syntax/actions/save";
 import { SaveHeadSyntax } from "./syntax/actions/save-head";
 import { SubsetSyntax } from "./syntax/actions/subset";
+import { TransformGlyphsSyntax } from "./syntax/actions/transform-glyphs";
 import { AlternateSyntax } from "./syntax/composite/alternate";
 import { MainCommandSyntax } from "./syntax/composite/main-command";
 import { Join, PossessiveRepeatSyntax } from "./syntax/composite/possessive-repeat";
@@ -31,11 +33,17 @@ export function createGrammar(): Grammar {
         IntroSyntax,
         SaveSyntax,
         SaveHeadSyntax,
+
         RebaseSyntax,
-        GcSyntax,
-        SubsetSyntax,
+        TransformGlyphsSyntax,
+
         MergeSyntax,
+        SubsetSyntax,
+
+        DropSyntax,
+        GcSyntax,
         ConsolidateSyntax,
+
         SetOptimizationLevelSyntax,
         SetRecalcOs2AvgCharWidthSyntax
     ]);

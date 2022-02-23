@@ -51,7 +51,7 @@ function postReadCaretList(glyph: OtGlyph, carets: Gdef.LigCaret[]) {
 
 function computeCaretXFromPointAttachment(glyph: OtGlyph, caret: Gdef.LigCaret) {
     if (!caret.pointAttachment) return caret;
-    const glyphPoints = OtGeometryHandler.stat(OtGeometryHandler.ListPoint, glyph.geometry);
+    const glyphPoints = OtGeometryHandler.apply(OtGeometryHandler.ListPoint, glyph.geometry);
     if (!glyphPoints || caret.pointAttachment.pointIndex >= glyphPoints.length) return caret;
     return { ...caret, x: glyphPoints[caret.pointAttachment.pointIndex].x };
 }

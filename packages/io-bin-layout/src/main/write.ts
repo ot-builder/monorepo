@@ -29,12 +29,14 @@ export function writeOtl(
     let { gsub, gpos, gdef } = otl;
     const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;
     const ivs = md.fvar ? WriteTimeIVS.create(new OtVar.MasterSet()) : null;
-    if (ivs && !gdef) gdef = new Gdef.Table();
     const stat = md.os2 ? new Os2MaxContextStat(md.os2) : new EmptyStat();
 
-    const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
-    if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, cfg, twc));
-    if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, cfg, twc));
+    if (gsub || gpos) {
+        if (ivs && !gdef) gdef = new Gdef.Table();
+        const twc: TableWriteContext = { gOrd, gdef, designSpace, ivs, stat };
+        if (gsub) outSink.add(Gsub.Tag, Frag.packFrom(GsubTableIo, gsub, cfg, twc));
+        if (gpos) outSink.add(Gpos.Tag, Frag.packFrom(GposTableIo, gpos, cfg, twc));
+    }
     if (gdef) outSink.add(Gdef.Tag, Frag.packFrom(GdefTableIo, gdef, cfg, gOrd, ivs, designSpace));
     stat.settle();
 

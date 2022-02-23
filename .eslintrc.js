@@ -4,7 +4,7 @@ module.exports = {
     root: true,
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint", "import", "monorepo-cop", "prettier"],
-    ignorePatterns: ["node_modules", "packages/*/lib", "coverage"],
+    ignorePatterns: ["node_modules", "packages/*/lib", "coverage", "generated*.ts"],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
