@@ -21,6 +21,7 @@ setPage(Ot.GlyphStoreFactoryWithDefault, "Ot.Glyph");
 setPage(Ot.GlyphNamingSource, "Ot.Glyph");
 setPage(Ot.GlyphNamer, "Ot.Glyph");
 setPage(Ot.StandardGlyphNamer, "Ot.Glyph");
+setPage(Ot.GeometryUtil, "Ot.Glyph");
 
 setPage(Ot.Head);
 setPage(Ot.Fvar);

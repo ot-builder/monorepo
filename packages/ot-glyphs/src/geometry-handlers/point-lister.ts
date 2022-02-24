@@ -1,18 +1,12 @@
 import { OtGlyph } from "../ot-glyph";
 
-import { OtGhPointAlg, PointTransformer } from "./shared";
+import { OtGeometrySink } from "./shared";
 
-export class OtGhPointLister extends OtGhPointAlg<PointCollector> {
-    constructor() {
-        super(new PointTransformer(new PointCollector(), OtGlyph.Transform2X3.Identity));
-    }
-    public getResult() {
-        return this.acc.ps.points;
-    }
-}
-
-class PointCollector {
+export class OtGhPointLister implements OtGeometrySink<OtGlyph.Point[]> {
     public points: OtGlyph.Point[] = [];
+    public getResult() {
+        return this.points;
+    }
     public beginContour() {}
     public endContour() {}
     public addControlKnot(knot: OtGlyph.Point) {

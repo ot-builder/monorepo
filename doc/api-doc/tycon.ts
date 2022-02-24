@@ -1,6 +1,7 @@
 import { TyRep } from "./tyrep";
 
 export const optional = (ts: TyRep): TyRep => ({ optional: ts });
+export const rest = (ts: TyRep): TyRep => ({ rest: ts });
 export const readonly = (ts: TyRep): TyRep => ({ readonly: ts });
 export const all = (...ts: TyRep[]): TyRep => ({ all: ts });
 export const either = (...ts: TyRep[]): TyRep => ({ either: ts });

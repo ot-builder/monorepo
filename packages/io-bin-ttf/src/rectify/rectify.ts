@@ -1,5 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
+import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
@@ -60,10 +60,7 @@ class AttachmentPointToCoordAlg {
         return (st: PointAttachmentHandlerState) => {
             rectifyGlyph(ref.to, this.gs);
             let tfm = ref.transform;
-            const innerPoints = OtGeometryHandler.apply(
-                OtGeometryHandler.ListPoint,
-                ref.to.geometry
-            );
+            const innerPoints = OtGeometryUtil.apply(OtGeometryUtil.ListPoint, ref.to.geometry);
             if (ref.pointAttachment) {
                 const zOut = st.points[ref.pointAttachment.outer.pointIndex];
                 const zIn = innerPoints[ref.pointAttachment.inner.pointIndex];

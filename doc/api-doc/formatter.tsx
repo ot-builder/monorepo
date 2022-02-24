@@ -15,6 +15,7 @@ import {
     isReadonly,
     isString,
     isTuple,
+    isRest,
     TyAll,
     TyAnnotate,
     TyApply,
@@ -82,7 +83,7 @@ export function FormatObjectImpl(
     at: { [key: string]: TyRep },
     braceLeft: null | string,
     delim: (key: string) => React.ReactNode,
-    wrapElement: (key: string, suffix: string, el: TyRep) => React.ReactNode,
+    wrapElement: (prefix: string, key: string, suffix: string, el: TyRep) => React.ReactNode,
     braceRight: null | string
 ) {
     const items: React.ReactNode[] = [];
@@ -91,10 +92,12 @@ export function FormatObjectImpl(
         if (started) items.push(delim(key));
 
         const itemType = at[key];
-        if (isOptional(itemType)) {
-            items.push(wrapElement(key, "?", itemType.optional));
+        if (isRest(itemType)) {
+            items.push(wrapElement("...", key, "", itemType.rest));
+        } else if (isOptional(itemType)) {
+            items.push(wrapElement("", key, "?", itemType.optional));
         } else {
-            items.push(wrapElement(key, "", itemType));
+            items.push(wrapElement("", key, "", itemType));
         }
         started = true;
     }
@@ -196,25 +199,28 @@ export const ObjectComma = (key: string) => (
         {",\u200B"}
     </span>
 );
-export const InlineEntry = (key: string, suffix: string, el: TyRep) => (
+export const InlineEntry = (prefix: string, key: string, suffix: string, el: TyRep) => (
     <span key={"item-" + key}>
+        {prefix ? <span className="api-doc-delimiter api-doc-decl-prefix">{prefix}</span> : null}
         <span className="api-doc-function-arg">{key}</span>
         {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
         <span className="api-doc-delimiter">{":"}</span>
         {FormatType(el)}
     </span>
 );
-export const BlockEntry = (key: string, suffix: string, el: TyRep) => (
+export const BlockEntry = (prefix: string, key: string, suffix: string, el: TyRep) => (
     <div className="api-doc-method-param" key={"item-" + key}>
         <span className="api-doc-sub-item-indicator parameter">· </span>
+        {prefix ? <span className="api-doc-delimiter api-doc-decl-prefix">{prefix}</span> : null}
         <span className="api-doc-function-arg">{key}</span>
         {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
         <span className="api-doc-delimiter">{":"}</span>
         {FormatType(el, true)}
     </div>
 );
-export const OnlyKeys = (key: string, suffix: string, el: TyRep) => (
+export const OnlyKeys = (prefix: string, key: string, suffix: string, el: TyRep) => (
     <span key={"item-" + key}>
+        {prefix ? <span className="api-doc-delimiter api-doc-decl-prefix">{prefix}</span> : null}
         <span className="api-doc-function-arg">{key}</span>
         {suffix ? <span className="api-doc-delimiter api-doc-decl-suffix">{suffix}</span> : null}
     </span>

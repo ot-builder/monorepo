@@ -1,19 +1,13 @@
 import { OtGlyph } from "../ot-glyph";
 
-import { OtGhPointAlg, PointTransformer } from "./shared";
+import { OtGeometrySink } from "./shared";
 
-export class OtGhFlattener extends OtGhPointAlg<ContoursCollector> {
-    constructor() {
-        super(new PointTransformer(new ContoursCollector(), OtGlyph.Transform2X3.Identity));
-    }
-    public getResult() {
-        return this.acc.ps.contours;
-    }
-}
-
-class ContoursCollector {
-    public contours: OtGlyph.Point[][] = [];
+export class OtGhFlattener implements OtGeometrySink<OtGlyph.Point[][]> {
+    private contours: OtGlyph.Point[][] = [];
     private lastContour: OtGlyph.Point[] = [];
+    public getResult() {
+        return this.contours;
+    }
     public beginContour() {
         this.lastContour = [];
     }

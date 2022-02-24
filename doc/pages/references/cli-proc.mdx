@@ -74,3 +74,7 @@ Unify the glyph set by glyph shape. This procedure is usually used when creating
 ### Function <Fn s={CliProc.inPlaceTransformFontGlyph(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), transform: Ot.Glyph.Transform2X3}} returns={"void"} />
 
 Perform a 2x3 affine transform on all glyphs' geometries. Composite glyphs will get flatten.
+
+### Function <Fn s={CliProc.inPlaceTransformFontGlyphDependent(extend("GS", Ot.GlyphStore))} args={{fonts:array(Ot.Font("GS")), transformF: pi({glyph:Ot.Glyph},Ot.Glyph.Transform2X3)}} returns={"void"} />
+
+Perform a 2x3 affine transform on all glyphs' geometries. The transform may depend on the glyph's content. Composite glyphs will get flatten.

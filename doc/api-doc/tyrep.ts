@@ -7,6 +7,7 @@ export type TyEither = { either: TyRep[] };
 export type TyArray = { array: TyRep };
 export type TyReadonly = { readonly: TyRep };
 export type TyOptional = { optional: TyRep };
+export type TyRest = { rest: TyRep };
 export type TyTuple = { tuple: TyRep[] };
 export type TyObject = { object: { [key: string]: TyRep } };
 export type TyProject = { takes: { [key: string]: TyRep }; returns: TyRep };
@@ -26,6 +27,7 @@ export type TyRep =
     | TyObject
     | TyReadonly
     | TyOptional
+    | TyRest
     | TyApply
     | TyAnnotate
     | TyProject
@@ -116,6 +118,9 @@ export function isReadonly(ad: TyRep): ad is TyReadonly {
 }
 export function isOptional(ad: TyRep): ad is TyOptional {
     return ad && !isString(ad) && !isExport(ad) && !!(ad as any).optional;
+}
+export function isRest(ad: TyRep): ad is TyRest {
+    return ad && !isString(ad) && !isExport(ad) && !!(ad as any).rest;
 }
 export function isTuple(ad: TyRep): ad is TyTuple {
     return ad && !isString(ad) && !isExport(ad) && !!(ad as any).tuple;

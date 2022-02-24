@@ -1,7 +1,7 @@
 import { Layout } from "templates/api-doc"
 import { R, Method, Fn, Member, Decl, Item } from "api-doc/tyfmt"
 import { string, boolean, number, array, set, Ot, Data, Thunk } from "api-doc/exports"
-import { optional, all, pi, annot, record, extend } from "api-doc/tycon"
+import { optional, rest, all, pi, annot, record, extend } from "api-doc/tycon"
 export default Layout
 
 # <Decl s={Ot.Glyph}/>
@@ -480,3 +480,77 @@ Defined as <R s={array(Ot.Glyph.Point)} />.
 ### Singleton <Decl s={Ot.StandardGlyphNamer}/>
 
 The default glyph namer, implements <R s={Ot.GlyphNamer}/>.
+
+## Glyph Stats (namespace <Decl s={Ot.Glyph.Stats}/>)
+
+### Class <Decl s={Ot.Glyph.Stats.BoundingBox}/>
+
+#### Constructor
+
+* <Method ctor s={Ot.Glyph.Stats.BoundingBox.constructor} args={{xMin:number,xMax:number,yMin:number,yMax:number}} />
+
+#### Properties
+
+* <Member s={Ot.Glyph.Stats.BoundingBox.xMin} type={number} />
+* <Member s={Ot.Glyph.Stats.BoundingBox.xMax} type={number} />
+* <Member s={Ot.Glyph.Stats.BoundingBox.yMin} type={number} />
+* <Member s={Ot.Glyph.Stats.BoundingBox.yMax} type={number} />
+
+#### Static Methods
+
+* <Method static s={Ot.Glyph.Stats.BoundingBox.Blank} returns={Ot.Glyph.Stats.BoundingBox} />
+
+
+## Geometry Utilities (namespace <Decl s={Ot.GeometryUtil}/>)
+
+### Interface <Decl s={Ot.GeometryUtil.GeometrySink("T")}/>
+
+#### Methods
+
+* <Method s={Ot.GeometryUtil.GeometrySink.beginContour}/>
+
+    The callback when a contour begins.
+
+* <Method s={Ot.GeometryUtil.GeometrySink.addControlKnot} args={{knot: Ot.Glyph.Point}}/>
+
+    The callback when a control knot (point) is added.
+
+* <Method s={Ot.GeometryUtil.GeometrySink.endContour}/>
+
+    The callback when a contour ends.
+
+* <Method s={Ot.GeometryUtil.GeometrySink.getResult} returns={"T"}/>
+
+    The callback of returning value.
+
+### Interface <Decl s={Ot.GeometryUtil.GeometrySinkClass("T")}/>
+
+Class that constructs <R s={Ot.GeometryUtil.GeometrySink("T")}/> instances.
+
+### Class <Decl s={Ot.GeometryUtil.Flattener}/>
+
+Implements <R s={Ot.GeometryUtil.GeometrySink(array(array(Ot.Glyph.Point)))}/>
+
+A sink class to flatten the geometry to a contour list.
+
+### Class <Decl s={Ot.GeometryUtil.ListPoint}/>
+
+Implements <R s={Ot.GeometryUtil.GeometrySink(array(Ot.Glyph.Point))}/>
+
+A sink class to list the geometry's points
+
+### Class <Decl s={Ot.GeometryUtil.GetBound}/>
+
+Implements <R s={Ot.GeometryUtil.GeometrySink(Ot.Glyph.Stat.BoundingBox)}/>
+
+A sink class to get the bounding box of a geometry
+
+### Class <Decl s={Ot.GeometryUtil.CountPoint}/>
+
+Implements <R s={Ot.GeometryUtil.GeometrySink(number)}/>
+
+A sink class to count the geometry's points.
+
+### Function <Fn s={Ot.GeometryUtil.apply("T")} args={{cls:Ot.GeometryUtil.GeometrySinkClass("T"),geometries: rest(array(Ot.Glyph.Geometry))}} returns={"T"} />
+
+Traverse the geometries and use the sink to collect data.
