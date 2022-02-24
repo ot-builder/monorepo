@@ -1,5 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
+import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
@@ -127,8 +127,8 @@ export class SimpleGlyph extends SpaceGlyph {
         public instructions: Buffer
     ) {
         super(gid, hm, vm);
-        const bound = OtGeometryHandler.apply(OtGeometryHandler.GetBound, ...this.outlines);
-        const pointCount = OtGeometryHandler.apply(OtGeometryHandler.CountPoint, ...this.outlines);
+        const bound = OtGeometryUtil.apply(OtGeometryUtil.GetBound, ...this.outlines);
+        const pointCount = OtGeometryUtil.apply(OtGeometryUtil.CountPoint, ...this.outlines);
         let contourCount = 0;
         for (const cs of outlines) contourCount += cs.contours.length;
         this.st = {
@@ -176,7 +176,7 @@ export class CompositeGlyph extends SpaceGlyph {
             totalPoints += stat.totalPoints;
         }
 
-        const bound = OtGeometryHandler.apply(OtGeometryHandler.GetBound, ...references);
+        const bound = OtGeometryUtil.apply(OtGeometryUtil.GetBound, ...references);
         this.st = {
             eigenContours: 0,
             eigenPoints: 0,

@@ -8,7 +8,7 @@ export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder
 export { OtGlyph as Glyph, Cff, Cvt, Fpgm, Prep } from "@ot-builder/ot-glyphs";
 export { OtGlyphNamingSource as GlyphNamingSource } from "@ot-builder/ot-glyphs";
 export { OtGlyphNamer as GlyphNamer } from "@ot-builder/ot-glyphs";
-export { OtGeometryHandler as GlyphGeometryUtil } from "@ot-builder/ot-glyphs";
+export { OtGeometryUtil as GeometryUtil } from "@ot-builder/ot-glyphs";
 export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
 export * from "./glyph-store-aliases";
 

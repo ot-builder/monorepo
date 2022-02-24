@@ -1,5 +1,5 @@
 import * as Ot from "@ot-builder/ot";
-import { OtGeometryHandler } from "@ot-builder/ot-glyphs";
+import { OtGeometryUtil } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
 import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
@@ -381,6 +381,6 @@ export namespace RectifyImpl {
     }
 
     export function getGlyphPoints(g: Ot.Glyph) {
-        return OtGeometryHandler.apply(OtGeometryHandler.ListPoint, g.geometry);
+        return OtGeometryUtil.apply(OtGeometryUtil.ListPoint, g.geometry);
     }
 }

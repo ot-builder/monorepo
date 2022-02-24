@@ -1,7 +1,7 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { OtGeometryHandler, OtGlyph } from "@ot-builder/ot-glyphs";
+import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
@@ -51,7 +51,7 @@ function postReadCaretList(glyph: OtGlyph, carets: Gdef.LigCaret[]) {
 
 function computeCaretXFromPointAttachment(glyph: OtGlyph, caret: Gdef.LigCaret) {
     if (!caret.pointAttachment) return caret;
-    const glyphPoints = OtGeometryHandler.apply(OtGeometryHandler.ListPoint, glyph.geometry);
+    const glyphPoints = OtGeometryUtil.apply(OtGeometryUtil.ListPoint, glyph.geometry);
     if (!glyphPoints || caret.pointAttachment.pointIndex >= glyphPoints.length) return caret;
     return { ...caret, x: glyphPoints[caret.pointAttachment.pointIndex].x };
 }

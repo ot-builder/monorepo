@@ -1,21 +1,13 @@
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
+import { BoundingBox } from "../ot-glyph/stat";
 
-import { OtGhPointAlg, PointTransformer } from "./shared";
+import { OtGeometrySink } from "./shared";
 
-export class OtGhGetBound extends OtGhPointAlg<BoundBoxPointSink> {
-    constructor() {
-        super(new PointTransformer(new BoundBoxPointSink(), OtGlyph.Transform2X3.Identity));
-    }
-    public getResult() {
-        return this.acc.ps.getBound();
-    }
-}
-
-class BoundBoxPointSink {
+export class OtGhGetBound implements OtGeometrySink<BoundingBox> {
     private bb = new OtGlyph.Stat.BoundingBoxBuilder();
-    public getBound() {
+    public getResult() {
         return this.bb.getResult();
     }
     public beginContour() {}
