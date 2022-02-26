@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Export Ot.GeometryUtil",
-  "packageName": "@ot-builder/io-bin-ttf",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

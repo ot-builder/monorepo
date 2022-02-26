@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-help-shower",
   "entries": [
     {
+      "date": "Sat, 26 Feb 2022 01:27:19 GMT",
+      "tag": "@ot-builder/cli-help-shower_v1.4.0",
+      "version": "1.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "d5ef5ade3424ec81b7545c9967badddeb9cc8f1b",
+            "comment": "Enhance OTBCLI with better subset, drop and transform-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Sep 2021 01:09:21 GMT",
       "tag": "@ot-builder/cli-help-shower_v1.1.1",
       "version": "1.1.1",

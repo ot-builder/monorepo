@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Export Ot.GeometryUtil",
-  "packageName": "@ot-builder/cli-proc",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

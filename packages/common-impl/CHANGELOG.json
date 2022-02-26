@@ -2,6 +2,27 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Sat, 26 Feb 2022 01:27:19 GMT",
+      "tag": "@ot-builder/common-impl_v1.4.0",
+      "version": "1.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/common-impl",
+            "commit": "d5ef5ade3424ec81b7545c9967badddeb9cc8f1b",
+            "comment": "Enhance OTBCLI with better subset, drop and transform-glyphs"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/common-impl",
+            "comment": "Bump @ot-builder/prelude to v1.4.0",
+            "commit": "f1c3eedd84cadff44ee97d878a245b451ce7bd59"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Dec 2021 01:19:54 GMT",
       "tag": "@ot-builder/common-impl_v1.3.3",
       "version": "1.3.3",

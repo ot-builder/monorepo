@@ -1,8 +1,22 @@
 # Change Log - @ot-builder/test-util
 
-This log was last generated on Sat, 18 Dec 2021 01:19:54 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Feb 2022 01:27:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.4.0
+
+Sat, 26 Feb 2022 01:27:19 GMT
+
+### Minor changes
+
+- Enhance OTBCLI with better subset, drop and transform-glyphs (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/common-impl to v1.4.0
+- Bump @ot-builder/ot-encoding to v1.4.0
+- Bump @ot-builder/ot-glyphs to v1.4.0
+- Bump @ot-builder/ot-layout to v1.4.0
+- Bump @ot-builder/prelude to v1.4.0
+- Bump @ot-builder/variance to v1.4.0
 
 ## 1.3.3
 

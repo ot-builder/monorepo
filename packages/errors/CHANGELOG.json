@@ -2,6 +2,21 @@
   "name": "@ot-builder/errors",
   "entries": [
     {
+      "date": "Sat, 26 Feb 2022 01:27:19 GMT",
+      "tag": "@ot-builder/errors_v1.4.0",
+      "version": "1.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/errors",
+            "commit": "d5ef5ade3424ec81b7545c9967badddeb9cc8f1b",
+            "comment": "Enhance OTBCLI with better subset, drop and transform-glyphs"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 09 Oct 2021 01:06:40 GMT",
       "tag": "@ot-builder/errors_v1.2.0",
       "version": "1.2.0",

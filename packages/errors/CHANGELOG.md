@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/errors
 
-This log was last generated on Sat, 09 Oct 2021 01:06:40 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Feb 2022 01:27:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.4.0
+
+Sat, 26 Feb 2022 01:27:19 GMT
+
+### Minor changes
+
+- Enhance OTBCLI with better subset, drop and transform-glyphs (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.2.0
 
