@@ -2,7 +2,7 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { SubtableWriteTrick } from "../../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../../cfg";
 import { GposSingleReader, GposSingleWriter } from "../gpos-single";
 
 import {
@@ -40,7 +40,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
     test("Very same", () => {
@@ -58,7 +58,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
     test("Variable", () => {

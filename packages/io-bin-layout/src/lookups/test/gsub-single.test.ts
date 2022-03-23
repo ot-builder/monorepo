@@ -2,7 +2,7 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gsub } from "@ot-builder/ot-layout";
 import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
-import { SubtableWriteTrick } from "../../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../../cfg";
 import { GsubSingleReader, GsubSingleWriter } from "../gsub-single";
 
 import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
@@ -31,7 +31,7 @@ describe("GSUB single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
     test("Unusual", () => {
@@ -44,7 +44,7 @@ describe("GSUB single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: SubtableWriteTrick.AvoidBreakSubtable | SubtableWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
 });

@@ -47,3 +47,5 @@ export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
         generateDummyDigitalSignature: !!partial.generateDummyDigitalSignature
     };
 }
+
+export { LookupWriteTrick } from "@ot-builder/io-bin-layout";

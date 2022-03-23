@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add AvoidUsingContextualLookup trick",
+  "packageName": "@ot-builder/io-bin-font",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

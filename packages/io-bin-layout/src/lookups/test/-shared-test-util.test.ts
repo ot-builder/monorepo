@@ -7,12 +7,8 @@ import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import {
-    LookupReader,
-    LookupWriter,
-    SubtableWriteContext,
-    SubtableWriteTrick
-} from "../../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../../cfg";
+import { LookupReader, LookupWriter, SubtableWriteContext } from "../../gsub-gpos-shared/general";
 import { EmptyStat } from "../../stat";
 
 export interface LookupRoundTripConfig<L, C extends L> {
@@ -31,8 +27,8 @@ export function LookupRoundTripTest<L, C extends L>(
 ) {
     LookupRoundTripTestImpl(expected, cfg);
     if (!cfg.trick) {
-        LookupRoundTripTestImpl(expected, { ...cfg, trick: SubtableWriteTrick.UseFastCoverage });
-        LookupRoundTripTestImpl(expected, { ...cfg, trick: SubtableWriteTrick.UseFlatCoverage });
+        LookupRoundTripTestImpl(expected, { ...cfg, trick: LookupWriteTrick.UseFastCoverage });
+        LookupRoundTripTestImpl(expected, { ...cfg, trick: LookupWriteTrick.UseFlatCoverage });
     }
 }
 
@@ -46,9 +42,9 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
         ivs: cfg.variation ? cfg.variation.ivs : null,
         stat: new EmptyStat()
     };
-    const buffers = writer.createSubtableFragments(expected, swc).map(frag => Frag.pack(frag));
 
-    const lt = writer.getLookupType(expected);
+    const lt = writer.getLookupType(expected, swc);
+    const buffers = writer.createSubtableFragments(expected, swc).map(frag => Frag.pack(frag));
 
     let ivsR: Data.Maybe<ReadTimeIVS> = null;
     if (cfg.variation) {
