@@ -4,11 +4,8 @@ import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
-import {
-    LookupWriter,
-    SubtableWriteContext,
-    SubtableWriteTrick
-} from "../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../cfg";
+import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { MaxClsDefItemWords, Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 
@@ -263,7 +260,9 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
     private wCoverageRule = new CCoverageRule<L>();
     private wClassRuleSet = new CClassRuleSet<L>();
 
-    protected useChainingLookup(lookup: C) {
+    protected useChainingLookup(lookup: C, ctx: SubtableWriteContext<L>) {
+        if (ctx.trick & LookupWriteTrick.AvoidUsingContextualLookup) return true;
+
         let chain = false;
         for (const rule of lookup.rules) {
             if (rule.inputBegins > 0 || rule.inputEnds < rule.match.length) {
@@ -272,7 +271,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         }
         return chain;
     }
-    public abstract getLookupType(lookup: C): number;
+    public abstract getLookupType(lookup: C, ctx: SubtableWriteContext<L>): number;
     public abstract getLookupTypeSymbol(lookup: C): symbol;
     public abstract canBeUsed(l: L): l is C;
 
@@ -302,7 +301,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
     }
 
     public createSubtableFragments(lookup: C, ctx: SubtableWriteContext<L>): Array<Frag> {
-        const isChaining = this.useChainingLookup(lookup);
+        const isChaining = this.useChainingLookup(lookup, ctx);
 
         const covLookups: Frag[] = [];
         const covLookupSizes: number[] = [];
@@ -310,7 +309,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
             covLookups.push(this.covSubtable(rule, isChaining, ctx));
             covLookupSizes.push(this.estimateCovRuleSize(rule));
         }
-        if (ctx.trick & SubtableWriteTrick.ChainingForceFormat3) return covLookups;
+        if (ctx.trick & LookupWriteTrick.ContextualForceFormat3) return covLookups;
 
         // Do dynamic programming to find out an optimal arrangement
         const bestResults: [number, Frag[]][] = [];
@@ -344,8 +343,8 @@ export class GsubChainingContextualWriter extends ChainingContextualWriter<
     Gsub.Lookup,
     Gsub.Chaining
 > {
-    public getLookupType(lookup: Gsub.Chaining) {
-        return this.useChainingLookup(lookup) ? 6 : 5;
+    public getLookupType(lookup: Gsub.Chaining, ctx: SubtableWriteContext<Gsub.Lookup>) {
+        return this.useChainingLookup(lookup, ctx) ? 6 : 5;
     }
     public getLookupTypeSymbol() {
         return Gsub.LookupType.Chaining;
@@ -358,8 +357,8 @@ export class GposChainingContextualWriter extends ChainingContextualWriter<
     Gpos.Lookup,
     Gpos.Chaining
 > {
-    public getLookupType(lookup: Gpos.Chaining) {
-        return this.useChainingLookup(lookup) ? 8 : 7;
+    public getLookupType(lookup: Gpos.Chaining, ctx: SubtableWriteContext<Gpos.Lookup>) {
+        return this.useChainingLookup(lookup, ctx) ? 8 : 7;
     }
     public getLookupTypeSymbol() {
         return Gpos.LookupType.Chaining;

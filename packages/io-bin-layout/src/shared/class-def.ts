@@ -5,7 +5,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
-import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../cfg";
 
 export const MaxClsDefItemWords = 3;
 
@@ -110,7 +110,7 @@ export const GidClassDef = {
             frag.push(OtGidClassDefFormat2, mapping);
             return;
         }
-        if (trick & SubtableWriteTrick.UseFastCoverage) {
+        if (trick & LookupWriteTrick.UseFastCoverage) {
             const collector = new ClassRunCollector();
             for (const [gid, cls] of mapping) collector.update(gid, cls);
             collector.end();

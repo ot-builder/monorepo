@@ -3,6 +3,7 @@ import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
+import { LookupWriteTrick } from "../cfg";
 import { OtlStat } from "../stat";
 
 export interface SubtableReadingContext<L> {
@@ -11,7 +12,7 @@ export interface SubtableReadingContext<L> {
     ivs: Data.Maybe<ReadTimeIVS>;
 }
 export interface SubtableWriteContext<L> {
-    trick: number;
+    trick: LookupWriteTrick;
     crossReferences: Data.Order<L>;
     gOrd: Data.Order<OtGlyph>;
     ivs: Data.Maybe<WriteTimeIVS>;
@@ -25,7 +26,7 @@ export interface LookupReader<L, C extends L> {
 
 export interface LookupWriter<L, C extends L> {
     canBeUsed(lookup: L): lookup is L & C;
-    getLookupType(lookup: C): number;
+    getLookupType(lookup: C, context: SubtableWriteContext<L>): number;
     getLookupTypeSymbol(lookup: C): symbol;
     createSubtableFragments(lookup: C, context: SubtableWriteContext<L>): Frag[];
 }
@@ -53,14 +54,4 @@ export enum LookupFlag {
     IgnoreMarks = 8,
     UseMarkFilteringSet = 0x0010,
     MarkAttachmentType = 0xff00
-}
-
-export enum SubtableWriteTrick {
-    AvoidUseExtension = 1,
-    AvoidBreakSubtable = 2,
-    UseFlatCoverage = 4,
-    UseFastCoverage = 8,
-
-    ChainingForceFormat3 = 0x10000,
-    ChainingForceFormat2 = 0x20000
 }

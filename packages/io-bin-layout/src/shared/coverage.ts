@@ -4,7 +4,7 @@ import { Assert, Errors } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Data } from "@ot-builder/prelude";
 
-import { SubtableWriteTrick } from "../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../cfg";
 
 // When parsing a coverage we may often run into a situation that
 // something like a "map" will depend on the order of the coverage's items
@@ -133,9 +133,9 @@ export const GidCoverage = {
         }
     }),
     ...Write((frag: Frag, gidList: ReadonlyArray<number>, trick: number = 0) => {
-        if (trick & SubtableWriteTrick.UseFlatCoverage) {
+        if (trick & LookupWriteTrick.UseFlatCoverage) {
             frag.push(OtGidCoverageFormat1, gidList);
-        } else if (trick & SubtableWriteTrick.UseFastCoverage) {
+        } else if (trick & LookupWriteTrick.UseFastCoverage) {
             const collector = new CoverageRunCollector();
             for (let item = 0; item < gidList.length; item++) {
                 collector.update(gidList[item], item);

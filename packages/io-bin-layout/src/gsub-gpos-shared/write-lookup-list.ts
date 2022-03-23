@@ -7,15 +7,11 @@ import { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 import { WriteTimeIVS } from "@ot-builder/var-store";
 
+import { LookupWriteTrick } from "../cfg";
 import { EmptyStat, OtlStat } from "../stat";
 
 import { decideIgnoreFlags } from "./decide-ignore-flags";
-import {
-    LookupFlag,
-    LookupWriterFactory,
-    SubtableWriteContext,
-    SubtableWriteTrick
-} from "./general";
+import { LookupFlag, LookupWriterFactory, SubtableWriteContext } from "./general";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,7 +19,7 @@ export interface LookupWriteContext<L> {
     gOrd: Data.Order<OtGlyph>;
     gdef?: Data.Maybe<Gdef.Table>;
     ivs?: Data.Maybe<WriteTimeIVS>;
-    tricks?: Data.Maybe<Map<L, number>>;
+    tricks?: Data.Maybe<Map<L, LookupWriteTrick>>;
     stat?: Data.Maybe<OtlStat>;
 }
 
@@ -98,7 +94,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
             if (!writer.canBeUsed(lookup)) continue;
             const header: LookupHeader = {
                 origLookupType: writer.getLookupTypeSymbol(lookup),
-                lookupType: writer.getLookupType(lookup),
+                lookupType: writer.getLookupType(lookup, context),
                 flags,
                 markFilteringSet,
                 rank: this.getLookupRank(
@@ -115,8 +111,8 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         }
     }
 
-    private getLookupRank(origType: symbol, isDependency: boolean, trick: number) {
-        const rankTrick = 16 * (trick & SubtableWriteTrick.AvoidUseExtension ? 1 : 2);
+    private getLookupRank(origType: symbol, isDependency: boolean, trick: LookupWriteTrick) {
+        const rankTrick = 16 * (trick & LookupWriteTrick.AvoidUseExtension ? 1 : 2);
         const rankType =
             origType === Gsub.LookupType.Reverse
                 ? 1

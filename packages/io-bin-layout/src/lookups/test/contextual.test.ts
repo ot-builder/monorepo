@@ -3,7 +3,7 @@ import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gsub } from "@ot-builder/ot-layout";
 import { BimapCtx, LookupCtx, LookupIdentity } from "@ot-builder/test-util";
 
-import { SubtableWriteTrick } from "../../gsub-gpos-shared/general";
+import { LookupWriteTrick } from "../../cfg";
 import { GsubChainingReader, GsubContextualReader } from "../contextual-read";
 import { GsubChainingContextualWriter } from "../contextual-write";
 
@@ -35,6 +35,54 @@ test("GSUB/GPOS Contextual : Simple", () => {
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         inputBegins: 0,
         inputEnds: 2,
+        applications: [
+            { at: 0, apply: lOrd.at(0) },
+            { at: 1, apply: lOrd.at(1) }
+        ]
+    });
+    lookup.rules.push({
+        match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1), TuGlyphSet(gOrd, 2)],
+        inputBegins: 0,
+        inputEnds: 3,
+        applications: [
+            { at: 0, apply: lOrd.at(0) },
+            { at: 1, apply: lOrd.at(1) },
+            { at: 2, apply: lOrd.at(2) }
+        ]
+    });
+
+    LookupRoundTripTest(lookup, roundtripConfig);
+    LookupRoundTripTest(lookup, {
+        ...roundtripConfig,
+        trick: LookupWriteTrick.ContextualForceFormat2
+    });
+    LookupRoundTripTest(lookup, {
+        ...roundtripConfig,
+        trick: LookupWriteTrick.ContextualForceFormat3
+    });
+
+    LookupRoundTripTest(lookup, {
+        ...roundtripConfig,
+        trick: LookupWriteTrick.AvoidUsingContextualLookup
+    });
+    LookupRoundTripTest(lookup, {
+        ...roundtripConfig,
+        trick:
+            LookupWriteTrick.ContextualForceFormat2 | LookupWriteTrick.AvoidUsingContextualLookup
+    });
+    LookupRoundTripTest(lookup, {
+        ...roundtripConfig,
+        trick:
+            LookupWriteTrick.ContextualForceFormat3 | LookupWriteTrick.AvoidUsingContextualLookup
+    });
+});
+
+test("GSUB/GPOS Chaining : Simple", () => {
+    const lookup = new Gsub.Chaining();
+    lookup.rules.push({
+        match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
+        inputBegins: 0,
+        inputEnds: 2,
         applications: [{ at: 0, apply: lOrd.at(0) }]
     });
     lookup.rules.push({
@@ -46,16 +94,19 @@ test("GSUB/GPOS Contextual : Simple", () => {
         ],
         inputBegins: 1,
         inputEnds: 3,
-        applications: [{ at: 0, apply: lOrd.at(1) }]
+        applications: [
+            { at: 0, apply: lOrd.at(1) },
+            { at: 1, apply: lOrd.at(2) }
+        ]
     });
 
     LookupRoundTripTest(lookup, roundtripConfig);
     LookupRoundTripTest(lookup, {
         ...roundtripConfig,
-        trick: SubtableWriteTrick.ChainingForceFormat2
+        trick: LookupWriteTrick.ContextualForceFormat2
     });
     LookupRoundTripTest(lookup, {
         ...roundtripConfig,
-        trick: SubtableWriteTrick.ChainingForceFormat3
+        trick: LookupWriteTrick.ContextualForceFormat3
     });
 });

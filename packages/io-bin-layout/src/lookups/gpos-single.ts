@@ -3,13 +3,13 @@ import { Assert, Errors } from "@ot-builder/errors";
 import { Gpos, LayoutCommon } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
+import { LookupWriteTrick } from "../cfg";
 import {
     LookupReader,
     LookupWriter,
     SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext,
-    SubtableWriteTrick
+    SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
@@ -179,7 +179,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
     }
 
     public createSubtableFragments(lookup: Gpos.Single, ctx: SubtableWriteContext<Gpos.Lookup>) {
-        const singleLookup = !!(ctx.trick & SubtableWriteTrick.AvoidBreakSubtable);
+        const singleLookup = !!(ctx.trick & LookupWriteTrick.AvoidBreakSubtable);
         const st = new GsubSingleWriterState();
         for (const [from, to] of lookup.adjustments) {
             st.addRecord(ctx.gOrd.reverse(from), to, ctx);
