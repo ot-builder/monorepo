@@ -1,8 +1,19 @@
 # Change Log - @ot-builder/ot-layout
 
-This log was last generated on Sat, 26 Feb 2022 01:27:19 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Mar 2022 01:37:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.0
+
+Sat, 26 Mar 2022 01:37:00 GMT
+
+### Minor changes
+
+- Bump @ot-builder/ot-glyphs to v1.5.0
+- Bump @ot-builder/prelude to v1.5.0
+- Bump @ot-builder/primitive to v1.5.0
+- Bump @ot-builder/variance to v1.5.0
 
 ## 1.4.0
 

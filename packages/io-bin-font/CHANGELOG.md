@@ -1,8 +1,35 @@
 # Change Log - @ot-builder/io-bin-font
 
-This log was last generated on Sat, 26 Feb 2022 01:27:19 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Mar 2022 01:37:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.0
+
+Sat, 26 Mar 2022 01:37:00 GMT
+
+### Minor changes
+
+- Add AvoidUsingContextualLookup trick (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/io-bin-encoding to v1.5.0
+- Bump @ot-builder/io-bin-ext-private to v1.5.0
+- Bump @ot-builder/io-bin-glyph-store to v1.5.0
+- Bump @ot-builder/io-bin-layout to v1.5.0
+- Bump @ot-builder/io-bin-metadata to v1.5.0
+- Bump @ot-builder/io-bin-name to v1.5.0
+- Bump @ot-builder/io-bin-sfnt to v1.5.0
+- Bump @ot-builder/io-bin-vtt-private to v1.5.0
+- Bump @ot-builder/ot to v1.5.0
+- Bump @ot-builder/ot-glyphs to v1.5.0
+- Bump @ot-builder/ot-metadata to v1.5.0
+- Bump @ot-builder/ot-sfnt to v1.5.0
+- Bump @ot-builder/prelude to v1.5.0
+- Bump @ot-builder/ot-encoding to v1.5.0
+- Bump @ot-builder/ot-ext-private to v1.5.0
+- Bump @ot-builder/ot-layout to v1.5.0
+- Bump @ot-builder/ot-name to v1.5.0
+- Bump @ot-builder/ot-vtt-private to v1.5.0
+- Bump @ot-builder/bin-util to v1.5.0
 
 ## 1.4.0
 
