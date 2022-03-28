@@ -55,6 +55,12 @@ const NameRecord = {
         if (!buf) throw Errors.Name.EncodingNotSupported(rec.platformID, rec.encodingID);
         frag.uint16(buf.byteLength);
         frag.uint16(alloc.add(buf));
+    },
+    compare(a: Name.Record, b: Name.Record) {
+        if (a.platformID !== b.platformID) return a.platformID - b.platformID;
+        if (a.encodingID !== b.encodingID) return a.encodingID - b.encodingID;
+        if (a.languageID !== b.languageID) return a.languageID - b.languageID;
+        return a.nameID - b.nameID;
     }
 };
 
@@ -98,10 +104,12 @@ export const NameIo = {
         const format = table.langTagMap && table.langTagMap.length ? 1 : 0;
         const frStrings = new Frag();
         const noa = new NameOffsetAllocator();
+        const sortedRecords = Array.from(table.records).sort(NameRecord.compare);
+
         frag.uint16(format);
-        frag.uint16(table.records.length);
+        frag.uint16(sortedRecords.length);
         frag.ptr16(frStrings);
-        for (const rec of table.records) {
+        for (const rec of sortedRecords) {
             frag.push(NameRecord, rec, noa);
         }
         if (format === 1) {
