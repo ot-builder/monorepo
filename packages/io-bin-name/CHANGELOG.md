@@ -1,8 +1,29 @@
 # Change Log - @ot-builder/io-bin-name
 
-This log was last generated on Sat, 26 Mar 2022 01:37:00 GMT and should not be manually modified.
+This log was last generated on Sat, 02 Apr 2022 01:40:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.1
+
+Sat, 02 Apr 2022 01:40:06 GMT
+
+### Patches
+
+- Enforce ordering of name entries (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.5.1
+- Bump @ot-builder/common-impl to v1.5.1
+- Bump @ot-builder/errors to v1.5.1
+- Bump @ot-builder/ot-glyphs to v1.5.1
+- Bump @ot-builder/ot-metadata to v1.5.1
+- Bump @ot-builder/ot-name to v1.5.1
+- Bump @ot-builder/prelude to v1.5.1
+- Bump @ot-builder/primitive to v1.5.1
+- Bump @ot-builder/ot-sfnt to v1.5.1
+- Bump @ot-builder/io-bin-sfnt to v1.5.1
+- Bump @ot-builder/io-bin-glyph-store to v1.5.1
+- Bump @ot-builder/io-bin-metadata to v1.5.1
+- Bump @ot-builder/test-util to v1.5.1
 
 ## 1.5.0
 

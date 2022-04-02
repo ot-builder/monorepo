@@ -2,6 +2,39 @@
   "name": "@ot-builder/ot-metadata",
   "entries": [
     {
+      "date": "Sat, 02 Apr 2022 01:40:06 GMT",
+      "tag": "@ot-builder/ot-metadata_v1.5.1",
+      "version": "1.5.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/common-impl to v1.5.1",
+            "commit": "f87981f0891315771cda43fb56a3d8e85731a0af"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/prelude to v1.5.1",
+            "commit": "f87981f0891315771cda43fb56a3d8e85731a0af"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/primitive to v1.5.1",
+            "commit": "f87981f0891315771cda43fb56a3d8e85731a0af"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/variance to v1.5.1",
+            "commit": "f87981f0891315771cda43fb56a3d8e85731a0af"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 26 Mar 2022 01:37:00 GMT",
       "tag": "@ot-builder/ot-metadata_v1.5.0",
       "version": "1.5.0",
