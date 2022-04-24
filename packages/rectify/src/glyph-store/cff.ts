@@ -61,7 +61,7 @@ function rectifyGlyphCID(rec: GlyphReferenceRectifier, cid: Ot.Cff.CID) {
     result.ordering = cid.ordering;
     result.supplement = cid.supplement;
     if (cid.mapping) {
-        cid.mapping = RectifyImpl.Glyph.comapSome(rec, cid.mapping);
+        result.mapping = RectifyImpl.Glyph.comapSome(rec, cid.mapping);
     }
     return result;
 }
@@ -78,6 +78,6 @@ export function rectifyCffTable(
     if (table.fdArray) {
         result.fdArray = RectifyImpl.listAllT(rc, table.fdArray, rectifyCoordFontDict);
     }
-    if (table.fdSelect) table.fdSelect = RectifyImpl.Glyph.mapSome(rg, table.fdSelect);
+    if (table.fdSelect) result.fdSelect = RectifyImpl.Glyph.mapSome(rg, table.fdSelect);
     return result;
 }
