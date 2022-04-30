@@ -1,8 +1,22 @@
 # Change Log - @ot-builder/stat-glyphs
 
-This log was last generated on Sat, 02 Apr 2022 01:40:06 GMT and should not be manually modified.
+This log was last generated on Sat, 30 Apr 2022 01:52:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.2
+
+Sat, 30 Apr 2022 01:52:52 GMT
+
+### Patches
+
+- Bump @ot-builder/bin-composite-types to v1.5.2
+- Bump @ot-builder/common-impl to v1.5.2
+- Bump @ot-builder/ot-glyphs to v1.5.2
+- Bump @ot-builder/ot-metadata to v1.5.2
+- Bump @ot-builder/prelude to v1.5.2
+- Bump @ot-builder/primitive to v1.5.2
+- Bump @ot-builder/variance to v1.5.2
 
 ## 1.5.1
 

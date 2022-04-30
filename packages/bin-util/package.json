@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/bin-util",
   "description": "",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,9 +26,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/errors": "1.5.1",
-    "@ot-builder/prelude": "1.5.1",
-    "@ot-builder/common-impl": "1.5.1",
+    "@ot-builder/errors": "1.5.2",
+    "@ot-builder/prelude": "1.5.2",
+    "@ot-builder/common-impl": "1.5.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

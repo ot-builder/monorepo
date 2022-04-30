@@ -2,6 +2,51 @@
   "name": "@ot-builder/trace",
   "entries": [
     {
+      "date": "Sat, 30 Apr 2022 01:52:52 GMT",
+      "tag": "@ot-builder/trace_v1.5.2",
+      "version": "1.5.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/common-impl to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-metadata to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/prelude to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/variance to v1.5.2",
+            "commit": "5a0c2cbaa1e9aa34821a913004e8c8ae0f4cb1d7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 02 Apr 2022 01:40:06 GMT",
       "tag": "@ot-builder/trace_v1.5.1",
       "version": "1.5.1",

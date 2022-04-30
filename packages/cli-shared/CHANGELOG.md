@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/cli-shared
 
-This log was last generated on Sat, 02 Apr 2022 01:40:06 GMT and should not be manually modified.
+This log was last generated on Sat, 30 Apr 2022 01:52:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.2
+
+Sat, 30 Apr 2022 01:52:52 GMT
+
+### Patches
+
+- Bump @ot-builder/ot to v1.5.2
+- Bump @ot-builder/io-bin-font to v1.5.2
 
 ## 1.5.1
 

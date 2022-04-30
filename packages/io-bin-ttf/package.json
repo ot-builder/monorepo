@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-ttf",
   "description": "",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,23 +26,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "1.5.1",
-    "@ot-builder/common-impl": "1.5.1",
-    "@ot-builder/errors": "1.5.1",
-    "@ot-builder/ot-glyphs": "1.5.1",
-    "@ot-builder/ot-metadata": "1.5.1",
-    "@ot-builder/prelude": "1.5.1",
-    "@ot-builder/primitive": "1.5.1",
-    "@ot-builder/stat-glyphs": "1.5.1",
-    "@ot-builder/var-store": "1.5.1",
-    "@ot-builder/variance": "1.5.1",
+    "@ot-builder/bin-util": "1.5.2",
+    "@ot-builder/common-impl": "1.5.2",
+    "@ot-builder/errors": "1.5.2",
+    "@ot-builder/ot-glyphs": "1.5.2",
+    "@ot-builder/ot-metadata": "1.5.2",
+    "@ot-builder/prelude": "1.5.2",
+    "@ot-builder/primitive": "1.5.2",
+    "@ot-builder/stat-glyphs": "1.5.2",
+    "@ot-builder/var-store": "1.5.2",
+    "@ot-builder/variance": "1.5.2",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@ot-builder/ot-sfnt": "1.5.1",
-    "@ot-builder/io-bin-metadata": "1.5.1",
-    "@ot-builder/io-bin-sfnt": "1.5.1",
-    "@ot-builder/test-util": "1.5.1",
+    "@ot-builder/ot-sfnt": "1.5.2",
+    "@ot-builder/io-bin-metadata": "1.5.2",
+    "@ot-builder/io-bin-sfnt": "1.5.2",
+    "@ot-builder/test-util": "1.5.2",
     "@types/jest": "^26.0.23",
     "jest": "^27.5.1"
   }

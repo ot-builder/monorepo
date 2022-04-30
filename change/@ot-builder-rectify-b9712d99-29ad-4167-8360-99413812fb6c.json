@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "fix typo in rectify cff",
-  "packageName": "@ot-builder/rectify",
-  "email": "c@cyano.cn",
-  "dependentChangeType": "patch"
-}
