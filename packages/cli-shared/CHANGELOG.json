@@ -2,6 +2,27 @@
   "name": "@ot-builder/cli-shared",
   "entries": [
     {
+      "date": "Fri, 24 Jun 2022 07:05:26 GMT",
+      "tag": "@ot-builder/cli-shared_v1.5.3",
+      "version": "1.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-shared",
+            "comment": "Bump @ot-builder/ot to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-shared",
+            "comment": "Bump @ot-builder/io-bin-font to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 30 Apr 2022 01:52:52 GMT",
       "tag": "@ot-builder/cli-shared_v1.5.2",
       "version": "1.5.2",

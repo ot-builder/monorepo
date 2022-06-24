@@ -2,6 +2,63 @@
   "name": "@ot-builder/var-store",
   "entries": [
     {
+      "date": "Fri, 24 Jun 2022 07:05:26 GMT",
+      "tag": "@ot-builder/var-store_v1.5.3",
+      "version": "1.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/bin-util to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/common-impl to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/errors to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/prelude to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/primitive to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/variance to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/var-store",
+            "comment": "Bump @ot-builder/test-util to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 30 Apr 2022 01:52:52 GMT",
       "tag": "@ot-builder/var-store_v1.5.2",
       "version": "1.5.2",

@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/ot",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,18 +25,18 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-encoding": "1.5.2",
-    "@ot-builder/ot-glyphs": "1.5.2",
-    "@ot-builder/ot-layout": "1.5.2",
-    "@ot-builder/ot-metadata": "1.5.2",
-    "@ot-builder/ot-ext-private": "1.5.2",
-    "@ot-builder/ot-name": "1.5.2",
-    "@ot-builder/ot-vtt-private": "1.5.2",
-    "@ot-builder/prelude": "1.5.2",
-    "@ot-builder/variance": "1.5.2",
-    "@ot-builder/common-impl": "1.5.2",
-    "@ot-builder/ot-standard-glyph-namer": "1.5.2",
-    "@ot-builder/ot-sfnt": "1.5.2",
+    "@ot-builder/ot-encoding": "1.5.3",
+    "@ot-builder/ot-glyphs": "1.5.3",
+    "@ot-builder/ot-layout": "1.5.3",
+    "@ot-builder/ot-metadata": "1.5.3",
+    "@ot-builder/ot-ext-private": "1.5.3",
+    "@ot-builder/ot-name": "1.5.3",
+    "@ot-builder/ot-vtt-private": "1.5.3",
+    "@ot-builder/prelude": "1.5.3",
+    "@ot-builder/variance": "1.5.3",
+    "@ot-builder/common-impl": "1.5.3",
+    "@ot-builder/ot-standard-glyph-namer": "1.5.3",
+    "@ot-builder/ot-sfnt": "1.5.3",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

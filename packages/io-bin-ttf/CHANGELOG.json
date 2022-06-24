@@ -2,6 +2,105 @@
   "name": "@ot-builder/io-bin-ttf",
   "entries": [
     {
+      "date": "Fri, 24 Jun 2022 07:05:26 GMT",
+      "tag": "@ot-builder/io-bin-ttf_v1.5.3",
+      "version": "1.5.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-ttf",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22",
+            "comment": "Fix bounding box calculation around transformed components"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/bin-util to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/common-impl to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/errors to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/ot-metadata to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/prelude to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/primitive to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/stat-glyphs to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/var-store to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/variance to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-ttf",
+            "comment": "Bump @ot-builder/test-util to v1.5.3",
+            "commit": "de04c0b58fcaf7beaf9165568f674ff823549c22"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 30 Apr 2022 01:52:52 GMT",
       "tag": "@ot-builder/io-bin-ttf_v1.5.2",
       "version": "1.5.2",

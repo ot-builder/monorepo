@@ -1,8 +1,30 @@
 # Change Log - @ot-builder/io-bin-ttf
 
-This log was last generated on Sat, 30 Apr 2022 01:52:52 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Jun 2022 07:05:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.3
+
+Fri, 24 Jun 2022 07:05:26 GMT
+
+### Patches
+
+- Fix bounding box calculation around transformed components (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.5.3
+- Bump @ot-builder/common-impl to v1.5.3
+- Bump @ot-builder/errors to v1.5.3
+- Bump @ot-builder/ot-glyphs to v1.5.3
+- Bump @ot-builder/ot-metadata to v1.5.3
+- Bump @ot-builder/prelude to v1.5.3
+- Bump @ot-builder/primitive to v1.5.3
+- Bump @ot-builder/stat-glyphs to v1.5.3
+- Bump @ot-builder/var-store to v1.5.3
+- Bump @ot-builder/variance to v1.5.3
+- Bump @ot-builder/ot-sfnt to v1.5.3
+- Bump @ot-builder/io-bin-metadata to v1.5.3
+- Bump @ot-builder/io-bin-sfnt to v1.5.3
+- Bump @ot-builder/test-util to v1.5.3
 
 ## 1.5.2
 
