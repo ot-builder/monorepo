@@ -47,6 +47,8 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
                 a.kind
             );
         } else {
+            // ⎛ xx yx ⎞ ⎛ x ⎞ + ⎛ dx ⎞ == ⎛ dx + xx * x + yx * y ⎞
+            // ⎝ xy yy ⎠ ⎝ y ⎠ + ⎝ dy ⎠ == ⎝ dy + xy * x + yy * y ⎠
             return this.factory.create(
                 this.vsX.addScale(this.vsX.addScale(t.dx, t.xx, a.x), t.yx, a.y),
                 this.vsX.addScale(this.vsX.addScale(t.dy, t.xy, a.x), t.yy, a.y),

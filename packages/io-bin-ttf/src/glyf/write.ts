@@ -191,10 +191,10 @@ function writeComponentTransform(frag: Frag, flag: number, transform: OtGlyph.Tr
         frag.push(F2D14, transform.xx);
         frag.push(F2D14, transform.yy);
     } else if (ComponentFlag.WE_HAVE_A_TWO_BY_TWO & flag) {
-        frag.push(F2D14, transform.xx);
-        frag.push(F2D14, transform.yx);
-        frag.push(F2D14, transform.xy);
-        frag.push(F2D14, transform.yy);
+        frag.push(F2D14, transform.xx); // xScale
+        frag.push(F2D14, transform.xy); // scale01
+        frag.push(F2D14, transform.yx); // scale10
+        frag.push(F2D14, transform.yy); // yScale
     }
 }
 const CompositeGlyphData = Write(
@@ -235,10 +235,10 @@ const CompositeGlyphData = Write(
                 targetGID,
                 arg1,
                 arg2,
-                ref.transform.xx,
-                ref.transform.yx,
-                ref.transform.xy,
-                ref.transform.yy
+                ref.transform.xx, // xScale
+                ref.transform.xy, // scale01
+                ref.transform.yx, // scale10
+                ref.transform.yy // yScale
             );
         }
     }
