@@ -174,8 +174,8 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
         const ref = new OtGlyph.TtReference(subGlyf, {
             scaledOffset: !!(flags & ComponentFlag.SCALED_COMPONENT_OFFSET),
             xx: scaleX,
-            yx: scale01,
-            xy: scale10,
+            xy: scale01,
+            yx: scale10,
             yy: scaleY,
             dx: 0,
             dy: 0
