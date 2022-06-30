@@ -3,7 +3,6 @@ import { PublishConfig } from "./publish-procs/tools";
 
 const GitUser = "otbbuilder-dev";
 const GitEmail = "otbbuilder-dev@users.noreply.github.com";
-const GitToken = process.env.SECRET_GITHUB_TOKEN;
 
 main().catch(e => {
     console.error(e);
@@ -11,6 +10,6 @@ main().catch(e => {
 });
 
 async function main() {
-    const cfg: PublishConfig = { GitUser, GitEmail, GitToken, NpmToken: "" };
+    const cfg: PublishConfig = { GitUser, GitEmail, NpmToken: "" };
     await docPublish(cfg);
 }

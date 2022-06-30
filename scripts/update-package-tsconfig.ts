@@ -53,7 +53,7 @@ packageDirnameMap.forEach((packageDirname, packageName) => {
 });
 
 function resolveInternalDependencies(dependencies: string[]): string[] {
-    const childDeps = [];
+    const childDeps: string[] = [];
 
     for (const iDep of dependencies) {
         const deps = internalDependencyMap.get(iDep)!;
