@@ -133,7 +133,7 @@ export function displayHelp() {
                 s.message(Style.Option`-Op`, `;`, Style.Option`--optimize-speed`)
                     .indent(``)
                     .message(`Optimize the output data arrangement for faster layout.`);
-                s.message(Style.Option`-Oz`, `;`, Style.Option`--optimize-speed`)
+                s.message(Style.Option`-Oz`, `;`, Style.Option`--optimize-size`)
                     .indent(``)
                     .message(`Optimize the output data arrangement for smaller file size.`);
             });
