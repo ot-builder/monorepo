@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix typo in cli-ttc-bundle's help message",
+  "packageName": "otb-ttc-bundle",
+  "email": "jody16888@gmail.com",
+  "dependentChangeType": "patch"
+}
