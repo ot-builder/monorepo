@@ -2,6 +2,27 @@
   "name": "@ot-builder/ot-name",
   "entries": [
     {
+      "date": "Sat, 09 Jul 2022 01:52:09 GMT",
+      "tag": "@ot-builder/ot-name_v1.5.4",
+      "version": "1.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-name",
+            "comment": "Bump @ot-builder/prelude to v1.5.4",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-name",
+            "comment": "Bump @ot-builder/primitive to v1.5.4",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Jun 2022 07:05:26 GMT",
       "tag": "@ot-builder/ot-name_v1.5.3",
       "version": "1.5.3",

@@ -2,6 +2,39 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 09 Jul 2022 01:52:09 GMT",
+      "tag": "otb-ttc-bundle_v1.5.4",
+      "version": "1.5.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "jody16888@gmail.com",
+            "package": "otb-ttc-bundle",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0",
+            "comment": "Fix typo in cli-ttc-bundle's help message"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump ot-builder to v1.5.4",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-help-shower to v1.5.4",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-shared to v1.5.4",
+            "commit": "9b9e8a2330ef867a8b7166d554fed1f23188b8b0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 24 Jun 2022 07:05:26 GMT",
       "tag": "otb-ttc-bundle_v1.5.3",
       "version": "1.5.3",

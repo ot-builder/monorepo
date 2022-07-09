@@ -1,8 +1,21 @@
 # Change Log - @ot-builder/trace
 
-This log was last generated on Fri, 24 Jun 2022 07:05:26 GMT and should not be manually modified.
+This log was last generated on Sat, 09 Jul 2022 01:52:09 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.4
+
+Sat, 09 Jul 2022 01:52:09 GMT
+
+### Patches
+
+- Bump @ot-builder/ot to v1.5.4
+- Bump @ot-builder/common-impl to v1.5.4
+- Bump @ot-builder/ot-glyphs to v1.5.4
+- Bump @ot-builder/ot-metadata to v1.5.4
+- Bump @ot-builder/prelude to v1.5.4
+- Bump @ot-builder/variance to v1.5.4
 
 ## 1.5.3
 
