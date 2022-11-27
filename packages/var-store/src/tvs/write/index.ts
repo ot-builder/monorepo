@@ -20,8 +20,8 @@ export interface TupleVariationBuildContext {
     readonly iupTolerance?: number; // GVAR optimization
 }
 export interface TupleVariationBuildSource {
-    readonly dimensions: number;
-    readonly data: OtVar.Value[][];
+    readonly dimensions: number; // Dimensions of data -- for points it is 2, for cvt is 1
+    readonly data: OtVar.Value[][]; // Variable values
 }
 
 export const TupleVariationWriteOpt = WriteOpt(

@@ -6,6 +6,9 @@ import * as ImpLib from "@ot-builder/common-impl";
 
 import { iup } from "../shared/iup";
 
+// Limit the max lookback length
+const MaxLookback = 8;
+
 // Can deltas between jPrev and jNext being interpolated by other points?
 function canIupBetween(
     coords: ReadonlyArray<number>,
@@ -90,11 +93,7 @@ function iupContourBoundForcedSet(
     return forced;
 }
 
-// Return if coordinate for current point is between coordinate of adjacent
-// points on the two sides, but the delta for current point is NOT
-// between delta for those adjacent points(considering tolerance
-// allowance), then there is no way that current point can be IUP - ed.
-// Mark it forced.
+// Determine whether a point is forced using its pre and post point
 function pointIsForced(
     c1: number,
     cZ: number,
@@ -104,23 +103,47 @@ function pointIsForced(
     d2: number,
     tolerance: number
 ) {
+    // If the two coordinates are the same, then the interpolation
+    // algorithm produces the same delta if both deltas are equal,
+    // and zero if they differ.
+    //
+    // This test has to be before the next one.
+    if (c1 === c2) {
+        return (
+            ImpLib.Arith.Approx.unequal(d1, d2, tolerance) &&
+            ImpLib.Arith.Approx.unequal(dZ, 0, tolerance)
+        );
+    }
+
+    // If coordinate for current point is between coordinate of adjacent
+    // points on the two sides, but the delta for current point is NOT
+    // between delta for those adjacent points (considering tolerance
+    // allowance), then there is no way that current point can be IUP-ed.
+    // Mark it forced.
+
     if (c1 <= cZ && cZ <= c2) {
         return !ImpLib.Arith.Approx.between(d1, dZ, d2, tolerance);
-    } else {
-        if (c1 === c2) {
-            if (d1 === d2) {
-                return !ImpLib.Arith.Approx.equal(dZ, d1, tolerance);
-            } else {
-                return !ImpLib.Arith.Approx.zero(dZ, tolerance);
-            }
-        } else if (d1 !== d2) {
-            if (cZ < c1) {
-                return dZ !== d1 && dZ - tolerance < d1 !== d1 < d2;
-            } else {
-                return d2 !== dZ && d2 < dZ + tolerance !== d1 < d2;
-            }
+    }
+
+    // Otherwise, the delta should either match the closest, or have the
+    // same sign as the interpolation of the two deltas.
+    if (d1 !== d2) {
+        if (cZ < c1) {
+            return (
+                ImpLib.Arith.Approx.nonzero(dZ, tolerance) &&
+                ImpLib.Arith.Approx.unequal(dZ, d1, tolerance) &&
+                dZ - tolerance < d1 != d1 < d2
+            );
+        } else {
+            // c2 < cZ
+            return (
+                ImpLib.Arith.Approx.nonzero(dZ, tolerance) &&
+                ImpLib.Arith.Approx.unequal(dZ, d2, tolerance) &&
+                d2 < dZ + tolerance != d1 < d2
+            );
         }
     }
+
     return false;
 }
 
@@ -157,11 +180,12 @@ function iupOptimizeDP(
     n: number,
     dimensions: number,
     tolerance: number,
-    forces: boolean[] = [],
-    lookBack: number = n
+    forces: boolean[] = []
 ) {
+    const lookback = Math.min(MaxLookback, n);
+
     const costs: number[] = [0]; // N + 1 items, [0] for a special terminating mask
-    const chain: (number | null)[] = [null]; // N + 1 items, [0] for a special terminating mask
+    const chain: (number | null)[] = [null]; // N + 1 items, [null] for a special terminating mask
 
     for (let zCur = 0; zCur < n; zCur++) {
         const rc = roundCost(deltas, zCur, dimensions, tolerance);
@@ -170,8 +194,8 @@ function iupOptimizeDP(
         chain[zCur + 1] = zCur > 0 ? zCur - 1 : null;
         if (forces[zCur - 1]) continue;
 
-        for (let zBefore = zCur - 1; zBefore > -2 && zBefore > zCur - lookBack; zBefore--) {
-            const cost = costs[zBefore + 1] + rc; // k + 1 always >= 0, so no overflow
+        for (let zBefore = zCur - 1; zBefore > -2 && zBefore > zCur - lookback; zBefore--) {
+            const cost = costs[zBefore + 1] + rc; // zBefore + 1 always >= 0, so no overflow
             if (
                 cost < bestCost &&
                 canIupBetween(coords, deltas, n, dimensions, zBefore, zCur, tolerance)
@@ -215,7 +239,7 @@ function getMaxForce(n: number, forces: boolean[]) {
 }
 
 export function iupOptimize(
-    dimensions: number, // Number of dimensions
+    dimensions: number, // Dimensions of data -- for points it is 2, for cvt is 1
     n: number, // Count of points in this contour
     coords: ReadonlyArray<number>, // N * Dimensions items of static coordinates
     deltas: ReadonlyArray<number>, // N * Dimensions items of deltas
@@ -250,7 +274,9 @@ export function iupOptimize(
         const deltas1 = rotateArray(deltas, dimensions * n, dimensions * rot);
         const coords1 = rotateArray(coords, dimensions * n, dimensions * rot);
         const forces1 = rotateArray(forces, n, rot);
+
         const { chain } = iupOptimizeDP(coords1, deltas1, n, dimensions, tolerance, forces1);
+
         const answer: boolean[] = ImpLib.BitMask.Falses(n);
         let jChain: number | null = n - 1;
         while (jChain !== null && jChain >= 0) {
@@ -269,13 +295,13 @@ export function iupOptimize(
             2 * n,
             dimensions,
             tolerance,
-            forces,
-            n
+            forces
         );
 
         let bestSolution: boolean[] = ImpLib.BitMask.Trues(n),
             bestCost = COST_NON_INTEGER * (n + 1);
-        for (let start = n - 1; start < 2 * n - 1; start++) {
+
+        for (let start = n - 1; start < costs.length - 1; start++) {
             const solution: boolean[] = ImpLib.BitMask.Falses(n);
             let cur: number | null = start;
             while (cur !== null && cur > start - n) {
@@ -290,6 +316,7 @@ export function iupOptimize(
                 }
             }
         }
+
         return bestSolution;
     }
 }
