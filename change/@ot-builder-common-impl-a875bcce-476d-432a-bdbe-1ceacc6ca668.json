@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Optimize iup-optimizer",
+  "packageName": "@ot-builder/common-impl",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
