@@ -1,8 +1,34 @@
 # Change Log - @ot-builder/io-bin-font
 
-This log was last generated on Sat, 09 Jul 2022 01:52:09 GMT and should not be manually modified.
+This log was last generated on Sat, 03 Dec 2022 01:09:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.5
+
+Sat, 03 Dec 2022 01:09:39 GMT
+
+### Patches
+
+- Bump @ot-builder/io-bin-encoding to v1.5.5
+- Bump @ot-builder/io-bin-ext-private to v1.5.5
+- Bump @ot-builder/io-bin-glyph-store to v1.5.5
+- Bump @ot-builder/io-bin-layout to v1.5.5
+- Bump @ot-builder/io-bin-metadata to v1.5.5
+- Bump @ot-builder/io-bin-name to v1.5.5
+- Bump @ot-builder/io-bin-sfnt to v1.5.5
+- Bump @ot-builder/io-bin-vtt-private to v1.5.5
+- Bump @ot-builder/ot to v1.5.5
+- Bump @ot-builder/ot-glyphs to v1.5.5
+- Bump @ot-builder/ot-metadata to v1.5.5
+- Bump @ot-builder/ot-sfnt to v1.5.5
+- Bump @ot-builder/prelude to v1.5.5
+- Bump @ot-builder/ot-encoding to v1.5.5
+- Bump @ot-builder/ot-ext-private to v1.5.5
+- Bump @ot-builder/ot-layout to v1.5.5
+- Bump @ot-builder/ot-name to v1.5.5
+- Bump @ot-builder/ot-vtt-private to v1.5.5
+- Bump @ot-builder/bin-util to v1.5.5
 
 ## 1.5.4
 

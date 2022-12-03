@@ -2,6 +2,33 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 03 Dec 2022 01:09:39 GMT",
+      "tag": "otb-ttc-bundle_v1.5.5",
+      "version": "1.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump ot-builder to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-help-shower to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-shared to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 09 Jul 2022 01:52:09 GMT",
       "tag": "otb-ttc-bundle_v1.5.4",
       "version": "1.5.4",

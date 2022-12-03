@@ -2,6 +2,99 @@
   "name": "@ot-builder/io-bin-vtt-private",
   "entries": [
     {
+      "date": "Sat, 03 Dec 2022 01:09:39 GMT",
+      "tag": "@ot-builder/io-bin-vtt-private_v1.5.5",
+      "version": "1.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/bin-util to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/errors to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/ot-vtt-private to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/ot-metadata to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/prelude to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/primitive to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/variance to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-ttf to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/test-util to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 09 Jul 2022 01:52:09 GMT",
       "tag": "@ot-builder/io-bin-vtt-private_v1.5.4",
       "version": "1.5.4",

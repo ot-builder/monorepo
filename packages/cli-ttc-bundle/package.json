@@ -1,6 +1,6 @@
 {
   "name": "otb-ttc-bundle",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "bin": {
     "otb-ttc-bundle": "./bin/otb-ttc-bundle"
   },
@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "tslib": "^2.0.0",
-    "ot-builder": "1.5.4",
-    "@ot-builder/cli-help-shower": "1.5.4",
-    "@ot-builder/cli-shared": "1.5.4"
+    "ot-builder": "1.5.5",
+    "@ot-builder/cli-help-shower": "1.5.5",
+    "@ot-builder/cli-shared": "1.5.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

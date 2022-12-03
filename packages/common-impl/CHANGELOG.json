@@ -2,6 +2,27 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Sat, 03 Dec 2022 01:09:39 GMT",
+      "tag": "@ot-builder/common-impl_v1.5.5",
+      "version": "1.5.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/common-impl",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd",
+            "comment": "Optimize iup-optimizer"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/common-impl",
+            "comment": "Bump @ot-builder/prelude to v1.5.5",
+            "commit": "f1f80856c651056bcdc805f284f0580c49af80fd"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 09 Jul 2022 01:52:09 GMT",
       "tag": "@ot-builder/common-impl_v1.5.4",
       "version": "1.5.4",

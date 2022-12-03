@@ -1,8 +1,21 @@
 # Change Log - @ot-builder/rectify
 
-This log was last generated on Sat, 09 Jul 2022 01:52:09 GMT and should not be manually modified.
+This log was last generated on Sat, 03 Dec 2022 01:09:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.5
+
+Sat, 03 Dec 2022 01:09:39 GMT
+
+### Patches
+
+- Bump @ot-builder/ot to v1.5.5
+- Bump @ot-builder/common-impl to v1.5.5
+- Bump @ot-builder/ot-glyphs to v1.5.5
+- Bump @ot-builder/ot-metadata to v1.5.5
+- Bump @ot-builder/prelude to v1.5.5
+- Bump @ot-builder/variance to v1.5.5
 
 ## 1.5.4
 
