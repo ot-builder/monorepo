@@ -3,6 +3,10 @@
     "private": true,
     "license": "MIT",
     "version": "0.0.0",
+    "repository": {
+        "url": "https://github.com/ot-builder/monorepo",
+        "type": "git"
+    },
     "scripts": {
         "init": "npm i && npm run update:package.json && npm run lerna:bootstrap && npm run update:tsconfig.json",
         "init:prod": "npm i && npm run update:package.json && npm run lerna:bootstrap:prod && npm run update:tsconfig.json",
@@ -29,7 +33,7 @@
         "lerna:bootstrap:prod": "npm run update:hide-package.json-dev-deps && lerna bootstrap --hoist --ignore-scripts && npm run update:show-package.json-dev-deps",
         "lint": "eslint . --ext .ts,.tsx",
         "lint:eslint-fix": "eslint . --ext .ts,.tsx --fix",
-        "build-syntaxes":"npm run build-syntaxes:unicode-ranges",
+        "build-syntaxes": "npm run build-syntaxes:unicode-ranges",
         "build-syntaxes:unicode-ranges": "tspeg --num-enums --enable-memo packages/cli/src/sub-parsers/unicode-ranges/ranges.peg packages/cli/src/sub-parsers/unicode-ranges/generated.ts"
     },
     "devDependencies": {

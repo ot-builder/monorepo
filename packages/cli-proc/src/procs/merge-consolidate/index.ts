@@ -6,7 +6,7 @@ import * as Rectify from "@ot-builder/rectify";
 import { DesignUnifierSession, unifyDesignSpacesImpl } from "../../support/design-unifier";
 
 import { GsubGposMerger } from "./gsub-gpos-merger";
-import { mergeMapOpt, Prime, combineList, mergeMap } from "./utils";
+import { combineList, mergeMapOpt, Prime } from "./utils";
 
 export type MergeOptions = { preferOverride?: boolean };
 
@@ -95,7 +95,7 @@ function mergeGsubGpos<L>(
     return merger.resolve();
 }
 
-function consolidateGsubGpos<L>(
+export function consolidateGsubGpos<L>(
     fvar: Data.Maybe<Ot.Fvar.Table>,
     preferred: Ot.GsubGpos.TableT<L>
 ) {
