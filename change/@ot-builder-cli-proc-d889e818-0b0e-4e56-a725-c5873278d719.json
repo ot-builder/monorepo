@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "GC: add functionality to cleanup inaccessible lookups",
+  "packageName": "@ot-builder/cli-proc",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
