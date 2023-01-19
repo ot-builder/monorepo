@@ -1,5 +1,6 @@
 export { Access, State } from "./access";
 export * as Arith from "./arith";
+export * as ArrayHelper from "./array-helper/index";
 export { BitMask, ReadonlyBitMask } from "./bitmask";
 export * as FunctionHelper from "./function-helper/chain";
 export { Hasher, HashRep } from "./hasher";
