@@ -9,15 +9,15 @@
         "clean": "rimraf build out"
     },
     "dependencies": {
-        "@mdx-js/loader": "^2.1.5",
-        "@mdx-js/react": "^2.1.5",
-        "@next/mdx": "^13.0.2",
-        "@types/react": "^18.0.25",
-        "next": "^13.0.2",
+        "@mdx-js/loader": "^2.2.1",
+        "@mdx-js/react": "^2.2.1",
+        "@next/mdx": "^13.1.4",
+        "@types/react": "^18.0.27",
+        "next": "^13.1.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "rimraf": "^3.0.2",
+        "rimraf": "^4.1.1",
         "webpack": "^5.75.0",
-        "sass": "^1.56.1"
+        "sass": "^1.57.1"
     }
 }
