@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/ot-vtt-private",
   "description": "",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,9 +26,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/variance": "1.5.5",
-    "@ot-builder/ot-glyphs": "1.5.5",
-    "@ot-builder/prelude": "1.5.5",
+    "@ot-builder/variance": "1.6.0",
+    "@ot-builder/ot-glyphs": "1.6.0",
+    "@ot-builder/prelude": "1.6.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

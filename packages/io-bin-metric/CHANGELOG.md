@@ -1,8 +1,28 @@
 # Change Log - @ot-builder/io-bin-metric
 
-This log was last generated on Sat, 03 Dec 2022 01:09:39 GMT and should not be manually modified.
+This log was last generated on Sat, 21 Jan 2023 01:10:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.0
+
+Sat, 21 Jan 2023 01:10:00 GMT
+
+### Minor changes
+
+- Bump @ot-builder/bin-util to v1.6.0
+- Bump @ot-builder/common-impl to v1.6.0
+- Bump @ot-builder/errors to v1.6.0
+- Bump @ot-builder/ot-glyphs to v1.6.0
+- Bump @ot-builder/ot-metadata to v1.6.0
+- Bump @ot-builder/prelude to v1.6.0
+- Bump @ot-builder/primitive to v1.6.0
+- Bump @ot-builder/var-store to v1.6.0
+- Bump @ot-builder/variance to v1.6.0
+- Bump @ot-builder/ot-sfnt to v1.6.0
+- Bump @ot-builder/io-bin-metadata to v1.6.0
+- Bump @ot-builder/io-bin-sfnt to v1.6.0
+- Bump @ot-builder/test-util to v1.6.0
 
 ## 1.5.5
 

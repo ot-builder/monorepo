@@ -2,6 +2,27 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Sat, 21 Jan 2023 01:10:00 GMT",
+      "tag": "@ot-builder/common-impl_v1.6.0",
+      "version": "1.6.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/common-impl",
+            "commit": "e80cd99ac2e97a339ecbe083e3c9a2c10a6b12d7",
+            "comment": "GC: add functionality to cleanup inaccessible lookups"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/common-impl",
+            "comment": "Bump @ot-builder/prelude to v1.6.0",
+            "commit": "e80cd99ac2e97a339ecbe083e3c9a2c10a6b12d7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 03 Dec 2022 01:09:39 GMT",
       "tag": "@ot-builder/common-impl_v1.5.5",
       "version": "1.5.5",

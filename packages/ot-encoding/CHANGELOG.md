@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/ot-encoding
 
-This log was last generated on Sat, 03 Dec 2022 01:09:39 GMT and should not be manually modified.
+This log was last generated on Sat, 21 Jan 2023 01:10:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.0
+
+Sat, 21 Jan 2023 01:10:00 GMT
+
+### Minor changes
+
+- Bump @ot-builder/ot-glyphs to v1.6.0
+- Bump @ot-builder/prelude to v1.6.0
 
 ## 1.5.5
 
