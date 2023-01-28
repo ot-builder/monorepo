@@ -2,6 +2,57 @@
   "name": "@ot-builder/trace",
   "entries": [
     {
+      "date": "Sat, 28 Jan 2023 01:12:19 GMT",
+      "tag": "@ot-builder/trace_v1.6.1",
+      "version": "1.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/trace",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4",
+            "comment": "Bump deps and fix doc build"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/common-impl to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-metadata to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/prelude to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/variance to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 21 Jan 2023 01:10:00 GMT",
       "tag": "@ot-builder/trace_v1.6.0",
       "version": "1.6.0",

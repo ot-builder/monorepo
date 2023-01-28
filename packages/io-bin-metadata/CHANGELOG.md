@@ -1,8 +1,28 @@
 # Change Log - @ot-builder/io-bin-metadata
 
-This log was last generated on Sat, 21 Jan 2023 01:10:00 GMT and should not be manually modified.
+This log was last generated on Sat, 28 Jan 2023 01:12:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.1
+
+Sat, 28 Jan 2023 01:12:19 GMT
+
+### Patches
+
+- Bump deps and fix doc build (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-composite-types to v1.6.1
+- Bump @ot-builder/bin-util to v1.6.1
+- Bump @ot-builder/common-impl to v1.6.1
+- Bump @ot-builder/errors to v1.6.1
+- Bump @ot-builder/ot-metadata to v1.6.1
+- Bump @ot-builder/prelude to v1.6.1
+- Bump @ot-builder/primitive to v1.6.1
+- Bump @ot-builder/var-store to v1.6.1
+- Bump @ot-builder/variance to v1.6.1
+- Bump @ot-builder/ot-sfnt to v1.6.1
+- Bump @ot-builder/io-bin-sfnt to v1.6.1
+- Bump @ot-builder/test-util to v1.6.1
 
 ## 1.6.0
 

@@ -2,6 +2,33 @@
   "name": "@ot-builder/ot-sfnt",
   "entries": [
     {
+      "date": "Sat, 28 Jan 2023 01:12:19 GMT",
+      "tag": "@ot-builder/ot-sfnt_v1.6.1",
+      "version": "1.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/ot-sfnt",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4",
+            "comment": "Bump deps and fix doc build"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-sfnt",
+            "comment": "Bump @ot-builder/prelude to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-sfnt",
+            "comment": "Bump @ot-builder/primitive to v1.6.1",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 21 Jan 2023 01:10:00 GMT",
       "tag": "@ot-builder/ot-sfnt_v1.6.0",
       "version": "1.6.0",

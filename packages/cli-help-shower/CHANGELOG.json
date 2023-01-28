@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-help-shower",
   "entries": [
     {
+      "date": "Sat, 28 Jan 2023 01:12:19 GMT",
+      "tag": "@ot-builder/cli-help-shower_v1.6.1",
+      "version": "1.6.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "54ecbdd4230574b91f52d20aa11c1f90055a83e4",
+            "comment": "Bump deps and fix doc build"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 26 Feb 2022 01:27:19 GMT",
       "tag": "@ot-builder/cli-help-shower_v1.4.0",
       "version": "1.4.0",
