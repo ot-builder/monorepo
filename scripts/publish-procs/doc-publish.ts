@@ -1,32 +1,33 @@
 import * as Path from "path";
 
 import * as FSE from "fs-extra";
-import * as RimRaf from "rimraf";
+import { rimraf } from "rimraf";
 
-import { Build, Deploy, DocGit, Next, Out, PublishConfig } from "./tools";
+import { Deploy, DocGit, Npm, Out, PublishConfig } from "./tools";
 
 export async function docPublish(cfg: PublishConfig) {
     if (!cfg.GitUser || !cfg.GitEmail) {
         throw new Error("Key information missing.");
     }
 
+    await FSE.ensureDir(Deploy);
+
     // Build
-    RimRaf.sync(Build);
-    await Next("build");
-    RimRaf.sync(Out);
-    await Next("export");
+    await Npm("run", "docs:clean");
+    await Npm("run", "docs:build");
+    await Npm("run", "docs:export");
 
     // Repository
     await DocGit("config", "user.name", cfg.GitUser);
     await DocGit("config", "user.email", cfg.GitEmail);
 
     // Clear everything currently there
-    RimRaf.sync(Path.join(Deploy, "*"));
+    await rimraf(Path.join(Deploy, "*"), { glob: true });
     // Add ".nojekyll"
     await FSE.writeFile(Path.resolve(Deploy, ".nojekyll"), "");
     // Copy doc output
     await FSE.copy(Out, Deploy);
-    RimRaf.sync(Out);
+    await rimraf(Out);
 
     // Commit and push
     await DocGit("add", ".");

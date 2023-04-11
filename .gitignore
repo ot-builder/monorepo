@@ -5,6 +5,8 @@ tmp
 packages/*/lib
 .cache
 doc/.next
+doc/.build
+doc/.out
 doc/build
 doc/out
 .doc-deploy
