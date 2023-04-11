@@ -16,5 +16,6 @@ module.exports = withMDX({
         config.resolve.alias["api-doc"] = path.join(__dirname, "api-doc");
         config.resolve.alias["templates"] = path.join(__dirname, "templates");
         return config;
-    }
+    },
+    sassOptions: { fiber: false, includePaths: [path.join(__dirname, "styles")] }
 });
