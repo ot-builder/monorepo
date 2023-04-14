@@ -103,6 +103,7 @@ export class GlyphVariantRecord {
     ) {}
 }
 export enum GlyphPartFlags {
+    None = 0,
     Extender = 0x0001
 }
 export class GlyphPart {

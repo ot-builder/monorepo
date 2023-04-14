@@ -5,6 +5,8 @@ import { OtVar } from "@ot-builder/variance";
 import * as FastMatch from "./fast-match";
 
 export enum CompareMode {
+    None = 0,
+
     RemoveCycle = 1,
     CompareMetric = 2,
     CompareInstructions = 4,
@@ -16,7 +18,7 @@ export enum CompareMode {
 export function test(
     expected: OtGlyph,
     actual: OtGlyph,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1,
     place = ""
 ) {
@@ -36,7 +38,7 @@ export function test(
 function testGeometry(
     geomE: Data.Maybe<OtGlyph.Geometry>,
     geomA: Data.Maybe<OtGlyph.Geometry>,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1,
     place = ""
 ) {
@@ -49,7 +51,7 @@ function testGeometry(
 function testInitGeometry(
     geomE: OtGlyph.Geometry,
     geomA: OtGlyph.Geometry,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1,
     place = ""
 ) {
@@ -88,7 +90,7 @@ function testInitGeometry(
 export function testStore<GS extends Data.OrderStore<OtGlyph>>(
     expected: GS,
     actual: GS,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1
 ) {
     const goA = expected.decideOrder();
@@ -183,7 +185,7 @@ function testReference(
 function testHints(
     hintE: Data.Maybe<OtGlyph.Hint>,
     hintA: Data.Maybe<OtGlyph.Hint>,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1,
     place = ""
 ) {
@@ -197,7 +199,7 @@ function testHints(
 function testInitialHints(
     hintE: OtGlyph.Hint,
     hintA: OtGlyph.Hint,
-    mode: CompareMode = 0,
+    mode: CompareMode = CompareMode.None,
     tolerance = 1,
     place = ""
 ) {

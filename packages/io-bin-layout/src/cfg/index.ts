@@ -14,6 +14,8 @@ export interface LayoutCfgPt {
 export const DefaultLayoutProps: LayoutCfgProps = {};
 
 export enum LookupWriteTrick {
+    None = 0,
+
     AvoidUseExtension = 0x0001,
     AvoidBreakSubtable = 0x0002,
     UseFlatCoverage = 0x0004,

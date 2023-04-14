@@ -291,7 +291,9 @@ export const WriteLookupList = Write(function <L extends GsubGpos.LookupProp>(
         for (const dep of lwf.queryDependencies(lookup)) dependentLookups.add(dep);
     }
     for (const lookup of lookups) {
-        const trick = lwc.tricks ? lwc.tricks.get(lookup) || 0 : 0;
+        const trick = lwc.tricks
+            ? lwc.tricks.get(lookup) || LookupWriteTrick.None
+            : LookupWriteTrick.None;
         llw.pushLookup(lookup, dependentLookups.has(lookup), lwf, lwc.gdef, {
             trick,
             gOrd: lwc.gOrd,
