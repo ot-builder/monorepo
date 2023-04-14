@@ -108,9 +108,9 @@ test("Math - variants", () => {
         expect(math.variants?.vertical?.get(gOrd.at(10))).toEqual(
             new OtMath.GlyphConstruction(
                 new OtMath.GlyphAssembly({ value: 0 }, [
-                    new OtMath.GlyphPart(uni239D, 0, 35, 884, 0),
+                    new OtMath.GlyphPart(uni239D, 0, 35, 884, OtMath.GlyphPartFlags.None),
                     new OtMath.GlyphPart(uni239C, 15, 15, 326, OtMath.GlyphPartFlags.Extender),
-                    new OtMath.GlyphPart(uni239B, 35, 0, 884, 0)
+                    new OtMath.GlyphPart(uni239B, 35, 0, 884, OtMath.GlyphPartFlags.None)
                 ]),
                 [
                     new OtMath.GlyphVariantRecord(parenLeft, 942),

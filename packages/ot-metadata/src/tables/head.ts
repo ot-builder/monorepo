@@ -3,6 +3,7 @@ import { F16D16, Int16, UInt16, UInt32 } from "@ot-builder/primitive";
 export const Tag = "head";
 
 export enum Flags {
+    None = 0,
     BaseLineYAt0 = 1 << 0,
     LeftSidebearingAtX0 = 1 << 1,
     InstructionsMayDependOnPointSize = 1 << 2,
@@ -22,6 +23,7 @@ export enum Flags {
 }
 
 export enum MacStyle {
+    None = 0,
     Bold = 1 << 0,
     Italic = 1 << 1,
     Underline = 1 << 2,
@@ -47,7 +49,7 @@ export class Table {
     public fontRevision: F16D16 = 0;
     public readonly checkSumAdjust: UInt32 = 0;
     public readonly magicNumber: UInt32 = 0x5f0f3cf5;
-    public flags: Flags = 0;
+    public flags: Flags = Flags.None;
     public unitsPerEm: UInt16 = 1000;
     public created: Date = new Date();
     public modified: Date = new Date();
@@ -55,7 +57,7 @@ export class Table {
     public yMin: Int16 = 0; // VOLATILE
     public xMax: Int16 = 0; // VOLATILE
     public yMax: Int16 = 0; // VOLATILE
-    public macStyle: MacStyle = 0;
+    public macStyle: MacStyle = MacStyle.None;
     public lowestRecPPEM: UInt16 = 0;
     public fontDirectionHint: FontDirectionHint = 2;
     public indexToLocFormat: Int16 = 0; // VOLATILE

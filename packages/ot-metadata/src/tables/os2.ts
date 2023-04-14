@@ -4,6 +4,7 @@ import { OtVar } from "@ot-builder/variance";
 export const Tag = "OS/2";
 
 export enum FsType {
+    None = 0,
     InstallableEmbedding = 1 << 0,
     RestrictedLicense = 1 << 1,
     PreviewPrintLicense = 1 << 2,
@@ -17,6 +18,7 @@ export enum FsType {
 }
 
 export enum FsSelection {
+    None = 0,
     ITALIC = 1 << 0,
     UNDERSCORE = 1 << 1,
     NEGATIVE = 1 << 2,
@@ -30,6 +32,7 @@ export enum FsSelection {
 }
 
 export enum CodePageRange1 {
+    None = 0,
     CP1252 = 1 << 0,
     CP1250 = 1 << 1,
     CP1251 = 1 << 2,
@@ -64,6 +67,7 @@ export enum CodePageRange1 {
     Symbol = 1 << 31
 }
 export enum CodePageRange2 {
+    None = 0,
     Oem8 = 1 << 0,
     Oem9 = 1 << 1,
     Oem10 = 1 << 2,
@@ -99,6 +103,7 @@ export enum CodePageRange2 {
 }
 
 export enum UnicodeRange1 {
+    None = 0,
     BasicLatin = 1 << 0,
     Latin1Supplement = 1 << 1,
     LatinExtendedA = 1 << 2,
@@ -134,6 +139,7 @@ export enum UnicodeRange1 {
 }
 
 export enum UnicodeRange2 {
+    None = 0,
     SuperscriptsAndSubscripts = 1 << 0,
     CurrencySymbols = 1 << 1,
     CombiningDiacriticalMarksForSymbols = 1 << 2,
@@ -168,6 +174,7 @@ export enum UnicodeRange2 {
     ArabicPresentationFormsA = 1 << 31
 }
 export enum UnicodeRange3 {
+    None = 0,
     CombiningHalfMarks = 1 << 0,
     VerticalFormsAndCJKCompatibilityForms = 1 << 1,
     SmallFormVariants = 1 << 2,
@@ -202,6 +209,7 @@ export enum UnicodeRange3 {
     NewTaiLue = 1 << 31
 }
 export enum UnicodeRange4 {
+    None = 0,
     Buginese = 1 << 0,
     Glagolitic = 1 << 1,
     Tifinagh = 1 << 2,
@@ -249,7 +257,7 @@ export class Table {
     public xAvgCharWidth: Primitive.Int16 = 0;
     public usWeightClass: Primitive.UInt16 = 0;
     public usWidthClass: Primitive.UInt16 = 0;
-    public fsType: FsType = 0;
+    public fsType: FsType = FsType.None;
     public ySubscriptXSize: OtVar.Value = 0;
     public ySubscriptYSize: OtVar.Value = 0;
     public ySubscriptXOffset: OtVar.Value = 0;
@@ -262,12 +270,12 @@ export class Table {
     public yStrikeoutPosition: OtVar.Value = 0;
     public sFamilyClass: Primitive.Int16 = 0;
     public panose: Panose = new Panose();
-    public ulUnicodeRange1: UnicodeRange1 = 0;
-    public ulUnicodeRange2: UnicodeRange2 = 0;
-    public ulUnicodeRange3: UnicodeRange3 = 0;
-    public ulUnicodeRange4: UnicodeRange4 = 0;
+    public ulUnicodeRange1: UnicodeRange1 = UnicodeRange1.None;
+    public ulUnicodeRange2: UnicodeRange2 = UnicodeRange2.None;
+    public ulUnicodeRange3: UnicodeRange3 = UnicodeRange3.None;
+    public ulUnicodeRange4: UnicodeRange4 = UnicodeRange4.None;
     public achVendID: Primitive.Tag = "UKWN";
-    public fsSelection: FsSelection = 0;
+    public fsSelection: FsSelection = FsSelection.None;
     public usFirstCharIndex: Primitive.UInt16 = 0;
     public usLastCharIndex: Primitive.UInt16 = 0;
     public sTypoAscender: OtVar.Value = 0;
@@ -275,8 +283,8 @@ export class Table {
     public sTypoLineGap: OtVar.Value = 0;
     public usWinAscent: OtVar.Value = 0;
     public usWinDescent: OtVar.Value = 0;
-    public ulCodePageRange1: CodePageRange1 = 0;
-    public ulCodePageRange2: CodePageRange2 = 0;
+    public ulCodePageRange1: CodePageRange1 = CodePageRange1.None;
+    public ulCodePageRange2: CodePageRange2 = CodePageRange2.None;
     public sxHeight: OtVar.Value = 0;
     public sCapHeight: OtVar.Value = 0;
     public usDefaultChar: Primitive.UInt16 = 0;

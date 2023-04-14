@@ -11,6 +11,8 @@ import { OtVar } from "@ot-builder/variance";
 import { Ptr16DeviceTable } from "./device-table";
 
 export enum GposAdjustmentFormat {
+    ELIMINATED = 0,
+
     X_PLACEMENT = 0x0001,
     Y_PLACEMENT = 0x0002,
     X_ADVANCE = 0x0004,
@@ -155,7 +157,7 @@ export const GposAdjustment = {
     },
 
     decideFormat(adj: Gpos.Adjustment) {
-        let f: GposAdjustmentFormat = 0;
+        let f: GposAdjustmentFormat = GposAdjustmentFormat.ELIMINATED;
         if (!OtVar.Ops.isZero(adj.dX)) f |= GposAdjustmentFormat.X_PLACEMENT;
         if (!OtVar.Ops.isZero(adj.dY)) f |= GposAdjustmentFormat.Y_PLACEMENT;
         if (!OtVar.Ops.isZero(adj.dWidth)) f |= GposAdjustmentFormat.X_ADVANCE;
