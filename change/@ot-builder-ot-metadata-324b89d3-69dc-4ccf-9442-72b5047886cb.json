@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Upgrade to typescript 5",
-  "packageName": "@ot-builder/ot-metadata",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

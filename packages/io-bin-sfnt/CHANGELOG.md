@@ -1,8 +1,22 @@
 # Change Log - @ot-builder/io-bin-sfnt
 
-This log was last generated on Sat, 28 Jan 2023 01:12:19 GMT and should not be manually modified.
+This log was last generated on Sat, 15 Apr 2023 01:06:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.2
+
+Sat, 15 Apr 2023 01:06:43 GMT
+
+### Patches
+
+- Bump @ot-builder/bin-util to v1.6.2
+- Bump @ot-builder/common-impl to v1.6.2
+- Bump @ot-builder/ot-sfnt to v1.6.2
+- Bump @ot-builder/prelude to v1.6.2
+- Bump @ot-builder/primitive to v1.6.2
+- Bump @ot-builder/errors to v1.6.2
+- Bump @ot-builder/test-util to v1.6.2
 
 ## 1.6.1
 
