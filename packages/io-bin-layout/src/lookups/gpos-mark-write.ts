@@ -352,7 +352,14 @@ abstract class GposMarkWriterBase<G, B> {
         loopCls: for (let c = 0; c < maxCls; c++) {
             if (clsSetAdded.has(c)) continue;
 
-            let conflict = false;
+            // Detect that we have at least one base that contains this class
+            // If not, just treat this class processed and move on
+            if (!this.basesHasAtLeastOneBaseInThisClass(cls, c, bases)) {
+                clsSetAdded.add(c);
+                continue;
+            }
+
+            let fConflict = false;
             const currentClassMarks = new Map<G, SingleMarkRecord<G>>();
 
             // Process mark list: ensure this class doesn't conflict with existing marks
@@ -360,9 +367,9 @@ abstract class GposMarkWriterBase<G, B> {
                 const anchor = ma.markAnchors[c];
                 if (!anchor) continue;
                 currentClassMarks.set(g, { glyph: g, class: c, anchor });
-                if (planMarks.has(g)) conflict = true;
+                if (planMarks.has(g)) fConflict = true;
             }
-            if (conflict) break loopCls;
+            if (fConflict) break loopCls;
 
             // Ensure the base array is a rectangular matrix
             if (firstClass) {
@@ -386,6 +393,20 @@ abstract class GposMarkWriterBase<G, B> {
         } else {
             return null;
         }
+    }
+
+    private basesHasAtLeastOneBaseInThisClass(
+        cls: MarkPlanClass<G, B>,
+        c: number,
+        bases: Map<G, B>
+    ) {
+        for (const [g, br] of bases) {
+            if (cls.baseCoversMarkClass(c, br)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
