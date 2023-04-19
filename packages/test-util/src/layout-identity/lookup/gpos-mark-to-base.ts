@@ -6,7 +6,7 @@ import { OtVar } from "@ot-builder/variance";
 import { BimapCtx, StdCompare } from "../../compar-util";
 import * as FastMatch from "../../fast-match";
 
-function getOffset(mre: Data.Maybe<Gpos.MarkRecord>, bre: Data.Maybe<Gpos.BaseRecord>) {
+export function getOffset(mre: Data.Maybe<Gpos.MarkRecord>, bre: Data.Maybe<Gpos.BaseRecord>) {
     let offsetX = OtVar.Ops.neutral;
     let offsetY = OtVar.Ops.neutral;
     if (mre && bre) {
