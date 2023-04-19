@@ -75,15 +75,16 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         gdef: Gdef.Table
     ) {
         if (
+            gdef.glyphClassDef &&
             gdef.markGlyphSets &&
             flags & LookupFlag.UseMarkFilteringSet &&
             markFilteringSet != null
         ) {
             const mgs = gdef.markGlyphSets[markFilteringSet];
-            if (mgs) {
-                for (const g of mgs) {
-                    ignores.add(g);
-                }
+            if (!mgs) return;
+            for (const [g, cls] of gdef.glyphClassDef) {
+                if (cls !== Gdef.GlyphClass.Mark) continue;
+                if (!mgs.has(g)) ignores.add(g);
             }
         }
     }

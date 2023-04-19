@@ -21,16 +21,20 @@ test("OTL Integrated Test Loop - ignore glyph set -- All marks", () => {
     }
 });
 
-test("OTL Integrated Test Loop - ignore glyph set -- Mark set", () => {
+test("OTL Integrated Test Loop - ignore glyph set -- Mark filter set", () => {
     for (const { otl } of TestOtlLoop("Scheherazade-Regular.ttf")) {
         const { gpos, gdef } = otl;
         if (!gpos) fail("GPOS not present");
         if (!gdef) fail("GDEF not present");
 
         const markSet = gdef.markGlyphSets![2];
-        const lookup = gpos.lookups[3];
+        const ignoreSet = new Set<OtGlyph>();
+        for (const [g, c] of gdef.glyphClassDef!) {
+            if (c === Gdef.GlyphClass.Mark && !markSet.has(g)) ignoreSet.add(g);
+        }
 
-        expect(setEqual(lookup.ignoreGlyphs!, markSet)).toBeTruthy();
+        const lookup = gpos.lookups[3];
+        expect(setEqual(lookup.ignoreGlyphs!, ignoreSet)).toBeTruthy();
     }
 });
 
