@@ -135,8 +135,8 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         if (lookup.rightToLeft) flags |= LookupFlag.RightToLeft;
         if (ignore) {
             if (ignore.ignoreBaseGlyphs) flags |= LookupFlag.IgnoreBaseGlyphs;
-            if (ignore.ignoreMarks) flags |= LookupFlag.IgnoreMarks;
             if (ignore.ignoreLigatures) flags |= LookupFlag.IgnoreLigatures;
+            if (ignore.ignoreMarks) flags |= LookupFlag.IgnoreMarks;
             if (ignore.markAttachmentType != null) {
                 flags |= ignore.markAttachmentType << 8;
             }

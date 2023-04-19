@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix handling of mark attachment flags in lookups",
+  "packageName": "@ot-builder/io-bin-layout",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

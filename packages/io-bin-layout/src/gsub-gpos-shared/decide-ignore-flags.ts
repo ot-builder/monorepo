@@ -2,131 +2,149 @@ import { Gdef, LayoutCommon } from "@ot-builder/ot-layout";
 import { Data } from "@ot-builder/prelude";
 
 export interface IgnoreFlagOptions {
-    ignoreBaseGlyphs: boolean;
-    ignoreLigatures: boolean;
-    ignoreMarks: boolean;
+    ignoreBaseGlyphs?: boolean;
+    ignoreLigatures?: boolean;
+    ignoreMarks?: boolean;
     markAttachmentType?: number;
     markFilteringSet?: number;
 }
 
 export function decideIgnoreFlags<G, X>(
     gs: Data.Maybe<ReadonlySet<G>>,
-    fn: Data.Maybe<Gdef.General.TableT<G, X>>
+    gdef: Data.Maybe<Gdef.General.TableT<G, X>>
 ): null | IgnoreFlagOptions {
-    if (!fn) return null;
-    return (
-        igfEmpty(gs) ||
-        igfGlyphClass(gs, fn.glyphClassDef) ||
-        igcMarkAttachmentClass(gs, fn.markAttachClassDef) ||
-        igfMarkGlyphSet(gs, fn.markGlyphSets)
+    if (!gdef || !gs || !gs.size) return null;
+
+    const [nonMarks, marks] = gsSplitMarks(gs, gdef.glyphClassDef);
+
+    const igfBase = igfGlyphClass(
+        nonMarks,
+        gdef.glyphClassDef,
+        Gdef.GlyphClass.Base,
+        { ignoreBaseGlyphs: true },
+        { ignoreBaseGlyphs: false }
     );
+
+    const igfLigature = igfGlyphClass(
+        nonMarks,
+        gdef.glyphClassDef,
+        Gdef.GlyphClass.Ligature,
+        { ignoreLigatures: true },
+        { ignoreLigatures: false }
+    );
+
+    const igfMark =
+        igfGlyphClass(
+            marks,
+            gdef.glyphClassDef,
+            Gdef.GlyphClass.Mark,
+            { ignoreMarks: true },
+            { ignoreMarks: false }
+        ) ||
+        igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef) ||
+        igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
+
+    if (!igfBase || !igfLigature || !igfMark) return null;
+    return {
+        ...igfBase,
+        ...igfLigature,
+        ...igfMark
+    };
 }
 
-function igfEmpty<G>(gs: Data.Maybe<ReadonlySet<G>>) {
-    if (!gs || !gs.size) {
-        return {
-            ignoreBaseGlyphs: false,
-            ignoreLigatures: false,
-            ignoreMarks: false
-        };
-    }
-    return null;
-}
+/// Split non-mark and mark glyphs
+function gsSplitMarks<G>(
+    ignoredGlyphs: ReadonlySet<G>,
+    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>
+): [Set<G>, Set<G>] {
+    if (!glyphClassDef) return [new Set(ignoredGlyphs), new Set()];
 
-class HasAllState {
-    public has = false;
-    public all = true;
-    public update(x: boolean) {
-        if (x) this.has = true;
-        else this.all = false;
+    const marks = new Set<G>(),
+        nonMarks = new Set<G>();
+    for (const g of ignoredGlyphs) {
+        if (Gdef.GlyphClass.Mark === glyphClassDef.get(g)) {
+            marks.add(g);
+        } else {
+            nonMarks.add(g);
+        }
     }
-    public get mix() {
-        return this.has && !this.all;
-    }
+
+    return [nonMarks, marks];
 }
 
 function igfGlyphClass<G>(
-    gs: Data.Maybe<ReadonlySet<G>>,
-    cd: Data.Maybe<LayoutCommon.ClassDef.T<G>>
+    ignoredGlyphs: ReadonlySet<G>,
+    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
+    glyphClass: Gdef.GlyphClass,
+    positive: IgnoreFlagOptions,
+    negative: IgnoreFlagOptions
 ): null | IgnoreFlagOptions {
-    if (!gs || !gs.size || !cd) return null;
-    const base = new HasAllState(),
-        ligature = new HasAllState(),
-        mark = new HasAllState();
-    const cov: Set<G> = new Set();
-    for (const [g, cl] of cd) {
-        const inSet = gs.has(g);
-        switch (cl) {
-            case Gdef.GlyphClass.Base:
-                base.update(inSet);
-                cov.add(g);
-                break;
-            case Gdef.GlyphClass.Ligature:
-                ligature.update(inSet);
-                cov.add(g);
-                break;
-            case Gdef.GlyphClass.Mark:
-                mark.update(inSet);
-                cov.add(g);
+    if (!glyphClassDef) return null;
+
+    let has = false,
+        all = true;
+    for (const [g, cl] of glyphClassDef) {
+        if (cl !== glyphClass) continue;
+        if (ignoredGlyphs.has(g)) {
+            has = true;
+        } else {
+            all = false;
         }
     }
-    if (base.mix || ligature.mix || mark.mix) return null;
-    for (const g of gs) if (!cov.has(g)) return null;
-    return {
-        ignoreBaseGlyphs: base.has,
-        ignoreLigatures: ligature.has,
-        ignoreMarks: mark.has
-    };
+
+    if (!has) {
+        return negative;
+    } else if (all) {
+        return positive;
+    } else {
+        return null;
+    }
 }
 
-function igcMarkAttachmentClass<G>(
-    gs: Data.Maybe<ReadonlySet<G>>,
-    maCd: Data.Maybe<LayoutCommon.ClassDef.T<G>>
+function igfMarkAttachmentClass<G>(
+    ignoredMarks: ReadonlySet<G>,
+    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
+    markAttachmentClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>
 ): null | IgnoreFlagOptions {
-    if (!gs || !gs.size || !maCd) return null;
+    if (!glyphClassDef || !markAttachmentClassDef) return null;
 
-    // Get an matching mark class
-    let kMark: undefined | number = undefined;
-    for (const g of gs) {
-        const kg = maCd.get(g);
-        if (kg === undefined) return null;
-        if (kMark === undefined) kMark = kg;
-        else if (kg !== kMark) return null;
+    // We need to iterate through all the marks, since in some cases we are ignoring mark class "0"
+    const keptMarkClasses = new Set<number>();
+    const ignoredMarkClasses = new Set<number>();
+    for (const [g, gc] of glyphClassDef) {
+        if (gc !== Gdef.GlyphClass.Mark) continue;
+        const k = markAttachmentClassDef.get(g) || 0;
+        (ignoredMarks.has(g) ? ignoredMarkClasses : keptMarkClasses).add(k);
     }
 
-    // ensure the glyph set satisfying this mark class equal to GS
-    if (kMark === undefined) return null;
-    for (const [g, cl] of maCd) {
-        if (cl === kMark && !gs.has(g)) return null;
+    let finalMarkClass: undefined | number = undefined;
+    for (const k of keptMarkClasses) {
+        // Hybrid class, fail
+        if (ignoredMarkClasses.has(k)) return null;
+        // Multiple mark classes to keep, fail
+        if (finalMarkClass != undefined) return null;
+        finalMarkClass = k;
     }
-    return {
-        ignoreBaseGlyphs: false,
-        ignoreLigatures: false,
-        ignoreMarks: false,
-        markAttachmentType: kMark
-    };
+
+    // Nothing to keep, fail
+    if (!finalMarkClass || finalMarkClass <= 0 || finalMarkClass > 0xff) return null;
+
+    return { markAttachmentType: finalMarkClass };
 }
 
-function setEqual<T>(a: ReadonlySet<T>, b: ReadonlySet<T>) {
-    for (const g of a) if (!b.has(g)) return false;
-    for (const g of b) if (!a.has(g)) return false;
-    return true;
-}
-
-function igfMarkGlyphSet<G>(
-    gs: Data.Maybe<ReadonlySet<G>>,
-    mgs: Data.Maybe<Array<ReadonlySet<G>>>
+function igfMarkFilterSet<G>(
+    ignoredMarks: ReadonlySet<G>,
+    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
+    markGlyphSets: Data.Maybe<Array<ReadonlySet<G>>>
 ): null | IgnoreFlagOptions {
-    if (!mgs || !gs || !gs.size) return null;
-    for (let mgsIndex = 0; mgsIndex < mgs.length; mgsIndex++) {
-        if (setEqual(gs, mgs[mgsIndex])) {
-            return {
-                ignoreBaseGlyphs: false,
-                ignoreLigatures: false,
-                ignoreMarks: false,
-                markFilteringSet: mgsIndex
-            };
+    if (!glyphClassDef || !markGlyphSets) return null;
+    out: for (let mgsIndex = 0; mgsIndex < markGlyphSets.length; mgsIndex++) {
+        const mgs = markGlyphSets[mgsIndex];
+        for (const [g, gc] of glyphClassDef) {
+            if (gc !== Gdef.GlyphClass.Mark) continue;
+            if (ignoredMarks.has(g) !== !mgs.has(g)) continue out;
         }
+        return { markFilteringSet: mgsIndex };
     }
     return null;
 }
