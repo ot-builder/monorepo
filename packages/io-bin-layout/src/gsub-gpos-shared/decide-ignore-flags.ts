@@ -11,14 +11,14 @@ export interface IgnoreFlagOptions {
 
 export function decideIgnoreFlags<G, X>(
     gs: Data.Maybe<ReadonlySet<G>>,
-    fn: Data.Maybe<Gdef.General.TableT<G, X>>
+    gdef: Data.Maybe<Gdef.General.TableT<G, X>>
 ): null | IgnoreFlagOptions {
-    if (!fn) return null;
+    if (!gdef) return null;
     return (
         igfEmpty(gs) ||
-        igfGlyphClass(gs, fn.glyphClassDef) ||
-        igcMarkAttachmentClass(gs, fn.markAttachClassDef) ||
-        igfMarkGlyphSet(gs, fn.markGlyphSets)
+        igfGlyphClass(gs, gdef.glyphClassDef) ||
+        igcMarkAttachmentClass(gs, gdef.glyphClassDef, gdef.markAttachClassDef) ||
+        igfMarkGlyphSet(gs, gdef.markGlyphSets)
     );
 }
 
@@ -81,29 +81,36 @@ function igfGlyphClass<G>(
 
 function igcMarkAttachmentClass<G>(
     gs: Data.Maybe<ReadonlySet<G>>,
+    cd: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
     maCd: Data.Maybe<LayoutCommon.ClassDef.T<G>>
 ): null | IgnoreFlagOptions {
-    if (!gs || !gs.size || !maCd) return null;
+    if (!gs || !gs.size || !cd || !maCd) return null;
 
-    // Get an matching mark class
-    let kMark: undefined | number = undefined;
-    for (const g of gs) {
-        const kg = maCd.get(g);
-        if (kg === undefined) return null;
-        if (kMark === undefined) kMark = kg;
-        else if (kg !== kMark) return null;
+    const keptMarkClasses = new Set<number>();
+    const ignoredMarkClasses = new Set<number>();
+    for (const [g, gc] of cd) {
+        if (gc !== Gdef.GlyphClass.Mark) continue;
+        const k = maCd.get(g) || 0;
+        (gs.has(g) ? ignoredMarkClasses : keptMarkClasses).add(k);
     }
 
-    // ensure the glyph set satisfying this mark class equal to GS
-    if (kMark === undefined) return null;
-    for (const [g, cl] of maCd) {
-        if (cl === kMark && !gs.has(g)) return null;
+    let finalMarkClass: undefined | number = undefined;
+    for (const k of keptMarkClasses) {
+        // Hybrid class, fail
+        if (ignoredMarkClasses.has(k)) return null;
+        // Multiple mark classes to keep, fail
+        if (finalMarkClass != undefined) return null;
+        finalMarkClass = k;
     }
+
+    // Nothing to keep, fail
+    if (!finalMarkClass || finalMarkClass <= 0 || finalMarkClass > 0xff) return null;
+
     return {
         ignoreBaseGlyphs: false,
         ignoreLigatures: false,
         ignoreMarks: false,
-        markAttachmentType: kMark
+        markAttachmentType: finalMarkClass
     };
 }
 

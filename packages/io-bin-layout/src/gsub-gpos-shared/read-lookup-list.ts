@@ -55,10 +55,16 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         }
     }
     private applyGdefMarkAttachDefIgnores(ignores: Set<OtGlyph>, flags: number, gdef: Gdef.Table) {
-        if (gdef.markAttachClassDef && flags & LookupFlag.MarkAttachmentType) {
+        if (
+            gdef.glyphClassDef &&
+            gdef.markAttachClassDef &&
+            flags & LookupFlag.MarkAttachmentType
+        ) {
             const maCls = (flags & LookupFlag.MarkAttachmentType) >>> 8;
-            for (const [g, cls] of gdef.markAttachClassDef) {
-                if (cls === maCls) ignores.add(g);
+            for (const [g, cls] of gdef.glyphClassDef) {
+                if (cls !== Gdef.GlyphClass.Mark) continue;
+                const k = gdef.markAttachClassDef.get(g) || 0;
+                if (k !== maCls) ignores.add(g);
             }
         }
     }

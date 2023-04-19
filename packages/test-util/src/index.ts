@@ -1,7 +1,7 @@
 export * as TestFont from "./test-font";
 export * as TestVariance from "./test-variance";
 export * as GlyphIdentity from "./glyph-identity";
-export { BimapCtx, EmptyCtx, LookupCtx } from "./compar-util";
+export { BimapCtx, EmptyCtx, LookupCtx, setEqual } from "./compar-util";
 export * as CmapIdentity from "./cmap-identity";
 export * as CvtIdentity from "./cvt-identity";
 export * as GdefIdentity from "./layout-identity/gdef";
