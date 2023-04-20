@@ -6,11 +6,15 @@ import { Tag } from "@ot-builder/primitive";
 import { FeatureConsolidationSource, FeatureConsolidator } from "./consolidate/feature";
 import { mergeMapAlt } from "./utils";
 
-export class GsubGposMerger<L> implements FeatureConsolidationSource<L> {
+export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
+    implements FeatureConsolidationSource<L>
+{
     constructor(
         public readonly variationDimensions: Data.Order<Ot.Var.Dim>,
         public readonly preferred: Ot.GsubGpos.TableT<L>,
-        public readonly less: Ot.GsubGpos.TableT<L>
+        public readonly less: Ot.GsubGpos.TableT<L>,
+        private readonly preferredGdef: Data.Maybe<Ot.Gdef.Table>,
+        private readonly lessGdef: Data.Maybe<Ot.Gdef.Table>
     ) {
         this.fordPreferred = ImpLib.Order.fromList("Features", preferred.features);
         this.fordLess = ImpLib.Order.fromList("Features", less.features);
@@ -27,7 +31,59 @@ export class GsubGposMerger<L> implements FeatureConsolidationSource<L> {
     }
 
     private getLookups() {
+        const result = [];
+
+        for (const lookup of this.preferred.lookups) {
+            result.push(lookup);
+            if (this.preferredGdef && this.lessGdef) {
+                this.amendIgnoreSet(lookup, this.preferredGdef, this.lessGdef);
+            }
+        }
+        for (const lookup of this.less.lookups) {
+            result.push(lookup);
+            if (this.preferredGdef && this.lessGdef) {
+                this.amendIgnoreSet(lookup, this.lessGdef, this.preferredGdef);
+            }
+        }
+
         return [...this.preferred.lookups, ...this.less.lookups];
+    }
+
+    private amendIgnoreSet(lookup: L, currentGdef: Ot.Gdef.Table, counterGdef: Ot.Gdef.Table) {
+        if (!lookup.ignoreGlyphs) return;
+        if (!currentGdef.glyphClassDef || !counterGdef.glyphClassDef) return;
+
+        let hasBase = false,
+            hasLigature = false,
+            hasMark = false;
+        for (const [g, c] of currentGdef.glyphClassDef) {
+            if (!lookup.ignoreGlyphs.has(g)) continue;
+            switch (c) {
+                case Ot.Gdef.GlyphClass.Base:
+                    hasBase = true;
+                    break;
+                case Ot.Gdef.GlyphClass.Ligature:
+                    hasLigature = true;
+                    break;
+                case Ot.Gdef.GlyphClass.Mark:
+                    hasMark = true;
+                    break;
+            }
+        }
+
+        for (const [g, c] of counterGdef.glyphClassDef) {
+            switch (c) {
+                case Ot.Gdef.GlyphClass.Base:
+                    if (hasBase) lookup.ignoreGlyphs.add(g);
+                    break;
+                case Ot.Gdef.GlyphClass.Ligature:
+                    if (hasLigature) lookup.ignoreGlyphs.add(g);
+                    break;
+                case Ot.Gdef.GlyphClass.Mark:
+                    if (hasMark) lookup.ignoreGlyphs.add(g);
+                    break;
+            }
+        }
     }
 
     private mergeScriptList() {
