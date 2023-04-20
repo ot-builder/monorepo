@@ -44,7 +44,6 @@ export function decideIgnoreFlags<G, X>(
         igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef) ||
         igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
 
-    if (!igfBase || !igfLigature || !igfMark) return null;
     return {
         ...igfBase,
         ...igfLigature,
