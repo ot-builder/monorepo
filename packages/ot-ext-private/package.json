@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/ot-ext-private",
   "description": "",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,8 +26,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/ot-glyphs": "1.6.3",
-    "@ot-builder/prelude": "1.6.3",
+    "@ot-builder/ot-glyphs": "1.6.4",
+    "@ot-builder/prelude": "1.6.4",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
