@@ -18,7 +18,7 @@ jobs:
         node-version: [lts/*, latest] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -39,13 +39,13 @@ jobs:
 
     steps:
     - name: Fetch main repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         ref: master
         fetch-depth: 0
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
     - name: Fetch docs repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         repository: ot-builder/ot-builder.github.io.git
         ref: master
