@@ -2,6 +2,63 @@
   "name": "@ot-builder/test-util",
   "entries": [
     {
+      "date": "Sat, 22 Apr 2023 01:01:14 GMT",
+      "tag": "@ot-builder/test-util_v1.6.3",
+      "version": "1.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/test-util",
+            "commit": "df27eccdd84a210e939708f225c465911a0882cd",
+            "comment": "Fix handling of mark attachment flags in lookups"
+          },
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/test-util",
+            "commit": "dc2c43855a1556176041326c5aac1cb4c8868b9e",
+            "comment": "Bugfix for a mark class that has no bases"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/common-impl to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/ot-encoding to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/ot-layout to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/prelude to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/test-util",
+            "comment": "Bump @ot-builder/variance to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 Apr 2023 01:06:43 GMT",
       "tag": "@ot-builder/test-util_v1.6.2",
       "version": "1.6.2",

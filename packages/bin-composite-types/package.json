@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/bin-composite-types",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,9 +25,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/bin-util": "1.6.2",
-    "@ot-builder/errors": "1.6.2",
-    "@ot-builder/prelude": "1.6.2",
+    "@ot-builder/bin-util": "1.6.3",
+    "@ot-builder/errors": "1.6.3",
+    "@ot-builder/prelude": "1.6.3",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

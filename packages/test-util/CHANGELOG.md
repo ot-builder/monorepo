@@ -1,8 +1,23 @@
 # Change Log - @ot-builder/test-util
 
-This log was last generated on Sat, 15 Apr 2023 01:06:43 GMT and should not be manually modified.
+This log was last generated on Sat, 22 Apr 2023 01:01:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.3
+
+Sat, 22 Apr 2023 01:01:14 GMT
+
+### Patches
+
+- Fix handling of mark attachment flags in lookups (otbbuilder-dev@users.noreply.github.com)
+- Bugfix for a mark class that has no bases (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/common-impl to v1.6.3
+- Bump @ot-builder/ot-encoding to v1.6.3
+- Bump @ot-builder/ot-glyphs to v1.6.3
+- Bump @ot-builder/ot-layout to v1.6.3
+- Bump @ot-builder/prelude to v1.6.3
+- Bump @ot-builder/variance to v1.6.3
 
 ## 1.6.2
 

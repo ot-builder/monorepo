@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/ot-sfnt
 
-This log was last generated on Sat, 15 Apr 2023 01:06:43 GMT and should not be manually modified.
+This log was last generated on Sat, 22 Apr 2023 01:01:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.3
+
+Sat, 22 Apr 2023 01:01:14 GMT
+
+### Patches
+
+- Bump @ot-builder/prelude to v1.6.3
+- Bump @ot-builder/primitive to v1.6.3
 
 ## 1.6.2
 

@@ -2,6 +2,27 @@
   "name": "@ot-builder/ot-sfnt",
   "entries": [
     {
+      "date": "Sat, 22 Apr 2023 01:01:14 GMT",
+      "tag": "@ot-builder/ot-sfnt_v1.6.3",
+      "version": "1.6.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-sfnt",
+            "comment": "Bump @ot-builder/prelude to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-sfnt",
+            "comment": "Bump @ot-builder/primitive to v1.6.3",
+            "commit": "b19d6f897aa2a52a78cc95ca4832baeda71446a2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 15 Apr 2023 01:06:43 GMT",
       "tag": "@ot-builder/ot-sfnt_v1.6.2",
       "version": "1.6.2",
