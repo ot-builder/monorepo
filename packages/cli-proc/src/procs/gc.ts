@@ -21,7 +21,7 @@ export function gcFont<GS extends Ot.GlyphStore>(
     if (font.gsub) font.gsub = consolidateGsubGpos(font.fvar, font.gsub);
 }
 
-function cleanupInaccessibleLookups<L, Table extends Ot.GsubGpos.TableT<L>>(table: Table) {
+function cleanupInaccessibleLookups<L>(table: Ot.GsubGpos.TableT<L>) {
     const keptFeatures = new Set<Ot.GsubGpos.FeatureT<L>>();
     for (const script of table.scripts.values()) {
         if (script.defaultLanguage)
@@ -43,8 +43,34 @@ function cleanupInaccessibleLookups<L, Table extends Ot.GsubGpos.TableT<L>>(tabl
             }
         }
     }
+    extendIndirectLookups(keptLookups);
 
     ImpLib.ArrayHelper.inPlaceShrinkArray(keptLookups, table.lookups);
+}
+
+function isChainingLookup<L>(lookup: unknown): lookup is Ot.GsubGpos.ChainingProp<L> {
+    return lookup instanceof Ot.Gsub.Chaining || lookup instanceof Ot.Gpos.Chaining;
+}
+
+function extendIndirectLookups<L>(keptLookups: Set<L>) {
+    let sizeOld = keptLookups.size;
+    for (;;) {
+        const sizeNew = keptLookups.size;
+
+        for (const l of keptLookups) {
+            if (isChainingLookup<L>(l)) {
+                for (const rule of l.rules) {
+                    for (const app of rule.applications) keptLookups.add(app.apply);
+                }
+            }
+        }
+
+        if (sizeNew === sizeOld) {
+            break;
+        } else {
+            sizeOld = sizeNew;
+        }
+    }
 }
 
 function collectAccessibleFeatures<L>(
