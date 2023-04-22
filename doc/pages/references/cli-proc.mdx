@@ -31,7 +31,7 @@ Reduces the _font_'s glyph set to all glyphs accessible from _text_.
 
 ## Font Merging
 
-### Function <Fn s={CliProc.mergeFont(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),gsf:Ot.GlyphStoreFactory("GS1"),options:optional(CliProc.MergeOptions)}}/>
+### Function <Fn s={CliProc.mergeFonts(extend("GS1", Ot.GlyphStore),extend("GS2", Ot.GlyphStore))} args={{basis:Ot.Font("GS1"),override:Ot.Font("GS2"),gsf:Ot.GlyphStoreFactory("GS1"),options:optional(CliProc.MergeOptions)}}/>
 
 Create a combined font _override_ into font _basis_, which will have a new glyph store and new `cmap`, `GSUB`, `GPOS` and `GDEF` tables. The remaining tables will be shared with _basis_.
 
