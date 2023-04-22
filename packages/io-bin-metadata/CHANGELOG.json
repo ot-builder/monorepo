@@ -2,6 +2,87 @@
   "name": "@ot-builder/io-bin-metadata",
   "entries": [
     {
+      "date": "Sat, 22 Apr 2023 11:21:28 GMT",
+      "tag": "@ot-builder/io-bin-metadata_v1.6.4",
+      "version": "1.6.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/bin-util to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/common-impl to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/errors to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/ot-metadata to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/prelude to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/primitive to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/var-store to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/variance to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-metadata",
+            "comment": "Bump @ot-builder/test-util to v1.6.4",
+            "commit": "d9628c0eeaf0d499cbfe887f6fa5257504afe3f0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 22 Apr 2023 01:01:14 GMT",
       "tag": "@ot-builder/io-bin-metadata_v1.6.3",
       "version": "1.6.3",

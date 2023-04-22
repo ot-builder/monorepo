@@ -1,8 +1,19 @@
 # Change Log - @ot-builder/ot-metadata
 
-This log was last generated on Sat, 22 Apr 2023 01:01:14 GMT and should not be manually modified.
+This log was last generated on Sat, 22 Apr 2023 11:21:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.4
+
+Sat, 22 Apr 2023 11:21:28 GMT
+
+### Patches
+
+- Bump @ot-builder/common-impl to v1.6.4
+- Bump @ot-builder/prelude to v1.6.4
+- Bump @ot-builder/primitive to v1.6.4
+- Bump @ot-builder/variance to v1.6.4
 
 ## 1.6.3
 
