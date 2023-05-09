@@ -1,5 +1,10 @@
+/* eslint-env node */
+
 import * as fs from "fs";
 import * as path from "path";
+import * as url from "url";
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 const lernaJsonRoot = JSON.parse(
     fs.readFileSync(path.join(__dirname, "..", "lerna.json"), "utf-8")

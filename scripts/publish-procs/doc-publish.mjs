@@ -1,11 +1,13 @@
+/* eslint-env node */
+
 import * as Path from "path";
 
 import * as FSE from "fs-extra";
 import { rimraf } from "rimraf";
 
-import { Deploy, DocGit, Npm, Out, PublishConfig } from "./tools";
+import { Deploy, DocGit, Npm, Out } from "./tools.mjs";
 
-export async function docPublish(cfg: PublishConfig) {
+export async function docPublish(cfg) {
     if (!cfg.GitUser || !cfg.GitEmail) {
         throw new Error("Key information missing.");
     }

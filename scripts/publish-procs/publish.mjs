@@ -1,6 +1,8 @@
-import { Beachball, Git, PublishConfig } from "./tools";
+/* eslint-env node */
 
-export async function publish(cfg: PublishConfig) {
+import { Beachball, Git } from "./tools.mjs";
+
+export async function publish(cfg) {
     if (!cfg.GitUser || !cfg.GitEmail || !cfg.NpmToken) {
         throw new Error("Key information missing.");
     }
