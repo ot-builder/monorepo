@@ -1,5 +1,10 @@
+/* eslint-env node */
+
 import * as fs from "fs";
 import * as path from "path";
+import * as url from "url";
+
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 const packagesRoot = path.join(__dirname, "..", "packages");
 
@@ -7,7 +12,7 @@ const packages = fs
     .readdirSync(packagesRoot)
     .filter(item => fs.lstatSync(path.join(packagesRoot, item)).isDirectory());
 
-const sInternalPackageVersion: Map<string, string> = new Map();
+const sInternalPackageVersion = new Map();
 
 for (const packageName of packages) {
     const packageJSONPath = path.join(packagesRoot, packageName, "package.json");

@@ -1,16 +1,19 @@
-import * as Path from "path";
+/* eslint-env node */
 
-import * as FSE from "fs-extra";
+import * as fs from "fs";
+import * as path from "path";
+
+import * as fse from "fs-extra";
 import { rimraf } from "rimraf";
 
-import { Deploy, DocGit, Npm, Out, PublishConfig } from "./tools";
+import { Deploy, DocGit, Npm, Out } from "./tools.mjs";
 
-export async function docPublish(cfg: PublishConfig) {
+export async function docPublish(cfg) {
     if (!cfg.GitUser || !cfg.GitEmail) {
         throw new Error("Key information missing.");
     }
 
-    await FSE.ensureDir(Deploy);
+    await fse.ensureDir(Deploy);
 
     // Build
     await Npm("run", "docs:clean");
@@ -22,11 +25,11 @@ export async function docPublish(cfg: PublishConfig) {
     await DocGit("config", "user.email", cfg.GitEmail);
 
     // Clear everything currently there
-    await rimraf(Path.join(Deploy, "*"), { glob: true });
+    await rimraf(path.join(Deploy, "*"), { glob: true });
     // Add ".nojekyll"
-    await FSE.writeFile(Path.resolve(Deploy, ".nojekyll"), "");
+    await fs.promises.writeFile(path.resolve(Deploy, ".nojekyll"), "");
     // Copy doc output
-    await FSE.copy(Out, Deploy);
+    await fse.copy(Out, Deploy);
     await rimraf(Out);
 
     // Commit and push

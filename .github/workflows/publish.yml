@@ -51,10 +51,10 @@ jobs:
         ref: master
         path: .doc-deploy
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
-    - name: Use Node.js v14
+    - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '14.x'
+        node-version: lts/*
     - name: NPM Setup
       run: |
         npm run init:prod

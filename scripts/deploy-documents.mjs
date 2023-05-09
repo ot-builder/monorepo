@@ -1,5 +1,6 @@
-import { docPublish } from "./publish-procs/doc-publish";
-import { PublishConfig } from "./publish-procs/tools";
+/* eslint-env node */
+
+import { docPublish } from "./publish-procs/doc-publish.mjs";
 
 const GitUser = "otbbuilder-dev";
 const GitEmail = "otbbuilder-dev@users.noreply.github.com";
@@ -10,6 +11,6 @@ main().catch(e => {
 });
 
 async function main() {
-    const cfg: PublishConfig = { GitUser, GitEmail, NpmToken: "" };
+    const cfg = { GitUser, GitEmail, NpmToken: "" };
     await docPublish(cfg);
 }
