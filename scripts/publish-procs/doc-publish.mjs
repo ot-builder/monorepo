@@ -33,7 +33,7 @@ export async function docPublish(cfg) {
     await rimraf(Out);
 
     // Commit and push
-    await DocGit("add", ".");
+    await DocGit("add", "-A");
     await DocGit("commit", "-m", `Documentation deploy @ ${new Date()}`);
     await DocGit("push", "origin", "master", "--force");
 }
