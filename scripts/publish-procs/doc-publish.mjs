@@ -25,7 +25,7 @@ export async function docPublish(cfg) {
     await DocGit("config", "user.email", cfg.GitEmail);
 
     // Clear everything currently there
-    await rimraf(path.join(Deploy, "*"), { glob: true });
+    await rimraf(path.join(Deploy, "*").replaceAll(path.sep, "/"), { glob: true });
     // Add ".nojekyll"
     await fs.promises.writeFile(path.resolve(Deploy, ".nojekyll"), "");
     // Copy doc output
