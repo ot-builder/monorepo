@@ -45,6 +45,6 @@
     "@ot-builder/io-bin-sfnt": "1.6.4",
     "@ot-builder/test-util": "1.6.4",
     "@types/jest": "^26.0.23",
-    "jest": "^29.3.1"
+    "jest": "^29.6.2"
   }
 }

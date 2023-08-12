@@ -220,5 +220,6 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true
     },
-    "task.allowAutomaticTasks": "on"
+    "task.allowAutomaticTasks": "on",
+    "npm.packageManager": "npm"
 }
