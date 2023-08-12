@@ -5,7 +5,10 @@ import { Data } from "@ot-builder/prelude";
 //     In Proc. Data Compression Conference ’99(DCC’99). IEEE Computer Society, 1999, p. 296.
 
 export class Rune<K> {
-    constructor(public readonly ir: K, public barrier: boolean = false) {}
+    constructor(
+        public readonly ir: K,
+        public barrier: boolean = false
+    ) {}
 
     // A double-linked list node
     public prev: Rune<K> = this;
@@ -62,7 +65,10 @@ class DigraphSentinel {
 
 class Digraph<K> extends DigraphSentinel {
     public count: number = 0; // count == 0 means sentinel
-    constructor(public readonly key: string, public firstOccurrence: Rune<K>) {
+    constructor(
+        public readonly key: string,
+        public firstOccurrence: Rune<K>
+    ) {
         super();
     }
     public next: DigraphSentinel = this;

@@ -9,7 +9,11 @@ export class Fixed implements Sized, Read<number, []>, Write<number, []>, Ranged
     public readonly min: number; // minimum possible value
     public readonly max: number; // maximum possible value
 
-    constructor(private readonly signed: boolean, integerBits: number, fractionBits: number) {
+    constructor(
+        private readonly signed: boolean,
+        integerBits: number,
+        fractionBits: number
+    ) {
         this.shiftBits = 32 - integerBits - fractionBits;
         this.exponent = 1 << fractionBits;
         this.mask = (-1 << this.shiftBits) >>> this.shiftBits;

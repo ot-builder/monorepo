@@ -14,7 +14,10 @@ export interface PointFactoryT<X> {
 
 export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
     public readonly neutral: T<X>;
-    constructor(private vsX: Algebra.VectorSpace<X, number>, private factory: PointFactoryT<X>) {
+    constructor(
+        private vsX: Algebra.VectorSpace<X, number>,
+        private factory: PointFactoryT<X>
+    ) {
         this.neutral = factory.create(vsX.neutral, vsX.neutral, 0);
     }
 

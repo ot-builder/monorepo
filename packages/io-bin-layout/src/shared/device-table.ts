@@ -9,6 +9,7 @@ enum DeltaFormat {
     LOCAL_2_BIT_DELTAS = 0x0001,
     LOCAL_4_BIT_DELTAS = 0x0002,
     LOCAL_8_BIT_DELTAS = 0x0003,
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     FORMAT_MASK = 0x0003,
     VARIATION_INDEX = 0x8000,
     Reserved = 0x7ffc

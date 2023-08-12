@@ -3,7 +3,10 @@ import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 export class TupleStorage {
-    constructor(public index: number, public tuple: F2D14[]) {}
+    constructor(
+        public index: number,
+        public tuple: F2D14[]
+    ) {}
 }
 
 export class TupleAllocator {
@@ -37,7 +40,10 @@ export interface AxesTuples {
 }
 
 export class MasterToTupleConverter {
-    constructor(private designSpace: OtVar.DesignSpace, private forceKeepMinMax: boolean) {}
+    constructor(
+        private designSpace: OtVar.DesignSpace,
+        private forceKeepMinMax: boolean
+    ) {}
     private cache: WeakMap<OtVar.Master, AxesTuples> = new Map();
     private getTuplesImpl(master: OtVar.Master): AxesTuples {
         const start = [],

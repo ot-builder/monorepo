@@ -19,7 +19,11 @@ export class TvsCollector extends DelayValueCollector<
 }
 
 export class DelayDeltaValue {
-    constructor(private col: TvsCollector, public origin: number, private deltaMA: number[]) {}
+    constructor(
+        private col: TvsCollector,
+        public origin: number,
+        private deltaMA: number[]
+    ) {}
     public resolve() {
         return this.col.resolveDeltas(this.deltaMA);
     }

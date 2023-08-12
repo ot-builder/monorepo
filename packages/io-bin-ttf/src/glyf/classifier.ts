@@ -99,7 +99,11 @@ class HintClassifier {
 }
 
 export class SpaceGlyph {
-    constructor(protected gid: number, public hm: OtGlyph.Metric, public vm: OtGlyph.Metric) {}
+    constructor(
+        protected gid: number,
+        public hm: OtGlyph.Metric,
+        public vm: OtGlyph.Metric
+    ) {}
     public getStatData(): OtGlyph.Stat.ComplexGlyphStat {
         return {
             eigenContours: 0,

@@ -34,7 +34,10 @@ export function StartParseArgv(argv: string[], index = 0): ParseState {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArgument {
-    constructor(private readonly argv: string[], private readonly cp: number) {
+    constructor(
+        private readonly argv: string[],
+        private readonly cp: number
+    ) {
         this.eof = this.cp >= this.argv.length;
         this.option = this.argument = this.argv[cp];
     }

@@ -8,7 +8,10 @@ export interface Join<T> {
 }
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T> {
-    constructor(private readonly joiner: Join<T>, private readonly body: Syntax<null | T>) {}
+    constructor(
+        private readonly joiner: Join<T>,
+        private readonly body: Syntax<null | T>
+    ) {}
     public handle(st0: ParseState, grammar: Grammar) {
         const results: T[] = [];
         let st = st0;

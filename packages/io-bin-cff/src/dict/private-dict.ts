@@ -19,7 +19,10 @@ import {
 } from "./general";
 
 class PrivateDictInterpreter extends CffDictInterpreterBase {
-    constructor(private ctx: CffReadContext, private viewDict: BinaryView) {
+    constructor(
+        private ctx: CffReadContext,
+        private viewDict: BinaryView
+    ) {
         super(ctx.ivs);
     }
 

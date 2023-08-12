@@ -4,7 +4,10 @@ import { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export class Os2Stat implements OtGlyph.Stat.Sink {
-    constructor(private os2: Os2.Table, private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>) {}
+    constructor(
+        private os2: Os2.Table,
+        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
+    ) {}
 
     private metricsCount: number = 0;
     private metricsSum: number = 0;

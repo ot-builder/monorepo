@@ -100,7 +100,10 @@ interface MarkPlanClass<G, B> {
 abstract class MarkWritePlan<G, B> {
     protected readonly relocation: MarkClassRelocation;
     public readonly bases: Map<G, B>;
-    constructor(public readonly marks: SingleMarkRecord<G>[], rawBases: Map<G, B>) {
+    constructor(
+        public readonly marks: SingleMarkRecord<G>[],
+        rawBases: Map<G, B>
+    ) {
         this.relocation = this.getMarkPlanRelocation(marks);
         this.bases = new Map();
         for (const [g, br] of rawBases) {

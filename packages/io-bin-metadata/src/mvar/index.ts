@@ -9,7 +9,10 @@ import { OtVar } from "@ot-builder/variance";
 export const MvarTag = "MVAR";
 
 class MvarPropAccess<Table, K extends keyof Table> implements ImpLib.Access<Table[K]> {
-    constructor(private table: Table, private key: K) {}
+    constructor(
+        private table: Table,
+        private key: K
+    ) {}
     public get() {
         return this.table[this.key];
     }

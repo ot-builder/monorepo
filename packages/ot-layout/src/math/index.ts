@@ -116,7 +116,10 @@ export class GlyphPart {
     ) {}
 }
 export class GlyphAssembly {
-    constructor(public italicCorrection: ValueRecord, public parts: GlyphPart[]) {}
+    constructor(
+        public italicCorrection: ValueRecord,
+        public parts: GlyphPart[]
+    ) {}
 }
 export class GlyphConstruction {
     constructor(

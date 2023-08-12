@@ -31,7 +31,10 @@ export class Instance {
 }
 
 export class Table {
-    constructor(public axes: Axis[] = [], public instances: Instance[] = []) {}
+    constructor(
+        public axes: Axis[] = [],
+        public instances: Instance[] = []
+    ) {}
     public getDesignSpace() {
         return ImpLib.Order.fromList(
             "DesignSpace",
