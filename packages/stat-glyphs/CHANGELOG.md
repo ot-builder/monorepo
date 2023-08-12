@@ -1,8 +1,23 @@
 # Change Log - @ot-builder/stat-glyphs
 
-This log was last generated on Sat, 22 Apr 2023 11:21:28 GMT and should not be manually modified.
+This log was last generated on Sat, 12 Aug 2023 21:38:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.0
+
+Sat, 12 Aug 2023 21:38:58 GMT
+
+### Minor changes
+
+- Bump dependencies and drop usage of Lerna by migrating to NPM workspaces (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-composite-types to v1.7.0
+- Bump @ot-builder/common-impl to v1.7.0
+- Bump @ot-builder/ot-glyphs to v1.7.0
+- Bump @ot-builder/ot-metadata to v1.7.0
+- Bump @ot-builder/prelude to v1.7.0
+- Bump @ot-builder/primitive to v1.7.0
+- Bump @ot-builder/variance to v1.7.0
 
 ## 1.6.4
 

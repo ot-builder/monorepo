@@ -2,6 +2,93 @@
   "name": "@ot-builder/io-bin-encoding",
   "entries": [
     {
+      "date": "Sat, 12 Aug 2023 21:38:58 GMT",
+      "version": "1.7.0",
+      "tag": "@ot-builder/io-bin-encoding_v1.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-encoding",
+            "commit": "f8654ba110890cca59e6122f15b9c4c88d3e52c9",
+            "comment": "Bump dependencies and drop usage of Lerna by migrating to NPM workspaces"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/bin-util to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/errors to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/ot-encoding to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/prelude to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/primitive to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-encoding",
+            "comment": "Bump @ot-builder/test-util to v1.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 22 Apr 2023 11:21:28 GMT",
       "tag": "@ot-builder/io-bin-encoding_v1.6.4",
       "version": "1.6.4",

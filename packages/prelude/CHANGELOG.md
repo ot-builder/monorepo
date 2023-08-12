@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/prelude
 
-This log was last generated on Sat, 28 Jan 2023 01:12:19 GMT and should not be manually modified.
+This log was last generated on Sat, 12 Aug 2023 21:38:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.0
+
+Sat, 12 Aug 2023 21:38:58 GMT
+
+### Minor changes
+
+- Bump dependencies and drop usage of Lerna by migrating to NPM workspaces (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.6.1
 

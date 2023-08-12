@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Bump dependencies and drop usage of Lerna by migrating to NPM workspaces",
-  "packageName": "@ot-builder/io-bin-ttf",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

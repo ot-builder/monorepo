@@ -2,6 +2,21 @@
   "name": "@ot-builder/cli-help-shower",
   "entries": [
     {
+      "date": "Sat, 12 Aug 2023 21:38:58 GMT",
+      "version": "1.7.0",
+      "tag": "@ot-builder/cli-help-shower_v1.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "f8654ba110890cca59e6122f15b9c4c88d3e52c9",
+            "comment": "Bump dependencies and drop usage of Lerna by migrating to NPM workspaces"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 28 Jan 2023 01:12:19 GMT",
       "tag": "@ot-builder/cli-help-shower_v1.6.1",
       "version": "1.6.1",

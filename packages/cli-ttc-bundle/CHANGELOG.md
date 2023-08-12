@@ -1,8 +1,19 @@
 # Change Log - otb-ttc-bundle
 
-This log was last generated on Sat, 22 Apr 2023 11:21:28 GMT and should not be manually modified.
+This log was last generated on Sat, 12 Aug 2023 21:38:58 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.0
+
+Sat, 12 Aug 2023 21:38:58 GMT
+
+### Minor changes
+
+- Bump dependencies and drop usage of Lerna by migrating to NPM workspaces (otbbuilder-dev@users.noreply.github.com)
+- Bump ot-builder to v1.7.0
+- Bump @ot-builder/cli-help-shower to v1.7.0
+- Bump @ot-builder/cli-shared to v1.7.0
 
 ## 1.6.4
 

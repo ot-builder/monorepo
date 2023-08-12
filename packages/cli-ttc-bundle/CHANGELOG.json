@@ -2,6 +2,39 @@
   "name": "otb-ttc-bundle",
   "entries": [
     {
+      "date": "Sat, 12 Aug 2023 21:38:58 GMT",
+      "version": "1.7.0",
+      "tag": "otb-ttc-bundle_v1.7.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "otb-ttc-bundle",
+            "commit": "f8654ba110890cca59e6122f15b9c4c88d3e52c9",
+            "comment": "Bump dependencies and drop usage of Lerna by migrating to NPM workspaces"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump ot-builder to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-help-shower to v1.7.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "otb-ttc-bundle",
+            "comment": "Bump @ot-builder/cli-shared to v1.7.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 22 Apr 2023 11:21:28 GMT",
       "tag": "otb-ttc-bundle_v1.6.4",
       "version": "1.6.4",
