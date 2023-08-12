@@ -274,7 +274,10 @@ export const GlyfTableWrite = Write(
 );
 
 class StdGlyfDataSink {
-    constructor(private readonly loca: LocaTable, private readonly frag: Frag) {}
+    constructor(
+        private readonly loca: LocaTable,
+        private readonly frag: Frag
+    ) {}
     private offset = 0;
     public begin() {}
     public add(fGlyph: Frag) {

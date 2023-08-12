@@ -33,7 +33,10 @@ export class CliStackEntryPlaceholder {
     }
 }
 export class CliStackEntry extends CliStackEntryPlaceholder {
-    constructor(identifier: string, public readonly font: Ot.Font) {
+    constructor(
+        identifier: string,
+        public readonly font: Ot.Font
+    ) {
         super(identifier);
     }
 }

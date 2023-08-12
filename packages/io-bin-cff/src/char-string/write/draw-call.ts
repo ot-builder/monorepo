@@ -198,7 +198,10 @@ class MirArgConverter {
     public pendingBlendOrigins: number[] = [];
     public pendingBlendDeltas: number[] = [];
 
-    constructor(private to: Mir[], private readonly eo: CffEncodingOptions) {}
+    constructor(
+        private to: Mir[],
+        private readonly eo: CffEncodingOptions
+    ) {}
 
     public push(x: number | CffBlendPrimitive) {
         if (typeof x === "number") {

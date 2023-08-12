@@ -5,7 +5,10 @@ export class TypeID<T> {
 }
 
 export class DependentPair {
-    private constructor(private readonly tid: TypeID<any>, private readonly value: any) {}
+    private constructor(
+        private readonly tid: TypeID<any>,
+        private readonly value: any
+    ) {}
     public cast<T>(expected: TypeID<T>): undefined | T {
         if (this.tid.id === expected.id) return this.value;
         else return undefined;

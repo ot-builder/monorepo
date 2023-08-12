@@ -1,7 +1,10 @@
 import { Input, KeyProvider, NonTerminalBuilder, RuleBuilder, Session } from "./pairing";
 
 export class NonTerminalRule<K> {
-    constructor(public readonly symbol: K, public readonly parts: K[]) {}
+    constructor(
+        public readonly symbol: K,
+        public readonly parts: K[]
+    ) {}
     public toString() {
         return `${this.symbol} -> ${this.parts.join("")}`;
     }

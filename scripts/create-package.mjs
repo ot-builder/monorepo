@@ -6,10 +6,6 @@ import * as url from "url";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-const lernaJsonRoot = JSON.parse(
-    fs.readFileSync(path.join(__dirname, "..", "lerna.json"), "utf-8")
-);
-
 const packagesRoot = path.join(__dirname, "..", "packages");
 const packageName = process.argv[2];
 
@@ -20,7 +16,7 @@ const packageJSONPath = path.join(packagesRoot, packageName, "package.json");
 
 const packageJSONData = {
     name: `@ot-builder/${packageName}`,
-    version: lernaJsonRoot.version,
+    version: "0.0.0",
     license: "MIT",
     repository: {
         type: "git",

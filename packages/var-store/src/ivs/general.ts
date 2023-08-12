@@ -124,7 +124,10 @@ export class WriteTimeIVDBlossom {
 export class WriteTimeIVDBlossomAllocator
     implements ImpLib.PathMapAllocator<WriteTimeIVDBlossom, [number[]]>
 {
-    constructor(private nodeAlloc: WriteTimeIVDAllocator, private maxInnerIndex: number) {}
+    constructor(
+        private nodeAlloc: WriteTimeIVDAllocator,
+        private maxInnerIndex: number
+    ) {}
     public next(masterIDs: number[]) {
         return new WriteTimeIVDBlossom(this.nodeAlloc, this.maxInnerIndex, masterIDs);
     }

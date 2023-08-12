@@ -6,7 +6,10 @@ import { EmptyStat, EncodingStat } from "./interface";
 
 export class Os2UnicodeRangeStat extends EmptyStat {
     private mask = [0, 0, 0, 0];
-    constructor(private readonly os2: Os2.Table, external?: EncodingStat) {
+    constructor(
+        private readonly os2: Os2.Table,
+        external?: EncodingStat
+    ) {
         super(external);
     }
     public addEncoding(u: number) {

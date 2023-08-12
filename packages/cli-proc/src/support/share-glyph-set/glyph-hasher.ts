@@ -101,7 +101,10 @@ export class GlyphHasher {
 }
 
 class HashGeometry {
-    constructor(private readonly gh: GlyphHasher, private readonly vp: ValueProcessor) {}
+    constructor(
+        private readonly gh: GlyphHasher,
+        private readonly vp: ValueProcessor
+    ) {}
     public process(geom: Ot.Glyph.Geometry): ImpLib.HashRep {
         switch (geom.type) {
             case Ot.Glyph.GeometryType.ContourSet:
@@ -159,7 +162,10 @@ class HashGeometry {
 }
 
 class HashHinting {
-    constructor(private readonly gh: GlyphHasher, private readonly vp: ValueProcessor) {}
+    constructor(
+        private readonly gh: GlyphHasher,
+        private readonly vp: ValueProcessor
+    ) {}
     public process(geom: Ot.Glyph.Hint): ImpLib.HashRep {
         switch (geom.type) {
             case Ot.Glyph.HintType.TtInstruction:

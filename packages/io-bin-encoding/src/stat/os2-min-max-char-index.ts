@@ -7,7 +7,10 @@ import { EmptyStat, EncodingStat } from "./interface";
 export class Os2MinMaxCharStat extends EmptyStat {
     private min = 0xffffff;
     private max = 0;
-    constructor(private readonly os2: Os2.Table, external?: EncodingStat) {
+    constructor(
+        private readonly os2: Os2.Table,
+        external?: EncodingStat
+    ) {
         super(external);
     }
     public addEncoding(u: number) {

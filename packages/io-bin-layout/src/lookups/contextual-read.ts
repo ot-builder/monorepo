@@ -20,7 +20,10 @@ class IndividualResolver<L> implements Resolver {
     }
 }
 class ClassResolver implements Resolver {
-    constructor(private cd: GsubGpos.ClassDef, private startCoverageSet: Set<OtGlyph>) {}
+    constructor(
+        private cd: GsubGpos.ClassDef,
+        private startCoverageSet: Set<OtGlyph>
+    ) {}
     public toGlyphSet(id: number, start: boolean) {
         return ClassDefUtil.select(id, this.cd, start ? this.startCoverageSet : null);
     }

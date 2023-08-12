@@ -16,13 +16,19 @@ export enum NameFlags {
 }
 
 export class NameAssignment {
-    constructor(public readonly flags: NameFlags, public readonly valueNameID: Primitive.UInt16) {}
+    constructor(
+        public readonly flags: NameFlags,
+        public readonly valueNameID: Primitive.UInt16
+    ) {}
 }
 
 export namespace AxisValue {
     export abstract class General {}
     export class Static extends General {
-        constructor(public readonly axis: Axis, public readonly value: Primitive.F16D16) {
+        constructor(
+            public readonly axis: Axis,
+            public readonly value: Primitive.F16D16
+        ) {
             super();
         }
     }

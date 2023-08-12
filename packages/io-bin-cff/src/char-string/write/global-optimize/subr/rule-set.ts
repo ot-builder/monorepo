@@ -53,7 +53,10 @@ export class Rule {
     }
 }
 export class NTRuleStub {
-    constructor(public symbol: MirNonTerminal, public parts: Mir[]) {}
+    constructor(
+        public symbol: MirNonTerminal,
+        public parts: Mir[]
+    ) {}
 }
 
 export class RuleSet {
