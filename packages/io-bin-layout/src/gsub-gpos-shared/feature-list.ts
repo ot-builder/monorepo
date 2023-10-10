@@ -16,7 +16,12 @@ export class CFeatureTable<L> {
     public write(frag: Frag, feat: GsubGpos.FeatureT<L>, lOrd: Data.Order<L>) {
         frag.ptr16(FeatureParams.writeOpt(feat.params, feat.tag));
         frag.uint16(feat.lookups.length);
-        for (const lookup of feat.lookups) frag.uint16(lOrd.reverse(lookup));
+
+        const lookupIDs = [];
+        for (const lookup of feat.lookups) lookupIDs.push(lOrd.reverse(lookup));
+        lookupIDs.sort((a, b) => a - b);
+
+        for (const id of lookupIDs) frag.uint16(id);
     }
 }
 
