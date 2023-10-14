@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Fix GSUB reverse lookup write's backtrack coverages' ordering",
+  "packageName": "@ot-builder/io-bin-layout",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
