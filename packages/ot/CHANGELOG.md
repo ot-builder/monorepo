@@ -1,8 +1,27 @@
 # Change Log - @ot-builder/ot
 
-This log was last generated on Sat, 14 Oct 2023 01:02:49 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Oct 2023 07:38:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.2
+
+Sat, 14 Oct 2023 07:38:32 GMT
+
+### Patches
+
+- Bump @ot-builder/ot-encoding to v1.7.2
+- Bump @ot-builder/ot-glyphs to v1.7.2
+- Bump @ot-builder/ot-layout to v1.7.2
+- Bump @ot-builder/ot-metadata to v1.7.2
+- Bump @ot-builder/ot-ext-private to v1.7.2
+- Bump @ot-builder/ot-name to v1.7.2
+- Bump @ot-builder/ot-vtt-private to v1.7.2
+- Bump @ot-builder/prelude to v1.7.2
+- Bump @ot-builder/variance to v1.7.2
+- Bump @ot-builder/common-impl to v1.7.2
+- Bump @ot-builder/ot-standard-glyph-namer to v1.7.2
+- Bump @ot-builder/ot-sfnt to v1.7.2
 
 ## 1.7.1
 

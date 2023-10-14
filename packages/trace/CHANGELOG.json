@@ -2,6 +2,51 @@
   "name": "@ot-builder/trace",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 07:38:32 GMT",
+      "version": "1.7.2",
+      "tag": "@ot-builder/trace_v1.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/common-impl to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/prelude to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/trace",
+            "comment": "Bump @ot-builder/variance to v1.7.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:50 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/trace_v1.7.1",

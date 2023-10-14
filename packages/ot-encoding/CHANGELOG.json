@@ -2,6 +2,27 @@
   "name": "@ot-builder/ot-encoding",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 07:38:32 GMT",
+      "version": "1.7.2",
+      "tag": "@ot-builder/ot-encoding_v1.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-encoding",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-encoding",
+            "comment": "Bump @ot-builder/prelude to v1.7.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:49 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/ot-encoding_v1.7.1",

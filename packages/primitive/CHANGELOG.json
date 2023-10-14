@@ -2,6 +2,33 @@
   "name": "@ot-builder/primitive",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 07:38:32 GMT",
+      "version": "1.7.2",
+      "tag": "@ot-builder/primitive_v1.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/bin-util to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/errors to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/prelude to v1.7.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:50 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/primitive_v1.7.1",

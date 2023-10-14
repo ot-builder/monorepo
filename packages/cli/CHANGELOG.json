@@ -2,6 +2,33 @@
   "name": "ot-builder-cli",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 07:38:32 GMT",
+      "version": "1.7.2",
+      "tag": "ot-builder-cli_v1.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "ot-builder-cli",
+            "comment": "Bump ot-builder to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder-cli",
+            "comment": "Bump @ot-builder/cli-help-shower to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder-cli",
+            "comment": "Bump @ot-builder/cli-shared to v1.7.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:50 GMT",
       "version": "1.7.1",
       "tag": "ot-builder-cli_v1.7.1",

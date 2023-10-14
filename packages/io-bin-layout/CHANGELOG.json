@@ -2,6 +2,129 @@
   "name": "@ot-builder/io-bin-layout",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 07:38:32 GMT",
+      "version": "1.7.2",
+      "tag": "@ot-builder/io-bin-layout_v1.7.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-layout",
+            "commit": "54c2d71b974b392398d25efd8cb82b65ea9d9ec8",
+            "comment": "Fix GSUB reverse lookup write's backtrack coverages' ordering"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/bin-util to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/errors to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-layout to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/prelude to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/primitive to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/var-store to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/variance to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/common-impl to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/ot-encoding to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/io-bin-encoding to v1.7.2",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-layout",
+            "comment": "Bump @ot-builder/test-util to v1.7.2",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:49 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/io-bin-layout_v1.7.1",

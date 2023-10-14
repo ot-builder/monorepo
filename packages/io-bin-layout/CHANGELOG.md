@@ -1,8 +1,34 @@
 # Change Log - @ot-builder/io-bin-layout
 
-This log was last generated on Sat, 14 Oct 2023 01:02:49 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Oct 2023 07:38:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.2
+
+Sat, 14 Oct 2023 07:38:32 GMT
+
+### Patches
+
+- Fix GSUB reverse lookup write's backtrack coverages' ordering (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-composite-types to v1.7.2
+- Bump @ot-builder/bin-util to v1.7.2
+- Bump @ot-builder/errors to v1.7.2
+- Bump @ot-builder/ot-glyphs to v1.7.2
+- Bump @ot-builder/ot-layout to v1.7.2
+- Bump @ot-builder/ot-metadata to v1.7.2
+- Bump @ot-builder/prelude to v1.7.2
+- Bump @ot-builder/primitive to v1.7.2
+- Bump @ot-builder/var-store to v1.7.2
+- Bump @ot-builder/variance to v1.7.2
+- Bump @ot-builder/common-impl to v1.7.2
+- Bump @ot-builder/ot-sfnt to v1.7.2
+- Bump @ot-builder/io-bin-sfnt to v1.7.2
+- Bump @ot-builder/io-bin-glyph-store to v1.7.2
+- Bump @ot-builder/io-bin-metadata to v1.7.2
+- Bump @ot-builder/ot-encoding to v1.7.2
+- Bump @ot-builder/io-bin-encoding to v1.7.2
+- Bump @ot-builder/test-util to v1.7.2
 
 ## 1.7.1
 
