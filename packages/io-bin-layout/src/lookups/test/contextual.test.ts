@@ -88,11 +88,13 @@ test("GSUB/GPOS Chaining : Simple", () => {
     lookup.rules.push({
         match: [
             TuGlyphSet(gOrd, 0, 4, 5, 8),
+            TuGlyphSet(gOrd, 0, 3, 7, 9),
             TuGlyphSet(gOrd, 2, 78, 1, 34),
             TuGlyphSet(gOrd, 4, 99, 10, 8),
-            TuGlyphSet(gOrd, 8, 10, 12, 13, 15)
+            TuGlyphSet(gOrd, 8, 10, 12, 13, 15),
+            TuGlyphSet(gOrd, 9, 11)
         ],
-        inputBegins: 1,
+        inputBegins: 2,
         inputEnds: 3,
         applications: [
             { at: 0, apply: lOrd.at(1) },

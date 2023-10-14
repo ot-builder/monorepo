@@ -54,7 +54,12 @@ const SubtableFormat1 = {
 
         frag.uint16(1)
             .push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(gm), ctx.trick)
-            .push(SimpleCoverageArray, rule.match.slice(0, rule.doSubAt), ctx.gOrd, ctx.trick)
+            .push(
+                SimpleCoverageArray,
+                rule.match.slice(0, rule.doSubAt).reverse(),
+                ctx.gOrd,
+                ctx.trick
+            )
             .push(SimpleCoverageArray, rule.match.slice(rule.doSubAt + 1), ctx.gOrd, ctx.trick)
             .uint16(gm.length)
             .array(UInt16, CovUtils.valueListFromAuxMap(gm));
