@@ -35,6 +35,17 @@ test("GSUB Reverse sub : Simple", () => {
         doSubAt: 1,
         replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]]))
     });
+    lookup.rules.push({
+        match: [
+            TuGlyphSet(gOrd, 1, 2, 3, 4),
+            TuGlyphSet(gOrd, 5, 6, 7, 8),
+            TuGlyphSet(gOrd, 2),
+            TuGlyphSet(gOrd, 1, 3, 5, 7),
+            TuGlyphSet(gOrd, 2, 4, 6, 8)
+        ],
+        doSubAt: 2,
+        replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]]))
+    });
 
     LookupRoundTripTest(lookup, roundtripConfig);
 });
