@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/ot-metadata",
   "description": "",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,10 +26,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@ot-builder/common-impl": "1.7.0",
-    "@ot-builder/prelude": "1.7.0",
-    "@ot-builder/primitive": "1.7.0",
-    "@ot-builder/variance": "1.7.0",
+    "@ot-builder/common-impl": "1.7.1",
+    "@ot-builder/prelude": "1.7.1",
+    "@ot-builder/primitive": "1.7.1",
+    "@ot-builder/variance": "1.7.1",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

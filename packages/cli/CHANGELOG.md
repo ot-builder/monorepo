@@ -1,8 +1,19 @@
 # Change Log - ot-builder-cli
 
-This log was last generated on Sat, 12 Aug 2023 21:38:58 GMT and should not be manually modified.
+This log was last generated on Sat, 14 Oct 2023 01:02:50 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.1
+
+Sat, 14 Oct 2023 01:02:50 GMT
+
+### Patches
+
+- Sort lookup IDs in feature list (otbbuilder-dev@users.noreply.github.com)
+- Bump ot-builder to v1.7.1
+- Bump @ot-builder/cli-help-shower to v1.7.1
+- Bump @ot-builder/cli-shared to v1.7.1
 
 ## 1.7.0
 

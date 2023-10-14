@@ -2,6 +2,63 @@
   "name": "@ot-builder/stat-glyphs",
   "entries": [
     {
+      "date": "Sat, 14 Oct 2023 01:02:50 GMT",
+      "version": "1.7.1",
+      "tag": "@ot-builder/stat-glyphs_v1.7.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/stat-glyphs",
+            "commit": "ddc1bfd55fd42f5fdaf97e9bf92e5a69a630c8ae",
+            "comment": "Sort lookup IDs in feature list"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/common-impl to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/prelude to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/primitive to v1.7.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/stat-glyphs",
+            "comment": "Bump @ot-builder/variance to v1.7.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 12 Aug 2023 21:38:58 GMT",
       "version": "1.7.0",
       "tag": "@ot-builder/stat-glyphs_v1.7.0",

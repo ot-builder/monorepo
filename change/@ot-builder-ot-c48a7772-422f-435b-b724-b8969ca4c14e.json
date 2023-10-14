@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Sort lookup IDs in feature list",
-  "packageName": "@ot-builder/ot",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
