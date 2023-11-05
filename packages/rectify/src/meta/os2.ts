@@ -4,7 +4,7 @@ import { CoordRectifier } from "../interface";
 
 export function rectifyOs2Table(rec: CoordRectifier, table: Ot.Os2.Table) {
     const newTable = new Ot.Os2.Table(table.version);
-    newTable.xAvgCharWidth = table.xAvgCharWidth;
+    newTable.xAvgCharWidth = Ot.Var.Ops.originOf(rec.coord(table.xAvgCharWidth));
     newTable.usWeightClass = table.usWeightClass;
     newTable.usWidthClass = table.usWidthClass;
     newTable.fsType = table.fsType;
