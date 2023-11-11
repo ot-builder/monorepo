@@ -2,6 +2,57 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Sat, 11 Nov 2023 01:06:51 GMT",
+      "version": "1.7.3",
+      "tag": "@ot-builder/rectify_v1.7.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/rectify",
+            "commit": "315c6071535cd75bdbc84d0d0baa80d7aae9d7ed",
+            "comment": "Rectifier: Handle OS2::xAvgCharWidth"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot to v1.7.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/common-impl to v1.7.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/prelude to v1.7.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/variance to v1.7.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 07:38:32 GMT",
       "version": "1.7.2",
       "tag": "@ot-builder/rectify_v1.7.2",

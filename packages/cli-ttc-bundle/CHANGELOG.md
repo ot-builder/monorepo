@@ -1,8 +1,18 @@
 # Change Log - otb-ttc-bundle
 
-This log was last generated on Sat, 14 Oct 2023 07:38:32 GMT and should not be manually modified.
+This log was last generated on Sat, 11 Nov 2023 01:06:51 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.3
+
+Sat, 11 Nov 2023 01:06:51 GMT
+
+### Patches
+
+- Bump ot-builder to v1.7.3
+- Bump @ot-builder/cli-help-shower to v1.7.3
+- Bump @ot-builder/cli-shared to v1.7.3
 
 ## 1.7.2
 
