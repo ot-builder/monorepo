@@ -16,8 +16,7 @@ export const RepositoryDir = path.resolve(__dirname, "../../");
 
 export const Deploy = path.resolve(RepositoryDir, ".doc-deploy");
 export const Doc = path.resolve(RepositoryDir, "doc");
-export const Build = path.resolve(Doc, ".build");
-export const Out = path.resolve(Doc, ".out");
+export const DocBuild = path.resolve(Doc, ".build");
 
 function npmExecutableDir(dir, packageName) {
     return path.resolve(dir, "node_modules/.bin/" + packageName + OsSuffix);

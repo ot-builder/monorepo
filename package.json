@@ -32,7 +32,6 @@
         "docs:clean": "npm -w=doc run clean",
         "docs:dev": "npm -w=doc run dev",
         "docs:build": "npm -w=doc run build",
-        "docs:export": "npm -w=doc run export",
         "docs:deploy": "node scripts/deploy-documents.mjs",
         "publish": "node scripts/auto-publish.mjs",
         "bootstrap": "npm install",

@@ -6,8 +6,7 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "export": "next export -o .out",
-        "clean": "rimraf .build .out"
+        "clean": "rimraf .build"
     },
     "dependencies": {
         "@mdx-js/loader": "^3.0.0",

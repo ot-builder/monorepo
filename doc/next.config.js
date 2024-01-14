@@ -7,6 +7,7 @@ const withMDX = require("@next/mdx")({ extension: /\.mdx?$/ });
 
 module.exports = withMDX({
     distDir: ".build",
+    output: "export",
     pageExtensions: ["tsx", "mdx"],
     eslint: {
         ignoreDuringBuilds: true
