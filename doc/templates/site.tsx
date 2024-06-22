@@ -29,8 +29,8 @@ export const NavLink = withRouter(
         const cl = !props.dir
             ? "fixed"
             : props.router.pathname.slice(0, props.dir.length) === props.dir
-            ? "dynamic current"
-            : "dynamic other";
+              ? "dynamic current"
+              : "dynamic other";
         return (
             <li className={"nav-link " + cl}>
                 <a className="link-item" href={props.href || props.dir}>

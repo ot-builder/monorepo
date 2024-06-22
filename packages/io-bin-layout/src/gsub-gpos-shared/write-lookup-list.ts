@@ -117,10 +117,10 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
             origType === Gsub.LookupType.Reverse
                 ? 1
                 : origType === Gsub.LookupType.Chaining || origType === Gpos.LookupType.Chaining
-                ? 2
-                : origType === Gsub.LookupType.Single || origType === Gpos.LookupType.Single
-                ? 4 + (isDependency ? 0 : 3)
-                : 3 + (isDependency ? 0 : 3);
+                  ? 2
+                  : origType === Gsub.LookupType.Single || origType === Gpos.LookupType.Single
+                    ? 4 + (isDependency ? 0 : 3)
+                    : 3 + (isDependency ? 0 : 3);
         return rankTrick + rankType;
     }
 
