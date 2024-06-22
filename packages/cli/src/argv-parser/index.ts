@@ -1,4 +1,4 @@
-import * as Chalk from "chalk";
+import { Style } from "@ot-builder/cli-help-shower";
 
 export interface ParseState {
     next(): ParseState;
@@ -49,11 +49,17 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
     public next(): ParseState {
         return new ParseArgvImpl(this.argv, this.cp + 1);
     }
-    public isEof() {
+
+    public isEof(): this is ParsingEof {
         return this.eof;
     }
-    public isOption(...options: string[]) {
-        if (this.isEof()) return false;
+
+    public isOption(...options: string[]): this is ParsingOption {
+        return this.isOptionImpl(...options);
+    }
+    private isOptionImpl(...options: string[]): boolean {
+        if (this.eof) return false;
+
         const opt = this.argv[this.cp];
         if (opt[0] !== "-" && opt[0] !== "+") return false;
 
@@ -68,8 +74,8 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
         return this.option;
     }
 
-    public isArgument() {
-        return !this.isEof() && !this.isOption();
+    public isArgument(): this is ParsingArgument {
+        return !this.eof && !this.isOptionImpl();
     }
     public expectArgument() {
         if (!this.isArgument()) throw new TypeError("Not argument.");
@@ -83,13 +89,14 @@ class ParseArgvImpl implements ParseState, ParsingEof, ParsingOption, ParsingArg
             throw new TypeError("Not argument.");
         }
     }
+
     public reportParseErrorPosition() {
         let s = "";
         for (let cp = 0; cp < this.argv.length; cp++) {
             if (cp === 0) continue;
             if (s) s += " ";
             const segmentText = cp === 0 ? "node" : cp === 1 ? "otb-cli" : this.argv[cp];
-            if (cp === this.cp) s += Chalk.bold.red.underline(segmentText);
+            if (cp === this.cp) s += Style.ArgvParseError(segmentText);
             else s += segmentText;
         }
         return s;
