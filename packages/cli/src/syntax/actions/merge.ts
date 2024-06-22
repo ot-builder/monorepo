@@ -47,7 +47,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
             )
             .message(
                 `When`,
-                Style.Option(`--override`),
+                Style.Option`--override`,
                 `is provided, characters from`,
                 Style.Arg`b.ttf`,
                 `will be preferred; otherwise, characters from`,
