@@ -1,4 +1,4 @@
-import * as Chalk from "chalk";
+import * as pc from "picocolors";
 
 const terminalSupportsUnicode =
     process.platform !== "win32" ||
@@ -9,12 +9,14 @@ export const CONSOLE_WIDTH = 80;
 export const Bullet = terminalSupportsUnicode ? `· ` : `+ `;
 export const Rule = (terminalSupportsUnicode ? `─` : `-`).repeat(CONSOLE_WIDTH);
 
-export const Cmd = Chalk.cyan;
-export const Option = Chalk.green;
-export const Param = (s: TemplateStringsArray, ...placeholders: unknown[]) =>
-    `<` + Chalk.yellow(s, ...placeholders) + `>`;
+export const Cmd = (s: TemplateStringsArray, ...placeholders: unknown[]) =>
+    pc.cyan(simpleTemplateCombine(s, placeholders));
+export const Option = (s: TemplateStringsArray, ...placeholders: unknown[]) =>
+    pc.green(simpleTemplateCombine(s, placeholders));
 export const Arg = (s: TemplateStringsArray, ...placeholders: unknown[]) =>
-    Chalk.yellow(s, ...placeholders);
+    pc.yellow(simpleTemplateCombine(s, placeholders));
+export const Param = (s: TemplateStringsArray, ...placeholders: unknown[]) =>
+    `<` + pc.yellow(simpleTemplateCombine(s, placeholders)) + `>`;
 
 export function OptRun(...xs: string[]) {
     return ["[", ...xs, "]"];
@@ -30,5 +32,15 @@ export function AltRun(...xs: string[]) {
 }
 
 export function ArgvParseError(s: string) {
-    return Chalk.bold.red.underline(s);
+    return pc.bold(pc.red(pc.underline(s)));
+}
+
+function simpleTemplateCombine(s: TemplateStringsArray, placeholders: unknown[]) {
+    let res = s[0];
+
+    for (let i = 0; i < placeholders.length; i++) {
+        res += String(placeholders[i]) + (s[i + 1] || "");
+    }
+
+    return res;
 }
