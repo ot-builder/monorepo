@@ -28,3 +28,7 @@ export function AltRun(...xs: string[]) {
     }
     return a;
 }
+
+export function ArgvParseError(s: string) {
+    return Chalk.bold.red.underline(s);
+}

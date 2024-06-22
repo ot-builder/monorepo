@@ -92,8 +92,8 @@ class ClassDefsAnalyzeState<L> {
                 matchId < rule.inputBegins
                     ? cdBacktrack
                     : matchId < rule.inputEnds
-                    ? cdInput
-                    : cdLookAhead;
+                      ? cdInput
+                      : cdLookAhead;
             const kMatch = this.glyphSetCompatibleWithClassDef(rule.match[matchId], cd);
             if (!kMatch) return null;
             cr.match[matchId] = kMatch;
