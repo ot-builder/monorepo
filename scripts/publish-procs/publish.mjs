@@ -12,5 +12,5 @@ export async function publish(cfg) {
     await Git("config", "user.email", cfg.GitEmail);
 
     // Do the publish
-    await Beachball("publish", "--yes", "-n", cfg.NpmToken);
+    await Beachball("publish", "--access", "public", "--yes", "-n", cfg.NpmToken);
 }
