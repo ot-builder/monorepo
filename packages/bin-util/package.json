@@ -1,39 +1,39 @@
 {
-  "name": "@ot-builder/bin-util",
-  "description": "",
-  "version": "1.7.3",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ot-builder/monorepo.git",
-    "directory": "packages/bin-util"
-  },
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "files": [
-    "lib/**/*.js",
-    "lib/**/*.json",
-    "lib/**/*.d.ts"
-  ],
-  "scripts": {
-    "build": "tsc -b ./tsconfig.package.json",
-    "clean": "rimraf lib .cache",
-    "test": "jest --passWithNoTests"
-  },
-  "publishConfig": {
+    "name": "@ot-builder/bin-util",
+    "description": "",
+    "version": "1.7.3",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ot-builder/monorepo.git",
+        "directory": "packages/bin-util"
+    },
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "access": "public"
-  },
-  "dependencies": {
-    "@ot-builder/errors": "1.7.3",
-    "@ot-builder/prelude": "1.7.3",
-    "@ot-builder/common-impl": "1.7.3",
-    "tslib": "^2.6.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.8",
-    "jest": "^29.7.0"
-  }
+    "files": [
+        "lib/**/*.js",
+        "lib/**/*.json",
+        "lib/**/*.d.ts"
+    ],
+    "scripts": {
+        "build": "tsc -b ./tsconfig.package.json",
+        "clean": "rimraf lib .cache",
+        "test": "jest --passWithNoTests"
+    },
+    "publishConfig": {
+        "main": "./lib/index.js",
+        "types": "./lib/index.d.ts",
+        "access": "public"
+    },
+    "dependencies": {
+        "@ot-builder/errors": "1.7.3",
+        "@ot-builder/prelude": "1.7.3",
+        "@ot-builder/common-impl": "1.7.3",
+        "tslib": "^2.6.3"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/node": "^20.14.8",
+        "jest": "^29.7.0"
+    }
 }
