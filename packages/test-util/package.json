@@ -1,40 +1,40 @@
 {
-  "name": "@ot-builder/test-util",
-  "description": "",
-  "version": "1.7.3",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ot-builder/monorepo.git",
-    "directory": "packages/test-util"
-  },
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "files": [
-    "lib/**/*.js",
-    "lib/**/*.json",
-    "lib/**/*.d.ts"
-  ],
-  "scripts": {
-    "build": "tsc -b ./tsconfig.package.json",
-    "clean": "rimraf lib .cache",
-    "test": "jest --passWithNoTests"
-  },
-  "publishConfig": {
+    "name": "@ot-builder/test-util",
+    "description": "",
+    "version": "1.7.3",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ot-builder/monorepo.git",
+        "directory": "packages/test-util"
+    },
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "access": "public"
-  },
-  "dependencies": {
-    "@ot-builder/common-impl": "1.7.3",
-    "@ot-builder/ot-encoding": "1.7.3",
-    "@ot-builder/ot-glyphs": "1.7.3",
-    "@ot-builder/ot-layout": "1.7.3",
-    "@ot-builder/prelude": "1.7.3",
-    "@ot-builder/variance": "1.7.3",
-    "jest": "^29.7.0",
-    "tslib": "^2.6.3",
-    "@types/jest": "^29.5.12"
-  },
-  "devDependencies": {}
+    "files": [
+        "lib/**/*.js",
+        "lib/**/*.json",
+        "lib/**/*.d.ts"
+    ],
+    "scripts": {
+        "build": "tsc -b ./tsconfig.package.json",
+        "clean": "rimraf lib .cache",
+        "test": "jest --passWithNoTests"
+    },
+    "publishConfig": {
+        "main": "./lib/index.js",
+        "types": "./lib/index.d.ts",
+        "access": "public"
+    },
+    "dependencies": {
+        "@ot-builder/common-impl": "1.7.3",
+        "@ot-builder/ot-encoding": "1.7.3",
+        "@ot-builder/ot-glyphs": "1.7.3",
+        "@ot-builder/ot-layout": "1.7.3",
+        "@ot-builder/prelude": "1.7.3",
+        "@ot-builder/variance": "1.7.3",
+        "jest": "^29.7.0",
+        "tslib": "^2.6.3",
+        "@types/jest": "^29.5.12"
+    },
+    "devDependencies": {}
 }

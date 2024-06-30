@@ -20,7 +20,7 @@ const packageJSONData = {
     license: "MIT",
     repository: {
         type: "git",
-        url: "https://github.com/ot-builder/monorepo.git",
+        url: "git+https://github.com/ot-builder/monorepo.git",
         directory: `packages/${packageName}`
     },
     main: "./lib/index.js",
