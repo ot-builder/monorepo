@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix publish errors",
-  "packageName": "@ot-builder/bin-util",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

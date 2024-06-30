@@ -2,6 +2,33 @@
   "name": "@ot-builder/cli-help-shower",
   "entries": [
     {
+      "date": "Sun, 30 Jun 2024 03:36:43 GMT",
+      "version": "1.7.4",
+      "tag": "@ot-builder/cli-help-shower_v1.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "b5cac9d0f0a85d57e8b5fcc32281d3cc706d00f1",
+            "comment": "Appease NPM for its repository link format"
+          },
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "40dc610f4ce2529eaa39e6a469c9d82361341bea",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-help-shower",
+            "commit": "35cf404328826358233b10cd2973a19a066bb53a",
+            "comment": "Drop Chalk dependency"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:49 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/cli-help-shower_v1.7.1",

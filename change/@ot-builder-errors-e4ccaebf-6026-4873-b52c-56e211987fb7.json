@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps",
-  "packageName": "@ot-builder/errors",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

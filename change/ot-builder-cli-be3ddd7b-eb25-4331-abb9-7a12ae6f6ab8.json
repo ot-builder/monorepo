@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Drop Chalk dependency",
-  "packageName": "ot-builder-cli",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

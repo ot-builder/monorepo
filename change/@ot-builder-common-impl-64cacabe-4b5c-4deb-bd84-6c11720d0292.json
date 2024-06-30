@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Appease NPM for its repository link format",
-  "packageName": "@ot-builder/common-impl",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

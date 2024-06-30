@@ -2,6 +2,27 @@
   "name": "@ot-builder/prelude",
   "entries": [
     {
+      "date": "Sun, 30 Jun 2024 03:36:42 GMT",
+      "version": "1.7.4",
+      "tag": "@ot-builder/prelude_v1.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/prelude",
+            "commit": "40dc610f4ce2529eaa39e6a469c9d82361341bea",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/prelude",
+            "commit": "b5cac9d0f0a85d57e8b5fcc32281d3cc706d00f1",
+            "comment": "Appease NPM for its repository link format"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 14 Oct 2023 01:02:50 GMT",
       "version": "1.7.1",
       "tag": "@ot-builder/prelude_v1.7.1",

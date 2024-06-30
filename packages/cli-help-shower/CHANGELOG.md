@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/cli-help-shower
 
-This log was last generated on Sat, 14 Oct 2023 01:02:49 GMT and should not be manually modified.
+This log was last generated on Sun, 30 Jun 2024 03:36:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.4
+
+Sun, 30 Jun 2024 03:36:43 GMT
+
+### Patches
+
+- Appease NPM for its repository link format (otbbuilder-dev@users.noreply.github.com)
+- Bump deps (otbbuilder-dev@users.noreply.github.com)
+- Drop Chalk dependency (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.7.1
 

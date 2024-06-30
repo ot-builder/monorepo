@@ -1,8 +1,34 @@
 # Change Log - @ot-builder/io-bin-glyph-store
 
-This log was last generated on Sat, 11 Nov 2023 01:06:51 GMT and should not be manually modified.
+This log was last generated on Sun, 30 Jun 2024 03:36:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.4
+
+Sun, 30 Jun 2024 03:36:43 GMT
+
+### Patches
+
+- Appease NPM for its repository link format (otbbuilder-dev@users.noreply.github.com)
+- Bump deps (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.7.4
+- Bump @ot-builder/common-impl to v1.7.4
+- Bump @ot-builder/errors to v1.7.4
+- Bump @ot-builder/ot-glyphs to v1.7.4
+- Bump @ot-builder/ot-metadata to v1.7.4
+- Bump @ot-builder/io-bin-cff to v1.7.4
+- Bump @ot-builder/io-bin-metric to v1.7.4
+- Bump @ot-builder/io-bin-ttf to v1.7.4
+- Bump @ot-builder/prelude to v1.7.4
+- Bump @ot-builder/primitive to v1.7.4
+- Bump @ot-builder/stat-glyphs to v1.7.4
+- Bump @ot-builder/var-store to v1.7.4
+- Bump @ot-builder/variance to v1.7.4
+- Bump @ot-builder/ot-sfnt to v1.7.4
+- Bump @ot-builder/io-bin-sfnt to v1.7.4
+- Bump @ot-builder/io-bin-metadata to v1.7.4
+- Bump @ot-builder/test-util to v1.7.4
 
 ## 1.7.3
 

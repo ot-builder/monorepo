@@ -1,8 +1,19 @@
 # Change Log - @ot-builder/ot-sfnt
 
-This log was last generated on Sat, 11 Nov 2023 01:06:51 GMT and should not be manually modified.
+This log was last generated on Sun, 30 Jun 2024 03:36:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.7.4
+
+Sun, 30 Jun 2024 03:36:42 GMT
+
+### Patches
+
+- Appease NPM for its repository link format (otbbuilder-dev@users.noreply.github.com)
+- Bump deps (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/prelude to v1.7.4
+- Bump @ot-builder/primitive to v1.7.4
 
 ## 1.7.3
 

@@ -2,6 +2,117 @@
   "name": "@ot-builder/io-bin-cff",
   "entries": [
     {
+      "date": "Sun, 30 Jun 2024 03:36:43 GMT",
+      "version": "1.7.4",
+      "tag": "@ot-builder/io-bin-cff_v1.7.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-cff",
+            "commit": "b5cac9d0f0a85d57e8b5fcc32281d3cc706d00f1",
+            "comment": "Appease NPM for its repository link format"
+          },
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-cff",
+            "commit": "40dc610f4ce2529eaa39e6a469c9d82361341bea",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/bin-composite-types to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/bin-util to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/common-impl to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/errors to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/prelude to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/primitive to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/stat-glyphs to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/var-store to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/variance to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.7.4",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-cff",
+            "comment": "Bump @ot-builder/test-util to v1.7.4",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 11 Nov 2023 01:06:51 GMT",
       "version": "1.7.3",
       "tag": "@ot-builder/io-bin-cff_v1.7.3",
