@@ -28,7 +28,7 @@
         "test": "jest",
         "change": "beachball change",
         "beachball:check": "beachball check",
-        "beachball:publish": "beachball publish",
+        "beachball:publish": "beachball publish --access public",
         "docs:clean": "npm -w=doc run clean",
         "docs:dev": "npm -w=doc run dev",
         "docs:build": "npm -w=doc run build",
