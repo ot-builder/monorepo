@@ -9,7 +9,7 @@ import { OtVar } from "@ot-builder/variance";
 import { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
 import { writeHMetrics, writeVMetrics } from "../shared-metrics/write";
 
-export interface GlyphStoreWriteExtraInfoSink extends TtfWritingExtraInfoSink {}
+export type GlyphStoreWriteExtraInfoSink = TtfWritingExtraInfoSink;
 export type GlyphStoreWriteImplCtx = {
     head: Head.Table;
     maxp: Maxp.Table;

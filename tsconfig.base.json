@@ -16,6 +16,7 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noImplicitAny": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "skipLibCheck": true
     }
 }

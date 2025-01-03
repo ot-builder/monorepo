@@ -1,6 +1,4 @@
-/* eslint-env es6, node */
-
-module.exports = {
+export default {
     bumpDeps: true,
     gitTags: false,
     groups: [

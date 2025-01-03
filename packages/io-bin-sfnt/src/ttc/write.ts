@@ -76,9 +76,15 @@ export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {
 
     if (fFoundDSIG) {
         const dsigOffset = bw.length;
+        // DSIG entry
         bw.seek(getTtcTablePtrOffset(sfntList.length));
-        bw.uint32(tagToUInt32("DSIG")), bw.uint32(8), bw.uint32(dsigOffset);
-        bw.seek(dsigOffset), bw.uint32(0x00000001), bw.uint32(0x00000000);
+        bw.uint32(tagToUInt32("DSIG"));
+        bw.uint32(8);
+        bw.uint32(dsigOffset);
+        // DSIG data
+        bw.seek(dsigOffset);
+        bw.uint32(0x00000001);
+        bw.uint32(0x00000000);
     }
 
     return bw.toBuffer();

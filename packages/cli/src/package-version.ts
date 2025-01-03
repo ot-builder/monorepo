@@ -1,6 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-var-requires */
+import * as fs from "fs";
+import * as path from "path";
 
-const pJson: any = require("../package.json");
-
-export const packageVersion: string = pJson.version;
+export async function getPackageVersion(): Promise<string> {
+    const moduleDir = path.join(__dirname, "..");
+    const json = JSON.parse(
+        await fs.promises.readFile(path.join(moduleDir, "package.json"), "utf-8")
+    );
+    return json.version as string;
+}

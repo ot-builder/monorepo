@@ -446,10 +446,12 @@ class Packing {
     ) {
         switch (ptr.size) {
             case 2:
-                b.seek(enclosure + ptr.offset), b.uint16(value);
+                b.seek(enclosure + ptr.offset);
+                b.uint16(value);
                 break;
             case 4:
-                b.seek(enclosure + ptr.offset), b.uint32(value);
+                b.seek(enclosure + ptr.offset);
+                b.uint32(value);
                 break;
             default:
                 throw Errors.Binary.UnknownPointerType();

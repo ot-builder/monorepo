@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ot-builder/monorepo.git",
+    "url": "https://github.com/ot-builder/monorepo.git",
     "directory": "packages/ot-sfnt"
   },
   "main": "./lib/index.js",
@@ -28,10 +28,10 @@
   "dependencies": {
     "@ot-builder/prelude": "1.7.4",
     "@ot-builder/primitive": "1.7.4",
-    "tslib": "^2.6.3"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "jest": "^29.7.0"
   }
 }

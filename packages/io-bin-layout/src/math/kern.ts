@@ -18,7 +18,10 @@ const MathKern = {
     write(fr: Frag, x: OtMath.Kern) {
         const correctionHeight: OtMath.ValueRecord[] = [];
         const kernValues: OtMath.ValueRecord[] = [];
-        for (const [h, v] of x.corrections) correctionHeight.push(h), kernValues.push(v);
+        for (const [h, v] of x.corrections) {
+            correctionHeight.push(h);
+            kernValues.push(v);
+        }
         kernValues.push(x.kernValue);
         fr.uint16(correctionHeight.length);
         fr.arrayN(MathValueRecord, correctionHeight.length, correctionHeight);

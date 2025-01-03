@@ -11,7 +11,7 @@ import * as Lib_Point from "./point";
 import * as OtGlyphStat from "./stat";
 
 // This dual-export is intensional.
-// eslint-disable-next-line import/export
+
 export class OtGlyph {
     public name?: string;
     public horizontal: GeneralGlyph.Metric.T<OtVar.Value> = { start: 0, end: 0 };
@@ -30,7 +30,6 @@ export class OtGlyph {
     }
 }
 
-// eslint-disable-next-line import/export
 export namespace OtGlyph {
     // Exported geometry types
     export type Geometry = ContourSet | TtReference | GeometryList;

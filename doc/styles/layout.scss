@@ -1,4 +1,4 @@
-@import "./colors.scss";
+@use "colors.scss";
 
 html,
 body {
@@ -70,7 +70,7 @@ li.nav-link {
             &::before {
                 content: ">";
                 opacity: 1;
-                color: $AccentColor;
+                color: colors.$AccentColor;
             }
         }
     }

@@ -11,8 +11,8 @@ export async function cliMain(argv: string[]) {
     const args = new ArgParser();
     for (const arg of argv.slice(2)) args.arg(arg);
 
-    if (args.displayHelp) return displayHelp();
-    if (args.displayVersion) return displayVersion();
+    if (args.displayHelp) return await displayHelp();
+    if (args.displayVersion) return await displayVersion();
 
     if (!args.inputs || !args.inputs.length) {
         throw new Error("Please specify at least one input font. Exit.");

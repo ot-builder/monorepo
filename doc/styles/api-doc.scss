@@ -1,5 +1,6 @@
-@import "./colors";
-@import "./fonts";
+@use "sass:color";
+@use "colors";
+@use "fonts";
 .api-doc-link {
     &.anchor {
         box-shadow: none;
@@ -41,7 +42,7 @@
 }
 .api-doc-ty-annotation {
     font-style: italic;
-    color: change-color($BodyTextColor, $alpha: 0.5);
+    color: color.change(colors.$BodyTextColor, $alpha: 0.5);
     margin-left: 1ch;
 }
 .api-doc-link,

@@ -7,7 +7,6 @@ import * as url from "url";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import which from "which";
 
 const OsSuffix = is.platform() === "win32" ? ".cmd" : "";

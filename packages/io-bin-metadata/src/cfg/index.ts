@@ -1,4 +1,4 @@
-export interface FontMetadataCfgProps {}
+export type FontMetadataCfgProps = object;
 export interface FontMetadataCfg {
     fontMetadata: FontMetadataCfgProps;
 }

@@ -1,4 +1,5 @@
-@import "./colors.scss";
+@use "sass:color";
+@use "colors.scss";
 
 article {
     line-height: 1.5;
@@ -34,7 +35,7 @@ article {
     h2 {
         font-size: 2rem;
         margin: 3rem -1ch 1.5rem;
-        border-top: change-color($BodyTextColor, $alpha: 0.25) dotted 1px;
+        border-top: color.change(colors.$BodyTextColor, $alpha: 0.25) dotted 1px;
         padding: 1rem 1ch 0 1ch;
         font-weight: 560;
     }
@@ -46,7 +47,7 @@ article {
         position: relative;
         &::before {
             content: "•";
-            color: $AccentColor;
+            color: colors.$AccentColor;
             position: absolute;
             left: -2ch;
         }
