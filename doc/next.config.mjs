@@ -1,22 +1,25 @@
 /* eslint-env node */
-/* eslint-disable @typescript-eslint/no-var-requires */
 
-const path = require("path");
+import path from "path";
+import mdx from "@next/mdx";
+import url from "url";
 
-const withMDX = require("@next/mdx")({ extension: /\.mdx?$/ });
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-module.exports = withMDX({
+const withMDX = mdx({ extension: /\.mdx?$/ });
+
+export default withMDX({
     distDir: ".build",
     output: "export",
     pageExtensions: ["tsx", "mdx"],
     eslint: {
         ignoreDuringBuilds: true
     },
-    webpack(config, options) {
+    webpack(config) {
         config.resolve.alias["components"] = path.join(__dirname, "components");
         config.resolve.alias["api-doc"] = path.join(__dirname, "api-doc");
         config.resolve.alias["templates"] = path.join(__dirname, "templates");
         return config;
     },
-    sassOptions: { fiber: false, includePaths: [path.join(__dirname, "styles")] }
+    sassOptions: { loadPaths: [path.join(__dirname, "styles")] }
 });

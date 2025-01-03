@@ -1,7 +1,7 @@
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
 
-import { packageVersion } from "./package-version";
+import { getPackageVersion } from "./package-version";
 
 export class ArgParser implements CliArgSource {
     public inputs: string[] = [];
@@ -76,9 +76,9 @@ export class ArgParser implements CliArgSource {
     }
 }
 
-export function displayHelp() {
+export async function displayHelp() {
     new CliHelpShower()
-        .message(`otb-ttc-bundle: TTC bundler, version ${packageVersion}`)
+        .message(`otb-ttc-bundle: TTC bundler, version ${await getPackageVersion()}`)
         .message(Style.Rule)
         .message(`Usage:`)
         .withIndent(Style.Bullet, s => {
@@ -140,6 +140,6 @@ export function displayHelp() {
         });
 }
 
-export function displayVersion() {
-    console.log(packageVersion);
+export async function displayVersion() {
+    console.log(await getPackageVersion());
 }

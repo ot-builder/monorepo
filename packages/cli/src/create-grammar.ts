@@ -1,4 +1,5 @@
 import { CliAction, Grammar } from "./command";
+import { getPackageVersion } from "./package-version";
 import { CliState } from "./state";
 import { ConsolidateSyntax } from "./syntax/actions/consolidate";
 import { DropSyntax } from "./syntax/actions/drop";
@@ -28,7 +29,7 @@ const cliActionJoiner: Join<CliAction> = {
 };
 
 // Grammar Creator
-export function createGrammar(): Grammar {
+export async function createGrammar(): Promise<Grammar> {
     const element = new AlternateSyntax([
         IntroSyntax,
         SaveSyntax,
@@ -47,7 +48,9 @@ export function createGrammar(): Grammar {
         SetOptimizationLevelSyntax,
         SetRecalcOs2AvgCharWidthSyntax
     ]);
+    const appVersion = await getPackageVersion();
     const start = new StartSyntax(
+        appVersion,
         new AlternateSyntax([
             HelpSyntax,
             VersionSyntax,

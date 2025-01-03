@@ -91,7 +91,8 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
                 if (outSet.length) {
                     const clsNew = nTotalClasses++;
                     for (const x of inSet) cd.set(x, clsNew);
-                    (coCd[clsNew] = inSet), (coCd[cl] = outSet);
+                    coCd[clsNew] = inSet;
+                    coCd[cl] = outSet;
                     plans.push({ cls: clsNew, from: cl, inSet: true });
                     plans.push({ cls: cl, from: null, inSet: false });
                 } else {

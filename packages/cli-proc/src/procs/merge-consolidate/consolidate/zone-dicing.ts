@@ -30,7 +30,10 @@ function* scanPlaneDiceZones<S>(
                 break;
             }
         }
-        if (shouldInclude) stops.add(zone[d][0]), stops.add(zone[d][1]);
+        if (shouldInclude) {
+            stops.add(zone[d][0]);
+            stops.add(zone[d][1]);
+        }
     }
 
     const sortedStops = Array.from(stops).sort(asc);

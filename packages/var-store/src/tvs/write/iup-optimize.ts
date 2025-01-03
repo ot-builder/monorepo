@@ -75,9 +75,15 @@ function iupContourBoundForcedSet(
 
             let c1: number, c2: number, d1: number, d2: number;
             if (cL <= cN) {
-                (c1 = cL), (c2 = cN), (d1 = dL), (d2 = dN);
+                c1 = cL;
+                c2 = cN;
+                d1 = dL;
+                d2 = dN;
             } else {
-                (c1 = cN), (c2 = cL), (d1 = dN), (d2 = dL);
+                c1 = cN;
+                c2 = cL;
+                d1 = dN;
+                d2 = dL;
             }
 
             const force =

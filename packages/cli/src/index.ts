@@ -4,7 +4,7 @@ import { CliState } from "./state";
 
 export async function cliMain(argv: string[]) {
     const parse = StartParseArgv(argv, 2);
-    const syntax = createGrammar();
+    const syntax = await createGrammar();
     const prAction = syntax.start.handle(parse, syntax);
     if (!prAction.progress.isEof()) {
         console.error("! Unrecognizable argument/option. Stop.");
