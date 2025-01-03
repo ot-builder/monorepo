@@ -2,10 +2,12 @@
 
 # Force LF ending for js, ts, etc.
 *.js text eol=lf
+*.mjs text eol=lf
 *.jsx text eol=lf
 *.css text eol=lf
 *.styl text eol=lf
 *.ts text eol=lf
+*.mts text eol=lf
 *.tsx text eol=lf
 *.json text eol=lf
 *.md text eol=lf
