@@ -2,6 +2,39 @@
   "name": "@ot-builder/ot-vtt-private",
   "entries": [
     {
+      "date": "Sat, 04 Jan 2025 01:21:09 GMT",
+      "version": "1.7.5",
+      "tag": "@ot-builder/ot-vtt-private_v1.7.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/ot-vtt-private",
+            "commit": "1d145ac5d42982ed973f8113696da966a19699bc",
+            "comment": "Bump deps @ jan 2025, including mgirating to eslint 9"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-vtt-private",
+            "comment": "Bump @ot-builder/variance to v1.7.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-vtt-private",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-vtt-private",
+            "comment": "Bump @ot-builder/prelude to v1.7.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 30 Jun 2024 03:36:42 GMT",
       "version": "1.7.4",
       "tag": "@ot-builder/ot-vtt-private_v1.7.4",

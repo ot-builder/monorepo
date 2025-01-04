@@ -1,8 +1,19 @@
 # Change Log - ot-builder-cli
 
-This log was last generated on Sun, 30 Jun 2024 03:36:42 GMT and should not be manually modified.
+<!-- This log was last generated on Sat, 04 Jan 2025 01:21:09 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.5
+
+Sat, 04 Jan 2025 01:21:09 GMT
+
+### Patches
+
+- Bump deps @ jan 2025, including mgirating to eslint 9 (otbbuilder-dev@users.noreply.github.com)
+- Bump ot-builder to v1.7.5
+- Bump @ot-builder/cli-help-shower to v1.7.5
+- Bump @ot-builder/cli-shared to v1.7.5
 
 ## 1.7.4
 

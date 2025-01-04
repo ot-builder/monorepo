@@ -2,6 +2,39 @@
   "name": "@ot-builder/primitive",
   "entries": [
     {
+      "date": "Sat, 04 Jan 2025 01:21:09 GMT",
+      "version": "1.7.5",
+      "tag": "@ot-builder/primitive_v1.7.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/primitive",
+            "commit": "1d145ac5d42982ed973f8113696da966a19699bc",
+            "comment": "Bump deps @ jan 2025, including mgirating to eslint 9"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/bin-util to v1.7.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/errors to v1.7.5",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/prelude to v1.7.5",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 30 Jun 2024 03:36:42 GMT",
       "version": "1.7.4",
       "tag": "@ot-builder/primitive_v1.7.4",

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps @ jan 2025, including mgirating to eslint 9",
-  "packageName": "@ot-builder/ot-standard-glyph-namer",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
