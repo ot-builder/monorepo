@@ -83,3 +83,40 @@ export class CLookupRemovableAlg {
 }
 
 export const LookupRemovableAlg = new CLookupRemovableAlg();
+
+export class CRemoveBrokenLinkAlg {
+    public process(
+        lookup: Ot.Gsub.Lookup | Ot.Gpos.Lookup,
+        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>
+    ) {
+        switch (lookup.type) {
+            case Ot.Gsub.LookupType.Chaining:
+                this.chaining(lookup, validSet);
+                break;
+            case Ot.Gpos.LookupType.Chaining:
+                this.chaining(lookup, validSet);
+                break;
+        }
+    }
+    public chaining(
+        props: Ot.Gsub.Chaining | Ot.Gpos.Chaining,
+        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>
+    ) {
+        let rear = 0;
+        for (let front = 0; front < props.rules.length; front++) {
+            const rule = props.rules[front];
+            let apRear = 0;
+            for (let apFront = 0; apFront < rule.applications.length; apFront++) {
+                if (validSet.has(rule.applications[apFront].apply)) {
+                    rule.applications[apRear++] = rule.applications[apFront];
+                }
+            }
+            rule.applications.length = apRear;
+
+            if (rule.applications.length) props.rules[rear++] = rule;
+        }
+        props.rules.length = rear;
+    }
+}
+
+export const RemoveBrokenLinkAlg = new CRemoveBrokenLinkAlg();
