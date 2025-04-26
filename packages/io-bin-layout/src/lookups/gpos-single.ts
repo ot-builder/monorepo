@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Gpos, LayoutCommon } from "@ot-builder/ot-layout";
+import { Gpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriteTrick } from "../cfg";

@@ -3,6 +3,7 @@ import eslint from "@eslint/js";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import importPlugin from "eslint-plugin-import";
 import tseslint from "typescript-eslint";
+import unusedImports from "eslint-plugin-unused-imports";
 
 export default tseslint.config(
     eslint.configs.recommended,
@@ -11,7 +12,7 @@ export default tseslint.config(
     importPlugin.flatConfigs.recommended,
 
     {
-        ignores: ["node_modules", "packages/*/lib", "**/generated.ts"]
+        ignores: ["node_modules", "packages/*/lib", "**/generated.ts", "doc/.next"]
     },
 
     {
@@ -36,7 +37,9 @@ export default tseslint.config(
 
     {
         files: ["packages/*/src/**/*.ts", "doc/**/*.ts", "doc/**/*.tsx"],
-
+        plugins: {
+            "unused-imports": unusedImports
+        },
         rules: {
             // eslint rules
             "linebreak-style": ["error", "unix"],
@@ -89,7 +92,8 @@ export default tseslint.config(
             "import/export": "off", // we have TS
             "import/namespace": "off", // we have TS
             "import/no-extraneous-dependencies": "error",
-            "import/newline-after-import": ["error", { count: 1 }]
+            "import/newline-after-import": ["error", { count: 1 }],
+            "unused-imports/no-unused-imports": "error"
         }
     }
 );

@@ -1,4 +1,4 @@
-import { Frag, Read, Write } from "@ot-builder/bin-util";
+import { Read, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";

@@ -1,5 +1,4 @@
 import * as Ot from "@ot-builder/ot";
-import * as Rectify from "@ot-builder/rectify";
 import * as Trace from "@ot-builder/trace";
 
 export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
