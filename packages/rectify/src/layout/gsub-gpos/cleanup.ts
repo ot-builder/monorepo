@@ -4,16 +4,18 @@ import { Data } from "@ot-builder/prelude";
 import { AxisRectifier } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
+export interface LookupCleaner<L> {
+    lookupRemovable(lookup: L): boolean;
+    cleanupBrokenCrossLinks: (lookup: L, validLookupSet: Set<L>) => void;
+}
+
 export function cleanupGsubGposData<L, Table extends Ot.GsubGpos.TableT<L>>(
     table: Table,
     newTable: Table,
     lookupCorrespondence: Map<L, L>,
-    fnRemovable: (lookup: L) => boolean
+    cleaner: LookupCleaner<L>
 ) {
-    const lookups: L[] = [];
-    for (const lookup of [...lookupCorrespondence.values()]) {
-        if (!fnRemovable(lookup)) lookups.push(lookup);
-    }
+    const lookups = cleanupLookups([...lookupCorrespondence.values()], cleaner);
 
     newTable.lookups = lookups;
     const lookupSet = new Set(lookups);
@@ -49,6 +51,26 @@ export function cleanupGsubGposData<L, Table extends Ot.GsubGpos.TableT<L>>(
     }
 
     return newTable;
+}
+
+function cleanupLookups<L>(source: L[], cleaner: LookupCleaner<L>): L[] {
+    let lookups: L[] = source;
+    let n = lookups.length;
+    let n1 = n;
+
+    do {
+        n = n1;
+        const lookups1: L[] = [];
+        for (const lookup of lookups) {
+            if (!cleaner.lookupRemovable(lookup)) lookups1.push(lookup);
+        }
+
+        const validSet = new Set(lookups1);
+        for (const lookup of lookups1) cleaner.cleanupBrokenCrossLinks(lookup, validSet);
+        n1 = lookups1.length;
+        lookups = lookups1;
+    } while (n1 < n);
+    return lookups;
 }
 
 function cleanupFeature<L>(
