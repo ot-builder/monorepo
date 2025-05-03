@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/ot-vtt-private
 
-<!-- This log was last generated on Sat, 04 Jan 2025 01:21:09 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 03 May 2025 01:39:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.6
+
+Sat, 03 May 2025 01:39:25 GMT
+
+### Patches
+
+- Bump @ot-builder/variance to v1.7.6
+- Bump @ot-builder/ot-glyphs to v1.7.6
 
 ## 1.7.5
 

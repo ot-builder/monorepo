@@ -2,6 +2,51 @@
   "name": "@ot-builder/cli-proc",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/cli-proc_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/cli-proc",
+            "commit": "b286b1d2534004173c1ca61f31e1f60699acd37b",
+            "comment": "Bump deps 202504 + cleanup"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-proc",
+            "comment": "Bump @ot-builder/io-bin-font to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-proc",
+            "comment": "Bump @ot-builder/primitive to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-proc",
+            "comment": "Bump @ot-builder/rectify to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-proc",
+            "comment": "Bump @ot-builder/trace to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/cli-proc",
+            "comment": "Bump @ot-builder/ot to v1.7.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/cli-proc_v1.7.5",

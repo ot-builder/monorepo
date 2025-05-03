@@ -2,6 +2,21 @@
   "name": "@ot-builder/bin-util",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/bin-util_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/bin-util",
+            "commit": "b286b1d2534004173c1ca61f31e1f60699acd37b",
+            "comment": "Bump deps 202504 + cleanup"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/bin-util_v1.7.5",

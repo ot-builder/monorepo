@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps 202504 + cleanup",
-  "packageName": "@ot-builder/io-bin-layout",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

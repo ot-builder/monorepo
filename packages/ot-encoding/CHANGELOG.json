@@ -2,6 +2,21 @@
   "name": "@ot-builder/ot-encoding",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/ot-encoding_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-encoding",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/ot-encoding_v1.7.5",

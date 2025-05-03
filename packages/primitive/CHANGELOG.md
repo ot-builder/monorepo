@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/primitive
 
-<!-- This log was last generated on Sat, 04 Jan 2025 01:21:09 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 03 May 2025 01:39:25 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.6
+
+Sat, 03 May 2025 01:39:25 GMT
+
+### Patches
+
+- Bump @ot-builder/bin-util to v1.7.6
 
 ## 1.7.5
 

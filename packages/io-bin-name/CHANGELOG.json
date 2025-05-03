@@ -2,6 +2,75 @@
   "name": "@ot-builder/io-bin-name",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/io-bin-name_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/bin-util to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/ot-name to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/primitive to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-name",
+            "comment": "Bump @ot-builder/test-util to v1.7.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/io-bin-name_v1.7.5",

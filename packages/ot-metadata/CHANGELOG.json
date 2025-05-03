@@ -2,6 +2,27 @@
   "name": "@ot-builder/ot-metadata",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/ot-metadata_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/primitive to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-metadata",
+            "comment": "Bump @ot-builder/variance to v1.7.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/ot-metadata_v1.7.5",

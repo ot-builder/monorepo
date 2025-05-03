@@ -2,6 +2,75 @@
   "name": "@ot-builder/ot",
   "entries": [
     {
+      "date": "Sat, 03 May 2025 01:39:25 GMT",
+      "version": "1.7.6",
+      "tag": "@ot-builder/ot_v1.7.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-encoding to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-layout to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-ext-private to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-name to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-vtt-private to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/variance to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-standard-glyph-namer to v1.7.6",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.7.6",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/ot_v1.7.5",
