@@ -61,6 +61,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: lts/*
+        registry-url: 'https://registry.npmjs.org'
     - name: Update NPM
       run: npm install -g npm@latest
     - name: NPM Setup
@@ -76,3 +77,5 @@ jobs:
     - name: Publish
       run: |
         npm run publish
+      env:
+        NODE_AUTH_TOKEN: ''
