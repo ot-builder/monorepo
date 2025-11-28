@@ -6,6 +6,10 @@ on:
   repository_dispatch:
     types: manual-publish
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   pre-publish-validation:
     name: Prime UT
