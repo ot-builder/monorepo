@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Bump deps and leverage npm's new publishing",
+  "packageName": "@ot-builder/io-bin-name",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
