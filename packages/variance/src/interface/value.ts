@@ -7,8 +7,11 @@ import { VarianceMaster, VarianceMasterSet } from "./master";
 /**
  * VariableOps<A,M,X> contains various methods to manipulate variable values (X)
  */
-export interface VariableOps<A extends VarianceDim, M extends VarianceMaster<A>, X>
-    extends Algebra.VectorSpace<X, number> {
+export interface VariableOps<
+    A extends VarianceDim,
+    M extends VarianceMaster<A>,
+    X
+> extends Algebra.VectorSpace<X, number> {
     originOf(x: X): number;
     varianceDeltaOf(x: X, m: M): number;
     varianceOf(x: X): Iterable<[M, number]>;

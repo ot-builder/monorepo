@@ -6,9 +6,9 @@ import { Tag } from "@ot-builder/primitive";
 import { FeatureConsolidationSource, FeatureConsolidator } from "./consolidate/feature";
 import { mergeMapAlt } from "./utils";
 
-export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
-    implements FeatureConsolidationSource<L>
-{
+export class GsubGposMerger<
+    L extends Ot.GsubGpos.LookupProp
+> implements FeatureConsolidationSource<L> {
     constructor(
         public readonly variationDimensions: Data.Order<Ot.Var.Dim>,
         public readonly preferred: Ot.GsubGpos.TableT<L>,

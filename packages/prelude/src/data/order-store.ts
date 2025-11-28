@@ -4,8 +4,10 @@ export interface OrderStoreFactory<T, S extends OrderStore<T> = OrderStore<T>> {
     createStoreFromList(init: Iterable<T>): S;
 }
 
-export interface OrderStoreFactoryWithDefault<T, S extends OrderStore<T> = OrderStore<T>>
-    extends OrderStoreFactory<T, S> {
+export interface OrderStoreFactoryWithDefault<
+    T,
+    S extends OrderStore<T> = OrderStore<T>
+> extends OrderStoreFactory<T, S> {
     createStoreFromSize(count: number): S;
 }
 

@@ -21,5 +21,8 @@ export default withMDX({
         config.resolve.alias["templates"] = path.join(__dirname, "templates");
         return config;
     },
-    sassOptions: { loadPaths: [path.join(__dirname, "styles")] }
+    sassOptions: { loadPaths: [path.join(__dirname, "styles")] },
+    turbopack: {
+        root: path.join(__dirname, "..")
+    }
 });
