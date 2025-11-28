@@ -24,8 +24,10 @@ export type VarianceMasterCollectResult<
     readonly master: M;
 };
 
-export interface VarianceMasterSet<A extends VarianceDim, M extends VarianceMaster<VarianceDim>>
-    extends Iterable<[M, number]> {
+export interface VarianceMasterSet<
+    A extends VarianceDim,
+    M extends VarianceMaster<VarianceDim>
+> extends Iterable<[M, number]> {
     /** Size of master set */
     readonly size: number;
     /** Query the records and return the index and corresponding collected masters, or `undefined` if the master is not recorded. */

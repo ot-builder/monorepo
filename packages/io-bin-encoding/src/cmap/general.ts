@@ -15,7 +15,8 @@ export type SubtableWriteOptions = EncodingCfg & {
 };
 
 export interface SubtableHandler
-    extends Read<void, [Data.Order<OtGlyph>]>,
+    extends
+        Read<void, [Data.Order<OtGlyph>]>,
         WriteOpt<Cmap.Table, [Data.Order<OtGlyph>, SubtableWriteOptions]> {
     readonly key?: number;
     acceptEncoding(platform: number, encoding: number, format: number): boolean;
