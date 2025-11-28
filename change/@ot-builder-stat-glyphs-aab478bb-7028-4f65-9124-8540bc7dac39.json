@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps and leverage npm's new publishing",
-  "packageName": "@ot-builder/stat-glyphs",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

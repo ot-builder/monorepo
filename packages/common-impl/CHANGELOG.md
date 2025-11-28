@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/common-impl
 
-<!-- This log was last generated on Sat, 04 Jan 2025 01:21:09 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.7
+
+Fri, 28 Nov 2025 06:24:43 GMT
+
+### Patches
+
+- Bump deps and leverage npm's new publishing (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/prelude to v1.7.7
 
 ## 1.7.5
 

@@ -1,8 +1,29 @@
 # Change Log - @ot-builder/io-bin-name
 
-<!-- This log was last generated on Sat, 03 May 2025 01:39:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.8
+
+Fri, 28 Nov 2025 06:24:43 GMT
+
+### Patches
+
+- Bump deps and leverage npm's new publishing (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.7.8
+- Bump @ot-builder/common-impl to v1.7.7
+- Bump @ot-builder/errors to v1.7.7
+- Bump @ot-builder/ot-glyphs to v1.7.8
+- Bump @ot-builder/ot-metadata to v1.7.8
+- Bump @ot-builder/ot-name to v1.7.8
+- Bump @ot-builder/prelude to v1.7.7
+- Bump @ot-builder/primitive to v1.7.8
+- Bump @ot-builder/ot-sfnt to v1.7.8
+- Bump @ot-builder/io-bin-sfnt to v1.7.8
+- Bump @ot-builder/io-bin-glyph-store to v1.7.8
+- Bump @ot-builder/io-bin-metadata to v1.7.8
+- Bump @ot-builder/test-util to v1.7.8
 
 ## 1.7.6
 

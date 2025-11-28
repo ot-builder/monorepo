@@ -2,6 +2,33 @@
   "name": "@ot-builder/ot-ext-private",
   "entries": [
     {
+      "date": "Fri, 28 Nov 2025 06:24:43 GMT",
+      "version": "1.7.8",
+      "tag": "@ot-builder/ot-ext-private_v1.7.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/ot-ext-private",
+            "commit": "2aaab1079cf70d72bea01493d65ab7498fc2bde1",
+            "comment": "Bump deps and leverage npm's new publishing"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-ext-private",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.8",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/ot-ext-private",
+            "comment": "Bump @ot-builder/prelude to v1.7.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 03 May 2025 01:39:25 GMT",
       "version": "1.7.6",
       "tag": "@ot-builder/ot-ext-private_v1.7.6",

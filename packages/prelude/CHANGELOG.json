@@ -2,6 +2,21 @@
   "name": "@ot-builder/prelude",
   "entries": [
     {
+      "date": "Fri, 28 Nov 2025 06:24:43 GMT",
+      "version": "1.7.7",
+      "tag": "@ot-builder/prelude_v1.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/prelude",
+            "commit": "2aaab1079cf70d72bea01493d65ab7498fc2bde1",
+            "comment": "Bump deps and leverage npm's new publishing"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/prelude_v1.7.5",

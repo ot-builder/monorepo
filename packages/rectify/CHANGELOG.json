@@ -2,6 +2,57 @@
   "name": "@ot-builder/rectify",
   "entries": [
     {
+      "date": "Fri, 28 Nov 2025 06:24:43 GMT",
+      "version": "1.7.8",
+      "tag": "@ot-builder/rectify_v1.7.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/rectify",
+            "commit": "2aaab1079cf70d72bea01493d65ab7498fc2bde1",
+            "comment": "Bump deps and leverage npm's new publishing"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot to v1.7.8",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/common-impl to v1.7.7",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.7.8",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/ot-metadata to v1.7.8",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/prelude to v1.7.7",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/rectify",
+            "comment": "Bump @ot-builder/variance to v1.7.8",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 03 May 2025 01:39:25 GMT",
       "version": "1.7.6",
       "tag": "@ot-builder/rectify_v1.7.6",

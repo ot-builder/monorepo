@@ -2,6 +2,27 @@
   "name": "@ot-builder/common-impl",
   "entries": [
     {
+      "date": "Fri, 28 Nov 2025 06:24:43 GMT",
+      "version": "1.7.7",
+      "tag": "@ot-builder/common-impl_v1.7.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/common-impl",
+            "commit": "2aaab1079cf70d72bea01493d65ab7498fc2bde1",
+            "comment": "Bump deps and leverage npm's new publishing"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/common-impl",
+            "comment": "Bump @ot-builder/prelude to v1.7.7",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 04 Jan 2025 01:21:09 GMT",
       "version": "1.7.5",
       "tag": "@ot-builder/common-impl_v1.7.5",

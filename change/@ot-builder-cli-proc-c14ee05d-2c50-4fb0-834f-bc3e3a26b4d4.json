@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps and leverage npm's new publishing",
-  "packageName": "@ot-builder/cli-proc",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

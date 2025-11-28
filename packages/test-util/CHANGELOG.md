@@ -1,8 +1,22 @@
 # Change Log - @ot-builder/test-util
 
-<!-- This log was last generated on Sat, 03 May 2025 01:39:25 GMT and should not be manually modified. -->
+<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.7.8
+
+Fri, 28 Nov 2025 06:24:43 GMT
+
+### Patches
+
+- Bump deps and leverage npm's new publishing (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/common-impl to v1.7.7
+- Bump @ot-builder/ot-encoding to v1.7.8
+- Bump @ot-builder/ot-glyphs to v1.7.8
+- Bump @ot-builder/ot-layout to v1.7.8
+- Bump @ot-builder/prelude to v1.7.7
+- Bump @ot-builder/variance to v1.7.8
 
 ## 1.7.6
 
