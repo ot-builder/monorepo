@@ -18,11 +18,13 @@ jobs:
         node-version: [lts/*, latest] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: Validation
       run: |
         npm run init
@@ -39,22 +41,24 @@ jobs:
 
     steps:
     - name: Fetch main repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: master
         fetch-depth: 0
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
     - name: Fetch docs repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: ot-builder/ot-builder.github.io.git
         ref: master
         path: .doc-deploy
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
     - name: Use Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: NPM Setup
       run: |
         npm run init:prod
@@ -68,5 +72,3 @@ jobs:
     - name: Publish
       run: |
         npm run publish
-      env:
-        SECRET_NPM_TOKEN: ${{secrets.SECRET_NPM_TOKEN}}

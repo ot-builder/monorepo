@@ -13,11 +13,13 @@ jobs:
         node-version: [lts/*, latest] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: NPM Setup
       run: |
         npm run init
@@ -45,11 +47,13 @@ jobs:
         node-version: [lts/*, latest] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: NPM Setup
       run: |
         npm run init:prod
@@ -70,11 +74,13 @@ jobs:
         node-version: [lts/*] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: NPM Setup
       run: |
         npm run init
@@ -95,11 +101,13 @@ jobs:
         node-version: [lts/*] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Update NPM
+      run: npm install -g npm@latest
     - name: NPM Setup
       run: |
         npm run init
