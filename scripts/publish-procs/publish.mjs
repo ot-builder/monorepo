@@ -3,7 +3,7 @@
 import { Beachball, Git } from "./tools.mjs";
 
 export async function publish(cfg) {
-    if (!cfg.GitUser || !cfg.GitEmail || !cfg.NpmToken) {
+    if (!cfg.GitUser || !cfg.GitEmail) {
         throw new Error("Key information missing.");
     }
 

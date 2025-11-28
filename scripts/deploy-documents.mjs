@@ -11,6 +11,6 @@ main().catch(e => {
 });
 
 async function main() {
-    const cfg = { GitUser, GitEmail, NpmToken: "" };
+    const cfg = { GitUser, GitEmail };
     await docPublish(cfg);
 }
