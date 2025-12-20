@@ -1,5 +1,5 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { readOtMetadata } from "@ot-builder/io-bin-metadata";
+import { DefaultFontMetadataCfgProps, readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
@@ -40,6 +40,7 @@ function roundTripTest(file: string, padSpace: boolean) {
     const bufGlyf = Frag.packFrom(
         GlyfTableWrite,
         gOrd1,
+        { ttf: DefaultFontMetadataCfgProps },
         loca1,
         stat,
         new NopTtfWritingExtraInfoSink()

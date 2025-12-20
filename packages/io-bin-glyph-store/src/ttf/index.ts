@@ -77,7 +77,7 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
             if (!afEmpty.get()) sfnt.add(Gvar.Tag, bGvar);
         }
         const loca1: Loca.Table = { glyphOffsets: [] };
-        const bufGlyf = Frag.packFrom(Glyf.Write, gOrd, loca1, ctx.stat, ctx.extraInfoSink);
+        const bufGlyf = Frag.packFrom(Glyf.Write, gOrd, cfg, loca1, ctx.stat, ctx.extraInfoSink);
         sfnt.add(Glyf.Tag, bufGlyf);
         const bufLoca = Frag.packFrom(Loca.Io, loca1, ctx.head);
         sfnt.add(Loca.Tag, bufLoca);
