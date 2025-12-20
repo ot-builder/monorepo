@@ -37,7 +37,7 @@
     "@ot-builder/ot-sfnt": "1.7.8",
     "@ot-builder/io-bin-sfnt": "1.7.8",
     "@ot-builder/io-bin-ttf": "1.7.8",
-    "iconv-lite": "^0.7.0",
+    "iconv-lite": "0.7.0",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
