@@ -54,6 +54,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
     const bufGlyf = Frag.packFrom(
         GlyfTableWrite,
         gOrd1,
+        cfg,
         loca1,
         stat,
         new NopTtfWritingExtraInfoSink()

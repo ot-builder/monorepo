@@ -5,6 +5,7 @@ import { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
+import { TtfCfg } from "../cfg";
 import { TtfWritingExtraInfoSink } from "../extra-info-sink/index";
 
 import { CompositeGlyph, GlyphClassifier, SimpleGlyph } from "./classifier";
@@ -12,6 +13,7 @@ import { LocaTable } from "./loca";
 import { ComponentFlag, GlyfOffsetAlign, SimpleGlyphFlag } from "./shared";
 
 class FlagShrinker {
+    constructor(private cfg: TtfCfg) {}
     private flags: number[] = [];
     private repeating = 0;
     private last = 0;
@@ -40,8 +42,7 @@ class FlagShrinker {
     }
 
     public finalizeAndGetFlags() {
-        // Always set overlapping flag
-        if (this.flags.length) {
+        if (this.cfg.ttf.glyfIncludeOverlapSimpleFlag && this.flags.length) {
             this.flags[0] |= SimpleGlyphFlag.OVERLAP_SIMPLE;
         }
         return this.flags;
@@ -70,10 +71,10 @@ class FlagShrinker {
 }
 
 // TODO: could we optimize MORE?
-function collectSimpleGlyphOutlineData(sg: SimpleGlyph) {
+function collectSimpleGlyphOutlineData(sg: SimpleGlyph, cfg: TtfCfg) {
     let endPtsOfContours = -1;
     const endPtsOfContoursArray = [];
-    const shrinker = new FlagShrinker();
+    const shrinker = new FlagShrinker(cfg);
     const fragX = new Frag();
     const fragY = new Frag();
 
@@ -113,14 +114,14 @@ function collectSimpleGlyphOutlineData(sg: SimpleGlyph) {
     return { flags: shrinker.finalizeAndGetFlags(), fragX, fragY, endPtsOfContoursArray };
 }
 
-const SimpleGlyphData = Write((frag: Frag, sg: SimpleGlyph) => {
+const SimpleGlyphData = Write((frag: Frag, sg: SimpleGlyph, cfg: TtfCfg) => {
     const st = sg.getStatData();
     frag.int16(st.eigenContours)
         .int16(st.extent.xMin)
         .int16(st.extent.yMin)
         .int16(st.extent.xMax)
         .int16(st.extent.yMax);
-    const analysis = collectSimpleGlyphOutlineData(sg);
+    const analysis = collectSimpleGlyphOutlineData(sg, cfg);
     for (const zid of analysis.endPtsOfContoursArray) frag.uint16(zid);
     frag.uint16(sg.instructions.byteLength);
     frag.bytes(sg.instructions);
@@ -248,6 +249,7 @@ export const GlyfTableWrite = Write(
     (
         frag,
         gOrd: Data.Order<OtGlyph>,
+        cfg: TtfCfg,
         outLoca: LocaTable,
         stat: OtGlyph.Stat.Sink,
         extraInfoSink: TtfWritingExtraInfoSink
@@ -262,7 +264,7 @@ export const GlyfTableWrite = Write(
             cg.stat(stat);
             const fGlyph = new Frag();
             if (cg instanceof SimpleGlyph) {
-                fGlyph.push(SimpleGlyphData, cg);
+                fGlyph.push(SimpleGlyphData, cg, cfg);
             } else if (cg instanceof CompositeGlyph) {
                 fGlyph.push(CompositeGlyphData, cg, iGlyph, gOrd, extraInfoSink);
             }

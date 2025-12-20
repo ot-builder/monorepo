@@ -81,6 +81,10 @@ Creates a TTC file <R s="Buffer"/> form a <R s={FontIo.TableSliceCollection}/> a
 
 * <Item optional s={FontIo.FontIoConfig.ttf}/>:
 
+    * <Member optional s={FontIo.FontIoConfig.ttf.glyfIncludeOverlapSimpleFlag} type={boolean} />
+
+        Whether to include `OVERLAP_SIMPLE` flag in `glyf` table. Defaults to `true`.
+
     * <Member optional s={FontIo.FontIoConfig.ttf.gvarOptimizeTolerance} type={boolean} />
 
         The error tolerance when writing the `gvar` table. Defaults to `1/128`. With higher tolerance the `gvar` table writer would do more aggressive IUP optimization.
