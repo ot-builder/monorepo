@@ -2,6 +2,21 @@
   "name": "@ot-builder/io-bin-ttf",
   "entries": [
     {
+      "date": "Sat, 27 Dec 2025 02:19:02 GMT",
+      "version": "1.8.0",
+      "tag": "@ot-builder/io-bin-ttf_v1.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-ttf",
+            "commit": "23376e30fb3b7da8b0dead0cb055118d00991c9c",
+            "comment": "Add config FontIo.FontIoConfig.ttf.glyfIncludeOverlapSimpleFlag to control whether to include OVERLAP_SIMPLE flag in the output glyf"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Nov 2025 06:24:43 GMT",
       "version": "1.7.8",
       "tag": "@ot-builder/io-bin-ttf_v1.7.8",

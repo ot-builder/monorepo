@@ -1,7 +1,7 @@
 {
   "name": "@ot-builder/io-bin-glyph-store",
   "description": "",
-  "version": "1.7.8",
+  "version": "1.8.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "@ot-builder/ot-metadata": "1.7.8",
     "@ot-builder/io-bin-cff": "1.7.8",
     "@ot-builder/io-bin-metric": "1.7.8",
-    "@ot-builder/io-bin-ttf": "1.7.8",
+    "@ot-builder/io-bin-ttf": "1.8.0",
     "@ot-builder/prelude": "1.7.7",
     "@ot-builder/primitive": "1.7.8",
     "@ot-builder/stat-glyphs": "1.7.8",

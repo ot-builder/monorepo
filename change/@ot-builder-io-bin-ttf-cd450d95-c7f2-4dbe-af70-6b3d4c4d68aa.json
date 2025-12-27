@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add config FontIo.FontIoConfig.ttf.glyfIncludeOverlapSimpleFlag to control whether to include OVERLAP_SIMPLE flag in the output glyf",
-  "packageName": "@ot-builder/io-bin-ttf",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

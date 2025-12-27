@@ -2,6 +2,33 @@
   "name": "@ot-builder/io-bin-vtt-private",
   "entries": [
     {
+      "date": "Sat, 27 Dec 2025 02:19:02 GMT",
+      "version": "1.7.9",
+      "tag": "@ot-builder/io-bin-vtt-private_v1.7.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "commit": "3bfb11373ab652dea9dffe7f2bba168daa3d79bd",
+            "comment": "Fix build break caused by iconv. Add back lock file."
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-ttf to v1.8.0",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-vtt-private",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.8.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Nov 2025 06:24:43 GMT",
       "version": "1.7.8",
       "tag": "@ot-builder/io-bin-vtt-private_v1.7.8",

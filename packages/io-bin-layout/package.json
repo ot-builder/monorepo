@@ -1,6 +1,6 @@
 {
   "name": "@ot-builder/io-bin-layout",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -41,10 +41,10 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@ot-builder/io-bin-glyph-store": "1.7.8",
+    "@ot-builder/io-bin-glyph-store": "1.8.0",
     "@ot-builder/io-bin-metadata": "1.7.8",
     "@ot-builder/ot-encoding": "1.7.8",
-    "@ot-builder/io-bin-encoding": "1.7.8",
+    "@ot-builder/io-bin-encoding": "1.7.9",
     "@ot-builder/test-util": "1.7.8",
     "@types/jest": "^30.0.0",
     "jest": "^30.2.0"

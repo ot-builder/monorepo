@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/io-bin-glyph-store
 
-<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 27 Dec 2025 02:19:02 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.0
+
+Sat, 27 Dec 2025 02:19:02 GMT
+
+### Minor changes
+
+- Add config FontIo.FontIoConfig.ttf.glyfIncludeOverlapSimpleFlag to control whether to include OVERLAP_SIMPLE flag in the output glyf (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/io-bin-ttf to v1.8.0
 
 ## 1.7.8
 
