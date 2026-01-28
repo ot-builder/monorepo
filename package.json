@@ -46,7 +46,7 @@
         "@types/node": "^24.10.1",
         "@types/rimraf": "^4.0.5",
         "@types/which": "^3.0.4",
-        "beachball": "^2.58.0",
+        "beachball": "^2.63.0",
         "eslint": "^9.39.1",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-import": "^2.32.0",
