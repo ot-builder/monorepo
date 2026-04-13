@@ -22,9 +22,9 @@ jobs:
         node-version: [lts/*, latest] # Current and LTS. No history versions
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: ${{ matrix.node-version }}
     - name: Update NPM
@@ -45,20 +45,20 @@ jobs:
 
     steps:
     - name: Fetch main repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         ref: master
         fetch-depth: 0
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
     - name: Fetch docs repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: ot-builder/ot-builder.github.io.git
         ref: master
         path: .doc-deploy
         token: ${{secrets.SECRET_GITHUB_TOKEN}}
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: lts/*
         registry-url: 'https://registry.npmjs.org'
