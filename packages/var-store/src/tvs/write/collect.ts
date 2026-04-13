@@ -9,7 +9,7 @@ export class TvsCollector extends DelayValueCollector<
     OtVar.Value,
     DelayDeltaValue
 > {
-    constructor() {
+    public constructor() {
         super(OtVar.Ops, new OtVar.MasterSet());
     }
 
@@ -19,7 +19,7 @@ export class TvsCollector extends DelayValueCollector<
 }
 
 export class DelayDeltaValue {
-    constructor(
+    public constructor(
         private col: TvsCollector,
         public origin: number,
         private deltaMA: number[]

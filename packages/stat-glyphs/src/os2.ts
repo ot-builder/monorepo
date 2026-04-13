@@ -1,10 +1,10 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Os2 } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Os2 } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export class Os2Stat implements OtGlyph.Stat.Sink {
-    constructor(
+    public constructor(
         private os2: Os2.Table,
         private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
     ) {}

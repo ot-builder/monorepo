@@ -13,7 +13,7 @@ export namespace Access {
 }
 
 export class State<T> implements Access<T> {
-    constructor(private value: T) {}
+    public constructor(private value: T) {}
     public get() {
         return this.value;
     }

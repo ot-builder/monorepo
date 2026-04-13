@@ -1,4 +1,4 @@
-import { createTopLevelExport, setPage, TyRep } from "./tyrep";
+import { createTopLevelExport, setPage, type TyRep } from "./tyrep";
 
 export const Data = createTopLevelExport("Data");
 setPage(Data, "Prelude");

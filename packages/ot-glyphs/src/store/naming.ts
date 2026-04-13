@@ -1,6 +1,6 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { OtGlyph } from "../ot-glyph";
+import type { OtGlyph } from "../ot-glyph";
 
 export interface OtGlyphNamingSource {
     readonly post?: Data.Maybe<Data.Naming.Source<OtGlyph>>;

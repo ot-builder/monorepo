@@ -1,13 +1,13 @@
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { type OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 import { GposPairReader } from "../gpos-pair-read";
 import { GposPairWriter } from "../gpos-pair-write";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
     SetupVariation
 } from "./-shared-test-util.test";

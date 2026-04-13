@@ -7,7 +7,7 @@ import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 import { NopTtfWritingExtraInfoSink } from "../extra-info-sink/index";
 import { rectifyGlyphOrder } from "../rectify/rectify";
 
-import { LocaTable, LocaTableIo, LocaTag } from "./loca";
+import { type LocaTable, LocaTableIo, LocaTag } from "./loca";
 import { GlyfTableRead } from "./read";
 import { GlyfTag } from "./shared";
 import { GlyfTableWrite } from "./write";

@@ -1,12 +1,12 @@
-import { Os2 } from "@ot-builder/ot-metadata";
+import type { Os2 } from "@ot-builder/ot-metadata";
 
-import { EmptyStat, EncodingStat } from "./interface";
+import { EmptyStat, type EncodingStat } from "./interface";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export class Os2UnicodeRangeStat extends EmptyStat {
     private mask = [0, 0, 0, 0];
-    constructor(
+    public constructor(
         private readonly os2: Os2.Table,
         external?: EncodingStat
     ) {

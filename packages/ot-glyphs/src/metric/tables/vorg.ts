@@ -1,5 +1,5 @@
-import { Data } from "@ot-builder/prelude";
-import { Int16 } from "@ot-builder/primitive";
+import type { Data } from "@ot-builder/prelude";
+import type { Int16 } from "@ot-builder/primitive";
 
 export const Tag = "VORG";
 export class Table {

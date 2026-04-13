@@ -1,12 +1,12 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { OtExtPrivate, XPrv } from "@ot-builder/ot-ext-private";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { OtFontMetadata } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { type OtExtPrivate, XPrv } from "@ot-builder/ot-ext-private";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtFontMetadata } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Data } from "@ot-builder/prelude";
 
-import { ExtPrivateCfg } from "../cfg";
+import type { ExtPrivateCfg } from "../cfg";
 import { ReadXPrv, WriteXPrv } from "../xprv";
 
 export function readExtPrivate(

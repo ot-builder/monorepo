@@ -1,7 +1,7 @@
-import { CaseCreator, CaseType, Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { CaseCreator, type CaseType, type Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as GeneralGlyph from "../general-glyph";
+import type * as GeneralGlyph from "../general-glyph";
 import * as Lib_General_Point from "../general-glyph/point/ref";
 import * as TAG_GeometryType from "../general-glyph/type-tags/geometry-type";
 import * as TAG_HintType from "../general-glyph/type-tags/hint-type";

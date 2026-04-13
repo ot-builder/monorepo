@@ -1,10 +1,10 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff1Io, Cff2Io, CffCfg } from "@ot-builder/io-bin-cff";
-import { Cff, CffCoGlyphsWithNaming } from "@ot-builder/ot-glyphs";
+import { Cff1Io, Cff2Io, type CffCfg } from "@ot-builder/io-bin-cff";
+import { Cff, type CffCoGlyphsWithNaming } from "@ot-builder/ot-glyphs";
 
-import { ReadGlyphStoreImpl } from "../general/read";
-import { WriteGlyphStoreImpl } from "../general/write";
+import type { ReadGlyphStoreImpl } from "../general/read";
+import type { WriteGlyphStoreImpl } from "../general/write";
 
 export const ReadCffGlyphs: ReadGlyphStoreImpl<CffCfg, CffCoGlyphsWithNaming> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {

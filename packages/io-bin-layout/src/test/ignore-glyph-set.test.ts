@@ -1,4 +1,4 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
 import { setEqual } from "@ot-builder/test-util";
 

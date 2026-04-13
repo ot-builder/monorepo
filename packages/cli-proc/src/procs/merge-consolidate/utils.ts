@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export function combineList<T>(a: Data.Maybe<ReadonlyArray<T>>, b: Data.Maybe<ReadonlyArray<T>>) {
     return [...(a || []), ...(b || [])];

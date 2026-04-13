@@ -1,5 +1,5 @@
-import { BimapCtx } from "./bimap";
-import { CompareContext } from "./context";
+import type { BimapCtx } from "./bimap";
+import type { CompareContext } from "./context";
 
 export class LookupCtx<A, B> implements CompareContext<LookupCtx<A, B>> {
     private constructor(

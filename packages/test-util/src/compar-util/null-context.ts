@@ -1,4 +1,4 @@
-import { CompareContext } from "./context";
+import type { CompareContext } from "./context";
 
 export class EmptyCtx implements CompareContext<EmptyCtx> {
     private constructor(public readonly derived: boolean = false) {}

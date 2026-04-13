@@ -1,7 +1,7 @@
-import { CffWriteContext } from "../../context/write";
+import type { CffWriteContext } from "../../context/write";
 
-import { CffDrawCall, CffDrawCallRaw } from "./draw-call";
-import { cffOptimizeDrawCall, DrawCallOptimizationPass } from "./draw-call-optimize/general";
+import { CffDrawCall, type CffDrawCallRaw } from "./draw-call";
+import { cffOptimizeDrawCall, type DrawCallOptimizationPass } from "./draw-call-optimize/general";
 import { Mir } from "./mir";
 
 export function TestRawDcOptimize(

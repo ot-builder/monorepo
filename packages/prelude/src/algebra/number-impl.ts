@@ -1,4 +1,4 @@
-import { Ring, VectorSpace } from "./interface";
+import type { Ring, VectorSpace } from "./interface";
 
 export const Num: Ring<number> & VectorSpace<number, number> = {
     neutral: 0,

@@ -1,9 +1,9 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
-import { CffReadContext } from "../context/read";
+import type { CffReadContext } from "../context/read";
 
-import { CffCharSetSink } from "./io";
+import type { CffCharSetSink } from "./io";
 
 export class CffGlyphNaming<G extends OtGlyph> implements Data.Naming.Source<G> {
     private mapping = new Map<G, string>();
@@ -16,7 +16,7 @@ export class CffGlyphNaming<G extends OtGlyph> implements Data.Naming.Source<G> 
 }
 
 export class CffGlyphNameCharsetSink<G extends OtGlyph> implements CffCharSetSink {
-    constructor(
+    public constructor(
         private glyphs: Data.Order<G>,
         private naming: null | CffGlyphNaming<G>,
         private ctx: CffReadContext
@@ -31,7 +31,7 @@ export class CffGlyphNameCharsetSink<G extends OtGlyph> implements CffCharSetSin
 }
 
 export class CffCidCharsetSink<G extends OtGlyph> implements CffCharSetSink {
-    constructor(
+    public constructor(
         private glyphs: Data.Order<G>,
         private naming: null | CffGlyphNaming<G>,
         private cidMap: Map<number, OtGlyph>

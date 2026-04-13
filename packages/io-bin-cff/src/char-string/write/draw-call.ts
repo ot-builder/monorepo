@@ -1,14 +1,14 @@
 import { Errors } from "@ot-builder/errors";
-import { WriteTimeDelayValue, WriteTimeIVD } from "@ot-builder/var-store";
+import type { WriteTimeDelayValue, WriteTimeIVD } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import { CffEncodingOptions, CffWriteContext } from "../../context/write";
+import type { CffEncodingOptions, CffWriteContext } from "../../context/write";
 import { CffOperator, CharStringOperator } from "../../interp/operator";
 
 import { Mir, MirType } from "./mir";
 
 export class CffDrawCallRawT<X> {
-    constructor(
+    public constructor(
         public readonly args: readonly X[],
         public readonly operator: number,
         public readonly flags?: number[]
@@ -16,7 +16,7 @@ export class CffDrawCallRawT<X> {
 }
 
 export class CffBlendPrimitive {
-    constructor(
+    public constructor(
         public readonly ivd: WriteTimeIVD,
         public readonly origin: number,
         public readonly deltas: number[]
@@ -35,7 +35,7 @@ export class CffDrawCallRaw extends CffDrawCallRawT<OtVar.Value> {}
 export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
     public stackRidge: number;
     public stackRise: number;
-    constructor(
+    public constructor(
         public readonly ivd: WriteTimeIVD | null,
         args: readonly (number | CffBlendPrimitive)[],
         operator: number,
@@ -143,7 +143,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
             vsIndexOperator: CharStringOperator.VsIndex,
             blendOperator: CharStringOperator.Blend
         };
-        return this.seqFromRawSeqImpl(ctx, eo, from);
+        return CffDrawCall.seqFromRawSeqImpl(ctx, eo, from);
     }
     public static dictStringSeqFromRawSeq(
         ctx: CffWriteContext,
@@ -155,7 +155,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
             vsIndexOperator: CffOperator.VsIndex,
             blendOperator: CffOperator.Blend
         };
-        return this.seqFromRawSeqImpl(ctx, eo, from);
+        return CffDrawCall.seqFromRawSeqImpl(ctx, eo, from);
     }
 
     // DC to Mir conversion
@@ -198,7 +198,7 @@ class MirArgConverter {
     public pendingBlendOrigins: number[] = [];
     public pendingBlendDeltas: number[] = [];
 
-    constructor(
+    public constructor(
         private to: Mir[],
         private readonly eo: CffEncodingOptions
     ) {}
@@ -216,13 +216,13 @@ class MirArgConverter {
     }
     private willOverflow(x: CffBlendPrimitive) {
         return (
-            this.sp +
-                1 +
-                this.pendingBlendDeltas.length +
-                this.pendingBlendOrigins.length +
-                1 +
-                x.deltas.length >=
-            this.eo.maxStack
+            this.sp
+                + 1
+                + this.pendingBlendDeltas.length
+                + this.pendingBlendOrigins.length
+                + 1
+                + x.deltas.length
+            >= this.eo.maxStack
         );
     }
     public flush() {
@@ -236,8 +236,8 @@ class MirArgConverter {
                 flags: undefined,
                 stackRidge: 0,
                 stackRise:
-                    this.pendingBlendOrigins.length -
-                    (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length)
+                    this.pendingBlendOrigins.length
+                    - (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length)
             });
             this.sp += this.pendingBlendOrigins.length;
             this.pendingBlendOrigins.length = 0;

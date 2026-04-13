@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { Math as OtMath } from "@ot-builder/ot-layout";
+import type { Math as OtMath } from "@ot-builder/ot-layout";
 import { OtVar } from "@ot-builder/variance";
 
 import { DeviceTable } from "./device-table";

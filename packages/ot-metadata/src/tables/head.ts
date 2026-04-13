@@ -1,4 +1,4 @@
-import { F16D16, Int16, UInt16, UInt32 } from "@ot-builder/primitive";
+import type { F16D16, Int16, UInt16, UInt32 } from "@ot-builder/primitive";
 
 export const Tag = "head";
 
@@ -42,7 +42,7 @@ export enum FontDirectionHint {
 }
 
 export class Table {
-    constructor(
+    public constructor(
         public readonly majorVersion: UInt16 = 0x1,
         public readonly minorVersion: UInt16 = 0
     ) {}

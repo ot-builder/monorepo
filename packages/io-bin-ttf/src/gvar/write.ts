@@ -1,17 +1,17 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
-    TupleVariationBuildContext,
-    TupleVariationBuildSource,
+    type TupleVariationBuildContext,
+    type TupleVariationBuildSource,
     TupleVariationWriteOpt
 } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
-import { TtfCfg } from "../cfg";
+import type { TtfCfg } from "../cfg";
 
 import { GvarFlag, GvarOffsetAlign } from "./shared";
 
@@ -92,7 +92,7 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
     public readonly dimensions = 2;
     public readonly data: OtVar.Value[][];
 
-    constructor(glyph: OtGlyph) {
+    public constructor(glyph: OtGlyph) {
         this.data = [
             ...(glyph.geometry ? new GeomVarCollector().process(glyph.geometry) : []),
             [glyph.horizontal.start, 0],

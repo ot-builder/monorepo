@@ -1,11 +1,11 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, Gsub, type GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriteTrick } from "../cfg";
-import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
+import type { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { MaxClsDefItemWords, Ptr16ClassDef } from "../shared/class-def";
 import { Ptr16GlyphCoverage } from "../shared/coverage";
 
@@ -33,8 +33,8 @@ class ClassDefsAnalyzeState<L> {
         gs: Data.Maybe<Set<OtGlyph>>,
         cd: GsubGpos.ClassDef
     ) {
-        if (!gs || !gs.size) return undefined;
-        let firstClass: number | undefined = undefined;
+        if (!gs?.size) return undefined;
+        let firstClass: number | undefined;
         for (const g of gs) {
             const gk = cd.get(g);
             if (gk == null) return undefined;
@@ -50,7 +50,7 @@ class ClassDefsAnalyzeState<L> {
         gs: Data.Maybe<Set<OtGlyph>>,
         cd: GsubGpos.ClassDef
     ) {
-        if (!gs || !gs.size) return undefined;
+        if (!gs?.size) return undefined;
         for (const g of gs) {
             const gk = cd.get(g);
             if (gk != null) return undefined;
@@ -111,11 +111,11 @@ class ClassDefsAnalyzeState<L> {
 
     public estimateCurrentSize() {
         return (
-            UInt16.size *
-            (8 +
-                MaxClsDefItemWords *
-                    (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size) +
-                this.ruleComplexity)
+            UInt16.size
+            * (8
+                + MaxClsDefItemWords
+                    * (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size)
+                + this.ruleComplexity)
         );
     }
 
@@ -241,7 +241,7 @@ class CClassRuleSet<L> {
         frag.uint16(s.maxFirstClass + 1);
         for (let c = 0; c <= s.maxFirstClass; c++) {
             const a = s.classRules.get(c);
-            if (!a || !a.length) {
+            if (!a?.length) {
                 frag.ptr16(null);
             } else {
                 const bRuleSet = frag.ptr16New();
@@ -254,10 +254,9 @@ class CClassRuleSet<L> {
     }
 }
 
-abstract class ChainingContextualWriter<
-    L,
-    C extends L & GsubGpos.ChainingProp<L>
-> implements LookupWriter<L, C> {
+abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L>>
+    implements LookupWriter<L, C>
+{
     private wCoverageRule = new CCoverageRule<L>();
     private wClassRuleSet = new CClassRuleSet<L>();
 

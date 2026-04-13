@@ -1,12 +1,12 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { OtGlyph } from "../ot-glyph";
+import type { OtGlyph } from "../ot-glyph";
 
 import { OtGhCountPoint } from "./count-point";
 import { OtGhFlattener } from "./flattener";
 import { OtGhGetBound } from "./get-bound";
 import { OtGhPointLister } from "./point-lister";
-import { OtGeometrySink, OtGeometrySinkClass, OtGeometryTraverse } from "./shared";
+import { type OtGeometrySink, type OtGeometrySinkClass, OtGeometryTraverse } from "./shared";
 
 export namespace OtGeometryUtil {
     export type GeometrySink<T> = OtGeometrySink<T>;

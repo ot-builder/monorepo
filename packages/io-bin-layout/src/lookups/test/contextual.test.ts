@@ -7,7 +7,11 @@ import { LookupWriteTrick } from "../../cfg";
 import { GsubChainingReader, GsubContextualReader } from "../contextual-read";
 import { GsubChainingContextualWriter } from "../contextual-write";
 
-import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./-shared-test-util.test";
+import {
+    type LookupRoundTripConfig,
+    LookupRoundTripTest,
+    TuGlyphSet
+} from "./-shared-test-util.test";
 
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();

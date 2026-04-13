@@ -1,6 +1,6 @@
-import { Cvt } from "@ot-builder/ot-glyphs";
+import type { Cvt } from "@ot-builder/ot-glyphs";
 
-import { EmptyCtx, StdCompare } from "./compar-util";
+import { type EmptyCtx, StdCompare } from "./compar-util";
 import * as FastMatch from "./fast-match";
 
 function test0(ctx: EmptyCtx, expected: Cvt.Table, actual: Cvt.Table) {

@@ -10,12 +10,12 @@ import {
     Loca,
     PrepIo,
     rectifyGlyphOrder,
-    TtfCfg
+    type TtfCfg
 } from "@ot-builder/io-bin-ttf";
-import { Cvt, Fpgm, Prep, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
+import { Cvt, Fpgm, Prep, type TtfCoGlyphs } from "@ot-builder/ot-glyphs";
 
-import { ReadGlyphStoreImpl } from "../general/read";
-import { WriteGlyphStoreImpl } from "../general/write";
+import type { ReadGlyphStoreImpl } from "../general/read";
+import type { WriteGlyphStoreImpl } from "../general/write";
 
 export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {

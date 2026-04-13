@@ -11,7 +11,7 @@ export interface OtGeometrySink<T> {
 }
 
 class OtTransformedGeometrySink<T> implements OtGeometrySink<T> {
-    constructor(
+    public constructor(
         private readonly sink: OtGeometrySink<T>,
         private readonly transform: OtGlyph.Transform2X3
     ) {}
@@ -30,7 +30,7 @@ class OtTransformedGeometrySink<T> implements OtGeometrySink<T> {
 }
 
 export class OtGeometryTraverse<T> {
-    constructor(protected readonly sink: OtGeometrySink<T>) {}
+    public constructor(protected readonly sink: OtGeometrySink<T>) {}
 
     public process(geom: OtGlyph.Geometry) {
         switch (geom.type) {

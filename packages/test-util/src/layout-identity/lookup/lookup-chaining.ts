@@ -1,8 +1,8 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { GsubGpos } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { GsubGpos } from "@ot-builder/ot-layout";
 
-import { LookupCtx, StdCompare } from "../../compar-util";
+import { type LookupCtx, StdCompare } from "../../compar-util";
 
 function ruleMatch<L>(
     bmg: LookupCtx<OtGlyph, L>,

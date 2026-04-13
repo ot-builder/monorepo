@@ -1,4 +1,4 @@
-import { diceZones, Span, SrcZone, DstZone, Zone } from "./zone-dicing";
+import { type DstZone, diceZones, type Span, type SrcZone, type Zone } from "./zone-dicing";
 
 test("Multi condition set dicing", () => {
     MultiDiceTest<number>(

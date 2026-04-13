@@ -1,4 +1,4 @@
-import { PathMapAllocator, PathMap, PathMapLens } from "./interface";
+import type { PathMap, PathMapAllocator, PathMapLens } from "./interface";
 
 class PathMapNode<Step, Value> {
     public value: Value | undefined;
@@ -34,7 +34,7 @@ export class IndexAllocator implements PathMapAllocator<number> {
 
 class PathMapLensImpl<Step, Value> implements PathMapLens<Step, Value> {
     private current: PathMapNode<Step, Value>;
-    constructor(node: PathMapNode<Step, Value>) {
+    public constructor(node: PathMapNode<Step, Value>) {
         this.current = node;
     }
     public get() {

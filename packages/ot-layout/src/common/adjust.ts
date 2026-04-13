@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export interface DeviceDataT<X> {
     variation: X;

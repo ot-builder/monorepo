@@ -1,16 +1,16 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { OtFontMetadata } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { OtVttPrivate, TSI0123, TSI5, TSIC } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtFontMetadata } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import { type OtVttPrivate, TSI5, TSI0123, TSIC } from "@ot-builder/ot-vtt-private";
+import type { Data } from "@ot-builder/prelude";
 
-import { VttPrivateCfg } from "../cfg";
-import { VttExtraInfoSource } from "../extra-info-source";
+import type { VttPrivateCfg } from "../cfg";
+import type { VttExtraInfoSource } from "../extra-info-source";
+import { TSI5Table } from "../tsi5";
 import { readTSI0123 } from "../tsi0123/read";
 import { NopProcessor, TSI01Processor, writeTSI0123 } from "../tsi0123/write";
-import { TSI5Table } from "../tsi5";
 import { TsicTable } from "../tsic";
 
 export function readVttPrivate(

@@ -1,12 +1,12 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Head } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
-import { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
+import type { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
 import { CffCidCharSetSource, CffGlyphNameCharSetSource } from "../charset/glyph-data-source";
 import { CffCharSet } from "../charset/io";
 import { CffWriteContext } from "../context/write";
@@ -67,11 +67,7 @@ function setupTopDict(
     else td.fgFDSelect = null;
     td.fgVarStore = null;
     if (cff.cid) {
-        td.fgCharSet = Frag.from(
-            CffCharSet,
-            new CffCidCharSetSource(ctx, gOrd, cff.cid.mapping),
-            ctx
-        );
+        td.fgCharSet = Frag.from(CffCharSet, new CffCidCharSetSource(gOrd, cff.cid.mapping), ctx);
     } else {
         td.fgCharSet = Frag.from(CffCharSet, new CffGlyphNameCharSetSource(ctx, gOrd), ctx);
     }

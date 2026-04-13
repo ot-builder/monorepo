@@ -1,7 +1,7 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { type BinaryView, type Frag, Read, Write } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { TSI5 } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export const TSI5Table = {
     ...Read((view: BinaryView, gOrd: Data.Order<OtGlyph>) => {

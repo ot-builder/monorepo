@@ -1,7 +1,7 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
 
-import { ReadGlyphStoreImpl } from "../general/read";
-import { WriteGlyphStoreImpl } from "../general/write";
+import type { ReadGlyphStoreImpl } from "../general/read";
+import type { WriteGlyphStoreImpl } from "../general/write";
 
 export const SkipReadGlyphs: ReadGlyphStoreImpl<unknown, null> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {

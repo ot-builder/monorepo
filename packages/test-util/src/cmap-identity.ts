@@ -1,7 +1,7 @@
-import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Cmap } from "@ot-builder/ot-encoding";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 
-import { BimapCtx, StdCompare } from "./compar-util";
+import { type BimapCtx, StdCompare } from "./compar-util";
 
 function testSingle(bim: BimapCtx<OtGlyph>, a: Cmap.Table, b: Cmap.Table) {
     for (const [code, glyph] of a.unicode.entries()) {

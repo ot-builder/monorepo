@@ -1,15 +1,15 @@
-import * as Ot from "@ot-builder/ot";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type * as Ot from "@ot-builder/ot";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 import {
-    AxisRectifier,
-    CoordRectifier,
+    type AxisRectifier,
+    type CoordRectifier,
     IdAxisRectifier,
     IdCoordRectifier,
     IdGlyphRefRectifier,
     IdPointAttachmentRectifier,
-    PointAttachmentRectifier
+    type PointAttachmentRectifier
 } from "../interface";
 
 import { inPlaceRectifyFont } from "./rectify-font";

@@ -1,8 +1,8 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { MetricBasic, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Maxp, MetricHead } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import { MetricBasic, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Maxp, MetricHead } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 
 export const MetricBasicIo = {
     ...Read((view, hea: MetricHead.Table, maxp: Maxp.Table) => {

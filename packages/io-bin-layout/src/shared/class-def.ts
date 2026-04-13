@@ -1,9 +1,9 @@
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag, Read, Write, WriteOpt } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, Read, Write, WriteOpt } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { LayoutCommon } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { LayoutCommon } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
 import { LookupWriteTrick } from "../cfg";
 

@@ -1,11 +1,11 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS } from "@ot-builder/var-store";
+import { type BinaryView, type Frag, Read, Write } from "@ot-builder/bin-util";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS } from "@ot-builder/var-store";
 
-import { CffDrawCall, CffDrawCallRaw } from "../char-string/write/draw-call";
+import { CffDrawCall, type CffDrawCallRaw } from "../char-string/write/draw-call";
 import { Mir } from "../char-string/write/mir";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import * as CffInterp from "../interp/ir";
 import { CffDictIrSource } from "../interp/ir-source";
 import { CffStackMachine } from "../interp/stack-machine";
@@ -23,7 +23,7 @@ export interface CffDictInterpreter<T> {
 
 export abstract class CffDictInterpreterBase extends CffInterp.Interpreter {
     public st: CffStackMachine;
-    constructor(ivs?: Data.Maybe<ReadTimeIVS>) {
+    public constructor(ivs?: Data.Maybe<ReadTimeIVS>) {
         super();
         this.st = new CffStackMachine(ivs);
     }
@@ -33,7 +33,7 @@ export abstract class CffDictInterpreterBase extends CffInterp.Interpreter {
 }
 
 export function CffDictReadT<T>(interpFactory: CffDictInterpreterFactory<T>) {
-    return Read(function (view: BinaryView, ctx: CffReadContext, dictSize: number) {
+    return Read((view: BinaryView, ctx: CffReadContext, dictSize: number) => {
         const interp = interpFactory(view, ctx);
         const irSource = new CffDictIrSource(view, dictSize);
         for (;;) {

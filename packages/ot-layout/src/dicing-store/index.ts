@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 type DicingPlan = { cls: number; from: null | number; inSet: boolean };
 
@@ -78,7 +78,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
             inSet = [];
             outSet = [];
             const kg = coCd[cl];
-            if (!kg || !kg.length) continue;
+            if (!kg?.length) continue;
             for (const g of kg) {
                 if (mdf.has(g)) {
                     inSet.push(g);

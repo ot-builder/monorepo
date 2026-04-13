@@ -9,7 +9,7 @@ const AnsiPattern = [
 const AnsiRegex = new RegExp(AnsiPattern, "g");
 
 export class CliHelpShower {
-    constructor(
+    public constructor(
         private readonly indentPrefix = "",
         private readonly bulletPrefix = "",
         private readonly hangingIndentPrefix = ""
@@ -29,12 +29,8 @@ export class CliHelpShower {
         );
     }
     public message(...text: (string | null | undefined)[]) {
-        const words = text
-            .filter(t => !!t)
-            .map(t => (t ? t.split(" ") : []))
-            .reduce((a, b) => [...a, ...b], []);
+        const words = text.filter(t => !!t).flatMap(t => (t ? t.split(" ") : []));
         this.messageImpl(words);
-
         return this;
     }
     private messageImpl(words: string[]) {

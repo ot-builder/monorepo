@@ -1,6 +1,6 @@
-import { VarianceDim } from "../interface/dimension";
-import { VarianceInstance, VarianceInstanceTupleW } from "../interface/instance";
-import { VarianceMaster } from "../interface/master";
+import type { VarianceDim } from "../interface/dimension";
+import type { VarianceInstance, VarianceInstanceTupleW } from "../interface/instance";
+import type { VarianceMaster } from "../interface/master";
 
 export type OtVarMasterDim = {
     readonly dim: VarianceDim;
@@ -17,9 +17,9 @@ function axisRegionIsNeutral<A extends VarianceDim>(ar: OtVarMasterDim) {
 }
 function axisRegionIsSimple<A extends VarianceDim>(ar: OtVarMasterDim) {
     return (
-        axisRegionIsNeutral(ar) ||
-        (ar.peak > 0 && ar.max === ar.peak && ar.min === 0) ||
-        (ar.peak < 0 && ar.max === 0 && ar.min === ar.peak)
+        axisRegionIsNeutral(ar)
+        || (ar.peak > 0 && ar.max === ar.peak && ar.min === 0)
+        || (ar.peak < 0 && ar.max === 0 && ar.min === ar.peak)
     );
 }
 
@@ -38,7 +38,7 @@ function evaluateAxis(ar: OtVarMasterDim, instanceCoordinate: number) {
 export class OtVarMaster implements VarianceMaster<VarianceDim> {
     public readonly regions: readonly OtVarMasterDim[];
 
-    constructor(init: Iterable<null | undefined | OtVarMasterDim>) {
+    public constructor(init: Iterable<null | undefined | OtVarMasterDim>) {
         const regions: OtVarMasterDim[] = [];
         for (const r of init) if (r) regions.push(r);
         this.regions = regions;

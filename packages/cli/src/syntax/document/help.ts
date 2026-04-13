@@ -1,7 +1,7 @@
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const HelpSyntax: Syntax<null | CliAction> = {
     handle: (st, sy) => {

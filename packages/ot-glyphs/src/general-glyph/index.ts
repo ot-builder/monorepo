@@ -1,8 +1,8 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as Contour from "./contour";
-import * as Lib_General_Point from "./point/ref";
-import * as Transform2X3 from "./transform-2x3";
+import type * as Contour from "./contour";
+import type * as Lib_General_Point from "./point/ref";
+import type * as Transform2X3 from "./transform-2x3";
 
 export * as Contour from "./contour";
 export * as Metric from "./metric";

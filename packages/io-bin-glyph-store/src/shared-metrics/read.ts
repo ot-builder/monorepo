@@ -2,10 +2,10 @@ import { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
 import { MetricBasic, MetricVariance, Vorg } from "@ot-builder/ot-glyphs";
-import { Maxp, MetricHead } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { type Maxp, MetricHead } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
 export function readHMetric(
     sfnt: Sfnt,

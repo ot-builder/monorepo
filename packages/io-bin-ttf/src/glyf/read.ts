@@ -1,9 +1,9 @@
 import { Read } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 
-import { LocaTable } from "./loca";
+import type { LocaTable } from "./loca";
 import { ComponentFlag, SimpleGlyphFlag } from "./shared";
 
 const PointFlags = Read((view, numberOfCoordinates: number) => {
@@ -217,13 +217,13 @@ export const GlyfTableRead = Read(
                 if (numberOfContours >= 0) {
                     const { geometry, instructions } = vGlyph.next(SimpleGlyph, numberOfContours);
                     glyph.geometry = geometry;
-                    if (instructions && instructions.byteLength) {
+                    if (instructions.byteLength) {
                         glyph.hints = new OtGlyph.TtInstruction(instructions);
                     }
                 } else {
                     const r = vGlyph.next(CompositeGlyph, gOrd);
                     glyph.geometry = new OtGlyph.GeometryList(r.references);
-                    if (r.instructions && r.instructions.byteLength) {
+                    if (r.instructions?.byteLength) {
                         glyph.hints = new OtGlyph.TtInstruction(r.instructions);
                     }
                 }

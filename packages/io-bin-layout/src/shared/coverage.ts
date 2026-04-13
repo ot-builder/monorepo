@@ -1,8 +1,8 @@
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 import { LookupWriteTrick } from "../cfg";
 
@@ -209,8 +209,8 @@ class CoverageRunCollector {
     public update(gid: number, item: number) {
         if (!this.last) this.start(gid, item);
         else if (
-            gid !== this.last.endGlyphID + 1 ||
-            item !== this.last.startCoverageIndex + (gid - this.last.startGlyphID)
+            gid !== this.last.endGlyphID + 1
+            || item !== this.last.startCoverageIndex + (gid - this.last.startGlyphID)
         ) {
             if (gid <= this.last.endGlyphID) throw Errors.Unreachable();
             this.flush();

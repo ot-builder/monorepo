@@ -1,13 +1,13 @@
 import { Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
-import { CffWriteContext } from "../context/write";
+import type { CffWriteContext } from "../context/write";
 
-import { CffCharSetDataSource } from "./io";
+import type { CffCharSetDataSource } from "./io";
 
 export class CffGlyphNameCharSetSource implements CffCharSetDataSource {
-    constructor(
+    public constructor(
         private readonly ctx: CffWriteContext,
         private readonly gOrd: Data.Order<OtGlyph>
     ) {}
@@ -22,8 +22,7 @@ export class CffGlyphNameCharSetSource implements CffCharSetDataSource {
 }
 
 export class CffCidCharSetSource implements CffCharSetDataSource {
-    constructor(
-        private readonly ctx: CffWriteContext,
+    public constructor(
         private readonly gOrd: Data.Order<OtGlyph>,
         private readonly cidMap: Data.Maybe<Map<number, OtGlyph>>
     ) {}

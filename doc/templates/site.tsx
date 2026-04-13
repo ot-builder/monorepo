@@ -1,4 +1,4 @@
-import { NextRouter, withRouter } from "next/router";
+import { type NextRouter, withRouter } from "next/router";
 
 export const AsideNav = (props: { children: React.ReactNode }) => (
     <aside className="side">

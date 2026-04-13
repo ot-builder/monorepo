@@ -29,7 +29,7 @@ test("OTL Integrated Test Loop - Kerning 1", () => {
     }
 });
 
-// prettier-ignore
+// biome-ignore format: keep matrix layout
 const TestPairs = [
     "ĄJ", "Ąg", "Ąģ", "Ąj", "Ąȷ", "Qȷ", "ąj", "ąȷ",
     "gȷ", "ģȷ", "ıȷ", "ųȷ", "vȷ", "Va", "Vá", "Vą",

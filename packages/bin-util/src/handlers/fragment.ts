@@ -1,10 +1,10 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { Sized } from "./binary-view";
+import type { Sized } from "./binary-view";
 import { BufferWriter } from "./buffer-writer";
 import { SizeofUInt16, SizeofUInt32 } from "./primitive-types";
 
@@ -278,8 +278,6 @@ export class Frag {
 class Sorter {
     private marked = new Set<Frag>();
     private sorted: Frag[] = [];
-
-    constructor() {}
 
     private visitUnmarked(f: Frag) {
         for (let size = 4; size > 0; size--) {

@@ -1,10 +1,10 @@
-import * as Fs from "fs";
+import * as Fs from "node:fs";
 
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 import * as ParseUnicodeRanges from "../../sub-parsers/unicode-ranges/generated";
 
 export const SubsetSyntax: Syntax<null | CliAction> = {
@@ -117,7 +117,7 @@ class UnicodeRangesParser implements CharSubsetParser {
 }
 
 class FileParser implements CharSubsetParser {
-    constructor(private readonly subParser: CharSubsetParser) {}
+    public constructor(private readonly subParser: CharSubsetParser) {}
     public async parse(path: string) {
         const body = await Fs.promises.readFile(path, "utf-8");
         return this.subParser.parse(body);

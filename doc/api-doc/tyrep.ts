@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // "TypeRep"
 export type TyExport = { [key: string]: TyExport };
 export type TyAll = { all: TyRep[] };

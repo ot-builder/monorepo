@@ -1,4 +1,4 @@
-import { TyRep } from "./tyrep";
+import type { TyRep } from "./tyrep";
 
 export const optional = (ts: TyRep): TyRep => ({ optional: ts });
 export const rest = (ts: TyRep): TyRep => ({ rest: ts });

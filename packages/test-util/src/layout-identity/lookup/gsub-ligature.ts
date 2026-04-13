@@ -1,7 +1,7 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gsub } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gsub } from "@ot-builder/ot-layout";
 
-import { BimapCtx, StdCompare } from "../../compar-util";
+import { type BimapCtx, StdCompare } from "../../compar-util";
 import * as FastMatch from "../../fast-match";
 
 // We treat two GSUB ligature lookup being identical, if for any initial glyph, the mapping

@@ -1,6 +1,6 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Cff2IVS = {
     ...Read((view, designSpace: OtVar.DesignSpace) => {

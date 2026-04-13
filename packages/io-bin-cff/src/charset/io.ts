@@ -1,9 +1,9 @@
-import { Frag, Ranged, Read, Sized, Write } from "@ot-builder/bin-util";
+import { Frag, type Ranged, Read, type Sized, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { UInt16, UInt8 } from "@ot-builder/primitive";
+import { UInt8, UInt16 } from "@ot-builder/primitive";
 
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 
 export interface CffCharSetDataSource {
     getMappingList(): readonly number[];

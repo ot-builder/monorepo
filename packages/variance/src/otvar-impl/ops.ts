@@ -1,13 +1,13 @@
-import { VarianceDim } from "../interface/dimension";
-import { VarianceInstance } from "../interface/instance";
-import { VariableCreator, VariableOps } from "../interface/value";
+import type { VarianceDim } from "../interface/dimension";
+import type { VarianceInstance } from "../interface/instance";
+import type { VariableCreator, VariableOps } from "../interface/value";
 
-import { OtVarMaster } from "./master";
+import type { OtVarMaster } from "./master";
 import { OtVarMasterSet } from "./master-set";
-import { OtVarValue, OtVarValueC } from "./value";
+import { type OtVarValue, OtVarValueC } from "./value";
 
 export class OtVarValueFactory implements VariableCreator<VarianceDim, OtVarMaster, OtVarValue> {
-    constructor(public readonly masterSet: OtVarMasterSet = new OtVarMasterSet()) {}
+    public constructor(public readonly masterSet: OtVarMasterSet = new OtVarMasterSet()) {}
     public create(origin: number = 0, variance: Iterable<[OtVarMaster, number]> = []) {
         if (!variance) return origin;
         return OtVarValueC.Create(this.masterSet, origin, variance);

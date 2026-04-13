@@ -1,15 +1,15 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gpos, GsubGpos } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, type GsubGpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
+import type { LookupWriter, SubtableWriteContext } from "../gsub-gpos-shared/general";
 import { ClassDefUtil, Ptr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
 
 import { ClassMatrix } from "./kern-analyzer/class-matrix";
-import { analyzeOutlier, OutlierTree, shareColumns } from "./kern-analyzer/outliers";
+import { analyzeOutlier, type OutlierTree, shareColumns } from "./kern-analyzer/outliers";
 
 export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
     public canBeUsed(l: Gpos.Lookup): l is Gpos.Pair {
@@ -129,7 +129,7 @@ const SubtableFormat1 = {
         frag.uint16(format1).uint16(format2);
         const hPairSetCount = frag.reserve(UInt16);
         for (let gidFirst = 0; gidFirst < plans.length; gidFirst++) {
-            if (!plans[gidFirst] || !plans[gidFirst].length) continue;
+            if (!plans[gidFirst]?.length) continue;
             cov.push(gidFirst);
             const fPairSet = frag.ptr16New().uint16(plans[gidFirst].length);
             for (const [gidSecond, adj] of plans[gidFirst]) {
@@ -203,7 +203,7 @@ class FinalClassMatrix {
         const forward: number[] = [];
         let clf = 0;
         for (const [cl, gs] of cc1) {
-            if (gs && gs.length) {
+            if (gs?.length) {
                 forward[cl] = clf++;
             } else {
                 forward[cl] = -1;

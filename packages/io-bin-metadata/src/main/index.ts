@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import {
     Avar,
     Fvar,
@@ -10,13 +10,13 @@ import {
     Maxp,
     MetricHead,
     Os2,
-    OtFontIoMetadata,
+    type OtFontIoMetadata,
     Post
 } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
 
 import { AvarIo } from "../avar";
-import { FontMetadataCfg } from "../cfg";
+import type { FontMetadataCfg } from "../cfg";
 import { FvarIo } from "../fvar";
 import { GaspTableIo } from "../gasp";
 import { HeadIo } from "../head";

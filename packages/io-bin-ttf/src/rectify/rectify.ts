@@ -1,6 +1,6 @@
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
@@ -27,7 +27,7 @@ interface PointAttachmentHandlerState {
 type PointAttachmentHandler = (st: PointAttachmentHandlerState) => OtGlyph.Geometry;
 
 class AttachmentPointToCoordAlg {
-    constructor(private readonly gs: Set<OtGlyph>) {}
+    public constructor(private readonly gs: Set<OtGlyph>) {}
 
     public process(geom: OtGlyph.Geometry): PointAttachmentHandler {
         switch (geom.type) {

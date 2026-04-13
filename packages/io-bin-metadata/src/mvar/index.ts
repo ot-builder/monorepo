@@ -1,7 +1,7 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { Gasp, MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ot-metadata";
+import type { Gasp, MetricHead, Os2, OtFontMetadata, Post } from "@ot-builder/ot-metadata";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -9,7 +9,7 @@ import { OtVar } from "@ot-builder/variance";
 export const MvarTag = "MVAR";
 
 class MvarPropAccess<Table, K extends keyof Table> implements ImpLib.Access<Table[K]> {
-    constructor(
+    public constructor(
         private table: Table,
         private key: K
     ) {}
@@ -26,7 +26,7 @@ interface MvarLensSource {
 }
 
 class HheaMvarLensSource implements MvarLensSource {
-    constructor(private hhea: MetricHead.Table) {}
+    public constructor(private hhea: MetricHead.Table) {}
     public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         // yield ["????", new MvarPropAccess(this.hhea, "ascender")];
         // yield ["????", new MvarPropAccess(this.hhea, "descender")];
@@ -37,7 +37,7 @@ class HheaMvarLensSource implements MvarLensSource {
     }
 }
 class VheaMvarLensSource implements MvarLensSource {
-    constructor(private vhea: MetricHead.Table) {}
+    public constructor(private vhea: MetricHead.Table) {}
     public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["vasc", new MvarPropAccess(this.vhea, "ascender")];
         yield ["vdsc", new MvarPropAccess(this.vhea, "descender")];
@@ -48,14 +48,14 @@ class VheaMvarLensSource implements MvarLensSource {
     }
 }
 class PostMvarLensSource implements MvarLensSource {
-    constructor(private post: Post.Table) {}
+    public constructor(private post: Post.Table) {}
     public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["unds", new MvarPropAccess(this.post, "underlineThickness")];
         yield ["undo", new MvarPropAccess(this.post, "underlinePosition")];
     }
 }
 class Os2MvarLensSource implements MvarLensSource {
-    constructor(private os2: Os2.Table) {}
+    public constructor(private os2: Os2.Table) {}
     public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         yield ["hasc", new MvarPropAccess(this.os2, "sTypoAscender")];
         yield ["hdsc", new MvarPropAccess(this.os2, "sTypoDescender")];
@@ -77,7 +77,7 @@ class Os2MvarLensSource implements MvarLensSource {
     }
 }
 class GaspMvarLensSource implements MvarLensSource {
-    constructor(private gasp: Gasp.Table) {}
+    public constructor(private gasp: Gasp.Table) {}
     public *entries(): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
         for (let ri = 0; ri < 10 && ri < this.gasp.ranges.length; ri++) {
             yield [`gsp${ri}`, new MvarPropAccess(this.gasp.ranges[ri], "maxPPEM")];

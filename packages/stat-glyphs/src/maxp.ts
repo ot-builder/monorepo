@@ -1,10 +1,10 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Maxp } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { UInt16 } from "@ot-builder/primitive";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Maxp } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import type { UInt16 } from "@ot-builder/primitive";
 
 export class MaxpStat implements OtGlyph.Stat.Sink {
-    constructor(
+    public constructor(
         private readonly maxp: Maxp.Table,
         private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
     ) {}

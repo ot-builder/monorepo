@@ -1,6 +1,6 @@
-// Data comes from https://github.com/opentypejs/opentype.js/blob/master/src/encoding.js
+// Data comes from https://github.com/opentypejs/opentype.js/blob/master/src/encoding.mjs
 
-// prettier-ignore
+// biome-ignore format: Keep string table compact
 export const CffStandardStrings = [
     '.notdef', 'space', 'exclam', 'quotedbl', 'numbersign', 'dollar', 'percent', 'ampersand', 'quoteright',
     'parenleft', 'parenright', 'asterisk', 'plus', 'comma', 'hyphen', 'period', 'slash', 'zero', 'one', 'two',
@@ -46,7 +46,7 @@ export const CffStandardStrings = [
     'Uacutesmall', 'Ucircumflexsmall', 'Udieresissmall', 'Yacutesmall', 'Thornsmall', 'Ydieresissmall', '001.000',
     '001.001', '001.002', '001.003', 'Black', 'Bold', 'Book', 'Light', 'Medium', 'Regular', 'Roman', 'Semibold'];
 
-// prettier-ignore
+// biome-ignore format: Keep string table compact
 export const CffStandardEncoding = [
     '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
     '', '', '', '', 'space', 'exclam', 'quotedbl', 'numbersign', 'dollar', 'percent', 'ampersand', 'quoteright',
@@ -66,7 +66,7 @@ export const CffStandardEncoding = [
     '', 'Lslash', 'Oslash', 'OE', 'ordmasculine', '', '', '', '', '', 'ae', '', '', '', 'dotlessi', '', '',
     'lslash', 'oslash', 'oe', 'germandbls'];
 
-// prettier-ignore
+// biome-ignore format: Keep string table compact
 export const CffExpertEncoding = [
     '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
     '', '', '', '', 'space', 'exclamsmall', 'Hungarumlautsmall', '', 'dollaroldstyle', 'dollarsuperior',

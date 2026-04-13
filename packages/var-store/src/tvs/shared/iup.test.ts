@@ -1,7 +1,7 @@
-import { iupContour, TvdAccess } from "./iup";
+import { iupContour, type TvdAccess } from "./iup";
 
 class MockTvdAccess implements TvdAccess<number> {
-    constructor(public readonly original: number) {}
+    public constructor(public readonly original: number) {}
     public deltas: number[] = [0];
     public addDelta(master: number, delta: number) {
         this.deltas[master] = (this.deltas[master] || 0) + delta;

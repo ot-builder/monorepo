@@ -6,7 +6,7 @@ import { LookupWriteTrick } from "../../cfg";
 import { GposSingleReader, GposSingleWriter } from "../gpos-single";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
     SetupVariation
 } from "./-shared-test-util.test";

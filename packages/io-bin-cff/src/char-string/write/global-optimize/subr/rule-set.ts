@@ -1,20 +1,20 @@
 import { Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 
-import { CffLimits } from "../../../../context/write";
+import type { CffLimits } from "../../../../context/write";
 import * as CffInterp from "../../../../interp/ir";
 import { CharStringOperator } from "../../../../interp/operator";
 import { computeSubroutineBias } from "../../../read/interpreter";
 import { CharStringEncoder } from "../../encoder";
-import { Mir, MirNonTerminal, MirType } from "../../mir";
+import { type Mir, type MirNonTerminal, MirType } from "../../mir";
 
 const callSizeCache: number[] = [];
 function estimateCallSize(scEst: number) {
     if (callSizeCache[scEst]) return callSizeCache[scEst];
     const bias = computeSubroutineBias(scEst);
     const size =
-        CharStringEncoder.measureOperator(CharStringOperator.CallGSubr) +
-        Math.max(
+        CharStringEncoder.measureOperator(CharStringOperator.CallGSubr)
+        + Math.max(
             CharStringEncoder.measureInt(-bias),
             CharStringEncoder.measureInt(0),
             CharStringEncoder.measureInt(scEst - bias)
@@ -24,7 +24,7 @@ function estimateCallSize(scEst: number) {
 }
 
 export class Rule {
-    constructor(public parts: Mir[]) {}
+    public constructor(public parts: Mir[]) {}
 
     // Stat flags and properties
     public stated = false;
@@ -53,7 +53,7 @@ export class Rule {
     }
 }
 export class NTRuleStub {
-    constructor(
+    public constructor(
         public symbol: MirNonTerminal,
         public parts: Mir[]
     ) {}
@@ -153,10 +153,10 @@ export class RuleSet {
             rule.depth = depth;
             const utility = rule.utility(limits, scEst, refCount);
             if (
-                sid < scEst * 2 &&
-                sid < limits.maxSubrs &&
-                depth < limits.maxRecursion &&
-                utility >= 0
+                sid < scEst * 2
+                && sid < limits.maxSubrs
+                && depth < limits.maxRecursion
+                && utility >= 0
             ) {
                 rule.subrId = sid++;
             } else {
@@ -327,8 +327,8 @@ export class RuleSet {
     }
     private ruleHeaderStart(rule: Rule, header: string) {
         return (
-            `${header} :: DE ${rule.depth} ` +
-            `RC ${rule.refCount} SS ${rule.selfSize} XS ${rule.expandedSize} :: `
+            `${header} :: DE ${rule.depth} `
+            + `RC ${rule.refCount} SS ${rule.selfSize} XS ${rule.expandedSize} :: `
         );
     }
     public printPlan() {

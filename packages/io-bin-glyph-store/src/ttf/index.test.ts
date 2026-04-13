@@ -44,9 +44,9 @@ function ttfGsRoundTrip(file: string) {
     expect(coGlyf.prep).toEqual(coGlyf1.prep);
 
     console.log(
-        `Test file ${file}\n` +
-            `TTF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `TTF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+        `Test file ${file}\n`
+            + `TTF read time ${timeRead.valueOf() - timeStart.valueOf()}\n`
+            + `TTF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
     );
 }
 

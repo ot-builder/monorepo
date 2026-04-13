@@ -1,13 +1,13 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Head } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
-import { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
+import type { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
 import { CffWriteContext } from "../context/write";
 import { CffFdArrayIo } from "../dict/font-dict";
 import { CffTopDictIo, CffTopDictWrite } from "../dict/top";

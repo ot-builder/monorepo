@@ -1,4 +1,4 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Vdmx } from "@ot-builder/ot-metadata";
 import { UInt16 } from "@ot-builder/primitive";
 
@@ -81,7 +81,7 @@ export const VdmxTableIo = {
         const numRecsReserve = frag.reserve(UInt16);
         frag.uint16(numRatios);
 
-        const groups = new Array<Frag>();
+        const groups: Frag[] = [];
         for (const record of table.records) {
             frag.push(VdmxRatioRange, record.ratioRange);
             groups.push(Frag.from(VdmxGroup, record.entries));

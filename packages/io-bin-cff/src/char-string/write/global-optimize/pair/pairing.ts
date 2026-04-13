@@ -1,11 +1,11 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 // The basic idea: find the most frequent digraph and replace it with a non-terminal
 // Reference: Larsson, N. J.; Moffat, A. Offline Dictionary-Based Compression.
 //     In Proc. Data Compression Conference ’99(DCC’99). IEEE Computer Society, 1999, p. 296.
 
 export class Rune<K> {
-    constructor(
+    public constructor(
         public readonly ir: K,
         public barrier: boolean = false
     ) {}
@@ -33,7 +33,7 @@ export interface NonTerminalBuilder<K> {
 }
 
 export class Input<K> {
-    constructor(nop: K) {
+    public constructor(nop: K) {
         this.sentinel = new Rune(nop);
         this.sentinel.barrier = true;
     }
@@ -65,7 +65,7 @@ class DigraphSentinel {
 
 class Digraph<K> extends DigraphSentinel {
     public count: number = 0; // count == 0 means sentinel
-    constructor(
+    public constructor(
         public readonly key: string,
         public firstOccurrence: Rune<K>
     ) {
@@ -93,7 +93,7 @@ class Digraph<K> extends DigraphSentinel {
     }
 }
 export class Session<K> {
-    constructor(private keyProvider: KeyProvider<K>) {}
+    public constructor(private keyProvider: KeyProvider<K>) {}
 
     public buckets: (null | DigraphSentinel | Digraph<K>)[] = [];
     public digraphMap: Map<string, Digraph<K>> = new Map();
@@ -114,7 +114,7 @@ export class Session<K> {
         if (rSecond.barrier || rFirst.barrier) return null;
         const digKey = Digraph.getKey(this.keyProvider, rSecond.prev, rSecond);
         const dig = this.digraphMap.get(digKey);
-        if (!dig || !dig.count) {
+        if (!dig?.count) {
             // Create a new digraph link
             const dig = new Digraph(digKey, rFirst);
             dig.count = 1;

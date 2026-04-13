@@ -5,7 +5,7 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 import { GposMarkToLigatureReader } from "../gpos-mark-read";
 import { GposMarkToLigatureWriter } from "../gpos-mark-write";
 
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
+import { type LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GPOS mark-to-ligature lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x4000);

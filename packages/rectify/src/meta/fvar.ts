@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { AxisRectifier } from "../interface";
+import type { AxisRectifier } from "../interface";
 
 export function rectifyFvarTable(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
     const axes = rectifyAxesImpl(rec, fvar);

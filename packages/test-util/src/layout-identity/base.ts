@@ -1,6 +1,6 @@
-import { Base } from "@ot-builder/ot-layout";
+import type { Base } from "@ot-builder/ot-layout";
 
-import { Compare, EmptyCtx, StdCompare } from "../compar-util";
+import { Compare, type EmptyCtx, StdCompare } from "../compar-util";
 import * as FastMatch from "../fast-match";
 
 export const test = StdCompare((bim: EmptyCtx, a: Base.Table, b: Base.Table) => {

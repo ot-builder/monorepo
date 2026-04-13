@@ -4,7 +4,7 @@ import { Fvar } from "@ot-builder/ot-metadata";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
-import { FvarReadContext } from "./context";
+import type { FvarReadContext } from "./context";
 
 const AxisRecord = {
     size: 20,
@@ -21,7 +21,7 @@ const AxisRecord = {
             flags,
             axisNameID
         );
-        if (ctx && ctx.mapAxis) {
+        if (ctx?.mapAxis) {
             return ctx.mapAxis(rawAxis, index);
         } else {
             return rawAxis;

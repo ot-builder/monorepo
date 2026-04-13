@@ -6,7 +6,7 @@ export * as Rectify from "@ot-builder/rectify";
 export * as Trace from "@ot-builder/trace";
 
 // re-export primitive types from Primitive
-import * as PrimitiveLib from "@ot-builder/primitive";
+import type * as PrimitiveLib from "@ot-builder/primitive";
 
 export type Tag = PrimitiveLib.Tag;
 export type UInt8 = PrimitiveLib.UInt8;

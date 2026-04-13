@@ -1,17 +1,17 @@
 import { readEncoding } from "@ot-builder/io-bin-encoding";
 import { readExtPrivate } from "@ot-builder/io-bin-ext-private";
-import { ReadCffGlyphs, readGlyphStore, ReadTtfGlyphs } from "@ot-builder/io-bin-glyph-store";
+import { ReadCffGlyphs, ReadTtfGlyphs, readGlyphStore } from "@ot-builder/io-bin-glyph-store";
 import { readOtl } from "@ot-builder/io-bin-layout";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readNames } from "@ot-builder/io-bin-name";
 import { readVttPrivate } from "@ot-builder/io-bin-vtt-private";
 import * as Ot from "@ot-builder/ot";
-import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
-import { OtFontIoMetadata } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
+import type { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
+import type { OtFontIoMetadata } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Data } from "@ot-builder/prelude";
 
-import { createConfig, FontIoCfgFinal, FontIoConfig } from "./config";
+import { createConfig, type FontIoCfgFinal, type FontIoConfig } from "./config";
 
 export function readFont<GS extends Ot.GlyphStore>(
     sfnt: Sfnt,
@@ -79,7 +79,7 @@ function nameGlyphs(
 }
 
 class PostGlyphNamingWrapper implements Data.Naming.Source<Ot.Glyph> {
-    constructor(
+    public constructor(
         private postNaming: Data.Naming.Source<number>,
         private gOrd: Data.Order<Ot.Glyph>
     ) {}
@@ -91,7 +91,7 @@ class PostGlyphNamingWrapper implements Data.Naming.Source<Ot.Glyph> {
 }
 
 class CmapNameIndexSource implements Data.Naming.IndexSource<Ot.Glyph> {
-    constructor(encoding: Ot.Encoding) {
+    public constructor(encoding: Ot.Encoding) {
         if (encoding.cmap) {
             const encodingList = [...encoding.cmap.unicode.entries()].sort((a, b) => a[0] - b[0]);
             for (const [uni, g] of encodingList) {

@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 import * as Rectify from "@ot-builder/rectify";
 
 import { DesignUnifierSession, unifyDesignSpacesImpl } from "../support/design-unifier";
@@ -13,7 +13,7 @@ export type ShareGlyphSetOptions = {
 };
 
 export class GlyphSharer<GS extends Ot.GlyphStore> {
-    constructor(private readonly gsf: Ot.GlyphStoreFactory<GS>) {}
+    public constructor(private readonly gsf: Ot.GlyphStoreFactory<GS>) {}
     private readonly session = new DesignUnifierSession();
     private readonly sharedGs = new SharedGlyphStore();
 

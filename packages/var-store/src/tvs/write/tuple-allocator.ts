@@ -1,9 +1,9 @@
 import * as ImpLib from "@ot-builder/common-impl";
 import { F2D14 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 export class TupleStorage {
-    constructor(
+    public constructor(
         public index: number,
         public tuple: F2D14[]
     ) {}
@@ -40,7 +40,7 @@ export interface AxesTuples {
 }
 
 export class MasterToTupleConverter {
-    constructor(
+    public constructor(
         private designSpace: OtVar.DesignSpace,
         private forceKeepMinMax: boolean
     ) {}

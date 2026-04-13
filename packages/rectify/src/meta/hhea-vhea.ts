@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier } from "../interface";
+import type { CoordRectifier } from "../interface";
 
 function inPlaceRectifyHheaVheaTable(
     rec: CoordRectifier,

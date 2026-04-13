@@ -1,9 +1,9 @@
 import * as Ot from "@ot-builder/ot";
 
 import {
-    CoordRectifier,
-    GlyphReferenceRectifier,
-    PointAttachmentRectifier,
+    type CoordRectifier,
+    type GlyphReferenceRectifier,
+    type PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";

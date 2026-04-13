@@ -1,8 +1,8 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { OptimizationLevel } from "@ot-builder/cli-shared";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const SetOptimizationLevelSyntax: Syntax<null | CliAction> = {
     handle: st => {

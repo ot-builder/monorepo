@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier, GlyphReferenceRectifier } from "../../interface";
+import type { CoordRectifier, GlyphReferenceRectifier } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
 export function rectifyMathTable(

@@ -1,5 +1,5 @@
-import { CffWriteContext } from "../../../context/write";
-import { CffBlendPrimitive, CffDrawCall } from "../draw-call";
+import type { CffWriteContext } from "../../../context/write";
+import type { CffBlendPrimitive, CffDrawCall } from "../draw-call";
 
 export function argIsZero(x: number | CffBlendPrimitive) {
     if (typeof x === "number") return x === 0;
@@ -7,7 +7,7 @@ export function argIsZero(x: number | CffBlendPrimitive) {
 }
 
 export abstract class DrawCallOptimizationPass<State> {
-    constructor(protected ctx: CffWriteContext) {}
+    public constructor(protected ctx: CffWriteContext) {}
 
     protected state: State | null = null;
     protected abstract doFlush(state: State): Iterable<CffDrawCall>;

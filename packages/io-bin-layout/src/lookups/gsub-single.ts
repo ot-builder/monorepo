@@ -1,15 +1,15 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Gsub } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriteTrick } from "../cfg";
 import {
-    LookupReader,
-    LookupWriter,
-    SubtableReadingContext,
+    type LookupReader,
+    type LookupWriter,
+    type SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -163,7 +163,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
 
         // flat
         for (const [gidDiff, mappings] of st.mappings) {
-            if (mappings && mappings.length) {
+            if (mappings?.length) {
                 while (mappings.length) {
                     const len = this.buildUniform(frags, gidDiff, mappings, ctx);
                     mappings.splice(0, len);

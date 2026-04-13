@@ -1,10 +1,10 @@
-export * as TestFont from "./test-font";
-export * as TestVariance from "./test-variance";
-export * as GlyphIdentity from "./glyph-identity";
-export { BimapCtx, EmptyCtx, LookupCtx, setEqual } from "./compar-util";
 export * as CmapIdentity from "./cmap-identity";
+export { BimapCtx, EmptyCtx, LookupCtx, setEqual } from "./compar-util";
 export * as CvtIdentity from "./cvt-identity";
+export * as Disorder from "./disorder";
+export * as GlyphIdentity from "./glyph-identity";
+export * as BaseIdentity from "./layout-identity/base";
 export * as GdefIdentity from "./layout-identity/gdef";
 export * as LookupIdentity from "./layout-identity/lookup";
-export * as BaseIdentity from "./layout-identity/base";
-export * as Disorder from "./disorder";
+export * as TestFont from "./test-font";
+export * as TestVariance from "./test-variance";

@@ -1,4 +1,4 @@
-/* eslint-env node */
+
 
 import * as child_process from "child_process";
 import * as is from "os";

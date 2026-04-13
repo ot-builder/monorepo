@@ -1,10 +1,10 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { Head } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 
 export class HeadExtendStat implements OtGlyph.Stat.Sink {
     public fontBBox = new OtGlyph.Stat.BoundingBoxBuilder();
-    constructor(
+    public constructor(
         private readonly head: Head.Table,
         private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
     ) {}

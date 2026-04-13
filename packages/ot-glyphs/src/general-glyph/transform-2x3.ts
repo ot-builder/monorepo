@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 // 2x3 Transformation like this
 // ⎛ xx yx | dx ⎞

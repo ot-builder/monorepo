@@ -1,8 +1,8 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 import { OtGeometryUtil } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
+import type { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {

@@ -1,10 +1,10 @@
-import * as util from "util";
+import * as util from "node:util";
 
-import { VarianceDim } from "../interface/dimension";
-import { VarianceInstance } from "../interface/instance";
-import { VarianceMasterSet } from "../interface/master";
+import type { VarianceDim } from "../interface/dimension";
+import type { VarianceInstance } from "../interface/instance";
+import type { VarianceMasterSet } from "../interface/master";
 
-import { OtVarMaster } from "./master";
+import type { OtVarMaster } from "./master";
 
 export type OtVarValue = number | OtVarValueC;
 

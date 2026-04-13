@@ -1,4 +1,4 @@
-import * as Crypto from "crypto";
+import type * as Crypto from "node:crypto";
 
 const TY_BEGIN = 0x01;
 const TY_END = 0x02;
@@ -34,7 +34,7 @@ export abstract class HashRep {
 }
 
 class HrString extends HashRep {
-    constructor(private readonly s: string) {
+    public constructor(private readonly s: string) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -46,7 +46,7 @@ class HrString extends HashRep {
 }
 
 class HrIntegers extends HashRep {
-    constructor(private readonly s: ReadonlyArray<number>) {
+    public constructor(private readonly s: ReadonlyArray<number>) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -59,7 +59,7 @@ class HrIntegers extends HashRep {
 }
 
 class HrNumbers extends HashRep {
-    constructor(private readonly s: ReadonlyArray<number>) {
+    public constructor(private readonly s: ReadonlyArray<number>) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -72,7 +72,7 @@ class HrNumbers extends HashRep {
 }
 
 class HrFlags extends HashRep {
-    constructor(private readonly s: boolean[]) {
+    public constructor(private readonly s: boolean[]) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -85,7 +85,7 @@ class HrFlags extends HashRep {
 }
 
 class HrBuffer extends HashRep {
-    constructor(private readonly s: Buffer) {
+    public constructor(private readonly s: Buffer) {
         super();
     }
     public transfer(h: Crypto.Hash) {
@@ -96,7 +96,7 @@ class HrBuffer extends HashRep {
 }
 
 class HrIsolate extends HashRep {
-    constructor(private readonly r: HashRep) {
+    public constructor(private readonly r: HashRep) {
         super();
     }
     public transfer(h: Crypto.Hash) {

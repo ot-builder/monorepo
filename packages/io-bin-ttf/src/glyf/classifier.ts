@@ -1,9 +1,9 @@
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
-    constructor(private gOrd: Data.Order<OtGlyph>) {}
+    public constructor(private gOrd: Data.Order<OtGlyph>) {}
     public cache: WeakMap<OtGlyph, SpaceGlyph> = new Map();
 
     private classifyImpl(g: OtGlyph): SpaceGlyph {
@@ -99,7 +99,7 @@ class HintClassifier {
 }
 
 export class SpaceGlyph {
-    constructor(
+    public constructor(
         protected gid: number,
         public hm: OtGlyph.Metric,
         public vm: OtGlyph.Metric
@@ -123,7 +123,7 @@ export class SpaceGlyph {
 }
 
 export class SimpleGlyph extends SpaceGlyph {
-    constructor(
+    public constructor(
         gid: number,
         hm: OtGlyph.Metric,
         vm: OtGlyph.Metric,
@@ -160,7 +160,7 @@ export class SimpleGlyph extends SpaceGlyph {
 }
 
 export class CompositeGlyph extends SpaceGlyph {
-    constructor(
+    public constructor(
         classifier: GlyphClassifier,
         gid: number,
         hm: OtGlyph.Metric,

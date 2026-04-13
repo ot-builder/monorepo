@@ -1,11 +1,11 @@
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Base } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Base } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "../shared/device-table";

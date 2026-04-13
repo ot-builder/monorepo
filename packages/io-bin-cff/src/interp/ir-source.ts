@@ -1,4 +1,4 @@
-import { BinaryView } from "@ot-builder/bin-util";
+import type { BinaryView } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { F16D16 } from "@ot-builder/primitive";
 
@@ -9,7 +9,7 @@ abstract class BinaryIrSource implements CffInterp.IrSource {
     private startCursor: number;
     private endCursor: number;
 
-    constructor(rawView: BinaryView, size: number) {
+    public constructor(rawView: BinaryView, size: number) {
         this.view = rawView.liftRelative(0);
         rawView.bytes(size);
         this.startCursor = this.view.cursor;
@@ -48,7 +48,7 @@ export class CffDictIrSource extends BinaryIrSource {
             if (nib0 === 0xf || nib1 === 0xf) break;
         }
         let s = "";
-        // prettier-ignore
+        // biome-ignore format: keep simple
         const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ".", "e", "e-", "reserved", "-", "endOfNumber"];
         for (let nibIndex = 0; nibIndex < nibs.length; nibIndex++) {
             s += chars[nibs[nibIndex]];

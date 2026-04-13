@@ -1,4 +1,4 @@
-import { Read, Write } from "@ot-builder/bin-util";
+import type { Read, Write } from "@ot-builder/bin-util";
 
 type Cons<X, T extends unknown[]> = ((x: X, ...t: T) => void) extends (...t: infer R) => void
     ? R

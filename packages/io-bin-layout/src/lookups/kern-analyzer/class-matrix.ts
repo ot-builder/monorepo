@@ -1,22 +1,22 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { DicingStore, Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { type DicingStore, Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import type { SubtableWriteContext } from "../../gsub-gpos-shared/general";
 import { MaxClsDefItemWords } from "../../shared/class-def";
 import { MaxCovItemWords } from "../../shared/coverage";
 import { GposAdjustment } from "../../shared/gpos-adjust";
 
 export class AdjStore {
-    constructor(
+    public constructor(
         public indexMatrix: ReadonlyArray<ReadonlyArray<number>>,
         public adjustments: ReadonlyArray<Gpos.AdjustmentPair>
     ) {}
 }
 
 export class ClassMatrix<G> {
-    constructor(
+    public constructor(
         public cFirst: G[][], // Per-class glyph list for first glyph. Class 0 reserved for neutral
         public cSecond: G[][], // Per-class glyph list for second glyph. Class 0 reserved for neutral
         // cSecond must cover all glyphs present in the font, so when cleaning up zero "columns" we
@@ -44,10 +44,10 @@ export class ClassMatrix<G> {
     }
 
     public firstClassValid(c1: number) {
-        return this.cFirst[c1] && this.cFirst[c1].length;
+        return this.cFirst[c1]?.length;
     }
     public secondClassValid(c2: number) {
-        return this.cSecond[c2] && this.cSecond[c2].length;
+        return this.cSecond[c2]?.length;
     }
 
     public getEffectiveFirstClasses() {
@@ -276,8 +276,8 @@ namespace MeasureClassMatrixImpl {
                 if (!cm.secondClassValid(c2)) continue;
                 const cellAdj = cm.get(c1, c2);
                 dataSize +=
-                    GposAdjustment.measure(cellAdj[0], format1) +
-                    GposAdjustment.measure(cellAdj[1], format2);
+                    GposAdjustment.measure(cellAdj[0], format1)
+                    + GposAdjustment.measure(cellAdj[1], format2);
             }
         }
 
@@ -285,11 +285,11 @@ namespace MeasureClassMatrixImpl {
             effFst,
             effSnd,
             size:
-                UInt16.size *
-                    (8 +
-                        effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) + // 1 cov + 1 cls
-                        effSnd.glyphs * MaxClsDefItemWords) + // 1 class def
-                dataSize // Actual Data
+                UInt16.size
+                    * (8
+                        + effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) // 1 cov + 1 cls
+                        + effSnd.glyphs * MaxClsDefItemWords) // 1 class def
+                + dataSize // Actual Data
         };
     }
 }
@@ -334,8 +334,8 @@ namespace BisectClassMatrixImpl {
 
     function isHighlyUneven(upperHalfClassCount: number, lowerHalfClassCount: number) {
         return (
-            upperHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount ||
-            lowerHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
+            upperHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
+            || lowerHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
         );
     }
 

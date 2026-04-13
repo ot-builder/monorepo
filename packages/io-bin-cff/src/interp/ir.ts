@@ -1,11 +1,10 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export type Operator = { opCode: number; flags?: Data.Maybe<number[]> };
 export type Operand = { t: number };
 export type IR = Operator | Operand;
 
 export function isOperator(ir: IR): ir is Operator {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (ir as any).opCode !== undefined;
 }
 

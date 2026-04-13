@@ -1,10 +1,10 @@
-import { BinaryView } from "@ot-builder/bin-util";
+import type { BinaryView } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gpos, Gsub, type GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
-import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
+import type { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { ClassDef, ClassDefUtil, EmptyAsNullPtr16ClassDef } from "../shared/class-def";
 import { CovUtils, GidCoverage, Ptr16GlyphCoverage } from "../shared/coverage";
 
@@ -14,13 +14,13 @@ interface Resolver {
     toGlyphSet(id: number, atStartPosition: boolean): Set<OtGlyph>;
 }
 class IndividualResolver<L> implements Resolver {
-    constructor(private ctx: SubtableReadingContext<L>) {}
+    public constructor(private ctx: SubtableReadingContext<L>) {}
     public toGlyphSet(id: number) {
         return new Set([this.ctx.gOrd.at(id)]);
     }
 }
 class ClassResolver implements Resolver {
-    constructor(
+    public constructor(
         private cd: GsubGpos.ClassDef,
         private startCoverageSet: Set<OtGlyph>
     ) {}
@@ -243,11 +243,10 @@ class SubtableFormat3<L> {
     }
 }
 
-abstract class ChainingContextualReader<
-    L,
-    CL extends L & GsubGpos.ChainingProp<L>
-> implements LookupReader<L, CL> {
-    constructor(private chaining: boolean) {}
+abstract class ChainingContextualReader<L, CL extends L & GsubGpos.ChainingProp<L>>
+    implements LookupReader<L, CL>
+{
+    public constructor(private chaining: boolean) {}
     public abstract createLookup(): CL;
 
     public parseSubtable(view: BinaryView, lookup: CL, ctx: SubtableReadingContext<L>) {
@@ -269,7 +268,7 @@ abstract class ChainingContextualReader<
 }
 
 export class GsubContextualReader extends ChainingContextualReader<Gsub.Lookup, Gsub.Chaining> {
-    constructor() {
+    public constructor() {
         super(false);
     }
     public createLookup() {
@@ -277,7 +276,7 @@ export class GsubContextualReader extends ChainingContextualReader<Gsub.Lookup, 
     }
 }
 export class GsubChainingReader extends ChainingContextualReader<Gsub.Lookup, Gsub.Chaining> {
-    constructor() {
+    public constructor() {
         super(true);
     }
     public createLookup() {
@@ -285,7 +284,7 @@ export class GsubChainingReader extends ChainingContextualReader<Gsub.Lookup, Gs
     }
 }
 export class GposContextualReader extends ChainingContextualReader<Gpos.Lookup, Gpos.Chaining> {
-    constructor() {
+    public constructor() {
         super(false);
     }
     public createLookup() {
@@ -293,7 +292,7 @@ export class GposContextualReader extends ChainingContextualReader<Gpos.Lookup, 
     }
 }
 export class GposChainingReader extends ChainingContextualReader<Gpos.Lookup, Gpos.Chaining> {
-    constructor() {
+    public constructor() {
         super(true);
     }
     public createLookup() {

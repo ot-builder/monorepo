@@ -1,4 +1,4 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Fpgm, Prep } from "@ot-builder/ot-glyphs";
 
 export const FpgmIo = {

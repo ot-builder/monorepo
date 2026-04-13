@@ -4,9 +4,9 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
-import { DefaultTtfCfgProps, TtfCfgProps } from "../cfg";
+import { DefaultTtfCfgProps, type TtfCfgProps } from "../cfg";
 import { NopTtfWritingExtraInfoSink } from "../extra-info-sink";
-import { LocaTable, LocaTableIo, LocaTag } from "../glyf/loca";
+import { type LocaTable, LocaTableIo, LocaTag } from "../glyf/loca";
 import { GlyfTableRead } from "../glyf/read";
 import { GlyfTag } from "../glyf/shared";
 import { GlyfTableWrite } from "../glyf/write";

@@ -1,7 +1,7 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 
 import {
-    GlyphReferenceRectifier,
+    type GlyphReferenceRectifier,
     IdAxisRectifier,
     IdCoordRectifier,
     IdPointAttachmentRectifier

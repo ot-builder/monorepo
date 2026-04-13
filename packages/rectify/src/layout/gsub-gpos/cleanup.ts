@@ -1,7 +1,7 @@
-import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
+import type * as Ot from "@ot-builder/ot";
+import type { Data } from "@ot-builder/prelude";
 
-import { AxisRectifier } from "../../interface";
+import type { AxisRectifier } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
 export interface LookupCleaner<L> {

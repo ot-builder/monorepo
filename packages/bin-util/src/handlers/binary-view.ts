@@ -1,6 +1,6 @@
 import { Errors } from "@ot-builder/errors";
 
-import { SizeofUInt16, SizeofUInt32, SizeofUInt8 } from "./primitive-types";
+import { SizeofUInt8, SizeofUInt16, SizeofUInt32 } from "./primitive-types";
 
 export interface Read<T, A extends unknown[] = []> {
     read(view: BinaryView, ...args: A): T;
@@ -19,7 +19,7 @@ export interface Ranged {
 }
 
 export class BinaryView {
-    constructor(
+    public constructor(
         protected readonly buffer: Buffer,
         public displace = 0,
         public cursor: number = displace

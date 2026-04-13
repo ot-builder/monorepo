@@ -1,4 +1,4 @@
-// prettier-ignore
+// biome-ignore format: keep matrix layout
 export enum CffOperator {
     Version             = 0x00, Copyright             = 0x0c00,
     Notice              = 0x01, IsFixedPitch          = 0x0c01,
@@ -41,7 +41,7 @@ export enum CffOperator {
                                 FontName              = 0x0c26
 }
 
-// prettier-ignore
+// biome-ignore format: keep matrix layout
 export enum CharStringOperator {
     /* 0x00 Reserved */         /* 0x0c00 Reserved */
     HStem         = 0x01,       /* 0x0c01 Reserved */

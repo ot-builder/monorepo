@@ -1,24 +1,29 @@
-import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
+import { type BinaryView, type Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffWriteIndex } from "../cff-index/write";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import { CffOperator } from "../interp/operator";
 
-import { DictEncoder } from "./encoder";
+import type { DictEncoder } from "./encoder";
 import { CffFontDictDataCollector, CffFontDictInterpreterBase } from "./font-dict";
-import { CffDictDataCollector, CffDictInterpreter, CffDictReadT, CffDictWriteT } from "./general";
+import {
+    CffDictDataCollector,
+    type CffDictInterpreter,
+    CffDictReadT,
+    CffDictWriteT
+} from "./general";
 
 export class CffTopDictInterpreter
     extends CffFontDictInterpreterBase
     implements CffDictInterpreter<CffTopDictRead>
 {
-    constructor(ctx: CffReadContext) {
+    public constructor(ctx: CffReadContext) {
         super(ctx);
         this.td = new CffTopDictRead(this.fd);
     }
@@ -66,7 +71,7 @@ export class CffTopDictInterpreter
 export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrite, void> {
     public fdDC = new CffFontDictDataCollector();
 
-    public *collectDrawCalls(td: CffTopDictWrite, ctx: CffWriteContext, rest: void) {
+    public *collectDrawCalls(td: CffTopDictWrite, ctx: CffWriteContext, rest: undefined) {
         if (td.cidROS) {
             if (!ctx.strings) throw Errors.Cff.ShouldHaveStrings();
             yield new CffDrawCallRaw(
@@ -98,7 +103,7 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
         encoder: DictEncoder,
         td: CffTopDictWrite,
         ctx: CffWriteContext,
-        rest: void
+        rest: undefined
     ) {
         this.fdDC.processPointers(encoder, td.fd, ctx, rest);
         if (td.fgVarStore) encoder.absPointer(td.fgVarStore, CffOperator.VStore);
@@ -110,7 +115,7 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
 }
 
 export class CffTopDictRead {
-    constructor(public fd: Cff.FontDict) {}
+    public constructor(public fd: Cff.FontDict) {}
     public cidROS: null | Cff.CID = null;
     public vCharStrings: null | BinaryView = null;
     public vFDArray: null | BinaryView = null;
@@ -121,7 +126,7 @@ export class CffTopDictRead {
 }
 
 export class CffTopDictWrite {
-    constructor(public fd: Cff.FontDict) {}
+    public constructor(public fd: Cff.FontDict) {}
 
     public fgCharStrings: null | Frag = null;
     public fgFDArray: null | Frag = null;

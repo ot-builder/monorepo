@@ -1,11 +1,11 @@
 import { Write } from "@ot-builder/bin-util";
-import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Cmap } from "@ot-builder/ot-encoding";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
-import { EncodingCfg } from "../cfg";
+import type { EncodingCfg } from "../cfg";
 
-import { SubtableAssignment, SubtableWriteOptions } from "./general";
+import type { SubtableAssignment, SubtableWriteOptions } from "./general";
 import { SubtableHandlers } from "./handlers";
 
 function ByPlatform(a: SubtableAssignment, b: SubtableAssignment) {

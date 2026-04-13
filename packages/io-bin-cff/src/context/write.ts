@@ -1,5 +1,5 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -10,7 +10,7 @@ export class CffWriteContext {
     public strings: CffStringSink | null = null;
     public stat: CffGlyphStatSink;
 
-    constructor(
+    public constructor(
         public readonly version: number,
         public readonly upm: number,
         acceptVariation = true,
@@ -58,7 +58,7 @@ export interface CffEncodingOptions extends CffLimits {
 
 export class CffGlyphStatSink implements OtGlyph.Stat.Sink {
     public fontBBox = new OtGlyph.Stat.BoundingBoxBuilder();
-    constructor(private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>) {}
+    public constructor(private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>) {}
     public setMetric(
         gid: number,
         horizontal: OtGlyph.Metric,

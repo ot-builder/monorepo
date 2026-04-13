@@ -1,8 +1,8 @@
-import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
-import { Tag } from "@ot-builder/primitive";
+import type * as Ot from "@ot-builder/ot";
+import type { Data } from "@ot-builder/prelude";
+import type { Tag } from "@ot-builder/primitive";
 
-import { diceZones, SrcZone, Zone, hashZone } from "./zone-dicing";
+import { diceZones, hashZone, type SrcZone, type Zone } from "./zone-dicing";
 
 export interface FeatureConsolidationSource<L> {
     readonly variationDimensions: Data.Order<Ot.Var.Dim>;
@@ -18,7 +18,7 @@ export class FeatureConsolidator<L> {
     public result: Ot.GsubGpos.FeatureT<L>;
     public resultFeatureVariation: Ot.GsubGpos.FeatureVariationT<L>[];
 
-    constructor(
+    public constructor(
         private readonly env: FeatureConsolidationSource<L>,
         private readonly tag: Tag,
         private readonly featureList: Ot.GsubGpos.FeatureT<L>[]

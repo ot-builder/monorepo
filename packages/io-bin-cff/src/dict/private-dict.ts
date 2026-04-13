@@ -1,16 +1,16 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import { CffOperator } from "../interp/operator";
 
-import { DictEncoder } from "./encoder";
+import type { DictEncoder } from "./encoder";
 import {
     CffDictDataCollector,
     CffDictInterpreterBase,
@@ -19,7 +19,7 @@ import {
 } from "./general";
 
 class PrivateDictInterpreter extends CffDictInterpreterBase {
-    constructor(
+    public constructor(
         private ctx: CffReadContext,
         private viewDict: BinaryView
     ) {
@@ -28,8 +28,6 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
 
     private result = new Cff.PrivateDict();
 
-    // Justification: This is a dispatch table and does not contain substantial complexity
-    // eslint-disable-next-line complexity
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
             case CffOperator.VsIndex: {
@@ -123,7 +121,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         yield new CffDrawCallRaw([q], op);
     }
 
-    public *collectDrawCalls(pd: Cff.PrivateDict, ctx: CffWriteContext, rest: void) {
+    public *collectDrawCalls(pd: Cff.PrivateDict, ctx: CffWriteContext, rest: undefined) {
         // Blue zones ("deltas" in spec)
         yield* this.emitDeltas(pd.blueValues, CffOperator.BlueValues);
         yield* this.emitDeltas(pd.otherBlues, CffOperator.OtherBlues);
@@ -178,7 +176,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         encoder: DictEncoder,
         pd: Cff.PrivateDict,
         ctx: CffWriteContext,
-        rest: void
+        rest: undefined
     ) {
         if (pd.localSubroutines) {
             encoder.embRelPointer(

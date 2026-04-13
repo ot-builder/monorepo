@@ -1,10 +1,10 @@
 import { Read } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { Cff, type CffCoGlyphsWithNaming, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 import { CffDeferIndex } from "../cff-index/view-list";
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
 import { CffReadContext } from "../context/read";
 import { CffTopDictIo } from "../dict/top";

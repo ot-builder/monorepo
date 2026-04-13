@@ -1,12 +1,12 @@
-import * as Fs from "fs";
-import * as Path from "path";
+import * as Fs from "node:fs";
+import * as Path from "node:path";
 
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import { FontIo, Ot } from "ot-builder";
+import { FontIo, type Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const SaveSyntax: Syntax<null | CliAction> = {
     handle: st => {

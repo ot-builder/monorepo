@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Move to typescript 6 and Biome",
+  "packageName": "@ot-builder/io-bin-ext-private",
+  "email": "otbbuilder-dev@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

@@ -1,7 +1,7 @@
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { OtGlyph } from "../../ot-glyph";
+import type { OtGlyph } from "../../ot-glyph";
 
 export const Tag1 = "CFF ";
 export const Tag2 = "CFF2";
@@ -70,7 +70,7 @@ export class FontDict {
 
 // CFF(2) table
 export class Table {
-    constructor(public readonly version: number) {}
+    public constructor(public readonly version: number) {}
     public postScriptFontName: string = "";
     public cid: Data.Maybe<CID>;
     public topDict: FontDict = new FontDict();

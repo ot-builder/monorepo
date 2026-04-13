@@ -1,11 +1,11 @@
-import { BinaryView, Frag, FragHole, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, type FragHole, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { Cmap, CmapGeneralVsEncodingMapT } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import { type Cmap, CmapGeneralVsEncodingMapT } from "@ot-builder/ot-encoding";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 import { UInt24, UInt32 } from "@ot-builder/primitive";
 
-import { SubtableHandler, SubtableHandlerKey } from "./general";
+import { type SubtableHandler, SubtableHandlerKey } from "./general";
 import { UvsEncodingCollector } from "./unicode-encoding-collector";
 
 const DefaultGlyph: unique symbol = Symbol();
@@ -33,7 +33,7 @@ const DefaultVs = {
 
 class DefaultVsWriter {
     public hNumUnicodeValueRanges: FragHole<number>;
-    constructor(private readonly frag: Frag) {
+    public constructor(private readonly frag: Frag) {
         this.hNumUnicodeValueRanges = frag.reserve(UInt32);
     }
     private started = false;
@@ -56,8 +56,8 @@ class DefaultVsWriter {
         if (!this.started) {
             this.start(code);
         } else if (
-            code === this.lastEndUnicodeValue + 1 &&
-            code - this.lastStartUnicodeValue < 0x100
+            code === this.lastEndUnicodeValue + 1
+            && code - this.lastStartUnicodeValue < 0x100
         ) {
             this.lastEndUnicodeValue = code;
         } else {
@@ -134,7 +134,7 @@ export class UnicodeVS implements SubtableHandler {
 
     public writeOpt(cmap: Cmap.Table, gOrd: Data.Order<OtGlyph>) {
         const collected = new UvsEncodingCollector(cmap.vs, cmap.unicode, gOrd).collect();
-        if (!collected || !collected.length) return;
+        if (!collected.length) return;
 
         const fSubtable = new Frag();
         fSubtable.uint16(14);
@@ -162,7 +162,7 @@ export class UnicodeVS implements SubtableHandler {
     }
 
     public createAssignments(frag: Frag) {
-        if (!frag || !frag.size) return [];
+        if (!frag.size) return [];
         return [{ platform: 0, encoding: 5, frag }];
     }
 }

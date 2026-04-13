@@ -1,5 +1,5 @@
-import { Frag } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
+import type { Frag } from "@ot-builder/bin-util";
+import type { Data } from "@ot-builder/prelude";
 import { F16D16 } from "@ot-builder/primitive";
 
 import * as CffInterp from "../../interp/ir";
@@ -7,7 +7,7 @@ import * as CffInterp from "../../interp/ir";
 const EPSILON = 1 / 0x20000;
 
 export class CharStringEncoder extends CffInterp.Encoder<Frag> {
-    constructor(private frag: Frag) {
+    public constructor(private frag: Frag) {
         super();
     }
     protected operand(val: number) {
@@ -84,7 +84,7 @@ export class CharStringEncoder extends CffInterp.Encoder<Frag> {
         return 5;
     }
     public static measureOperator(opCode: number, flags?: Data.Maybe<number[]>) {
-        let s;
+        let s: number;
         if ((opCode & 0xff00) === 0x0c00) {
             s = 2;
         } else {

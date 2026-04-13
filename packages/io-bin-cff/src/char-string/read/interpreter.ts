@@ -5,7 +5,7 @@ import { OtVar } from "@ot-builder/variance";
 import * as CffInterp from "../../interp/ir";
 import { CharStringIrSource } from "../../interp/ir-source";
 import { CharStringOperator } from "../../interp/operator";
-import { CffStackMachine } from "../../interp/stack-machine";
+import type { CffStackMachine } from "../../interp/stack-machine";
 
 export interface CffCharStringInterpState {
     getRandom(): number;
@@ -39,7 +39,7 @@ export interface CffCharStringDataSink {
 }
 
 export class CffCharStringInterpreter extends CffInterp.Interpreter {
-    constructor(
+    public constructor(
         private readonly irSource: CffInterp.IrFlagPuller,
         private readonly state: CffStackMachine & CffCharStringInterpState,
         private readonly subroutines: CffSubroutineSource,
@@ -56,8 +56,6 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
     public halt = false;
     public end = false;
 
-    // Justification: This is a dispatch table and does not contain substantial complexity
-    // eslint-disable-next-line complexity
     protected doOperator(opCode: number) {
         this.state.log += CharStringOperator[opCode] + " ";
         switch (opCode) {
@@ -283,16 +281,14 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
         for (let index = 0; index < args.length - 6; index += 2) {
             this.sink.lineTo(args[index], args[index + 1]);
         }
-        {
-            this.sink.curveTo(
-                args[args.length - 6],
-                args[args.length - 5],
-                args[args.length - 4],
-                args[args.length - 3],
-                args[args.length - 2],
-                args[args.length - 1]
-            );
-        }
+        this.sink.curveTo(
+            args[args.length - 6],
+            args[args.length - 5],
+            args[args.length - 4],
+            args[args.length - 3],
+            args[args.length - 2],
+            args[args.length - 1]
+        );
     }
     private doVVCurveTo(args: OtVar.Value[]) {
         if (args.length % 4 === 1) {

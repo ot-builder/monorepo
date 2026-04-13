@@ -1,4 +1,4 @@
-import { BinaryView, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { UIntN } from "@ot-builder/primitive";
 
@@ -68,8 +68,8 @@ function statMapCount(map: IndexMapping[]) {
     let mapCount = map.length;
     while (mapCount > 2) {
         if (
-            map[mapCount - 1].outer === map[mapCount - 2].outer &&
-            map[mapCount - 1].inner === map[mapCount - 2].inner
+            map[mapCount - 1].outer === map[mapCount - 2].outer
+            && map[mapCount - 1].inner === map[mapCount - 2].inner
         ) {
             mapCount--;
         } else {

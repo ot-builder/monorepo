@@ -8,7 +8,14 @@ import {
     OnlyKeys,
     RenderRef
 } from "./formatter";
-import { getParent, isExport, isOptional, TyApplyExport, TyExport, TyRep } from "./tyrep";
+import {
+    getParent,
+    isExport,
+    isOptional,
+    type TyApplyExport,
+    type TyExport,
+    type TyRep
+} from "./tyrep";
 
 export const R = (props: { s: TyRep }) => FormatType(props.s);
 

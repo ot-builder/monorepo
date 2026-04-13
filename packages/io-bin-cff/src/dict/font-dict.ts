@@ -1,20 +1,20 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffReadIndex } from "../cff-index/read";
 import { CffWriteIndex } from "../cff-index/write";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import { CffOperator } from "../interp/operator";
 
-import { DictEncoder } from "./encoder";
+import type { DictEncoder } from "./encoder";
 import {
     CffDictDataCollector,
-    CffDictInterpreter,
+    type CffDictInterpreter,
     CffDictInterpreterBase,
     CffDictReadT,
     CffDictWriteT
@@ -22,7 +22,7 @@ import {
 import { CffPrivateDictIo } from "./private-dict";
 
 export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
-    constructor(protected ctx: CffReadContext) {
+    public constructor(protected ctx: CffReadContext) {
         super(null);
     }
 
@@ -34,8 +34,6 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
         return this.ctx.strings.get(sid);
     }
 
-    // Justification: This is a dispatch table and does not contain substantial complexity
-    // eslint-disable-next-line complexity
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
             // Strings
@@ -154,7 +152,7 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         }
     }
 
-    public *collectDrawCalls(pd: Cff.FontDict, ctx: CffWriteContext, rest: void) {
+    public *collectDrawCalls(pd: Cff.FontDict, ctx: CffWriteContext, rest: undefined) {
         // Strings
         yield* this.emitString(ctx, pd.version, CffOperator.Version);
         yield* this.emitString(ctx, pd.notice, CffOperator.Notice);
@@ -193,7 +191,7 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         encoder: DictEncoder,
         fd: Cff.FontDict,
         ctx: CffWriteContext,
-        rest: void
+        rest: undefined
     ) {
         if (fd.privateDict) {
             const frPrivateDict = Frag.from(CffPrivateDictIo, fd.privateDict, ctx, rest);

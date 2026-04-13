@@ -4,7 +4,7 @@ export interface EncodingStat {
 }
 
 export class EmptyStat implements EncodingStat {
-    constructor(private external?: EncodingStat) {}
+    public constructor(private external?: EncodingStat) {}
     public addEncoding(enc: number) {
         if (this.external) this.external.addEncoding(enc);
     }

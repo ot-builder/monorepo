@@ -1,5 +1,5 @@
-import { Int16, UInt16 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { Int16, UInt16 } from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
 export const TagHhea = "hhea";
 export const TagVhea = "vhea";
@@ -27,7 +27,7 @@ export abstract class Table {
 }
 export class Hhea extends Table {
     public readonly isVertical = false;
-    constructor(
+    public constructor(
         public readonly majorVersion: number = 1,
         public readonly minorVersion: number = 0
     ) {
@@ -36,7 +36,7 @@ export class Hhea extends Table {
 }
 export class Vhea extends Table {
     public readonly isVertical = true;
-    constructor(
+    public constructor(
         public readonly majorVersion: number = 1,
         public readonly minorVersion: number = 0
     ) {

@@ -1,16 +1,16 @@
-import { BinaryView, Read } from "@ot-builder/bin-util";
+import { type BinaryView, Read } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14 } from "@ot-builder/primitive";
 import {
-    TupleVariationGeometryClient,
+    type TupleVariationGeometryClient,
     TupleVariationRead,
-    TvdAccess
+    type TvdAccess
 } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
-import { TtfCfg } from "../cfg";
+import type { TtfCfg } from "../cfg";
 import { CumulativeTvd } from "../shared/tvd-access";
 
 import { GvarFlag } from "./shared";
@@ -82,7 +82,7 @@ const GvarHeader = Read(
 );
 
 class GlyphTvhClient implements TupleVariationGeometryClient {
-    constructor(
+    public constructor(
         ms: OtVar.MasterSet,
         private glyph: OtGlyph,
         ignore: GvarReadIgnore
@@ -157,7 +157,7 @@ interface GeomHolder {
 
 class ContourHolder implements GeomHolder {
     private readonly contours: OtGlyph.Contour[];
-    constructor(cs: OtGlyph.ContourSetProps) {
+    public constructor(cs: OtGlyph.ContourSetProps) {
         this.contours = cs.contours.map(c => [...c]);
     }
     public toGeometry() {
@@ -179,7 +179,7 @@ class ContourHolder implements GeomHolder {
 
 class TtReferenceHolder implements GeomHolder {
     private readonly ref: OtGlyph.TtReferenceProps;
-    constructor(ref: OtGlyph.TtReferenceProps) {
+    public constructor(ref: OtGlyph.TtReferenceProps) {
         this.ref = { ...ref };
     }
     public toGeometry() {
@@ -195,7 +195,7 @@ class TtReferenceHolder implements GeomHolder {
 }
 
 class GeometryListHolder implements GeomHolder {
-    constructor(private readonly children: GeomHolder[]) {}
+    public constructor(private readonly children: GeomHolder[]) {}
     public toGeometry() {
         return new OtGlyph.GeometryList(this.children.map(c => c.toGeometry()));
     }
@@ -220,7 +220,7 @@ interface MetricHolder {
 }
 
 class HMetricHolder implements MetricHolder {
-    constructor(public metric: OtGlyph.Metric) {}
+    public constructor(public metric: OtGlyph.Metric) {}
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
@@ -238,7 +238,7 @@ class HMetricHolder implements MetricHolder {
     }
 }
 class VMetricHolder implements MetricHolder {
-    constructor(public metric: OtGlyph.Metric) {}
+    public constructor(public metric: OtGlyph.Metric) {}
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
@@ -263,7 +263,7 @@ class TvdIgnore implements TvdAccess<OtVar.Master> {
     public finish() {}
 }
 class ContourTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
-    constructor(
+    public constructor(
         ms: OtVar.MasterSet,
         private readonly cs: OtGlyph.Contour[],
         private readonly cid: number,
@@ -282,7 +282,7 @@ class ContourTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> 
     }
 }
 class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
-    constructor(
+    public constructor(
         ms: OtVar.MasterSet,
         private ref: OtGlyph.TtReferenceProps,
         private readonly isX: number
@@ -302,7 +302,7 @@ class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     }
 }
 class MetricTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
-    constructor(
+    public constructor(
         ms: OtVar.MasterSet,
         private pMetric: MetricHolder,
         private readonly isStart: number

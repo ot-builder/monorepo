@@ -1,15 +1,15 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
-    LookupReader,
-    LookupWriter,
-    SubtableReadingContext,
+    type LookupReader,
+    type LookupWriter,
+    type SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
@@ -71,9 +71,9 @@ class State {
 
     public tryAddMapping(from: OtGlyph, to: Gpos.CursiveAnchorPair) {
         const deltaSize =
-            UInt16.size * (2 + MaxCovItemWords) + // 1 cov + 2 ptr
-            GposAnchor.measure(to.entry) +
-            GposAnchor.measure(to.exit);
+            UInt16.size * (2 + MaxCovItemWords) // 1 cov + 2 ptr
+            + GposAnchor.measure(to.entry)
+            + GposAnchor.measure(to.exit);
         if (this.size + deltaSize > SubtableSizeLimit) return false;
         this.mapping.set(from, to);
         this.size += deltaSize;

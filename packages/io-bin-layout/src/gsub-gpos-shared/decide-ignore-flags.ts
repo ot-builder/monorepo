@@ -1,5 +1,5 @@
-import { Gdef, LayoutCommon } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import { Gdef, type LayoutCommon } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
 export interface IgnoreFlagOptions {
     ignoreBaseGlyphs?: boolean;
@@ -13,7 +13,7 @@ export function decideIgnoreFlags<G, X>(
     gs: Data.Maybe<ReadonlySet<G>>,
     gdef: Data.Maybe<Gdef.General.TableT<G, X>>
 ): null | IgnoreFlagOptions {
-    if (!gdef || !gs || !gs.size) return null;
+    if (!gdef || !gs?.size) return null;
 
     const [nonMarks, marks] = gsSplitMarks(gs, gdef.glyphClassDef);
 
@@ -40,9 +40,9 @@ export function decideIgnoreFlags<G, X>(
             Gdef.GlyphClass.Mark,
             { ignoreMarks: true },
             { ignoreMarks: false }
-        ) ||
-        igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef) ||
-        igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
+        )
+        || igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef)
+        || igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
 
     return {
         ...igfBase,
@@ -116,12 +116,12 @@ function igfMarkAttachmentClass<G>(
         (ignoredMarks.has(g) ? ignoredMarkClasses : keptMarkClasses).add(k);
     }
 
-    let finalMarkClass: undefined | number = undefined;
+    let finalMarkClass: undefined | number;
     for (const k of keptMarkClasses) {
         // Hybrid class, fail
         if (ignoredMarkClasses.has(k)) return null;
         // Multiple mark classes to keep, fail
-        if (finalMarkClass != undefined) return null;
+        if (finalMarkClass !== undefined) return null;
         finalMarkClass = k;
     }
 

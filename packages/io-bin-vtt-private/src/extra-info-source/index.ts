@@ -1,4 +1,4 @@
-import { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
+import type { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
 
 export type ComponentInfo = {
     flags: number;

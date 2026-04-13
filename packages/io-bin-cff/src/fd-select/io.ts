@@ -1,9 +1,9 @@
-import { Frag, Read, Sized, Write } from "@ot-builder/bin-util";
+import { type Frag, Read, type Sized, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { UInt16, UInt32, UInt8 } from "@ot-builder/primitive";
+import { UInt8, UInt16, UInt32 } from "@ot-builder/primitive";
 
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 
 export interface CffFdSelectSink {
     getGlyphCount(): number;
@@ -21,7 +21,7 @@ const FdSelectFormat0 = {
 };
 
 class FdSelectFormat34ReadState {
-    constructor(private sink: CffFdSelectSink) {}
+    public constructor(private sink: CffFdSelectSink) {}
     private started = false;
     private lastStartGid = 0;
     private lastFdId = 0;
@@ -40,7 +40,7 @@ class FdSelectFormat34ReadState {
 }
 
 class FdSelectFormat34WriteState {
-    constructor(
+    public constructor(
         private readonly frag: Frag,
         private readonly wGid: Write<number> & Sized,
         private readonly wFdId: Write<number> & Sized

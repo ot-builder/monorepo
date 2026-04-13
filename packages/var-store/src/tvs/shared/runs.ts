@@ -1,6 +1,6 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Int16, Int8, UInt16, UInt8 } from "@ot-builder/primitive";
+import { Int8, Int16, UInt8, UInt16 } from "@ot-builder/primitive";
 
 export enum DeltaRunFlags {
     DELTAS_ARE_ZERO = 0x80,
@@ -89,7 +89,7 @@ function DpUpdateTrack<R extends DpRun>(src: (null | R)[], track: number, ...run
 export namespace DeltaRunDp {
     class ZeroRun implements DpRun {
         public readonly cost: number;
-        constructor(
+        public constructor(
             public readonly link: null | DpRun,
             public readonly size: number
         ) {
@@ -111,7 +111,7 @@ export namespace DeltaRunDp {
     }
     class ByteRun implements DpRun {
         public readonly cost: number;
-        constructor(
+        public constructor(
             public readonly link: null | DpRun,
             public readonly data: readonly number[]
         ) {
@@ -134,7 +134,7 @@ export namespace DeltaRunDp {
     }
     class WordRun implements DpRun {
         public readonly cost: number;
-        constructor(
+        public constructor(
             public readonly link: null | DpRun,
             public readonly data: readonly number[]
         ) {
@@ -155,7 +155,7 @@ export namespace DeltaRunDp {
         }
     }
     export class Writer {
-        constructor(trackLength: number) {
+        public constructor(trackLength: number) {
             this.trackingModes = 1 << trackLength;
             this.trackingRestMask = (1 << (trackLength - 1)) - 1;
         }
@@ -211,7 +211,7 @@ export namespace DeltaRunDp {
 export namespace PointNumberRunDp {
     class ByteRun implements DpRun {
         public readonly cost: number;
-        constructor(
+        public constructor(
             public readonly link: null | DpRun,
             public readonly data: readonly number[]
         ) {
@@ -234,7 +234,7 @@ export namespace PointNumberRunDp {
     }
     class WordRun implements DpRun {
         public readonly cost: number;
-        constructor(
+        public constructor(
             public readonly link: null | DpRun,
             public readonly data: readonly number[]
         ) {
@@ -256,7 +256,7 @@ export namespace PointNumberRunDp {
     }
 
     export class Writer {
-        constructor(trackLength: number) {
+        public constructor(trackLength: number) {
             this.trackingModes = 1 << trackLength;
             this.trackingRestMask = (1 << (trackLength - 1)) - 1;
         }

@@ -1,4 +1,4 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 
 export const Tag = "TSI5";
 export enum CharacterGroup {

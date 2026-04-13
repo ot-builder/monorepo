@@ -1,15 +1,14 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { Read, Write } from "@ot-builder/bin-util";
-import { LayoutCommon } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { LayoutCommon } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { OtVar } from "@ot-builder/variance";
 
 enum DeltaFormat {
     LOCAL_2_BIT_DELTAS = 0x0001,
     LOCAL_4_BIT_DELTAS = 0x0002,
     LOCAL_8_BIT_DELTAS = 0x0003,
-    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     FORMAT_MASK = 0x0003,
     VARIATION_INDEX = 0x8000,
     Reserved = 0x7ffc

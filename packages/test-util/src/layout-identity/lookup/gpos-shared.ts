@@ -1,5 +1,5 @@
-import { Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
 import * as FastMatch from "../../fast-match";
 

@@ -1,9 +1,9 @@
-import { BinaryView } from "@ot-builder/bin-util";
+import type { BinaryView } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 
-import { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
+import type { LookupReader, SubtableReadingContext } from "../gsub-gpos-shared/general";
 import { Ptr16GidCoverage } from "../shared/coverage";
 import { NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
 

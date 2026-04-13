@@ -1,9 +1,9 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Gsub } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
-import {
+import type {
     LookupReader,
     LookupWriter,
     SubtableReadingContext,

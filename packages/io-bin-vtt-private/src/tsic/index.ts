@@ -1,9 +1,9 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, type Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { TSIC } from "@ot-builder/ot-vtt-private";
 import { F2D14, Int16, Tag, UInt16 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
-import * as iconv from "iconv-lite";
+import type { OtVar } from "@ot-builder/variance";
+import iconv from "iconv-lite";
 
 export const TsicTable = {
     ...Read((view: BinaryView, ds: OtVar.DesignSpace) => {

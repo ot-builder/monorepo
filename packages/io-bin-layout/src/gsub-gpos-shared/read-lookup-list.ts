@@ -1,12 +1,12 @@
-import { BinaryView } from "@ot-builder/bin-util";
+import type { BinaryView } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS } from "@ot-builder/var-store";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gdef, type GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS } from "@ot-builder/var-store";
 
-import { LookupFlag, LookupReader, LookupReaderFactory } from "./general";
+import { LookupFlag, type LookupReader, type LookupReaderFactory } from "./general";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@ export interface LookupReadContext {
 
 export class CReadLookupList<L extends GsubGpos.LookupProp> {
     private readExtensionSubtables(subtableViews: BinaryView[]) {
-        let extensionLookupType: undefined | number = undefined;
+        let extensionLookupType: undefined | number;
         const realSubtables: BinaryView[] = [];
         for (const vSubTable of subtableViews) {
             const format = vSubTable.uint16();
@@ -56,9 +56,9 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
     }
     private applyGdefMarkAttachDefIgnores(ignores: Set<OtGlyph>, flags: number, gdef: Gdef.Table) {
         if (
-            gdef.glyphClassDef &&
-            gdef.markAttachClassDef &&
-            flags & LookupFlag.MarkAttachmentType
+            gdef.glyphClassDef
+            && gdef.markAttachClassDef
+            && flags & LookupFlag.MarkAttachmentType
         ) {
             const maCls = (flags & LookupFlag.MarkAttachmentType) >>> 8;
             for (const [g, cls] of gdef.glyphClassDef) {
@@ -75,10 +75,10 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         gdef: Gdef.Table
     ) {
         if (
-            gdef.glyphClassDef &&
-            gdef.markGlyphSets &&
-            flags & LookupFlag.UseMarkFilteringSet &&
-            markFilteringSet != null
+            gdef.glyphClassDef
+            && gdef.markGlyphSets
+            && flags & LookupFlag.UseMarkFilteringSet
+            && markFilteringSet != null
         ) {
             const mgs = gdef.markGlyphSets[markFilteringSet];
             if (!mgs) return;
@@ -107,7 +107,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
     public read(view: BinaryView, lrf: LookupReaderFactory<L>, lrc: LookupReadContext) {
         const lookupCount = view.uint16();
         const lookups: L[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const readers: LookupReader<L, any>[] = [];
         const subtables: BinaryView[][] = [];
         for (let lid = 0; lid < lookupCount; lid++) {

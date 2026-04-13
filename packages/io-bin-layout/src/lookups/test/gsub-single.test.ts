@@ -5,7 +5,7 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 import { LookupWriteTrick } from "../../cfg";
 import { GsubSingleReader, GsubSingleWriter } from "../gsub-single";
 
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
+import { type LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GSUB single lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);

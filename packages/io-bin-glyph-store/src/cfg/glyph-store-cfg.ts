@@ -1,4 +1,4 @@
-import { OtGlyphNamer } from "@ot-builder/ot-glyphs";
+import type { OtGlyphNamer } from "@ot-builder/ot-glyphs";
 
 export interface GlyphStoreCfgProps {
     statOs2XAvgCharWidth?: boolean;

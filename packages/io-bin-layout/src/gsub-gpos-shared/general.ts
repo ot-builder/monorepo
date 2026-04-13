@@ -1,10 +1,10 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
-import { LookupWriteTrick } from "../cfg";
-import { OtlStat } from "../stat";
+import type { LookupWriteTrick } from "../cfg";
+import type { OtlStat } from "../stat";
 
 export interface SubtableReadingContext<L> {
     crossReferences: Data.Order<L>;
@@ -32,7 +32,6 @@ export interface LookupWriter<L, C extends L> {
 }
 
 export interface LookupReaderFactory<L> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(format: number): LookupReader<L, any>;
     isExtendedFormat(format: number): boolean;
 }
@@ -40,7 +39,7 @@ export interface LookupReaderFactory<L> {
 export interface LookupWriterFactory<L> {
     readonly extendedFormat: number;
     // Actually: ReadonlyArray<∃C. LookupWriter<L, C>>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     writers(): Iterable<LookupWriter<L, any>>;
     queryDependencies(lookup: L): ReadonlyArray<L>;
 }

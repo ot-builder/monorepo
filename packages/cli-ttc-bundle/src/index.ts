@@ -1,7 +1,7 @@
-import * as Fs from "fs";
+import * as Fs from "node:fs";
 
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import { CliProc, FontIo, Ot } from "ot-builder";
+import { type CliProc, FontIo, Ot } from "ot-builder";
 
 import { ArgParser, displayHelp, displayVersion } from "./arg-parser";
 import { createTtcSlices } from "./glyph-sharing/create-ttc";
@@ -14,7 +14,7 @@ export async function cliMain(argv: string[]) {
     if (args.displayHelp) return await displayHelp();
     if (args.displayVersion) return await displayVersion();
 
-    if (!args.inputs || !args.inputs.length) {
+    if (!args.inputs.length) {
         throw new Error("Please specify at least one input font. Exit.");
     }
     if (!args.output) {
@@ -134,9 +134,9 @@ function nameGlyphWithoutConflict(g: Ot.Glyph, desired: string, conflictSet: Set
 
 function tagToUInt32(x: string) {
     return (
-        (x.charCodeAt(0) & 0xff) * 256 * 256 * 256 +
-        (x.charCodeAt(1) & 0xff) * 256 * 256 +
-        (x.charCodeAt(2) & 0xff) * 256 +
-        (x.charCodeAt(3) & 0xff)
+        (x.charCodeAt(0) & 0xff) * 256 * 256 * 256
+        + (x.charCodeAt(1) & 0xff) * 256 * 256
+        + (x.charCodeAt(2) & 0xff) * 256
+        + (x.charCodeAt(3) & 0xff)
     );
 }

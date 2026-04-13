@@ -24,7 +24,7 @@ export class DimMapper {
 }
 
 export class MasterProcessor {
-    constructor(private readonly dm: DimMapper) {}
+    public constructor(private readonly dm: DimMapper) {}
 
     public toArrayRep(master: Ot.Var.Master) {
         const steps: (undefined | [number, number, number])[] = [];
@@ -55,7 +55,7 @@ export class MasterProcessor {
 }
 
 export class ValueProcessor {
-    constructor(private readonly mp: MasterProcessor) {}
+    public constructor(private readonly mp: MasterProcessor) {}
     private cr = new Ot.Var.ValueFactory();
 
     public toArrayRep(v: Ot.Var.Value) {
@@ -92,7 +92,6 @@ export class ValueProcessor {
     private static compareArray(a: number[], b: number[]) {
         for (let index = 0; index < a.length && index < b.length; index++) {
             if (a[index] === b[index]) {
-                continue;
             } else {
                 return a[index] - b[index];
             }

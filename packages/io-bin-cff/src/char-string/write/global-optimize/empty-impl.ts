@@ -1,12 +1,12 @@
 import { Frag } from "@ot-builder/bin-util";
 
-import { CffLimits, CffWriteContext } from "../../../context/write";
+import type { CffLimits, CffWriteContext } from "../../../context/write";
 import * as CffInterp from "../../../interp/ir";
 import { CharStringOperator } from "../../../interp/operator";
 import { CharStringEncoder } from "../encoder";
 import { Mir } from "../mir";
 
-import { CharStringGlobalOptimizer, CharStringGlobalOptimizerFactory } from "./general";
+import type { CharStringGlobalOptimizer, CharStringGlobalOptimizerFactory } from "./general";
 
 class CharStringGlobalOptEmptyImpl implements CharStringGlobalOptimizer {
     private limits: CffLimits;
@@ -14,7 +14,7 @@ class CharStringGlobalOptEmptyImpl implements CharStringGlobalOptimizer {
     private localSubroutines: Buffer[][] = [];
     private globalSubroutines: Buffer[] = [];
 
-    constructor(ctx: CffWriteContext, fdCount: number) {
+    public constructor(ctx: CffWriteContext, fdCount: number) {
         this.limits = ctx.getLimits();
         for (let fdId = 0; fdId < fdCount; fdId++) {
             this.localSubroutines[fdId] = [];

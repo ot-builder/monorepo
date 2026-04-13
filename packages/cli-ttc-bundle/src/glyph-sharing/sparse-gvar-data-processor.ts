@@ -1,13 +1,13 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
-import { FontIo } from "ot-builder";
+import type { FontIo } from "ot-builder";
 
 import {
     buildDataBlock,
     buildOffsetIndex,
-    DataBlockBuildResults,
-    GlyphData,
-    GlyphSharingMap,
+    type DataBlockBuildResults,
+    type GlyphData,
+    type GlyphSharingMap,
     pushGlyphs
 } from "./sparse-common";
 
@@ -107,11 +107,11 @@ function taskToLocaBuf(
 
 function gvarInitialSize(task: GvarTask) {
     let s =
-        8 +
-        task.headerSlice.byteLength +
-        4 * task.glyphData.length +
-        task.sharedTupleSlice.byteLength +
-        task.glyphData[0].buffer.byteLength;
+        8
+        + task.headerSlice.byteLength
+        + 4 * task.glyphData.length
+        + task.sharedTupleSlice.byteLength
+        + task.glyphData[0].buffer.byteLength;
     while (s % 4) s++;
     return s;
 }

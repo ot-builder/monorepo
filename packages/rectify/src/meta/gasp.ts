@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier } from "../interface";
+import type { CoordRectifier } from "../interface";
 
 export function rectifyGaspTable(rec: CoordRectifier, table: Ot.Gasp.Table) {
     return new Ot.Gasp.Table(

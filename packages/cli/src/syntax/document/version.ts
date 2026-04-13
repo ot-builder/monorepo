@@ -1,7 +1,7 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 import { getPackageVersion } from "../../package-version";
 
 export const VersionSyntax: Syntax<null | CliAction> = {

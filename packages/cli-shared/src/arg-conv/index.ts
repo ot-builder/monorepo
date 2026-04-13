@@ -1,5 +1,5 @@
-import * as FontIo from "@ot-builder/io-bin-font";
-import * as Ot from "@ot-builder/ot";
+import type * as FontIo from "@ot-builder/io-bin-font";
+import type * as Ot from "@ot-builder/ot";
 
 export enum OptimizationLevel {
     Speed = 0,

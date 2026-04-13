@@ -1,12 +1,12 @@
 export { gcFont } from "./procs/gc";
-export { mergeFonts, MergeOptions, consolidateFont } from "./procs/merge-consolidate";
+export { consolidateFont, MergeOptions, mergeFonts } from "./procs/merge-consolidate";
 export { rebaseFont } from "./procs/rebase";
-export { subsetFont } from "./procs/subset";
 export {
-    shareGlyphSet,
     GlyphSharer,
+    GlyphUnificationResults,
     ShareGlyphSetOptions,
-    GlyphUnificationResults
+    shareGlyphSet
 } from "./procs/share-glyph-set";
+export { subsetFont } from "./procs/subset";
 export { inPlaceTransformFontGlyph } from "./procs/transform-glyphs";
 export { unifyDesignSpaces } from "./support/design-unifier/index";

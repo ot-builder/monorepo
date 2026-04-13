@@ -1,9 +1,9 @@
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as GeneralGlyph from "../general-glyph/index";
+import type * as GeneralGlyph from "../general-glyph/index";
 
-import * as OtGlyphStat from "./stat";
+import type * as OtGlyphStat from "./stat";
 
 export interface Source {
     getHMetric(
@@ -17,7 +17,7 @@ export interface Source {
 }
 
 export class Forward implements Source {
-    constructor(private outer?: Data.Maybe<Source>) {}
+    public constructor(private outer?: Data.Maybe<Source>) {}
 
     public getHMetric(gid: number, extent: Data.Maybe<OtGlyphStat.BoundingBox>) {
         if (this.outer) return this.outer.getHMetric(gid, extent);

@@ -1,10 +1,10 @@
 import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 import {
-    CoordRectifier,
-    GlyphReferenceRectifier,
-    PointAttachmentRectifier,
+    type CoordRectifier,
+    type GlyphReferenceRectifier,
+    type PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../interface";
 import { RectifyImpl } from "../shared";
@@ -21,7 +21,7 @@ interface GlyphRectifyHandlerState {
 }
 
 class GeometryProcessor {
-    constructor(
+    public constructor(
         private readonly recGlyphRef: GlyphReferenceRectifier,
         private readonly recCoord: CoordRectifier,
         private readonly recPA: PointAttachmentRectifier,
@@ -144,7 +144,7 @@ class GeometryProcessor {
 }
 
 class HintProcessor {
-    constructor(private readonly rec: CoordRectifier) {}
+    public constructor(private readonly rec: CoordRectifier) {}
 
     public process(geom: Ot.Glyph.Hint): Ot.Glyph.Hint {
         switch (geom.type) {

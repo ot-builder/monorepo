@@ -1,4 +1,4 @@
-import { GsubGpos } from "@ot-builder/ot-layout";
+import type { GsubGpos } from "@ot-builder/ot-layout";
 
 export interface LayoutCfgProps {
     gdefWriteTrick?: number;

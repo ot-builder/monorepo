@@ -2,14 +2,14 @@ import { Frag, Write, WriteOpt } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { F2D14 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 import { TvhFlags, TvhSetFlags } from "../shared/flags";
 import { DeltaRunDp, PointCount, PointNumberRunDp } from "../shared/runs";
 
-import { collectDeltaData, DelayDeltaValue, TvsCollector } from "./collect";
+import { collectDeltaData, type DelayDeltaValue, TvsCollector } from "./collect";
 import { iupOptimize } from "./iup-optimize";
-import { MasterToTupleConverter, TupleAllocator } from "./tuple-allocator";
+import { MasterToTupleConverter, type TupleAllocator } from "./tuple-allocator";
 
 export interface TupleVariationBuildContext {
     readonly designSpace: OtVar.DesignSpace;
@@ -44,8 +44,8 @@ export const TupleVariationWriteOpt = WriteOpt(
         const frData = new Frag();
         // - Header
         const fHaveSharedPoints =
-            !ctx.forcePrivatePointNumbers &&
-            !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
+            !ctx.forcePrivatePointNumbers
+            && !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
                 ? TvhSetFlags.SHARED_POINT_NUMBERS
                 : 0;
         frRoot.uint16(fHaveSharedPoints | blobResults.length);
@@ -80,9 +80,8 @@ function writeBlob(
     if (ctx.iupTolerance) {
         const resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
-            (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
-                result.hasNonIntegerDelta) &&
-            !resOpt.hasNonIntegerDelta
+            (resOpt.bufBody.byteLength <= result.bufBody.byteLength || result.hasNonIntegerDelta)
+            && !resOpt.hasNonIntegerDelta
         ) {
             result = resOpt;
         }
@@ -131,10 +130,10 @@ function logChoices(dimensions: number, coords: number[], deltas: number[], mask
         for (let dim = 0; dim < dimensions; dim++) {
             const delta = deltas[ImpLib.Arith.d2(dimensions, z, dim)];
             r +=
-                (dim ? " " : "") +
-                coords[ImpLib.Arith.d2(dimensions, z, dim)] +
-                (delta >= 0 ? "+" : "") +
-                delta;
+                (dim ? " " : "")
+                + coords[ImpLib.Arith.d2(dimensions, z, dim)]
+                + (delta >= 0 ? "+" : "")
+                + delta;
         }
 
         if (mask[z]) {

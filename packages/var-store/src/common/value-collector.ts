@@ -1,4 +1,4 @@
-import { GeneralVar } from "@ot-builder/variance";
+import type { GeneralVar } from "@ot-builder/variance";
 
 export abstract class DelayValueCollector<
     A extends GeneralVar.Dim,
@@ -6,7 +6,7 @@ export abstract class DelayValueCollector<
     X,
     D
 > {
-    constructor(
+    public constructor(
         private readonly op: GeneralVar.Ops<A, M, X>,
         private readonly masterSet: GeneralVar.MasterSet<A, M>
     ) {}

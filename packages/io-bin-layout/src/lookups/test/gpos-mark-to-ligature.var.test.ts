@@ -6,7 +6,7 @@ import { GposMarkToLigatureReader } from "../gpos-mark-read";
 import { GposMarkToLigatureWriter } from "../gpos-mark-write";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
     SetupVariation
 } from "./-shared-test-util.test";

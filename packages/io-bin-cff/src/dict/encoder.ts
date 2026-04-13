@@ -1,8 +1,8 @@
-import { Frag, FragPointerEmbedding } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
+import { type Frag, FragPointerEmbedding } from "@ot-builder/bin-util";
+import type { Data } from "@ot-builder/prelude";
 
 import * as CffInterp from "../interp/ir";
-import { CffOperator } from "../interp/operator";
+import type { CffOperator } from "../interp/operator";
 
 const EPSILON = 1e-8;
 const ZERO = "0".charCodeAt(0);
@@ -13,7 +13,7 @@ const MINUS = "-".charCodeAt(0);
 const PLUS = "+".charCodeAt(0);
 
 export class DictEncoder extends CffInterp.Encoder<Frag> {
-    constructor(private frag: Frag) {
+    public constructor(private frag: Frag) {
         super();
     }
     public operand(val: number) {

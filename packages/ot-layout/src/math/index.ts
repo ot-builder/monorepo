@@ -1,12 +1,12 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { Int16 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { Int16 } from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "MATH";
 
 export class Table {
-    constructor(
+    public constructor(
         public constants: Data.Maybe<Constants> = null,
         public glyphInfo: Data.Maybe<GlyphInfo> = null,
         public variants: Data.Maybe<Variants> = null
@@ -75,7 +75,7 @@ export class Constants {
     public radicalDegreeBottomRaisePercent: Int16 = 0;
 }
 export class GlyphInfo {
-    constructor(
+    public constructor(
         public italicCorrections: Map<OtGlyph, ValueRecord> = new Map(),
         public topAccentAttachments: Map<OtGlyph, ValueRecord> = new Map(),
         public extendedShapes: Data.Maybe<Set<OtGlyph>> = null,
@@ -83,7 +83,7 @@ export class GlyphInfo {
     ) {}
 }
 export class KernInfo {
-    constructor(
+    public constructor(
         public topRight: Data.Maybe<Kern> = null,
         public topLeft: Data.Maybe<Kern> = null,
         public bottomRight: Data.Maybe<Kern> = null,
@@ -91,13 +91,13 @@ export class KernInfo {
     ) {}
 }
 export class Kern {
-    constructor(
+    public constructor(
         public kernValue: ValueRecord = { value: 0 },
         public corrections: [ValueRecord, ValueRecord][] = []
     ) {}
 }
 export class GlyphVariantRecord {
-    constructor(
+    public constructor(
         public readonly variantGlyph: OtGlyph,
         public readonly advanceMeasurement: OtVar.Value
     ) {}
@@ -107,7 +107,7 @@ export enum GlyphPartFlags {
     Extender = 0x0001
 }
 export class GlyphPart {
-    constructor(
+    public constructor(
         public readonly partGlyph: OtGlyph,
         public readonly startConnectorLength: OtVar.Value,
         public readonly endConnectorLength: OtVar.Value,
@@ -116,19 +116,19 @@ export class GlyphPart {
     ) {}
 }
 export class GlyphAssembly {
-    constructor(
+    public constructor(
         public italicCorrection: ValueRecord,
         public parts: GlyphPart[]
     ) {}
 }
 export class GlyphConstruction {
-    constructor(
+    public constructor(
         public assembly: Data.Maybe<GlyphAssembly> = null,
         public variants: GlyphVariantRecord[] = []
     ) {}
 }
 export class Variants {
-    constructor(
+    public constructor(
         public minConnectorOverlap: OtVar.Value = 0,
         public vertical: Data.Maybe<Map<OtGlyph, GlyphConstruction>> = new Map(),
         public horizontal: Data.Maybe<Map<OtGlyph, GlyphConstruction>> = new Map()

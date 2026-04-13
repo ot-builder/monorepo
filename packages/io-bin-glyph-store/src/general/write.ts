@@ -1,12 +1,12 @@
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head, Maxp, OtFontMetadata } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import type { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Head, Maxp, OtFontMetadata } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { HeadExtendStat, HmtxStat, MaxpStat, Os2Stat, VmtxStat } from "@ot-builder/stat-glyphs";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
-import { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
+import type { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
 import { writeHMetrics, writeVMetrics } from "../shared-metrics/write";
 
 export type GlyphStoreWriteExtraInfoSink = TtfWritingExtraInfoSink;

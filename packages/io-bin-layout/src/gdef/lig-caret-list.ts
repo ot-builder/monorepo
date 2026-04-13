@@ -1,12 +1,12 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import { OtGeometryUtil, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gdef } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
-import { LayoutCfg } from "../cfg";
+import type { LayoutCfg } from "../cfg";
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 import { LigGlyph } from "./lig-glyph";

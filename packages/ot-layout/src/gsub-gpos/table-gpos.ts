@@ -1,14 +1,14 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { CaseCreator, CaseType, Data, FallbackPropCreator } from "@ot-builder/prelude";
-import * as Primitive from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { CaseCreator, type CaseType, type Data, FallbackPropCreator } from "@ot-builder/prelude";
+import type * as Primitive from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 import { DicingStore } from "../dicing-store";
 
-import * as GeneralLookup from "./general/lookup";
+import type * as GeneralLookup from "./general/lookup";
 import { Gpos as LookupType } from "./general/lookup-type";
-import * as GsubGpos from "./table-shared";
+import type * as GsubGpos from "./table-shared";
 
 export * as FeatureParams from "./feature-params";
 export { Gpos as LookupType } from "./general/lookup-type";
@@ -17,7 +17,7 @@ export { Gpos as LookupType } from "./general/lookup-type";
 export const Tag = "GPOS";
 
 export class Table implements GsubGpos.TableT<Lookup> {
-    constructor(
+    public constructor(
         public scripts: Map<Primitive.Tag, Script> = new Map(),
         public features: Feature[] = [],
         public lookups: Lookup[] = [],

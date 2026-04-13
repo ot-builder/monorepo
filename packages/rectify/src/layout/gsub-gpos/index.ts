@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import {
+import type {
     AxisRectifier,
     CoordRectifier,
     GlyphReferenceRectifier,
@@ -24,7 +24,7 @@ export function rectifyGsubTable(
         lookupRemovable: l => LookupRemovableAlg.process(l),
         cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
-    if (newTable && newTable.featureVariations) {
+    if (newTable?.featureVariations) {
         for (const fv of newTable.featureVariations) axesRectifyFeatureVariation(recAxes, fv);
     }
     return newTable;
@@ -43,7 +43,7 @@ export function rectifyGposTable(
         lookupRemovable: l => LookupRemovableAlg.process(l),
         cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
-    if (newTable && newTable.featureVariations) {
+    if (newTable?.featureVariations) {
         for (const fv of newTable.featureVariations) axesRectifyFeatureVariation(recAxes, fv);
     }
     return newTable;

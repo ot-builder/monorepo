@@ -5,7 +5,7 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 import { GposCursiveReader, GposCursiveWriter } from "../gpos-cursive";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
     SetupVariation
 } from "./-shared-test-util.test";

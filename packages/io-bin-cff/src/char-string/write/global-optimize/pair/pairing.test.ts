@@ -1,7 +1,13 @@
-import { Input, KeyProvider, NonTerminalBuilder, RuleBuilder, Session } from "./pairing";
+import {
+    Input,
+    type KeyProvider,
+    type NonTerminalBuilder,
+    type RuleBuilder,
+    Session
+} from "./pairing";
 
-export class NonTerminalRule<K> {
-    constructor(
+class NonTerminalRule<K> {
+    public constructor(
         public readonly symbol: K,
         public readonly parts: K[]
     ) {}
@@ -9,8 +15,8 @@ export class NonTerminalRule<K> {
         return `${this.symbol} -> ${this.parts.join("")}`;
     }
 }
-export class RootRule<K> {
-    constructor(public readonly parts: K[]) {}
+class RootRule<K> {
+    public constructor(public readonly parts: K[]) {}
     public toString() {
         return `${this.parts.join("")}`;
     }

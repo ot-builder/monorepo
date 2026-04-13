@@ -1,7 +1,7 @@
-import { BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Name } from "@ot-builder/ot-name";
-import * as iconv from "iconv-lite";
+import iconv from "iconv-lite";
 
 // TODO: add more encodings
 function SupportedEncoding(platformID: number, encodingID: number): null | string {
@@ -101,7 +101,7 @@ export const NameIo = {
         return table;
     },
     write(frag: Frag, table: Name.Table) {
-        const format = table.langTagMap && table.langTagMap.length ? 1 : 0;
+        const format = table.langTagMap?.length ? 1 : 0;
         const frStrings = new Frag();
         const noa = new NameOffsetAllocator();
         const sortedRecords = Array.from(table.records).sort(NameRecord.compare);
@@ -113,7 +113,7 @@ export const NameIo = {
             frag.push(NameRecord, rec, noa);
         }
         if (format === 1) {
-            if (!table.langTagMap || !table.langTagMap.length) throw Errors.Unreachable();
+            if (!table.langTagMap?.length) throw Errors.Unreachable();
             frag.uint16(table.langTagMap.length);
             for (const lt of table.langTagMap) frag.push(LangTagRecord, lt, noa);
         }

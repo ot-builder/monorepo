@@ -1,7 +1,7 @@
-import { VarianceDim as Dim } from "./dimension";
-import { VarianceInstance } from "./instance";
-import { VarianceMaster, VarianceMasterCollectResult, VarianceMasterSet } from "./master";
-import { VariableCreator, VariableOps } from "./value";
+import type { VarianceDim as Dim } from "./dimension";
+import type { VarianceInstance } from "./instance";
+import type { VarianceMaster, VarianceMasterCollectResult, VarianceMasterSet } from "./master";
+import type { VariableCreator, VariableOps } from "./value";
 
 export { VarianceDim as Dim } from "./dimension";
 

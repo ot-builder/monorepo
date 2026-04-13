@@ -1,6 +1,6 @@
 export class EncodingMapT<G> {
     private mapping: Map<number, G> = new Map();
-    constructor(init?: Iterable<[number, G]>) {
+    public constructor(init?: Iterable<[number, G]>) {
         if (init) {
             for (const [code, glyph] of init) {
                 this.set(code, glyph);

@@ -1,10 +1,10 @@
 import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 import {
-    CoordRectifier,
-    GlyphReferenceRectifier,
-    PointAttachmentRectifier,
+    type CoordRectifier,
+    type GlyphReferenceRectifier,
+    type PointAttachmentRectifier,
     PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
@@ -35,7 +35,7 @@ export function rectifyLookupList<L, A>(
 }
 
 abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
-    constructor(
+    public constructor(
         protected readonly rg: GlyphReferenceRectifier,
         protected readonly rc: CoordRectifier,
         protected readonly rap: Data.Maybe<PointAttachmentRectifier>
@@ -59,9 +59,9 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
         ret: Ot.GsubGpos.ChainingProp<L>
     ) {
         ret.rules = [];
-        ProcessRules: for (const rule of props.rules) {
+        for (const rule of props.rules) {
             const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setSome);
-            if (!match1 || !this.isValidMatchingSequence(match1)) continue ProcessRules;
+            if (!match1 || !this.isValidMatchingSequence(match1)) continue;
             const applications1: Ot.GsubGpos.ChainingApplication<L>[] = [];
             for (const app of rule.applications) {
                 const stub = this._cache.get(app.apply);

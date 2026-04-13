@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 import * as Rectify from "@ot-builder/rectify";
 
 import { createSubsetRectifier } from "../support/initial-visible-glyphs";

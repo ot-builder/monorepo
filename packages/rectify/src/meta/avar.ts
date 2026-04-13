@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { AxisRectifier } from "../interface";
+import type { AxisRectifier } from "../interface";
 
 export function rectifyAvarTable(rec: AxisRectifier, avar: Ot.Avar.Table) {
     const maps1: Map<Ot.Var.Dim, Ot.Avar.SegmentMap> = new Map();

@@ -8,7 +8,6 @@ import {
 } from "../../interface";
 
 import { RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify";
-
 import { rectifyGsubTable } from ".";
 
 describe("GSUB Rectifier", () => {

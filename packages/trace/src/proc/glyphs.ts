@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { GlyphTraceProc, GlyphTracer } from "../interface";
+import type { GlyphTraceProc, GlyphTracer } from "../interface";
 
 import * as TraceImpl_Glyph from "./trace-impl/glyph";
 

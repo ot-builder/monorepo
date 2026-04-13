@@ -1,9 +1,9 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { CffFdSelectSink } from "./io";
+import type { CffFdSelectSink } from "./io";
 
 export class CffGlyphFdSelectSink<G> implements CffFdSelectSink {
-    constructor(
+    public constructor(
         private glyphs: Data.Order<G>,
         private mapping: Map<G, number>
     ) {}

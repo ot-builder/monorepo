@@ -1,4 +1,4 @@
-import { GlyphTraceProc } from "../../interface";
+import type { GlyphTraceProc } from "../../interface";
 
 export function Nop(): GlyphTraceProc {
     return tracer => {};

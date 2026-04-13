@@ -1,14 +1,18 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 import { Disorder } from "@ot-builder/test-util";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { LookupWriteTrick } from "../../cfg";
-import { LookupReader, LookupWriter, SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import type {
+    LookupReader,
+    LookupWriter,
+    SubtableWriteContext
+} from "../../gsub-gpos-shared/general";
 import { EmptyStat } from "../../stat";
 
 export interface LookupRoundTripConfig<L, C extends L> {

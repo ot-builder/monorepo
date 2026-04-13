@@ -1,4 +1,4 @@
-/* eslint-env node */
+
 
 import { Beachball, Git } from "./tools.mjs";
 

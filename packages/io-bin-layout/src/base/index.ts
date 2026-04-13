@@ -1,9 +1,9 @@
 import { NonNullablePtr16, NullablePtr16, SimpleArray } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Base } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -143,7 +143,7 @@ const BaseScript = {
     ) {
         frag.push(Ptr16BaseValuesNullable, script.baseValues, sortedBaseTags, gOrd, ivs);
         frag.push(Ptr16MinMaxTableNullable, script.defaultMinMax, gOrd, ivs);
-        if (script.baseLangSysRecords && script.baseLangSysRecords.size) {
+        if (script.baseLangSysRecords?.size) {
             const baseLangSysList = [...script.baseLangSysRecords].sort(byTagOrder);
             frag.uint16(baseLangSysList.length);
             for (const [tag, mmt] of baseLangSysList) {
@@ -212,7 +212,7 @@ const MinMaxTable = {
         ivs: Data.Maybe<WriteTimeIVS>
     ) {
         frag.push(MinMaxValue, mmt.defaultMinMax, gOrd, ivs);
-        if (mmt.featMinMax && mmt.featMinMax.size) {
+        if (mmt.featMinMax?.size) {
             const fmmList = [...mmt.featMinMax].sort(byTagOrder);
             frag.uint16(fmmList.length);
             for (const [tag, mm] of fmmList) {

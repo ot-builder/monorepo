@@ -1,11 +1,11 @@
-import { Frag } from "@ot-builder/bin-util";
+import type { Frag } from "@ot-builder/bin-util";
 import { ComponentFlag } from "@ot-builder/io-bin-ttf";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { TSI0123 } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
-import { UInt16 } from "@ot-builder/primitive";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { TSI0123 } from "@ot-builder/ot-vtt-private";
+import type { Data } from "@ot-builder/prelude";
+import type { UInt16 } from "@ot-builder/primitive";
 
-import { VttExtraInfoSource } from "../extra-info-source";
+import type { VttExtraInfoSource } from "../extra-info-source";
 
 type TsiEntry = {
     readonly glyphIndex: UInt16;
@@ -62,7 +62,7 @@ export interface ProgramProcessor {
 }
 
 export class TSI01Processor implements ProgramProcessor {
-    constructor(private readonly extraInfoReporter: VttExtraInfoSource) {}
+    public constructor(private readonly extraInfoReporter: VttExtraInfoSource) {}
     public processProgram(gid: number, text: string) {
         if (gid >= 0xfffa) return text;
 
@@ -87,20 +87,20 @@ export class TSI01Processor implements ProgramProcessor {
             const roundIndicator = component.flags & ComponentFlag.ROUND_XY_TO_GRID ? "R" : "r";
             const argTy = component.flags & ComponentFlag.ARGS_ARE_XY_VALUES ? "OFFSET" : "ANCHOR";
             if (
-                component.flags &
-                (ComponentFlag.WE_HAVE_A_SCALE |
-                    ComponentFlag.WE_HAVE_AN_X_AND_Y_SCALE |
-                    ComponentFlag.WE_HAVE_A_TWO_BY_TWO)
+                component.flags
+                & (ComponentFlag.WE_HAVE_A_SCALE
+                    | ComponentFlag.WE_HAVE_AN_X_AND_Y_SCALE
+                    | ComponentFlag.WE_HAVE_A_TWO_BY_TWO)
             ) {
                 pseudoInstructions +=
-                    `S${argTy}[${roundIndicator}], ${component.targetGID}, ` +
-                    `${component.arg1}, ${component.arg2}, ` +
-                    `${component.argXScale.toFixed(4)}, ${component.argScale01.toFixed(4)}, ` +
-                    `${component.argScale10.toFixed(4)}, ${component.argYScale.toFixed(4)}\r`;
+                    `S${argTy}[${roundIndicator}], ${component.targetGID}, `
+                    + `${component.arg1}, ${component.arg2}, `
+                    + `${component.argXScale.toFixed(4)}, ${component.argScale01.toFixed(4)}, `
+                    + `${component.argScale10.toFixed(4)}, ${component.argYScale.toFixed(4)}\r`;
             } else {
                 pseudoInstructions +=
-                    `${argTy}[${roundIndicator}], ${component.targetGID}, ` +
-                    `${component.arg1}, ${component.arg2}\r`;
+                    `${argTy}[${roundIndicator}], ${component.targetGID}, `
+                    + `${component.arg1}, ${component.arg2}\r`;
             }
         }
         return pseudoInstructions + text;

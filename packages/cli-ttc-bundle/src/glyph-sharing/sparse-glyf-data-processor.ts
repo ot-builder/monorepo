@@ -1,13 +1,13 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
-import { FontIo } from "ot-builder";
+import type { FontIo } from "ot-builder";
 
 import {
     buildDataBlock,
     buildOffsetIndex,
-    DataBlockBuildResults,
-    GlyphData,
-    GlyphSharingMap,
+    type DataBlockBuildResults,
+    type GlyphData,
+    type GlyphSharingMap,
     pushGlyphs
 } from "./sparse-common";
 

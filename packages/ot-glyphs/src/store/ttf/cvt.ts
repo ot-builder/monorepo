@@ -1,7 +1,7 @@
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "cvt ";
 export const TagVar = "cvar";
 export class Table {
-    constructor(public items: OtVar.Value[] = []) {}
+    public constructor(public items: OtVar.Value[] = []) {}
 }

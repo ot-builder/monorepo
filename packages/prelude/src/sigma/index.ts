@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export class TypeID<T> {
-    constructor(public readonly id: string) {}
+    public constructor(public readonly id: string) {}
 }
 
 export class DependentPair {

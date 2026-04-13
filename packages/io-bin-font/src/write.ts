@@ -1,23 +1,26 @@
 import { writeEncoding } from "@ot-builder/io-bin-encoding";
 import { writeExtPrivate } from "@ot-builder/io-bin-ext-private";
-import { WriteCffGlyphs, writeGlyphStore, WriteTtfGlyphs } from "@ot-builder/io-bin-glyph-store";
+import { WriteCffGlyphs, WriteTtfGlyphs, writeGlyphStore } from "@ot-builder/io-bin-glyph-store";
 import { writeOtl } from "@ot-builder/io-bin-layout";
 import { writeOtMetadata } from "@ot-builder/io-bin-metadata";
 import { writeNames } from "@ot-builder/io-bin-name";
 import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import { VttExtraInfoSinkImpl, writeVttPrivate } from "@ot-builder/io-bin-vtt-private";
 import * as Ot from "@ot-builder/ot";
-import { OtEncoding } from "@ot-builder/ot-encoding";
-import { OtExtPrivate } from "@ot-builder/ot-ext-private";
-import { CffCoGlyphs, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
-import { OtFontLayoutData } from "@ot-builder/ot-layout";
-import { OtFontIoMetadata } from "@ot-builder/ot-metadata";
-import { OtNameData } from "@ot-builder/ot-name";
+import type { OtEncoding } from "@ot-builder/ot-encoding";
+import type { OtExtPrivate } from "@ot-builder/ot-ext-private";
+import type {
+    CffCoGlyphs as CffCoGlyphsTy,
+    TtfCoGlyphs as TtfCoGlyphsTy
+} from "@ot-builder/ot-glyphs";
+import type { OtFontLayoutData } from "@ot-builder/ot-layout";
+import type { OtFontIoMetadata } from "@ot-builder/ot-metadata";
+import type { OtNameData } from "@ot-builder/ot-name";
 import { Sfnt } from "@ot-builder/ot-sfnt";
-import { OtVttPrivate } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
+import type { OtVttPrivate } from "@ot-builder/ot-vtt-private";
+import type { Data } from "@ot-builder/prelude";
 
-import { createConfig, FontIoConfig } from "./config";
+import { createConfig, type FontIoConfig } from "./config";
 
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code
 function MD<GS extends Ot.GlyphStore>(
@@ -29,10 +32,10 @@ function MD<GS extends Ot.GlyphStore>(
 function Names<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtNameData {
     return font;
 }
-function CffCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Cff<GS>): CffCoGlyphs {
+function CffCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Cff<GS>): CffCoGlyphsTy {
     return font;
 }
-function TtfCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Ttf<GS>): TtfCoGlyphs {
+function TtfCoGlyphs<GS extends Ot.GlyphStore>(font: Ot.Font.Ttf<GS>): TtfCoGlyphsTy {
     return font;
 }
 function Encoding<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtEncoding {
@@ -49,7 +52,7 @@ function VttPrivate<GS extends Ot.GlyphStore>(font: Ot.Font<GS>): OtVttPrivate {
 }
 
 class WritePostNaming implements Data.Naming.Source<number> {
-    constructor(private readonly gOrd: Data.Order<Ot.Glyph>) {}
+    public constructor(private readonly gOrd: Data.Order<Ot.Glyph>) {}
     public getName(gid: number) {
         return this.gOrd.at(gid).name;
     }

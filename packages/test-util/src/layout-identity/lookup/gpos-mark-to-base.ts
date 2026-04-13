@@ -1,9 +1,9 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
-import { BimapCtx, StdCompare } from "../../compar-util";
+import { type BimapCtx, StdCompare } from "../../compar-util";
 import * as FastMatch from "../../fast-match";
 
 export function getOffset(mre: Data.Maybe<Gpos.MarkRecord>, bre: Data.Maybe<Gpos.BaseRecord>) {

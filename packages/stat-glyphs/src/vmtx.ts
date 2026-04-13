@@ -1,7 +1,7 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
-import { Fvar, MetricHead } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import { MetricBasic, MetricVariance, type OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
+import type { Fvar, MetricHead } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { statLongMetricCount } from "./hmtx";
@@ -17,7 +17,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
     public yMaxExtent = 0;
     public yMaxAdvance = 0;
 
-    constructor(
+    public constructor(
         private vhea: MetricHead.Table,
         fvar?: Data.Maybe<Fvar.Table>,
         private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
@@ -102,7 +102,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
 }
 
 export class VmtxCoStat implements OtGlyph.CoStat.Source {
-    constructor(
+    public constructor(
         private vmtx: MetricBasic.Table,
         private vvar?: Data.Maybe<MetricVariance.Table>,
         private vorg?: Data.Maybe<Vorg.Table>,

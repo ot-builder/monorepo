@@ -1,5 +1,5 @@
-import * as Primitive from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type * as Primitive from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "OS/2";
 
@@ -253,7 +253,7 @@ export class Panose {
 }
 
 export class Table {
-    constructor(public readonly version: Primitive.UInt16) {}
+    public constructor(public readonly version: Primitive.UInt16) {}
     public xAvgCharWidth: Primitive.Int16 = 0;
     public usWeightClass: Primitive.UInt16 = 0;
     public usWidthClass: Primitive.UInt16 = 0;

@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { GlyphReferenceRectifier } from "../interface";
+import type { GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 
 export function rectifyCmapTable(rec: GlyphReferenceRectifier, table: Ot.Cmap.Table) {

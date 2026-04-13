@@ -1,9 +1,9 @@
 import { Read } from "@ot-builder/bin-util";
-import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { Cff, type CffCoGlyphsWithNaming, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
 import { CffReadContext } from "../context/read";
 import { CffTopDictIo } from "../dict/top";

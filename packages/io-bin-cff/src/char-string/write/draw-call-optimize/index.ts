@@ -1,6 +1,6 @@
-import { CffWriteContext } from "../../../context/write";
+import type { CffWriteContext } from "../../../context/write";
 
-import { DrawCallOptimizationPass } from "./general";
+import type { DrawCallOptimizationPass } from "./general";
 import { RRCurveToHHVVCurve } from "./hhvv-curveto";
 import { RLineToHVLine } from "./hv-lineto";
 import { RMoveToHVMove, RMoveToHVMoveW } from "./hv-moveto";

@@ -1,6 +1,6 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 
-import { GlyphTracer } from "../interface";
+import type { GlyphTracer } from "../interface";
 
 import { traceGlyphDependents } from "./glyphs";
 import { traceGpos, traceGsub } from "./gsub-gpos";

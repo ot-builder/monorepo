@@ -1,6 +1,6 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 
-import { F16D16, F2D14, Int16, Int32, Int8, UInt16, UInt32, UInt8 } from "./fixed";
+import { F2D14, F16D16, Int8, Int16, Int32, UInt8, UInt16, UInt32 } from "./fixed";
 
 test("Fixed number roundtrip (Int16)", () => {
     for (const v of [-0x8000, -1, 0, 1, 0x7fff]) {

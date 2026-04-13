@@ -1,8 +1,8 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { XPrv } from "@ot-builder/ot-ext-private";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 import { Tag } from "@ot-builder/primitive";
 
 import { ReadBlob, WriteBlob } from "./blob";

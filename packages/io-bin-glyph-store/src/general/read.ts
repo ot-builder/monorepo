@@ -1,11 +1,11 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head, Maxp, OtFontIoMetadata } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Head, type Maxp, type OtFontIoMetadata } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Data } from "@ot-builder/prelude";
 import { HmtxCoStat, VmtxCoStat } from "@ot-builder/stat-glyphs";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
-import { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
+import type { GlyphStoreCfg } from "../cfg/glyph-store-cfg";
 import { readHMetric, readVMetric } from "../shared-metrics/read";
 
 export type GlyphStoreReadImplCtx = {
@@ -45,7 +45,7 @@ export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
         designSpace: designSpace,
         coStat,
         hMetricVariable: !!hor.hvar,
-        vMetricVariable: !!(ver && ver.vvar)
+        vMetricVariable: !!ver?.vvar
     });
 
     return { glyphs, gOrd, coGlyphs };

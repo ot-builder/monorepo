@@ -4,7 +4,7 @@ import { rectifyCmapTable, rectifyExtPrivateTable } from "../encoding";
 import { inPlaceRectifyGlyphStore } from "../glyph";
 import { rectifyCffTable } from "../glyph-store/cff";
 import { rectifyCvtTable } from "../glyph-store/cvt";
-import {
+import type {
     AxisRectifier,
     CoordRectifier,
     GlyphReferenceRectifier,
@@ -20,7 +20,7 @@ import { rectifyGaspTable } from "../meta/gasp";
 import { rectifyHheaTable, rectifyVheaTable } from "../meta/hhea-vhea";
 import { rectifyOs2Table } from "../meta/os2";
 import { rectifyPostTable } from "../meta/post";
-import { rectifyTSI0123Table, rectifyTSI5Table } from "../private/vtt";
+import { rectifyTSI5Table, rectifyTSI0123Table } from "../private/vtt";
 
 export function inPlaceRectifyFont<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,

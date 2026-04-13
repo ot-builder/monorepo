@@ -13,22 +13,22 @@ import {
     isOptional,
     isProject,
     isReadonly,
+    isRest,
     isString,
     isTuple,
-    isRest,
-    TyAll,
-    TyAnnotate,
-    TyApply,
-    TyApplyConstrain,
-    TyArray,
-    TyEither,
-    TyExport,
-    TyObject,
-    TyOptional,
-    TyProject,
-    TyReadonly,
-    TyRep,
-    TyTuple
+    type TyAll,
+    type TyAnnotate,
+    type TyApply,
+    type TyApplyConstrain,
+    type TyArray,
+    type TyEither,
+    type TyExport,
+    type TyObject,
+    type TyOptional,
+    type TyProject,
+    type TyReadonly,
+    type TyRep,
+    type TyTuple
 } from "./tyrep";
 
 export function FormatType(at: TyRep, long?: boolean): React.ReactNode {
@@ -119,12 +119,12 @@ function FormatEither(at: TyEither, long?: boolean) {
 function FormatArray(at: TyArray, long?: boolean) {
     const memberType = at.array;
     const isSimple =
-        isString(memberType) ||
-        isExport(memberType) ||
-        isGeneric(memberType) ||
-        isTuple(memberType) ||
-        isObject(memberType) ||
-        isArray(memberType);
+        isString(memberType)
+        || isExport(memberType)
+        || isGeneric(memberType)
+        || isTuple(memberType)
+        || isObject(memberType)
+        || isArray(memberType);
     return (
         <>
             {isSimple ? null : <span className="api-doc-delimiter">{"("}</span>}
@@ -270,9 +270,9 @@ function translateUrlImpl(exp: TyExport, orig: TyExport) {
     const pp = getPagePath(exp);
     if (pp) {
         return (
-            `/references/` +
-            toPagePath(getPagePath(exp)) +
-            ("#" + toItemHash(getDisplayPath(orig)))
+            `/references/`
+            + toPagePath(getPagePath(exp))
+            + ("#" + toItemHash(getDisplayPath(orig)))
         );
     }
 

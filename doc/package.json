@@ -17,7 +17,10 @@
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "rimraf": "^6.1.2",
-        "webpack": "^5.103.0",
         "sass": "^1.94.2"
+    },
+    "imports": {
+        "#templates/*": "./templates/*",
+        "#api-doc/*": "./api-doc/*"
     }
 }

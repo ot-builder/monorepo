@@ -1,6 +1,6 @@
-import { Algebra } from "@ot-builder/prelude";
+import type { Algebra } from "@ot-builder/prelude";
 
-import * as Transform2X3 from "../transform-2x3";
+import type * as Transform2X3 from "../transform-2x3";
 
 export interface T<X> {
     readonly x: X;
@@ -14,7 +14,7 @@ export interface PointFactoryT<X> {
 
 export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
     public readonly neutral: T<X>;
-    constructor(
+    public constructor(
         private vsX: Algebra.VectorSpace<X, number>,
         private factory: PointFactoryT<X>
     ) {

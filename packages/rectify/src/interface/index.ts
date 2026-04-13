@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 
 // RECTIFICATION INTERFACES
 export interface GlyphReferenceRectifier {

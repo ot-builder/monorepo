@@ -1,10 +1,10 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 
-import * as GeneralLookup from "./general/lookup";
-import * as GeneralGsubGpos from "./general/shared";
+import type * as GeneralLookup from "./general/lookup";
+import type * as GeneralGsubGpos from "./general/shared";
 
 export * as FeatureParams from "./feature-params";
 export * as LookupType from "./general/lookup-type";

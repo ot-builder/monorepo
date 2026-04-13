@@ -87,8 +87,8 @@ function iupContourBoundForcedSet(
             }
 
             const force =
-                roundCost(deltas, dimensions, z, tolerance) === COST_INTEGER &&
-                pointIsForced(c1, cZ, c2, d1, dZ, d2, tolerance);
+                roundCost(deltas, dimensions, z, tolerance) === COST_INTEGER
+                && pointIsForced(c1, cZ, c2, d1, dZ, d2, tolerance);
 
             if (force) forced[zPoint] = true;
         }
@@ -116,8 +116,8 @@ function pointIsForced(
     // This test has to be before the next one.
     if (c1 === c2) {
         return (
-            ImpLib.Arith.Approx.unequal(d1, d2, tolerance) &&
-            ImpLib.Arith.Approx.unequal(dZ, 0, tolerance)
+            ImpLib.Arith.Approx.unequal(d1, d2, tolerance)
+            && ImpLib.Arith.Approx.unequal(dZ, 0, tolerance)
         );
     }
 
@@ -136,16 +136,16 @@ function pointIsForced(
     if (d1 !== d2) {
         if (cZ < c1) {
             return (
-                ImpLib.Arith.Approx.nonzero(dZ, tolerance) &&
-                ImpLib.Arith.Approx.unequal(dZ, d1, tolerance) &&
-                dZ - tolerance < d1 != d1 < d2
+                ImpLib.Arith.Approx.nonzero(dZ, tolerance)
+                && ImpLib.Arith.Approx.unequal(dZ, d1, tolerance)
+                && dZ - tolerance < d1 !== d1 < d2
             );
         } else {
             // c2 < cZ
             return (
-                ImpLib.Arith.Approx.nonzero(dZ, tolerance) &&
-                ImpLib.Arith.Approx.unequal(dZ, d2, tolerance) &&
-                d2 < dZ + tolerance != d1 < d2
+                ImpLib.Arith.Approx.nonzero(dZ, tolerance)
+                && ImpLib.Arith.Approx.unequal(dZ, d2, tolerance)
+                && d2 < dZ + tolerance !== d1 < d2
             );
         }
     }
@@ -203,8 +203,8 @@ function iupOptimizeDP(
         for (let zBefore = zCur - 1; zBefore > -2 && zBefore > zCur - lookback; zBefore--) {
             const cost = costs[zBefore + 1] + rc; // zBefore + 1 always >= 0, so no overflow
             if (
-                cost < bestCost &&
-                canIupBetween(coords, deltas, n, dimensions, zBefore, zCur, tolerance)
+                cost < bestCost
+                && canIupBetween(coords, deltas, n, dimensions, zBefore, zCur, tolerance)
             ) {
                 costs[zCur + 1] = bestCost = cost;
                 chain[zCur + 1] = zBefore;

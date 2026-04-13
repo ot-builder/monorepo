@@ -1,13 +1,13 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { Int16, UInt16 } from "@ot-builder/primitive";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 import { Ptr16DeviceTable } from "./device-table";
@@ -75,10 +75,10 @@ export const GposAnchor = {
             return staticSize;
         } else {
             return (
-                staticSize +
-                UInt16.size * 8 +
-                (a.xDevice ? a.xDevice.length : 0) +
-                (a.yDevice ? a.yDevice.length : 0)
+                staticSize
+                + UInt16.size * 8
+                + (a.xDevice ? a.xDevice.length : 0)
+                + (a.yDevice ? a.yDevice.length : 0)
             );
         }
     },

@@ -1,4 +1,4 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Gasp } from "@ot-builder/ot-metadata";
 import { OtVar } from "@ot-builder/variance";

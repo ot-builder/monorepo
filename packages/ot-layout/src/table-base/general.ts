@@ -1,6 +1,6 @@
-import { GeneralGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { Tag } from "@ot-builder/primitive";
+import type { GeneralGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { Tag } from "@ot-builder/primitive";
 
 export class TableT<G, X> {
     public horizontal: Data.Maybe<AxisTableT<G, X>> = null;
@@ -19,14 +19,14 @@ export class ScriptT<G, X> {
 }
 
 export class BaseValuesT<G, X> {
-    constructor(
+    public constructor(
         public defaultBaselineIndex: number = 0,
         public baseValues: Map<Tag, CoordT<G, X>> = new Map()
     ) {}
 }
 
 export class MinMaxTableT<G, X> {
-    constructor(
+    public constructor(
         public defaultMinMax: MinMaxValueT<G, X>,
         public featMinMax: Map<Tag, MinMaxValueT<G, X>>
     ) {}

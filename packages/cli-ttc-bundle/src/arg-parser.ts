@@ -1,5 +1,5 @@
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
-import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
+import { type CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
 
 import { getPackageVersion } from "./package-version";
 
@@ -121,9 +121,7 @@ export async function displayHelp() {
             });
             s.indent("").message(``).message(`Options:`);
             s.withIndent(Style.Bullet, s => {
-                s.message(Style.Option`--verbose`)
-                    .indent(``)
-                    .message(`Set to verbose mode.`);
+                s.message(Style.Option`--verbose`).indent(``).message(`Set to verbose mode.`);
                 s.message(Style.Option`-u`, `;`, Style.Option`--unify`)
                     .indent(``)
                     .message(`Unify glyph set.`);

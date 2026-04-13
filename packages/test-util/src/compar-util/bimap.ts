@@ -1,6 +1,6 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { CompareContext } from "./context";
+import type { CompareContext } from "./context";
 
 export class BimapCtx<G> implements CompareContext<BimapCtx<G>> {
     private constructor(

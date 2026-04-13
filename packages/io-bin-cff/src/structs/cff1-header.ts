@@ -1,5 +1,5 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { UInt8 } from "@ot-builder/primitive";
+import type { UInt8 } from "@ot-builder/primitive";
 
 export type Cff1Header = {
     majorVersion: UInt8;

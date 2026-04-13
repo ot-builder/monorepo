@@ -5,7 +5,11 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 
 import { GsubReverseReader, GsubReverseWriter } from "../gsub-reverse";
 
-import { LookupRoundTripConfig, LookupRoundTripTest, TuGlyphSet } from "./-shared-test-util.test";
+import {
+    type LookupRoundTripConfig,
+    LookupRoundTripTest,
+    TuGlyphSet
+} from "./-shared-test-util.test";
 
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
 const gOrd = gStore.decideOrder();

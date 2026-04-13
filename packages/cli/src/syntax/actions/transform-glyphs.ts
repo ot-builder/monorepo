@@ -1,8 +1,8 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
-import { CliProc, Ot } from "ot-builder";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { CliProc, type Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
     handle: st => {

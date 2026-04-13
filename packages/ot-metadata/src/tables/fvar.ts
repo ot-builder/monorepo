@@ -1,6 +1,6 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { UInt16 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { UInt16 } from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "fvar";
 
@@ -10,7 +10,7 @@ export enum AxisFlags {
 }
 
 export class Axis {
-    constructor(
+    public constructor(
         public readonly dim: OtVar.Dim,
         public readonly flags: AxisFlags,
         public readonly axisNameID: UInt16
@@ -22,7 +22,7 @@ export enum InstanceFlags {
 }
 
 export class Instance {
-    constructor(
+    public constructor(
         public readonly subfamilyNameID: number,
         public readonly flags: InstanceFlags,
         public readonly coordinates: OtVar.Instance,
@@ -31,7 +31,7 @@ export class Instance {
 }
 
 export class Table {
-    constructor(
+    public constructor(
         public axes: Axis[] = [],
         public instances: Instance[] = []
     ) {}

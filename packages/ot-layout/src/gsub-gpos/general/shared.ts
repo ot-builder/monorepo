@@ -1,5 +1,5 @@
-import { Data, Sigma } from "@ot-builder/prelude";
-import { F2D14, Tag } from "@ot-builder/primitive";
+import type { Data, Sigma } from "@ot-builder/prelude";
+import type { F2D14, Tag } from "@ot-builder/primitive";
 
 export interface FeatureT<G, X, L> {
     tag: Tag;

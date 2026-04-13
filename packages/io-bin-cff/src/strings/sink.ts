@@ -6,7 +6,7 @@ export class CffStringSink {
     private mapping: Map<string, number> = new Map();
     private n: number;
 
-    constructor() {
+    public constructor() {
         this.n = CffStandardStrings.length;
         for (let sid = 0; sid < CffStandardStrings.length; sid++) {
             this.mapping.set(CffStandardStrings[sid], sid);

@@ -1,6 +1,6 @@
 import { Read } from "@ot-builder/bin-util";
 
-import { CffReadContext } from "../context/read";
+import type { CffReadContext } from "../context/read";
 
 import { CffReadIndex } from "./read";
 

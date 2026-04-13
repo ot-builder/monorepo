@@ -1,5 +1,5 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { Data } from "@ot-builder/prelude";
+import { type BinaryView, Frag, type Read, type Write } from "@ot-builder/bin-util";
+import type { Data } from "@ot-builder/prelude";
 
 export function NullablePtr16<TR, AR extends unknown[], TW, AW extends unknown[]>(
     r: Read<TR, AR> & Write<TW, AW>

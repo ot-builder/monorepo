@@ -1,7 +1,7 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { LayoutCommon } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { LayoutCommon } from "@ot-builder/ot-layout";
 
-import { BimapCtx, StdCompare } from "../compar-util";
+import { type BimapCtx, StdCompare } from "../compar-util";
 
 function testSingle(
     bim: BimapCtx<OtGlyph>,

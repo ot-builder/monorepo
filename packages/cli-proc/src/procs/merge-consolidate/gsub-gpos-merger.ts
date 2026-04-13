@@ -1,15 +1,15 @@
 import * as ImpLib from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
-import { Tag } from "@ot-builder/primitive";
+import type { Data } from "@ot-builder/prelude";
+import type { Tag } from "@ot-builder/primitive";
 
-import { FeatureConsolidationSource, FeatureConsolidator } from "./consolidate/feature";
+import { type FeatureConsolidationSource, FeatureConsolidator } from "./consolidate/feature";
 import { mergeMapAlt } from "./utils";
 
-export class GsubGposMerger<
-    L extends Ot.GsubGpos.LookupProp
-> implements FeatureConsolidationSource<L> {
-    constructor(
+export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
+    implements FeatureConsolidationSource<L>
+{
+    public constructor(
         public readonly variationDimensions: Data.Order<Ot.Var.Dim>,
         public readonly preferred: Ot.GsubGpos.TableT<L>,
         public readonly less: Ot.GsubGpos.TableT<L>,

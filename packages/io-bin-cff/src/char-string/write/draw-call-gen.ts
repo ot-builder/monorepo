@@ -1,7 +1,7 @@
-import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
+import { type Cff, OtGlyph } from "@ot-builder/ot-glyphs";
 import { OtVar } from "@ot-builder/variance";
 
-import { CffWriteContext } from "../../context/write";
+import type { CffWriteContext } from "../../context/write";
 import { CharStringOperator } from "../../interp/operator";
 
 import { CffDrawCall, CffDrawCallRaw } from "./draw-call";
@@ -18,7 +18,7 @@ type AdvanceWidthHandler = {
 };
 
 class CffGlyphHandler {
-    constructor(
+    public constructor(
         private readonly widthHandler: null | AdvanceWidthHandler,
         private readonly st: CffCodeGenState
     ) {
@@ -75,8 +75,8 @@ class CffCodeGenState {
         }
         this.maskPr.index += knot;
         while (
-            this.maskIndex < this.masks.length &&
-            OtGlyph.PointRef.compare(this.masks[this.maskIndex].at, this.maskPr) <= 0
+            this.maskIndex < this.masks.length
+            && OtGlyph.PointRef.compare(this.masks[this.maskIndex].at, this.maskPr) <= 0
         ) {
             const mask = this.masks[this.maskIndex];
             this.maskIndex += 1;
@@ -86,11 +86,11 @@ class CffCodeGenState {
 
     private addMask(mask: CompileTimeMask) {
         if (
-            this.rawDrawCalls.length &&
-            (this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
-                CharStringOperator.VStem ||
-                this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
-                    CharStringOperator.VStemHM)
+            this.rawDrawCalls.length
+            && (this.rawDrawCalls[this.rawDrawCalls.length - 1].operator
+                === CharStringOperator.VStem
+                || this.rawDrawCalls[this.rawDrawCalls.length - 1].operator
+                    === CharStringOperator.VStemHM)
         ) {
             this.rawDrawCalls[this.rawDrawCalls.length - 1] = {
                 args: this.rawDrawCalls[this.rawDrawCalls.length - 1].args,
@@ -137,7 +137,7 @@ class CffCodeGenState {
 }
 
 class CffHintHandler {
-    constructor(private readonly st: CffCodeGenState) {}
+    public constructor(private readonly st: CffCodeGenState) {}
 
     public process(h: OtGlyph.Hint) {
         if (h.type === OtGlyph.HintType.CffHint) {
@@ -196,7 +196,7 @@ class CffHintHandler {
 }
 
 class CffGeometryHandler {
-    constructor(private readonly st: CffCodeGenState) {}
+    public constructor(private readonly st: CffCodeGenState) {}
     public process(geom: OtGlyph.Geometry) {
         switch (geom.type) {
             case OtGlyph.GeometryType.ContourSet:
@@ -214,7 +214,7 @@ class CffGeometryHandler {
 
 // A contour handler holds a state machine that processes off-curve control knots knot-by-knot.
 class CffContourHandler {
-    constructor(private readonly st: CffCodeGenState) {}
+    public constructor(private readonly st: CffCodeGenState) {}
 
     // Internal states
     public knotsHandled = 0;

@@ -1,13 +1,13 @@
 import {
-    int16,
-    int32,
-    int8,
+    type int8,
+    type int16,
+    type int32,
+    SizeofUInt8,
     SizeofUInt16,
     SizeofUInt32,
-    SizeofUInt8,
-    uint16,
-    uint32,
-    uint8
+    type uint8,
+    type uint16,
+    type uint32
 } from "./primitive-types";
 
 export class BufferWriter {
@@ -30,7 +30,7 @@ export class BufferWriter {
         return this._wb.slice(0, this.length);
     }
 
-    constructor(cap: number = 0x40) {
+    public constructor(cap: number = 0x40) {
         this._capacity = cap;
         this._wb = Buffer.allocUnsafe(cap);
         this._wb.fill(0);

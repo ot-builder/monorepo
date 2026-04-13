@@ -1,10 +1,15 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { MetricVariance } from "@ot-builder/ot-glyphs";
-import { Maxp } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { DeltaSetIndexMap, IndexMapping, ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { Maxp } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import {
+    DeltaSetIndexMap,
+    type IndexMapping,
+    ReadTimeIVS,
+    WriteTimeIVS
+} from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export const MetricVarianceIo = {
