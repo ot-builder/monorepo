@@ -1,4 +1,4 @@
-/* eslint-env node */
+
 
 import { docPublish } from "./publish-procs/doc-publish.mjs";
 import { publish } from "./publish-procs/publish.mjs";

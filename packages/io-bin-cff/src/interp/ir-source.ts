@@ -48,25 +48,8 @@ export class CffDictIrSource extends BinaryIrSource {
             if (nib0 === 0xf || nib1 === 0xf) break;
         }
         let s = "";
-        // prettier-ignore
-        const chars = [
-            0,
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            ".",
-            "e",
-            "e-",
-            "reserved",
-            "-",
-            "endOfNumber"
-        ];
+        // biome-ignore format: keep simple
+        const chars = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ".", "e", "e-", "reserved", "-", "endOfNumber"];
         for (let nibIndex = 0; nibIndex < nibs.length; nibIndex++) {
             s += chars[nibs[nibIndex]];
         }

@@ -107,7 +107,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
     public read(view: BinaryView, lrf: LookupReaderFactory<L>, lrc: LookupReadContext) {
         const lookupCount = view.uint16();
         const lookups: L[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
         const readers: LookupReader<L, any>[] = [];
         const subtables: BinaryView[][] = [];
         for (let lid = 0; lid < lookupCount; lid++) {

@@ -5,7 +5,6 @@ export type Operand = { t: number };
 export type IR = Operator | Operand;
 
 export function isOperator(ir: IR): ir is Operator {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (ir as any).opCode !== undefined;
 }
 

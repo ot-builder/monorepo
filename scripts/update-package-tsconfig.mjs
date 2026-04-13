@@ -1,4 +1,4 @@
-/* eslint-env node */
+
 
 import * as crypto from "crypto";
 import * as fs from "fs";

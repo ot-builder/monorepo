@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 import path from "path";
 import mdx from "@next/mdx";
 import url from "url";

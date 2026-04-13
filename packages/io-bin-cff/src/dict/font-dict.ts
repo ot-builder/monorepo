@@ -34,8 +34,6 @@ export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
         return this.ctx.strings.get(sid);
     }
 
-    // Justification: This is a dispatch table and does not contain substantial complexity
-    // eslint-disable-next-line complexity
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
             // Strings

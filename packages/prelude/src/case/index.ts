@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type CaseType<Tag, Props> = { readonly type: Tag } & Props;
 export type CaseCtorType<Tag, Props, A extends any[]> = {
     new (...args: A): CaseType<Tag, Props>;

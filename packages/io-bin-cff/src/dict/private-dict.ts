@@ -28,8 +28,6 @@ class PrivateDictInterpreter extends CffDictInterpreterBase {
 
     private result = new Cff.PrivateDict();
 
-    // Justification: This is a dispatch table and does not contain substantial complexity
-    // eslint-disable-next-line complexity
     protected doOperator(opCode: number, flags?: Data.Maybe<number[]>) {
         switch (opCode) {
             case CffOperator.VsIndex: {

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export class TypeID<T> {
     public constructor(public readonly id: string) {}
 }

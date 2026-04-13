@@ -1,7 +1,7 @@
 import { type BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Name } from "@ot-builder/ot-name";
-import * as iconv from "iconv-lite";
+import iconv from "iconv-lite";
 
 // TODO: add more encodings
 function SupportedEncoding(platformID: number, encodingID: number): null | string {

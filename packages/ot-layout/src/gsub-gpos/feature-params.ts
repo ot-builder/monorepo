@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sigma } from "@ot-builder/prelude";
 import type { UInt16, UInt24 } from "@ot-builder/primitive";
 
