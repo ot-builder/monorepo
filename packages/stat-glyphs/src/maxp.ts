@@ -6,7 +6,7 @@ import type { UInt16 } from "@ot-builder/primitive";
 export class MaxpStat implements OtGlyph.Stat.Sink {
     public constructor(
         private readonly maxp: Maxp.Table,
-        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>,
+        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
     ) {}
 
     // MAXP fields
@@ -26,7 +26,7 @@ export class MaxpStat implements OtGlyph.Stat.Sink {
         gid: number,
         horizontal: OtGlyph.Metric,
         vertical: OtGlyph.Metric,
-        extent: OtGlyph.Stat.BoundingBox,
+        extent: OtGlyph.Stat.BoundingBox
     ) {
         if (this.outer) this.outer.setMetric(gid, horizontal, vertical, extent);
     }

@@ -4,7 +4,7 @@ export const Tag = "MVAR";
 export class Entry {
     public constructor(
         public readonly tag: string,
-        public readonly value: OtVar.Value,
+        public readonly value: OtVar.Value
     ) {}
 }
 export class Table {

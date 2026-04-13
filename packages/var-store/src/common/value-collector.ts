@@ -4,11 +4,11 @@ export abstract class DelayValueCollector<
     A extends GeneralVar.Dim,
     M extends GeneralVar.Master<A>,
     X,
-    D,
+    D
 > {
     public constructor(
         private readonly op: GeneralVar.Ops<A, M, X>,
-        private readonly masterSet: GeneralVar.MasterSet<A, M>,
+        private readonly masterSet: GeneralVar.MasterSet<A, M>
     ) {}
 
     private masterList: M[] = [];

@@ -44,7 +44,7 @@ export function createConfig(partial: FontIoConfig): FontIoCfgFinal {
         layout: { ...IoBinLayout.DefaultLayoutProps, ...partial.layout },
         extPrivate: { ...IoBinExtPrivate.DefaultExtPrivateCfgProps, ...partial.extPrivate },
         vttPrivate: { ...IoBinVttPrivate.DefaultVttPrivateCfgProps, ...partial.vttPrivate },
-        generateDummyDigitalSignature: !!partial.generateDummyDigitalSignature,
+        generateDummyDigitalSignature: !!partial.generateDummyDigitalSignature
     };
 }
 

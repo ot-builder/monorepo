@@ -8,7 +8,7 @@ import {
     type TupleVariationGeometryClient,
     TupleVariationRead,
     TupleVariationWriteOpt,
-    type TvdAccess,
+    type TvdAccess
 } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -27,12 +27,12 @@ export const CvarIo = {
         frag: Frag,
         cvt: Cvt.Table,
         designSpace: OtVar.DesignSpace,
-        acEmpty?: ImpLib.Access<boolean>,
+        acEmpty?: ImpLib.Access<boolean>
     ) {
         frag.uint16(1).uint16(0);
         const context: TupleVariationBuildContext = {
             designSpace: designSpace,
-            forceEmbedPeak: true, // This is CVAR so force embedding
+            forceEmbedPeak: true // This is CVAR so force embedding
         };
         const source = new CvtTupleVariationSource(cvt);
         const tvd = TupleVariationWriteOpt.writeOpt(source, context);
@@ -44,7 +44,7 @@ export const CvarIo = {
             // Tell the outside that we are writing something empty
             if (acEmpty) acEmpty.set(true);
         }
-    },
+    }
 };
 
 class CvtTvhClient implements TupleVariationGeometryClient {
@@ -71,7 +71,7 @@ class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     public constructor(
         ms: OtVar.MasterSet,
         public readonly cvt: Cvt.Table,
-        public readonly cvtId: number,
+        public readonly cvtId: number
     ) {
         super(ms);
         this.original = OtVar.Ops.originOf(cvt.items[cvtId] || 0);

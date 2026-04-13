@@ -70,7 +70,7 @@ async function glyphSharingMerging(args: ArgParser) {
     if (args.sparse) {
         sharing = sharer.sparseSharing(
             sharer.fonts[0].head.unitsPerEm,
-            sharer.fonts[0].head.unitsPerEm,
+            sharer.fonts[0].head.unitsPerEm
         );
     } else {
         sharer.unifyGlyphList();
@@ -85,7 +85,7 @@ async function glyphSharingMerging(args: ArgParser) {
             cfg.ttf = {
                 ...cfg.ttf,
                 gvarForceProduceGVD: args.sparse,
-                gvarForceZeroGapsBetweenGVD: args.sparse,
+                gvarForceZeroGapsBetweenGVD: args.sparse
             };
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));
         }

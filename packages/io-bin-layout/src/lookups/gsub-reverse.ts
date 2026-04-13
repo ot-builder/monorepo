@@ -7,7 +7,7 @@ import type {
     LookupReader,
     LookupWriter,
     SubtableReadingContext,
-    SubtableWriteContext,
+    SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -26,11 +26,15 @@ const SubtableFormat1 = {
         const rule: Gsub.ReverseRule = {
             match: [...gssBacktrack, gsInput, ...gssLookAhead],
             doSubAt: gssBacktrack.length,
-            replacement: new Map(),
+            replacement: new Map()
         };
 
         const glyphCount = view.uint16();
-        Assert.SizeMatch(`ReverseChainSingleSubstFormat1::glyphCount`, covInput.length, glyphCount);
+        Assert.SizeMatch(
+            `ReverseChainSingleSubstFormat1::glyphCount`,
+            covInput.length,
+            glyphCount
+        );
 
         for (const from of covInput) {
             rule.replacement.set(ctx.gOrd.at(from), ctx.gOrd.at(view.uint16()));
@@ -43,7 +47,7 @@ const SubtableFormat1 = {
         for (const input of rule.match[rule.doSubAt]) {
             gm.push([
                 ctx.gOrd.reverse(input),
-                ctx.gOrd.reverse(rule.replacement.get(input) || input),
+                ctx.gOrd.reverse(rule.replacement.get(input) || input)
             ]);
         }
         gm = CovUtils.sortAuxMap(gm);
@@ -54,12 +58,12 @@ const SubtableFormat1 = {
                 SimpleCoverageArray,
                 rule.match.slice(0, rule.doSubAt).reverse(),
                 ctx.gOrd,
-                ctx.trick,
+                ctx.trick
             )
             .push(SimpleCoverageArray, rule.match.slice(rule.doSubAt + 1), ctx.gOrd, ctx.trick)
             .uint16(gm.length)
             .array(UInt16, CovUtils.valueListFromAuxMap(gm));
-    },
+    }
 };
 
 export class GsubReverseReader implements LookupReader<Gsub.Lookup, Gsub.ReverseSub> {
@@ -69,7 +73,7 @@ export class GsubReverseReader implements LookupReader<Gsub.Lookup, Gsub.Reverse
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.ReverseSub,
-        ctx: SubtableReadingContext<Gsub.Lookup>,
+        ctx: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -94,7 +98,7 @@ export class GsubReverseWriter implements LookupWriter<Gsub.Lookup, Gsub.Reverse
     }
     public createSubtableFragments(
         lookup: Gsub.ReverseSub,
-        ctx: SubtableWriteContext<Gsub.Lookup>,
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const frags: Frag[] = [];
         for (const rule of lookup.rules) {

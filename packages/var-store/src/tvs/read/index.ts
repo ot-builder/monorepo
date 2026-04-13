@@ -66,7 +66,7 @@ export const TupleVariationRead = Read(
         }
 
         return client.finish();
-    },
+    }
 );
 
 const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) => {
@@ -102,7 +102,7 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
     return {
         master: new OtVar.Master(dims),
         variationDataSize,
-        hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS),
+        hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS)
     };
 });
 

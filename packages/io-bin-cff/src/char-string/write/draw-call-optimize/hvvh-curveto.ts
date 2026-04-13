@@ -15,12 +15,12 @@ export class RRCurveToHVVHCurve extends DrawCallOptimizationPass<CffDrawCall> {
         if (argIsZero(dx1)) {
             return {
                 op: CharStringOperator.VHCurveTo,
-                args: [dy1, dx2, dy2, dx3, ...(argIsZero(dy3) ? [] : [dy3])],
+                args: [dy1, dx2, dy2, dx3, ...(argIsZero(dy3) ? [] : [dy3])]
             };
         } else if (argIsZero(dy1)) {
             return {
                 op: CharStringOperator.HVCurveTo,
-                args: [dx1, dx2, dy2, dy3, ...(argIsZero(dx3) ? [] : [dx3])],
+                args: [dx1, dx2, dy2, dy3, ...(argIsZero(dx3) ? [] : [dx3])]
             };
         } else {
             return null;

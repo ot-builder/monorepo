@@ -18,8 +18,8 @@ export const VersionSyntax: Syntax<null | CliAction> = {
             Style.Option`-v`,
             `;`,
             Style.Cmd`otb-cli`,
-            Style.Option`--version`,
+            Style.Option`--version`
         );
         shower.indent("").message("Display version of this utility.");
-    },
+    }
 };

@@ -4,7 +4,7 @@ import type * as Ot from "@ot-builder/ot";
 export enum OptimizationLevel {
     Speed = 0,
     None = 1,
-    Size = 2,
+    Size = 2
 }
 
 export interface CliArgSource {

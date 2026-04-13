@@ -53,5 +53,5 @@ export enum LookupFlag {
     IgnoreLigatures = 4,
     IgnoreMarks = 8,
     UseMarkFilteringSet = 0x0010,
-    MarkAttachmentType = 0xff00,
+    MarkAttachmentType = 0xff00
 }

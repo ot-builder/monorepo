@@ -34,7 +34,9 @@ export const GdefTableIo = {
         gdef.markAttachClassDef = pMarkAttachClassDef
             ? pMarkAttachClassDef.next(ClassDef, gOrd)
             : null;
-        gdef.markGlyphSets = pMarkGlyphSetsDef ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd) : null;
+        gdef.markGlyphSets = pMarkGlyphSetsDef
+            ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd)
+            : null;
 
         return { gdef, ivs };
     }),
@@ -46,7 +48,7 @@ export const GdefTableIo = {
             cfg: LayoutCfg,
             gOrd: Data.Order<OtGlyph>,
             ivs: Data.Maybe<WriteTimeIVS>,
-            designSpace: Data.Maybe<OtVar.DesignSpace>,
+            designSpace: Data.Maybe<OtVar.DesignSpace>
         ) => {
             const trick = cfg.layout.gdefWriteTrick || 0;
             const fClassDef = gdef.glyphClassDef
@@ -80,6 +82,6 @@ export const GdefTableIo = {
             frag.ptr16(fMarkAttachClassDef);
             if (minorVersion >= 2) frag.ptr16(fMarkGlyphSets);
             if (minorVersion >= 3) frag.ptr32(fIVS);
-        },
-    ),
+        }
+    )
 };

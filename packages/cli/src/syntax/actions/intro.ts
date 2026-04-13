@@ -26,13 +26,13 @@ export const IntroSyntax: Syntax<null | CliAction> = {
             .indent()
             .message(`Introduces a font into the stack from`, Style.Param`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
-    },
+    }
 };
 
 export async function loadFontFromFile<GS extends Ot.GlyphStore>(
     path: string,
     gsf: Ot.GlyphStoreFactoryWithDefault<GS>,
-    cfg?: FontIo.FontIoConfig,
+    cfg?: FontIo.FontIoConfig
 ) {
     const bufFont = await Fs.promises.readFile(Path.resolve(path));
     return FontIo.readFont(FontIo.readSfntOtf(bufFont), gsf, cfg);

@@ -9,16 +9,16 @@ export const CffStringIndex = {
     ...Read((view, ctx: CffReadContext) => {
         return view.next(
             new CffReadIndex({ read: (view, ctx, size) => view.bytes(size).toString("utf8") }),
-            ctx,
+            ctx
         );
     }),
     ...Write((frag, strings: string[], ctx: CffWriteContext) => {
         frag.push(
             new CffWriteIndex<string>({
-                write: (f, item, ctx) => f.bytes(Buffer.from(item, "utf8")),
+                write: (f, item, ctx) => f.bytes(Buffer.from(item, "utf8"))
             }),
             strings,
-            ctx,
+            ctx
         );
-    }),
+    })
 };

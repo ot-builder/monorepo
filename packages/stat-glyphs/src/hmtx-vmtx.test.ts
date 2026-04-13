@@ -12,7 +12,7 @@ test("HMTX-VMTX stat test", () => {
         0,
         { start: 0, end: 1000 },
         { start: 800, end: -200 },
-        { xMin: 50, xMax: 950, yMin: -150, yMax: 750 },
+        { xMin: 50, xMax: 950, yMin: -150, yMax: 750 }
     );
     statV.settle();
 

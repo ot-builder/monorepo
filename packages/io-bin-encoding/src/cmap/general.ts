@@ -8,7 +8,7 @@ import type { EncodingCfg } from "../cfg";
 export enum SubtableHandlerKey {
     UnicodeBmp = 1,
     UnicodeFull = 2,
-    UnicodeVS = 3,
+    UnicodeVS = 3
 }
 export type SubtableWriteOptions = EncodingCfg & {
     forceWriteUnicodeFull?: boolean;

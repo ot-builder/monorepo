@@ -104,7 +104,7 @@ namespace OutlierAnalyzerImpl {
             cm: ClassMatrix<G>,
             c1p: number,
             c1t: number,
-            sink: number[],
+            sink: number[]
         ) {
             let pc = 0;
             for (const c2 of sink) {
@@ -160,7 +160,7 @@ namespace OutlierAnalyzerImpl {
             cm: ClassMatrix<G>,
             c2p: number,
             c2t: number,
-            sink: number[],
+            sink: number[]
         ) {
             let pc = 0;
             for (const c1 of sink) {

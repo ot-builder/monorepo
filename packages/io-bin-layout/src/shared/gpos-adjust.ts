@@ -20,7 +20,7 @@ export enum GposAdjustmentFormat {
     X_PLACEMENT_DEVICE = 0x0010,
     Y_PLACEMENT_DEVICE = 0x0020,
     X_ADVANCE_DEVICE = 0x0040,
-    Y_ADVANCE_DEVICE = 0x0080,
+    Y_ADVANCE_DEVICE = 0x0080
 }
 
 function needDeviceEntry(dt: Data.Maybe<ReadonlyArray<number>>, v: OtVar.Value) {
@@ -63,7 +63,7 @@ export const GposAdjustment = {
             dX: 0,
             dY: 0,
             dWidth: 0,
-            dHeight: 0,
+            dHeight: 0
         };
         if (format & GposAdjustmentFormat.X_PLACEMENT) {
             adj.dX = view.int16();
@@ -125,28 +125,28 @@ export const GposAdjustment = {
         if (format & GposAdjustmentFormat.X_PLACEMENT_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dXDevice, adj.dX, {
                 variation: adj.dX,
-                deviceDeltas: adj.dXDevice,
+                deviceDeltas: adj.dXDevice
             });
             b.push(Ptr16DeviceTable, dt, ivs);
         }
         if (format & GposAdjustmentFormat.Y_PLACEMENT_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dYDevice, adj.dY, {
                 variation: adj.dY,
-                deviceDeltas: adj.dYDevice,
+                deviceDeltas: adj.dYDevice
             });
             b.push(Ptr16DeviceTable, dt, ivs);
         }
         if (format & GposAdjustmentFormat.X_ADVANCE_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dWidthDevice, adj.dWidth, {
                 variation: adj.dWidth,
-                deviceDeltas: adj.dWidthDevice,
+                deviceDeltas: adj.dWidthDevice
             });
             b.push(Ptr16DeviceTable, dt, ivs);
         }
         if (format & GposAdjustmentFormat.Y_ADVANCE_DEVICE) {
             const dt = omitWhenNoDeviceNeed(adj.dWidthDevice, adj.dWidth, {
                 variation: adj.dHeight,
-                deviceDeltas: adj.dHeightDevice,
+                deviceDeltas: adj.dHeightDevice
             });
             b.push(Ptr16DeviceTable, dt, ivs);
         }
@@ -201,14 +201,14 @@ export const GposAdjustment = {
         const sink = Crypto.createHash("sha256");
         hasher.transfer(sink);
         return sink.digest("hex");
-    },
+    }
 };
 
 export function hashVarVal(
     h: ImpLib.Hasher,
     ivs: Data.Maybe<WriteTimeIVS>,
     x: OtVar.Value,
-    device: Data.Maybe<ReadonlyArray<number>>,
+    device: Data.Maybe<ReadonlyArray<number>>
 ) {
     h.number(ImpLib.Arith.Round.Offset(OtVar.Ops.originOf(x)));
     const oi = ivs?.valueToInnerOuterID(x);

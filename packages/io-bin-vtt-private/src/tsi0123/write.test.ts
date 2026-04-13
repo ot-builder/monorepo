@@ -47,7 +47,7 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
         1,
         0,
         0,
-        1,
+        1
     );
     eis.setComponentInfo(0, 1, ComponentFlag.ARGS_ARE_XY_VALUES, 2, 2, 3, 1, 0, 0, 1);
     eis.setComponentInfo(
@@ -60,7 +60,7 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
         2,
         0,
         0,
-        2,
+        2
     );
     eis.setComponentInfo(0, 3, ComponentFlag.WE_HAVE_A_TWO_BY_TWO, 4, 254, -435, 2, 0.5, 0.5, 2);
 
@@ -69,7 +69,7 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
         gOrd.at(0),
         "OVERLAP[]\rUSEMYMETRICS[]\rOFFSET[R], 1, 1, 2\r" +
             "OVERLAP[]\rOFFSET[r], 2, 2, 3\r\r" +
-            "Body",
+            "Body"
     );
 
     const frTSI0 = new Frag();
@@ -85,6 +85,6 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
             "OVERLAP[]\rOFFSET[r], 2, 2, 3\r" +
             "OVERLAP[]\rSOFFSET[r], 3, 3, 4, 2.0000, 0.0000, 0.0000, 2.0000\r" +
             "OVERLAP[]\rSANCHOR[r], 4, 254, -435, 2.0000, 0.5000, 0.5000, 2.0000\r\r" +
-            "Body",
+            "Body"
     );
 });

@@ -18,7 +18,7 @@ export const MathGlyphInfo = {
             mathItalicsCorrection,
             topAccentAttachment,
             extendedShapes,
-            kernInfo,
+            kernInfo
         );
     },
     write(fr: Frag, gi: OtMath.GlyphInfo, gOrd: Data.Order<OtGlyph>) {
@@ -26,6 +26,6 @@ export const MathGlyphInfo = {
         fr.push(Ptr16GlyphMathValueRecordMap, gi.topAccentAttachments, gOrd);
         fr.push(NullablePtr16GlyphCoverage, gi.extendedShapes, gOrd);
         fr.push(Ptr16GlyphMathKernInfoMap, gi.kernInfos, gOrd);
-    },
+    }
 };
 export const Ptr16MathGlyphInfoNullable = NullablePtr16(MathGlyphInfo);

@@ -12,7 +12,7 @@ enum DeltaFormat {
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     FORMAT_MASK = 0x0003,
     VARIATION_INDEX = 0x8000,
-    Reserved = 0x7ffc,
+    Reserved = 0x7ffc
 }
 
 function deviceDeltaSizeFromFormat(format: number) {
@@ -56,7 +56,7 @@ export const DeviceDeltaBits = {
             deltas: ReadonlyArray<number>,
             ppemMin: number,
             ppemMax: number,
-            deltaFormat: number,
+            deltaFormat: number
         ) => {
             const deltaBits = deviceDeltaSizeFromFormat(deltaFormat);
             const deltasPerWord = 16 / deltaBits;
@@ -75,8 +75,8 @@ export const DeviceDeltaBits = {
                 }
             }
             if (!flushed) bb.uint16(word);
-        },
-    ),
+        }
+    )
 };
 
 export const EmptyDeviceTable = Write((frag) => {
@@ -121,7 +121,7 @@ export const DeviceTable = {
             } else {
                 return bp.next(DeviceDeltaBits, arg0, arg1, deltaFormat);
             }
-        },
+        }
     ),
     ...Write(
         (bb, v: LayoutCommon.Adjust.DeviceDataT<OtVar.Value>, ivs?: Data.Maybe<WriteTimeIVS>) => {
@@ -148,8 +148,8 @@ export const DeviceTable = {
             } else {
                 bb.push(EmptyDeviceTable, undefined);
             }
-        },
-    ),
+        }
+    )
 };
 
 export const Ptr16DeviceTable = NullablePtr16(DeviceTable);

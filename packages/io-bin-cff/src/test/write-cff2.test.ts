@@ -22,7 +22,7 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
         ReadCff2,
         cfg,
         gs.decideOrder(),
-        designSpace,
+        designSpace
     );
     const timeRead = new Date();
     const bufCff = Frag.pack(Frag.from(WriteCff2, cff, gs.decideOrder(), cfg, head, designSpace));
@@ -33,7 +33,7 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
         ReadCff2,
         cfg,
         gs1.decideOrder(),
-        designSpace,
+        designSpace
     );
 
     GlyphIdentity.testStore(gs, gs1, GlyphIdentity.CompareMode.RemoveCycle);
@@ -41,17 +41,17 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     console.log(
         `Test file ${file}\n` +
             `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
+            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
     );
 }
 
 const DontOptimize: Partial<CffCfgProps> = {
     doGlobalOptimization: false,
-    doLocalOptimization: false,
+    doLocalOptimization: false
 };
 const Optimize: Partial<CffCfgProps> = {
     doGlobalOptimization: true,
-    doLocalOptimization: true,
+    doLocalOptimization: true
 };
 
 test("CFF2 Write: roundtrip, Source Serif Variable Roman", () => {

@@ -27,5 +27,5 @@ export const MarkGlyphSets = {
         for (const mgs of markGlyphSets) {
             frag.ptr32New().push(GidCoverage, CovUtils.gidListFromGlyphSet(mgs, gOrd), trick);
         }
-    }),
+    })
 };

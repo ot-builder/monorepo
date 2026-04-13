@@ -15,7 +15,7 @@ export const GaspTableIo = {
         Assert.NoGap(`GaspTable::ranges`, table.ranges);
         frag.uint16(1).uint16(table.ranges.length);
         frag.array(GapsRange, table.ranges);
-    },
+    }
 };
 
 const GapsRange = {
@@ -27,5 +27,5 @@ const GapsRange = {
     write(frag: Frag, range: Gasp.Range) {
         frag.uint16(OtVar.Ops.originOf(range.maxPPEM));
         frag.uint16(range.behavior);
-    },
+    }
 };

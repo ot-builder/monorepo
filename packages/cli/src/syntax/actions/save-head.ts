@@ -25,11 +25,11 @@ export const SaveHeadSyntax: Syntax<null | CliAction> = {
             Style.Param`path`,
             `;`,
             Style.Option`++save`,
-            Style.Param`path`,
+            Style.Param`path`
         );
         shower
             .indent()
             .message(`Shift the stack bottom font and save into the`, Style.Param`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
-    },
+    }
 };

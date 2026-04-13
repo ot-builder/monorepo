@@ -19,12 +19,12 @@ test("Draw call optimization: HV-lineto", () => {
             new CffDrawCallRaw([0, 1], CharStringOperator.RLineTo),
             new CffDrawCallRaw([0, 0], CharStringOperator.RLineTo),
             new CffDrawCallRaw([0, 2], CharStringOperator.RLineTo),
-            new CffDrawCallRaw([3, 0], CharStringOperator.RLineTo),
+            new CffDrawCallRaw([3, 0], CharStringOperator.RLineTo)
         ],
         `
         1 0 2 3 HLineTo
         1 1 RLineTo
         1 0 2 3 VLineTo
-        `,
+        `
     );
 });

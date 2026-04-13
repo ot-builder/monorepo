@@ -7,7 +7,7 @@ import { type LookupCtx, StdCompare } from "../../compar-util";
 function ruleMatch<L>(
     bmg: LookupCtx<OtGlyph, L>,
     rExp: GsubGpos.ChainingRule<L>,
-    rAct: GsubGpos.ChainingRule<L>,
+    rAct: GsubGpos.ChainingRule<L>
 ) {
     if (rExp.match.length !== rAct.match.length) return false;
     if (rExp.inputBegins !== rAct.inputBegins) return false;
@@ -27,7 +27,7 @@ function ruleMatch<L>(
 function testSingle<L>(
     bmg: LookupCtx<OtGlyph, L>,
     expected: GsubGpos.ChainingProp<L>,
-    actual: GsubGpos.ChainingProp<L>,
+    actual: GsubGpos.ChainingProp<L>
 ) {
     for (const rExp of expected.rules) {
         let foundMatchRule = false;

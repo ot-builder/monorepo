@@ -15,5 +15,5 @@ export const TSI5Table = {
         for (const glyph of gOrd) {
             frag.uint16(table.charGroupFlags.get(glyph) || 0);
         }
-    }),
+    })
 };

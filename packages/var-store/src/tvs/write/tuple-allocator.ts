@@ -5,7 +5,7 @@ import type { OtVar } from "@ot-builder/variance";
 export class TupleStorage {
     public constructor(
         public index: number,
-        public tuple: F2D14[],
+        public tuple: F2D14[]
     ) {}
 }
 
@@ -42,7 +42,7 @@ export interface AxesTuples {
 export class MasterToTupleConverter {
     public constructor(
         private designSpace: OtVar.DesignSpace,
-        private forceKeepMinMax: boolean,
+        private forceKeepMinMax: boolean
     ) {}
     private cache: WeakMap<OtVar.Master, AxesTuples> = new Map();
     private getTuplesImpl(master: OtVar.Master): AxesTuples {

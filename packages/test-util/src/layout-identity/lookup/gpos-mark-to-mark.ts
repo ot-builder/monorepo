@@ -12,7 +12,7 @@ function testSingle(bmg: BimapCtx<OtGlyph>, expected: Gpos.MarkToMark, actual: G
             const offsetExpected = getOffset(mre, bre);
             const offsetActual = getOffset(
                 actual.marks.get(bmg.forward(gme)),
-                actual.baseMarks.get(bmg.forward(gbe)),
+                actual.baseMarks.get(bmg.forward(gbe))
             );
             FastMatch.otvar(offsetExpected.x, offsetActual.x, `${gme.name} >< ${gbe.name} / x`);
             FastMatch.otvar(offsetExpected.y, offsetActual.y, `${gme.name} >< ${gbe.name} / y`);

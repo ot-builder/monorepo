@@ -25,7 +25,7 @@ export const WriteCff1 = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: CffCfg,
         head: Head.Table,
-        stat?: Data.Maybe<OtGlyph.Stat.Sink>,
+        stat?: Data.Maybe<OtGlyph.Stat.Sink>
     ) => {
         cffCleanupUnusedData(cff);
         const ctx = new CffWriteContext(cff.version, head.unitsPerEm, false, stat);
@@ -42,21 +42,21 @@ export const WriteCff1 = Write(
             majorVersion: 1,
             minorVersion: 0,
             headerSize: 4,
-            offSize: 4,
+            offSize: 4
         });
         frag.push(CffStringIndex, [cff.postScriptFontName], ctx);
         frag.push(CffTopDictIndexWrite, td, ctx);
         frag.push(CffStringIndex, ctx.strings.getStringIndexList(), ctx);
         frag.push(CffSubroutineIndex, charStringResults.globalSubroutines, ctx);
         cffCleanupUnusedData(cff);
-    },
+    }
 );
 
 function setupTopDict(
     cff: Cff.Table,
     gOrd: Data.Order<OtGlyph>,
     charStringResults: CharStringGlobalOptimizeResult,
-    ctx: CffWriteContext,
+    ctx: CffWriteContext
 ) {
     const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
     if (cff.cid) td.cidROS = cff.cid;

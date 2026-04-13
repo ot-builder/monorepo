@@ -26,14 +26,14 @@ test("Reading : TTF, variable", () => {
         GlyfTableRead,
         loca,
         gOrd,
-        new OtGlyph.CoStat.Forward(),
+        new OtGlyph.CoStat.Forward()
     );
     const gvar = new BinaryView(sfnt.tables.get(GvarTag)!).next(
         GvarTableRead,
         gOrd,
         cfg,
         {},
-        fvar!.getDesignSpace(),
+        fvar!.getDesignSpace()
     );
     const thin = new OtVar.Master([{ dim: fvar!.axes[0].dim, min: -1, peak: -1, max: 0 }]);
     const bold = new OtVar.Master([{ dim: fvar!.axes[0].dim, min: 0, peak: +1, max: +1 }]);
@@ -45,7 +45,7 @@ test("Reading : TTF, variable", () => {
         const outlines = notDef.geometry as OtGlyph.ContourSet;
         expect(OtVar.Ops.equal(outlines.contours[0][0].x, 80)).toBe(true);
         expect(
-            OtVar.Ops.equal(outlines.contours[0][1].x, cr.make(500, [thin, 35], [bold, -40])),
+            OtVar.Ops.equal(outlines.contours[0][1].x, cr.make(500, [thin, 35], [bold, -40]))
         ).toBe(true);
     }
     {
@@ -64,9 +64,9 @@ test("Reading : TTF, variable", () => {
         const diacritic = geom.items[1] as OtGlyph.TtReference;
         expect(base.to).toBe(gOrd.at(302));
         expect(diacritic.to).toBe(gOrd.at(806));
-        expect(OtVar.Ops.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))).toBe(
-            true,
-        );
+        expect(
+            OtVar.Ops.equal(diacritic.transform.dx, cr.make(148, [thin, +3], [bold, +14]))
+        ).toBe(true);
         expect(OtVar.Ops.equal(diacritic.transform.dy, 0)).toBe(true);
     }
 });

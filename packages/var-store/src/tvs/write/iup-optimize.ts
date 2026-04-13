@@ -17,7 +17,7 @@ function canIupBetween(
     dimensions: number,
     zPrev: number,
     zNext: number,
-    tolerance: number,
+    tolerance: number
 ) {
     for (let dim = 0; dim < dimensions; dim++) {
         const zdPrev = ImpLib.Arith.d2(dimensions, ImpLib.Arith.pmod(zPrev, n), dim);
@@ -31,7 +31,7 @@ function canIupBetween(
                 ImpLib.Arith.Round.Coord(coords[zdPoint]),
                 ImpLib.Arith.Round.Coord(coords[zdNext]),
                 ImpLib.Arith.Round.Coord(deltas[zdPrev]),
-                ImpLib.Arith.Round.Coord(deltas[zdNext]),
+                ImpLib.Arith.Round.Coord(deltas[zdNext])
             );
 
             if (!ImpLib.Arith.Approx.equal(original, interpolated, tolerance)) return false;
@@ -51,7 +51,7 @@ function iupContourBoundForcedSet(
     deltas: ReadonlyArray<number>,
     n: number,
     dimensions: number,
-    tolerance: number,
+    tolerance: number
 ) {
     // Track "last" and "next" points on the contour as we sweep.
     let zN = 0,
@@ -107,7 +107,7 @@ function pointIsForced(
     d1: number,
     dZ: number,
     d2: number,
-    tolerance: number,
+    tolerance: number
 ) {
     // If the two coordinates are the same, then the interpolation
     // algorithm produces the same delta if both deltas are equal,
@@ -162,7 +162,7 @@ function roundCost(
     deltas: ReadonlyArray<number>,
     dimensions: number,
     point: number,
-    tolerance: number,
+    tolerance: number
 ) {
     let c = COST_INTEGER;
     for (let dim = 0; dim < dimensions; dim++) {
@@ -186,7 +186,7 @@ function iupOptimizeDP(
     n: number,
     dimensions: number,
     tolerance: number,
-    forces: boolean[] = [],
+    forces: boolean[] = []
 ) {
     const lookback = Math.min(MaxLookback, n);
 
@@ -249,7 +249,7 @@ export function iupOptimize(
     n: number, // Count of points in this contour
     coords: ReadonlyArray<number>, // N * Dimensions items of static coordinates
     deltas: ReadonlyArray<number>, // N * Dimensions items of deltas
-    tolerance: number, // Tolerance
+    tolerance: number // Tolerance
 ): boolean[] {
     if (n <= dimensions) return ImpLib.BitMask.Trues(n);
 
@@ -301,7 +301,7 @@ export function iupOptimize(
             2 * n,
             dimensions,
             tolerance,
-            forces,
+            forces
         );
 
         let bestSolution: boolean[] = ImpLib.BitMask.Trues(n),

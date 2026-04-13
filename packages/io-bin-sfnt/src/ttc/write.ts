@@ -8,7 +8,7 @@ import {
     BufferToSlice,
     collectTableData,
     type TableRecord,
-    type TableSliceCollection,
+    type TableSliceCollection
 } from "../otf/collector";
 
 export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {

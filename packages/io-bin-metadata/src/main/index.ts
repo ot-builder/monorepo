@@ -11,7 +11,7 @@ import {
     MetricHead,
     Os2,
     type OtFontIoMetadata,
-    Post,
+    Post
 } from "@ot-builder/ot-metadata";
 import type { Sfnt } from "@ot-builder/ot-sfnt";
 
@@ -68,7 +68,11 @@ export function readOtMetadata(sfnt: Sfnt, cfg: FontMetadataCfg): OtFontIoMetada
     return md;
 }
 
-export function writeOtMetadata(sink: SfntIoTableSink, cfg: FontMetadataCfg, md: OtFontIoMetadata) {
+export function writeOtMetadata(
+    sink: SfntIoTableSink,
+    cfg: FontMetadataCfg,
+    md: OtFontIoMetadata
+) {
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(MvarTableIo, md.fvar.getDesignSpace(), md, sfEmpty);
@@ -82,7 +86,7 @@ export function writeOtMetadata(sink: SfntIoTableSink, cfg: FontMetadataCfg, md:
     if (md.post) {
         sink.add(
             Post.Tag,
-            Frag.packFrom(PostAndNameIo, md.post, md.maxp.numGlyphs, md.postGlyphNaming),
+            Frag.packFrom(PostAndNameIo, md.post, md.maxp.numGlyphs, md.postGlyphNaming)
         );
     }
     if (md.vhea) sink.add(MetricHead.TagVhea, Frag.packFrom(MetricHeadIo, md.vhea));

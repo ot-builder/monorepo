@@ -22,5 +22,5 @@ export const RebaseSyntax: Syntax<null | CliAction> = {
     displayHelp(shower: CliHelpShower) {
         shower.message(Style.Option`--rebase`, Style.Param`upm`);
         shower.indent("").message("Change the unit-per-em value of the font at the stack top.");
-    },
+    }
 };

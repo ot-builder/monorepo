@@ -16,7 +16,7 @@ import {
     CffDictDataCollector,
     type CffDictInterpreter,
     CffDictReadT,
-    CffDictWriteT,
+    CffDictWriteT
 } from "./general";
 
 export class CffTopDictInterpreter
@@ -78,9 +78,9 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
                 [
                     ctx.strings.push(td.cidROS.registry),
                     ctx.strings.push(td.cidROS.ordering),
-                    td.cidROS.supplement,
+                    td.cidROS.supplement
                 ],
-                CffOperator.ROS,
+                CffOperator.ROS
             );
         }
         yield* this.fdDC.collectDrawCalls(td.fd, ctx, rest);
@@ -88,13 +88,13 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
             const bBox = ctx.stat.fontBBox.getResult();
             yield new CffDrawCallRaw(
                 [bBox.xMin, bBox.yMin, bBox.xMax, bBox.yMax],
-                CffOperator.FontBBox,
+                CffOperator.FontBBox
             );
         }
         if (ctx.upm !== 1000) {
             yield new CffDrawCallRaw(
                 [1 / ctx.upm, 0, 0, 1 / ctx.upm, 0, 0],
-                CffOperator.FontMatrix,
+                CffOperator.FontMatrix
             );
         }
     }
@@ -103,7 +103,7 @@ export class CffTopDictDataCollector extends CffDictDataCollector<CffTopDictWrit
         encoder: DictEncoder,
         td: CffTopDictWrite,
         ctx: CffWriteContext,
-        rest: undefined,
+        rest: undefined
     ) {
         this.fdDC.processPointers(encoder, td.fd, ctx, rest);
         if (td.fgVarStore) encoder.absPointer(td.fgVarStore, CffOperator.VStore);
@@ -138,15 +138,15 @@ export class CffTopDictWrite {
 
 export const CffTopDictIo = {
     ...CffDictReadT((viewDict, ctx) => new CffTopDictInterpreter(ctx)),
-    ...CffDictWriteT(new CffTopDictDataCollector()),
+    ...CffDictWriteT(new CffTopDictDataCollector())
 };
 
 const CffGeneralTopDictIndexWrite = new CffWriteIndex({
-    write: (f, fd: CffTopDictWrite, ctx) => f.push(CffTopDictIo, fd, ctx, undefined),
+    write: (f, fd: CffTopDictWrite, ctx) => f.push(CffTopDictIo, fd, ctx, undefined)
 });
 
 export const CffTopDictIndexWrite = {
     ...Write((frag, td: CffTopDictWrite, ctx: CffWriteContext) => {
         return frag.push(CffGeneralTopDictIndexWrite, [td], ctx);
-    }),
+    })
 };

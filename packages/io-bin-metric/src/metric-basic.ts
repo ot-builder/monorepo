@@ -37,5 +37,5 @@ export const MetricBasicIo = {
                 frag.int16(measure.startSideBearing);
             }
         }
-    }),
+    })
 };

@@ -21,7 +21,7 @@ export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
         shower.message(
             Style.Option`++recalc-os2-avg-char-width`,
             `;`,
-            Style.Option`--recalc-os2-avg-char-width`,
+            Style.Option`--recalc-os2-avg-char-width`
         );
         shower
             .indent("")
@@ -32,7 +32,7 @@ export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
                 Style.Option`--recalc-os2-avg-char-width`,
                 `to disable,`,
                 Style.Option`++recalc-os2-avg-char-width`,
-                `to enable. By default recalculation is enabled.`,
+                `to enable. By default recalculation is enabled.`
             );
-    },
+    }
 };

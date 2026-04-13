@@ -8,7 +8,7 @@ export function TestRawDcOptimize(
     ctx: CffWriteContext,
     passes: DrawCallOptimizationPass<unknown>[],
     original: CffDrawCallRaw[],
-    optimized: string,
+    optimized: string
 ) {
     const dc = CffDrawCall.charStringSeqFromRawSeq(ctx, original);
     const dcOpt = Array.from(cffOptimizeDrawCall(dc, passes));

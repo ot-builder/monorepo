@@ -9,7 +9,7 @@ import {
     type LookupWriter,
     type SubtableReadingContext,
     SubtableSizeLimit,
-    type SubtableWriteContext,
+    type SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -23,7 +23,7 @@ const SubtableFormat1 = {
         Assert.SizeMatch(
             `LigatureSubstFormat1::ligatureSetCount`,
             ligatureSetCount,
-            coverage.length,
+            coverage.length
         );
 
         for (const gidFirst of coverage) {
@@ -36,7 +36,7 @@ const SubtableFormat1 = {
                 const componentGlyphIDs = ligature.array(componentCount - 1, UInt16);
                 lookup.mapping.push({
                     from: [gidFirst, ...componentGlyphIDs].map((gid) => context.gOrd.at(gid)),
-                    to: context.gOrd.at(gidLigatureGlyph),
+                    to: context.gOrd.at(gidLigatureGlyph)
                 });
             }
         }
@@ -44,7 +44,7 @@ const SubtableFormat1 = {
     write(
         frag: Frag,
         mapping: Map<OtGlyph, LigatureCont[]>,
-        ctx: SubtableWriteContext<Gsub.Lookup>,
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
@@ -60,11 +60,11 @@ const SubtableFormat1 = {
                     .uint16(rests.length + 1)
                     .array(
                         UInt16,
-                        rests.map((g) => ctx.gOrd.reverse(g)),
+                        rests.map((g) => ctx.gOrd.reverse(g))
                     );
             }
         }
-    },
+    }
 };
 
 export class GsubLigatureReader implements LookupReader<Gsub.Lookup, Gsub.Ligature> {
@@ -75,7 +75,7 @@ export class GsubLigatureReader implements LookupReader<Gsub.Lookup, Gsub.Ligatu
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Ligature,
-        context: SubtableReadingContext<Gsub.Lookup>,
+        context: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {

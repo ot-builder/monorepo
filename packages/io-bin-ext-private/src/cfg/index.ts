@@ -8,5 +8,5 @@ export interface ExtPrivateCfgPt {
     extPrivate?: Partial<ExtPrivateCfgProps>;
 }
 export const DefaultExtPrivateCfgProps: ExtPrivateCfgProps = {
-    processExtPrivateTable: true,
+    processExtPrivateTable: true
 };

@@ -6,12 +6,12 @@ import { RectifyImpl } from "../../shared";
 export function rectifyMathTable(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    mt: Ot.Math.Table,
+    mt: Ot.Math.Table
 ) {
     return new Ot.Math.Table(
         RectifyImpl.maybeT(rc, mt.constants, rectifyMathConstants),
         RectifyImpl.maybe2T(rg, rc, mt.glyphInfo, rectifyGlyphInfo),
-        RectifyImpl.maybe2T(rg, rc, mt.variants, rectifyVariants),
+        RectifyImpl.maybe2T(rg, rc, mt.variants, rectifyVariants)
     );
 }
 
@@ -35,7 +35,7 @@ function rectifyMathConstants(rc: CoordRectifier, mc: Ot.Math.Constants) {
     mc1.subSuperscriptGapMin = rectifyValueRecord(rc, mc.subSuperscriptGapMin);
     mc1.superscriptBottomMaxWithSubscript = rectifyValueRecord(
         rc,
-        mc.superscriptBottomMaxWithSubscript,
+        mc.superscriptBottomMaxWithSubscript
     );
     mc1.spaceAfterScript = rectifyValueRecord(rc, mc.spaceAfterScript);
     mc1.upperLimitGapMin = rectifyValueRecord(rc, mc.upperLimitGapMin);
@@ -47,7 +47,7 @@ function rectifyMathConstants(rc: CoordRectifier, mc: Ot.Math.Constants) {
     mc1.stackBottomShiftDown = rectifyValueRecord(rc, mc.stackBottomShiftDown);
     mc1.stackBottomDisplayStyleShiftDown = rectifyValueRecord(
         rc,
-        mc.stackBottomDisplayStyleShiftDown,
+        mc.stackBottomDisplayStyleShiftDown
     );
     mc1.stackGapMin = rectifyValueRecord(rc, mc.stackGapMin);
     mc1.stackDisplayStyleGapMin = rectifyValueRecord(rc, mc.stackDisplayStyleGapMin);
@@ -58,12 +58,12 @@ function rectifyMathConstants(rc: CoordRectifier, mc: Ot.Math.Constants) {
     mc1.fractionNumeratorShiftUp = rectifyValueRecord(rc, mc.fractionNumeratorShiftUp);
     mc1.fractionNumeratorDisplayStyleShiftUp = rectifyValueRecord(
         rc,
-        mc.fractionNumeratorDisplayStyleShiftUp,
+        mc.fractionNumeratorDisplayStyleShiftUp
     );
     mc1.fractionDenominatorShiftDown = rectifyValueRecord(rc, mc.fractionDenominatorShiftDown);
     mc1.fractionDenominatorDisplayStyleShiftDown = rectifyValueRecord(
         rc,
-        mc.fractionDenominatorDisplayStyleShiftDown,
+        mc.fractionDenominatorDisplayStyleShiftDown
     );
     mc1.fractionNumeratorGapMin = rectifyValueRecord(rc, mc.fractionNumeratorGapMin);
     mc1.fractionNumDisplayStyleGapMin = rectifyValueRecord(rc, mc.fractionNumDisplayStyleGapMin);
@@ -71,7 +71,7 @@ function rectifyMathConstants(rc: CoordRectifier, mc: Ot.Math.Constants) {
     mc1.fractionDenominatorGapMin = rectifyValueRecord(rc, mc.fractionDenominatorGapMin);
     mc1.fractionDenomDisplayStyleGapMin = rectifyValueRecord(
         rc,
-        mc.fractionDenomDisplayStyleGapMin,
+        mc.fractionDenomDisplayStyleGapMin
     );
     mc1.skewedFractionHorizontalGap = rectifyValueRecord(rc, mc.skewedFractionHorizontalGap);
     mc1.skewedFractionVerticalGap = rectifyValueRecord(rc, mc.skewedFractionVerticalGap);
@@ -95,7 +95,7 @@ function rectifyGlyphInfo(rg: GlyphReferenceRectifier, rc: CoordRectifier, gi: O
         RectifyImpl.Glyph.mapSomeTY(rg, rc, gi.italicCorrections, rectifyValueRecord),
         RectifyImpl.Glyph.mapSomeTY(rg, rc, gi.topAccentAttachments, rectifyValueRecord),
         RectifyImpl.Glyph.setSomeN(rg, gi.extendedShapes),
-        RectifyImpl.Glyph.mapSomeTY(rg, rc, gi.kernInfos, rectifyKernInfo),
+        RectifyImpl.Glyph.mapSomeTY(rg, rc, gi.kernInfos, rectifyKernInfo)
     );
 }
 function rectifyKernInfo(rc: CoordRectifier, mk: Ot.Math.KernInfo) {
@@ -103,13 +103,13 @@ function rectifyKernInfo(rc: CoordRectifier, mk: Ot.Math.KernInfo) {
         RectifyImpl.maybeT(rc, mk.topRight, rectifyKern),
         RectifyImpl.maybeT(rc, mk.topLeft, rectifyKern),
         RectifyImpl.maybeT(rc, mk.bottomRight, rectifyKern),
-        RectifyImpl.maybeT(rc, mk.bottomLeft, rectifyKern),
+        RectifyImpl.maybeT(rc, mk.bottomLeft, rectifyKern)
     );
 }
 function rectifyKern(rc: CoordRectifier, mk: Ot.Math.Kern) {
     return new Ot.Math.Kern(
         rectifyValueRecord(rc, mk.kernValue),
-        RectifyImpl.listSomeT(rc, mk.corrections, rectifyValueRecordPair),
+        RectifyImpl.listSomeT(rc, mk.corrections, rectifyValueRecordPair)
     );
 }
 function rectifyVariants(rg: GlyphReferenceRectifier, rc: CoordRectifier, mv: Ot.Math.Variants) {
@@ -120,23 +120,23 @@ function rectifyVariants(rg: GlyphReferenceRectifier, rc: CoordRectifier, mv: Ot
             : null,
         mv.horizontal
             ? RectifyImpl.Glyph.mapSomeTY2(rg, rc, mv.horizontal, rectifyGlyphConstruction)
-            : null,
+            : null
     );
 }
 function rectifyGlyphConstruction(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    gc: Ot.Math.GlyphConstruction,
+    gc: Ot.Math.GlyphConstruction
 ) {
     return new Ot.Math.GlyphConstruction(
         RectifyImpl.maybe2T(rg, rc, gc.assembly, rectifyGlyphAssembly),
-        RectifyImpl.listSome2T(rg, rc, gc.variants, rectifyGlyphVariantRecord),
+        RectifyImpl.listSome2T(rg, rc, gc.variants, rectifyGlyphVariantRecord)
     );
 }
 function rectifyGlyphAssembly(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    ga: Ot.Math.GlyphAssembly,
+    ga: Ot.Math.GlyphAssembly
 ) {
     if (!ga) return null;
     const gps = RectifyImpl.listAll2T(rg, rc, ga.parts, rectifyGlyphPart);
@@ -152,14 +152,14 @@ function rectifyGlyphPart(rg: GlyphReferenceRectifier, rc: CoordRectifier, gp: O
             rc.coord(gp.startConnectorLength),
             rc.coord(gp.endConnectorLength),
             rc.coord(gp.fullAdvance),
-            gp.flags,
+            gp.flags
         );
 }
 
 function rectifyGlyphVariantRecord(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    ga: Ot.Math.GlyphVariantRecord,
+    ga: Ot.Math.GlyphVariantRecord
 ) {
     const g1 = rg.glyphRef(ga.variantGlyph);
     if (!g1) return null;
@@ -171,7 +171,7 @@ function rectifyValueRecord(rc: CoordRectifier, v: Ot.Math.ValueRecord): Ot.Math
 }
 function rectifyValueRecordPair(
     rc: CoordRectifier,
-    [a, b]: [Ot.Math.ValueRecord, Ot.Math.ValueRecord],
+    [a, b]: [Ot.Math.ValueRecord, Ot.Math.ValueRecord]
 ): [Ot.Math.ValueRecord, Ot.Math.ValueRecord] {
     return [rectifyValueRecord(rc, a), rectifyValueRecord(rc, b)];
 }

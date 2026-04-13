@@ -9,7 +9,7 @@ export class Table {
     public constructor(
         public constants: Data.Maybe<Constants> = null,
         public glyphInfo: Data.Maybe<GlyphInfo> = null,
-        public variants: Data.Maybe<Variants> = null,
+        public variants: Data.Maybe<Variants> = null
     ) {}
 }
 export type ValueRecord = {
@@ -79,7 +79,7 @@ export class GlyphInfo {
         public italicCorrections: Map<OtGlyph, ValueRecord> = new Map(),
         public topAccentAttachments: Map<OtGlyph, ValueRecord> = new Map(),
         public extendedShapes: Data.Maybe<Set<OtGlyph>> = null,
-        public kernInfos: Map<OtGlyph, KernInfo> = new Map(),
+        public kernInfos: Map<OtGlyph, KernInfo> = new Map()
     ) {}
 }
 export class KernInfo {
@@ -87,24 +87,24 @@ export class KernInfo {
         public topRight: Data.Maybe<Kern> = null,
         public topLeft: Data.Maybe<Kern> = null,
         public bottomRight: Data.Maybe<Kern> = null,
-        public bottomLeft: Data.Maybe<Kern> = null,
+        public bottomLeft: Data.Maybe<Kern> = null
     ) {}
 }
 export class Kern {
     public constructor(
         public kernValue: ValueRecord = { value: 0 },
-        public corrections: [ValueRecord, ValueRecord][] = [],
+        public corrections: [ValueRecord, ValueRecord][] = []
     ) {}
 }
 export class GlyphVariantRecord {
     public constructor(
         public readonly variantGlyph: OtGlyph,
-        public readonly advanceMeasurement: OtVar.Value,
+        public readonly advanceMeasurement: OtVar.Value
     ) {}
 }
 export enum GlyphPartFlags {
     None = 0,
-    Extender = 0x0001,
+    Extender = 0x0001
 }
 export class GlyphPart {
     public constructor(
@@ -112,25 +112,25 @@ export class GlyphPart {
         public readonly startConnectorLength: OtVar.Value,
         public readonly endConnectorLength: OtVar.Value,
         public readonly fullAdvance: OtVar.Value,
-        public readonly flags: GlyphPartFlags,
+        public readonly flags: GlyphPartFlags
     ) {}
 }
 export class GlyphAssembly {
     public constructor(
         public italicCorrection: ValueRecord,
-        public parts: GlyphPart[],
+        public parts: GlyphPart[]
     ) {}
 }
 export class GlyphConstruction {
     public constructor(
         public assembly: Data.Maybe<GlyphAssembly> = null,
-        public variants: GlyphVariantRecord[] = [],
+        public variants: GlyphVariantRecord[] = []
     ) {}
 }
 export class Variants {
     public constructor(
         public minConnectorOverlap: OtVar.Value = 0,
         public vertical: Data.Maybe<Map<OtGlyph, GlyphConstruction>> = new Map(),
-        public horizontal: Data.Maybe<Map<OtGlyph, GlyphConstruction>> = new Map(),
+        public horizontal: Data.Maybe<Map<OtGlyph, GlyphConstruction>> = new Map()
     ) {}
 }

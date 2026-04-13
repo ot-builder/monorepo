@@ -30,7 +30,7 @@ export const LigCaretList = {
             lcl: Gdef.LigCaretList,
             cfg: LayoutCfg,
             gOrd: Data.Order<OtGlyph>,
-            ivs?: Data.Maybe<WriteTimeIVS>,
+            ivs?: Data.Maybe<WriteTimeIVS>
         ) => {
             const trick = cfg.layout.gdefWriteTrick || 0;
             const { gidList, values: points } = CovUtils.splitListFromMap(lcl, gOrd);
@@ -39,8 +39,8 @@ export const LigCaretList = {
             for (const [gid, pl] of ImpLib.Iterators.ZipWithIndex(gidList, points)) {
                 frag.ptr16New().push(LigGlyph, pl, ivs);
             }
-        },
-    ),
+        }
+    )
 };
 
 function postReadCaretList(glyph: OtGlyph, carets: Gdef.LigCaret[]) {

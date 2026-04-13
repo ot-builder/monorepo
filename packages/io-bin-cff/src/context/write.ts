@@ -14,7 +14,7 @@ export class CffWriteContext {
         public readonly version: number,
         public readonly upm: number,
         acceptVariation = true,
-        gss: Data.Maybe<OtGlyph.Stat.Sink> = null,
+        gss: Data.Maybe<OtGlyph.Stat.Sink> = null
     ) {
         if (version > 1 && acceptVariation) this.ivs = WriteTimeIVS.create(new OtVar.MasterSet());
         if (version <= 1) this.strings = new CffStringSink();
@@ -40,14 +40,14 @@ export const Cff1Limits: CffLimits = {
     maxRecursion: 10,
     maxSubrs: 60000,
     retSize: 1,
-    endCharSize: 1,
+    endCharSize: 1
 };
 export const Cff2Limits: CffLimits = {
     maxStack: 512,
     maxRecursion: 10,
     maxSubrs: 60000,
     retSize: 0,
-    endCharSize: 0,
+    endCharSize: 0
 };
 
 export interface CffEncodingOptions extends CffLimits {
@@ -63,7 +63,7 @@ export class CffGlyphStatSink implements OtGlyph.Stat.Sink {
         gid: number,
         horizontal: OtGlyph.Metric,
         vertical: OtGlyph.Metric,
-        extent: OtGlyph.Stat.BoundingBox,
+        extent: OtGlyph.Stat.BoundingBox
     ) {
         if (this.outer) this.outer.setMetric(gid, horizontal, vertical, extent);
     }

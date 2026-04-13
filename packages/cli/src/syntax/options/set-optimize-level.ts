@@ -36,5 +36,5 @@ export const SetOptimizationLevelSyntax: Syntax<null | CliAction> = {
             .message(Style.Option`-O0`, "No special optimization is performed.")
             .message(Style.Option`-Op`, "Optimize the data arrangement for faster layout.")
             .message(Style.Option`-Oz`, "Optimize the data arrangement for smaller file size.");
-    },
+    }
 };

@@ -17,7 +17,7 @@ const FdSelectFormat0 = {
             const fd = view.uint8();
             sink.put(gid, fd);
         }
-    }),
+    })
 };
 
 class FdSelectFormat34ReadState {
@@ -43,7 +43,7 @@ class FdSelectFormat34WriteState {
     public constructor(
         private readonly frag: Frag,
         private readonly wGid: Write<number> & Sized,
-        private readonly wFdId: Write<number> & Sized,
+        private readonly wFdId: Write<number> & Sized
     ) {}
     private gid = 0;
     private lastFdId = -1;
@@ -85,14 +85,14 @@ const FdSelectFormat34 = {
             fdSelectAssignments: number[],
             fdSelectFormat: number,
             wGid: Write<number> & Sized,
-            wFdId: Write<number> & Sized,
+            wFdId: Write<number> & Sized
         ) => {
             frag.uint8(fdSelectFormat);
             const st = new FdSelectFormat34WriteState(frag, wGid, wFdId);
             for (const fdId of fdSelectAssignments) st.update(fdId);
             st.flush();
-        },
-    ),
+        }
+    )
 };
 
 export const CffFdSelect = {
@@ -121,5 +121,5 @@ export const CffFdSelect = {
         } else {
             return frag.push(FdSelectFormat34, fdSelectValues, 3, UInt16, UInt8);
         }
-    }),
+    })
 };

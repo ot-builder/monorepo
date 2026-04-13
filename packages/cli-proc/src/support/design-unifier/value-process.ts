@@ -47,7 +47,7 @@ export class MasterProcessor {
                 dim: this.dm.reverse(aid),
                 min: region.min,
                 peak: region.peak,
-                max: region.max,
+                max: region.max
             };
         }
         return new Ot.Var.Master(steps);

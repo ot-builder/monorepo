@@ -23,7 +23,7 @@ test("Fixed number roundtrip (F16D16)", () => {
         1,
         0x7fff - 1 / 0x10000,
         0x7fff,
-        1 / 4,
+        1 / 4
     ];
     for (const v of cases) {
         const frag = new Frag();
@@ -48,7 +48,7 @@ test("Fixed number roundtrip (F2D14)", () => {
         1 - 1 / 0x4000,
         1,
         1 + 1 / 0x4000,
-        2 - 1 / 0x4000,
+        2 - 1 / 0x4000
     ];
     for (const v of cases) {
         const frag = new Frag();

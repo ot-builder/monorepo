@@ -6,7 +6,7 @@ import {
     Gpos,
     Gsub,
     type OtFontLayoutData,
-    Math as OtMath,
+    Math as OtMath
 } from "@ot-builder/ot-layout";
 import type { OtFontMetadata } from "@ot-builder/ot-metadata";
 import type { Sfnt } from "@ot-builder/ot-sfnt";
@@ -25,7 +25,7 @@ export function readOtl(
     sfnt: Sfnt,
     cfg: LayoutCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ): OtFontLayoutData {
     let gdef: Data.Maybe<Gdef.Table> = null;
     let ivs: Data.Maybe<ReadTimeIVS> = null;

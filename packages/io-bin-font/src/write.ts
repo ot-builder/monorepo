@@ -11,7 +11,7 @@ import type { OtEncoding } from "@ot-builder/ot-encoding";
 import type { OtExtPrivate } from "@ot-builder/ot-ext-private";
 import type {
     CffCoGlyphs as CffCoGlyphsTy,
-    TtfCoGlyphs as TtfCoGlyphsTy,
+    TtfCoGlyphs as TtfCoGlyphsTy
 } from "@ot-builder/ot-glyphs";
 import type { OtFontLayoutData } from "@ot-builder/ot-layout";
 import type { OtFontIoMetadata } from "@ot-builder/ot-metadata";
@@ -25,7 +25,7 @@ import { createConfig, type FontIoConfig } from "./config";
 // Lenses here are somehow unnecessary, but it will prevent random errors in the write code
 function MD<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    naming: WritePostNaming,
+    naming: WritePostNaming
 ): OtFontIoMetadata {
     return { ...font, postGlyphNaming: naming };
 }
@@ -60,7 +60,7 @@ class WritePostNaming implements Data.Naming.Source<number> {
 
 export function writeFont<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    partialConfig: FontIoConfig = {},
+    partialConfig: FontIoConfig = {}
 ): Sfnt {
     const sfnt = new Sfnt(Ot.Font.isCff(font) ? 0x4f54544f : 0x00010000);
     const sink = new SfntIoTableSink(sfnt);

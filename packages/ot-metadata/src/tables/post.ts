@@ -5,7 +5,7 @@ export const Tag = "post";
 export class Table {
     public constructor(
         public readonly majorVersion: UInt16,
-        public readonly minorVersion: UInt16,
+        public readonly minorVersion: UInt16
     ) {}
     public italicAngle: F16D16 = 0;
     public underlinePosition: OtVar.Value = 0;

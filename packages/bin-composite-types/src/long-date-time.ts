@@ -15,5 +15,5 @@ export const LongDateTime = {
         const low = time % Power2To32;
         fr.uint32(high);
         fr.uint32(low);
-    }),
+    })
 };

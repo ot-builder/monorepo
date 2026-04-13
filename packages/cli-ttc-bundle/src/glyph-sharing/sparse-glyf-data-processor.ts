@@ -8,7 +8,7 @@ import {
     type DataBlockBuildResults,
     type GlyphData,
     type GlyphSharingMap,
-    pushGlyphs,
+    pushGlyphs
 } from "./sparse-common";
 
 type GlyfTask = {
@@ -69,7 +69,11 @@ function getGlyfTasks(fonts: FontIo.TableSliceCollection[]) {
     return entries;
 }
 
-function parseGlyphData(head: FontIo.TableSlice, loca: FontIo.TableSlice, glyf: FontIo.TableSlice) {
+function parseGlyphData(
+    head: FontIo.TableSlice,
+    loca: FontIo.TableSlice,
+    glyf: FontIo.TableSlice
+) {
     const indexToLocFormat = head.data.readUInt16BE(IndexToLocFormatOffset);
     const bytesPerRecord = indexToLocFormat === 0 ? 2 : 4;
     const offsetCount = loca.data.byteLength / bytesPerRecord;

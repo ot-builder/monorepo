@@ -6,7 +6,7 @@ import { F2D14 } from "@ot-builder/primitive";
 import {
     type TupleVariationGeometryClient,
     TupleVariationRead,
-    type TvdAccess,
+    type TvdAccess
 } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -26,7 +26,7 @@ export const GvarTableRead = Read(
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
         ignore: GvarReadIgnore,
-        designSpace: OtVar.DesignSpace,
+        designSpace: OtVar.DesignSpace
     ) => {
         const header = view.next(GvarHeader, gOrd, cfg, designSpace);
         const ms = new OtVar.MasterSet();
@@ -39,10 +39,10 @@ export const GvarTableRead = Read(
             const ptr = header.glyphVariationDataArray.lift(dataOffset);
             ptr.next(TupleVariationRead, new GlyphTvhClient(ms, glyph, ignore), {
                 designSpace,
-                sharedTuples: header.sharedTuples,
+                sharedTuples: header.sharedTuples
             });
         }
-    },
+    }
 );
 
 const GvarHeader = Read(
@@ -78,14 +78,14 @@ const GvarHeader = Read(
             }
         }
         return { sharedTuples, glyphVariationDataArray, glyphVariationDataOffsets };
-    },
+    }
 );
 
 class GlyphTvhClient implements TupleVariationGeometryClient {
     public constructor(
         ms: OtVar.MasterSet,
         private glyph: OtGlyph,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ) {
         this.glyphHolder = new VarPtrCollector().process(glyph);
         this.contours = this.glyphHolder.tvdAccesses(ms, ignore);
@@ -150,7 +150,7 @@ interface GeomHolder {
     collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ): void;
     toGeometry(): OtGlyph.Geometry;
 }
@@ -169,7 +169,7 @@ class ContourHolder implements GeomHolder {
             for (let zid = 0; zid < this.contours[cid].length; zid++) {
                 items.push(
                     new ContourTvdAccess(ms, this.contours, cid, zid, 1),
-                    new ContourTvdAccess(ms, this.contours, cid, zid, 0),
+                    new ContourTvdAccess(ms, this.contours, cid, zid, 0)
                 );
             }
             sink.push(items);
@@ -202,7 +202,7 @@ class GeometryListHolder implements GeomHolder {
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ) {
         for (const sub of this.children) {
             sub.collectTvdAccesses(sink, ms, ignore);
@@ -215,7 +215,7 @@ interface MetricHolder {
     collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ): void;
 }
 
@@ -224,7 +224,7 @@ class HMetricHolder implements MetricHolder {
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ) {
         // H metric
         if (ignore.horizontalMetric) {
@@ -232,7 +232,7 @@ class HMetricHolder implements MetricHolder {
         } else {
             sink.push(
                 [new MetricTvdAccess(ms, this, 1), new TvdIgnore()],
-                [new MetricTvdAccess(ms, this, 0), new TvdIgnore()],
+                [new MetricTvdAccess(ms, this, 0), new TvdIgnore()]
             );
         }
     }
@@ -242,7 +242,7 @@ class VMetricHolder implements MetricHolder {
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],
         ms: OtVar.MasterSet,
-        ignore: GvarReadIgnore,
+        ignore: GvarReadIgnore
     ) {
         // V metric
         if (ignore.verticalMetric) {
@@ -250,7 +250,7 @@ class VMetricHolder implements MetricHolder {
         } else {
             sink.push(
                 [new TvdIgnore(), new MetricTvdAccess(ms, this, 1)],
-                [new TvdIgnore(), new MetricTvdAccess(ms, this, 0)],
+                [new TvdIgnore(), new MetricTvdAccess(ms, this, 0)]
             );
         }
     }
@@ -268,7 +268,7 @@ class ContourTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> 
         private readonly cs: OtGlyph.Contour[],
         private readonly cid: number,
         private readonly zid: number,
-        private readonly isX: number,
+        private readonly isX: number
     ) {
         super(ms);
         const z = cs[cid][zid];
@@ -285,7 +285,7 @@ class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     public constructor(
         ms: OtVar.MasterSet,
         private ref: OtGlyph.TtReferenceProps,
-        private readonly isX: number,
+        private readonly isX: number
     ) {
         super(ms);
         const transform = ref.transform;
@@ -296,7 +296,7 @@ class RefTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
         const tf = this.ref.transform;
         const tf1 = {
             ...tf,
-            ...(this.isX ? { dx: this.collectTo(tf.dx) } : { dy: this.collectTo(tf.dy) }),
+            ...(this.isX ? { dx: this.collectTo(tf.dx) } : { dy: this.collectTo(tf.dy) })
         };
         this.ref.transform = tf1;
     }
@@ -305,7 +305,7 @@ class MetricTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
     public constructor(
         ms: OtVar.MasterSet,
         private pMetric: MetricHolder,
-        private readonly isStart: number,
+        private readonly isStart: number
     ) {
         super(ms);
         const met = pMetric.metric;
@@ -318,7 +318,7 @@ class MetricTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
             ...met,
             ...(this.isStart
                 ? { start: this.collectTo(met.start) }
-                : { end: this.collectTo(met.end) }),
+                : { end: this.collectTo(met.end) })
         };
     }
 }

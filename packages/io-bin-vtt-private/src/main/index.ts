@@ -17,7 +17,7 @@ export function readVttPrivate(
     sfnt: Sfnt,
     cfg: VttPrivateCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ) {
     const result: OtVttPrivate = {};
     if (cfg.vttPrivate.processVttPrivateTables) {
@@ -52,7 +52,7 @@ export function writeVttPrivate(
     otVttPrivate: OtVttPrivate,
     gOrd: Data.Order<OtGlyph>,
     md: OtFontMetadata,
-    eis: VttExtraInfoSource,
+    eis: VttExtraInfoSource
 ) {
     if (!cfg.vttPrivate.processVttPrivateTables) return;
     if (otVttPrivate.tsi01) {

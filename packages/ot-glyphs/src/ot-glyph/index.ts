@@ -38,21 +38,21 @@ export namespace OtGlyph {
     export type ContourSet = CaseType<typeof TAG_GeometryType.ContourSet, ContourSetProps>;
     export const ContourSet = CaseCreator(
         TAG_GeometryType.ContourSet,
-        (contours: Contour[] = []): ContourSetProps => ({ contours: [...contours] }),
+        (contours: Contour[] = []): ContourSetProps => ({ contours: [...contours] })
     );
 
     export type GeometryListProps = GeneralGlyph.GeometryListPropsT<Geometry>;
     export type GeometryList = CaseType<typeof TAG_GeometryType.GeometryList, GeometryListProps>;
     export const GeometryList = CaseCreator(
         TAG_GeometryType.GeometryList,
-        (items: Geometry[] = []): GeometryListProps => ({ items: [...items] }),
+        (items: Geometry[] = []): GeometryListProps => ({ items: [...items] })
     );
 
     export type TtReferenceProps = GeneralGlyph.TtReferencePropsT<OtGlyph, OtVar.Value>;
     export type TtReference = CaseType<typeof TAG_GeometryType.TtReference, TtReferenceProps>;
     export const TtReference = CaseCreator(
         TAG_GeometryType.TtReference,
-        (to: OtGlyph, transform: Transform2X3): TtReferenceProps => ({ to, transform }),
+        (to: OtGlyph, transform: Transform2X3): TtReferenceProps => ({ to, transform })
     );
 
     // Exported hint types
@@ -62,7 +62,7 @@ export namespace OtGlyph {
     export type TtInstruction = CaseType<typeof TAG_HintType.TtInstruction, TtInstructionProps>;
     export const TtInstruction = CaseCreator(
         TAG_HintType.TtInstruction,
-        (instructions: Buffer): TtInstructionProps => ({ instructions }),
+        (instructions: Buffer): TtInstructionProps => ({ instructions })
     );
 
     export type CffHintProps = GeneralGlyph.CffHintPropsT<OtVar.Value>;
@@ -76,8 +76,8 @@ export namespace OtGlyph {
                 hStems: [],
                 vStems: [],
                 hintMasks: [],
-                counterMasks: [],
-            }),
+                counterMasks: []
+            })
         ),
         {
             createStem(start: OtVar.Value, end: OtVar.Value): CffHintStem {
@@ -86,11 +86,11 @@ export namespace OtGlyph {
             createMask(
                 at: PointRef,
                 maskH: Set<CffHintStem>,
-                maskV: Set<CffHintStem>,
+                maskV: Set<CffHintStem>
             ): CffHintMask {
                 return { at, maskH, maskV };
-            },
-        },
+            }
+        }
     );
 
     // Point re-exports
@@ -100,7 +100,7 @@ export namespace OtGlyph {
         export function create(
             x: OtVar.Value,
             y: OtVar.Value,
-            kind: number = PointType.Corner,
+            kind: number = PointType.Corner
         ): Point {
             return new Lib_Point.CPoint(x || 0, y || 0, kind);
         }
@@ -124,7 +124,7 @@ export namespace OtGlyph {
             xy: 0,
             yy: 1,
             dx: 0,
-            dy: 0,
+            dy: 0
         };
 
         export function Scale(s: number): Transform2X3 {

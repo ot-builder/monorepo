@@ -7,7 +7,7 @@ import {
     TupleAllocator,
     type TupleVariationBuildContext,
     type TupleVariationBuildSource,
-    TupleVariationWriteOpt,
+    TupleVariationWriteOpt
 } from "@ot-builder/var-store";
 import type { OtVar } from "@ot-builder/variance";
 
@@ -21,13 +21,13 @@ export const GvarTableWrite = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
         designSpace: OtVar.DesignSpace,
-        acEmpty?: ImpLib.Access<boolean>,
+        acEmpty?: ImpLib.Access<boolean>
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {
             designSpace: designSpace,
             tupleAllocator: ta,
-            iupTolerance: cfg.ttf.gvarOptimizeTolerance,
+            iupTolerance: cfg.ttf.gvarOptimizeTolerance
         };
 
         const gvarBody = new Frag();
@@ -37,7 +37,7 @@ export const GvarTableWrite = Write(
         for (let gid = 0; gid < gOrd.length; gid++) {
             let tvd = TupleVariationWriteOpt.writeOpt(
                 new GlyphTupleVariationSource(gOrd.at(gid)),
-                context,
+                context
             );
             if (!tvd && cfg.ttf.gvarForceProduceGVD) {
                 tvd = Frag.uint16(0).uint16(4).uint32(0);
@@ -85,7 +85,7 @@ export const GvarTableWrite = Write(
                 frag.uint32(gvarOffsets[gid]);
             }
         }
-    },
+    }
 );
 
 class GlyphTupleVariationSource implements TupleVariationBuildSource {
@@ -98,7 +98,7 @@ class GlyphTupleVariationSource implements TupleVariationBuildSource {
             [glyph.horizontal.start, 0],
             [glyph.horizontal.end, 0],
             [0, glyph.vertical.start],
-            [0, glyph.vertical.end],
+            [0, glyph.vertical.end]
         ];
     }
 }

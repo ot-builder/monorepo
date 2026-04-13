@@ -23,7 +23,7 @@ export enum GlyphClass {
     Base = 1,
     Ligature = 2,
     Mark = 3,
-    Component = 4,
+    Component = 4
 }
 
 // alias

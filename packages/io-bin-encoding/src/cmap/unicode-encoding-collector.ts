@@ -7,7 +7,7 @@ export class UnicodeEncodingCollector {
     public constructor(
         private encoding: Cmap.EncodingMap,
         private gOrd: Data.Order<OtGlyph>,
-        private readonly maxCodePoint: number,
+        private readonly maxCodePoint: number
     ) {}
     public collect(): [number, number][] {
         const results: Array<[number, number]> = [];
@@ -36,7 +36,7 @@ export class UvsEncodingCollector {
     public constructor(
         private encoding: Cmap.VsEncodingMap,
         private defaults: Cmap.EncodingMap,
-        private gOrd: Data.Order<OtGlyph>,
+        private gOrd: Data.Order<OtGlyph>
     ) {}
     public collect(): UvsEncodingEntry[] {
         const m: Map<number, UvsEncodingEntry> = new Map();

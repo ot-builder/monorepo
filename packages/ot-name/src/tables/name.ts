@@ -37,5 +37,5 @@ export enum NameID {
     WwsSubfamily = 22,
     LightBackgroundPalette = 23,
     DarkBackgroundPalette = 24,
-    VariationsPostScriptNamePrefix = 25,
+    VariationsPostScriptNamePrefix = 25
 }

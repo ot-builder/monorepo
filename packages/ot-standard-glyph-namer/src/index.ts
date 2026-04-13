@@ -60,7 +60,7 @@ export class OtStandardGlyphNamer implements OtGlyphNamer {
             this.nameByPost(source, gid, glyph) ||
                 this.nameByCff(source, gid, glyph) ||
                 this.nameByEncoding(source, gid, glyph) ||
-                this.nameByGid(source, gid, glyph),
+                this.nameByGid(source, gid, glyph)
         );
     }
 }

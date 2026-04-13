@@ -7,7 +7,7 @@ import {
     Gpos,
     Gsub,
     type OtFontLayoutData,
-    Math as OtMath,
+    Math as OtMath
 } from "@ot-builder/ot-layout";
 import type { OtFontMetadata } from "@ot-builder/ot-metadata";
 import type { Data } from "@ot-builder/prelude";
@@ -31,7 +31,7 @@ export function writeOtl(
     otl: OtFontLayoutData,
     cfg: LayoutCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ) {
     let { gsub, gpos, gdef } = otl;
     const designSpace = md.fvar ? md.fvar.getDesignSpace() : null;

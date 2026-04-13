@@ -10,5 +10,5 @@ export interface VttPrivateCfgPt {
 }
 export const DefaultVttPrivateCfgProps: VttPrivateCfgProps = {
     processVttPrivateTables: true,
-    recalculatePseudoInstructions: true,
+    recalculatePseudoInstructions: true
 };

@@ -21,7 +21,7 @@ export const GdefAttachmentPointList = {
             const pointIndices = pAttachPoint.array(pointCount, UInt16);
             atp.set(
                 gOrd.at(gid),
-                pointIndices.map((z) => ({ pointIndex: z })),
+                pointIndices.map((z) => ({ pointIndex: z }))
             );
         }
         return atp;
@@ -36,5 +36,5 @@ export const GdefAttachmentPointList = {
             frAttPoint.uint16(pl.length);
             for (const z of pl) frAttPoint.uint16(z.pointIndex);
         }
-    }),
+    })
 };

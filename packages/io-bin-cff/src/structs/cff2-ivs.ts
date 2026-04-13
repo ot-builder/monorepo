@@ -10,5 +10,5 @@ export const Cff2IVS = {
     ...Write((frag, ivs: WriteTimeIVS, designSpace: OtVar.DesignSpace) => {
         const bContent = Frag.pack(Frag.from(WriteTimeIVS, ivs, { designSpace }));
         frag.uint16(bContent.byteLength).bytes(bContent);
-    }),
+    })
 };

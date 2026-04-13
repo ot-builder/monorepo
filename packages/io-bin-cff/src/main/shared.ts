@@ -12,7 +12,7 @@ import { CffDrawCall } from "../char-string/write/draw-call";
 import { codeGenGlyph } from "../char-string/write/draw-call-gen";
 import {
     MinimalDrawCallOptimizers,
-    StandardDrawCallOptimizers,
+    StandardDrawCallOptimizers
 } from "../char-string/write/draw-call-optimize";
 import { cffOptimizeDrawCall } from "../char-string/write/draw-call-optimize/general";
 import { CharStringGlobalOptEmptyImplFactory } from "../char-string/write/global-optimize/empty-impl";
@@ -39,7 +39,7 @@ export function readCffCommon(
     topDict: CffTopDictRead,
     ctx: CffReadContext,
     gSubrs: Buffer[],
-    designSpace?: Data.Maybe<OtVar.DesignSpace>,
+    designSpace?: Data.Maybe<OtVar.DesignSpace>
 ) {
     cff.topDict = topDict.fd;
     if (topDict.cidROS) cff.cid = topDict.cidROS;
@@ -74,7 +74,7 @@ function readGlyph(
     gid: number,
     glyph: OtGlyph,
     charStrings: Buffer[],
-    gSubrs: Buffer[],
+    gSubrs: Buffer[]
 ) {
     const fdId = cff.fdSelect ? cff.fdSelect.get(glyph) || 0 : 0;
     const pd = getCorrespondedPd(cff, fdId);
@@ -95,9 +95,9 @@ function readGlyph(
             global: gSubrs,
             local: localSubrs,
             defaultWidthX: pd.defaultWidthX,
-            nominalWidthX: pd.nominalWidthX,
+            nominalWidthX: pd.nominalWidthX
         },
-        gb,
+        gb
     );
     gb.endChar();
 
@@ -155,7 +155,7 @@ export function buildCharStrings(
     cff: Cff.Table,
     cfg: CffCfg,
     gOrd: Data.Order<OtGlyph>,
-    ctx: CffWriteContext,
+    ctx: CffWriteContext
 ) {
     const fdCount = cff.fdArray ? cff.fdArray.length : 1;
     const optimizer = getOptimizer(cfg, ctx, fdCount);

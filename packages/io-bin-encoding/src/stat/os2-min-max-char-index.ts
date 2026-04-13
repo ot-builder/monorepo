@@ -9,7 +9,7 @@ export class Os2MinMaxCharStat extends EmptyStat {
     private max = 0;
     public constructor(
         private readonly os2: Os2.Table,
-        external?: EncodingStat,
+        external?: EncodingStat
     ) {
         super(external);
     }

@@ -22,7 +22,7 @@ const AxisSegmentMapList = {
             frag.push(F2D14, from);
             frag.push(F2D14, to);
         }
-    },
+    }
 };
 
 export const AvarIo = {
@@ -53,5 +53,5 @@ export const AvarIo = {
                 throw Errors.Avar.MissingMapping(dim.tag);
             }
         }
-    },
+    }
 };

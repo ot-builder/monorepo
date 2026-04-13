@@ -7,7 +7,7 @@ import type { Data } from "@ot-builder/prelude";
 export class Rune<K> {
     public constructor(
         public readonly ir: K,
-        public barrier: boolean = false,
+        public barrier: boolean = false
     ) {}
 
     // A double-linked list node
@@ -67,7 +67,7 @@ class Digraph<K> extends DigraphSentinel {
     public count: number = 0; // count == 0 means sentinel
     public constructor(
         public readonly key: string,
-        public firstOccurrence: Rune<K>,
+        public firstOccurrence: Rune<K>
     ) {
         super();
     }

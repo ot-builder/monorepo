@@ -18,8 +18,8 @@ export const HelpSyntax: Syntax<null | CliAction> = {
             Style.Option`-h`,
             `;`,
             Style.Cmd`otb-cli`,
-            Style.Option`--help`,
+            Style.Option`--help`
         );
         shower.indent("").message("Display help message.");
-    },
+    }
 };

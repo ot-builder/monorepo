@@ -59,7 +59,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         }
 
         return frRoot;
-    },
+    }
 );
 
 interface BlobWriteResult {
@@ -74,13 +74,14 @@ function writeBlob(
     tuc: MasterToTupleConverter,
     data: DelayDeltaValue[][],
     mid: number,
-    master: OtVar.Master,
+    master: OtVar.Master
 ): BlobWriteResult {
     let result = writeBlobImpl(source, ctx, tuc, data, mid, master, 0);
     if (ctx.iupTolerance) {
         const resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
-            (resOpt.bufBody.byteLength <= result.bufBody.byteLength || result.hasNonIntegerDelta) &&
+            (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
+                result.hasNonIntegerDelta) &&
             !resOpt.hasNonIntegerDelta
         ) {
             result = resOpt;
@@ -96,7 +97,7 @@ function writeBlobImpl(
     data: DelayDeltaValue[][],
     mid: number,
     master: OtVar.Master,
-    tolerance: number,
+    tolerance: number
 ): BlobWriteResult {
     const frBody = new Frag();
 
@@ -104,7 +105,7 @@ function writeBlobImpl(
         source,
         data,
         mid,
-        tolerance,
+        tolerance
     );
     if (ImpLib.BitMask.allFalseN(n, mask)) mask[0] = true;
     const embedPointIndex = ctx.forcePrivatePointNumbers || !ImpLib.BitMask.allTrueN(n, mask);
@@ -119,7 +120,7 @@ function writeBlobImpl(
         embedPointIndex,
         hasNonIntegerDelta,
         bufHeader: Frag.pack(hr.frag),
-        bufBody: Frag.pack(frBody),
+        bufBody: Frag.pack(frBody)
     };
 }
 
@@ -148,7 +149,7 @@ function decidePointsAndDeltas(
     source: TupleVariationBuildSource,
     data: DelayDeltaValue[][],
     mid: number,
-    tolerance: number,
+    tolerance: number
 ) {
     const mask: boolean[] = [];
     const deltas: number[] = [];
@@ -187,7 +188,7 @@ function writeTupleVariationHeader(
     ctx: TupleVariationBuildContext,
     tuc: MasterToTupleConverter,
     master: OtVar.Master,
-    embedPointIndex: boolean,
+    embedPointIndex: boolean
 ) {
     const frag = new Frag();
     const { min, peak, max } = tuc.getTuples(master);
@@ -225,7 +226,7 @@ const DeltaRuns = Write(
             if (mask[zid]) dp.update(ImpLib.Arith.Round.Coord(delta));
         }
         dp.write(frag);
-    },
+    }
 );
 
 const AllPoints = Write((frag) => frag.uint8(0));

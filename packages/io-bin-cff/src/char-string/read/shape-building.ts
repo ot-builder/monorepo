@@ -37,10 +37,10 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
             {
                 geometry: 0,
                 contour: this.contours.length,
-                index: this.currentContour.length,
+                index: this.currentContour.length
             },
             ssHorizontal,
-            ssVertical,
+            ssVertical
         );
         if (isCounterMask) {
             this.hints.counterMasks.push(hm);
@@ -72,7 +72,7 @@ export class CffGlyphBuilder implements CffCharStringDataSink {
         x2: OtVar.Value,
         y2: OtVar.Value,
         x3: OtVar.Value,
-        y3: OtVar.Value,
+        y3: OtVar.Value
     ) {
         const cx1 = OtVar.Ops.add(this.cx, x1);
         const cy1 = OtVar.Ops.add(this.cy, y1);

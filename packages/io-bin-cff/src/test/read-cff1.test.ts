@@ -16,7 +16,7 @@ function readCff1(file: string) {
     const { cff } = new BinaryView(sfnt.tables.get(Cff.Tag1)!).next(
         ReadCff1,
         cfg,
-        gs.decideOrder(),
+        gs.decideOrder()
     );
     return { gs, cff };
 }

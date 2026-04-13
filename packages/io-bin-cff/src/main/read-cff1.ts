@@ -18,7 +18,7 @@ export const ReadCff1 = Read(
         view,
         cfg: CffCfg,
         gOrd: Data.Order<OtGlyph>,
-        coStat?: Data.Maybe<OtGlyph.CoStat.Source>,
+        coStat?: Data.Maybe<OtGlyph.CoStat.Source>
     ): CffCoGlyphsWithNaming => {
         const ctx = new CffReadContext(1, view.lift(0), coStat);
         if (!ctx.strings) throw Errors.Cff.ShouldHaveStrings();
@@ -44,5 +44,5 @@ export const ReadCff1 = Read(
         cffCleanupUnusedData(cff);
 
         return { cff, cffGlyphNaming: ctx.naming };
-    },
+    }
 );

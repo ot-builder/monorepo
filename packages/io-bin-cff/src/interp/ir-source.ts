@@ -65,7 +65,7 @@ export class CffDictIrSource extends BinaryIrSource {
             "e-",
             "reserved",
             "-",
-            "endOfNumber",
+            "endOfNumber"
         ];
         for (let nibIndex = 0; nibIndex < nibs.length; nibIndex++) {
             s += chars[nibs[nibIndex]];

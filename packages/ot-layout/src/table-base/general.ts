@@ -21,14 +21,14 @@ export class ScriptT<G, X> {
 export class BaseValuesT<G, X> {
     public constructor(
         public defaultBaselineIndex: number = 0,
-        public baseValues: Map<Tag, CoordT<G, X>> = new Map(),
+        public baseValues: Map<Tag, CoordT<G, X>> = new Map()
     ) {}
 }
 
 export class MinMaxTableT<G, X> {
     public constructor(
         public defaultMinMax: MinMaxValueT<G, X>,
-        public featMinMax: Map<Tag, MinMaxValueT<G, X>>,
+        public featMinMax: Map<Tag, MinMaxValueT<G, X>>
     ) {}
 }
 

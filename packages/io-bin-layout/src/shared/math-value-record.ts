@@ -24,5 +24,5 @@ export const MathValueRecord = {
         } else {
             fr.ptr16(null);
         }
-    }),
+    })
 };

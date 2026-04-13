@@ -23,13 +23,13 @@ export const GposAnchor = {
         if (format === 1) {
             return {
                 x: bp.int16(),
-                y: bp.int16(),
+                y: bp.int16()
             };
         } else if (format === 2) {
             return {
                 x: bp.int16(),
                 y: bp.int16(),
-                attachToPoint: { pointIndex: bp.uint16() },
+                attachToPoint: { pointIndex: bp.uint16() }
             };
         } else if (format === 3) {
             const x: OtVar.Value = bp.int16();
@@ -40,7 +40,7 @@ export const GposAnchor = {
                 x: OtVar.Ops.add(x, xDD ? xDD.variation : 0),
                 y: OtVar.Ops.add(y, yDD ? yDD.variation : 0),
                 xDevice: xDD ? xDD.deviceDeltas : null,
-                yDevice: yDD ? yDD.deviceDeltas : null,
+                yDevice: yDD ? yDD.deviceDeltas : null
             };
         } else {
             throw Errors.FormatNotSupported("anchor", format);
@@ -103,7 +103,7 @@ export const GposAnchor = {
             col.add(hash);
             return GposAnchor.measure(anchor);
         }
-    },
+    }
 };
 
 export const NullablePtr16GposAnchor = NullablePtr16(GposAnchor);

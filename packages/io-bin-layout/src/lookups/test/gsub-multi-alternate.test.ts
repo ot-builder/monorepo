@@ -17,7 +17,7 @@ describe("GSUB multi/alternate lookup handler", () => {
         reader: () => new GsubMultiReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GsubMultiAlt.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("Exhaustive", () => {
@@ -25,7 +25,7 @@ describe("GSUB multi/alternate lookup handler", () => {
         for (let gid = 0; gid < gOrd.length; gid++) {
             lookup.mapping.set(gOrd.at(gid), [
                 gOrd.at((gid + 0x30) % gOrd.length),
-                gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length),
+                gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
             ]);
         }
         lookup.mapping = Disorder.shuffleMap(lookup.mapping);
@@ -37,7 +37,7 @@ describe("GSUB multi/alternate lookup handler", () => {
         for (let gid = 0; gid < gOrd.length / 4; gid++) {
             lookup.mapping.set(gOrd.at(gid), [
                 gOrd.at((gid + 0x30) % gOrd.length),
-                gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length),
+                gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
             ]);
         }
         lookup.mapping = Disorder.shuffleMap(lookup.mapping);

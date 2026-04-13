@@ -25,7 +25,7 @@ export interface WriteGlyphStoreImpl<C, T> {
         cfg: C,
         coGlyphs: T,
         gOrd: Data.Order<OtGlyph>,
-        ctx: GlyphStoreWriteImplCtx,
+        ctx: GlyphStoreWriteImplCtx
     ): void;
 }
 
@@ -40,7 +40,7 @@ export function writeGlyphStore<C, T>(
     coGlyphs: T,
     gOrd: Data.Order<OtGlyph>,
     extraInfoSink: GlyphStoreWriteExtraInfoSink,
-    cb: WriteGlyphStoreImpl<C, T>,
+    cb: WriteGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, os2, hhea, vhea } = md;
     const designSpace = fvar ? fvar.getDesignSpace() : null;
@@ -62,7 +62,7 @@ export function writeGlyphStore<C, T>(
         maxp,
         designSpace: designSpace,
         stat,
-        extraInfoSink,
+        extraInfoSink
     });
     stat.settle();
 

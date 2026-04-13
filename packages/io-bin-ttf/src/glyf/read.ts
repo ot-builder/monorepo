@@ -91,7 +91,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
             coordinatesY[zid] || 0,
             flags[zid] & SimpleGlyphFlag.ON_CURVE_POINT
                 ? OtGlyph.PointType.Corner
-                : OtGlyph.PointType.Quad,
+                : OtGlyph.PointType.Quad
         );
     }
 
@@ -101,15 +101,15 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
             contours.push(
                 coordinates.slice(
                     m === 0 ? 0 : endPtsOfContours[m - 1] + 1,
-                    endPtsOfContours[m] + 1,
-                ),
+                    endPtsOfContours[m] + 1
+                )
             );
         }
     }
 
     return {
         geometry: new OtGlyph.ContourSet(contours),
-        instructions,
+        instructions
     };
 });
 
@@ -178,7 +178,7 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
             yx: scale10,
             yy: scaleY,
             dx: 0,
-            dy: 0,
+            dy: 0
         });
 
         ref.roundXyToGrid = !!(ComponentFlag.ROUND_XY_TO_GRID & flags);
@@ -234,5 +234,5 @@ export const GlyfTableRead = Read(
             const vm = coStat.getVMetric(gid, bound);
             if (vm) glyph.vertical = vm;
         }
-    },
+    }
 );

@@ -6,7 +6,7 @@ export class BimapCtx<G> implements CompareContext<BimapCtx<G>> {
     private constructor(
         public readonly derived: boolean,
         private readonly a: Data.Order<G>,
-        private readonly b: Data.Order<G>,
+        private readonly b: Data.Order<G>
     ) {}
     public forward(g: G) {
         return this.b.at(this.a.reverse(g));

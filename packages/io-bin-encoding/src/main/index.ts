@@ -17,7 +17,7 @@ export function readEncoding(
     sfnt: Sfnt,
     cfg: EncodingCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ): OtEncoding {
     const result: OtEncoding = {};
     const bCmap = sfnt.tables.get(Cmap.Tag);
@@ -30,7 +30,7 @@ export function writeEncoding(
     cfg: EncodingCfg,
     encoding: OtEncoding,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ) {
     if (encoding.cmap) {
         let stat = new EmptyStat();

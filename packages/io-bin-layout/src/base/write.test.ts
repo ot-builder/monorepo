@@ -20,7 +20,7 @@ describe("BASE read-write roundtrip", () => {
         const base = new BinaryView(sfnt.tables.get(Base.Tag)!).next(
             BaseTableIo,
             gOrd,
-            designSpace,
+            designSpace
         );
         const baseBuf1 = Frag.packFrom(BaseTableIo, base, gOrd, designSpace);
         const base2 = new BinaryView(baseBuf1).next(BaseTableIo, gOrd, designSpace);

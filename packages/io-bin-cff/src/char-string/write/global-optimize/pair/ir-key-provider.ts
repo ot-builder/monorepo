@@ -22,5 +22,5 @@ export const MirKeyProvider: KeyProvider<Mir> = {
     },
     isBarrier(ir: Mir) {
         return ir.type === MirType.Nop;
-    },
+    }
 };

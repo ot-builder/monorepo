@@ -35,15 +35,15 @@ function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
     const boldOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet()),
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     boldOnly.masterIDs = [0];
     const wideOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet()),
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     wideOnly.masterIDs = [1];
     const boldAndWide = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet()),
+        new OtVar.ValueFactory(new OtVar.MasterSet())
     );
     boldAndWide.masterIDs = [0, 1];
     ivs.itemVariationData = [boldOnly, wideOnly, boldAndWide];

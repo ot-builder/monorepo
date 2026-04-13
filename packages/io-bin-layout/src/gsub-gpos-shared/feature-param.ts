@@ -23,7 +23,7 @@ export const FeatureParams = {
             if (result) return result;
         }
         return null;
-    },
+    }
 };
 
 type Handler<T> = {
@@ -43,7 +43,7 @@ function CreateHandler<T>(tid: Sigma.TypeID<T>, io: Read<T> & Write<T>): Handler
             const fp = fpRaw.cast(tid);
             if (fp) return Frag.from(io, fp);
             else return undefined;
-        },
+        }
     };
 }
 
@@ -57,7 +57,7 @@ const FeatureParamStylisticSet = CreateHandler(GsubGpos.FeatureParams.TID_Stylis
     write(frag: Frag, fp: GsubGpos.FeatureParams.StylisticSet) {
         frag.uint16(0);
         frag.uint16(fp.uiNameID);
-    },
+    }
 });
 
 const FeatureParamCharacterVariant = CreateHandler(GsubGpos.FeatureParams.TID_CharacterVariant, {
@@ -78,7 +78,7 @@ const FeatureParamCharacterVariant = CreateHandler(GsubGpos.FeatureParams.TID_Ch
             sampleTextNameId,
             numNamedParameters,
             firstParamUiLabelNameId,
-            characters: chars,
+            characters: chars
         };
     },
     write(frag: Frag, fp: GsubGpos.FeatureParams.CharacterVariant) {
@@ -90,7 +90,7 @@ const FeatureParamCharacterVariant = CreateHandler(GsubGpos.FeatureParams.TID_Ch
             .uint16(fp.firstParamUiLabelNameId)
             .uint16(fp.characters.length)
             .array(UInt24, fp.characters);
-    },
+    }
 });
 
 const FeatureParamHandlers = [FeatureParamStylisticSet, FeatureParamCharacterVariant];

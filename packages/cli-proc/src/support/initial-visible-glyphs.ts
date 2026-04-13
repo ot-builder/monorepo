@@ -5,7 +5,7 @@ export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
     unicodeSet: { has(u: number): boolean },
     fAddNotDef: boolean = true,
-    fAddNull: boolean = false,
+    fAddNull: boolean = false
 ) {
     const gOrd = font.glyphs.decideOrder();
     const init: Set<Ot.Glyph> = new Set();
@@ -25,7 +25,7 @@ export function initialGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
 
 export function createSubsetRectifier<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    unicodeSet: { has(u: number): boolean },
+    unicodeSet: { has(u: number): boolean }
 ) {
     const init = initialGlyphsFromUnicodeSet(font, unicodeSet);
     const collected = Trace.traceGlyphs(new Set(init), font);
@@ -35,7 +35,7 @@ export function createSubsetRectifier<GS extends Ot.GlyphStore>(
             glyphRef(g: Ot.Glyph) {
                 if (collected.has(g)) return g;
                 else return undefined;
-            },
-        },
+            }
+        }
     };
 }

@@ -41,5 +41,5 @@ export const LocaTableIo = {
                 frag.uint32(offset);
             }
         }
-    },
+    }
 };

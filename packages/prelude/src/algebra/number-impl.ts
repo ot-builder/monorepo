@@ -8,5 +8,5 @@ export const Num: Ring<number> & VectorSpace<number, number> = {
     minus: (a, b) => a - b,
     times: (a, b) => a * b,
     scale: (a, b) => a * b,
-    addScale: (a, s, b) => a + s * b,
+    addScale: (a, s, b) => a + s * b
 };

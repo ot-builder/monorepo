@@ -23,5 +23,5 @@ export const MathTableIo = {
         fr.push(Ptr16MathConstantsNullable, math.constants);
         fr.push(Ptr16MathGlyphInfoNullable, math.glyphInfo, gOrd);
         fr.push(Ptr16MathVariantsNullable, math.variants, gOrd);
-    },
+    }
 };

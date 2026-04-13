@@ -8,7 +8,7 @@ import * as FastMatch from "../../fast-match";
 function testSingle(
     bmg: BimapCtx<OtGlyph>,
     expected: Gsub.Multiple | Gsub.Alternate,
-    actual: Gsub.Multiple | Gsub.Alternate,
+    actual: Gsub.Multiple | Gsub.Alternate
 ) {
     for (const [ga, sa] of expected.mapping) {
         const gb = bmg.forward(ga);

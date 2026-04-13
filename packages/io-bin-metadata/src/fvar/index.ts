@@ -19,7 +19,7 @@ const AxisRecord = {
         const rawAxis = new Fvar.Axis(
             new OtVar.Dim(axisTag, minValue, defaultValue, maxValue),
             flags,
-            axisNameID,
+            axisNameID
         );
         if (ctx?.mapAxis) {
             return ctx.mapAxis(rawAxis, index);
@@ -34,7 +34,7 @@ const AxisRecord = {
         frag.push(F16D16, axis.dim.max);
         frag.uint16(axis.flags);
         frag.uint16(axis.axisNameID);
-    }),
+    })
 };
 
 const InstanceRecord = {
@@ -59,7 +59,7 @@ const InstanceRecord = {
             frag.push(F16D16, inst.coordinates ? inst.coordinates.get(axis.dim) || 0 : 0);
         }
         if (hasPostNameID) frag.uint16(inst.postScriptNameID || 0);
-    }),
+    })
 };
 
 export const FvarIo = {
@@ -79,7 +79,7 @@ export const FvarIo = {
             "fvar::instanceSize",
             instanceSize,
             InstanceRecord.size(axisCount, false),
-            InstanceRecord.size(axisCount, true),
+            InstanceRecord.size(axisCount, true)
         );
 
         const fvar = new Fvar.Table();
@@ -123,5 +123,5 @@ export const FvarIo = {
         for (const inst of fvar.instances) {
             frAxesArray.push(InstanceRecord, inst, fvar.axes, fHasPostScriptName);
         }
-    }),
+    })
 };

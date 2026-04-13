@@ -4,7 +4,7 @@ import {
     IdAxisRectifier,
     IdCoordRectifier,
     IdGlyphRefRectifier,
-    IdPointAttachmentRectifier,
+    IdPointAttachmentRectifier
 } from "../../interface";
 
 import { RectifyGsubGlyphCoordAlg, rectifyLookupList } from "./rectify";
@@ -18,7 +18,7 @@ describe("GSUB Rectifier", () => {
             match: [new Set([a])],
             inputBegins: 0,
             inputEnds: 1,
-            applications: [{ at: 0, apply: chaining }], // Circular
+            applications: [{ at: 0, apply: chaining }] // Circular
         });
 
         const alg = new RectifyGsubGlyphCoordAlg(IdGlyphRefRectifier, IdCoordRectifier, null);
@@ -41,13 +41,13 @@ describe("GSUB Rectifier", () => {
             match: [new Set([c]), new Set([a, b])],
             inputBegins: 1,
             inputEnds: 2,
-            applications: [{ at: 0, apply: dummy }],
+            applications: [{ at: 0, apply: dummy }]
         });
 
         const alg = new RectifyGsubGlyphCoordAlg(
             { glyphRef: (g) => (g === b ? null : g) },
             IdCoordRectifier,
-            null,
+            null
         );
 
         const correspondence = rectifyLookupList([dummy, chaining], alg, fnApplyGsubLookup);
@@ -73,8 +73,8 @@ describe("GSUB Rectifier", () => {
             inputEnds: 2,
             applications: [
                 { at: 0, apply: dummy1 },
-                { at: 1, apply: dummy2 },
-            ],
+                { at: 1, apply: dummy2 }
+            ]
         });
 
         const table = new Ot.Gsub.Table();
@@ -85,7 +85,7 @@ describe("GSUB Rectifier", () => {
             IdAxisRectifier,
             IdCoordRectifier,
             IdPointAttachmentRectifier,
-            table,
+            table
         );
 
         expect(newTable).toBeTruthy();
@@ -107,7 +107,7 @@ describe("GSUB Rectifier", () => {
             match: [new Set([a]), new Set([a, b])],
             inputBegins: 0,
             inputEnds: 2,
-            applications: [{ at: 0, apply: dummy1 }],
+            applications: [{ at: 0, apply: dummy1 }]
         });
 
         const table = new Ot.Gsub.Table();
@@ -118,7 +118,7 @@ describe("GSUB Rectifier", () => {
             IdAxisRectifier,
             IdCoordRectifier,
             IdPointAttachmentRectifier,
-            table,
+            table
         );
 
         expect(newTable).toBeTruthy();

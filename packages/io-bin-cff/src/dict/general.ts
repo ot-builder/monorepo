@@ -14,7 +14,7 @@ import { DictEncoder } from "./encoder";
 
 export type CffDictInterpreterFactory<T> = (
     viewDict: BinaryView,
-    ctx: CffReadContext,
+    ctx: CffReadContext
 ) => CffInterp.Interpreter & CffDictInterpreter<T>;
 
 export interface CffDictInterpreter<T> {
@@ -49,20 +49,20 @@ export abstract class CffDictDataCollector<T, A = void> {
     public abstract collectDrawCalls(
         dict: T,
         ctx: CffWriteContext,
-        rest: A,
+        rest: A
     ): Iterable<CffDrawCallRaw>;
     public abstract processPointers(
         encoder: DictEncoder,
         dict: T,
         ctx: CffWriteContext,
-        rest: A,
+        rest: A
     ): void;
 }
 
 export function CffDictWriteT<T, A = void>(collector: CffDictDataCollector<T, A>) {
     return Write((frag: Frag, dict: T, ctx: CffWriteContext, rest: A) => {
         const drawCalls = CffDrawCall.dictStringSeqFromRawSeq(ctx, [
-            ...collector.collectDrawCalls(dict, ctx, rest),
+            ...collector.collectDrawCalls(dict, ctx, rest)
         ]);
         const dcIrSeq = Mir.toInterpIrSeq(CffDrawCall.dictSeqToMir(ctx, drawCalls));
         const encoder = new DictEncoder(frag);

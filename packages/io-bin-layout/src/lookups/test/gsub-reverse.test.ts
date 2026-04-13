@@ -8,7 +8,7 @@ import { GsubReverseReader, GsubReverseWriter } from "../gsub-reverse";
 import {
     type LookupRoundTripConfig,
     LookupRoundTripTest,
-    TuGlyphSet,
+    TuGlyphSet
 } from "./-shared-test-util.test";
 
 const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
@@ -24,7 +24,7 @@ const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.ReverseSub> = {
     reader: () => new GsubReverseReader(),
     validate(gOrd, lOrd, a, b) {
         LookupIdentity.GsubReverse.test(BimapCtx.from(gOrd), a, b);
-    },
+    }
 };
 
 test("GSUB Reverse sub : Simple", () => {
@@ -32,12 +32,12 @@ test("GSUB Reverse sub : Simple", () => {
     lookup.rules.push({
         match: [TuGlyphSet(gOrd, 0), TuGlyphSet(gOrd, 1)],
         doSubAt: 0,
-        replacement: Disorder.shuffleMap(new Map([[gOrd.at(0), gOrd.at(3)]])),
+        replacement: Disorder.shuffleMap(new Map([[gOrd.at(0), gOrd.at(3)]]))
     });
     lookup.rules.push({
         match: [TuGlyphSet(gOrd, 0, 3, 4, 5, 6, 7, 8), TuGlyphSet(gOrd, 2), TuGlyphSet(gOrd, 4)],
         doSubAt: 1,
-        replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]])),
+        replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]]))
     });
     lookup.rules.push({
         match: [
@@ -45,10 +45,10 @@ test("GSUB Reverse sub : Simple", () => {
             TuGlyphSet(gOrd, 5, 6, 7, 8),
             TuGlyphSet(gOrd, 2),
             TuGlyphSet(gOrd, 1, 3, 5, 7),
-            TuGlyphSet(gOrd, 2, 4, 6, 8),
+            TuGlyphSet(gOrd, 2, 4, 6, 8)
         ],
         doSubAt: 2,
-        replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]])),
+        replacement: Disorder.shuffleMap(new Map([[gOrd.at(2), gOrd.at(4)]]))
     });
 
     LookupRoundTripTest(lookup, roundtripConfig);

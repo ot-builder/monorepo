@@ -9,7 +9,7 @@ import * as FastMatch from "../../fast-match";
 function getOffset(
     component: number,
     mre: Data.Maybe<Gpos.MarkRecord>,
-    bre: Data.Maybe<Gpos.LigatureBaseRecord>,
+    bre: Data.Maybe<Gpos.LigatureBaseRecord>
 ) {
     let offsetX = OtVar.Ops.neutral;
     let offsetY = OtVar.Ops.neutral;
@@ -28,7 +28,7 @@ function getOffset(
 function testSingle(
     bmg: BimapCtx<OtGlyph>,
     expected: Gpos.MarkToLigature,
-    actual: Gpos.MarkToLigature,
+    actual: Gpos.MarkToLigature
 ) {
     for (const [gme, mre] of expected.marks) {
         for (const [gbe, bre] of expected.bases) {
@@ -37,10 +37,18 @@ function testSingle(
                 const offsetActual = getOffset(
                     component,
                     actual.marks.get(bmg.forward(gme)),
-                    actual.bases.get(bmg.forward(gbe)),
+                    actual.bases.get(bmg.forward(gbe))
                 );
-                FastMatch.otvar(offsetExpected.x, offsetActual.x, `${gme.name} >< ${gbe.name} / x`);
-                FastMatch.otvar(offsetExpected.y, offsetActual.y, `${gme.name} >< ${gbe.name} / y`);
+                FastMatch.otvar(
+                    offsetExpected.x,
+                    offsetActual.x,
+                    `${gme.name} >< ${gbe.name} / x`
+                );
+                FastMatch.otvar(
+                    offsetExpected.y,
+                    offsetActual.y,
+                    `${gme.name} >< ${gbe.name} / y`
+                );
             }
         }
     }

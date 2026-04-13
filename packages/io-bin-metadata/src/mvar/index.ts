@@ -11,7 +11,7 @@ export const MvarTag = "MVAR";
 class MvarPropAccess<Table, K extends keyof Table> implements ImpLib.Access<Table[K]> {
     public constructor(
         private table: Table,
-        private key: K,
+        private key: K
     ) {}
     public get() {
         return this.table[this.key];
@@ -86,7 +86,7 @@ class GaspMvarLensSource implements MvarLensSource {
 }
 
 function* lensSourcesFromMd(
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ): IterableIterator<[string, ImpLib.Access<OtVar.Value>]> {
     if (md.hhea) yield* new HheaMvarLensSource(md.hhea).entries();
     if (md.vhea) yield* new VheaMvarLensSource(md.vhea).entries();
@@ -103,7 +103,11 @@ export const MvarTableIo = {
         const reserved = view.uint16();
 
         const valueRecordSize = view.uint16();
-        Assert.SizeMatch("MvarTable::valueRecordSize", valueRecordSize, Tag.size + UInt16.size * 2);
+        Assert.SizeMatch(
+            "MvarTable::valueRecordSize",
+            valueRecordSize,
+            Tag.size + UInt16.size * 2
+        );
 
         const valueRecordCount = view.uint16();
         const pIVS = view.ptr16Nullable();
@@ -127,7 +131,7 @@ export const MvarTableIo = {
         frag: Frag,
         designSpace: OtVar.DesignSpace,
         md: OtFontMetadata,
-        afEmpty?: ImpLib.Access<boolean>,
+        afEmpty?: ImpLib.Access<boolean>
     ) {
         const ivs = WriteTimeIVS.create(new OtVar.MasterSet());
         const lenses = new Map(lensSourcesFromMd(md));
@@ -153,5 +157,5 @@ export const MvarTableIo = {
             if (afEmpty) afEmpty.set(true);
             frag.uint16(0);
         }
-    },
+    }
 };

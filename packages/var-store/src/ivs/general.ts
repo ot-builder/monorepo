@@ -52,7 +52,7 @@ export class WriteTimeIVD {
         public readonly long: boolean,
         public readonly arity: number,
         public readonly outerIndex: number,
-        public readonly masterIDs: number[],
+        public readonly masterIDs: number[]
     ) {}
 
     public enter(deltas: number[]) {
@@ -66,9 +66,9 @@ export class WriteTimeIVD {
                 yield [
                     deltaRowEntire.slice(
                         this.masterIDs.length * m,
-                        this.masterIDs.length * (m + 1),
+                        this.masterIDs.length * (m + 1)
                     ),
-                    innerIDRaw * this.arity + m,
+                    innerIDRaw * this.arity + m
                 ];
             }
         }
@@ -101,7 +101,7 @@ export class WriteTimeIVDBlossom {
     public constructor(
         private nodeAlloc: WriteTimeIVDAllocator,
         private maxInnerIndex: number,
-        private readonly masterIDs: number[],
+        private readonly masterIDs: number[]
     ) {}
 
     public getFreeIVD(fLong: boolean, arity: number) {
@@ -126,7 +126,7 @@ export class WriteTimeIVDBlossomAllocator
 {
     public constructor(
         private nodeAlloc: WriteTimeIVDAllocator,
-        private maxInnerIndex: number,
+        private maxInnerIndex: number
     ) {}
     public next(masterIDs: number[]) {
         return new WriteTimeIVDBlossom(this.nodeAlloc, this.maxInnerIndex, masterIDs);
@@ -136,13 +136,13 @@ export class WriteTimeIVDBlossomAllocator
 export class WriteTimeIVCollector<
     A extends GeneralVar.Dim,
     M extends GeneralVar.Master<A>,
-    X,
+    X
 > extends DelayValueCollector<A, M, X, DelayDeltaValue<A, M, X>> {
     public constructor(
         op: GeneralVar.Ops<A, M, X>,
         masterSet: GeneralVar.MasterSet<A, M>,
         private pmBlossom: ImpLib.PathMap<number, WriteTimeIVDBlossom>,
-        private acBlossom: WriteTimeIVDBlossomAllocator,
+        private acBlossom: WriteTimeIVDBlossomAllocator
     ) {
         super(op, masterSet);
     }
@@ -177,7 +177,7 @@ export class DelayDeltaValue<A extends GeneralVar.Dim, M extends GeneralVar.Mast
     public constructor(
         private col: WriteTimeIVCollector<A, M, X>,
         public origin: number,
-        private deltaMA: number[],
+        private deltaMA: number[]
     ) {}
     public resolve() {
         return this.col.resolveDeltas(this.deltaMA);
@@ -191,7 +191,7 @@ export class GeneralWriteTimeIVStore<A extends GeneralVar.Dim, M extends General
     public constructor(
         private readonly op: GeneralVar.Ops<A, M, X>,
         private readonly masterCollector: GeneralVar.MasterSet<A, M>,
-        private maxInnerIndex: number,
+        private maxInnerIndex: number
     ) {
         this.pmBlossom = new ImpLib.PathMapImpl();
         this.acIVD = new WriteTimeIVDAllocator();
@@ -203,7 +203,7 @@ export class GeneralWriteTimeIVStore<A extends GeneralVar.Dim, M extends General
             this.op,
             this.masterCollector,
             this.pmBlossom,
-            this.acBlossom,
+            this.acBlossom
         );
     }
 

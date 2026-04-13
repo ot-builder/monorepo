@@ -86,7 +86,7 @@ export class CffStackMachine {
                 variance: number[] = [];
             for (let ixMaster = 0; ixMaster < nMasters; ixMaster++) {
                 variance[ixMaster] = OtVar.Ops.originOf(
-                    args[nValues + ixVal * nMasters + ixMaster],
+                    args[nValues + ixVal * nMasters + ixMaster]
                 );
             }
             results.push(OtVar.Ops.add(orig, this.ivs.buildValue(this.ivd, variance)));

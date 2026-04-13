@@ -13,7 +13,7 @@ const MarkArray = {
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         clsStart: number,
         cov: number[],
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const markCount = view.uint16();
         Assert.SizeMatch(`MarkArray::markCount`, markCount, cov.length);
@@ -30,7 +30,7 @@ const MarkArray = {
             }
             rec.markAnchors[markClass + clsStart] = markAnchor;
         }
-    },
+    }
 };
 
 const BaseArray = {
@@ -40,7 +40,7 @@ const BaseArray = {
         clsStart: number,
         clsCount: number,
         cov: number[],
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const baseCount = view.uint16();
         Assert.SizeMatch(`BaseArray::baseCount`, baseCount, cov.length);
@@ -56,7 +56,7 @@ const BaseArray = {
                 rec.baseAnchors[cls + clsStart] = anchor;
             }
         }
-    },
+    }
 };
 
 const LigatureAttach = {
@@ -66,7 +66,7 @@ const LigatureAttach = {
         clsStart: number,
         clsCount: number,
         baseGlyph: OtGlyph,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const componentCount = view.uint16();
         for (let componentID = 0; componentID < componentCount; componentID++) {
@@ -81,7 +81,7 @@ const LigatureAttach = {
                 rec.baseAnchors[componentID][cls + clsStart] = anchor;
             }
         }
-    },
+    }
 };
 
 const LigatureArray = {
@@ -91,7 +91,7 @@ const LigatureArray = {
         clsStart: number,
         clsCount: number,
         cov: number[],
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const baseCount = view.uint16();
         Assert.SizeMatch(`BaseArray::baseCount`, baseCount, cov.length);
@@ -99,7 +99,7 @@ const LigatureArray = {
             const baseGlyph = ctx.gOrd.at(gid);
             view.ptr16().next(LigatureAttach, bases, clsStart, clsCount, baseGlyph, ctx);
         }
-    },
+    }
 };
 
 class GposMarkReaderBase {
@@ -116,7 +116,7 @@ class GposMarkReaderBase {
         view: BinaryView,
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.BaseRecord>,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MarkBasePosFormat1`, format, 1);
@@ -132,7 +132,7 @@ class GposMarkReaderBase {
         view: BinaryView,
         marks: Map<OtGlyph, Gpos.MarkRecord>,
         bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MarkLigPosFormat1`, format, 1);
@@ -156,7 +156,7 @@ export class GposMarkToBaseReader
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToBase,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToBaseSubtable(view, lookup.marks, lookup.bases, ctx);
     }
@@ -171,7 +171,7 @@ export class GposMarkToLigatureReader
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToLigature,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToLigatureSubtable(view, lookup.marks, lookup.bases, ctx);
     }
@@ -186,7 +186,7 @@ export class GposMarkToMarkReader
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.MarkToMark,
-        ctx: SubtableReadingContext<Gpos.Lookup>,
+        ctx: SubtableReadingContext<Gpos.Lookup>
     ) {
         this.readMarkToBaseSubtable(view, lookup.marks, lookup.baseMarks, ctx);
     }

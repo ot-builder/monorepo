@@ -45,5 +45,5 @@ export const HeadIo = {
         fr.int16(head.fontDirectionHint);
         fr.int16(head.indexToLocFormat);
         fr.int16(head.glyphDataFormat);
-    }),
+    })
 };

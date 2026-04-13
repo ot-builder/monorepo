@@ -62,7 +62,7 @@ const TestPairs = [
     "3,",
     "3.",
     "4,",
-    "4.",
+    "4."
 ];
 
 test("OTL Integrated Test Loop - Kerning 2", () => {
@@ -126,7 +126,7 @@ function VariableKerningTestLoop(lutIndex: number, file: string) {
             const evaluatedKern = [
                 OtVar.Ops.evaluate(kern.dWidth, null),
                 OtVar.Ops.evaluate(kern.dWidth, thin),
-                OtVar.Ops.evaluate(kern.dWidth, heavy),
+                OtVar.Ops.evaluate(kern.dWidth, heavy)
             ];
             if (round === 0) {
                 round0Results[pairId] = evaluatedKern;

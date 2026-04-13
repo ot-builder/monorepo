@@ -15,12 +15,12 @@ export interface WriteOpt<T, A extends unknown[] = []> {
     writeOpt(t: T, ...args: A): Data.Maybe<Frag>;
 }
 export function Write<T, A extends unknown[] = []>(
-    proc: (frag: Frag, t: T, ...args: A) => void,
+    proc: (frag: Frag, t: T, ...args: A) => void
 ): Write<T, A> {
     return { write: proc };
 }
 export function WriteOpt<T, A extends unknown[] = []>(
-    proc: (t: T, ...args: A) => Data.Maybe<Frag>,
+    proc: (t: T, ...args: A) => Data.Maybe<Frag>
 ): WriteOpt<T, A> {
     return { writeOpt: proc };
 }
@@ -35,15 +35,15 @@ export interface FragPointerEmbedding {
 export namespace FragPointerEmbedding {
     export const Absolute: FragPointerEmbedding = {
         id: "Absolute",
-        getOffset: (enc, emb, to) => to,
+        getOffset: (enc, emb, to) => to
     };
     export const Relative: FragPointerEmbedding = {
         id: "Relative",
-        getOffset: (enc, emb, to) => to - enc,
+        getOffset: (enc, emb, to) => to - enc
     };
     export const EmbedRelative: FragPointerEmbedding = {
         id: "EmbedRelative",
-        getOffset: (enc, emb, to) => to - enc - emb,
+        getOffset: (enc, emb, to) => to - enc - emb
     };
 }
 
@@ -108,7 +108,7 @@ export class Frag {
         return this;
     }
     public reserve<T, A extends unknown[], TW extends T, AW extends A>(
-        builder: Write<T, A> & Sized,
+        builder: Write<T, A> & Sized
     ): FragHole<T, A> {
         const offset = this.bw.currentOffset;
         for (let mu = 0; mu < builder.size; mu++) this.uint8(0); // Fill 0
@@ -117,7 +117,7 @@ export class Frag {
                 const curOffset = this.bw.seek(offset);
                 this.push<T, A, TW, AW>(builder, obj, ...args);
                 this.bw.seek(curOffset);
-            },
+            }
         };
     }
     public bytes(buf: Buffer) {
@@ -157,7 +157,7 @@ export class Frag {
             createdOffset: offset,
             size: SizeofUInt16,
             embedding,
-            targetOffset,
+            targetOffset
         });
         return this;
     }
@@ -170,7 +170,7 @@ export class Frag {
             createdOffset: offset,
             size: SizeofUInt32,
             embedding,
-            targetOffset,
+            targetOffset
         });
         return this;
     }
@@ -405,7 +405,7 @@ class Packing {
         return ptr.embedding.getOffset(
             offsets.get(frag) || 0,
             ptr.offset - ptr.createdOffset,
-            (offsets.get(ptr.to) || 0) + ptr.targetOffset,
+            (offsets.get(ptr.to) || 0) + ptr.targetOffset
         );
     }
 
@@ -440,7 +440,7 @@ class Packing {
         b: BufferWriter,
         enclosure: number,
         ptr: FragPointerRecord,
-        value: number,
+        value: number
     ) {
         switch (ptr.size) {
             case 2:
@@ -483,11 +483,11 @@ class Packing {
         const offsets = this.deOverflow(virtualRoot);
         const buffer = this.serialize(offsets);
         const rootOffsets = virtualRoot.pointers.map(
-            (ptr) => offsets.get(ptr.to!)! - virtualRoot.size,
+            (ptr) => offsets.get(ptr.to!)! - virtualRoot.size
         );
         return {
             buffer: buffer.slice(virtualRoot.size),
-            rootOffsets,
+            rootOffsets
         };
     }
 }

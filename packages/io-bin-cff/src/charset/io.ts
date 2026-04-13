@@ -20,7 +20,7 @@ const FdSelectFormat0 = {
             const fd = view.uint16();
             sink.put(gid, fd);
         }
-    }),
+    })
 };
 const CffCharSetFormat12 = {
     ...Read((view, sink: CffCharSetSink, wdRest: Read<number> & Sized) => {
@@ -40,7 +40,7 @@ const CffCharSetFormat12 = {
             frag: Frag,
             format: UInt8,
             values: readonly number[],
-            wdRest: Write<number> & Sized & Ranged,
+            wdRest: Write<number> & Sized & Ranged
         ) => {
             frag.uint8(format);
             let lastSid = -1;
@@ -58,8 +58,8 @@ const CffCharSetFormat12 = {
                 }
             }
             frag.push(wdRest, rest);
-        },
-    ),
+        }
+    )
 };
 
 export const CffCharSet = {
@@ -87,5 +87,5 @@ export const CffCharSet = {
         } else {
             frag.bytes(bFormat2);
         }
-    }),
+    })
 };

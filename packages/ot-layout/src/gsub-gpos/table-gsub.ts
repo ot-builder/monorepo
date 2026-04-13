@@ -20,7 +20,7 @@ export class Table implements GsubGpos.TableT<Lookup> {
         public scripts: Map<Primitive.Tag, Script> = new Map(),
         public features: Feature[] = [],
         public lookups: Lookup[] = [],
-        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined,
+        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined
     ) {}
 }
 
@@ -37,40 +37,40 @@ export type SingleProp = GeneralLookup.GsubSinglePropT<OtGlyph, OtVar.Value>;
 export type Single = CaseType<typeof LookupType.Single, SingleProp>;
 export const Single = CaseCreator(
     LookupType.Single,
-    FallbackPropCreator<SingleProp>(() => ({ mapping: new Map() })),
+    FallbackPropCreator<SingleProp>(() => ({ mapping: new Map() }))
 );
 
 export type MultipleAlternateProp = GeneralLookup.GsubMultipleAlternatePropT<OtGlyph, OtVar.Value>;
 export type Multiple = CaseType<typeof LookupType.Multi, MultipleAlternateProp>;
 export const Multiple = CaseCreator(
     LookupType.Multi,
-    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() })),
+    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() }))
 );
 export type Alternate = CaseType<typeof LookupType.Alternate, MultipleAlternateProp>;
 export const Alternate = CaseCreator(
     LookupType.Alternate,
-    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() })),
+    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() }))
 );
 
 export type LigatureProp = GeneralLookup.GsubLigaturePropT<OtGlyph, OtVar.Value>;
 export type Ligature = CaseType<typeof LookupType.Ligature, LigatureProp>;
 export const Ligature = CaseCreator(
     LookupType.Ligature,
-    FallbackPropCreator<LigatureProp>(() => ({ mapping: [] })),
+    FallbackPropCreator<LigatureProp>(() => ({ mapping: [] }))
 );
 
 export type ChainingProp = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, Lookup>;
 export type Chaining = CaseType<typeof LookupType.Chaining, ChainingProp>;
 export const Chaining = CaseCreator(
     LookupType.Chaining,
-    FallbackPropCreator<ChainingProp>(() => ({ rules: [] })),
+    FallbackPropCreator<ChainingProp>(() => ({ rules: [] }))
 );
 
 export type ReverseSubProp = GeneralLookup.GsubReverseSingleSubPropT<OtGlyph, OtVar.Value>;
 export type ReverseSub = CaseType<typeof LookupType.Reverse, ReverseSubProp>;
 export const ReverseSub = CaseCreator(
     LookupType.Reverse,
-    FallbackPropCreator<ReverseSubProp>(() => ({ rules: [] })),
+    FallbackPropCreator<ReverseSubProp>(() => ({ rules: [] }))
 );
 
 export type Lookup = Single | Multiple | Alternate | Ligature | Chaining | ReverseSub;

@@ -61,7 +61,7 @@ const NameRecord = {
         if (a.encodingID !== b.encodingID) return a.encodingID - b.encodingID;
         if (a.languageID !== b.languageID) return a.languageID - b.languageID;
         return a.nameID - b.nameID;
-    },
+    }
 };
 
 const LangTagRecord = {
@@ -75,7 +75,7 @@ const LangTagRecord = {
         const buf = iconv.encode(ltr, `utf16-be`);
         frag.uint16(buf.byteLength);
         frag.uint16(alloc.add(buf));
-    },
+    }
 };
 
 export const NameIo = {
@@ -119,5 +119,5 @@ export const NameIo = {
         }
         noa.add(iconv.encode("\n", "utf-8")); // Ensure that the frStrings will not be empty
         frStrings.bytes(noa.getBuffer());
-    },
+    }
 };

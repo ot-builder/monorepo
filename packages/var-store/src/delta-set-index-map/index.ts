@@ -46,7 +46,7 @@ export const DeltaSetIndexMap = {
         if (!allowLongMapCount && needsLongMapCount) {
             throw Errors.GeneralOverflow(
                 `DeltaSetIndexMap mappings count that not allowing long count`,
-                mapCount,
+                mapCount
             );
         }
         frag.uint8(needsLongMapCount ? 1 : 0);
@@ -61,7 +61,7 @@ export const DeltaSetIndexMap = {
             const entry = (outer << bitsNeededInner) | inner;
             frag.push(UIntN[bytesNeeded - 1], entry);
         }
-    }),
+    })
 };
 
 function statMapCount(map: IndexMapping[]) {

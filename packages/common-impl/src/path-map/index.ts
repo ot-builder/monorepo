@@ -123,7 +123,7 @@ export class PathMapImpl<Step, Value> implements PathMap<Step, Value> {
     }
 
     public static create<Step, Value>(
-        iter?: Iterable<[ReadonlyArray<Step>, Value]>,
+        iter?: Iterable<[ReadonlyArray<Step>, Value]>
     ): PathMapImpl<Step, Value> {
         const pm = new PathMapImpl<Step, Value>();
         if (iter) for (const [key, value] of iter) pm.set(key, value);

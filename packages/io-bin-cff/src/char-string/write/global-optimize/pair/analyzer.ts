@@ -44,7 +44,7 @@ export class PairingAnalyzer
             type: MirType.NonTerminal,
             id: this.nNonTerminal++,
             stackRise: a.stackRise + b.stackRise,
-            stackRidge: Math.max(1, a.stackRidge, a.stackRise + b.stackRidge),
+            stackRidge: Math.max(1, a.stackRidge, a.stackRise + b.stackRidge)
         };
     }
 
@@ -68,5 +68,5 @@ export class PairingAnalyzer
 }
 
 export const Pairing: SubroutineAnalyzerFactory = {
-    create: () => new PairingAnalyzer(),
+    create: () => new PairingAnalyzer()
 };

@@ -6,7 +6,7 @@ export const TagVvar = "VVAR";
 export class Measure {
     public constructor(
         public start: OtVar.Value = 0,
-        public advance: OtVar.Value = 0,
+        public advance: OtVar.Value = 0
     ) {}
 }
 

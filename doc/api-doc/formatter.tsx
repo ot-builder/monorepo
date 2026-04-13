@@ -28,7 +28,7 @@ import {
     type TyProject,
     type TyReadonly,
     type TyRep,
-    type TyTuple,
+    type TyTuple
 } from "./tyrep";
 
 export function FormatType(at: TyRep, long?: boolean): React.ReactNode {
@@ -54,7 +54,7 @@ export function FormatTupleImpl(
     braceLeft: null | string,
     delim: string,
     braceRight: null | string,
-    delimType?: string,
+    delimType?: string
 ) {
     const items: React.ReactNode[] = [];
     let started = false;
@@ -64,7 +64,7 @@ export function FormatTupleImpl(
             items.push(
                 <span key={"delim-" + id} className={delimType || "api-doc-delimiter"}>
                     {delim + "\u200B"}
-                </span>,
+                </span>
             );
         }
         items.push(<span key={"item-" + id}>{FormatType(part)}</span>);
@@ -84,7 +84,7 @@ export function FormatObjectImpl(
     braceLeft: null | string,
     delim: (key: string) => React.ReactNode,
     wrapElement: (prefix: string, key: string, suffix: string, el: TyRep) => React.ReactNode,
-    braceRight: null | string,
+    braceRight: null | string
 ) {
     const items: React.ReactNode[] = [];
     let started = false;
@@ -270,7 +270,9 @@ function translateUrlImpl(exp: TyExport, orig: TyExport) {
     const pp = getPagePath(exp);
     if (pp) {
         return (
-            `/references/` + toPagePath(getPagePath(exp)) + ("#" + toItemHash(getDisplayPath(orig)))
+            `/references/` +
+            toPagePath(getPagePath(exp)) +
+            ("#" + toItemHash(getDisplayPath(orig)))
         );
     }
 

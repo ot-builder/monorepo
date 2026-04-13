@@ -22,7 +22,12 @@
         "indentStyle": "space",
         "indentWidth": 4,
         "lineEnding": "lf",
-        "lineWidth": 100
+        "lineWidth": 99
+    },
+    "javascript": {
+        "formatter": {
+            "trailingCommas": "none"
+        }
     },
     "linter": {
         "enabled": true,
@@ -55,7 +60,9 @@
     "overrides": [
         {
             "includes": [".vscode/**/*.json"],
-            "json": { "parser": { "allowComments": true, "allowTrailingCommas": true } }
+            "json": {
+                "parser": { "allowComments": true, "allowTrailingCommas": true }
+            }
         }
     ],
     "assist": {

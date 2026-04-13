@@ -25,7 +25,7 @@ const cliActionJoiner: Join<CliAction> = {
         return async (state: CliState) => {
             for (const action of actions) await action(state);
         };
-    },
+    }
 };
 
 // Grammar Creator
@@ -46,7 +46,7 @@ export async function createGrammar(): Promise<Grammar> {
         ConsolidateSyntax,
 
         SetOptimizationLevelSyntax,
-        SetRecalcOs2AvgCharWidthSyntax,
+        SetRecalcOs2AvgCharWidthSyntax
     ]);
     const appVersion = await getPackageVersion();
     const start = new StartSyntax(
@@ -54,8 +54,8 @@ export async function createGrammar(): Promise<Grammar> {
         new AlternateSyntax([
             HelpSyntax,
             VersionSyntax,
-            new MainCommandSyntax(new PossessiveRepeatSyntax(cliActionJoiner, element)),
-        ]),
+            new MainCommandSyntax(new PossessiveRepeatSyntax(cliActionJoiner, element))
+        ])
     );
 
     return { element, start };

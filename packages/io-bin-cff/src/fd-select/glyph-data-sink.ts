@@ -5,7 +5,7 @@ import type { CffFdSelectSink } from "./io";
 export class CffGlyphFdSelectSink<G> implements CffFdSelectSink {
     public constructor(
         private glyphs: Data.Order<G>,
-        private mapping: Map<G, number>,
+        private mapping: Map<G, number>
     ) {}
     public getGlyphCount() {
         return this.glyphs.length;

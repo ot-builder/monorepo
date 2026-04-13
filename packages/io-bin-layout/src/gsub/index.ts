@@ -7,12 +7,12 @@ import type {
     LookupReader,
     LookupReaderFactory,
     LookupWriter,
-    LookupWriterFactory,
+    LookupWriterFactory
 } from "../gsub-gpos-shared/general";
 import {
     CGsubGposTable,
     type TableReadContext,
-    type TableWriteContext,
+    type TableWriteContext
 } from "../gsub-gpos-shared/table";
 import { GsubChainingReader, GsubContextualReader } from "../lookups/contextual-read";
 import { GsubChainingContextualWriter } from "../lookups/contextual-write";
@@ -21,7 +21,7 @@ import {
     GsubAlternateReader,
     GsubAlternateWriter,
     GsubMultiReader,
-    GsubMultiWriter,
+    GsubMultiWriter
 } from "../lookups/gsub-multi-alternate";
 import { GsubReverseReader, GsubReverseWriter } from "../lookups/gsub-reverse";
 import { GsubSingleReader, GsubSingleWriter } from "../lookups/gsub-single";
@@ -64,7 +64,7 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
         const sink: Gsub.Lookup[] = [];
         for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
         return sink;
-    },
+    }
 };
 
 export const GsubTableIo = {
@@ -74,5 +74,5 @@ export const GsubTableIo = {
     },
     write(frag: Frag, table: Gsub.Table, cfg: LayoutCfg, twc: TableWriteContext) {
         return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, cfg, gsub, twc);
-    },
+    }
 };

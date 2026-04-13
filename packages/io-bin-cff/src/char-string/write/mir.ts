@@ -8,7 +8,7 @@ export enum MirType {
     Nop = 0,
     Operand = 1,
     Operator = 2,
-    NonTerminal = 3,
+    NonTerminal = 3
 }
 
 export interface MirShared {
@@ -36,7 +36,7 @@ export namespace Mir {
     export function operator(
         opCode: number,
         sr: number,
-        flags?: Data.Maybe<number[]>,
+        flags?: Data.Maybe<number[]>
     ): MirOperator {
         return { type: MirType.Operator, opCode, flags, stackRidge: 0, stackRise: sr };
     }

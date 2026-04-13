@@ -17,7 +17,7 @@ const testBaseScript = StdCompare((bim: EmptyCtx, a: Base.Script, b: Base.Script
     testBaseValues(bim, a.baseValues, b.baseValues);
     testMinMaxTable(bim, a.defaultMinMax, b.defaultMinMax);
     Compare.optional(bim, a.baseLangSysRecords, b.baseLangSysRecords, (bim, a, b) =>
-        Compare.map(bim, a, b, testMinMaxTable),
+        Compare.map(bim, a, b, testMinMaxTable)
     );
 });
 

@@ -13,7 +13,7 @@ export class ListStoreFactoryWithDefault<T>
 {
     public constructor(
         sourceKind: string,
-        private readonly create: () => T,
+        private readonly create: () => T
     ) {
         super(sourceKind);
     }
@@ -27,7 +27,7 @@ export class ListStoreFactoryWithDefault<T>
 export class ListStore<T> implements Data.OrderStore<T> {
     public constructor(
         private readonly sourceKind: string,
-        public readonly items: Array<T>,
+        public readonly items: Array<T>
     ) {}
 
     public decideOrder(): Data.Order<T> {
@@ -38,7 +38,7 @@ export class ListStore<T> implements Data.OrderStore<T> {
 class ListOrder<T> implements Data.Order<T> {
     public constructor(
         private readonly sourceKind: string,
-        private readonly items: ReadonlyArray<T>,
+        private readonly items: ReadonlyArray<T>
     ) {
         this.length = items.length;
         this.revMap = new Map();

@@ -123,6 +123,6 @@ export const MathConstants = {
         fr.push(MathValueRecord, x.radicalKernBeforeDegree);
         fr.push(MathValueRecord, x.radicalKernAfterDegree);
         fr.int16(x.radicalDegreeBottomRaisePercent);
-    }),
+    })
 };
 export const Ptr16MathConstantsNullable = NullablePtr16(MathConstants);

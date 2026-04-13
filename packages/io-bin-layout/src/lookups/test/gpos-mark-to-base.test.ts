@@ -18,7 +18,7 @@ describe("GPOS mark-to-base lookup handler", () => {
         reader: () => new GposMarkToBaseReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToBase.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("1MC", () => {
@@ -42,13 +42,13 @@ describe("GPOS mark-to-base lookup handler", () => {
             lookup.marks.set(gOrd.at(gid), {
                 markAnchors: [
                     { x: gid, y: gid },
-                    { x: gid, y: gid },
-                ],
+                    { x: gid, y: gid }
+                ]
             });
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
             lookup.bases.set(gOrd.at(gid), {
-                baseAnchors: gid % 2 ? [{ x: -gid, y: -gid }, null] : [null, { x: -gid, y: -gid }],
+                baseAnchors: gid % 2 ? [{ x: -gid, y: -gid }, null] : [null, { x: -gid, y: -gid }]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

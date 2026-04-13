@@ -27,19 +27,19 @@ export const SaveSyntax: Syntax<null | CliAction> = {
             Style.Param`path`,
             `;`,
             Style.Option`--save`,
-            Style.Param`path`,
+            Style.Param`path`
         );
         shower
             .indent()
             .message(`Pop the stack top font and save into the`, Style.Param`path`, `.`)
             .message(`Currently only .otf and .ttf files are supported.`);
-    },
+    }
 };
 
 export async function saveFontToFile<GS extends Ot.GlyphStore>(
     path: string,
     font: Ot.Font<GS>,
-    cfg: FontIo.FontIoConfig,
+    cfg: FontIo.FontIoConfig
 ) {
     const buf1 = FontIo.writeSfntOtf(FontIo.writeFont(font, cfg));
     await Fs.promises.writeFile(Path.resolve(path), buf1);

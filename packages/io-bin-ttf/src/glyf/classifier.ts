@@ -24,7 +24,7 @@ export class GlyphClassifier {
                 g.horizontal,
                 g.vertical,
                 algGeom.collectedReferences,
-                algHint.collectedInstructions,
+                algHint.collectedInstructions
             );
         }
         if (algGeom.hasContours && algGeom.allContours) {
@@ -33,7 +33,7 @@ export class GlyphClassifier {
                 g.horizontal,
                 g.vertical,
                 algGeom.collectedContourSets,
-                algHint.collectedInstructions,
+                algHint.collectedInstructions
             );
         }
         throw Errors.Ttf.MixedGlyph(gid);
@@ -102,7 +102,7 @@ export class SpaceGlyph {
     public constructor(
         protected gid: number,
         public hm: OtGlyph.Metric,
-        public vm: OtGlyph.Metric,
+        public vm: OtGlyph.Metric
     ) {}
     public getStatData(): OtGlyph.Stat.ComplexGlyphStat {
         return {
@@ -112,7 +112,7 @@ export class SpaceGlyph {
             depth: 0,
             eigenReferences: 0,
             totalContours: 0,
-            totalPoints: 0,
+            totalPoints: 0
         };
     }
     public stat(sink: OtGlyph.Stat.Sink) {
@@ -128,7 +128,7 @@ export class SimpleGlyph extends SpaceGlyph {
         hm: OtGlyph.Metric,
         vm: OtGlyph.Metric,
         public outlines: OtGlyph.ContourSet[],
-        public instructions: Buffer,
+        public instructions: Buffer
     ) {
         super(gid, hm, vm);
         const bound = OtGeometryUtil.apply(OtGeometryUtil.GetBound, ...this.outlines);
@@ -142,7 +142,7 @@ export class SimpleGlyph extends SpaceGlyph {
             depth: 0,
             eigenReferences: 0,
             totalContours: contourCount,
-            totalPoints: pointCount,
+            totalPoints: pointCount
         };
     }
 
@@ -166,7 +166,7 @@ export class CompositeGlyph extends SpaceGlyph {
         hm: OtGlyph.Metric,
         vm: OtGlyph.Metric,
         public references: OtGlyph.TtReference[],
-        public instructions: Buffer,
+        public instructions: Buffer
     ) {
         super(gid, hm, vm);
 
@@ -188,7 +188,7 @@ export class CompositeGlyph extends SpaceGlyph {
             depth,
             eigenReferences: references.length,
             totalContours,
-            totalPoints,
+            totalPoints
         };
     }
 

@@ -19,7 +19,7 @@ function cff1RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const { cff, cffGlyphNaming: naming } = new BinaryView(sfnt.tables.get(Cff.Tag1)!).next(
         ReadCff1,
         cfg,
-        gs.decideOrder(),
+        gs.decideOrder()
     );
     if (naming) for (const g of gs.items) g.name = naming.getName(g) || `?`;
 
@@ -35,17 +35,17 @@ function cff1RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     console.log(
         `Test file ${file}\n` +
             `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
+            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
     );
 }
 
 const DontOptimize: Partial<CffCfgProps> = {
     doGlobalOptimization: false,
-    doLocalOptimization: false,
+    doLocalOptimization: false
 };
 const Optimize: Partial<CffCfgProps> = {
     doGlobalOptimization: true,
-    doLocalOptimization: true,
+    doLocalOptimization: true
 };
 
 test("CFF1 Write: roundtrip, Source Serif Pro Regular", () => {

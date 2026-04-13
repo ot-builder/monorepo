@@ -3,6 +3,6 @@ export { TvdAccess } from "./shared/iup";
 export {
     TupleVariationBuildContext,
     TupleVariationBuildSource,
-    TupleVariationWriteOpt,
+    TupleVariationWriteOpt
 } from "./write";
 export { TupleAllocator } from "./write/tuple-allocator";

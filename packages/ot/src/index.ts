@@ -8,7 +8,7 @@ export {
     OtGlyph as Glyph,
     OtGlyphNamer as GlyphNamer,
     OtGlyphNamingSource as GlyphNamingSource,
-    Prep,
+    Prep
 } from "@ot-builder/ot-glyphs";
 export {
     Base,
@@ -18,7 +18,7 @@ export {
     Gpos,
     Gsub,
     GsubGpos,
-    Math,
+    Math
 } from "@ot-builder/ot-layout";
 export { Avar, Fvar, Gasp, Head, Maxp, MetricHead, Os2, Post } from "@ot-builder/ot-metadata";
 export { Meta, Name, Stat } from "@ot-builder/ot-name";

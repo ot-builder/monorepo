@@ -3,7 +3,7 @@ import { CONSOLE_WIDTH } from "./style";
 // From strip-ansi
 const AnsiPattern = [
     "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))",
+    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
 ].join("|");
 
 const AnsiRegex = new RegExp(AnsiPattern, "g");
@@ -12,7 +12,7 @@ export class CliHelpShower {
     public constructor(
         private readonly indentPrefix = "",
         private readonly bulletPrefix = "",
-        private readonly hangingIndentPrefix = "",
+        private readonly hangingIndentPrefix = ""
     ) {}
     public indent(bullet = "") {
         return new CliHelpShower(this.indentPrefix + "  ", bullet, this.hangingIndentPrefix);
@@ -25,7 +25,7 @@ export class CliHelpShower {
         return new CliHelpShower(
             this.indentPrefix,
             this.bulletPrefix,
-            this.hangingIndentPrefix + s,
+            this.hangingIndentPrefix + s
         );
     }
     public message(...text: (string | null | undefined)[]) {

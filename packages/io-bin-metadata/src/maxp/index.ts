@@ -42,5 +42,5 @@ export const MaxpIo = {
             fr.uint16(maxp.maxComponentElements);
             fr.uint16(maxp.maxComponentDepth);
         }
-    }),
+    })
 };

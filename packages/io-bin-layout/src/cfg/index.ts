@@ -23,5 +23,5 @@ export enum LookupWriteTrick {
     AvoidUsingContextualLookup = 0x0010,
 
     ContextualForceFormat3 = 0x10000,
-    ContextualForceFormat2 = 0x20000,
+    ContextualForceFormat2 = 0x20000
 }

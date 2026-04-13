@@ -11,7 +11,7 @@ class SharedGlyphProp {
     public constructor(
         public readonly glyph: Ot.Glyph,
         public readonly fid: number,
-        public readonly priority: number,
+        public readonly priority: number
     ) {}
     public compare(b: SharedGlyphProp) {
         return this.fid - b.fid || this.priority - b.priority;
@@ -24,7 +24,7 @@ export class SharedGlyphStore implements Ot.GlyphStore {
         return Ot.ListGlyphStoreFactory.createStoreFromList(
             Array.from(this.mapping.values())
                 .sort((a, b) => a.compare(b))
-                .map((g) => g.glyph),
+                .map((g) => g.glyph)
         ).decideOrder();
     }
 }
@@ -103,7 +103,7 @@ export class GlyphHasher {
 class HashGeometry {
     public constructor(
         private readonly gh: GlyphHasher,
-        private readonly vp: ValueProcessor,
+        private readonly vp: ValueProcessor
     ) {}
     public process(geom: Ot.Glyph.Geometry): ImpLib.HashRep {
         switch (geom.type) {
@@ -147,7 +147,7 @@ class HashGeometry {
         if (ref.pointAttachment) {
             hr.begin().number(
                 ref.pointAttachment.outer.pointIndex,
-                ref.pointAttachment.inner.pointIndex,
+                ref.pointAttachment.inner.pointIndex
             );
         }
         return hr;

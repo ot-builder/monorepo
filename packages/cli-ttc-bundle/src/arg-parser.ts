@@ -87,7 +87,7 @@ export async function displayHelp() {
                 Style.Option`-h`,
                 ";",
                 Style.Cmd`otb-ttc-bundle`,
-                Style.Option`--help`,
+                Style.Option`--help`
             )
                 .indent("")
                 .message("Display help message");
@@ -98,7 +98,7 @@ export async function displayHelp() {
                 Style.Option`-v`,
                 ";",
                 Style.Cmd`otb-ttc-bundle`,
-                Style.Option`--version`,
+                Style.Option`--version`
             )
                 .indent("")
                 .message("Display version of this utility.");
@@ -108,7 +108,7 @@ export async function displayHelp() {
                 Style.Cmd`otb-ttc-bundle`,
                 ...Style.OptRun(`options`),
                 ...Style.OptRun(Style.Option`-o`, Style.Param`output`),
-                ...[Style.Param`input_1`, `...`, Style.Param`input_n`],
+                ...[Style.Param`input_1`, `...`, Style.Param`input_n`]
             );
             s.indent("").message(`Bundles multiple TTF into one TTC with glyph sharing.`);
             s.withIndent(Style.Bullet, (s) => {

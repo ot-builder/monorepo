@@ -7,7 +7,7 @@ export enum CharacterGroup {
     Uppercase = 2,
     Lowercase = 3,
     Figure = 4,
-    NonLatin = 5,
+    NonLatin = 5
 }
 export class Table {
     public charGroupFlags: Map<OtGlyph, number> = new Map();

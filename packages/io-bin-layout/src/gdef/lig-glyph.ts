@@ -11,7 +11,7 @@ export const LigGlyph = {
         const carets = view.array(
             caretCount,
             { ...Read((view, ivs?: Data.Maybe<ReadTimeIVS>) => view.ptr16().next(CaretValue)) },
-            ivs,
+            ivs
         );
         return carets;
     }),
@@ -20,5 +20,5 @@ export const LigGlyph = {
         for (const caret of carets) {
             frag.ptr16New().push(CaretValue, caret, ivs);
         }
-    }),
+    })
 };

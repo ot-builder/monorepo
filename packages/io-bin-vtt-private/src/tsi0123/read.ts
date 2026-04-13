@@ -13,7 +13,7 @@ export type Tsi02Record = {
 export function readTSI0123(
     viewTable02: BinaryView,
     viewTable13: BinaryView,
-    gOrd: Data.Order<OtGlyph>,
+    gOrd: Data.Order<OtGlyph>
 ) {
     const sizeOfTSI02Record = UInt16.size * 2 + UInt32.size; // 8 bytes
     const totalRecords = viewTable02.sourceBufferSize / sizeOfTSI02Record;

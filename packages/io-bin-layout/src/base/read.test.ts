@@ -21,7 +21,7 @@ describe("BASE read", () => {
         const base = new BinaryView(sfnt.tables.get(Base.Tag)!).next(
             BaseTableIo,
             gOrd,
-            designSpace,
+            designSpace
         );
         return { base };
     }

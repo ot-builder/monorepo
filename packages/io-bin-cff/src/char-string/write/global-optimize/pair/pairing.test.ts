@@ -3,13 +3,13 @@ import {
     type KeyProvider,
     type NonTerminalBuilder,
     type RuleBuilder,
-    Session,
+    Session
 } from "./pairing";
 
 class NonTerminalRule<K> {
     public constructor(
         public readonly symbol: K,
-        public readonly parts: K[],
+        public readonly parts: K[]
     ) {}
     public toString() {
         return `${this.symbol} -> ${this.parts.join("")}`;
@@ -27,11 +27,11 @@ const TestRuleBuilder: RuleBuilder<string, NonTerminalRule<string>, RootRule<str
     },
     createInputRule(parts: string[]) {
         return new RootRule(parts);
-    },
+    }
 };
 const StringKeyProvider: KeyProvider<string> = {
     getIrKey: (s) => s,
-    isBarrier: (s) => s === " ",
+    isBarrier: (s) => s === " "
 };
 class StringNtSrc implements NonTerminalBuilder<string> {
     private n = 0;
@@ -90,7 +90,7 @@ describe("Re-pair pair management", () => {
             `B -> aA`,
             `C -> Ad`,
             `D -> aB`,
-            `E -> Dc`,
+            `E -> Dc`
         ]);
     });
     test("Combined compression test 2", () => {
@@ -107,7 +107,7 @@ describe("Re-pair pair management", () => {
             "E -> DC",
             "F -> in",
             "G -> Ao",
-            "H -> Fg",
+            "H -> Fg"
         ]);
     });
     test("Combined compression test 3", () => {
@@ -115,7 +115,7 @@ describe("Re-pair pair management", () => {
         const input = new Input<string>("");
         session.appendString(
             input,
-            "abcabccabcabcbcabccabacabbbcabccababcabccabcabcbcabccabacabcaba",
+            "abcabccabcabcbcabccabacabbbcabccababcabccabcabcbcabccabacabcaba"
         );
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("JbEJBa");
@@ -129,7 +129,7 @@ describe("Re-pair pair management", () => {
             "G -> AD",
             "H -> CE",
             "I -> GH",
-            "J -> IF",
+            "J -> IF"
         ]);
     });
 });

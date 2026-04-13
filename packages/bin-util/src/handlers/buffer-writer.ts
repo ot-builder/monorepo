@@ -7,7 +7,7 @@ import {
     SizeofUInt32,
     type uint8,
     type uint16,
-    type uint32,
+    type uint32
 } from "./primitive-types";
 
 export class BufferWriter {

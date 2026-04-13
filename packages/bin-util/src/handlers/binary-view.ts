@@ -6,7 +6,7 @@ export interface Read<T, A extends unknown[] = []> {
     read(view: BinaryView, ...args: A): T;
 }
 export function Read<T, A extends unknown[] = []>(
-    proc: (view: BinaryView, ...args: A) => T,
+    proc: (view: BinaryView, ...args: A) => T
 ): Read<T, A> {
     return { read: proc };
 }
@@ -22,7 +22,7 @@ export class BinaryView {
     public constructor(
         protected readonly buffer: Buffer,
         public displace = 0,
-        public cursor: number = displace,
+        public cursor: number = displace
     ) {}
 
     public get sourceBufferSize() {

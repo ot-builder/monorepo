@@ -13,7 +13,7 @@ export function readExtPrivate(
     sfnt: Sfnt,
     cfg: ExtPrivateCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ): OtExtPrivate {
     const result: OtExtPrivate = {};
     if (cfg.extPrivate.processExtPrivateTable) {
@@ -27,7 +27,7 @@ export function writeExtPrivate(
     cfg: ExtPrivateCfg,
     OtExtPrivate: OtExtPrivate,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata,
+    md: OtFontMetadata
 ) {
     if (cfg.extPrivate.processExtPrivateTable && OtExtPrivate.xPrv) {
         out.add(XPrv.Tag, Frag.packFrom(WriteXPrv, OtExtPrivate.xPrv, gOrd));

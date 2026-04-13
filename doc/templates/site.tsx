@@ -39,5 +39,5 @@ export const NavLink = withRouter(
                 {props.children}
             </li>
         );
-    },
+    }
 );

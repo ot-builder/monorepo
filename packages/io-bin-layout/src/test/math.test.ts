@@ -27,8 +27,8 @@ test("Math - Constants", () => {
                 0,
                 0,
                 1,
-                1,
-            ],
+                1
+            ]
         });
         expect(math.constants!.fractionNumeratorGapMin).toEqual({
             value: 116,
@@ -56,8 +56,8 @@ test("Math - Constants", () => {
                 0,
                 0,
                 0,
-                1,
-            ],
+                1
+            ]
         });
         expect(math.constants?.radicalDegreeBottomRaisePercent).toEqual(65);
     }
@@ -79,16 +79,16 @@ test("Math - Glyph info", () => {
                 new OtMath.Kern({ value: -82 }, []),
                 null,
                 new OtMath.Kern({ value: 222 }, [[{ value: -200 }, { value: 49 }]]),
-                null,
-            ),
+                null
+            )
         );
         expect(math.glyphInfo?.kernInfos.get(gOrd.at(53))).toEqual(
             new OtMath.KernInfo(
                 new OtMath.Kern({ value: 100 }, []),
                 null,
                 new OtMath.Kern({ value: 49 }, []),
-                null,
-            ),
+                null
+            )
         );
     }
 });
@@ -110,15 +110,15 @@ test("Math - variants", () => {
                 new OtMath.GlyphAssembly({ value: 0 }, [
                     new OtMath.GlyphPart(uni239D, 0, 35, 884, OtMath.GlyphPartFlags.None),
                     new OtMath.GlyphPart(uni239C, 15, 15, 326, OtMath.GlyphPartFlags.Extender),
-                    new OtMath.GlyphPart(uni239B, 35, 0, 884, OtMath.GlyphPartFlags.None),
+                    new OtMath.GlyphPart(uni239B, 35, 0, 884, OtMath.GlyphPartFlags.None)
                 ]),
                 [
                     new OtMath.GlyphVariantRecord(parenLeft, 942),
                     new OtMath.GlyphVariantRecord(parenBig1, 1472),
                     new OtMath.GlyphVariantRecord(parenBig2, 2042),
-                    new OtMath.GlyphVariantRecord(parenBig3, 2553),
-                ],
-            ),
+                    new OtMath.GlyphVariantRecord(parenBig3, 2553)
+                ]
+            )
         );
     }
 });

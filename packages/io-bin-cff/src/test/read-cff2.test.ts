@@ -20,7 +20,7 @@ function readCff2(file: string) {
         ReadCff2,
         cfg,
         gs.decideOrder(),
-        designSpace,
+        designSpace
     );
     return { gs, cff };
 }

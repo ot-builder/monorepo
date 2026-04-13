@@ -7,7 +7,7 @@ describe("GLYF data rectification", () => {
     test("Rectify point attachments", () => {
         const to = new OtGlyph();
         to.geometry = new OtGlyph.ContourSet([
-            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)],
+            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)]
         ]);
         const from = new OtGlyph();
         const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);
@@ -27,7 +27,7 @@ describe("GLYF data rectification", () => {
     test("Rectify point attachments, nested", () => {
         const sp = new OtGlyph();
         sp.geometry = new OtGlyph.ContourSet([
-            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)],
+            [OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner)]
         ]);
         const spr = new OtGlyph();
         spr.geometry = new OtGlyph.GeometryList([
@@ -38,8 +38,8 @@ describe("GLYF data rectification", () => {
                 yx: 0,
                 yy: 2,
                 dx: 2,
-                dy: 2,
-            }),
+                dy: 2
+            })
         ]);
 
         const from = new OtGlyph();
@@ -60,7 +60,7 @@ describe("GLYF data rectification", () => {
     test("Rectify point attachments, cascade", () => {
         const to = new OtGlyph();
         to.geometry = new OtGlyph.ContourSet([
-            [OtGlyph.Point.create(0, 0), OtGlyph.Point.create(0, 1)],
+            [OtGlyph.Point.create(0, 0), OtGlyph.Point.create(0, 1)]
         ]);
         const from = new OtGlyph();
         const ref1 = new OtGlyph.TtReference(to, OtGlyph.Transform2X3.Identity);

@@ -17,7 +17,7 @@ import {
     type CffDictInterpreter,
     CffDictInterpreterBase,
     CffDictReadT,
-    CffDictWriteT,
+    CffDictWriteT
 } from "./general";
 import { CffPrivateDictIo } from "./private-dict";
 
@@ -171,12 +171,12 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         yield* this.emitNum(
             pd.underlinePosition,
             emp.underlinePosition,
-            CffOperator.UnderlinePosition,
+            CffOperator.UnderlinePosition
         );
         yield* this.emitNum(
             pd.underlineThickness,
             emp.underlineThickness,
-            CffOperator.UnderlineThickness,
+            CffOperator.UnderlineThickness
         );
         yield* this.emitNum(pd.paintType, emp.paintType, CffOperator.PaintType);
         yield* this.emitNum(pd.charStringType, emp.charStringType, CffOperator.CharStringType);
@@ -193,7 +193,7 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         encoder: DictEncoder,
         fd: Cff.FontDict,
         ctx: CffWriteContext,
-        rest: undefined,
+        rest: undefined
     ) {
         if (fd.privateDict) {
             const frPrivateDict = Frag.from(CffPrivateDictIo, fd.privateDict, ctx, rest);
@@ -205,21 +205,21 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
 
 export const CffFontDictIo = {
     ...CffDictReadT<Cff.FontDict>((vwDict, ctx) => new CffFontDictInterpreter(ctx)),
-    ...CffDictWriteT<Cff.FontDict>(new CffFontDictDataCollector()),
+    ...CffDictWriteT<Cff.FontDict>(new CffFontDictDataCollector())
 };
 
 const CffFontDictIndexWrite = new CffWriteIndex({
-    write: (f, fd: Cff.FontDict, ctx) => f.push(CffFontDictIo, fd, ctx, undefined),
+    write: (f, fd: Cff.FontDict, ctx) => f.push(CffFontDictIo, fd, ctx, undefined)
 });
 
 export const CffFdArrayIo = {
     ...Read((view, ctx: CffReadContext) => {
         return view.next(
             new CffReadIndex({ read: (view, ctx, size) => view.next(CffFontDictIo, ctx, size) }),
-            ctx,
+            ctx
         );
     }),
     ...Write((frag, fdArray: Cff.FontDict[], ctx: CffWriteContext) => {
         return frag.push(CffFontDictIndexWrite, fdArray, ctx);
-    }),
+    })
 };

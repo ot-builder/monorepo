@@ -17,7 +17,7 @@ export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
             xy: parseFloat(tfmArgs[2].trim()),
             yy: parseFloat(tfmArgs[3].trim()),
             dx: parseFloat(tfmArgs[4].trim()),
-            dy: parseFloat(tfmArgs[5].trim()),
+            dy: parseFloat(tfmArgs[5].trim())
         };
 
         return ParseResult(st.next(), async (state) => {
@@ -33,7 +33,7 @@ export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
             .indent("")
             .message(
                 "Perform a 2x3 affine transform to all glyphs' geometries in the font.",
-                "Composite fonts will be flattened.",
+                "Composite fonts will be flattened."
             );
-    },
+    }
 };

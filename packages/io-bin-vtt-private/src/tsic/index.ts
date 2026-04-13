@@ -48,7 +48,7 @@ export const TsicTable = {
         for (let iRecord = 0; iRecord < table.records.length; iRecord++) {
             frag.push(TsicRecord, table.records[iRecord]);
         }
-    }),
+    })
 };
 
 const TsicRecord = {
@@ -79,5 +79,5 @@ const TsicRecord = {
             frag.uint16(cvtEntriesArray[iCvt][0]); // CVTArray
         for (let iCvt = 0; iCvt < cvtEntriesArray.length; iCvt++)
             frag.int16(cvtEntriesArray[iCvt][1]); // CVTValueArray
-    }),
+    })
 };

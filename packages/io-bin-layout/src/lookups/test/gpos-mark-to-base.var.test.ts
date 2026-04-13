@@ -8,7 +8,7 @@ import { GposMarkToBaseWriter } from "../gpos-mark-write";
 import {
     type LookupRoundTripConfig,
     LookupRoundTripTest,
-    SetupVariation,
+    SetupVariation
 } from "./-shared-test-util.test";
 
 describe("GPOS mark-to-base lookup handler (variable)", () => {
@@ -22,7 +22,7 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
         reader: () => new GposMarkToBaseReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToBase.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("2MC Variable", () => {
@@ -36,10 +36,10 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
                 markAnchors: [
                     {
                         x: variation.create([bold, Math.round(-gid / 8)]),
-                        y: variation.create([wide, Math.round(-gid / 8)]),
+                        y: variation.create([wide, Math.round(-gid / 8)])
                     },
-                    { x: gid, y: gid },
-                ],
+                    { x: gid, y: gid }
+                ]
             });
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
@@ -51,9 +51,9 @@ describe("GPOS mark-to-base lookup handler (variable)", () => {
                               null,
                               {
                                   x: variation.create([bold, Math.round(gid / 8)]),
-                                  y: variation.create([wide, Math.round(gid / 8)]),
-                              },
-                          ],
+                                  y: variation.create([wide, Math.round(gid / 8)])
+                              }
+                          ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

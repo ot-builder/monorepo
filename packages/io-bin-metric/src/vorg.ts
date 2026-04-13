@@ -32,5 +32,5 @@ export const VorgIo = {
 
         frag.uint16(entries.length);
         for (const [gid, y] of entries) frag.uint16(gid).int16(y);
-    }),
+    })
 };

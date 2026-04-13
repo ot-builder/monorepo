@@ -54,7 +54,7 @@ export function createTopLevelExport(path: string): TyExport {
             getProp(created).parent = p;
             pr.children.set(stepName, created);
             return created;
-        },
+        }
     });
     getPropOrCreate(p, path);
     return p;

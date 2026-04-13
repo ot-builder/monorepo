@@ -11,7 +11,7 @@ import { LookupWriteTrick } from "../../cfg";
 import type {
     LookupReader,
     LookupWriter,
-    SubtableWriteContext,
+    SubtableWriteContext
 } from "../../gsub-gpos-shared/general";
 import { EmptyStat } from "../../stat";
 
@@ -25,7 +25,10 @@ export interface LookupRoundTripConfig<L, C extends L> {
     variation?: Data.Maybe<TestVariation>;
 }
 
-export function LookupRoundTripTest<L, C extends L>(expected: C, cfg: LookupRoundTripConfig<L, C>) {
+export function LookupRoundTripTest<L, C extends L>(
+    expected: C,
+    cfg: LookupRoundTripConfig<L, C>
+) {
     LookupRoundTripTestImpl(expected, cfg);
     if (!cfg.trick) {
         LookupRoundTripTestImpl(expected, { ...cfg, trick: LookupWriteTrick.UseFastCoverage });
@@ -41,7 +44,7 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
         crossReferences: lOrd,
         trick: cfg.trick || 0,
         ivs: cfg.variation ? cfg.variation.ivs : null,
-        stat: new EmptyStat(),
+        stat: new EmptyStat()
     };
 
     const lt = writer.getLookupType(expected, swc);
@@ -51,12 +54,12 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
     if (cfg.variation) {
         const bufIvs = Frag.pack(
             Frag.from(WriteTimeIVS, cfg.variation.ivs, {
-                designSpace: ImpLib.Order.fromList("Axes", cfg.variation.designSpace),
-            }),
+                designSpace: ImpLib.Order.fromList("Axes", cfg.variation.designSpace)
+            })
         );
         ivsR = new BinaryView(bufIvs).next(
             ReadTimeIVS,
-            ImpLib.Order.fromList("Axes", cfg.variation.designSpace),
+            ImpLib.Order.fromList("Axes", cfg.variation.designSpace)
         );
     }
 
@@ -68,7 +71,7 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
         reader.parseSubtable(new BinaryView(buffer), actual, {
             gOrd: cfg.gOrd,
             crossReferences: lOrd,
-            ivs: ivsR,
+            ivs: ivsR
         });
     }
     cfg.validate(cfg.gOrd, lOrd, expected, actual);
@@ -82,12 +85,12 @@ export type TestVariation = { designSpace: OtVar.Dim[]; ivs: WriteTimeIVS };
 export function SetupVariation() {
     const ds: OtVar.Dim[] = [
         new OtVar.Dim("wght", 0, 400, 1000),
-        new OtVar.Dim("wdth", 0, 100, 200),
+        new OtVar.Dim("wdth", 0, 100, 200)
     ];
     const [wght, wdth] = ds;
     const masters = {
         bold: new OtVar.Master([{ dim: wght, min: 0, peak: 1, max: 1 }]),
-        wide: new OtVar.Master([{ dim: wdth, min: 0, peak: 1, max: 1 }]),
+        wide: new OtVar.Master([{ dim: wdth, min: 0, peak: 1, max: 1 }])
     };
     const ms = new OtVar.MasterSet();
     const ivs = WriteTimeIVS.create(ms);

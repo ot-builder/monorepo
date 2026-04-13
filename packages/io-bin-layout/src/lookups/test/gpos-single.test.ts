@@ -8,7 +8,7 @@ import { GposSingleReader, GposSingleWriter } from "../gpos-single";
 import {
     type LookupRoundTripConfig,
     LookupRoundTripTest,
-    SetupVariation,
+    SetupVariation
 } from "./-shared-test-util.test";
 
 describe("GPOS single lookup handler", () => {
@@ -22,7 +22,7 @@ describe("GPOS single lookup handler", () => {
         reader: () => new GposSingleReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposSingle.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("Very different", () => {
@@ -32,7 +32,7 @@ describe("GPOS single lookup handler", () => {
                 dX: Math.round(gid / 8),
                 dY: Math.round(-gid / 8),
                 dWidth: Math.round((gid * 2) / 8),
-                dHeight: Math.round((-gid * 2) / 8),
+                dHeight: Math.round((-gid * 2) / 8)
             });
         }
         lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);
@@ -40,7 +40,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage,
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
     test("Very same", () => {
@@ -50,7 +50,7 @@ describe("GPOS single lookup handler", () => {
                 dX: Math.round(gid / 1024),
                 dY: Math.round(-gid / 1024),
                 dWidth: Math.round((gid * 2) / 1024),
-                dHeight: Math.round((-gid * 2) / 1024),
+                dHeight: Math.round((-gid * 2) / 1024)
             });
         }
         lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);
@@ -58,7 +58,7 @@ describe("GPOS single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage,
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
         });
     });
     test("Variable", () => {
@@ -70,7 +70,7 @@ describe("GPOS single lookup handler", () => {
                 dX: variation.create([bold, gid]),
                 dY: variation.create([wide, gid]),
                 dWidth: Math.round((gid * 2) / 1024),
-                dHeight: Math.round((-gid * 2) / 1024),
+                dHeight: Math.round((-gid * 2) / 1024)
             });
         }
         lookup.adjustments = Disorder.shuffleMap(lookup.adjustments);

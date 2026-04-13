@@ -17,7 +17,7 @@ export function writeTSI0123(
     frTSI13: Frag,
     table: TSI0123.Table,
     gOrd: Data.Order<OtGlyph>,
-    textProcessor: ProgramProcessor,
+    textProcessor: ProgramProcessor
 ) {
     const sink: TsiEntry[] = [];
     for (let gid = 0; gid < gOrd.length; gid++) {
@@ -47,11 +47,11 @@ function collectTSI0123Entry(
     sink: TsiEntry[],
     gid: number,
     text: string,
-    textProcessor: ProgramProcessor,
+    textProcessor: ProgramProcessor
 ) {
     sink.push({
         glyphIndex: gid,
-        textBuffer: Buffer.from(textProcessor.processProgram(gid, text), "utf-8"),
+        textBuffer: Buffer.from(textProcessor.processProgram(gid, text), "utf-8")
     });
 }
 
@@ -68,7 +68,7 @@ export class TSI01Processor implements ProgramProcessor {
 
         text = text.replace(
             /^(?:USEMYMETRICS|(?:NON)?OVERLAP|(?:UN)?SCALEDCOMPONENTOFFSET|S?(?:OFFSET|ANCHOR))\[[rR]?\].*$(?:\r|\n|\r\n)?/gm,
-            "",
+            ""
         );
 
         let pseudoInstructions = "";

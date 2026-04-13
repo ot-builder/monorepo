@@ -8,11 +8,11 @@ import type * as OtGlyphStat from "./stat";
 export interface Source {
     getHMetric(
         gid: number,
-        extent: Data.Maybe<OtGlyphStat.BoundingBox>,
+        extent: Data.Maybe<OtGlyphStat.BoundingBox>
     ): Data.Maybe<GeneralGlyph.Metric.T<OtVar.Value>>;
     getVMetric(
         gid: number,
-        extent: Data.Maybe<OtGlyphStat.BoundingBox>,
+        extent: Data.Maybe<OtGlyphStat.BoundingBox>
     ): Data.Maybe<GeneralGlyph.Metric.T<OtVar.Value>>;
 }
 

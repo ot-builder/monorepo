@@ -22,13 +22,13 @@ const DefaultVs = {
                     mapping.set(startUnicodeValue + count, varSelector, DefaultGlyph);
                 }
             }
-        },
+        }
     ),
     ...Write((frag, mapping: UInt24[]) => {
         const w = new DefaultVsWriter(frag);
         for (const code of mapping) w.push(code);
         w.end();
-    }),
+    })
 };
 
 class DefaultVsWriter {
@@ -78,7 +78,7 @@ const NonDefaultVs = {
             p,
             mapping: CmapGeneralVsEncodingMapT<DefaultGlyphT | OtGlyph>,
             varSelector: UInt24,
-            gOrd: Data.Order<OtGlyph>,
+            gOrd: Data.Order<OtGlyph>
         ) => {
             const numUVSMappings = p.uint32();
             for (let index = 0; index < numUVSMappings; index++) {
@@ -86,7 +86,7 @@ const NonDefaultVs = {
                 const glyphID = p.uint16();
                 mapping.set(unicodeValue, varSelector, gOrd.at(glyphID));
             }
-        },
+        }
     ),
     ...Write((frag, mapping: Array<[number, number]>) => {
         frag.uint32(mapping.length);
@@ -94,7 +94,7 @@ const NonDefaultVs = {
             frag.push(UInt24, unicode);
             frag.uint16(gid);
         }
-    }),
+    })
 };
 
 export class UnicodeVS implements SubtableHandler {

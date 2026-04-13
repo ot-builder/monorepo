@@ -15,13 +15,13 @@ test("Frag: Shared Embed-relative Pointer", () => {
     const a = Frag.ptr16(Frag.uint32(0x01020304));
     const b = Frag.ptr16(a, FragPointerEmbedding.EmbedRelative).ptr16(
         Frag.uint32(0x01020304),
-        FragPointerEmbedding.EmbedRelative,
+        FragPointerEmbedding.EmbedRelative
     );
     const root = Frag.ptr16(a).ptr16(Frag.uint32(0x01020304)).embed(b);
     expect([...Frag.pack(root)]).toEqual([
         ...[0, 8, 0, 10, 0, 4, 0, 6],
         ...[0, 2],
-        ...[1, 2, 3, 4],
+        ...[1, 2, 3, 4]
     ]);
 });
 
@@ -69,7 +69,7 @@ test("Frag: complex sharing patterns", () => {
         ...[0, 10, 0, 0, 0, 12],
         ...[0, 4, 0, 6],
         ...[11, 22],
-        ...[51, 68],
+        ...[51, 68]
     ];
     expect([...Frag.pack(root)]).toEqual(rootValue);
 });

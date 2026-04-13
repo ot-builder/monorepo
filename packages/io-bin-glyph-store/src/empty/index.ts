@@ -13,7 +13,7 @@ export const SkipReadGlyphs: ReadGlyphStoreImpl<unknown, null> = {
             if (vm) glyph.vertical = vm;
         }
         return null;
-    },
+    }
 };
 export const SkipWriteGlyphs: WriteGlyphStoreImpl<unknown, null> = {
     writeMetricVariance: true,
@@ -25,9 +25,9 @@ export const SkipWriteGlyphs: WriteGlyphStoreImpl<unknown, null> = {
                 gid,
                 glyph.horizontal,
                 glyph.vertical,
-                OtGlyph.Stat.BoundingBox.Blank(),
+                OtGlyph.Stat.BoundingBox.Blank()
             );
         }
         ctx.stat.settle();
-    },
+    }
 };

@@ -13,7 +13,10 @@ export namespace ClassDefUtil {
     export function padClass0<G>(cd: LayoutCommon.ClassDef.T<G>, gs: Iterable<G>) {
         for (const g of gs) if (!cd.has(g)) cd.set(g, 0);
     }
-    export function limitToCov<G>(cd: LayoutCommon.ClassDef.T<G>, cov: LayoutCommon.Coverage.T<G>) {
+    export function limitToCov<G>(
+        cd: LayoutCommon.ClassDef.T<G>,
+        cov: LayoutCommon.Coverage.T<G>
+    ) {
         for (const g of cov) if (!cd.has(g)) cd.set(g, 0);
         for (const g of cd.keys()) if (!cov.has(g)) cd.delete(g);
     }
@@ -33,7 +36,7 @@ export namespace ClassDefUtil {
     export function select<G>(
         targetCls: number,
         cd: LayoutCommon.ClassDef.T<G>,
-        cov?: null | LayoutCommon.Coverage.T<G>,
+        cov?: null | LayoutCommon.Coverage.T<G>
     ) {
         const gs = new Set<G>();
         for (const [g, cls] of cd) {
@@ -58,7 +61,7 @@ export const ClassDef = {
         frag: Frag,
         cd: Iterable<[OtGlyph, number]>,
         gOrd: Data.Order<OtGlyph>,
-        trick: number = 0,
+        trick: number = 0
     ) {
         const gidMap: [number, number][] = [];
         for (const [glyph, cls] of cd) {
@@ -66,7 +69,7 @@ export const ClassDef = {
         }
         gidMap.sort((a, b) => a[0] - b[0]);
         frag.push(GidClassDef, gidMap, trick);
-    },
+    }
 };
 export const Ptr16ClassDef = NonNullablePtr16(ClassDef);
 export const NullablePtr16ClassDef = NullablePtr16(ClassDef);
@@ -83,7 +86,7 @@ export const EmptyAsNullPtr16ClassDef = {
         } else {
             frag.ptr16New().push(ClassDef, cd, gOrd, trick);
         }
-    },
+    }
 };
 
 export const GidClassDef = {
@@ -125,7 +128,7 @@ export const GidClassDef = {
                 frag.embed(fragFormat2);
             }
         }
-    }),
+    })
 };
 
 const OtGidClassDefFormat1 = {
@@ -164,7 +167,7 @@ const OtGidClassDefFormat1 = {
         }
 
         return f;
-    }),
+    })
 };
 
 interface ClassRun {
@@ -223,7 +226,7 @@ const OtGidClassDefFormat2 = {
         collector.end();
 
         frag.push(OtGidClassDefFormat2FromCollector, collector);
-    }),
+    })
 };
 
 const OtGidClassDefFormat2FromCollector = Write((frag, collector: ClassRunCollector) => {

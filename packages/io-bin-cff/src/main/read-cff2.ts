@@ -17,7 +17,7 @@ export const ReadCff2 = Read(
         cfg: CffCfg,
         gOrd: Data.Order<OtGlyph>,
         designSpace?: Data.Maybe<OtVar.DesignSpace>,
-        coStat?: Data.Maybe<OtGlyph.CoStat.Source>,
+        coStat?: Data.Maybe<OtGlyph.CoStat.Source>
     ): CffCoGlyphsWithNaming => {
         const ctx = new CffReadContext(2, view.lift(0), coStat);
         const cff = new Cff.Table(2);
@@ -31,5 +31,5 @@ export const ReadCff2 = Read(
         cffCleanupUnusedData(cff);
 
         return { cff, cffGlyphNaming: ctx.naming };
-    },
+    }
 );

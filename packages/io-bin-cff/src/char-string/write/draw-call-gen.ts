@@ -20,7 +20,7 @@ type AdvanceWidthHandler = {
 class CffGlyphHandler {
     public constructor(
         private readonly widthHandler: null | AdvanceWidthHandler,
-        private readonly st: CffCodeGenState,
+        private readonly st: CffCodeGenState
     ) {
         this.geometryAlgebra = new CffGeometryHandler(st);
         this.hintAlgebra = new CffHintHandler(st);
@@ -44,7 +44,7 @@ class CffGlyphHandler {
             this.st.rawDrawCalls[0] = new CffDrawCallRaw(
                 [arg, ...this.st.rawDrawCalls[0].args],
                 this.st.rawDrawCalls[0].operator,
-                this.st.rawDrawCalls[0].flags,
+                this.st.rawDrawCalls[0].flags
             );
         }
     }
@@ -97,7 +97,7 @@ class CffCodeGenState {
                 operator: mask.isCounter
                     ? CharStringOperator.CntrMask
                     : CharStringOperator.HintMask,
-                flags: mask.flags,
+                flags: mask.flags
             };
         } else {
             if (mask.isCounter) {
@@ -131,7 +131,7 @@ class CffCodeGenState {
             eigenContours: this.statContours,
             eigenPoints: this.statPoints,
             extent: this.bBoxStat.getResult(),
-            depth: 0,
+            depth: 0
         };
     }
 }
@@ -147,11 +147,11 @@ class CffHintHandler {
 
             this.pushStemList(
                 hasHintMask ? CharStringOperator.HStemHM : CharStringOperator.HStem,
-                h.hStems,
+                h.hStems
             );
             this.pushStemList(
                 hasHintMask ? CharStringOperator.VStemHM : CharStringOperator.VStem,
-                h.vStems,
+                h.vStems
             );
             if (hasHintMask || hasCounterMask) {
                 for (const mask of h.counterMasks) {
@@ -180,7 +180,7 @@ class CffHintHandler {
     private makeCtMask(
         h: OtGlyph.CffHintProps,
         contour: boolean,
-        mask: OtGlyph.CffHintMask,
+        mask: OtGlyph.CffHintMask
     ): CompileTimeMask {
         const flags: number[] = [];
         for (const s of h.hStems) {
@@ -267,8 +267,8 @@ class CffContourHandler {
                 OtVar.Ops.originOf(b.x),
                 OtVar.Ops.originOf(b.y),
                 OtVar.Ops.originOf(c.x),
-                OtVar.Ops.originOf(c.y),
-            ),
+                OtVar.Ops.originOf(c.y)
+            )
         );
         const dxA = OtVar.Ops.minus(a.x, this.st.cx);
         const dyA = OtVar.Ops.minus(a.y, this.st.cy);
@@ -279,7 +279,7 @@ class CffContourHandler {
         this.st.cx = c.x;
         this.st.cy = c.y;
         this.st.pushRawCall(
-            new CffDrawCallRaw([dxA, dyA, dxB, dyB, dxC, dyC], CharStringOperator.RRCurveTo),
+            new CffDrawCallRaw([dxA, dyA, dxB, dyB, dxC, dyC], CharStringOperator.RRCurveTo)
         );
         this.st.advance(0, 0, 3);
     }
@@ -297,7 +297,7 @@ export function codeGenGlyph(
     wCtx: CffWriteContext,
     gid: number,
     glyph: OtGlyph,
-    pd?: Cff.PrivateDict,
+    pd?: Cff.PrivateDict
 ) {
     const st = new CffCodeGenState();
     const wh: null | AdvanceWidthHandler =

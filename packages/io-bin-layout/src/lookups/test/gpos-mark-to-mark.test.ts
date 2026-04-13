@@ -18,7 +18,7 @@ describe("GPOS mark-to-base lookup handler", () => {
         reader: () => new GposMarkToMarkReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToMark.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("Mark class without bases", () => {

@@ -50,7 +50,7 @@ export class UnicodeFull implements SubtableHandler {
         if (!frag.size) return [];
         return [
             { platform: 3, encoding: 10, frag },
-            { platform: 0, encoding: 4, frag },
+            { platform: 0, encoding: 4, frag }
         ];
     }
 }

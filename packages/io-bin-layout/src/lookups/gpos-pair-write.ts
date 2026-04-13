@@ -25,7 +25,7 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
         results: Frag[],
         dt: OutlierTree<OtGlyph>,
         ctx: SubtableWriteContext<Gpos.Lookup>,
-        depth: number,
+        depth: number
     ) {
         if (!dt.size) return;
         ctx.stat.setContext(2);
@@ -57,7 +57,7 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
         results: Frag[],
         cm: ClassMatrix<OtGlyph>,
         ctx: SubtableWriteContext<Gpos.Lookup>,
-        depth: number,
+        depth: number
     ) {
         const measure = cm.measure();
         if (!measure.effFst || !measure.effSnd) return;
@@ -140,7 +140,7 @@ const SubtableFormat1 = {
         }
         fCoverage.push(GidCoverage, cov, ctx.trick);
         hPairSetCount.fill(cov.length);
-    },
+    }
 };
 
 const SubtableFormat2 = {
@@ -168,7 +168,7 @@ const SubtableFormat2 = {
                 frag.push(GposAdjustment, adj[1], format2, ctx.ivs);
             }
         }
-    },
+    }
 };
 
 class FinalClassMatrix {

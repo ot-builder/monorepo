@@ -7,12 +7,12 @@ import type {
     LookupReader,
     LookupReaderFactory,
     LookupWriter,
-    LookupWriterFactory,
+    LookupWriterFactory
 } from "../gsub-gpos-shared/general";
 import {
     CGsubGposTable,
     type TableReadContext,
-    type TableWriteContext,
+    type TableWriteContext
 } from "../gsub-gpos-shared/table";
 import { GposChainingReader, GposContextualReader } from "../lookups/contextual-read";
 import { GposChainingContextualWriter } from "../lookups/contextual-write";
@@ -20,12 +20,12 @@ import { GposCursiveReader, GposCursiveWriter } from "../lookups/gpos-cursive";
 import {
     GposMarkToBaseReader,
     GposMarkToLigatureReader,
-    GposMarkToMarkReader,
+    GposMarkToMarkReader
 } from "../lookups/gpos-mark-read";
 import {
     GposMarkToBaseWriter,
     GposMarkToLigatureWriter,
-    GposMarkToMarkWriter,
+    GposMarkToMarkWriter
 } from "../lookups/gpos-mark-write";
 import { GposPairReader } from "../lookups/gpos-pair-read";
 import { GposPairWriter } from "../lookups/gpos-pair-write";
@@ -72,7 +72,7 @@ const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> 
         const sink: Gpos.Lookup[] = [];
         for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
         return sink;
-    },
+    }
 };
 
 export const GposTableIo = {
@@ -82,5 +82,5 @@ export const GposTableIo = {
     },
     write(frag: Frag, table: Gpos.Table, cfg: LayoutCfg, twc: TableWriteContext) {
         return frag.push(new CGsubGposTable<Gpos.Lookup>(), table, cfg, gpos, twc);
-    },
+    }
 };

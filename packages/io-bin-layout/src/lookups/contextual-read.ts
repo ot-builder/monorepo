@@ -22,7 +22,7 @@ class IndividualResolver<L> implements Resolver {
 class ClassResolver implements Resolver {
     public constructor(
         private cd: GsubGpos.ClassDef,
-        private startCoverageSet: Set<OtGlyph>,
+        private startCoverageSet: Set<OtGlyph>
     ) {}
     public toGlyphSet(id: number, start: boolean) {
         return ClassDefUtil.select(id, this.cd, start ? this.startCoverageSet : null);
@@ -48,7 +48,7 @@ class CIndividualClassRule<L> {
         srBacktrack: Resolver,
         srInput: Resolver,
         srLookAhead: Resolver,
-        siblings: Data.Order<L>,
+        siblings: Data.Order<L>
     ) {
         let gssBacktrack: Array<Set<OtGlyph>> = [];
         const inputSequence: Array<Set<OtGlyph>> = [startGlyphs];
@@ -73,7 +73,7 @@ class CIndividualClassRule<L> {
             match: [...gssBacktrack, ...inputSequence, ...lookAheadSequence],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + inputSequence.length,
-            applications: [],
+            applications: []
         };
         for (let a = 0; a < applicationCount; a++) {
             rule.applications[a] = view.next(this.rApplication, siblings);
@@ -91,7 +91,7 @@ class IndividualClassRuleSet<L> {
         srBacktrack: Resolver,
         srInput: Resolver,
         srLookAhead: Resolver,
-        siblings: Data.Order<L>,
+        siblings: Data.Order<L>
     ) {
         const apRules = view.next(SimpleOffsetArray);
         for (const vRule of apRules) {
@@ -103,8 +103,8 @@ class IndividualClassRuleSet<L> {
                     srBacktrack,
                     srInput,
                     srLookAhead,
-                    siblings,
-                ),
+                    siblings
+                )
             );
         }
     }
@@ -116,7 +116,7 @@ class SubtableFormat1<L> {
         view: BinaryView,
         isChaining: boolean,
         lookup: GsubGpos.ChainingProp<L>,
-        ctx: SubtableReadingContext<L>,
+        ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`[Chain]ContextSubstFormat1`, format, 1);
@@ -140,7 +140,7 @@ class SubtableFormat1<L> {
                 solver,
                 solver,
                 solver,
-                ctx.crossReferences,
+                ctx.crossReferences
             );
         }
     }
@@ -152,7 +152,7 @@ class SubtableFormat2<L> {
         view: BinaryView,
         isChaining: boolean,
         lookup: GsubGpos.ChainingProp<L>,
-        ctx: SubtableReadingContext<L>,
+        ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`[Chain]ContextSubstFormat2`, format, 2);
@@ -185,7 +185,7 @@ class SubtableFormat2<L> {
                 srBacktrack,
                 srInput,
                 srLookAhead,
-                ctx.crossReferences,
+                ctx.crossReferences
             );
         }
     }
@@ -198,7 +198,7 @@ class SubtableFormat3<L> {
         view: BinaryView,
         isChaining: boolean,
         lookup: GsubGpos.ChainingProp<L>,
-        ctx: SubtableReadingContext<L>,
+        ctx: SubtableReadingContext<L>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`[Chain]ContextSubstFormat3`, format, 3);
@@ -232,7 +232,7 @@ class SubtableFormat3<L> {
             match: [...gssBacktrack, ...gssInput, ...gssLookAhead],
             inputBegins: gssBacktrack.length,
             inputEnds: gssBacktrack.length + gssInput.length,
-            applications: [],
+            applications: []
         };
 
         for (let a = 0; a < applicationCount; a++) {

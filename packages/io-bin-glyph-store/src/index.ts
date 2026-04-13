@@ -4,7 +4,7 @@ export {
     NopTtfWritingExtraInfoSink,
     TtfCfg,
     TtfCfgProps,
-    TtfCfgPt,
+    TtfCfgPt
 } from "@ot-builder/io-bin-ttf";
 
 export { ReadCffGlyphs, WriteCffGlyphs } from "./cff/index";

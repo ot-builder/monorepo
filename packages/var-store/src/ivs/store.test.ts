@@ -6,23 +6,23 @@ const Wght = new OtVar.Dim("wght", 100, 400, 900);
 const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
 const Bold = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: -1, peak: 0, max: 1 },
+    { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
 const Bold1 = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: -1, peak: 0, max: 1 },
+    { dim: Wdth, min: -1, peak: 0, max: 1 }
 ]);
 const Bold2 = new OtVar.Master([
     { dim: Wdth, min: -1, peak: 0, max: 1 },
-    { dim: Wght, min: 0, peak: 1, max: 1 },
+    { dim: Wght, min: 0, peak: 1, max: 1 }
 ]);
 const Wide = new OtVar.Master([
     { dim: Wght, min: -1, peak: 0, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 const Corner = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 },
+    { dim: Wdth, min: 0, peak: 1, max: 1 }
 ]);
 
 test("Write time IVS : Value management", () => {
@@ -31,25 +31,25 @@ test("Write time IVS : Value management", () => {
     const ivs = WriteTimeIVS.create(mc);
 
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]))
     );
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold, 50], [Bold1, 50], [Bold2, 50], [Wide, 100])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold, 50], [Bold1, 50], [Bold2, 50], [Wide, 100]))
     );
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 100]))
     );
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold1, 150], [Wide, 100])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold1, 150], [Wide, 100]))
     );
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold2, 150], [Wide, 100])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold2, 150], [Wide, 100]))
     );
     expect({ outer: 0, inner: 0 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Wide, 100], [Bold2, 150])),
+        ivs.valueToInnerOuterID(cr.make(100, [Wide, 100], [Bold2, 150]))
     );
     expect({ outer: 0, inner: 1 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold, 150], [Wide, 200]))
     );
     expect({ outer: 1, inner: 0 }).toEqual(ivs.valueToInnerOuterID(cr.make(100, [Bold, 100])));
     expect(null).toEqual(ivs.valueToInnerOuterID(cr.make(100)));
@@ -63,17 +63,17 @@ test("Write time IVS : Multiple values management", () => {
     expect({ outer: 0, inner: 0 }).toEqual(
         ivs.multiValueToInnerOuterID([
             cr.make(100, [Bold, 150], [Wide, 100]),
-            cr.make(100, [Bold, 150], [Wide, 100]),
-        ]),
+            cr.make(100, [Bold, 150], [Wide, 100])
+        ])
     );
     expect({ outer: 0, inner: 2 }).toEqual(
         ivs.multiValueToInnerOuterID([
             cr.make(100, [Bold, 150], [Wide, 100]),
-            cr.make(100, [Bold, 100], [Wide, 100]),
-        ]),
+            cr.make(100, [Bold, 100], [Wide, 100])
+        ])
     );
     expect({ outer: 1, inner: 0 }).toEqual(
-        ivs.multiValueToInnerOuterID([cr.make(100, [Bold, 150], [Wide, 100])]),
+        ivs.multiValueToInnerOuterID([cr.make(100, [Bold, 150], [Wide, 100])])
     );
 });
 
@@ -89,7 +89,7 @@ test("Write time IVS : Value management with overflow", () => {
     }
 
     expect({ outer: 1, inner: 16 }).toEqual(
-        ivs.valueToInnerOuterID(cr.make(100, [Bold, -1], [Wide, -1])),
+        ivs.valueToInnerOuterID(cr.make(100, [Bold, -1], [Wide, -1]))
     );
 });
 

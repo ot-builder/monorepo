@@ -20,5 +20,5 @@ export const ConsolidateSyntax: Syntax<null | CliAction> = {
     displayHelp(shower: CliHelpShower) {
         shower.message(Style.Option`--consolidate`);
         shower.indent("").message("Perform consolidation of the font at the stack top.");
-    },
+    }
 };

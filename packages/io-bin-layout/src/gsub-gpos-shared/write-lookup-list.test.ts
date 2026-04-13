@@ -7,7 +7,7 @@ import type {
     LookupReader,
     LookupReaderFactory,
     LookupWriter,
-    LookupWriterFactory,
+    LookupWriterFactory
 } from "./general";
 import { CReadLookupList } from "./read-lookup-list";
 import { WriteLookupList } from "./write-lookup-list";
@@ -79,7 +79,7 @@ describe("Lookup list writer", () => {
 
         const lrf = new MockLookupReaderFactory();
         const ls1 = new BinaryView(bufLookupList).next(new CReadLookupList<Gsub.Lookup>(), lrf, {
-            gOrd,
+            gOrd
         });
         expect(ls1).toEqual(ls);
     }

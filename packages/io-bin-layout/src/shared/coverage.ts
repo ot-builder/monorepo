@@ -47,7 +47,7 @@ export namespace CovUtils {
     export function auxMapFromMapExcl<G, T>(
         mapping: Iterable<[G, T]>,
         gOrd: Data.Order<G>,
-        exclude: ReadonlySet<G>,
+        exclude: ReadonlySet<G>
     ) {
         const answer: CovAuxMappingT<T> = [];
         for (const [g, t] of mapping) if (!exclude.has(g)) answer.push([gOrd.reverse(g), t]);
@@ -57,7 +57,7 @@ export namespace CovUtils {
     export function auxMapFromExtractor<G, T>(
         mapping: Iterable<T>,
         gOrd: Data.Order<G>,
-        extract: (from: T) => G,
+        extract: (from: T) => G
     ) {
         const answer: CovAuxMappingT<T> = [];
         for (const t of mapping) answer.push([gOrd.reverse(extract(t)), t]);
@@ -67,7 +67,7 @@ export namespace CovUtils {
     export function* mapFromNumbers<G, T>(
         gids: ReadonlyArray<number>,
         values: ReadonlyArray<T>,
-        gOrd: Data.Order<G>,
+        gOrd: Data.Order<G>
     ): IterableIterator<[G, T]> {
         Assert.SizeMatch("cov-map length", values.length, gids.length);
         for (let item = 0; item < gids.length; item++) {
@@ -76,7 +76,7 @@ export namespace CovUtils {
     }
     export function splitListFromMap<G, T>(
         mapping: Iterable<[G, T]>,
-        gOrd: Data.Order<G>,
+        gOrd: Data.Order<G>
     ): CovSplitLists<T> {
         const gidList: number[] = [];
         const values: T[] = [];
@@ -89,7 +89,7 @@ export namespace CovUtils {
     }
     export function* glyphsFromGidList<G>(
         gids: Iterable<number>,
-        gOrd: Data.Order<G>,
+        gOrd: Data.Order<G>
     ): IterableIterator<G> {
         for (const gid of gids) yield gOrd.at(gid);
     }
@@ -113,7 +113,7 @@ export const GlyphCoverage = {
     write(frag: Frag, gs: ReadonlySet<OtGlyph>, gOrd: Data.Order<OtGlyph>, trick: number = 0) {
         const gl = CovUtils.gidListFromGlyphSet(gs, gOrd);
         frag.push(GidCoverage, gl, trick);
-    },
+    }
 };
 export const NullablePtr16GlyphCoverage = NullablePtr16(GlyphCoverage);
 export const Ptr16GlyphCoverage = NonNullablePtr16(GlyphCoverage);
@@ -156,7 +156,7 @@ export const GidCoverage = {
                 frag.embed(format1);
             }
         }
-    }),
+    })
 };
 export const NullablePtr16GidCoverage = NullablePtr16(GidCoverage);
 export const Ptr16GidCoverage = NonNullablePtr16(GidCoverage);
@@ -187,7 +187,7 @@ const OtGidCoverageFormat1 = {
             frag.uint16(gid);
             lastGID = gid;
         }
-    }),
+    })
 };
 
 interface CoverageRun {
@@ -250,7 +250,7 @@ const OtGidCoverageFormat2 = {
         collector.end();
 
         frag.push(OtGidCoverageFormat2FromCollector, collector);
-    }),
+    })
 };
 
 const OtGidCoverageFormat2FromCollector = {
@@ -259,5 +259,5 @@ const OtGidCoverageFormat2FromCollector = {
         for (const run of collector.runs) {
             frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.startCoverageIndex);
         }
-    }),
+    })
 };

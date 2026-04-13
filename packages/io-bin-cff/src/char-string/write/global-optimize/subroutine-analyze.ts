@@ -33,7 +33,7 @@ class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
         return {
             charStrings: charStrings,
             localSubroutines: this.localSubroutines,
-            globalSubroutines: globalSubroutines,
+            globalSubroutines: globalSubroutines
         };
     }
 }
@@ -41,5 +41,5 @@ class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
 export const CharStringGlobalOptSubrFactory: CharStringGlobalOptimizerFactory = {
     createOptimizer(ctx, fdCount) {
         return new CharStringGlobalOptSubr(ctx, fdCount);
-    },
+    }
 };

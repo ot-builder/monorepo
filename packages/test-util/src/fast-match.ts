@@ -13,7 +13,7 @@ export function otvar(
     expected: OtVar.Value,
     actual: OtVar.Value,
     place: string = "",
-    error: number = 1,
+    error: number = 1
 ) {
     const vvEq = OtVar.Ops.equal(expected, actual, error);
     if (!vvEq) {
@@ -23,7 +23,7 @@ export function otvar(
             ` Actual: ${OtVar.Ops.evaluate(actual, null)}\n`;
         for (const [master] of [
             ...OtVar.Ops.varianceOf(expected),
-            ...OtVar.Ops.varianceOf(actual),
+            ...OtVar.Ops.varianceOf(actual)
         ]) {
             const expValue = OtVar.Ops.evaluate(expected, master.getPeak());
             const actValue = OtVar.Ops.evaluate(actual, master.getPeak());

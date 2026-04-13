@@ -58,7 +58,7 @@ function* optimizePass(dcSeq: Iterable<CffDrawCall>, pass: DrawCallOptimizationP
 
 export function* cffOptimizeDrawCall(
     dcSeq: Iterable<CffDrawCall>,
-    passes: DrawCallOptimizationPass<unknown>[],
+    passes: DrawCallOptimizationPass<unknown>[]
 ): IterableIterator<CffDrawCall> {
     if (!passes.length) {
         yield* dcSeq;

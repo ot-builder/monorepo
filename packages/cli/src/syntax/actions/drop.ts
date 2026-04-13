@@ -54,5 +54,5 @@ export const DropSyntax: Syntax<null | CliAction> = {
         shower.indent("").message("Drops MATH table of the font.");
         shower.message(Style.Option`--drop-hints`);
         shower.indent("").message("Drops hinting information of the font");
-    },
+    }
 };

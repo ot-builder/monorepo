@@ -5,7 +5,7 @@ import { DesignUnifierSession, unifyDesignSpacesImpl } from "../support/design-u
 import {
     GlyphHasher,
     GlyphSharingRectifier,
-    SharedGlyphStore,
+    SharedGlyphStore
 } from "../support/share-glyph-set/glyph-hasher";
 
 export type ShareGlyphSetOptions = {
@@ -27,7 +27,7 @@ export class GlyphSharer<GS extends Ot.GlyphStore> {
             this.gsf,
             this.session,
             this.sharedGs,
-            this.fonts.length,
+            this.fonts.length
         );
         this.fontUnificationResults.push(ur);
         this.fonts.push(inputFont);
@@ -47,7 +47,7 @@ export class GlyphSharer<GS extends Ot.GlyphStore> {
 export function shareGlyphSet<GS extends Ot.GlyphStore>(
     fonts: Ot.Font<GS>[],
     gsf: Ot.GlyphStoreFactory<GS>,
-    options: ShareGlyphSetOptions = { unifyGlyphList: false },
+    options: ShareGlyphSetOptions = { unifyGlyphList: false }
 ) {
     const sharer = new GlyphSharer<GS>(gsf);
     for (const font of fonts) sharer.addFont(font);
@@ -63,7 +63,7 @@ function unifyGlyphByHash<GS extends Ot.GlyphStore>(
     gsf: Ot.GlyphStoreFactory<GS>,
     session: DesignUnifierSession,
     sharedGs: SharedGlyphStore,
-    id: number,
+    id: number
 ) {
     const hasher = new GlyphHasher(session);
     const gOrd = font.glyphs.decideOrder();

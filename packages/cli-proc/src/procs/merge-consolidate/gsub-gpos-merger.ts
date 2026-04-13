@@ -14,7 +14,7 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
         public readonly preferred: Ot.GsubGpos.TableT<L>,
         public readonly less: Ot.GsubGpos.TableT<L>,
         private readonly preferredGdef: Data.Maybe<Ot.Gdef.Table>,
-        private readonly lessGdef: Data.Maybe<Ot.Gdef.Table>,
+        private readonly lessGdef: Data.Maybe<Ot.Gdef.Table>
     ) {
         this.fordPreferred = ImpLib.Order.fromList("Features", preferred.features);
         this.fordLess = ImpLib.Order.fromList("Features", less.features);
@@ -91,7 +91,7 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
     }
     private mergeScript(
         preferred: Data.Maybe<Ot.GsubGpos.ScriptT<L>>,
-        less: Data.Maybe<Ot.GsubGpos.ScriptT<L>>,
+        less: Data.Maybe<Ot.GsubGpos.ScriptT<L>>
     ) {
         if (!preferred) preferred = { defaultLanguage: null, languages: new Map() };
         if (!less) less = { defaultLanguage: null, languages: new Map() };
@@ -100,23 +100,23 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
             languages: mergeMapAlt(
                 preferred.languages,
                 less.languages,
-                this.mergeLanguage.bind(this),
-            ),
+                this.mergeLanguage.bind(this)
+            )
         };
     }
 
     private mergeLanguage(
         preferred: Data.Maybe<Ot.GsubGpos.LanguageT<L>>,
-        less: Data.Maybe<Ot.GsubGpos.LanguageT<L>>,
+        less: Data.Maybe<Ot.GsubGpos.LanguageT<L>>
     ): Ot.GsubGpos.LanguageT<L> {
         if (!preferred) preferred = { requiredFeature: null, features: [] };
         if (!less) less = { requiredFeature: null, features: [] };
         return {
             requiredFeature: this.mergeRequiredFeature(
                 preferred.requiredFeature,
-                less.requiredFeature,
+                less.requiredFeature
             ),
-            features: this.combineFeatureList([...preferred.features, ...less.features]),
+            features: this.combineFeatureList([...preferred.features, ...less.features])
         };
     }
 
@@ -124,7 +124,7 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
 
     private mergeRequiredFeature(
         preferred: Data.Maybe<Ot.GsubGpos.FeatureT<L>>,
-        less: Data.Maybe<Ot.GsubGpos.FeatureT<L>>,
+        less: Data.Maybe<Ot.GsubGpos.FeatureT<L>>
     ) {
         if (!preferred) {
             if (less) return this.pushMergingPlans(less.tag, [less]);
@@ -134,7 +134,7 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
 
         if (preferred.tag !== less.tag) {
             throw new Error(
-                `Required feature cannot be merged: tag ${preferred.tag} <> ${less.tag}.`,
+                `Required feature cannot be merged: tag ${preferred.tag} <> ${less.tag}.`
             );
         }
 

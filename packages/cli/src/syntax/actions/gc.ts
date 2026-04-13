@@ -24,5 +24,5 @@ export const GcSyntax: Syntax<null | CliAction> = {
     displayHelp(shower: CliHelpShower) {
         shower.message(Style.Option`--gc`);
         shower.indent("").message("Perform garbage collection of the font at the stack top.");
-    },
+    }
 };

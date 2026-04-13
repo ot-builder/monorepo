@@ -4,7 +4,7 @@ import {
     type CoordRectifier,
     type GlyphReferenceRectifier,
     type PointAttachmentRectifier,
-    PointAttachmentRectifyManner,
+    PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
@@ -15,7 +15,7 @@ interface BaseRectifyFn {
 function processGlyphRefAndCoord(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    lc: Ot.Base.Coord,
+    lc: Ot.Base.Coord
 ): Ot.Base.Coord {
     const at = rc.coord(lc.at);
     if (!lc.pointAttachment) {
@@ -28,7 +28,7 @@ function processGlyphRefAndCoord(
         return {
             ...lc,
             at,
-            pointAttachment: { ...lc.pointAttachment, glyph: g1 },
+            pointAttachment: { ...lc.pointAttachment, glyph: g1 }
         };
     }
 }
@@ -36,7 +36,7 @@ function processGlyphRefAndCoord(
 function processPointAttach(
     rec: PointAttachmentRectifier,
     lc: Ot.Base.Coord,
-    horizontal: boolean,
+    horizontal: boolean
 ): Ot.Base.Coord {
     if (!lc.pointAttachment) return lc;
 
@@ -66,21 +66,21 @@ function rectifyBaseCoord(fn: BaseRectifyFn, lc: Ot.Base.Coord) {
 function rectifyMinMaxValue(fn: BaseRectifyFn, lc: Ot.Base.MinMaxValue): Ot.Base.MinMaxValue {
     return {
         minCoord: RectifyImpl.maybeT(fn, lc.minCoord, rectifyBaseCoord),
-        maxCoord: RectifyImpl.maybeT(fn, lc.maxCoord, rectifyBaseCoord),
+        maxCoord: RectifyImpl.maybeT(fn, lc.maxCoord, rectifyBaseCoord)
     };
 }
 
 function rectifyMinMaxTable(fn: BaseRectifyFn, mm: Ot.Base.MinMaxTable) {
     return new Ot.Base.MinMaxTable(
         rectifyMinMaxValue(fn, mm.defaultMinMax),
-        RectifyImpl.mapSomeT(fn, mm.featMinMax, RectifyImpl.Id, rectifyMinMaxValue),
+        RectifyImpl.mapSomeT(fn, mm.featMinMax, RectifyImpl.Id, rectifyMinMaxValue)
     );
 }
 
 function rectifyBaseValues(fn: BaseRectifyFn, bv: Ot.Base.BaseValues) {
     return new Ot.Base.BaseValues(
         bv.defaultBaselineIndex,
-        RectifyImpl.mapSomeT(fn, bv.baseValues, RectifyImpl.Id, rectifyBaseCoord),
+        RectifyImpl.mapSomeT(fn, bv.baseValues, RectifyImpl.Id, rectifyBaseCoord)
     );
 }
 
@@ -93,7 +93,7 @@ function rectifyScript(fn: BaseRectifyFn, sc: Ot.Base.Script) {
             fn,
             sc.baseLangSysRecords,
             RectifyImpl.Id,
-            rectifyMinMaxTable,
+            rectifyMinMaxTable
         );
     }
     return s2;
@@ -110,16 +110,16 @@ export function rectifyBaseTable(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    at: Ot.Base.Table,
+    at: Ot.Base.Table
 ) {
     const ret = new Ot.Base.Table();
     const fnH: BaseRectifyFn = {
         baseCoord: (c) =>
-            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), true),
+            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), true)
     };
     const fnV: BaseRectifyFn = {
         baseCoord: (c) =>
-            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), false),
+            processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), false)
     };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fnH, at.horizontal);
     if (at.vertical) ret.vertical = rectifyAxisTable(fnV, at.vertical);

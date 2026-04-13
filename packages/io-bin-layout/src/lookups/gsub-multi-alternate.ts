@@ -9,7 +9,7 @@ import {
     type LookupWriter,
     type SubtableReadingContext,
     SubtableSizeLimit,
-    type SubtableWriteContext,
+    type SubtableWriteContext
 } from "../gsub-gpos-shared/general";
 import { CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -19,7 +19,7 @@ const SubtableFormat1 = {
     read(
         view: BinaryView,
         lookup: Gsub.Multiple | Gsub.Alternate,
-        ctx: SubtableReadingContext<Gsub.Lookup>,
+        ctx: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.uint16();
         Assert.FormatSupported(`MultipleSubst / AlternateSubst`, format, 1);
@@ -31,14 +31,14 @@ const SubtableFormat1 = {
             const substituteGlyphIDs = pSubst.next(SimpleGidArray);
             lookup.mapping.set(
                 ctx.gOrd.at(gid),
-                substituteGlyphIDs.map((g) => ctx.gOrd.at(g)),
+                substituteGlyphIDs.map((g) => ctx.gOrd.at(g))
             );
         }
     },
     write(
         frag: Frag,
         mapping: Map<OtGlyph, ReadonlyArray<OtGlyph>>,
-        ctx: SubtableWriteContext<Gsub.Lookup>,
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
         frag.uint16(1);
@@ -49,17 +49,17 @@ const SubtableFormat1 = {
             fSeq.uint16(to.length);
             fSeq.array(
                 UInt16,
-                to.map((g) => ctx.gOrd.reverse(g)),
+                to.map((g) => ctx.gOrd.reverse(g))
             );
         }
-    },
+    }
 };
 
 class GsubMultiAlternateReaderBase {
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Multiple | Gsub.Alternate,
-        context: SubtableReadingContext<Gsub.Lookup>,
+        context: SubtableReadingContext<Gsub.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -92,7 +92,7 @@ class GsubMultiAlternateWriterBase {
     }
     public createSubtableFragments(
         lookup: Gsub.Multiple | Gsub.Alternate,
-        ctx: SubtableWriteContext<Gsub.Lookup>,
+        ctx: SubtableWriteContext<Gsub.Lookup>
     ) {
         let state = new State();
         const frags: Frag[] = [];

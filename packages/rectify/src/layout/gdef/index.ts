@@ -5,7 +5,7 @@ import {
     type CoordRectifier,
     type GlyphReferenceRectifier,
     type PointAttachmentRectifier,
-    PointAttachmentRectifyManner,
+    PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
@@ -13,7 +13,7 @@ export function rectifyGdefTable(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    gdef: Ot.Gdef.Table,
+    gdef: Ot.Gdef.Table
 ) {
     const newTable = new Ot.Gdef.Table();
     if (gdef.glyphClassDef) {
@@ -25,14 +25,14 @@ export function rectifyGdefTable(
     if (gdef.markAttachClassDef) {
         newTable.markAttachClassDef = RectifyImpl.Glyph.mapSome(
             recGlyphRef,
-            gdef.markAttachClassDef,
+            gdef.markAttachClassDef
         );
     }
     if (gdef.markGlyphSets) {
         newTable.markGlyphSets = RectifyImpl.listSomeT(
             recGlyphRef,
             gdef.markGlyphSets,
-            RectifyImpl.Glyph.setSome,
+            RectifyImpl.Glyph.setSome
         );
     }
     if (gdef.ligCarets) {
@@ -57,7 +57,7 @@ function ligCaretArrayPA(rec: PointAttachmentRectifier, g: Ot.Glyph, lcs: Ot.Gde
 function ligCaretPointAttachment(
     rectifier: PointAttachmentRectifier,
     context: Ot.Glyph,
-    lc: Ot.Gdef.LigCaret,
+    lc: Ot.Gdef.LigCaret
 ): Ot.Gdef.LigCaret {
     if (!lc.pointAttachment) return lc;
 

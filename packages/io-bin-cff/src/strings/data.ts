@@ -392,7 +392,7 @@ export const CffStandardStrings = [
     "Medium",
     "Regular",
     "Roman",
-    "Semibold",
+    "Semibold"
 ];
 
 // prettier-ignore
@@ -648,7 +648,7 @@ export const CffStandardEncoding = [
     "lslash",
     "oslash",
     "oe",
-    "germandbls",
+    "germandbls"
 ];
 
 // prettier-ignore
@@ -907,5 +907,5 @@ export const CffExpertEncoding = [
     "Udieresissmall",
     "Yacutesmall",
     "Thornsmall",
-    "Ydieresissmall",
+    "Ydieresissmall"
 ];

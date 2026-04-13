@@ -11,7 +11,7 @@ export function readHMetric(
     sfnt: Sfnt,
     maxp: Maxp.Table,
     hhea: Data.Maybe<MetricHead.Table>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>,
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     const bHmtx = sfnt.tables.get(MetricBasic.TagHmtx);
     const bHvar = sfnt.tables.get(MetricVariance.TagHvar);
@@ -30,7 +30,7 @@ export function readVMetric(
     sfnt: Sfnt,
     maxp: Maxp.Table,
     vhea: Data.Maybe<MetricHead.Table>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>,
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     const bVmtx = sfnt.tables.get(MetricBasic.TagVmtx);
     const bVvar = sfnt.tables.get(MetricVariance.TagVvar);

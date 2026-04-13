@@ -24,7 +24,7 @@ describe("TTF glyph classifier", () => {
         GlyfTableRead,
         loca,
         gOrd,
-        new OtGlyph.CoStat.Forward(),
+        new OtGlyph.CoStat.Forward()
     );
     rectifyGlyphOrder(gOrd);
 
@@ -46,7 +46,7 @@ describe("TTF glyph classifier", () => {
             depth: 0,
             eigenReferences: 0,
             totalContours: 0,
-            totalPoints: 0,
+            totalPoints: 0
         });
     });
 
@@ -61,7 +61,7 @@ describe("TTF glyph classifier", () => {
             depth: 0,
             eigenReferences: 0,
             totalContours: 4,
-            totalPoints: 16,
+            totalPoints: 16
         });
     });
 
@@ -76,7 +76,7 @@ describe("TTF glyph classifier", () => {
             depth: 1,
             eigenReferences: 2,
             totalContours: 3,
-            totalPoints: 39,
+            totalPoints: 39
         });
     });
 });

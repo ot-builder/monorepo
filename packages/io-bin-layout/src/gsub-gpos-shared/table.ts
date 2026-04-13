@@ -39,7 +39,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         view: BinaryView,
         cfg: LayoutCfg,
         lrf: LookupReaderFactory<L>,
-        trc: TableReadContext,
+        trc: TableReadContext
     ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
@@ -69,7 +69,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         table: GsubGpos.TableT<L>,
         cfg: LayoutCfg,
         lwf: LookupWriterFactory<L>,
-        twc: TableWriteContext,
+        twc: TableWriteContext
     ) {
         const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table, cfg) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
@@ -89,7 +89,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
                       table.featureVariations,
                       twc.designSpace,
                       fOrd,
-                      lOrd,
+                      lOrd
                   );
 
         // Write it!

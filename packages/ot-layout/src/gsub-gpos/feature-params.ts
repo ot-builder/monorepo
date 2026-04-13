@@ -8,7 +8,7 @@ export interface StylisticSet {
 }
 
 export const TID_CharacterVariant = new Sigma.TypeID<CharacterVariant>(
-    "OTB::FeatureParams::CharacterVariant",
+    "OTB::FeatureParams::CharacterVariant"
 );
 export interface CharacterVariant {
     readonly featUiLabelNameId: UInt16;

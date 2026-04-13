@@ -18,7 +18,7 @@ describe("GPOS mark-to-ligature lookup handler", () => {
         reader: () => new GposMarkToLigatureReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToLigature.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("1MC", () => {
@@ -29,7 +29,7 @@ describe("GPOS mark-to-ligature lookup handler", () => {
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
             lookup.bases.set(gOrd.at(gid), {
-                baseAnchors: [[{ x: gid, y: gid }], [{ x: gid, y: gid }], [{ x: gid, y: gid }]],
+                baseAnchors: [[{ x: gid, y: gid }], [{ x: gid, y: gid }], [{ x: gid, y: gid }]]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);
@@ -44,8 +44,8 @@ describe("GPOS mark-to-ligature lookup handler", () => {
             lookup.marks.set(gOrd.at(gid), {
                 markAnchors: [
                     { x: gid, y: gid },
-                    { x: gid, y: gid },
-                ],
+                    { x: gid, y: gid }
+                ]
             });
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
@@ -54,12 +54,12 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                     gid % 2
                         ? [
                               [null, { x: 1 + gid, y: 1 + gid }],
-                              [{ x: -gid, y: -gid }, null],
+                              [{ x: -gid, y: -gid }, null]
                           ]
                         : [
                               [{ x: 1 + gid, y: 1 + gid }, null],
-                              [null, { x: -gid, y: -gid }],
-                          ],
+                              [null, { x: -gid, y: -gid }]
+                          ]
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

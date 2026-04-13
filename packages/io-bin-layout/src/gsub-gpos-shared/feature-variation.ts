@@ -30,7 +30,7 @@ class CFeatureTableSubstitution<L> {
         frag: Frag,
         subst: ReadonlyMap<Feature<L>, Feature<L>>,
         fOrd: Data.Order<Feature<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ) {
         frag.uint16(1).uint16(0).uint16(subst.size);
         for (const [from, to] of subst) {
@@ -54,7 +54,7 @@ const ConditionTable = {
             .uint16(designSpace.reverse(condition.dim))
             .push(F2D14, condition.min)
             .push(F2D14, condition.max);
-    },
+    }
 };
 const Ptr32Condition = NonNullablePtr32(ConditionTable);
 const ConditionSet = SimpleArray(UInt16, Ptr32Condition);
@@ -64,7 +64,7 @@ class CFeatureVariationRecord<L> {
         view: BinaryView,
         designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ): FeatureVariation<L> {
         const conditions = view.ptr32().next(ConditionSet, designSpace);
         const substitutions = view.ptr32().next(new CFeatureTableSubstitution<L>(), fOrd, lOrd);
@@ -75,7 +75,7 @@ class CFeatureVariationRecord<L> {
         fv: FeatureVariation<L>,
         designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ) {
         frag.ptr32New().push(ConditionSet, fv.conditions, designSpace);
         frag.ptr32New().push(new CFeatureTableSubstitution<L>(), fv.substitutions, fOrd, lOrd);
@@ -90,7 +90,7 @@ export class CFeatureVariations<L> {
         view: BinaryView,
         designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
@@ -102,7 +102,7 @@ export class CFeatureVariations<L> {
         fv: readonly FeatureVariation<L>[],
         designSpace: OtVar.DesignSpace,
         fOrd: Data.Order<Feature<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ) {
         frag.uint16(1).uint16(0);
         frag.push(CFeatureVariationRecordList<L>(), fv, designSpace, fOrd, lOrd);

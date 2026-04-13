@@ -16,7 +16,7 @@ export interface VarianceMaster<A extends VarianceDim> {
 
 export type VarianceMasterCollectResult<
     A extends VarianceDim,
-    M extends VarianceMaster<VarianceDim>,
+    M extends VarianceMaster<VarianceDim>
 > = {
     /** Index of master */
     readonly index: number;

@@ -30,7 +30,7 @@ export const Os2Panose = {
         b.uint8(panose.bLetterform);
         b.uint8(panose.bMidline);
         b.uint8(panose.bXHeight);
-    },
+    }
 };
 
 export const Os2TableIo = {
@@ -124,5 +124,5 @@ export const Os2TableIo = {
         if (table.version < 5) return;
         frag.uint16(table.usLowerOpticalPointSize);
         frag.uint16(table.usUpperOpticalPointSize);
-    },
+    }
 };

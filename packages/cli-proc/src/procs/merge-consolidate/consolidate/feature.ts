@@ -21,7 +21,7 @@ export class FeatureConsolidator<L> {
     public constructor(
         private readonly env: FeatureConsolidationSource<L>,
         private readonly tag: Tag,
-        private readonly featureList: Ot.GsubGpos.FeatureT<L>[],
+        private readonly featureList: Ot.GsubGpos.FeatureT<L>[]
     ) {
         this.result = { tag, lookups: [] };
         this.resultFeatureVariation = [];
@@ -95,7 +95,7 @@ export class FeatureConsolidator<L> {
                 cond.push({
                     dim: this.env.variationDimensions.at(d),
                     min: zone[d][0] / 0x10000,
-                    max: zone[d][1] / 0x10000,
+                    max: zone[d][1] / 0x10000
                 });
         }
         return cond;

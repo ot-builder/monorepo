@@ -13,9 +13,9 @@ export const CffSubroutineIndex = {
         frag.push(
             new CffWriteIndex<Buffer>({ write: (f, item, ctx) => f.bytes(item) }),
             subrs,
-            ctx,
+            ctx
         );
-    }),
+    })
 };
 
 export const CffBufferIndex = CffSubroutineIndex;

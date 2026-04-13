@@ -4,7 +4,7 @@ import type {
     AxisRectifier,
     CoordRectifier,
     GlyphReferenceRectifier,
-    PointAttachmentRectifier,
+    PointAttachmentRectifier
 } from "../../interface";
 
 import { axesRectifyFeatureVariation, cleanupGsubGposData } from "./cleanup";
@@ -16,13 +16,13 @@ export function rectifyGsubTable(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    table: Ot.Gsub.Table,
+    table: Ot.Gsub.Table
 ) {
     const alg = new RectifyGsubGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, (l, a) => a.process(l));
     const newTable = cleanupGsubGposData(table, new Ot.Gsub.Table(), lookupCorrespondence, {
         lookupRemovable: (l) => LookupRemovableAlg.process(l),
-        cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v),
+        cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
     if (newTable?.featureVariations) {
         for (const fv of newTable.featureVariations) axesRectifyFeatureVariation(recAxes, fv);
@@ -35,13 +35,13 @@ export function rectifyGposTable(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    table: Ot.Gpos.Table,
+    table: Ot.Gpos.Table
 ) {
     const alg = new RectifyGposGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, (l, a) => a.process(l));
     const newTable = cleanupGsubGposData(table, new Ot.Gpos.Table(), lookupCorrespondence, {
         lookupRemovable: (l) => LookupRemovableAlg.process(l),
-        cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v),
+        cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
     if (newTable?.featureVariations) {
         for (const fv of newTable.featureVariations) axesRectifyFeatureVariation(recAxes, fv);

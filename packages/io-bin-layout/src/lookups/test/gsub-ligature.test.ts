@@ -17,7 +17,7 @@ describe("GSUB ligature lookup handler", () => {
         reader: () => new GsubLigatureReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GsubLigature.test(BimapCtx.from(gOrd), a, b);
-        },
+        }
     };
 
     test("Exhaustive", () => {
@@ -26,9 +26,9 @@ describe("GSUB ligature lookup handler", () => {
             lookup.mapping.push({
                 from: [
                     gOrd.at((gid + 0x30) % gOrd.length),
-                    gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length),
+                    gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length)
                 ],
-                to: gOrd.at(gid),
+                to: gOrd.at(gid)
             });
         }
         lookup.mapping = Disorder.shuffleArray([...lookup.mapping]);
@@ -42,9 +42,9 @@ describe("GSUB ligature lookup handler", () => {
                 from: [
                     gOrd.at((gid + 0x30) % 16),
                     gOrd.at((gid - 0x30 + gOrd.length) % gOrd.length),
-                    gOrd.at((gid - 0x60 + gOrd.length) % gOrd.length),
+                    gOrd.at((gid - 0x60 + gOrd.length) % gOrd.length)
                 ],
-                to: gOrd.at(gid),
+                to: gOrd.at(gid)
             });
         }
         lookup.mapping = Disorder.shuffleArray([...lookup.mapping]);

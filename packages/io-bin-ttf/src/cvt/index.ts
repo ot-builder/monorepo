@@ -12,7 +12,7 @@ export const CvtIo = {
     write(frag: Frag, table: Cvt.Table) {
         frag.array(
             Int16,
-            table.items.map((x) => OtVar.Ops.originOf(x)),
+            table.items.map((x) => OtVar.Ops.originOf(x))
         );
-    },
+    }
 };

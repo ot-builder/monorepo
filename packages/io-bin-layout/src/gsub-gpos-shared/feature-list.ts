@@ -39,7 +39,7 @@ export class CFeatureList<L> {
     public write(
         frag: Frag,
         featureList: ReadonlyArray<GsubGpos.FeatureT<L>>,
-        lOrd: Data.Order<L>,
+        lOrd: Data.Order<L>
     ) {
         frag.uint16(featureList.length);
         const writer = new CFeatureTable<L>();

@@ -15,13 +15,13 @@ import {
     CffDictDataCollector,
     CffDictInterpreterBase,
     CffDictReadT,
-    CffDictWriteT,
+    CffDictWriteT
 } from "./general";
 
 class PrivateDictInterpreter extends CffDictInterpreterBase {
     public constructor(
         private ctx: CffReadContext,
-        private viewDict: BinaryView,
+        private viewDict: BinaryView
     ) {
         super(ctx.ivs);
     }
@@ -142,34 +142,34 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         yield* this.emitNumber(
             pd.expansionFactor,
             defaultPd.expansionFactor,
-            CffOperator.ExpansionFactor,
+            CffOperator.ExpansionFactor
         );
         yield* this.emitNumber(
             pd.languageGroup,
             defaultPd.languageGroup,
-            CffOperator.LanguageGroup,
+            CffOperator.LanguageGroup
         );
 
         if (ctx.version === 1) {
             yield* this.emitNumber(
                 pd.defaultWidthX,
                 defaultPd.defaultWidthX,
-                CffOperator.DefaultWidthX,
+                CffOperator.DefaultWidthX
             );
             yield* this.emitNumber(
                 pd.nominalWidthX,
                 defaultPd.nominalWidthX,
-                CffOperator.NominalWidthX,
+                CffOperator.NominalWidthX
             );
             yield* this.emitNumber(
                 Number(pd.forceBold),
                 Number(defaultPd.forceBold),
-                CffOperator.ForceBold,
+                CffOperator.ForceBold
             );
             yield* this.emitNumber(
                 pd.initialRandomSeed,
                 defaultPd.initialRandomSeed,
-                CffOperator.initialRandomSeed,
+                CffOperator.initialRandomSeed
             );
         }
     }
@@ -178,12 +178,12 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
         encoder: DictEncoder,
         pd: Cff.PrivateDict,
         ctx: CffWriteContext,
-        rest: undefined,
+        rest: undefined
     ) {
         if (pd.localSubroutines) {
             encoder.embRelPointer(
                 new Frag().push(CffSubroutineIndex, pd.localSubroutines, ctx),
-                CffOperator.Subrs,
+                CffOperator.Subrs
             );
         }
     }
@@ -191,7 +191,7 @@ class PrivateDictDataCollector extends CffDictDataCollector<Cff.PrivateDict> {
 
 export const CffPrivateDictIo = {
     ...CffDictReadT<Cff.PrivateDict>(
-        (viewDict, ctx) => new PrivateDictInterpreter(ctx, viewDict.lift(0)),
+        (viewDict, ctx) => new PrivateDictInterpreter(ctx, viewDict.lift(0))
     ),
-    ...CffDictWriteT<Cff.PrivateDict>(new PrivateDictDataCollector()),
+    ...CffDictWriteT<Cff.PrivateDict>(new PrivateDictDataCollector())
 };

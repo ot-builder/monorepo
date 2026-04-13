@@ -28,7 +28,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
             Assert.FormatSupported(
                 `ExtensionSubstFormat::extensionLookupType`,
                 type,
-                extensionLookupType || 0,
+                extensionLookupType || 0
             );
             realSubtables.push(vSubTable.ptr32());
         }
@@ -72,7 +72,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         ignores: Set<OtGlyph>,
         flags: number,
         markFilteringSet: Data.Maybe<number>,
-        gdef: Gdef.Table,
+        gdef: Gdef.Table
     ) {
         if (
             gdef.glyphClassDef &&
@@ -93,7 +93,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         lookup: L,
         flags: number,
         markFilteringSet: Data.Maybe<number>,
-        gdef: Data.Maybe<Gdef.Table>,
+        gdef: Data.Maybe<Gdef.Table>
     ) {
         if (flags & LookupFlag.RightToLeft) lookup.rightToLeft = true;
         if (!gdef) return;
@@ -141,13 +141,13 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         for (const [lookup, reader, sts] of ImpLib.Iterators.Zip3WithIndex(
             lookups,
             readers,
-            subtables,
+            subtables
         )) {
             for (const st of sts) {
                 reader.parseSubtable(st, lookup, {
                     ivs: lrc.ivs,
                     gOrd: lrc.gOrd,
-                    crossReferences: lookupOrder,
+                    crossReferences: lookupOrder
                 });
             }
         }

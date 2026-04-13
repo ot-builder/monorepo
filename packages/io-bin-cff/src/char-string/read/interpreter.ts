@@ -33,7 +33,7 @@ export interface CffCharStringDataSink {
         x2: OtVar.Value,
         y2: OtVar.Value,
         x3: OtVar.Value,
-        y3: OtVar.Value,
+        y3: OtVar.Value
     ): void;
     endChar(): void;
 }
@@ -43,7 +43,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
         private readonly irSource: CffInterp.IrFlagPuller,
         private readonly state: CffStackMachine & CffCharStringInterpState,
         private readonly subroutines: CffSubroutineSource,
-        private readonly sink: CffCharStringDataSink,
+        private readonly sink: CffCharStringDataSink
     ) {
         super();
     }
@@ -74,14 +74,14 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             case CharStringOperator.VStemHM:
                 return this.doStemHint(
                     opCode === CharStringOperator.VStem || opCode === CharStringOperator.VStemHM,
-                    this.state.allArgs(),
+                    this.state.allArgs()
                 );
             case CharStringOperator.HintMask:
             case CharStringOperator.CntrMask:
                 this.doStemHint(this.sink.stemQuantity > 0, this.state.allArgs());
                 return this.sink.addHintMask(
                     opCode === CharStringOperator.CntrMask,
-                    this.irSource.pullFlags(this.sink.stemQuantity),
+                    this.irSource.pullFlags(this.sink.stemQuantity)
                 );
 
             case CharStringOperator.RMoveTo:
@@ -89,7 +89,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             case CharStringOperator.VMoveTo:
                 return this.doMove(
                     opCode === CharStringOperator.HMoveTo,
-                    opCode === CharStringOperator.VMoveTo,
+                    opCode === CharStringOperator.VMoveTo
                 );
 
             // Graphics
@@ -262,7 +262,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[index + 2],
                 args[index + 3],
                 args[index + 4],
-                args[index + 5],
+                args[index + 5]
             );
         }
     }
@@ -274,7 +274,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[index + 2],
                 args[index + 3],
                 args[index + 4],
-                args[index + 5],
+                args[index + 5]
             );
         }
         this.sink.lineTo(args[args.length - 2], args[args.length - 1]);
@@ -289,7 +289,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             args[args.length - 4],
             args[args.length - 3],
             args[args.length - 2],
-            args[args.length - 1],
+            args[args.length - 1]
         );
     }
     private doVVCurveTo(args: OtVar.Value[]) {
@@ -302,7 +302,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     0.0,
-                    args[index + 3],
+                    args[index + 3]
                 );
             }
         } else {
@@ -313,7 +313,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     0.0,
-                    args[index + 3],
+                    args[index + 3]
                 );
             }
         }
@@ -328,7 +328,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     args[index + 3],
-                    0.0,
+                    0.0
                 );
             }
         } else {
@@ -339,7 +339,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     args[index + 3],
-                    0.0,
+                    0.0
                 );
             }
         }
@@ -355,7 +355,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     args[index + 3],
-                    0.0,
+                    0.0
                 );
             } else {
                 this.sink.curveTo(
@@ -364,7 +364,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     0.0,
-                    args[index + 3],
+                    args[index + 3]
                 );
             }
         }
@@ -375,7 +375,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[args.length - 4],
                 args[args.length - 3],
                 args[args.length - 2],
-                args[args.length - 1],
+                args[args.length - 1]
             );
         } else if (args.length % 8 === 1) {
             this.sink.curveTo(
@@ -384,7 +384,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[args.length - 4],
                 args[args.length - 3],
                 args[args.length - 1],
-                args[args.length - 2],
+                args[args.length - 2]
             );
         }
     }
@@ -399,7 +399,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     0.0,
-                    args[index + 3],
+                    args[index + 3]
                 );
             } else {
                 this.sink.curveTo(
@@ -408,7 +408,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                     args[index + 1],
                     args[index + 2],
                     args[index + 3],
-                    0.0,
+                    0.0
                 );
             }
         }
@@ -420,7 +420,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[args.length - 4],
                 args[args.length - 3],
                 args[args.length - 1],
-                args[args.length - 2],
+                args[args.length - 2]
             );
         } else if (args.length % 8 === 1) {
             this.sink.curveTo(
@@ -429,7 +429,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
                 args[args.length - 4],
                 args[args.length - 3],
                 args[args.length - 2],
-                args[args.length - 1],
+                args[args.length - 1]
             );
         }
     }
@@ -449,7 +449,7 @@ export class CffCharStringInterpreter extends CffInterp.Interpreter {
             args[6],
             args[7],
             args[8],
-            OtVar.Ops.negate(OtVar.Ops.add(OtVar.Ops.add(args[1], args[3]), args[7])),
+            OtVar.Ops.negate(OtVar.Ops.add(OtVar.Ops.add(args[1], args[3]), args[7]))
         );
     }
     private doFlex1(args: OtVar.Value[]) {
@@ -608,7 +608,7 @@ export function callCharString(
     buf: Buffer,
     st: CffStackMachine & CffCharStringInterpState,
     ss: CffSubroutineSource,
-    ds: CffCharStringDataSink,
+    ds: CffCharStringDataSink
 ) {
     st.log += "{ ";
     const irSource = new CharStringIrSource(new BinaryView(buf), buf.byteLength);
@@ -626,7 +626,7 @@ export function interpretCharString(
     buf: Buffer,
     st: CffStackMachine & CffCharStringInterpState,
     ss: CffSubroutineSource,
-    ds: CffCharStringDataSink,
+    ds: CffCharStringDataSink
 ) {
     ds.setWidth(ss.defaultWidthX);
     callCharString(buf, st, ss, ds);

@@ -10,7 +10,7 @@ export class CffReadContext {
     public constructor(
         public version: number = 2,
         public readonly vwCffTable: BinaryView,
-        gss: Data.Maybe<OtGlyph.CoStat.Source> = null,
+        gss: Data.Maybe<OtGlyph.CoStat.Source> = null
     ) {
         if (version <= 1) {
             this.strings = new CffStringSource();
@@ -28,14 +28,14 @@ export class CffGlyphCoStatSource implements OtGlyph.CoStat.Source {
     public constructor(private readonly outer?: Data.Maybe<OtGlyph.CoStat.Source>) {}
     public getHMetric(
         gid: number,
-        extent: Data.Maybe<OtGlyph.Stat.BoundingBox>,
+        extent: Data.Maybe<OtGlyph.Stat.BoundingBox>
     ): Data.Maybe<OtGlyph.Metric> {
         if (this.outer) return this.outer.getHMetric(gid, extent);
         else return null;
     }
     public getVMetric(
         gid: number,
-        extent: Data.Maybe<OtGlyph.Stat.BoundingBox>,
+        extent: Data.Maybe<OtGlyph.Stat.BoundingBox>
     ): Data.Maybe<OtGlyph.Metric> {
         if (this.outer) return this.outer.getVMetric(gid, extent);
         else return null;

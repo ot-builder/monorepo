@@ -19,7 +19,7 @@ export class CffGlyphNameCharsetSink<G extends OtGlyph> implements CffCharSetSin
     public constructor(
         private glyphs: Data.Order<G>,
         private naming: null | CffGlyphNaming<G>,
-        private ctx: CffReadContext,
+        private ctx: CffReadContext
     ) {}
     public getGlyphCount() {
         return this.glyphs.length;
@@ -34,7 +34,7 @@ export class CffCidCharsetSink<G extends OtGlyph> implements CffCharSetSink {
     public constructor(
         private glyphs: Data.Order<G>,
         private naming: null | CffGlyphNaming<G>,
-        private cidMap: Map<number, OtGlyph>,
+        private cidMap: Map<number, OtGlyph>
     ) {}
     public getGlyphCount() {
         return this.glyphs.length;

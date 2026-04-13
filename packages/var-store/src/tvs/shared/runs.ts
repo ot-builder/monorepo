@@ -5,12 +5,12 @@ import { Int8, Int16, UInt8, UInt16 } from "@ot-builder/primitive";
 export enum DeltaRunFlags {
     DELTAS_ARE_ZERO = 0x80,
     DELTAS_ARE_WORDS = 0x40,
-    DELTA_RUN_COUNT_MASK = 0x3f,
+    DELTA_RUN_COUNT_MASK = 0x3f
 }
 export enum DeltaRunType {
     Zero,
     Short,
-    Long,
+    Long
 }
 export const DeltaRun = {
     read(view: BinaryView, deltasParsed: number, points: number[], deltas: number[]) {
@@ -25,7 +25,7 @@ export const DeltaRun = {
             deltasParsed++;
         }
         return deltasParsed;
-    },
+    }
 };
 
 export const PointCount = {
@@ -42,16 +42,16 @@ export const PointCount = {
             const lowerHalf = x && 0xff;
             b.uint8(highHalf).uint8(lowerHalf);
         }
-    },
+    }
 };
 
 export enum PointNumberFlags {
     POINTS_ARE_WORDS = 0x80,
-    POINT_RUN_COUNT_MASK = 0x7f,
+    POINT_RUN_COUNT_MASK = 0x7f
 }
 export enum PointNumberRunType {
     Short,
-    Long,
+    Long
 }
 export const PointNumberRun = {
     read(view: BinaryView, currentPoint: number, points: number[]) {
@@ -64,7 +64,7 @@ export const PointNumberRun = {
             points.push(currentPoint);
         }
         return currentPoint;
-    },
+    }
 };
 
 // Optimizing delta-run and point-number-run writer
@@ -91,7 +91,7 @@ export namespace DeltaRunDp {
         public readonly cost: number;
         public constructor(
             public readonly link: null | DpRun,
-            public readonly size: number,
+            public readonly size: number
         ) {
             this.cost = 1 + (link ? link.cost : 0);
         }
@@ -113,7 +113,7 @@ export namespace DeltaRunDp {
         public readonly cost: number;
         public constructor(
             public readonly link: null | DpRun,
-            public readonly data: readonly number[],
+            public readonly data: readonly number[]
         ) {
             this.cost = 1 + data.length + (link ? link.cost : 0);
         }
@@ -136,7 +136,7 @@ export namespace DeltaRunDp {
         public readonly cost: number;
         public constructor(
             public readonly link: null | DpRun,
-            public readonly data: readonly number[],
+            public readonly data: readonly number[]
         ) {
             this.cost = 1 + 2 * data.length + (link ? link.cost : 0);
         }
@@ -213,7 +213,7 @@ export namespace PointNumberRunDp {
         public readonly cost: number;
         public constructor(
             public readonly link: null | DpRun,
-            public readonly data: readonly number[],
+            public readonly data: readonly number[]
         ) {
             this.cost = 1 + data.length + (link ? link.cost : 0);
         }
@@ -236,7 +236,7 @@ export namespace PointNumberRunDp {
         public readonly cost: number;
         public constructor(
             public readonly link: null | DpRun,
-            public readonly data: readonly number[],
+            public readonly data: readonly number[]
         ) {
             this.cost = 1 + 2 * data.length + (link ? link.cost : 0);
         }

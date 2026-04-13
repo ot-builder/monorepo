@@ -14,12 +14,12 @@ export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
     basis: Ot.Font<GS>,
     override: Ot.Font<GS2>,
     gsf: Ot.GlyphStoreFactory<GS>,
-    opt: MergeOptions = {},
+    opt: MergeOptions = {}
 ) {
     unifyDesignSpacesImpl(new DesignUnifierSession(), basis, override);
     basis.glyphs = gsf.createStoreFromList([
         ...basis.glyphs.decideOrder(),
-        ...override.glyphs.decideOrder(),
+        ...override.glyphs.decideOrder()
     ]);
     mergeFontTables(basis, override, opt);
 }
@@ -27,7 +27,7 @@ export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
 export function consolidateFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>) {
     const gs = new Set(font.glyphs.decideOrder());
     const rectifier: Rectify.GlyphReferenceRectifier = {
-        glyphRef: (g) => (gs.has(g) ? g : null),
+        glyphRef: (g) => (gs.has(g) ? g : null)
     };
     Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);
 
@@ -44,14 +44,14 @@ function mergeFontTables(basis: Ot.Font, override: Ot.Font, opt: MergeOptions) {
             override.gsub,
             basis.gsub,
             override.gdef,
-            basis.gdef,
+            basis.gdef
         );
         basis.gpos = mergeGsubGpos(
             override.fvar,
             override.gpos,
             basis.gpos,
             override.gdef,
-            basis.gdef,
+            basis.gdef
         );
         basis.gdef = mergeGdef(override.gdef, basis.gdef);
     } else {
@@ -61,14 +61,14 @@ function mergeFontTables(basis: Ot.Font, override: Ot.Font, opt: MergeOptions) {
             basis.gsub,
             override.gsub,
             basis.gdef,
-            override.gdef,
+            override.gdef
         );
         basis.gpos = mergeGsubGpos(
             basis.fvar,
             basis.gpos,
             override.gpos,
             basis.gdef,
-            override.gdef,
+            override.gdef
         );
         basis.gdef = mergeGdef(basis.gdef, override.gdef);
     }
@@ -96,7 +96,7 @@ function mergeGdef(preferred: Data.Maybe<Ot.Gdef.Table>, less: Data.Maybe<Ot.Gde
     result.ligCarets = mergeMapOpt(preferred.ligCarets, less.ligCarets, Prime);
     result.markAttachClassDef = mergeClassDefOpt(
         preferred.markAttachClassDef,
-        less.markAttachClassDef,
+        less.markAttachClassDef
     );
 
     result.markGlyphSets = combineList(preferred.markGlyphSets, less.markGlyphSets);
@@ -108,7 +108,7 @@ function mergeGsubGpos<L extends Ot.GsubGpos.LookupProp>(
     preferred: Data.Maybe<Ot.GsubGpos.TableT<L>>,
     less: Data.Maybe<Ot.GsubGpos.TableT<L>>,
     preferredGdef: Data.Maybe<Ot.Gdef.Table>,
-    lessGdef: Data.Maybe<Ot.Gdef.Table>,
+    lessGdef: Data.Maybe<Ot.Gdef.Table>
 ) {
     if (!preferred) return less;
     if (!less) return preferred;
@@ -118,21 +118,21 @@ function mergeGsubGpos<L extends Ot.GsubGpos.LookupProp>(
         preferred,
         less,
         preferredGdef,
-        lessGdef,
+        lessGdef
     );
     return merger.resolve();
 }
 
 export function consolidateGsubGpos<L extends Ot.GsubGpos.LookupProp>(
     fvar: Data.Maybe<Ot.Fvar.Table>,
-    preferred: Ot.GsubGpos.TableT<L>,
+    preferred: Ot.GsubGpos.TableT<L>
 ) {
     const merger = new GsubGposMerger(
         ImpLib.Order.fromList("Dimensions", fvar ? fvar.axes.map((a) => a.dim) : []),
         preferred,
         { scripts: new Map(), features: [], lookups: [], featureVariations: [] },
         null,
-        null,
+        null
     );
     return merger.resolve();
 }

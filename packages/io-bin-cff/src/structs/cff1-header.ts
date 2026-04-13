@@ -14,7 +14,7 @@ export const Cff1Header = {
             majorVersion: view.uint8(),
             minorVersion: view.uint8(),
             headerSize: view.uint8(),
-            offSize: view.uint8(),
+            offSize: view.uint8()
         };
     }),
     ...Write<Cff1Header>((frag, header) => {
@@ -22,5 +22,5 @@ export const Cff1Header = {
         frag.uint8(header.minorVersion);
         frag.uint8(header.headerSize);
         frag.uint8(header.offSize);
-    }),
+    })
 };

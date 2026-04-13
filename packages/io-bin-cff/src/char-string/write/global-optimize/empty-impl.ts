@@ -41,7 +41,7 @@ class CharStringGlobalOptEmptyImpl implements CharStringGlobalOptimizer {
         return {
             charStrings: this.charStrings,
             localSubroutines: this.localSubroutines,
-            globalSubroutines: this.globalSubroutines,
+            globalSubroutines: this.globalSubroutines
         };
     }
 }
@@ -49,5 +49,5 @@ class CharStringGlobalOptEmptyImpl implements CharStringGlobalOptimizer {
 export const CharStringGlobalOptEmptyImplFactory: CharStringGlobalOptimizerFactory = {
     createOptimizer(ctx, fdCount) {
         return new CharStringGlobalOptEmptyImpl(ctx, fdCount);
-    },
+    }
 };

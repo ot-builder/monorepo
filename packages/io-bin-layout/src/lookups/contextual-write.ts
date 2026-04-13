@@ -31,7 +31,7 @@ class ClassDefsAnalyzeState<L> {
 
     private glyphSetCompatibleWithExistingClassDef(
         gs: Data.Maybe<Set<OtGlyph>>,
-        cd: GsubGpos.ClassDef,
+        cd: GsubGpos.ClassDef
     ) {
         if (!gs?.size) return undefined;
         let firstClass: number | undefined;
@@ -46,7 +46,10 @@ class ClassDefsAnalyzeState<L> {
         return firstClass;
     }
 
-    private glyphSetCompatibleWithNewClassDef(gs: Data.Maybe<Set<OtGlyph>>, cd: GsubGpos.ClassDef) {
+    private glyphSetCompatibleWithNewClassDef(
+        gs: Data.Maybe<Set<OtGlyph>>,
+        cd: GsubGpos.ClassDef
+    ) {
         if (!gs?.size) return undefined;
         for (const g of gs) {
             const gk = cd.get(g);
@@ -64,7 +67,9 @@ class ClassDefsAnalyzeState<L> {
         else return this.glyphSetCompatibleWithNewClassDef(gs, cd);
     }
 
-    private checkRuleCompatibility(rule: GsubGpos.ChainingRule<L>): null | CompatibleRuleResult<L> {
+    private checkRuleCompatibility(
+        rule: GsubGpos.ChainingRule<L>
+    ): null | CompatibleRuleResult<L> {
         const cdBacktrack = new Map(this.cdBacktrack);
         const cdInput = new Map(this.cdInput);
         const cdLookAhead = new Map(this.cdLookAhead);
@@ -73,7 +78,7 @@ class ClassDefsAnalyzeState<L> {
             match: [],
             inputBegins: rule.inputBegins,
             inputEnds: rule.inputEnds,
-            applications: rule.applications,
+            applications: rule.applications
         };
 
         const firstGlyphSet = rule.match[rule.inputBegins];
@@ -100,7 +105,7 @@ class ClassDefsAnalyzeState<L> {
             cdLookAhead,
             cr,
             firstGlyphClass,
-            firstGlyphSet,
+            firstGlyphSet
         };
     }
 
@@ -149,7 +154,7 @@ class CApplication<L> {
     public write(
         frag: Frag,
         apps: ReadonlyArray<GsubGpos.ChainingApplication<L>>,
-        crossRef: Data.Order<L>,
+        crossRef: Data.Order<L>
     ) {
         for (const app of apps) {
             frag.uint16(app.at).uint16(crossRef.reverse(app.apply));
@@ -163,7 +168,7 @@ class CCoverageRule<L> {
         frag: Frag,
         isChaining: boolean,
         rule: GsubGpos.ChainingRule<L>,
-        ctx: SubtableWriteContext<L>,
+        ctx: SubtableWriteContext<L>
     ) {
         frag.uint16(3);
         const backtrackSets = rule.match.slice(0, rule.inputBegins).reverse();
@@ -196,7 +201,7 @@ class CClassRule<L> {
         frag: Frag,
         isChaining: boolean,
         cr: GsubGpos.ChainingClassRule<L>,
-        ctx: SubtableWriteContext<L>,
+        ctx: SubtableWriteContext<L>
     ) {
         const backtrack = cr.match.slice(0, cr.inputBegins).reverse();
         const input = cr.match.slice(cr.inputBegins, cr.inputEnds);
@@ -226,7 +231,7 @@ class CClassRuleSet<L> {
         frag: Frag,
         isChaining: boolean,
         s: ClassDefsAnalyzeState<L>,
-        ctx: SubtableWriteContext<L>,
+        ctx: SubtableWriteContext<L>
     ) {
         frag.uint16(2);
         frag.push(Ptr16GlyphCoverage, s.firstGlyphSet, ctx.gOrd, ctx.trick);
@@ -282,7 +287,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
     private covSubtable(
         rule: GsubGpos.ChainingRule<L>,
         isChaining: boolean,
-        ctx: SubtableWriteContext<L>,
+        ctx: SubtableWriteContext<L>
     ) {
         return Frag.from(this.wCoverageRule, isChaining, rule, ctx);
     }
@@ -290,7 +295,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
     private clsSubtable(
         s: ClassDefsAnalyzeState<L>,
         isChaining: boolean,
-        ctx: SubtableWriteContext<L>,
+        ctx: SubtableWriteContext<L>
     ) {
         return Frag.from(this.wClassRuleSet, isChaining, s, ctx);
     }
@@ -312,7 +317,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
         for (let iRule = lookup.rules.length; iRule-- > 0; ) {
             const bestResult: [number, Frag[]] = [
                 covLookupSizes[iRule] + bestResults[iRule + 1][0],
-                [covLookups[iRule], ...bestResults[iRule + 1][1]],
+                [covLookups[iRule], ...bestResults[iRule + 1][1]]
             ];
 
             const state = new ClassDefsAnalyzeState<L>();
@@ -323,7 +328,7 @@ abstract class ChainingContextualWriter<L, C extends L & GsubGpos.ChainingProp<L
                     bestResult[0] = sizeUsingClassDef;
                     bestResult[1] = [
                         this.clsSubtable(state, isChaining, ctx),
-                        ...bestResults[jRule + 1][1],
+                        ...bestResults[jRule + 1][1]
                     ];
                 }
             }

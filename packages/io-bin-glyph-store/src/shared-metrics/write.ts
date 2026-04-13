@@ -14,7 +14,7 @@ export function writeHMetrics(
     hhea: Data.Maybe<MetricHead.Table>,
     statHmtx: Data.Maybe<HmtxStat>,
     gOrd: Data.Order<OtGlyph>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>,
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     if (!hhea || !statHmtx) return;
 
@@ -32,7 +32,7 @@ export function writeVMetrics(
     vhea: Data.Maybe<MetricHead.Table>,
     statVmtx: VmtxStat | null,
     gOrd: Data.Order<OtGlyph>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>,
+    designSpace: Data.Maybe<OtVar.DesignSpace>
 ) {
     if (!vhea || !statVmtx) return;
 

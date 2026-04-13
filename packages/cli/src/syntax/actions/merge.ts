@@ -43,7 +43,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
                 Style.Arg`a.ttf`,
                 `while glyphs from`,
                 Style.Arg`b.ttf`,
-                `will be added to it.`,
+                `will be added to it.`
             )
             .message(
                 `When`,
@@ -52,7 +52,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
                 Style.Arg`b.ttf`,
                 `will be preferred; otherwise, characters from`,
                 Style.Arg`a.ttf`,
-                `will be preferred.`,
+                `will be preferred.`
             );
-    },
+    }
 };

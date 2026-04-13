@@ -69,19 +69,19 @@ class AttachmentPointToCoordAlg {
                         ...ref.transform,
                         scaledOffset: false,
                         dx: 0,
-                        dy: 0,
+                        dy: 0
                     });
 
                     tfm = {
                         ...ref.transform,
                         scaledOffset: false,
                         dx: OtVar.Ops.minus(zOut.x, zInTransformed.x),
-                        dy: OtVar.Ops.minus(zOut.y, zInTransformed.y),
+                        dy: OtVar.Ops.minus(zOut.y, zInTransformed.y)
                     };
                 } else {
                     throw Errors.Ttf.InvalidPointAttachment(
                         ref.pointAttachment.outer.pointIndex,
-                        ref.pointAttachment.inner.pointIndex,
+                        ref.pointAttachment.inner.pointIndex
                     );
                 }
             }

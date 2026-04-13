@@ -6,19 +6,19 @@ export const Tag = "fvar";
 
 export enum AxisFlags {
     Default = 0,
-    Hidden = 1,
+    Hidden = 1
 }
 
 export class Axis {
     public constructor(
         public readonly dim: OtVar.Dim,
         public readonly flags: AxisFlags,
-        public readonly axisNameID: UInt16,
+        public readonly axisNameID: UInt16
     ) {}
 }
 
 export enum InstanceFlags {
-    Default = 0,
+    Default = 0
 }
 
 export class Instance {
@@ -26,19 +26,19 @@ export class Instance {
         public readonly subfamilyNameID: number,
         public readonly flags: InstanceFlags,
         public readonly coordinates: OtVar.Instance,
-        public readonly postScriptNameID?: number,
+        public readonly postScriptNameID?: number
     ) {}
 }
 
 export class Table {
     public constructor(
         public axes: Axis[] = [],
-        public instances: Instance[] = [],
+        public instances: Instance[] = []
     ) {}
     public getDesignSpace() {
         return ImpLib.Order.fromList(
             "DesignSpace",
-            this.axes.map((a) => a.dim),
+            this.axes.map((a) => a.dim)
         );
     }
 }

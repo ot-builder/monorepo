@@ -4,7 +4,7 @@ import * as Point from "./point/point";
 import type * as Transform2X3 from "./transform-2x3";
 
 const StaticPointFactory: Point.PointFactoryT<number> = {
-    create: (x, y, kind) => ({ x, y, kind }),
+    create: (x, y, kind) => ({ x, y, kind })
 };
 
 const Op = new Point.OpT(Algebra.Num, StaticPointFactory);
@@ -55,13 +55,13 @@ function transformCompositionTestLoop(ta: Transform2X3.T<number>, tb: Transform2
 test("Transform composition -- normal", () => {
     transformCompositionTestLoop(
         { xx: 0.5, xy: -0.25, yx: -0.5, yy: 0.25, dx: 1, dy: 1 },
-        { xx: 2, xy: 1, yx: 3, yy: 2, dx: 2, dy: 4 },
+        { xx: 2, xy: 1, yx: 3, yy: 2, dx: 2, dy: 4 }
     );
 });
 
 test("Transform composition -- scaled offset", () => {
     transformCompositionTestLoop(
         { scaledOffset: true, xx: 0.5, xy: -0.25, yx: -0.5, yy: 0.25, dx: 1, dy: 1 },
-        { scaledOffset: true, xx: 2, xy: 1, yx: 3, yy: 2, dx: 2, dy: 4 },
+        { scaledOffset: true, xx: 2, xy: 1, yx: 3, yy: 2, dx: 2, dy: 4 }
     );
 });

@@ -16,7 +16,7 @@ export const MetaTableIo = {
     write(frag: Frag, table: Meta.Table) {
         Assert.NoGap(`MetaTable::Data`, table.data);
         frag.uint32(1).uint32(0).uint32(0).uint32(table.data.length).array(DataMap, table.data);
-    },
+    }
 };
 
 const DataMap = {
@@ -41,10 +41,10 @@ const DataMap = {
             fData.bytes(data);
             frag.uint32(data.byteLength);
         }
-    },
+    }
 };
 
 const KnownTextTags = new Map([
     [`dlng`, `utf8`], // Design languages
-    [`slng`, `utf8`], // Supported languages
+    [`slng`, `utf8`] // Supported languages
 ]);

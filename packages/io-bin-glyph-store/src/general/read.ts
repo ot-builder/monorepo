@@ -26,7 +26,7 @@ export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
     cfg: C & GlyphStoreCfg,
     md: OtFontIoMetadata,
     gsf: Data.OrderStoreFactoryWithDefault<OtGlyph, S>,
-    cb: ReadGlyphStoreImpl<C, T>,
+    cb: ReadGlyphStoreImpl<C, T>
 ) {
     const { head, maxp, fvar, hhea, vhea } = md;
     const designSpace = fvar ? fvar.getDesignSpace() : null;
@@ -45,7 +45,7 @@ export function readGlyphStore<C, T, S extends Data.OrderStore<OtGlyph>>(
         designSpace: designSpace,
         coStat,
         hMetricVariable: !!hor.hvar,
-        vMetricVariable: !!ver?.vvar,
+        vMetricVariable: !!ver?.vvar
     });
 
     return { glyphs, gOrd, coGlyphs };

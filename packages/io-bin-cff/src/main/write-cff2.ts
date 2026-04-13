@@ -25,7 +25,7 @@ export const WriteCff2 = Write(
         cfg: CffCfg,
         head: Head.Table,
         designSpace?: Data.Maybe<OtVar.DesignSpace>,
-        stat?: Data.Maybe<OtGlyph.Stat.Sink>,
+        stat?: Data.Maybe<OtGlyph.Stat.Sink>
     ) => {
         cffCleanupUnusedData(cff);
 
@@ -41,12 +41,12 @@ export const WriteCff2 = Write(
             majorVersion: 2,
             minorVersion: 0,
             headerSize: 5,
-            topDictLength: fgTop.size,
+            topDictLength: fgTop.size
         });
         frag.embed(fgTop);
         frag.push(CffSubroutineIndex, charStringResults.globalSubroutines, ctx);
         cffCleanupUnusedData(cff);
-    },
+    }
 );
 
 function setupTopDict(
@@ -54,7 +54,7 @@ function setupTopDict(
     gOrd: Data.Order<OtGlyph>,
     charStringResults: CharStringGlobalOptimizeResult,
     ctx: CffWriteContext,
-    designSpace?: Data.Maybe<OtVar.DesignSpace>,
+    designSpace?: Data.Maybe<OtVar.DesignSpace>
 ) {
     const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
     td.fgCharStrings = Frag.from(CffSubroutineIndex, charStringResults.charStrings, ctx);

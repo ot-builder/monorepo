@@ -9,7 +9,7 @@ import {
     type DelayDeltaValue,
     GeneralWriteTimeIVStore,
     ReadTimeIVD,
-    type WriteTimeIVD,
+    type WriteTimeIVD
 } from "./general";
 
 const RegionList = {
@@ -19,7 +19,7 @@ const RegionList = {
             "IVS::VariationRegionList::axisCount",
             axisCount,
             "fvar::axisCount",
-            designSpace.length,
+            designSpace.length
         );
         const regionCount = vw.uint16();
 
@@ -48,7 +48,7 @@ const RegionList = {
                 fr.array(F2D14, mDim ? [mDim.min, mDim.peak, mDim.max] : [-1, 0, 1]);
             }
         }
-    }),
+    })
 };
 
 function createIVD() {
@@ -114,7 +114,7 @@ const IVD = {
             if (dim < wordDeltaCount) fr.push(Longer, delta);
             else fr.push(Shorter, delta);
         }
-    }),
+    })
 };
 
 export type ReadTimeIVS = CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>;
@@ -140,7 +140,7 @@ export const ReadTimeIVS = {
         }
 
         return ivs;
-    }),
+    })
 };
 
 export type WriteTimeDelayValue = DelayDeltaValue<OtVar.Dim, OtVar.Master, OtVar.Value>;
@@ -165,5 +165,5 @@ export const WriteTimeIVS = {
         }
 
         frag.bytes(Frag.pack(fr));
-    }),
+    })
 };

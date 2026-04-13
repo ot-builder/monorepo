@@ -6,7 +6,7 @@ export {
     writeSfntOtf,
     writeSfntOtfFromTableSlices,
     writeSfntTtc,
-    writeSfntTtcFromTableSlices,
+    writeSfntTtcFromTableSlices
 } from "@ot-builder/io-bin-sfnt";
 
 export { FontIoConfig } from "./config";

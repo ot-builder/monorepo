@@ -29,7 +29,7 @@ export class Hhea extends Table {
     public readonly isVertical = false;
     public constructor(
         public readonly majorVersion: number = 1,
-        public readonly minorVersion: number = 0,
+        public readonly minorVersion: number = 0
     ) {
         super();
     }
@@ -38,7 +38,7 @@ export class Vhea extends Table {
     public readonly isVertical = true;
     public constructor(
         public readonly majorVersion: number = 1,
-        public readonly minorVersion: number = 0,
+        public readonly minorVersion: number = 0
     ) {
         super();
     }

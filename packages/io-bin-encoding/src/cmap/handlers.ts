@@ -8,5 +8,5 @@ export type SubtableHandlerFactory = () => SubtableHandler;
 export const SubtableHandlers: SubtableHandlerFactory[] = [
     () => new UnicodeBmp(),
     () => new UnicodeFull(),
-    () => new UnicodeVS(),
+    () => new UnicodeVS()
 ];

@@ -5,7 +5,7 @@ import {
     type CoordRectifier,
     type GlyphReferenceRectifier,
     type PointAttachmentRectifier,
-    PointAttachmentRectifyManner,
+    PointAttachmentRectifyManner
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
@@ -17,7 +17,7 @@ export function RStub<C>(demand: C, fill: (dst: C) => void): RStub<C> {
 export function rectifyLookupList<L, A>(
     lookups: L[],
     alg: A,
-    app: (lookup: L, alg: A) => RStub<L>,
+    app: (lookup: L, alg: A) => RStub<L>
 ): Map<L, L> {
     const replicateProcedures: RStub<L>[] = [];
     for (let lid = 0; lid < lookups.length; lid++) {
@@ -38,7 +38,7 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
     public constructor(
         protected readonly rg: GlyphReferenceRectifier,
         protected readonly rc: CoordRectifier,
-        protected readonly rap: Data.Maybe<PointAttachmentRectifier>,
+        protected readonly rap: Data.Maybe<PointAttachmentRectifier>
     ) {}
 
     protected _cache: WeakMap<L, RStub<L>> = new Map();
@@ -56,7 +56,7 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
 
     protected processChainingRules(
         props: Ot.GsubGpos.ChainingProp<L>,
-        ret: Ot.GsubGpos.ChainingProp<L>,
+        ret: Ot.GsubGpos.ChainingProp<L>
     ) {
         ret.rules = [];
         for (const rule of props.rules) {
@@ -71,7 +71,7 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
                 match: match1,
                 applications: applications1,
                 inputBegins: rule.inputBegins,
-                inputEnds: rule.inputEnds,
+                inputEnds: rule.inputEnds
             });
         }
     }
@@ -116,7 +116,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
             ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
-                RectifyImpl.Glyph.listAll,
+                RectifyImpl.Glyph.listAll
             );
         });
     }
@@ -127,7 +127,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
             ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
-                RectifyImpl.Glyph.listAll,
+                RectifyImpl.Glyph.listAll
             );
         });
     }
@@ -191,7 +191,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
         return RStub(new Ot.Gpos.Single(), (ret) => {
             this.setMeta(props, ret);
             ret.adjustments = RectifyImpl.Glyph.mapSomeTX(this.rg, props.adjustments, (rec, x) =>
-                rectifyAdjustment(this.rc, x),
+                rectifyAdjustment(this.rc, x)
             );
         });
     }
@@ -214,7 +214,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                     if (adj == null) continue;
                     row[c2] = [
                         rectifyAdjustment(this.rc, adj[0]),
-                        rectifyAdjustment(this.rc, adj[1]),
+                        rectifyAdjustment(this.rc, adj[1])
                     ];
                 }
             }
@@ -229,7 +229,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                 this.rg,
                 props.attachments,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x)),
+                (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x))
             );
         });
     }
@@ -241,13 +241,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x)),
+                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
             );
         });
     }
@@ -259,13 +259,13 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.baseMarks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.baseMarks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x)),
+                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
             );
         });
     }
@@ -277,14 +277,14 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
             );
             ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),
                 (rg, g, x) =>
-                    rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x)),
+                    rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x))
             );
         });
     }
@@ -304,7 +304,7 @@ function rectifyAdjustment(rec: CoordRectifier, adj: Ot.Gpos.Adjustment) {
         dX: rec.coord(adj.dX),
         dY: rec.coord(adj.dY),
         dWidth: rec.coord(adj.dWidth),
-        dHeight: rec.coord(adj.dHeight),
+        dHeight: rec.coord(adj.dHeight)
     };
 }
 function rectifyAnchor(rec: CoordRectifier, anc: Ot.Gpos.Anchor) {
@@ -313,7 +313,7 @@ function rectifyAnchor(rec: CoordRectifier, anc: Ot.Gpos.Anchor) {
 function rectifyAnchorAP(
     rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
-    z: Ot.Gpos.Anchor,
+    z: Ot.Gpos.Anchor
 ) {
     if (!rectifier || !z.attachToPoint) return z;
     const desired = RectifyImpl.getGlyphPoints(context)[z.attachToPoint.pointIndex];
@@ -330,17 +330,17 @@ function rectifyAnchorAP(
 function rectifyAnchorPair(rec: CoordRectifier, ap: Ot.Gpos.CursiveAnchorPair) {
     return {
         entry: !ap.entry ? ap.entry : rectifyAnchor(rec, ap.entry),
-        exit: !ap.exit ? ap.exit : rectifyAnchor(rec, ap.exit),
+        exit: !ap.exit ? ap.exit : rectifyAnchor(rec, ap.exit)
     };
 }
 function rectifyAnchorPairAP(
     rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
-    ap: Ot.Gpos.CursiveAnchorPair,
+    ap: Ot.Gpos.CursiveAnchorPair
 ) {
     return {
         entry: !ap.entry ? ap.entry : rectifyAnchorAP(rectifier, context, ap.entry),
-        exit: !ap.exit ? ap.exit : rectifyAnchorAP(rectifier, context, ap.exit),
+        exit: !ap.exit ? ap.exit : rectifyAnchorAP(rectifier, context, ap.exit)
     };
 }
 function rectifyMarkRecord(rec: CoordRectifier, mr: Ot.Gpos.MarkRecord) {
@@ -355,7 +355,7 @@ function rectifyMarkRecord(rec: CoordRectifier, mr: Ot.Gpos.MarkRecord) {
 function rectifyMarkRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.MarkRecord,
+    mr: Ot.Gpos.MarkRecord
 ) {
     const mr1: Ot.Gpos.MarkRecord = { markAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.markAnchors.length; clsAnchor++) {
@@ -379,7 +379,7 @@ function rectifyBaseRecord(rec: CoordRectifier, mr: Ot.Gpos.BaseRecord) {
 function rectifyBaseRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.BaseRecord,
+    mr: Ot.Gpos.BaseRecord
 ) {
     const mr1: Ot.Gpos.BaseRecord = { baseAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
@@ -406,7 +406,7 @@ function rectifyLigatureRecord(rec: CoordRectifier, mr: Ot.Gpos.LigatureBaseReco
 function rectifyLigatureRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.LigatureBaseRecord,
+    mr: Ot.Gpos.LigatureBaseRecord
 ) {
     const mr1: Ot.Gpos.LigatureBaseRecord = { baseAnchors: [] };
     for (let part = 0; part < mr.baseAnchors.length; part++) {

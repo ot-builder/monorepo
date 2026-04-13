@@ -23,14 +23,14 @@ export const BaseCoord = {
             case 2:
                 return {
                     at: bp.int16(),
-                    pointAttachment: { glyph: gOrd.at(bp.uint16()), pointIndex: bp.uint16() },
+                    pointAttachment: { glyph: gOrd.at(bp.uint16()), pointIndex: bp.uint16() }
                 };
             case 3: {
                 const atOrig: OtVar.Value = bp.int16();
                 const atDD = bp.next(Ptr16DeviceTable, ivs);
                 return {
                     at: OtVar.Ops.add(atOrig, atDD ? atDD.variation : 0),
-                    deviceDeltas: atDD ? atDD.deviceDeltas : null,
+                    deviceDeltas: atDD ? atDD.deviceDeltas : null
                 };
             }
             default:
@@ -52,7 +52,7 @@ export const BaseCoord = {
             bb.uint16(1);
             bb.int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(a.at)));
         }
-    },
+    }
 };
 
 export const Ptr16BaseCoord = NonNullablePtr16(BaseCoord);

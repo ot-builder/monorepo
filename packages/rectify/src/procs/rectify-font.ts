@@ -8,7 +8,7 @@ import type {
     AxisRectifier,
     CoordRectifier,
     GlyphReferenceRectifier,
-    PointAttachmentRectifier,
+    PointAttachmentRectifier
 } from "../interface";
 import { rectifyBaseTable } from "../layout/base";
 import { rectifyGdefTable } from "../layout/gdef";
@@ -27,7 +27,7 @@ export function inPlaceRectifyFont<GS extends Ot.GlyphStore>(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     rectifyFontMetadata(recAxes, recCoord, font);
     rectifyCmap(recGlyphRef, font);
@@ -39,7 +39,7 @@ export function inPlaceRectifyFont<GS extends Ot.GlyphStore>(
 
 function rectifyCmap<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     if (font.cmap) {
         font.cmap = rectifyCmapTable(recGlyphRef, font.cmap);
@@ -51,7 +51,7 @@ function rectifyCmap<GS extends Ot.GlyphStore>(
 function rectifyFontMetadata<GS extends Ot.GlyphStore>(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     if (font.fvar) font.fvar = rectifyFvarTable(recAxes, font.fvar);
     if (font.avar) font.avar = rectifyAvarTable(recAxes, font.avar);
@@ -65,14 +65,14 @@ function rectifyGlyphs<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     inPlaceRectifyGlyphStore(recGlyphRef, recCoord, recPA, font.glyphs);
 }
 function rectifyCoGlyphs<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     if (Ot.Font.isCff(font)) {
         font.cff = rectifyCffTable(recGlyphRef, recCoord, font.cff);
@@ -85,7 +85,7 @@ function rectifyLayout<GS extends Ot.GlyphStore>(
     recAxes: AxisRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     if (font.gdef) {
         font.gdef = rectifyGdefTable(recGlyphRef, recCoord, recPA, font.gdef);
@@ -106,7 +106,7 @@ function rectifyLayout<GS extends Ot.GlyphStore>(
 function rectifyPrivate<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
 
-    font: Ot.Font<GS>,
+    font: Ot.Font<GS>
 ) {
     if (font.tsi01) {
         font.tsi01 = rectifyTSI0123Table(recGlyphRef, font.tsi01);

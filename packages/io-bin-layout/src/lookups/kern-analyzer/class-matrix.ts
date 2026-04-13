@@ -11,7 +11,7 @@ import { GposAdjustment } from "../../shared/gpos-adjust";
 export class AdjStore {
     public constructor(
         public indexMatrix: ReadonlyArray<ReadonlyArray<number>>,
-        public adjustments: ReadonlyArray<Gpos.AdjustmentPair>,
+        public adjustments: ReadonlyArray<Gpos.AdjustmentPair>
     ) {}
 }
 
@@ -21,7 +21,7 @@ export class ClassMatrix<G> {
         public cSecond: G[][], // Per-class glyph list for second glyph. Class 0 reserved for neutral
         // cSecond must cover all glyphs present in the font, so when cleaning up zero "columns" we
         // must move then to class 0 rather than simply delete them.
-        public adjStore: AdjStore, // Adjustments matrix
+        public adjStore: AdjStore // Adjustments matrix
     ) {}
 
     public derive() {
@@ -90,7 +90,7 @@ export class ClassMatrix<G> {
 
     public static analyze(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>,
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         return AnalyzeClassMatrixImpl.main(ds, ctx);
     }
@@ -194,7 +194,7 @@ namespace AnalyzeClassMatrixImpl {
         coiFirst: ClassOrderItem<G>[],
         coiSecond: ClassOrderItem<G>[],
         ds: DicingStore<G, G, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>,
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const cFirst: G[][] = [];
         const cSecond: G[][] = [];
@@ -229,7 +229,7 @@ namespace AnalyzeClassMatrixImpl {
 
     export function main(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>,
+        ctx: SubtableWriteContext<Gpos.Lookup>
     ) {
         const _cFirst = ds.getXClassDef();
         const _cSecond = ds.getYClassDef();
@@ -289,7 +289,7 @@ namespace MeasureClassMatrixImpl {
                     (8 +
                         effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) + // 1 cov + 1 cls
                         effSnd.glyphs * MaxClsDefItemWords) + // 1 class def
-                dataSize, // Actual Data
+                dataSize // Actual Data
         };
     }
 }
@@ -341,7 +341,7 @@ namespace BisectClassMatrixImpl {
 
     export function bisect<G>(
         cm: ClassMatrix<G>,
-        allowUneven: boolean,
+        allowUneven: boolean
     ): [ClassMatrix<G>, ClassMatrix<G>] {
         const cm1 = cm.derive();
         const cm2 = cm.derive();

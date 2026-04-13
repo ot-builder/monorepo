@@ -11,7 +11,7 @@ export class CffDrawCallRawT<X> {
     public constructor(
         public readonly args: readonly X[],
         public readonly operator: number,
-        public readonly flags?: number[],
+        public readonly flags?: number[]
     ) {}
 }
 
@@ -19,7 +19,7 @@ export class CffBlendPrimitive {
     public constructor(
         public readonly ivd: WriteTimeIVD,
         public readonly origin: number,
-        public readonly deltas: number[],
+        public readonly deltas: number[]
     ) {}
     public isZero() {
         if (this.origin !== 0) return false;
@@ -39,7 +39,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         public readonly ivd: WriteTimeIVD | null,
         args: readonly (number | CffBlendPrimitive)[],
         operator: number,
-        flags?: number[],
+        flags?: number[]
     ) {
         super(args, operator, flags);
         let sp = 0,
@@ -64,7 +64,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
     private static seqFromRawSeqImpl(
         ctx: CffWriteContext,
         eo: CffEncodingOptions,
-        from: CffDrawCallRawT<OtVar.Value>[],
+        from: CffDrawCallRawT<OtVar.Value>[]
     ) {
         const to: CffDrawCall[] = [];
         const { ivd, intermediate } = CffDrawCall.intermediateSeqFromRawSeqImpl(ctx, from);
@@ -82,7 +82,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
 
     private static intermediateSeqFromRawSeqImpl(
         ctx: CffWriteContext,
-        from: CffDrawCallRawT<OtVar.Value>[],
+        from: CffDrawCallRawT<OtVar.Value>[]
     ) {
         const intermediate: CffDrawCallRawT<number | WriteTimeDelayValue>[] = [];
         const col = ctx.ivs ? ctx.ivs.createCollector() : null;
@@ -105,7 +105,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
     private static convertCallArgs(
         dci: CffDrawCallRawT<number | WriteTimeDelayValue>,
         ivd: WriteTimeIVD | null,
-        eo: CffEncodingOptions,
+        eo: CffEncodingOptions
     ) {
         const args: (number | CffBlendPrimitive)[] = [];
         let hasBlend = false;
@@ -126,7 +126,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
                     args[aid] = new CffBlendPrimitive(
                         ivd,
                         arg,
-                        new Array(ivd.masterIDs.length).fill(0),
+                        new Array(ivd.masterIDs.length).fill(0)
                     );
                 }
             }
@@ -136,24 +136,24 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
 
     public static charStringSeqFromRawSeq(
         ctx: CffWriteContext,
-        from: CffDrawCallRawT<OtVar.Value>[],
+        from: CffDrawCallRawT<OtVar.Value>[]
     ) {
         const eo: CffEncodingOptions = {
             ...ctx.getLimits(),
             vsIndexOperator: CharStringOperator.VsIndex,
-            blendOperator: CharStringOperator.Blend,
+            blendOperator: CharStringOperator.Blend
         };
         return CffDrawCall.seqFromRawSeqImpl(ctx, eo, from);
     }
     public static dictStringSeqFromRawSeq(
         ctx: CffWriteContext,
-        from: CffDrawCallRawT<OtVar.Value>[],
+        from: CffDrawCallRawT<OtVar.Value>[]
     ) {
         const eo: CffEncodingOptions = {
             ...ctx.getLimits(),
             forceBlendToPleaseTtx: true,
             vsIndexOperator: CffOperator.VsIndex,
-            blendOperator: CffOperator.Blend,
+            blendOperator: CffOperator.Blend
         };
         return CffDrawCall.seqFromRawSeqImpl(ctx, eo, from);
     }
@@ -168,7 +168,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
             opCode: this.operator,
             flags: this.flags,
             stackRidge: 0,
-            stackRise: -converter.sp,
+            stackRise: -converter.sp
         });
     }
     public static charStringSeqToMir(ctx: CffWriteContext, dcSeq: Iterable<CffDrawCall>) {
@@ -176,7 +176,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         const eo: CffEncodingOptions = {
             ...ctx.getLimits(),
             vsIndexOperator: CharStringOperator.VsIndex,
-            blendOperator: CharStringOperator.Blend,
+            blendOperator: CharStringOperator.Blend
         };
         for (const dc of dcSeq) dc.toMirImpl(eo, mirSeq);
         return mirSeq;
@@ -186,7 +186,7 @@ export class CffDrawCall extends CffDrawCallRawT<number | CffBlendPrimitive> {
         const eo: CffEncodingOptions = {
             ...ctx.getLimits(),
             vsIndexOperator: CffOperator.VsIndex,
-            blendOperator: CffOperator.Blend,
+            blendOperator: CffOperator.Blend
         };
         for (const dc of dcSeq) dc.toMirImpl(eo, mirSeq);
         return mirSeq;
@@ -200,7 +200,7 @@ class MirArgConverter {
 
     public constructor(
         private to: Mir[],
-        private readonly eo: CffEncodingOptions,
+        private readonly eo: CffEncodingOptions
     ) {}
 
     public push(x: number | CffBlendPrimitive) {
@@ -237,7 +237,7 @@ class MirArgConverter {
                 stackRidge: 0,
                 stackRise:
                     this.pendingBlendOrigins.length -
-                    (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length),
+                    (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length)
             });
             this.sp += this.pendingBlendOrigins.length;
             this.pendingBlendOrigins.length = 0;

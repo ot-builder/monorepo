@@ -87,7 +87,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         lookupIsDependency: boolean,
         lwf: LookupWriterFactory<L>,
         gdef: Data.Maybe<Gdef.Table>,
-        context: SubtableWriteContext<L>,
+        context: SubtableWriteContext<L>
     ) {
         const { flags, markFilteringSet } = this.getIgnoreFlags(lookup, gdef);
         for (const writer of lwf.writers()) {
@@ -100,10 +100,10 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
                 rank: this.getLookupRank(
                     writer.getLookupTypeSymbol(lookup),
                     lookupIsDependency,
-                    context.trick,
+                    context.trick
                 ),
                 subtableIDs: [],
-                useExtension: false,
+                useExtension: false
             };
             this.lookupHeaders.push(header);
             const subtables = writer.createSubtableFragments(lookup, context);
@@ -128,7 +128,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         const ignore = decideIgnoreFlags(lookup.ignoreGlyphs, gdef) || {
             ignoreBaseGlyphs: false,
             ignoreLigatures: false,
-            ignoreMarks: false,
+            ignoreMarks: false
         };
         let flags = 0;
         let markFilteringSet: Data.Maybe<number>;
@@ -283,7 +283,7 @@ export const WriteLookupList = Write(
         frag: Frag,
         lookups: L[],
         lwf: LookupWriterFactory<L>,
-        lwc: LookupWriteContext<L>,
+        lwc: LookupWriteContext<L>
     ) => {
         const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
         const llw = new LookupListWriter();
@@ -300,10 +300,10 @@ export const WriteLookupList = Write(
                 gOrd: lwc.gOrd,
                 crossReferences,
                 ivs: lwc.ivs,
-                stat: lwc.stat || new EmptyStat(),
+                stat: lwc.stat || new EmptyStat()
             });
         }
         llw.stabilize();
         frag.push(llw, lwf);
-    },
+    }
 );

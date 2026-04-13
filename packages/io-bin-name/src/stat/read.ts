@@ -73,7 +73,7 @@ const AxisValueFormat1 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Static(axis, value),
-        new Stat.NameAssignment(flags, valueNameID),
+        new Stat.NameAssignment(flags, valueNameID)
     );
 });
 
@@ -91,7 +91,7 @@ const AxisValueFormat2 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Variable(axis, rangeMinValue, nominalValue, rangeMaxValue),
-        new Stat.NameAssignment(flags, valueNameID),
+        new Stat.NameAssignment(flags, valueNameID)
     );
 });
 
@@ -108,7 +108,7 @@ const AxisValueFormat3 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Linked(axis, value, linkedValue),
-        new Stat.NameAssignment(flags, valueNameID),
+        new Stat.NameAssignment(flags, valueNameID)
     );
 });
 
@@ -129,6 +129,6 @@ const AxisValueFormat4 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.PolyAxis(assignments),
-        new Stat.NameAssignment(flags, valueNameID),
+        new Stat.NameAssignment(flags, valueNameID)
     );
 });

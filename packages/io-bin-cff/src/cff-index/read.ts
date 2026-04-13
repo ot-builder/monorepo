@@ -21,7 +21,7 @@ export class CffReadIndex<T> implements Read<T[], [CffReadContext]> {
                 this.readItem,
                 context,
                 offsets[index + 1] - offsets[index],
-                index,
+                index
             );
         }
         view.bytes(offsets[count]);

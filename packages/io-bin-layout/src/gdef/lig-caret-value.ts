@@ -25,7 +25,7 @@ export const CaretValue = {
     ...Write((frag, caret: Gdef.LigCaret, ivs?: Data.Maybe<WriteTimeIVS>) => {
         if (caret.pointAttachment) return frag.push(CaretValueFormat2, caret);
         else return frag.push(CaretValueFormat3, caret, ivs);
-    }),
+    })
 };
 
 const CaretValueFormat1 = {
@@ -36,7 +36,7 @@ const CaretValueFormat1 = {
     }),
     ...Write((frag, caret: Gdef.LigCaret) => {
         frag.uint16(1).int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(caret.x)));
-    }),
+    })
 };
 const CaretValueFormat2 = {
     ...Read((view) => {
@@ -47,7 +47,7 @@ const CaretValueFormat2 = {
     ...Write((frag, caret: Gdef.LigCaret) => {
         if (!caret.pointAttachment) throw Errors.Unreachable();
         frag.uint16(2).int16(OtVar.Ops.originOf(caret.pointAttachment.pointIndex));
-    }),
+    })
 };
 const CaretValueFormat3 = {
     ...Read((view, ivs?: Data.Maybe<ReadTimeIVS>) => {
@@ -66,5 +66,5 @@ const CaretValueFormat3 = {
                 .int16(ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(caret.x)))
                 .push(Ptr16DeviceTable, { deviceDeltas: caret.xDevice, variation: caret.x }, ivs);
         }
-    }),
+    })
 };

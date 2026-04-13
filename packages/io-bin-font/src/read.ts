@@ -16,7 +16,7 @@ import { createConfig, type FontIoCfgFinal, type FontIoConfig } from "./config";
 export function readFont<GS extends Ot.GlyphStore>(
     sfnt: Sfnt,
     gsf: Data.OrderStoreFactoryWithDefault<Ot.Glyph, GS>,
-    partialConfig: FontIoConfig = {},
+    partialConfig: FontIoConfig = {}
 ): Ot.Font<GS> {
     const fullCfg = createConfig(partialConfig);
     const md = readOtMetadata(sfnt, fullCfg);
@@ -55,7 +55,7 @@ export function readFont<GS extends Ot.GlyphStore>(
         ...encoding,
         ...otl,
         ...otExtPrivate,
-        ...otVttPrivate,
+        ...otVttPrivate
     };
 }
 
@@ -64,12 +64,12 @@ function nameGlyphs(
     gOrd: Data.Order<Ot.Glyph>,
     cffGlyphNaming: Data.Maybe<Data.Naming.Source<Ot.Glyph>>,
     encoding: Ot.Encoding,
-    cfg: FontIoCfgFinal,
+    cfg: FontIoCfgFinal
 ) {
     const namingSource: Ot.GlyphNamingSource = {
         post: md.postGlyphNaming ? new PostGlyphNamingWrapper(md.postGlyphNaming, gOrd) : null,
         cff: cffGlyphNaming,
-        encoding: new CmapNameIndexSource(encoding),
+        encoding: new CmapNameIndexSource(encoding)
     };
     const namer = cfg.glyphNaming.namer || new Ot.StandardGlyphNamer();
     for (let gid = 0; gid < gOrd.length; gid++) {
@@ -81,7 +81,7 @@ function nameGlyphs(
 class PostGlyphNamingWrapper implements Data.Naming.Source<Ot.Glyph> {
     public constructor(
         private postNaming: Data.Naming.Source<number>,
-        private gOrd: Data.Order<Ot.Glyph>,
+        private gOrd: Data.Order<Ot.Glyph>
     ) {}
     public getName(glyph: Ot.Glyph) {
         const gid = this.gOrd.tryReverse(glyph);
@@ -98,7 +98,7 @@ class CmapNameIndexSource implements Data.Naming.IndexSource<Ot.Glyph> {
                 if (!this.reverse.has(g)) this.reverse.set(g, uni);
             }
             const varEncodingList = [...encoding.cmap.vs.entries()].sort(
-                (a, b) => a[0] - b[0] || a[1] - b[1],
+                (a, b) => a[0] - b[0] || a[1] - b[1]
             );
             for (const [uni, vs, g] of varEncodingList) {
                 if (!this.reverse.has(g)) this.reverseVar.set(g, [uni, vs]);

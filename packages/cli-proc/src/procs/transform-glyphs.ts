@@ -2,14 +2,14 @@ import * as Ot from "@ot-builder/ot";
 
 export function inPlaceTransformFontGlyph<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    transform: Ot.Glyph.Transform2X3,
+    transform: Ot.Glyph.Transform2X3
 ) {
     inPlaceTransformFontGlyphDependent(font, () => transform);
 }
 
 export function inPlaceTransformFontGlyphDependent<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    transformF: (glyph: Ot.Glyph) => Ot.Glyph.Transform2X3,
+    transformF: (glyph: Ot.Glyph) => Ot.Glyph.Transform2X3
 ) {
     for (const g of font.glyphs.decideOrder()) {
         const flattened = Ot.GeometryUtil.apply(Ot.GeometryUtil.Flattener, g.geometry);

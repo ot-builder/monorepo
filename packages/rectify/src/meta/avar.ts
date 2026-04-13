@@ -12,7 +12,7 @@ export function rectifyAvarTable(rec: AxisRectifier, avar: Ot.Avar.Table) {
         maps1.set(axis.dim, [
             [-1, -1],
             [0, 0],
-            [1, 1],
+            [1, 1]
         ]);
     }
     return new Ot.Avar.Table(maps1);

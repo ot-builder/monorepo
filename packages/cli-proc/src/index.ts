@@ -5,7 +5,7 @@ export {
     GlyphSharer,
     GlyphUnificationResults,
     ShareGlyphSetOptions,
-    shareGlyphSet,
+    shareGlyphSet
 } from "./procs/share-glyph-set";
 export { subsetFont } from "./procs/subset";
 export { inPlaceTransformFontGlyph } from "./procs/transform-glyphs";

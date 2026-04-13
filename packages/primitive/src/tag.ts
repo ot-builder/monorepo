@@ -20,5 +20,5 @@ export const Tag: Read<Tag, []> & Write<Tag, []> & Sized = {
         frag.uint8(tag.codePointAt(1) || 0x20);
         frag.uint8(tag.codePointAt(2) || 0x20);
         frag.uint8(tag.codePointAt(3) || 0x20);
-    },
+    }
 };

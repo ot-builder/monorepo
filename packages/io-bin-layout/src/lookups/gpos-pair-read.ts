@@ -25,11 +25,11 @@ const SubtableFormat1 = {
                 const value2 = vPairSet.next(GposAdjustment, valueFormat2, context.ivs);
                 lookup.adjustments.setIfAbsent(new Set([glyph1]), new Set([glyph2]), [
                     value1,
-                    value2,
+                    value2
                 ]);
             }
         }
-    },
+    }
 };
 
 const SubtableFormat2 = {
@@ -57,7 +57,7 @@ const SubtableFormat2 = {
                 lookup.adjustments.setIfAbsent(gs1, gs2, [value1, value2]);
             }
         }
-    },
+    }
 };
 
 export class GposPairReader implements LookupReader<Gpos.Lookup, Gpos.Pair> {
@@ -67,7 +67,7 @@ export class GposPairReader implements LookupReader<Gpos.Lookup, Gpos.Pair> {
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Pair,
-        context: SubtableReadingContext<Gpos.Lookup>,
+        context: SubtableReadingContext<Gpos.Lookup>
     ) {
         const format = view.lift(0).uint16();
         switch (format) {

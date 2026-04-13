@@ -8,7 +8,7 @@ export class Os2UnicodeRangeStat extends EmptyStat {
     private mask = [0, 0, 0, 0];
     public constructor(
         private readonly os2: Os2.Table,
-        external?: EncodingStat,
+        external?: EncodingStat
     ) {
         super(external);
     }
@@ -200,7 +200,7 @@ const UnicodeRanges: [number, number, number, number][] = [
     [3, 25, 0x10280, 0x1029f], // Lycian
     [3, 25, 0x10920, 0x1093f], // Lydian
     [3, 26, 0x1f030, 0x1f09f], // Domino Tiles
-    [3, 26, 0x1f000, 0x1f02f], // Mahjong Tiles
+    [3, 26, 0x1f000, 0x1f02f] // Mahjong Tiles
 ];
 
 let FastMasks: null | number[][] = null;

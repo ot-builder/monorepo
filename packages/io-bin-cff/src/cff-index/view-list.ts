@@ -7,5 +7,5 @@ import { CffReadIndex } from "./read";
 export const CffDeferIndex = {
     ...Read((view, ctx: CffReadContext) => {
         return view.next(new CffReadIndex({ read: (view, ctx, size) => ({ view, size }) }), ctx);
-    }),
+    })
 };

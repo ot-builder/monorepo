@@ -5,7 +5,7 @@ export function pushGlyphs(
     sink: GlyphSharingMap[],
     fid: number,
     gds: GlyphData[],
-    sharing: number[][],
+    sharing: number[][]
 ) {
     const sh = sharing[fid];
     if (gds.length !== sh.length)

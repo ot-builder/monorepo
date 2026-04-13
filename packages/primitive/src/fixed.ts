@@ -12,7 +12,7 @@ export class Fixed implements Sized, Read<number, []>, Write<number, []>, Ranged
     public constructor(
         private readonly signed: boolean,
         integerBits: number,
-        fractionBits: number,
+        fractionBits: number
     ) {
         this.shiftBits = 32 - integerBits - fractionBits;
         this.exponent = 1 << fractionBits;

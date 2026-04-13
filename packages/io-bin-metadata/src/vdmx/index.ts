@@ -8,7 +8,7 @@ export const VdmxRatioRange = {
             bCharSet: bp.uint8(),
             xRatio: bp.uint8(),
             yStartRatio: bp.uint8(),
-            yEndRatio: bp.uint8(),
+            yEndRatio: bp.uint8()
         };
     },
 
@@ -17,7 +17,7 @@ export const VdmxRatioRange = {
         b.uint8(r.xRatio);
         b.uint8(r.yStartRatio);
         b.uint8(r.yEndRatio);
-    },
+    }
 };
 
 export const VdmxGroup = {
@@ -31,7 +31,7 @@ export const VdmxGroup = {
             const yPelHeight = bp.uint16();
             entries.set(yPelHeight, {
                 yMax: bp.int16(),
-                yMin: bp.int16(),
+                yMin: bp.int16()
             });
         }
         return entries;
@@ -51,7 +51,7 @@ export const VdmxGroup = {
             b.int16(entry[1].yMax);
             b.int16(entry[1].yMin);
         }
-    },
+    }
 };
 
 export const VdmxTableIo = {
@@ -94,5 +94,5 @@ export const VdmxTableIo = {
 
         const numRecs = new Set(groupPack.rootOffsets).size;
         numRecsReserve.fill(numRecs);
-    },
+    }
 };

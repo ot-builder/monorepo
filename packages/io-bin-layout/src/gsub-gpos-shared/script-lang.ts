@@ -22,7 +22,7 @@ class CLangSysTable<L> {
         frag.uint16(lang.features.length);
         frag.array(
             UInt16,
-            lang.features.map((f) => fOrd.reverse(f)),
+            lang.features.map((f) => fOrd.reverse(f))
         );
     }
 }
@@ -46,7 +46,7 @@ class CScriptTable<L> {
     public write(frag: Frag, script: Script<L>, fOrd: Data.Order<Feature<L>>) {
         frag.push(CPtr16LangSysTable<L>(), script.defaultLanguage, fOrd);
         const langs = [...script.languages].sort((a, b) =>
-            a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0,
+            a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0
         );
         frag.uint16(langs.length);
         for (const [tag, lang] of langs) {

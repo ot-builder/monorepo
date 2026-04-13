@@ -9,7 +9,7 @@ import {
     calculateChecksum,
     collectTableData,
     type TableRecord,
-    type TableSliceCollection,
+    type TableSliceCollection
 } from "./collector";
 
 function offsetTableSize(numTable: number) {

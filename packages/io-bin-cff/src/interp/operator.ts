@@ -59,7 +59,7 @@ export enum CffOperator {
     UIDBase = 0x0c23,
     FDArray = 0x0c24,
     FDSelect = 0x0c25,
-    FontName = 0x0c26,
+    FontName = 0x0c26
 }
 
 // prettier-ignore
@@ -114,5 +114,5 @@ export enum CharStringOperator {
     HFlex = 0x0c22,
     Flex = 0x0c23,
     HFlex1 = 0x0c24,
-    Flex1 = 0x0c25,
+    Flex1 = 0x0c25
 }

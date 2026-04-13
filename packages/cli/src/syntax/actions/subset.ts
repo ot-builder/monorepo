@@ -58,7 +58,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
         shower
             .indent("")
             .message(
-                "Subset the font at the stack top according to the text or unicode ranges given.",
+                "Subset the font at the stack top according to the text or unicode ranges given."
             )
             .message(
                 ...["Option", Style.Option`--unicodes`, "is specified by a comma/semicolon"],
@@ -66,7 +66,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
                 ...["optionally prefixed with", Style.Arg`U+`, "or", Style.Arg`0x`, "."],
                 ...["Prefixing a range with operator", Style.Arg`-`, "indicates exclusion, and"],
                 ...["will exclude the specified range from the character set to be kept."],
-                ...["For example, the following parameter:"],
+                ...["For example, the following parameter:"]
             );
         shower
             .indent("    ")
@@ -75,9 +75,9 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             .indent("")
             .message(
                 "Will subset the font with Basic ASCII and General Punctuation block,",
-                "but without number digits.",
+                "but without number digits."
             );
-    },
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

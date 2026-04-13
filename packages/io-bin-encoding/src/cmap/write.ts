@@ -33,5 +33,5 @@ export const WriteCmap = Write(
             frag.uint16(asg.encoding);
             frag.ptr32(asg.frag);
         }
-    },
+    }
 );
