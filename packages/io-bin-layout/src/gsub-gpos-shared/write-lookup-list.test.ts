@@ -72,7 +72,7 @@ class MockLookupWriterFactory implements LookupWriterFactory<Gsub.Lookup> {
 
 describe("Lookup list writer", () => {
     function testLookupListRoundTrip(sizes: number[]) {
-        const ls = sizes.map((s) => new MockLookup(s));
+        const ls = sizes.map(s => new MockLookup(s));
         const lwf = new MockLookupWriterFactory();
         const gOrd = OtListGlyphStoreFactory.createStoreFromSize(0x1000).decideOrder();
         const bufLookupList = Frag.pack(Frag.from(WriteLookupList, ls, lwf, { gOrd }));

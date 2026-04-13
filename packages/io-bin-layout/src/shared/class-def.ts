@@ -90,7 +90,7 @@ export const EmptyAsNullPtr16ClassDef = {
 };
 
 export const GidClassDef = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.lift(0).uint16();
         switch (format) {
             case 1:
@@ -132,7 +132,7 @@ export const GidClassDef = {
 };
 
 const OtGidClassDefFormat1 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 1) throw Errors.Unreachable();
 
@@ -202,7 +202,7 @@ class ClassRunCollector {
     }
 }
 const OtGidClassDefFormat2 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 2) throw Errors.Unreachable();
 

@@ -2,7 +2,7 @@ import { Read, Write } from "@ot-builder/bin-util";
 import { Maxp } from "@ot-builder/ot-metadata";
 
 export const MaxpIo = {
-    ...Read<Maxp.Table>((vw) => {
+    ...Read<Maxp.Table>(vw => {
         const version = vw.uint32();
         const maxp = Maxp.Table.FromVersion(version);
         maxp.numGlyphs = vw.uint16();

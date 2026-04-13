@@ -48,7 +48,7 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
     };
 
     const lt = writer.getLookupType(expected, swc);
-    const buffers = writer.createSubtableFragments(expected, swc).map((frag) => Frag.pack(frag));
+    const buffers = writer.createSubtableFragments(expected, swc).map(frag => Frag.pack(frag));
 
     let ivsR: Data.Maybe<ReadTimeIVS> = null;
     if (cfg.variation) {
@@ -78,7 +78,7 @@ function LookupRoundTripTestImpl<L, C extends L>(expected: C, cfg: LookupRoundTr
 }
 
 export function TuGlyphSet<G>(gOrd: Data.Order<G>, ...ids: number[]) {
-    return Disorder.shuffleSet(new Set(ids.map((gid) => gOrd.at(gid))));
+    return Disorder.shuffleSet(new Set(ids.map(gid => gOrd.at(gid))));
 }
 
 export type TestVariation = { designSpace: OtVar.Dim[]; ivs: WriteTimeIVS };

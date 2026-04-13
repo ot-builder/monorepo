@@ -9,11 +9,11 @@ import type { CliAction, Syntax } from "../../command";
 import { CliStackEntryPlaceholder } from "../../state";
 
 export const IntroSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (!st.isArgument()) return ParseResult(st, null);
 
         const path = st.argument;
-        return ParseResult(st.next(), async (state) => {
+        return ParseResult(st.next(), async state => {
             const phEntry = new CliStackEntryPlaceholder(Path.parse(path).name);
             console.log(`Load ${phEntry} <- ${path}`);
             const entry = phEntry.fill(await loadFontFromFile(path, Ot.ListGlyphStoreFactory));

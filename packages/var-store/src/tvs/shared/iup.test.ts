@@ -10,11 +10,11 @@ class MockTvdAccess implements TvdAccess<number> {
 }
 
 function setupOrig(...a: number[]) {
-    return a.map((x) => new MockTvdAccess(x));
+    return a.map(x => new MockTvdAccess(x));
 }
 
 function mapArr(a: MockTvdAccess[]) {
-    return a.map((x) => x.deltas[0]); // only 1 dimension
+    return a.map(x => x.deltas[0]); // only 1 dimension
 }
 
 test("IUP test : empty delta case", () => {

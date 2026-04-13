@@ -21,7 +21,7 @@ export function rectifyGsubTable(
     const alg = new RectifyGsubGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, (l, a) => a.process(l));
     const newTable = cleanupGsubGposData(table, new Ot.Gsub.Table(), lookupCorrespondence, {
-        lookupRemovable: (l) => LookupRemovableAlg.process(l),
+        lookupRemovable: l => LookupRemovableAlg.process(l),
         cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
     if (newTable?.featureVariations) {
@@ -40,7 +40,7 @@ export function rectifyGposTable(
     const alg = new RectifyGposGlyphCoordAlg(recGlyphs, recCoord, recPA);
     const lookupCorrespondence = rectifyLookupList(table.lookups, alg, (l, a) => a.process(l));
     const newTable = cleanupGsubGposData(table, new Ot.Gpos.Table(), lookupCorrespondence, {
-        lookupRemovable: (l) => LookupRemovableAlg.process(l),
+        lookupRemovable: l => LookupRemovableAlg.process(l),
         cleanupBrokenCrossLinks: (l, v) => RemoveBrokenLinkAlg.process(l, v)
     });
     if (newTable?.featureVariations) {

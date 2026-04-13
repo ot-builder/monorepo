@@ -6,7 +6,7 @@ import { OtVar } from "@ot-builder/variance";
 import { MathValueRecord } from "../shared/math-value-record";
 
 export const MathConstants = {
-    ...Read<OtMath.Constants>((bp) => {
+    ...Read<OtMath.Constants>(bp => {
         const x = new OtMath.Constants();
         x.scriptPercentScaleDown = bp.int16();
         x.scriptScriptPercentScaleDown = bp.int16();

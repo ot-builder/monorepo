@@ -17,7 +17,7 @@ export function traceMath(table: Ot.Math.Table): GlyphTraceProc {
 }
 
 function traceGlyphConstruction(from: Ot.Glyph, to: Ot.Math.GlyphConstruction): GlyphTraceProc {
-    return (tracer) => {
+    return tracer => {
         if (!tracer.has(from)) return;
         if (to.assembly) {
             for (const part of to.assembly.parts) tracer.add(part.partGlyph);

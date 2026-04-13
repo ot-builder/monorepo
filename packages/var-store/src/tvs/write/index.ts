@@ -45,7 +45,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         // - Header
         const fHaveSharedPoints =
             !ctx.forcePrivatePointNumbers &&
-            !ImpLib.BitMask.allTrue(blobResults.map((x) => x.embedPointIndex))
+            !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
                 ? TvhSetFlags.SHARED_POINT_NUMBERS
                 : 0;
         frRoot.uint16(fHaveSharedPoints | blobResults.length);
@@ -229,7 +229,7 @@ const DeltaRuns = Write(
     }
 );
 
-const AllPoints = Write((frag) => frag.uint8(0));
+const AllPoints = Write(frag => frag.uint8(0));
 const PointsMask = Write((frag: Frag, n: number, mask: boolean[]) => {
     if (ImpLib.BitMask.allTrueN(n, mask)) {
         frag.uint8(0);

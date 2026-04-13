@@ -26,7 +26,8 @@
     },
     "javascript": {
         "formatter": {
-            "trailingCommas": "none"
+            "trailingCommas": "none",
+            "arrowParentheses": "asNeeded"
         }
     },
     "linter": {

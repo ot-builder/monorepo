@@ -148,8 +148,8 @@ export class ClassMatrix<G> {
         c1RelocationRaw.sort(compareRelocation);
         c2RelocationRaw.sort(compareRelocation);
 
-        const c1Relocation = [0, ...c1RelocationRaw.map((x) => x[0])];
-        const c2Relocation = [0, ...c2RelocationRaw.map((x) => x[0])];
+        const c1Relocation = [0, ...c1RelocationRaw.map(x => x[0])];
+        const c2Relocation = [0, ...c2RelocationRaw.map(x => x[0])];
         return [c1Relocation, c2Relocation];
     }
 }

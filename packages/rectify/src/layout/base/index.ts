@@ -114,11 +114,11 @@ export function rectifyBaseTable(
 ) {
     const ret = new Ot.Base.Table();
     const fnH: BaseRectifyFn = {
-        baseCoord: (c) =>
+        baseCoord: c =>
             processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), true)
     };
     const fnV: BaseRectifyFn = {
-        baseCoord: (c) =>
+        baseCoord: c =>
             processPointAttach(recPA, processGlyphRefAndCoord(recGlyphRef, recCoord, c), false)
     };
     if (at.horizontal) ret.horizontal = rectifyAxisTable(fnH, at.horizontal);

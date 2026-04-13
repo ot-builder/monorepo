@@ -8,7 +8,7 @@ export const VersionSyntax: Syntax<null | CliAction> = {
     handle: (st, sy) => {
         if (!st.isOption("--version", "-v")) return ParseResult(st, null);
 
-        return ParseResult(st.next(), async (state) => {
+        return ParseResult(st.next(), async state => {
             console.log(await getPackageVersion());
         });
     },

@@ -5,7 +5,7 @@ import { ParseResult } from "../../argv-parser";
 import type { CliAction, Syntax } from "../../command";
 
 export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (!st.isOption("--transform-glyphs")) return ParseResult(st, null);
         st = st.next();
 
@@ -20,7 +20,7 @@ export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
             dy: parseFloat(tfmArgs[5].trim())
         };
 
-        return ParseResult(st.next(), async (state) => {
+        return ParseResult(st.next(), async state => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to do GC.");
             CliProc.inPlaceTransformFontGlyph(entry.font, transform);

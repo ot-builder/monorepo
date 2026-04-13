@@ -42,7 +42,7 @@ describe("GDEF read", () => {
         expect(gdef.markGlyphSets!.length).toEqual(4);
         expect(Array.from(gdef.markGlyphSets![0])).toEqual([gOrd.at(1087)]);
         expect(Array.from(gdef.markGlyphSets![1])).toEqual(
-            [1075, 1076, 1077, 1078, 1087].map((gid) => gOrd.at(gid))
+            [1075, 1076, 1077, 1078, 1087].map(gid => gOrd.at(gid))
         );
     });
 

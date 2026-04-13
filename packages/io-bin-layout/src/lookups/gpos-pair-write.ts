@@ -99,7 +99,7 @@ export class GposPairWriter implements LookupWriter<Gpos.Lookup, Gpos.Pair> {
         const frags: Frag[] = [];
         this.writeOutliers(frags, outliers, ctx, 0);
         this.writeClasses(frags, cm, ctx, 0);
-        return frags.filter((f) => f.size > 0); // Remove empty fragments
+        return frags.filter(f => f.size > 0); // Remove empty fragments
     }
 }
 

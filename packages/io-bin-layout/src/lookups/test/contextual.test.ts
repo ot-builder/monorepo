@@ -23,7 +23,7 @@ const roundtripConfig: LookupRoundTripConfig<Gsub.Lookup, Gsub.Chaining> = {
     gOrd,
     lOrd,
     writer: () => new GsubChainingContextualWriter(),
-    reader: (ty) => (ty === 5 ? new GsubContextualReader() : new GsubChainingReader()),
+    reader: ty => (ty === 5 ? new GsubContextualReader() : new GsubChainingReader()),
     validate(gOrd, lOrd, a, b) {
         LookupIdentity.Chaining.test(
             LookupCtx.from(BimapCtx.from(gOrd), BimapCtx.from(lOrd)),

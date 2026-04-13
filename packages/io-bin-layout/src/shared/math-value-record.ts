@@ -6,7 +6,7 @@ import { DeviceTable } from "./device-table";
 
 // MATH currently doesn't have variation
 export const MathValueRecord = {
-    ...Read<OtMath.ValueRecord>((bp) => {
+    ...Read<OtMath.ValueRecord>(bp => {
         const value = bp.int16();
         const pDeviceTable = bp.ptr16Nullable();
         if (!pDeviceTable) return { value };

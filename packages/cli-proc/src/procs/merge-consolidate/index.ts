@@ -27,7 +27,7 @@ export function mergeFonts<GS extends Ot.GlyphStore, GS2 extends Ot.GlyphStore>(
 export function consolidateFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>) {
     const gs = new Set(font.glyphs.decideOrder());
     const rectifier: Rectify.GlyphReferenceRectifier = {
-        glyphRef: (g) => (gs.has(g) ? g : null)
+        glyphRef: g => (gs.has(g) ? g : null)
     };
     Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);
 
@@ -114,7 +114,7 @@ function mergeGsubGpos<L extends Ot.GsubGpos.LookupProp>(
     if (!less) return preferred;
 
     const merger = new GsubGposMerger(
-        ImpLib.Order.fromList("Dimensions", fvar ? fvar.axes.map((a) => a.dim) : []),
+        ImpLib.Order.fromList("Dimensions", fvar ? fvar.axes.map(a => a.dim) : []),
         preferred,
         less,
         preferredGdef,
@@ -128,7 +128,7 @@ export function consolidateGsubGpos<L extends Ot.GsubGpos.LookupProp>(
     preferred: Ot.GsubGpos.TableT<L>
 ) {
     const merger = new GsubGposMerger(
-        ImpLib.Order.fromList("Dimensions", fvar ? fvar.axes.map((a) => a.dim) : []),
+        ImpLib.Order.fromList("Dimensions", fvar ? fvar.axes.map(a => a.dim) : []),
         preferred,
         { scripts: new Map(), features: [], lookups: [], featureVariations: [] },
         null,

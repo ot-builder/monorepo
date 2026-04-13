@@ -483,7 +483,7 @@ class Packing {
         const offsets = this.deOverflow(virtualRoot);
         const buffer = this.serialize(offsets);
         const rootOffsets = virtualRoot.pointers.map(
-            (ptr) => offsets.get(ptr.to!)! - virtualRoot.size
+            ptr => offsets.get(ptr.to!)! - virtualRoot.size
         );
         return {
             buffer: buffer.slice(virtualRoot.size),

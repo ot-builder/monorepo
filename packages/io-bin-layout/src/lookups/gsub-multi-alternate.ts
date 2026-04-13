@@ -31,7 +31,7 @@ const SubtableFormat1 = {
             const substituteGlyphIDs = pSubst.next(SimpleGidArray);
             lookup.mapping.set(
                 ctx.gOrd.at(gid),
-                substituteGlyphIDs.map((g) => ctx.gOrd.at(g))
+                substituteGlyphIDs.map(g => ctx.gOrd.at(g))
             );
         }
     },
@@ -49,7 +49,7 @@ const SubtableFormat1 = {
             fSeq.uint16(to.length);
             fSeq.array(
                 UInt16,
-                to.map((g) => ctx.gOrd.reverse(g))
+                to.map(g => ctx.gOrd.reverse(g))
             );
         }
     }

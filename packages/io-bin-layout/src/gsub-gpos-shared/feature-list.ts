@@ -10,7 +10,7 @@ export class CFeatureTable<L> {
         const vFeatureParams = view.ptr16Nullable();
         let featureParams: Data.Maybe<Sigma.DependentPair>;
         if (vFeatureParams) featureParams = vFeatureParams.next(FeatureParams, tag);
-        const lookups = view.array(view.uint16(), UInt16).map((x) => lOrd.at(x));
+        const lookups = view.array(view.uint16(), UInt16).map(x => lOrd.at(x));
         return { tag, lookups, params: featureParams };
     }
     public write(frag: Frag, feat: GsubGpos.FeatureT<L>, lOrd: Data.Order<L>) {

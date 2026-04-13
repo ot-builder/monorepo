@@ -45,7 +45,7 @@ describe("GSUB Rectifier", () => {
         });
 
         const alg = new RectifyGsubGlyphCoordAlg(
-            { glyphRef: (g) => (g === b ? null : g) },
+            { glyphRef: g => (g === b ? null : g) },
             IdCoordRectifier,
             null
         );
@@ -81,7 +81,7 @@ describe("GSUB Rectifier", () => {
         table.lookups = [chaining, dummy1, dummy2];
 
         const newTable = rectifyGsubTable(
-            { glyphRef: (g) => (g === c ? null : g) },
+            { glyphRef: g => (g === c ? null : g) },
             IdAxisRectifier,
             IdCoordRectifier,
             IdPointAttachmentRectifier,
@@ -114,7 +114,7 @@ describe("GSUB Rectifier", () => {
         table.lookups = [chaining, dummy1, dummy2];
 
         const newTable = rectifyGsubTable(
-            { glyphRef: (g) => (g === c ? null : g) },
+            { glyphRef: g => (g === c ? null : g) },
             IdAxisRectifier,
             IdCoordRectifier,
             IdPointAttachmentRectifier,

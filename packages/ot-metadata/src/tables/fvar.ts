@@ -38,7 +38,7 @@ export class Table {
     public getDesignSpace() {
         return ImpLib.Order.fromList(
             "DesignSpace",
-            this.axes.map((a) => a.dim)
+            this.axes.map(a => a.dim)
         );
     }
 }

@@ -29,7 +29,7 @@ export class CliHelpShower {
         );
     }
     public message(...text: (string | null | undefined)[]) {
-        const words = text.filter((t) => !!t).flatMap((t) => (t ? t.split(" ") : []));
+        const words = text.filter(t => !!t).flatMap(t => (t ? t.split(" ") : []));
         this.messageImpl(words);
         return this;
     }

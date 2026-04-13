@@ -59,7 +59,7 @@ function createIVS() {
 }
 
 const IVD = {
-    ...Read((vw) => {
+    ...Read(vw => {
         const ivd = createIVD();
         const itemCount = vw.uint16();
         const fLong_wordDeltaCount = vw.uint16();

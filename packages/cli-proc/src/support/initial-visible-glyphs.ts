@@ -30,7 +30,7 @@ export function createSubsetRectifier<GS extends Ot.GlyphStore>(
     const init = initialGlyphsFromUnicodeSet(font, unicodeSet);
     const collected = Trace.traceGlyphs(new Set(init), font);
     return {
-        glyphs: Array.from(font.glyphs.decideOrder()).filter((x) => collected.has(x)),
+        glyphs: Array.from(font.glyphs.decideOrder()).filter(x => collected.has(x)),
         rectifier: {
             glyphRef(g: Ot.Glyph) {
                 if (collected.has(g)) return g;

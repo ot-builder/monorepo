@@ -25,19 +25,19 @@ function cmapCraftedRoundtrip(count: number, fn: (gid: number, codeLast: number)
 }
 
 test("CMAP crafted roundtrip -- 1K", () => {
-    cmapCraftedRoundtrip(1024, (gid) => gid);
+    cmapCraftedRoundtrip(1024, gid => gid);
 });
 test("CMAP crafted roundtrip -- 64K", () => {
-    cmapCraftedRoundtrip(0xfffe, (gid) => gid);
+    cmapCraftedRoundtrip(0xfffe, gid => gid);
 });
 test("CMAP crafted roundtrip -- 64K; anti", () => {
-    cmapCraftedRoundtrip(0xfffe, (gid) => 0xfffe - gid);
+    cmapCraftedRoundtrip(0xfffe, gid => 0xfffe - gid);
 });
 test("CMAP crafted roundtrip -- 64K; anti; gaps", () => {
-    cmapCraftedRoundtrip(0xfffe, (gid) => 0xfffe - gid + 0x100 * Math.floor(gid / 0x1000));
+    cmapCraftedRoundtrip(0xfffe, gid => 0xfffe - gid + 0x100 * Math.floor(gid / 0x1000));
 });
 test("CMAP crafted roundtrip -- 64K; anti; thin gaps", () => {
-    cmapCraftedRoundtrip(0xfffe, (gid) => 0x1ffff - gid * 2);
+    cmapCraftedRoundtrip(0xfffe, gid => 0x1ffff - gid * 2);
 });
 test("CMAP crafted roundtrip -- 64K; stairs", () => {
     cmapCraftedRoundtrip(0xfffe, (gid, last) => (gid % 3 === 0 ? last + 4 : last - 1));

@@ -118,7 +118,7 @@ class GeomVarPtrCollector {
             case OtGlyph.GeometryType.TtReference:
                 return new TtReferenceHolder(geom);
             case OtGlyph.GeometryType.GeometryList: {
-                const parts: GeomHolder[] = geom.items.map((item) => this.process(item));
+                const parts: GeomHolder[] = geom.items.map(item => this.process(item));
                 return new GeometryListHolder(parts);
             }
         }
@@ -158,7 +158,7 @@ interface GeomHolder {
 class ContourHolder implements GeomHolder {
     private readonly contours: OtGlyph.Contour[];
     public constructor(cs: OtGlyph.ContourSetProps) {
-        this.contours = cs.contours.map((c) => [...c]);
+        this.contours = cs.contours.map(c => [...c]);
     }
     public toGeometry() {
         return new OtGlyph.ContourSet(this.contours);
@@ -197,7 +197,7 @@ class TtReferenceHolder implements GeomHolder {
 class GeometryListHolder implements GeomHolder {
     public constructor(private readonly children: GeomHolder[]) {}
     public toGeometry() {
-        return new OtGlyph.GeometryList(this.children.map((c) => c.toGeometry()));
+        return new OtGlyph.GeometryList(this.children.map(c => c.toGeometry()));
     }
     public collectTvdAccesses(
         sink: TvdAccess<OtVar.Master>[][],

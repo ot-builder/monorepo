@@ -30,8 +30,8 @@ const TestRuleBuilder: RuleBuilder<string, NonTerminalRule<string>, RootRule<str
     }
 };
 const StringKeyProvider: KeyProvider<string> = {
-    getIrKey: (s) => s,
-    isBarrier: (s) => s === " "
+    getIrKey: s => s,
+    isBarrier: s => s === " "
 };
 class StringNtSrc implements NonTerminalBuilder<string> {
     private n = 0;
@@ -85,7 +85,7 @@ describe("Re-pair pair management", () => {
         session.appendString(input, "aaabcaabaaabcabdabd");
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("EBECC");
-        expect(rules.map((x) => x.toString())).toEqual([
+        expect(rules.map(x => x.toString())).toEqual([
             `A -> ab`,
             `B -> aA`,
             `C -> Ad`,
@@ -99,7 +99,7 @@ describe("Re-pair pair management", () => {
         session.appendString(input, "singing.do.wah.diddy.diddy.dum.diddy.do");
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("sHHG.wahEEAumEG");
-        expect(rules.map((x) => x.toString())).toEqual([
+        expect(rules.map(x => x.toString())).toEqual([
             "A -> .d",
             "B -> id",
             "C -> dy",
@@ -119,7 +119,7 @@ describe("Re-pair pair management", () => {
         );
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("JbEJBa");
-        expect(rules.map((x) => x.toString())).toEqual([
+        expect(rules.map(x => x.toString())).toEqual([
             "A -> ab",
             "B -> cA",
             "C -> Bc",

@@ -24,7 +24,7 @@ export class GsubGposMerger<L extends Ot.GsubGpos.LookupProp>
         const lookups = this.getLookups();
         const scripts = this.mergeScriptList();
         for (const plan of this.featureMergingPlans.values()) plan.resolve();
-        const features = Array.from(this.featureMergingPlans.values()).map((p) => p.result);
+        const features = Array.from(this.featureMergingPlans.values()).map(p => p.result);
         const featureVariations = Array.from(this.featureVariationCollection.values());
 
         return { scripts, features, lookups, featureVariations };

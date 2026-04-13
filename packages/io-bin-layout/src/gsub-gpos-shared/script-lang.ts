@@ -13,7 +13,7 @@ class CLangSysTable<L> {
         const vLookupOrder = view.ptr16Nullable(); // Reserved, keep zero
         const requiredFeature = fOrd.tryAt(view.uint16()); // 0xFFFF should return undefined
         const featureIndexCount = view.uint16();
-        const features = view.array(featureIndexCount, UInt16).map((id) => fOrd.at(id));
+        const features = view.array(featureIndexCount, UInt16).map(id => fOrd.at(id));
         return { requiredFeature, features };
     }
     public write(frag: Frag, lang: LangSys<L>, fOrd: Data.Order<Feature<L>>) {
@@ -22,7 +22,7 @@ class CLangSysTable<L> {
         frag.uint16(lang.features.length);
         frag.array(
             UInt16,
-            lang.features.map((f) => fOrd.reverse(f))
+            lang.features.map(f => fOrd.reverse(f))
         );
     }
 }

@@ -5,19 +5,19 @@ import { ParseResult } from "../../argv-parser";
 import type { CliAction, Syntax } from "../../command";
 
 export const SetOptimizationLevelSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (st.isOption("--optimize-none", "-O0")) {
-            return ParseResult(st.next(), async (state) => {
+            return ParseResult(st.next(), async state => {
                 state.optimizationLevel = OptimizationLevel.None;
             });
         }
         if (st.isOption("--optimize-speed", "-Op")) {
-            return ParseResult(st.next(), async (state) => {
+            return ParseResult(st.next(), async state => {
                 state.optimizationLevel = OptimizationLevel.Speed;
             });
         }
         if (st.isOption("--optimize-size", "-Oz")) {
-            return ParseResult(st.next(), async (state) => {
+            return ParseResult(st.next(), async state => {
                 state.optimizationLevel = OptimizationLevel.Size;
             });
         }

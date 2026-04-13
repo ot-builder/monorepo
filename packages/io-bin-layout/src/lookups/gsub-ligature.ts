@@ -35,7 +35,7 @@ const SubtableFormat1 = {
                 const componentCount = ligature.uint16();
                 const componentGlyphIDs = ligature.array(componentCount - 1, UInt16);
                 lookup.mapping.push({
-                    from: [gidFirst, ...componentGlyphIDs].map((gid) => context.gOrd.at(gid)),
+                    from: [gidFirst, ...componentGlyphIDs].map(gid => context.gOrd.at(gid)),
                     to: context.gOrd.at(gidLigatureGlyph)
                 });
             }
@@ -60,7 +60,7 @@ const SubtableFormat1 = {
                     .uint16(rests.length + 1)
                     .array(
                         UInt16,
-                        rests.map((g) => ctx.gOrd.reverse(g))
+                        rests.map(g => ctx.gOrd.reverse(g))
                     );
             }
         }

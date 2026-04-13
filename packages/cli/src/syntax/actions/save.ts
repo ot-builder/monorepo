@@ -9,12 +9,12 @@ import { ParseResult } from "../../argv-parser";
 import type { CliAction, Syntax } from "../../command";
 
 export const SaveSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (!st.isOption("-o", "--save")) return ParseResult(st, null);
         st = st.next();
 
         const path = st.expectArgument();
-        return ParseResult(st.next(), async (state) => {
+        return ParseResult(st.next(), async state => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to save.");
             console.log(`Save ${entry} -> ${path}`);

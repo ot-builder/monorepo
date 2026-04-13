@@ -3,7 +3,7 @@ import { Assert } from "@ot-builder/errors";
 import { Vorg } from "@ot-builder/ot-glyphs";
 
 export const VorgIo = {
-    ...Read((view) => {
+    ...Read(view => {
         const vorg = new Vorg.Table();
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();

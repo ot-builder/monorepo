@@ -5,7 +5,7 @@ import { Stat } from "@ot-builder/ot-name";
 import type { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 
-export const StatRead = Read((view) => {
+export const StatRead = Read(view => {
     const majorVersion = view.uint16();
     const minorVersion = view.uint16();
     Assert.SubVersionSupported("STATTable", majorVersion, minorVersion, [1, 1], [1, 2]);

@@ -29,7 +29,7 @@ export const CaretValue = {
 };
 
 const CaretValueFormat1 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 1) throw Errors.Unreachable();
         return { x: view.uint16() } as Gdef.LigCaret;
@@ -39,7 +39,7 @@ const CaretValueFormat1 = {
     })
 };
 const CaretValueFormat2 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 2) throw Errors.Unreachable();
         return { x: 0, pointAttachment: { pointIndex: view.uint16() } } as Gdef.LigCaret;

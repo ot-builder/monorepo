@@ -10,7 +10,7 @@ export function subsetFont<GS extends Ot.GlyphStore>(
 ) {
     const { glyphs, rectifier } = createSubsetRectifier(
         font,
-        new Set([...text].map((s) => s.codePointAt(0)!))
+        new Set([...text].map(s => s.codePointAt(0)!))
     );
     font.glyphs = gsf.createStoreFromList(glyphs);
     Rectify.inPlaceRectifyFontGlyphReferences(rectifier, font);

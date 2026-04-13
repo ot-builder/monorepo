@@ -81,7 +81,7 @@ export async function displayHelp() {
         .message(`otb-ttc-bundle: TTC bundler, version ${await getPackageVersion()}`)
         .message(Style.Rule)
         .message(`Usage:`)
-        .withIndent(Style.Bullet, (s) => {
+        .withIndent(Style.Bullet, s => {
             s.message(
                 Style.Cmd`otb-ttc-bundle`,
                 Style.Option`-h`,
@@ -92,7 +92,7 @@ export async function displayHelp() {
                 .indent("")
                 .message("Display help message");
         })
-        .withIndent(Style.Bullet, (s) => {
+        .withIndent(Style.Bullet, s => {
             s.message(
                 Style.Cmd`otb-ttc-bundle`,
                 Style.Option`-v`,
@@ -103,7 +103,7 @@ export async function displayHelp() {
                 .indent("")
                 .message("Display version of this utility.");
         })
-        .withIndent(Style.Bullet, (s) => {
+        .withIndent(Style.Bullet, s => {
             s.hangingIndent("  ").message(
                 Style.Cmd`otb-ttc-bundle`,
                 ...Style.OptRun(`options`),
@@ -111,7 +111,7 @@ export async function displayHelp() {
                 ...[Style.Param`input_1`, `...`, Style.Param`input_n`]
             );
             s.indent("").message(`Bundles multiple TTF into one TTC with glyph sharing.`);
-            s.withIndent(Style.Bullet, (s) => {
+            s.withIndent(Style.Bullet, s => {
                 s.message(Style.Option`-o`, Style.Param`output`)
                     .indent(``)
                     .message(`Set output file path.`);
@@ -120,7 +120,7 @@ export async function displayHelp() {
                     .message(`Input files, could be either TTF, OTF or TTC.`);
             });
             s.indent("").message(``).message(`Options:`);
-            s.withIndent(Style.Bullet, (s) => {
+            s.withIndent(Style.Bullet, s => {
                 s.message(Style.Option`--verbose`).indent(``).message(`Set to verbose mode.`);
                 s.message(Style.Option`-u`, `;`, Style.Option`--unify`)
                     .indent(``)

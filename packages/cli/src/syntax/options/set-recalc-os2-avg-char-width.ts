@@ -4,14 +4,14 @@ import { ParseResult } from "../../argv-parser";
 import type { CliAction, Syntax } from "../../command";
 
 export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (st.isOption("++recalc-os2-avg-char-width")) {
-            return ParseResult(st.next(), async (state) => {
+            return ParseResult(st.next(), async state => {
                 state.recalcOs2XAvgCharWidth = true;
             });
         }
         if (st.isOption("--recalc-os2-avg-char-width")) {
-            return ParseResult(st.next(), async (state) => {
+            return ParseResult(st.next(), async state => {
                 state.recalcOs2XAvgCharWidth = false;
             });
         }

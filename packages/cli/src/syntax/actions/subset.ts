@@ -8,7 +8,7 @@ import type { CliAction, Syntax } from "../../command";
 import * as ParseUnicodeRanges from "../../sub-parsers/unicode-ranges/generated";
 
 export const SubsetSyntax: Syntax<null | CliAction> = {
-    handle: (st) => {
+    handle: st => {
         if (!st.isOption("--subset")) return ParseResult(st, null);
         st = st.next();
 
@@ -35,7 +35,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             argument = st.expectArgument();
         }
 
-        return ParseResult(st.next(), async (state) => {
+        return ParseResult(st.next(), async state => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to subset.");
             console.log(`Subset ${entry}`);

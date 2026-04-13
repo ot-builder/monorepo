@@ -9,7 +9,7 @@ export type Cff1Header = {
 };
 
 export const Cff1Header = {
-    ...Read<Cff1Header>((view) => {
+    ...Read<Cff1Header>(view => {
         return {
             majorVersion: view.uint8(),
             minorVersion: view.uint8(),

@@ -81,7 +81,7 @@ function cleanupFeature<L>(
     keepEmptyFeature: boolean
 ): null | Ot.GsubGpos.FeatureT<L> {
     const l1 = RectifyImpl.Elim.listSome(
-        ft.lookups.map((l) => lookupCorrespondence.get(l)),
+        ft.lookups.map(l => lookupCorrespondence.get(l)),
         ls
     );
     if (!keepEmptyFeature && !l1.length) return null;
@@ -96,7 +96,7 @@ function cleanupLanguage<L>(
 ): null | Ot.GsubGpos.LanguageT<L> {
     if (!la) return null;
     const requiredFeature1 = RectifyImpl.Elim.findInMap(la.requiredFeature, fs);
-    const features1 = RectifyImpl.Elim.listSomeT(la.features, (f) =>
+    const features1 = RectifyImpl.Elim.listSomeT(la.features, f =>
         RectifyImpl.Elim.findInMap(f, fs)
     );
     if (!features1.length && !requiredFeature1) return null;

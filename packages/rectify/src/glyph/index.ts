@@ -167,8 +167,8 @@ class HintProcessor {
         const h1 = new Ot.Glyph.CffHint();
         h1.hStems = [...stemHMap.values()];
         h1.vStems = [...stemVMap.values()];
-        h1.hintMasks = ch.hintMasks.map((m) => this.processMask(m, stemHMap, stemVMap));
-        h1.counterMasks = ch.counterMasks.map((m) => this.processMask(m, stemHMap, stemVMap));
+        h1.hintMasks = ch.hintMasks.map(m => this.processMask(m, stemHMap, stemVMap));
+        h1.counterMasks = ch.counterMasks.map(m => this.processMask(m, stemHMap, stemVMap));
         return h1;
     }
     private processHintStem(stem: Ot.Glyph.CffHintStem) {

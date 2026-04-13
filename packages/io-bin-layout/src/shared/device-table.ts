@@ -79,7 +79,7 @@ export const DeviceDeltaBits = {
     )
 };
 
-export const EmptyDeviceTable = Write((frag) => {
+export const EmptyDeviceTable = Write(frag => {
     frag.uint16(1);
     frag.uint16(1);
     frag.uint16(DeltaFormat.LOCAL_8_BIT_DELTAS);

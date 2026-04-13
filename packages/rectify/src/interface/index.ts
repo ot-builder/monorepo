@@ -29,9 +29,9 @@ export interface PointAttachmentRectifier {
     ): { x: boolean; y: boolean };
 }
 
-export const IdGlyphRefRectifier: GlyphReferenceRectifier = { glyphRef: (g) => g };
-export const IdAxisRectifier: AxisRectifier = { dim: (a) => a, axis: (a) => a, addedAxes: [] };
-export const IdCoordRectifier: CoordRectifier = { coord: (x) => x, cv: (x) => x };
+export const IdGlyphRefRectifier: GlyphReferenceRectifier = { glyphRef: g => g };
+export const IdAxisRectifier: AxisRectifier = { dim: a => a, axis: a => a, addedAxes: [] };
+export const IdCoordRectifier: CoordRectifier = { coord: x => x, cv: x => x };
 export const IdPointAttachmentRectifier: PointAttachmentRectifier = {
     manner: PointAttachmentRectifyManner.TrustAttachment,
     acceptOffset: () => ({ x: true, y: true })

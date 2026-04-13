@@ -1,7 +1,7 @@
 import type { OtGlyph, OtGlyphNamer, OtGlyphNamingSource } from "@ot-builder/ot-glyphs";
 import AglfnData from "aglfn";
 
-const AglfnMap = new Map(AglfnData.map((x) => [parseInt(x.unicodeValue, 16), x.glyphName]));
+const AglfnMap = new Map(AglfnData.map(x => [parseInt(x.unicodeValue, 16), x.glyphName]));
 
 export class OtStandardGlyphNamer implements OtGlyphNamer {
     private existingNames: Set<string> = new Set();
@@ -46,7 +46,7 @@ export class OtStandardGlyphNamer implements OtGlyphNamer {
 
         const variantCode = source.encoding.getVariantIndex(glyph);
         if (variantCode?.length) {
-            return "uni" + variantCode.map((k) => this.formatHex(k)).join("_");
+            return "uni" + variantCode.map(k => this.formatHex(k)).join("_");
         }
 
         return null;

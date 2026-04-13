@@ -56,7 +56,7 @@ class CIndividualClassRule<L> {
         let applicationCount = 0;
         if (isChaining) {
             const backtrackIDs = view.next(SimpleClassIdArray).reverse();
-            gssBacktrack = backtrackIDs.map((n) => srBacktrack.toGlyphSet(n, false));
+            gssBacktrack = backtrackIDs.map(n => srBacktrack.toGlyphSet(n, false));
         }
         const glyphCount = view.uint16();
         if (!isChaining) applicationCount = view.uint16();
@@ -66,7 +66,7 @@ class CIndividualClassRule<L> {
         }
         if (isChaining) {
             const lookAheadIDs = view.next(SimpleClassIdArray);
-            lookAheadSequence = lookAheadIDs.map((n) => srLookAhead.toGlyphSet(n, false));
+            lookAheadSequence = lookAheadIDs.map(n => srLookAhead.toGlyphSet(n, false));
             applicationCount = view.uint16();
         }
         const rule: GsubGpos.ChainingRule<L> = {

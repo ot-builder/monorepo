@@ -190,7 +190,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         this.update(x, y, () => v);
     }
     public setIfAbsent(x: Iterable<X>, y: Iterable<Y>, v: D) {
-        this.update(x, y, (orig) => (orig == null ? v : orig));
+        this.update(x, y, orig => (orig == null ? v : orig));
     }
 }
 

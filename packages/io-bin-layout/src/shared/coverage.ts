@@ -119,7 +119,7 @@ export const NullablePtr16GlyphCoverage = NullablePtr16(GlyphCoverage);
 export const Ptr16GlyphCoverage = NonNullablePtr16(GlyphCoverage);
 
 export const GidCoverage = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.lift(0).uint16();
         switch (format) {
             case 1:
@@ -162,7 +162,7 @@ export const NullablePtr16GidCoverage = NullablePtr16(GidCoverage);
 export const Ptr16GidCoverage = NonNullablePtr16(GidCoverage);
 
 const OtGidCoverageFormat1 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 1) throw Errors.Unreachable();
 
@@ -226,7 +226,7 @@ class CoverageRunCollector {
 }
 
 const OtGidCoverageFormat2 = {
-    ...Read((view) => {
+    ...Read(view => {
         const format = view.uint16();
         if (format !== 2) throw Errors.Unreachable();
 

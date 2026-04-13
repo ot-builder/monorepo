@@ -24,7 +24,7 @@ export class SharedGlyphStore implements Ot.GlyphStore {
         return Ot.ListGlyphStoreFactory.createStoreFromList(
             Array.from(this.mapping.values())
                 .sort((a, b) => a.compare(b))
-                .map((g) => g.glyph)
+                .map(g => g.glyph)
         ).decideOrder();
     }
 }
@@ -110,7 +110,7 @@ class HashGeometry {
             case Ot.Glyph.GeometryType.ContourSet:
                 return this.contourSet(geom);
             case Ot.Glyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map((item) => this.process(item)));
+                return this.geometryList(geom.items.map(item => this.process(item)));
             case Ot.Glyph.GeometryType.TtReference:
                 return this.ttReference(geom);
         }

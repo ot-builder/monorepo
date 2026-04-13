@@ -58,7 +58,7 @@ export function unifyDesignSpacesImpl(
     if (fvar0 && fvarI) {
         const du = new DesignSpaceUnifier(session, fvar0, fvarI);
         Rectify.inPlaceRectifyFont(
-            { glyphRef: (g) => g },
+            { glyphRef: g => g },
             du,
             du,
             new StdPointAttachRectifier(),

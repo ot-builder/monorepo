@@ -200,7 +200,7 @@ abstract class MarkWritePlan<G, B> {
     }
 
     protected getMarkAxm(gOrd: Data.Order<G>) {
-        return CovUtils.auxMapFromExtractor(this.marks, gOrd, (r) => r.glyph);
+        return CovUtils.auxMapFromExtractor(this.marks, gOrd, r => r.glyph);
     }
 }
 

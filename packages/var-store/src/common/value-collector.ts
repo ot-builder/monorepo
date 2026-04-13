@@ -53,7 +53,7 @@ export abstract class DelayValueCollector<
     }
 
     public getMasterList() {
-        return this.relocation.map((r) => [r, this.masterList[r]] as [number, M]);
+        return this.relocation.map(r => [r, this.masterList[r]] as [number, M]);
     }
 
     public get size() {
