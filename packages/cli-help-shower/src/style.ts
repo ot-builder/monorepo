@@ -1,9 +1,9 @@
 import * as pc from "picocolors";
 
 const terminalSupportsUnicode =
-    process.platform !== "win32" ||
-    process.env.TERM_PROGRAM === "vscode" ||
-    !!process.env.WT_SESSION; // Workaround https://github.com/microsoft/terminal/issues/1040
+    process.platform !== "win32"
+    || process.env.TERM_PROGRAM === "vscode"
+    || !!process.env.WT_SESSION; // Workaround https://github.com/microsoft/terminal/issues/1040
 
 export const CONSOLE_WIDTH = 80;
 export const Bullet = terminalSupportsUnicode ? `· ` : `+ `;

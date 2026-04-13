@@ -19,8 +19,8 @@ export function otvar(
     if (!vvEq) {
         let msg = `Value mismatch${place ? " at " + place : ""}\n`;
         msg +=
-            ` - MASTER: (default), Expected: ${OtVar.Ops.evaluate(expected, null)},` +
-            ` Actual: ${OtVar.Ops.evaluate(actual, null)}\n`;
+            ` - MASTER: (default), Expected: ${OtVar.Ops.evaluate(expected, null)},`
+            + ` Actual: ${OtVar.Ops.evaluate(actual, null)}\n`;
         for (const [master] of [
             ...OtVar.Ops.varianceOf(expected),
             ...OtVar.Ops.varianceOf(actual)

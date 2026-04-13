@@ -216,13 +216,13 @@ class MirArgConverter {
     }
     private willOverflow(x: CffBlendPrimitive) {
         return (
-            this.sp +
-                1 +
-                this.pendingBlendDeltas.length +
-                this.pendingBlendOrigins.length +
-                1 +
-                x.deltas.length >=
-            this.eo.maxStack
+            this.sp
+                + 1
+                + this.pendingBlendDeltas.length
+                + this.pendingBlendOrigins.length
+                + 1
+                + x.deltas.length
+            >= this.eo.maxStack
         );
     }
     public flush() {
@@ -236,8 +236,8 @@ class MirArgConverter {
                 flags: undefined,
                 stackRidge: 0,
                 stackRise:
-                    this.pendingBlendOrigins.length -
-                    (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length)
+                    this.pendingBlendOrigins.length
+                    - (1 + this.pendingBlendOrigins.length + this.pendingBlendDeltas.length)
             });
             this.sp += this.pendingBlendOrigins.length;
             this.pendingBlendOrigins.length = 0;

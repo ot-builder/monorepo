@@ -23,10 +23,10 @@ export class DesignSpaceUnifier implements Rectify.AxisRectifier, Rectify.CoordR
             const curDim = fvarCur.axes[aid].dim;
             const refDim = fvarRef.axes[aid].dim;
             if (
-                refDim.tag !== curDim.tag ||
-                refDim.min !== curDim.min ||
-                refDim.default !== curDim.default ||
-                refDim.max !== curDim.max
+                refDim.tag !== curDim.tag
+                || refDim.min !== curDim.min
+                || refDim.default !== curDim.default
+                || refDim.max !== curDim.max
             ) {
                 throw new Error("Axis dimension incompatible");
             }

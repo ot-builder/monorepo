@@ -44,8 +44,8 @@ export const TupleVariationWriteOpt = WriteOpt(
         const frData = new Frag();
         // - Header
         const fHaveSharedPoints =
-            !ctx.forcePrivatePointNumbers &&
-            !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
+            !ctx.forcePrivatePointNumbers
+            && !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
                 ? TvhSetFlags.SHARED_POINT_NUMBERS
                 : 0;
         frRoot.uint16(fHaveSharedPoints | blobResults.length);
@@ -80,9 +80,8 @@ function writeBlob(
     if (ctx.iupTolerance) {
         const resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
-            (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
-                result.hasNonIntegerDelta) &&
-            !resOpt.hasNonIntegerDelta
+            (resOpt.bufBody.byteLength <= result.bufBody.byteLength || result.hasNonIntegerDelta)
+            && !resOpt.hasNonIntegerDelta
         ) {
             result = resOpt;
         }
@@ -131,10 +130,10 @@ function logChoices(dimensions: number, coords: number[], deltas: number[], mask
         for (let dim = 0; dim < dimensions; dim++) {
             const delta = deltas[ImpLib.Arith.d2(dimensions, z, dim)];
             r +=
-                (dim ? " " : "") +
-                coords[ImpLib.Arith.d2(dimensions, z, dim)] +
-                (delta >= 0 ? "+" : "") +
-                delta;
+                (dim ? " " : "")
+                + coords[ImpLib.Arith.d2(dimensions, z, dim)]
+                + (delta >= 0 ? "+" : "")
+                + delta;
         }
 
         if (mask[z]) {

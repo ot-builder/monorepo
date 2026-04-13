@@ -13,8 +13,8 @@ function estimateCallSize(scEst: number) {
     if (callSizeCache[scEst]) return callSizeCache[scEst];
     const bias = computeSubroutineBias(scEst);
     const size =
-        CharStringEncoder.measureOperator(CharStringOperator.CallGSubr) +
-        Math.max(
+        CharStringEncoder.measureOperator(CharStringOperator.CallGSubr)
+        + Math.max(
             CharStringEncoder.measureInt(-bias),
             CharStringEncoder.measureInt(0),
             CharStringEncoder.measureInt(scEst - bias)
@@ -153,10 +153,10 @@ export class RuleSet {
             rule.depth = depth;
             const utility = rule.utility(limits, scEst, refCount);
             if (
-                sid < scEst * 2 &&
-                sid < limits.maxSubrs &&
-                depth < limits.maxRecursion &&
-                utility >= 0
+                sid < scEst * 2
+                && sid < limits.maxSubrs
+                && depth < limits.maxRecursion
+                && utility >= 0
             ) {
                 rule.subrId = sid++;
             } else {
@@ -327,8 +327,8 @@ export class RuleSet {
     }
     private ruleHeaderStart(rule: Rule, header: string) {
         return (
-            `${header} :: DE ${rule.depth} ` +
-            `RC ${rule.refCount} SS ${rule.selfSize} XS ${rule.expandedSize} :: `
+            `${header} :: DE ${rule.depth} `
+            + `RC ${rule.refCount} SS ${rule.selfSize} XS ${rule.expandedSize} :: `
         );
     }
     public printPlan() {

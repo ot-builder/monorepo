@@ -68,15 +68,15 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
     /** Measure lookup header size without extension -- used when writing headers */
     private measureHeaderSize(h: LookupHeader) {
         return (
-            UInt16.size * (3 + h.subtableIDs.length) +
-            (h.markFilteringSet != null ? UInt16.size : 0)
+            UInt16.size * (3 + h.subtableIDs.length)
+            + (h.markFilteringSet != null ? UInt16.size : 0)
         );
     }
     /** Measure lookup header size with extension -- used when writing subtable */
     private measureHeaderSizeWithExtension(h: LookupHeader) {
         return (
-            this.measureHeaderSize(h) +
-            (h.useExtension ? SizeOfExtSubtable * h.subtableIDs.length : 0)
+            this.measureHeaderSize(h)
+            + (h.useExtension ? SizeOfExtSubtable * h.subtableIDs.length : 0)
         );
     }
     private lookupHeaders: LookupHeader[] = [];

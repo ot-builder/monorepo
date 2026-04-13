@@ -57,10 +57,10 @@ export class OtStandardGlyphNamer implements OtGlyphNamer {
     public nameGlyph(source: OtGlyphNamingSource, gid: number, glyph: OtGlyph) {
         if (gid === 0) return `.notdef`;
         return this.avoidCollide(
-            this.nameByPost(source, gid, glyph) ||
-                this.nameByCff(source, gid, glyph) ||
-                this.nameByEncoding(source, gid, glyph) ||
-                this.nameByGid(source, gid, glyph)
+            this.nameByPost(source, gid, glyph)
+                || this.nameByCff(source, gid, glyph)
+                || this.nameByEncoding(source, gid, glyph)
+                || this.nameByGid(source, gid, glyph)
         );
     }
 }

@@ -17,9 +17,9 @@ function axisRegionIsNeutral<A extends VarianceDim>(ar: OtVarMasterDim) {
 }
 function axisRegionIsSimple<A extends VarianceDim>(ar: OtVarMasterDim) {
     return (
-        axisRegionIsNeutral(ar) ||
-        (ar.peak > 0 && ar.max === ar.peak && ar.min === 0) ||
-        (ar.peak < 0 && ar.max === 0 && ar.min === ar.peak)
+        axisRegionIsNeutral(ar)
+        || (ar.peak > 0 && ar.max === ar.peak && ar.min === 0)
+        || (ar.peak < 0 && ar.max === 0 && ar.min === ar.peak)
     );
 }
 

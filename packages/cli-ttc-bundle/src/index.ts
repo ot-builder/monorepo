@@ -134,9 +134,9 @@ function nameGlyphWithoutConflict(g: Ot.Glyph, desired: string, conflictSet: Set
 
 function tagToUInt32(x: string) {
     return (
-        (x.charCodeAt(0) & 0xff) * 256 * 256 * 256 +
-        (x.charCodeAt(1) & 0xff) * 256 * 256 +
-        (x.charCodeAt(2) & 0xff) * 256 +
-        (x.charCodeAt(3) & 0xff)
+        (x.charCodeAt(0) & 0xff) * 256 * 256 * 256
+        + (x.charCodeAt(1) & 0xff) * 256 * 256
+        + (x.charCodeAt(2) & 0xff) * 256
+        + (x.charCodeAt(3) & 0xff)
     );
 }

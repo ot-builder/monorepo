@@ -75,8 +75,8 @@ class CffCodeGenState {
         }
         this.maskPr.index += knot;
         while (
-            this.maskIndex < this.masks.length &&
-            OtGlyph.PointRef.compare(this.masks[this.maskIndex].at, this.maskPr) <= 0
+            this.maskIndex < this.masks.length
+            && OtGlyph.PointRef.compare(this.masks[this.maskIndex].at, this.maskPr) <= 0
         ) {
             const mask = this.masks[this.maskIndex];
             this.maskIndex += 1;
@@ -86,11 +86,11 @@ class CffCodeGenState {
 
     private addMask(mask: CompileTimeMask) {
         if (
-            this.rawDrawCalls.length &&
-            (this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
-                CharStringOperator.VStem ||
-                this.rawDrawCalls[this.rawDrawCalls.length - 1].operator ===
-                    CharStringOperator.VStemHM)
+            this.rawDrawCalls.length
+            && (this.rawDrawCalls[this.rawDrawCalls.length - 1].operator
+                === CharStringOperator.VStem
+                || this.rawDrawCalls[this.rawDrawCalls.length - 1].operator
+                    === CharStringOperator.VStemHM)
         ) {
             this.rawDrawCalls[this.rawDrawCalls.length - 1] = {
                 args: this.rawDrawCalls[this.rawDrawCalls.length - 1].args,

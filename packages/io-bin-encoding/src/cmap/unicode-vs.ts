@@ -56,8 +56,8 @@ class DefaultVsWriter {
         if (!this.started) {
             this.start(code);
         } else if (
-            code === this.lastEndUnicodeValue + 1 &&
-            code - this.lastStartUnicodeValue < 0x100
+            code === this.lastEndUnicodeValue + 1
+            && code - this.lastStartUnicodeValue < 0x100
         ) {
             this.lastEndUnicodeValue = code;
         } else {

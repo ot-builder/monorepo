@@ -119,12 +119,12 @@ function FormatEither(at: TyEither, long?: boolean) {
 function FormatArray(at: TyArray, long?: boolean) {
     const memberType = at.array;
     const isSimple =
-        isString(memberType) ||
-        isExport(memberType) ||
-        isGeneric(memberType) ||
-        isTuple(memberType) ||
-        isObject(memberType) ||
-        isArray(memberType);
+        isString(memberType)
+        || isExport(memberType)
+        || isGeneric(memberType)
+        || isTuple(memberType)
+        || isObject(memberType)
+        || isArray(memberType);
     return (
         <>
             {isSimple ? null : <span className="api-doc-delimiter">{"("}</span>}
@@ -270,9 +270,9 @@ function translateUrlImpl(exp: TyExport, orig: TyExport) {
     const pp = getPagePath(exp);
     if (pp) {
         return (
-            `/references/` +
-            toPagePath(getPagePath(exp)) +
-            ("#" + toItemHash(getDisplayPath(orig)))
+            `/references/`
+            + toPagePath(getPagePath(exp))
+            + ("#" + toItemHash(getDisplayPath(orig)))
         );
     }
 

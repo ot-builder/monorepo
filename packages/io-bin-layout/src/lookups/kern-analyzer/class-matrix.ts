@@ -276,8 +276,8 @@ namespace MeasureClassMatrixImpl {
                 if (!cm.secondClassValid(c2)) continue;
                 const cellAdj = cm.get(c1, c2);
                 dataSize +=
-                    GposAdjustment.measure(cellAdj[0], format1) +
-                    GposAdjustment.measure(cellAdj[1], format2);
+                    GposAdjustment.measure(cellAdj[0], format1)
+                    + GposAdjustment.measure(cellAdj[1], format2);
             }
         }
 
@@ -285,11 +285,11 @@ namespace MeasureClassMatrixImpl {
             effFst,
             effSnd,
             size:
-                UInt16.size *
-                    (8 +
-                        effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) + // 1 cov + 1 cls
-                        effSnd.glyphs * MaxClsDefItemWords) + // 1 class def
-                dataSize // Actual Data
+                UInt16.size
+                    * (8
+                        + effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) // 1 cov + 1 cls
+                        + effSnd.glyphs * MaxClsDefItemWords) // 1 class def
+                + dataSize // Actual Data
         };
     }
 }
@@ -334,8 +334,8 @@ namespace BisectClassMatrixImpl {
 
     function isHighlyUneven(upperHalfClassCount: number, lowerHalfClassCount: number) {
         return (
-            upperHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount ||
-            lowerHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
+            upperHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
+            || lowerHalfClassCount * UnevenMultiplier < upperHalfClassCount + lowerHalfClassCount
         );
     }
 

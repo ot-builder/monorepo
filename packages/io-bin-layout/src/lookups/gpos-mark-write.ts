@@ -166,9 +166,9 @@ abstract class MarkWritePlan<G, B> {
         if (this.bases.size > 1) planBase = this.bisectImplByBases();
         if (!planBase) return planMark;
         if (
-            planMark &&
-            planMark[0].measure(ivs) + planMark[1].measure(ivs) <
-                planBase[0].measure(ivs) + planBase[1].measure(ivs)
+            planMark
+            && planMark[0].measure(ivs) + planMark[1].measure(ivs)
+                < planBase[0].measure(ivs) + planBase[1].measure(ivs)
         ) {
             return planMark;
         } else {
@@ -215,8 +215,8 @@ class MarkBaseWritePlan extends MarkWritePlan<OtGlyph, Gpos.BaseRecord> {
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
             size +=
-                UInt16.size * (2 + MaxCovItemWords) + // 1 cov item + 1 mark class id + 1 ptr
-                GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
+                UInt16.size * (2 + MaxCovItemWords) // 1 cov item + 1 mark class id + 1 ptr
+                + GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
         }
         for (const [g, br] of this.bases) {
             size += UInt16.size * (MaxCovItemWords + this.relocation.reward.length); // cov + ptr arr
@@ -259,15 +259,15 @@ class MarkLigatureWritePlan extends MarkWritePlan<OtGlyph, Gpos.LigatureBaseReco
         let size = UInt16.size * 8;
         for (const rec of this.marks) {
             size +=
-                UInt16.size * (2 + MaxCovItemWords) +
-                GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
+                UInt16.size * (2 + MaxCovItemWords)
+                + GposAnchor.hashMeasure(anchorSet, ivs, rec.anchor);
         }
         for (const [g, br] of this.bases) {
             size +=
-                UInt16.size *
-                (2 +
-                    MaxCovItemWords + //1 cov + 1 ptr + 1 component count
-                    br.baseAnchors.length * this.relocation.reward.length);
+                UInt16.size
+                * (2
+                    + MaxCovItemWords //1 cov + 1 ptr + 1 component count
+                    + br.baseAnchors.length * this.relocation.reward.length);
             for (let component = 0; component < br.baseAnchors.length; component++) {
                 for (let clsAnchor = 0; clsAnchor < this.relocation.reward.length; clsAnchor++) {
                     const anchor = getLigatureAnchor(clsAnchor, component, br, this.relocation);

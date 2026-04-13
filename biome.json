@@ -27,7 +27,8 @@
     "javascript": {
         "formatter": {
             "trailingCommas": "none",
-            "arrowParentheses": "asNeeded"
+            "arrowParentheses": "asNeeded",
+            "operatorLinebreak": "before"
         }
     },
     "linter": {

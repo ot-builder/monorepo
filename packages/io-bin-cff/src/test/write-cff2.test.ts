@@ -39,9 +39,9 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     GlyphIdentity.testStore(gs, gs1, GlyphIdentity.CompareMode.RemoveCycle);
 
     console.log(
-        `Test file ${file}\n` +
-            `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+        `Test file ${file}\n`
+            + `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n`
+            + `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
     );
 }
 

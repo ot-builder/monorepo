@@ -22,8 +22,8 @@ export class OutlierTree<G> {
     }
     public measure() {
         let s =
-            UInt16.size *
-            (5 + this.mapping.size * (2 /* ptr + pair value count */ + MaxCovItemWords));
+            UInt16.size
+            * (5 + this.mapping.size * (2 /* ptr + pair value count */ + MaxCovItemWords));
         let format1: number = 0;
         let format2: number = 0;
         for (const m of this.mapping.values()) {
@@ -37,9 +37,9 @@ export class OutlierTree<G> {
         for (const m of this.mapping.values()) {
             for (const entryAdj of m.values()) {
                 s +=
-                    UInt16.size +
-                    GposAdjustment.measure(entryAdj[0], format1) +
-                    GposAdjustment.measure(entryAdj[1], format2);
+                    UInt16.size
+                    + GposAdjustment.measure(entryAdj[0], format1)
+                    + GposAdjustment.measure(entryAdj[1], format2);
             }
         }
         return s;

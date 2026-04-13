@@ -104,10 +104,10 @@ export function testStore<GS extends Data.OrderStore<OtGlyph>>(
 function removeContourCycle(c: OtGlyph.Point[]) {
     if (!c?.length) return;
     if (
-        OtVar.Ops.equal(c[0].x, c[c.length - 1].x, 1 / 64) &&
-        OtVar.Ops.equal(c[0].y, c[c.length - 1].y, 1 / 64) &&
-        c[0].kind === OtGlyph.PointType.Corner &&
-        c[c.length - 1].kind === OtGlyph.PointType.Corner
+        OtVar.Ops.equal(c[0].x, c[c.length - 1].x, 1 / 64)
+        && OtVar.Ops.equal(c[0].y, c[c.length - 1].y, 1 / 64)
+        && c[0].kind === OtGlyph.PointType.Corner
+        && c[c.length - 1].kind === OtGlyph.PointType.Corner
     ) {
         c.pop();
     }

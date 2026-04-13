@@ -107,11 +107,11 @@ function taskToLocaBuf(
 
 function gvarInitialSize(task: GvarTask) {
     let s =
-        8 +
-        task.headerSlice.byteLength +
-        4 * task.glyphData.length +
-        task.sharedTupleSlice.byteLength +
-        task.glyphData[0].buffer.byteLength;
+        8
+        + task.headerSlice.byteLength
+        + 4 * task.glyphData.length
+        + task.sharedTupleSlice.byteLength
+        + task.glyphData[0].buffer.byteLength;
     while (s % 4) s++;
     return s;
 }

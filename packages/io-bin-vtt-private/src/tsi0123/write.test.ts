@@ -38,9 +38,9 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
     eis.setComponentInfo(
         0,
         0,
-        ComponentFlag.ARGS_ARE_XY_VALUES |
-            ComponentFlag.USE_MY_METRICS |
-            ComponentFlag.ROUND_XY_TO_GRID,
+        ComponentFlag.ARGS_ARE_XY_VALUES
+            | ComponentFlag.USE_MY_METRICS
+            | ComponentFlag.ROUND_XY_TO_GRID,
         1,
         1,
         2,
@@ -67,9 +67,9 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
     const tsi01 = new TSI0123.Table();
     tsi01.glyphPrograms.set(
         gOrd.at(0),
-        "OVERLAP[]\rUSEMYMETRICS[]\rOFFSET[R], 1, 1, 2\r" +
-            "OVERLAP[]\rOFFSET[r], 2, 2, 3\r\r" +
-            "Body"
+        "OVERLAP[]\rUSEMYMETRICS[]\rOFFSET[R], 1, 1, 2\r"
+            + "OVERLAP[]\rOFFSET[r], 2, 2, 3\r\r"
+            + "Body"
     );
 
     const frTSI0 = new Frag();
@@ -81,10 +81,10 @@ test("TSI0 TSI1 Pseudo Instruction", () => {
 
     const tsi01AfterLoop = readTSI0123(bvTSI0, bvTSI1, gOrd);
     expect(tsi01AfterLoop.glyphPrograms.get(gOrd.at(0))).toBe(
-        "USEMYMETRICS[]\rOVERLAP[]\rOFFSET[R], 1, 1, 2\r" +
-            "OVERLAP[]\rOFFSET[r], 2, 2, 3\r" +
-            "OVERLAP[]\rSOFFSET[r], 3, 3, 4, 2.0000, 0.0000, 0.0000, 2.0000\r" +
-            "OVERLAP[]\rSANCHOR[r], 4, 254, -435, 2.0000, 0.5000, 0.5000, 2.0000\r\r" +
-            "Body"
+        "USEMYMETRICS[]\rOVERLAP[]\rOFFSET[R], 1, 1, 2\r"
+            + "OVERLAP[]\rOFFSET[r], 2, 2, 3\r"
+            + "OVERLAP[]\rSOFFSET[r], 3, 3, 4, 2.0000, 0.0000, 0.0000, 2.0000\r"
+            + "OVERLAP[]\rSANCHOR[r], 4, 254, -435, 2.0000, 0.5000, 0.5000, 2.0000\r\r"
+            + "Body"
     );
 });

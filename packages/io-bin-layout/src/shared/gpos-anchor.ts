@@ -75,10 +75,10 @@ export const GposAnchor = {
             return staticSize;
         } else {
             return (
-                staticSize +
-                UInt16.size * 8 +
-                (a.xDevice ? a.xDevice.length : 0) +
-                (a.yDevice ? a.yDevice.length : 0)
+                staticSize
+                + UInt16.size * 8
+                + (a.xDevice ? a.xDevice.length : 0)
+                + (a.yDevice ? a.yDevice.length : 0)
             );
         }
     },

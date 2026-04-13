@@ -41,8 +41,8 @@ export class SparseGlyphSharer extends CliProc.GlyphSharer<Ot.ListGlyphStore> {
         const allSharedEntries: SparseSharingEntry[] = [];
         for (const entry of speList) {
             const isSimple =
-                entry.glyphClass & GlyphClass.Simple &&
-                (entry.glyphClass & GlyphClass.KindMask) === GlyphClass.Normal;
+                entry.glyphClass & GlyphClass.Simple
+                && (entry.glyphClass & GlyphClass.KindMask) === GlyphClass.Normal;
             const isSharable = entry.usages === this.fonts.length;
             if (isSimple && isSharable) allSharedEntries.push(entry);
         }

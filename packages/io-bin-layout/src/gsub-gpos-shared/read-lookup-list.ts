@@ -56,9 +56,9 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
     }
     private applyGdefMarkAttachDefIgnores(ignores: Set<OtGlyph>, flags: number, gdef: Gdef.Table) {
         if (
-            gdef.glyphClassDef &&
-            gdef.markAttachClassDef &&
-            flags & LookupFlag.MarkAttachmentType
+            gdef.glyphClassDef
+            && gdef.markAttachClassDef
+            && flags & LookupFlag.MarkAttachmentType
         ) {
             const maCls = (flags & LookupFlag.MarkAttachmentType) >>> 8;
             for (const [g, cls] of gdef.glyphClassDef) {
@@ -75,10 +75,10 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         gdef: Gdef.Table
     ) {
         if (
-            gdef.glyphClassDef &&
-            gdef.markGlyphSets &&
-            flags & LookupFlag.UseMarkFilteringSet &&
-            markFilteringSet != null
+            gdef.glyphClassDef
+            && gdef.markGlyphSets
+            && flags & LookupFlag.UseMarkFilteringSet
+            && markFilteringSet != null
         ) {
             const mgs = gdef.markGlyphSets[markFilteringSet];
             if (!mgs) return;

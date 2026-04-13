@@ -40,9 +40,9 @@ export function decideIgnoreFlags<G, X>(
             Gdef.GlyphClass.Mark,
             { ignoreMarks: true },
             { ignoreMarks: false }
-        ) ||
-        igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef) ||
-        igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
+        )
+        || igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef)
+        || igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
 
     return {
         ...igfBase,

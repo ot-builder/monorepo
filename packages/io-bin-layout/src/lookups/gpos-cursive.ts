@@ -71,9 +71,9 @@ class State {
 
     public tryAddMapping(from: OtGlyph, to: Gpos.CursiveAnchorPair) {
         const deltaSize =
-            UInt16.size * (2 + MaxCovItemWords) + // 1 cov + 2 ptr
-            GposAnchor.measure(to.entry) +
-            GposAnchor.measure(to.exit);
+            UInt16.size * (2 + MaxCovItemWords) // 1 cov + 2 ptr
+            + GposAnchor.measure(to.entry)
+            + GposAnchor.measure(to.exit);
         if (this.size + deltaSize > SubtableSizeLimit) return false;
         this.mapping.set(from, to);
         this.size += deltaSize;

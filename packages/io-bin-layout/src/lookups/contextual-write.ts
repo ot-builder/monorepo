@@ -111,11 +111,11 @@ class ClassDefsAnalyzeState<L> {
 
     public estimateCurrentSize() {
         return (
-            UInt16.size *
-            (8 +
-                MaxClsDefItemWords *
-                    (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size) +
-                this.ruleComplexity)
+            UInt16.size
+            * (8
+                + MaxClsDefItemWords
+                    * (this.cdBacktrack.size + this.cdInput.size + this.cdLookAhead.size)
+                + this.ruleComplexity)
         );
     }
 

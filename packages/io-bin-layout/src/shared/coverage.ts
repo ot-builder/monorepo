@@ -209,8 +209,8 @@ class CoverageRunCollector {
     public update(gid: number, item: number) {
         if (!this.last) this.start(gid, item);
         else if (
-            gid !== this.last.endGlyphID + 1 ||
-            item !== this.last.startCoverageIndex + (gid - this.last.startGlyphID)
+            gid !== this.last.endGlyphID + 1
+            || item !== this.last.startCoverageIndex + (gid - this.last.startGlyphID)
         ) {
             if (gid <= this.last.endGlyphID) throw Errors.Unreachable();
             this.flush();

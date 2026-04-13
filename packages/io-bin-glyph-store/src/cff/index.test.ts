@@ -49,15 +49,15 @@ function cffGsRoundTrip(file: string) {
     GlyphIdentity.testStore(
         glyphs,
         glyphs1,
-        GlyphIdentity.CompareMode.RemoveCycle |
-            GlyphIdentity.CompareMode.CompareMetric |
-            GlyphIdentity.CompareMode.CompareName
+        GlyphIdentity.CompareMode.RemoveCycle
+            | GlyphIdentity.CompareMode.CompareMetric
+            | GlyphIdentity.CompareMode.CompareName
     );
 
     console.log(
-        `Test file ${file}\n` +
-            `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+        `Test file ${file}\n`
+            + `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n`
+            + `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
     );
 }
 
