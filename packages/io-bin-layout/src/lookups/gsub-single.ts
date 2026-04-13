@@ -1,15 +1,15 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Gsub } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriteTrick } from "../cfg";
 import {
-    LookupReader,
-    LookupWriter,
-    SubtableReadingContext,
+    type LookupReader,
+    type LookupWriter,
+    type SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext,
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 
@@ -29,12 +29,12 @@ const SubtableFormat1 = {
         frag: Frag,
         gidDiff: number,
         data: [number, number][],
-        ctx: SubtableWriteContext<Gsub.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>,
     ) {
         frag.uint16(1);
         frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(gidDiff);
-    }
+    },
 };
 
 const SubtableFormat2 = {
@@ -58,7 +58,7 @@ const SubtableFormat2 = {
         frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(data.length);
         frag.array(UInt16, CovUtils.valueListFromAuxMap(data));
-    }
+    },
 };
 
 export class GsubSingleReader implements LookupReader<Gsub.Lookup, Gsub.Single> {
@@ -69,7 +69,7 @@ export class GsubSingleReader implements LookupReader<Gsub.Lookup, Gsub.Single> 
     public parseSubtable(
         view: BinaryView,
         lookup: Gsub.Single,
-        context: SubtableReadingContext<Gsub.Lookup>
+        context: SubtableReadingContext<Gsub.Lookup>,
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -109,10 +109,10 @@ class GsubSingleWriterState {
 }
 
 const MaxJaggedItems = Math.floor(
-    (SubtableSizeLimit - UInt16.size * 16) / ((MaxCovItemWords + 1) * UInt16.size)
+    (SubtableSizeLimit - UInt16.size * 16) / ((MaxCovItemWords + 1) * UInt16.size),
 );
 const MaxUniformItems = Math.floor(
-    (SubtableSizeLimit - UInt16.size * 16) / (MaxCovItemWords * UInt16.size)
+    (SubtableSizeLimit - UInt16.size * 16) / (MaxCovItemWords * UInt16.size),
 );
 
 export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> {
@@ -128,7 +128,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
     private buildJagged(
         frags: Frag[],
         jagged: [number, number][],
-        ctx: SubtableWriteContext<Gsub.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>,
     ) {
         const data = CovUtils.sortAuxMap([...jagged].slice(0, MaxJaggedItems));
         frags.push(Frag.from(SubtableFormat2, data, ctx));
@@ -139,7 +139,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
         frags: Frag[],
         gidDiff: number,
         mappings: [number, number][],
-        ctx: SubtableWriteContext<Gsub.Lookup>
+        ctx: SubtableWriteContext<Gsub.Lookup>,
     ) {
         const data = CovUtils.sortAuxMap([...mappings].slice(0, MaxUniformItems));
         frags.push(Frag.from(SubtableFormat1, gidDiff, data, ctx));
@@ -163,7 +163,7 @@ export class GsubSingleWriter implements LookupWriter<Gsub.Lookup, Gsub.Single> 
 
         // flat
         for (const [gidDiff, mappings] of st.mappings) {
-            if (mappings && mappings.length) {
+            if (mappings?.length) {
                 while (mappings.length) {
                     const len = this.buildUniform(frags, gidDiff, mappings, ctx);
                     mappings.splice(0, len);

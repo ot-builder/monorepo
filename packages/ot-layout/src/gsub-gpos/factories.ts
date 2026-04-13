@@ -1,9 +1,9 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { Tag } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { Tag } from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as GeneralGsubGpos from "./general/shared";
+import type * as GeneralGsubGpos from "./general/shared";
 
 export function CreateTable<L>() {
     return {
@@ -13,9 +13,9 @@ export function CreateTable<L>() {
             lookups: Array<L> = [],
             featureVariations: Data.Maybe<
                 Array<GeneralGsubGpos.FeatureVariationT<OtVar.Dim, OtGlyph, OtVar.Value, L>>
-            > = undefined
+            > = undefined,
         ): GeneralGsubGpos.TableT<OtVar.Dim, OtGlyph, OtVar.Value, L> {
             return { scripts, features, lookups, featureVariations };
-        }
+        },
     };
 }

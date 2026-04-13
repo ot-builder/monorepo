@@ -8,23 +8,23 @@ const Wght = new VarianceDim("wght", 100, 400, 900);
 const Wdth = new VarianceDim("wdth", 25, 100, 200);
 const Bold = new OtVarMaster([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wdth, min: -1, peak: 0, max: 1 },
 ]);
 const Bold1 = new OtVarMaster([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wdth, min: -1, peak: 0, max: 1 },
 ]);
 const Bold2 = new OtVarMaster([
     { dim: Wdth, min: -1, peak: 0, max: 1 },
-    { dim: Wght, min: 0, peak: 1, max: 1 }
+    { dim: Wght, min: 0, peak: 1, max: 1 },
 ]);
 const Wide = new OtVarMaster([
     { dim: Wght, min: -1, peak: 0, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wdth, min: 0, peak: 1, max: 1 },
 ]);
 const Corner = new OtVarMaster([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wdth, min: 0, peak: 1, max: 1 },
 ]);
 
 test("Variance Value test", () => {
@@ -42,7 +42,7 @@ test("Variance Value test", () => {
 
     const vv2 = OtVarValueC.Create(ms, 100, [
         [Bold, 50],
-        [Wide, 70]
+        [Wide, 70],
     ]);
     expect(vv2.getDelta(Wide)).toBe(70);
     expect(vv2.evaluate(Bold.getPeak())).toBe(150);

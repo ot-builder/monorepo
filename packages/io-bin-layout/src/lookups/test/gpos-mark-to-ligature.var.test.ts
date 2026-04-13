@@ -6,9 +6,9 @@ import { GposMarkToLigatureReader } from "../gpos-mark-read";
 import { GposMarkToLigatureWriter } from "../gpos-mark-write";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
-    SetupVariation
+    SetupVariation,
 } from "./-shared-test-util.test";
 
 describe("GPOS mark-to-ligature lookup handler", () => {
@@ -22,7 +22,7 @@ describe("GPOS mark-to-ligature lookup handler", () => {
         reader: () => new GposMarkToLigatureReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToLigature.test(BimapCtx.from(gOrd), a, b);
-        }
+        },
     };
 
     test("2MC, Variable", () => {
@@ -36,10 +36,10 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                 markAnchors: [
                     {
                         x: variation.create([bold, Math.round(gid / 8)]),
-                        y: variation.create([wide, Math.round(-gid / 8)])
+                        y: variation.create([wide, Math.round(-gid / 8)]),
                     },
-                    { x: gid, y: gid }
-                ]
+                    { x: gid, y: gid },
+                ],
             });
         }
         for (let gid = gidMaxMark; gid < gOrd.length; gid++) {
@@ -51,21 +51,21 @@ describe("GPOS mark-to-ligature lookup handler", () => {
                               [
                                   {
                                       x: variation.create(-1, [bold, Math.round(gid / 8)]),
-                                      y: variation.create(-1, [wide, Math.round(-gid / 8)])
+                                      y: variation.create(-1, [wide, Math.round(-gid / 8)]),
                                   },
-                                  null
-                              ]
+                                  null,
+                              ],
                           ]
                         : [
                               [
                                   {
                                       x: variation.create(1, [bold, Math.round(gid / 8)]),
-                                      y: variation.create(1, [wide, Math.round(-gid / 8)])
+                                      y: variation.create(1, [wide, Math.round(-gid / 8)]),
                                   },
-                                  null
+                                  null,
                               ],
-                              [null, { x: -gid, y: -gid }]
-                          ]
+                              [null, { x: -gid, y: -gid }],
+                          ],
             });
         }
         lookup.marks = Disorder.shuffleMap(lookup.marks);

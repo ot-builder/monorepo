@@ -1,11 +1,11 @@
-import { BimapCtx } from "./bimap";
-import { CompareContext } from "./context";
+import type { BimapCtx } from "./bimap";
+import type { CompareContext } from "./context";
 
 export class LookupCtx<A, B> implements CompareContext<LookupCtx<A, B>> {
     private constructor(
         public readonly derived: boolean,
         public readonly glyphs: BimapCtx<A>,
-        public readonly lookups: BimapCtx<B>
+        public readonly lookups: BimapCtx<B>,
     ) {}
     public CreateForward() {
         return new LookupCtx(true, this.glyphs.CreateForward(), this.lookups.CreateForward());

@@ -15,12 +15,12 @@ test("Draw call optimization: HV-VH-curveto", () => {
             new CffDrawCallRaw([0, 2, 2, 2, 2, 0], CharStringOperator.RRCurveTo),
             new CffDrawCallRaw([0, 2, 2, 2, 2, 0], CharStringOperator.RRCurveTo),
             new CffDrawCallRaw([3, 0, 3, 3, 4, 3], CharStringOperator.RRCurveTo),
-            new CffDrawCallRaw([0, 5, 5, 5, 5, 0], CharStringOperator.RRCurveTo)
+            new CffDrawCallRaw([0, 5, 5, 5, 5, 0], CharStringOperator.RRCurveTo),
         ],
         `
         1 1 1 1 2 2 2 2 HVCurveTo
         2 2 2 2 3 3 3 3 4 VHCurveTo
         5 5 5 5 VHCurveTo
-        `
+        `,
     );
 });

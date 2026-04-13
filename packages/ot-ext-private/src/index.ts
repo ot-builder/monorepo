@@ -1,6 +1,6 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as XPrv from "./xprv";
+import type * as XPrv from "./xprv";
 
 export * as XPrv from "./xprv";
 

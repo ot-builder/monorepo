@@ -1,7 +1,7 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
-import { Fvar, MetricHead } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import { MetricBasic, MetricVariance, type OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
+import type { Fvar, MetricHead } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { statLongMetricCount } from "./hmtx";
@@ -17,10 +17,10 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
     public yMaxExtent = 0;
     public yMaxAdvance = 0;
 
-    constructor(
+    public constructor(
         private vhea: MetricHead.Table,
         fvar?: Data.Maybe<Fvar.Table>,
-        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
+        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>,
     ) {
         if (fvar) this.vvar = new MetricVariance.Table(true);
     }
@@ -31,7 +31,7 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
         gid: number,
         horizontal: OtGlyph.Metric,
         vertical: OtGlyph.Metric,
-        extent: OtGlyph.Stat.BoundingBox
+        extent: OtGlyph.Stat.BoundingBox,
     ) {
         const stVOrg = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(vertical.start));
         const advance = OtVar.Ops.minus(vertical.start, vertical.end);
@@ -102,11 +102,11 @@ export class VmtxStat implements OtGlyph.Stat.Sink {
 }
 
 export class VmtxCoStat implements OtGlyph.CoStat.Source {
-    constructor(
+    public constructor(
         private vmtx: MetricBasic.Table,
         private vvar?: Data.Maybe<MetricVariance.Table>,
         private vorg?: Data.Maybe<Vorg.Table>,
-        private outer?: Data.Maybe<OtGlyph.CoStat.Source>
+        private outer?: Data.Maybe<OtGlyph.CoStat.Source>,
     ) {}
 
     public getHMetric(gid: number, extent: Data.Maybe<OtGlyph.Stat.BoundingBox>) {
@@ -125,8 +125,8 @@ export class VmtxCoStat implements OtGlyph.CoStat.Source {
             start,
             OtVar.Ops.add(
                 this.vmtx.measures[gid].advance,
-                this.vvar ? OtVar.Ops.removeOrigin(this.vvar.measures[gid].advance) : 0
-            )
+                this.vvar ? OtVar.Ops.removeOrigin(this.vvar.measures[gid].advance) : 0,
+            ),
         );
         return { start, end };
     }

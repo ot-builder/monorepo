@@ -1,7 +1,7 @@
-import * as Fs from "fs";
+import * as Fs from "node:fs";
 
 import { inferSaveCfg } from "@ot-builder/cli-shared";
-import { CliProc, FontIo, Ot } from "ot-builder";
+import { type CliProc, FontIo, Ot } from "ot-builder";
 
 import { ArgParser, displayHelp, displayVersion } from "./arg-parser";
 import { createTtcSlices } from "./glyph-sharing/create-ttc";
@@ -14,7 +14,7 @@ export async function cliMain(argv: string[]) {
     if (args.displayHelp) return await displayHelp();
     if (args.displayVersion) return await displayVersion();
 
-    if (!args.inputs || !args.inputs.length) {
+    if (!args.inputs.length) {
         throw new Error("Please specify at least one input font. Exit.");
     }
     if (!args.output) {
@@ -70,7 +70,7 @@ async function glyphSharingMerging(args: ArgParser) {
     if (args.sparse) {
         sharing = sharer.sparseSharing(
             sharer.fonts[0].head.unitsPerEm,
-            sharer.fonts[0].head.unitsPerEm
+            sharer.fonts[0].head.unitsPerEm,
         );
     } else {
         sharer.unifyGlyphList();
@@ -85,7 +85,7 @@ async function glyphSharingMerging(args: ArgParser) {
             cfg.ttf = {
                 ...cfg.ttf,
                 gvarForceProduceGVD: args.sparse,
-                gvarForceZeroGapsBetweenGVD: args.sparse
+                gvarForceZeroGapsBetweenGVD: args.sparse,
             };
             resultBuffers.push(FontIo.writeSfntOtf(FontIo.writeFont(font, cfg)));
         }

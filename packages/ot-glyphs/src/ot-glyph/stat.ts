@@ -1,11 +1,11 @@
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as GeneralGlyph from "../general-glyph/index";
+import type * as GeneralGlyph from "../general-glyph/index";
 
 // Bounding box
 export class BoundingBox {
-    constructor(
+    public constructor(
         public xMin: number,
         public xMax: number,
         public yMin: number,
@@ -58,7 +58,14 @@ export function bezierCurveBoundingBox(
     y3: number
 ) {
     const tValues: number[] = [];
-    let a, b, c, t, t1, t2, b2ac, sqrtB2AC;
+    let a: number,
+        b: number,
+        c: number,
+        t: number,
+        t1: number,
+        t2: number,
+        b2ac: number,
+        sqrtB2AC: number;
     for (let extremaIndex = 0; extremaIndex < 2; ++extremaIndex) {
         if (extremaIndex === 0) {
             b = 6 * x0 - 12 * x1 + 6 * x2;
@@ -140,7 +147,7 @@ export interface Sink {
 }
 
 export class Forward implements Sink {
-    constructor(private readonly outer?: Data.Maybe<Sink>) {}
+    public constructor(private readonly outer?: Data.Maybe<Sink>) {}
     public setMetric(
         gid: number,
         horizontal: GeneralGlyph.Metric.T<OtVar.Value>,

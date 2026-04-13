@@ -1,5 +1,5 @@
 import { Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { TestVariance } from "@ot-builder/test-util";
 import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
@@ -10,7 +10,7 @@ import { CffStackMachine } from "./stack-machine";
 
 class MockInterpreter extends CffInterp.Interpreter {
     private st: CffStackMachine;
-    constructor(ivs?: Data.Maybe<ReadTimeIVS>) {
+    public constructor(ivs?: Data.Maybe<ReadTimeIVS>) {
         super();
         this.st = new CffStackMachine(ivs);
     }
@@ -35,15 +35,15 @@ function createVS() {
     const ivs = ReadTimeIVS.Create();
     ivs.knownMasters = [Bold, Wide];
     const boldOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet()),
     );
     boldOnly.masterIDs = [0];
     const wideOnly = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet()),
     );
     wideOnly.masterIDs = [1];
     const boldAndWide = new ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value>(
-        new OtVar.ValueFactory(new OtVar.MasterSet())
+        new OtVar.ValueFactory(new OtVar.MasterSet()),
     );
     boldAndWide.masterIDs = [0, 1];
     ivs.itemVariationData = [boldOnly, wideOnly, boldAndWide];

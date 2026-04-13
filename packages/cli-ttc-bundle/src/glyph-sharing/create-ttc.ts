@@ -1,4 +1,4 @@
-import { FontIo, Ot } from "ot-builder";
+import { FontIo, type Ot } from "ot-builder";
 
 import { sparseShareGlyfData } from "./sparse-glyf-data-processor";
 import { sparseShareGvarData } from "./sparse-gvar-data-processor";

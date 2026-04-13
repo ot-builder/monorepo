@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { AxisRectifier } from "../interface";
+import type { AxisRectifier } from "../interface";
 
 export function rectifyFvarTable(rec: AxisRectifier, fvar: Ot.Fvar.Table) {
     const axes = rectifyAxesImpl(rec, fvar);
@@ -21,7 +21,7 @@ function rectifyAxesImpl(rectify: AxisRectifier, fvar: Ot.Fvar.Table) {
 function rectifyInstances(
     rec: AxisRectifier,
     addedAxes: ReadonlyArray<Ot.Fvar.Axis>,
-    fvar: Ot.Fvar.Table
+    fvar: Ot.Fvar.Table,
 ) {
     const newInstances: Ot.Fvar.Instance[] = [];
     for (const instance of fvar.instances) {
@@ -32,8 +32,8 @@ function rectifyInstances(
                 instance.subfamilyNameID,
                 instance.flags,
                 coordinates1,
-                instance.postScriptNameID
-            )
+                instance.postScriptNameID,
+            ),
         );
     }
     return newInstances;
@@ -42,7 +42,7 @@ function rectifyInstances(
 function rectifyCoordinates(
     coordinates: Ot.Var.Instance,
     rec: AxisRectifier,
-    addedAxes: ReadonlyArray<Ot.Fvar.Axis>
+    addedAxes: ReadonlyArray<Ot.Fvar.Axis>,
 ) {
     if (!coordinates) return coordinates;
 

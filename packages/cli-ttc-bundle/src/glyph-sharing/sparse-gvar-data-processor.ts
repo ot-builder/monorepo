@@ -1,14 +1,14 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
-import { FontIo } from "ot-builder";
+import type { FontIo } from "ot-builder";
 
 import {
     buildDataBlock,
     buildOffsetIndex,
-    DataBlockBuildResults,
-    GlyphData,
-    GlyphSharingMap,
-    pushGlyphs
+    type DataBlockBuildResults,
+    type GlyphData,
+    type GlyphSharingMap,
+    pushGlyphs,
 } from "./sparse-common";
 
 type GvarTask = {
@@ -86,7 +86,7 @@ function taskToLocaBuf(
     task: GvarTask,
     sharing: number[][],
     db: DataBlockBuildResults,
-    deltaOffsetOfRest: number
+    deltaOffsetOfRest: number,
 ) {
     const sh = sharing[task.fontID];
 
@@ -140,7 +140,7 @@ function produceGvarTask(fontID: number, table: FontIo.TableSlice): GvarTask {
     const sharedTupleCount = headerSlice.readUInt16BE(6);
     const sharedTuplesOffset = headerSlice.readUInt32BE(GvarSharedTuplesOffsetOffset);
     const sharedTupleSlice = Buffer.from(
-        table.data.slice(sharedTuplesOffset, sharedTuplesOffset + 2 * axisCount * sharedTupleCount)
+        table.data.slice(sharedTuplesOffset, sharedTuplesOffset + 2 * axisCount * sharedTupleCount),
     );
 
     const glyphCount = headerSlice.readUInt16BE(12);

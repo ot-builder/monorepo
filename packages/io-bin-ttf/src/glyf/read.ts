@@ -1,9 +1,9 @@
 import { Read } from "@ot-builder/bin-util";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 
-import { LocaTable } from "./loca";
+import type { LocaTable } from "./loca";
 import { ComponentFlag, SimpleGlyphFlag } from "./shared";
 
 const PointFlags = Read((view, numberOfCoordinates: number) => {
@@ -91,7 +91,7 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
             coordinatesY[zid] || 0,
             flags[zid] & SimpleGlyphFlag.ON_CURVE_POINT
                 ? OtGlyph.PointType.Corner
-                : OtGlyph.PointType.Quad
+                : OtGlyph.PointType.Quad,
         );
     }
 
@@ -101,15 +101,15 @@ const SimpleGlyph = Read((view, numberOfContours: number) => {
             contours.push(
                 coordinates.slice(
                     m === 0 ? 0 : endPtsOfContours[m - 1] + 1,
-                    endPtsOfContours[m] + 1
-                )
+                    endPtsOfContours[m] + 1,
+                ),
             );
         }
     }
 
     return {
         geometry: new OtGlyph.ContourSet(contours),
-        instructions
+        instructions,
     };
 });
 
@@ -178,7 +178,7 @@ const CompositeGlyph = Read((view, gOrd: Data.Order<OtGlyph>) => {
             yx: scale10,
             yy: scaleY,
             dx: 0,
-            dy: 0
+            dy: 0,
         });
 
         ref.roundXyToGrid = !!(ComponentFlag.ROUND_XY_TO_GRID & flags);
@@ -217,13 +217,13 @@ export const GlyfTableRead = Read(
                 if (numberOfContours >= 0) {
                     const { geometry, instructions } = vGlyph.next(SimpleGlyph, numberOfContours);
                     glyph.geometry = geometry;
-                    if (instructions && instructions.byteLength) {
+                    if (instructions.byteLength) {
                         glyph.hints = new OtGlyph.TtInstruction(instructions);
                     }
                 } else {
                     const r = vGlyph.next(CompositeGlyph, gOrd);
                     glyph.geometry = new OtGlyph.GeometryList(r.references);
-                    if (r.instructions && r.instructions.byteLength) {
+                    if (r.instructions?.byteLength) {
                         glyph.hints = new OtGlyph.TtInstruction(r.instructions);
                     }
                 }
@@ -234,5 +234,5 @@ export const GlyfTableRead = Read(
             const vm = coStat.getVMetric(gid, bound);
             if (vm) glyph.vertical = vm;
         }
-    }
+    },
 );

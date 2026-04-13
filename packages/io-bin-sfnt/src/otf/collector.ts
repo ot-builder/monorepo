@@ -1,7 +1,7 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
 import { alignBufferSize } from "@ot-builder/bin-util";
-import { Tag, UInt32 } from "@ot-builder/primitive";
+import { type Tag, UInt32 } from "@ot-builder/primitive";
 
 export type TableSlice = {
     data: Buffer;

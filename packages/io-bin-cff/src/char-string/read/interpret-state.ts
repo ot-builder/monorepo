@@ -1,8 +1,8 @@
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 import { CffStackMachine } from "../../interp/stack-machine";
 
-import { CffCharStringInterpState } from "./interpreter";
+import type { CffCharStringInterpState } from "./interpreter";
 
 export class CffCharStringInterpStateImpl
     extends CffStackMachine

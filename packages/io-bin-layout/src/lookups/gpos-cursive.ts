@@ -1,15 +1,15 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import {
-    LookupReader,
-    LookupWriter,
-    SubtableReadingContext,
+    type LookupReader,
+    type LookupWriter,
+    type SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext,
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor } from "../shared/gpos-anchor";
@@ -30,7 +30,7 @@ const SubtableFormat1 = {
     write(
         frag: Frag,
         mapping: Map<OtGlyph, Gpos.CursiveAnchorPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const { gidList, values } = CovUtils.splitListFromMap(mapping, ctx.gOrd);
 
@@ -41,7 +41,7 @@ const SubtableFormat1 = {
             frag.push(NullablePtr16GposAnchor, to.entry, ctx.ivs);
             frag.push(NullablePtr16GposAnchor, to.exit, ctx.ivs);
         }
-    }
+    },
 };
 
 export class GposCursiveReader implements LookupReader<Gpos.Lookup, Gpos.Cursive> {
@@ -52,7 +52,7 @@ export class GposCursiveReader implements LookupReader<Gpos.Lookup, Gpos.Cursive
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Cursive,
-        context: SubtableReadingContext<Gpos.Lookup>
+        context: SubtableReadingContext<Gpos.Lookup>,
     ) {
         const format = view.lift(0).uint16();
         switch (format) {

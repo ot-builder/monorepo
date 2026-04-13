@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 type DicingPlan = { cls: number; from: null | number; inSet: boolean };
 
@@ -14,14 +14,14 @@ export interface DicingStore<X, Y, D> {
     update(
         mdfX: Iterable<X>,
         mdfY: Iterable<Y>,
-        fn: (original: Data.Maybe<D>) => Data.Maybe<D>
+        fn: (original: Data.Maybe<D>) => Data.Maybe<D>,
     ): void;
 
     toRep(): DicingStoreRep<X, Y, D>;
 }
 export namespace DicingStore {
     export function create<X, Y, D>(
-        rep?: Data.Maybe<DicingStoreRep<X, Y, D>>
+        rep?: Data.Maybe<DicingStoreRep<X, Y, D>>,
     ): DicingStore<X, Y, D> {
         return DicingStoreImpl.FromRep(rep);
     }
@@ -55,7 +55,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         return {
             xClasses: duplicateArray2(this.coClsDefX),
             yClasses: duplicateArray2(this.coClsDefY),
-            data: duplicateArray2(this.dataMatrix)
+            data: duplicateArray2(this.dataMatrix),
         };
     }
 
@@ -78,7 +78,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
             inSet = [];
             outSet = [];
             const kg = coCd[cl];
-            if (!kg || !kg.length) continue;
+            if (!kg?.length) continue;
             for (const g of kg) {
                 if (mdf.has(g)) {
                     inSet.push(g);
@@ -112,7 +112,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
     public update(
         mdfX: Iterable<X>,
         mdfY: Iterable<Y>,
-        fn: (original: Data.Maybe<D>) => Data.Maybe<D>
+        fn: (original: Data.Maybe<D>) => Data.Maybe<D>,
     ) {
         const mdfXSet = new Set(mdfX);
         const mdfYSet = new Set(mdfY);
@@ -190,7 +190,7 @@ export class DicingStoreImpl<X, Y, D> implements DicingStore<X, Y, D> {
         this.update(x, y, () => v);
     }
     public setIfAbsent(x: Iterable<X>, y: Iterable<Y>, v: D) {
-        this.update(x, y, orig => (orig == null ? v : orig));
+        this.update(x, y, (orig) => (orig == null ? v : orig));
     }
 }
 

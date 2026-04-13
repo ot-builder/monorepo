@@ -1,4 +1,4 @@
-import { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
+import type { TtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
 
 export type ComponentInfo = {
     flags: number;
@@ -28,7 +28,7 @@ export class VttExtraInfoSinkImpl implements VttExtraInfoSource, TtfWritingExtra
         argXScale: number,
         argScale01: number,
         argScale10: number,
-        argYScale: number
+        argYScale: number,
     ) {
         if (!this.m_componentInfos[gid]) this.m_componentInfos[gid] = [];
         this.m_componentInfos[gid][componentID] = {
@@ -39,7 +39,7 @@ export class VttExtraInfoSinkImpl implements VttExtraInfoSource, TtfWritingExtra
             argXScale,
             argScale01,
             argScale10,
-            argYScale
+            argYScale,
         };
     }
 }

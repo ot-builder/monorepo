@@ -1,5 +1,5 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 export type AttachPointsT<G> = Array<OtGlyph.PointIDRef>;
 export type AttachPointListT<G> = Map<G, AttachPointsT<G>>;

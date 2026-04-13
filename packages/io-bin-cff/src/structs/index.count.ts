@@ -10,5 +10,5 @@ export const CffIndexCount = {
         } else {
             frag.uint32(count);
         }
-    })
+    }),
 };

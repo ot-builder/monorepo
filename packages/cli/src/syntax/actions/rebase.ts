@@ -1,16 +1,16 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const RebaseSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (!st.isOption("--rebase")) return ParseResult(st, null);
         st = st.next();
 
         const arg = st.expectArgument();
-        return ParseResult(st.next(), async state => {
+        return ParseResult(st.next(), async (state) => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to rebase.");
             const newUpm = parseFloat(arg) || entry.font.head.unitsPerEm;
@@ -22,5 +22,5 @@ export const RebaseSyntax: Syntax<null | CliAction> = {
     displayHelp(shower: CliHelpShower) {
         shower.message(Style.Option`--rebase`, Style.Param`upm`);
         shower.indent("").message("Change the unit-per-em value of the font at the stack top.");
-    }
+    },
 };

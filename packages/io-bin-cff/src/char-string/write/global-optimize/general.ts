@@ -1,5 +1,5 @@
-import { CffWriteContext } from "../../../context/write";
-import { Mir } from "../mir";
+import type { CffWriteContext } from "../../../context/write";
+import type { Mir } from "../mir";
 
 export interface CharStringGlobalOptimizeResult {
     globalSubroutines: Buffer[];

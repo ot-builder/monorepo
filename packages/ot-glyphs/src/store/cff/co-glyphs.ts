@@ -1,8 +1,8 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { OtGlyph } from "../../ot-glyph";
+import type { OtGlyph } from "../../ot-glyph";
 
-import * as Cff from "./table";
+import type * as Cff from "./table";
 
 export interface CffCoGlyphs {
     cff: Cff.Table;

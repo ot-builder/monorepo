@@ -1,7 +1,7 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gsub } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gsub } from "@ot-builder/ot-layout";
 
-import { BimapCtx, StdCompare } from "../../compar-util";
+import { type BimapCtx, StdCompare } from "../../compar-util";
 import * as FastMatch from "../../fast-match";
 
 // We treat two GSUB ligature lookup being identical, if for any initial glyph, the mapping
@@ -20,12 +20,12 @@ function testSingle(bmg: BimapCtx<OtGlyph>, expected: Gsub.Ligature, actual: Gsu
         const expectedMappings = collectMappings(
             initial,
             processedExpectedMappingIndices,
-            expected.mapping
+            expected.mapping,
         );
         const actualMappings = collectMappings(
             bmg.forward(initial),
             processedActualMappingIndices,
-            actual.mapping
+            actual.mapping,
         );
 
         compareMappingLists(bmg, expectedMappings, actualMappings);
@@ -35,7 +35,7 @@ function testSingle(bmg: BimapCtx<OtGlyph>, expected: Gsub.Ligature, actual: Gsu
 function compareMappingLists(
     bmg: BimapCtx<OtGlyph>,
     expectedMappings: ReadonlyArray<Gsub.LigatureEntry>,
-    actualMappings: ReadonlyArray<Gsub.LigatureEntry>
+    actualMappings: ReadonlyArray<Gsub.LigatureEntry>,
 ) {
     FastMatch.truly(expectedMappings.length > 0);
     FastMatch.exactly(expectedMappings.length, actualMappings.length);
@@ -53,7 +53,7 @@ function compareMappingLists(
 function collectMappings(
     expectedInitial: OtGlyph,
     processed: Set<number>,
-    mappings: ReadonlyArray<Gsub.LigatureEntry>
+    mappings: ReadonlyArray<Gsub.LigatureEntry>,
 ) {
     const results: Gsub.LigatureEntry[] = [];
     for (let rid = 0; rid < mappings.length; rid++) {

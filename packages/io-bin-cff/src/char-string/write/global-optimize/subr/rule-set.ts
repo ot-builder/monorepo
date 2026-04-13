@@ -1,12 +1,12 @@
 import { Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 
-import { CffLimits } from "../../../../context/write";
+import type { CffLimits } from "../../../../context/write";
 import * as CffInterp from "../../../../interp/ir";
 import { CharStringOperator } from "../../../../interp/operator";
 import { computeSubroutineBias } from "../../../read/interpreter";
 import { CharStringEncoder } from "../../encoder";
-import { Mir, MirNonTerminal, MirType } from "../../mir";
+import { type Mir, type MirNonTerminal, MirType } from "../../mir";
 
 const callSizeCache: number[] = [];
 function estimateCallSize(scEst: number) {
@@ -17,14 +17,14 @@ function estimateCallSize(scEst: number) {
         Math.max(
             CharStringEncoder.measureInt(-bias),
             CharStringEncoder.measureInt(0),
-            CharStringEncoder.measureInt(scEst - bias)
+            CharStringEncoder.measureInt(scEst - bias),
         );
     callSizeCache[scEst] = size;
     return size;
 }
 
 export class Rule {
-    constructor(public parts: Mir[]) {}
+    public constructor(public parts: Mir[]) {}
 
     // Stat flags and properties
     public stated = false;
@@ -53,9 +53,9 @@ export class Rule {
     }
 }
 export class NTRuleStub {
-    constructor(
+    public constructor(
         public symbol: MirNonTerminal,
-        public parts: Mir[]
+        public parts: Mir[],
     ) {}
 }
 
@@ -107,7 +107,7 @@ export class RuleSet {
                     } else {
                         innerRule.nonTerminalRefCount.set(
                             rid,
-                            1 + (innerRule.nonTerminalRefCount.get(rid) || 0)
+                            1 + (innerRule.nonTerminalRefCount.get(rid) || 0),
                         );
                     }
                 }
@@ -234,7 +234,7 @@ export class RuleSet {
     private *compileRule(
         rule: Rule,
         scEst: number,
-        end: CharStringOperator | null
+        end: CharStringOperator | null,
     ): IterableIterator<CffInterp.IR> {
         const bias = computeSubroutineBias(scEst);
         for (const ir of rule.parts) {
@@ -283,8 +283,8 @@ export class RuleSet {
                 this.encodeRule(
                     rule,
                     scEst,
-                    limits.endCharSize ? CharStringOperator.EndChar : null
-                )
+                    limits.endCharSize ? CharStringOperator.EndChar : null,
+                ),
             );
         }
         for (const rule of this.nonTerminalRules) {
@@ -292,7 +292,7 @@ export class RuleSet {
             subroutines[rule.subrId] = this.encodeRule(
                 rule,
                 scEst,
-                limits.retSize ? CharStringOperator.Return : null
+                limits.retSize ? CharStringOperator.Return : null,
             );
         }
 

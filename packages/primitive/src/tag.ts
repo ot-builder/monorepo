@@ -1,4 +1,4 @@
-import { Read, Sized, Write } from "@ot-builder/bin-util";
+import type { Read, Sized, Write } from "@ot-builder/bin-util";
 
 export type Tag = string;
 export const Tag: Read<Tag, []> & Write<Tag, []> & Sized = {
@@ -20,5 +20,5 @@ export const Tag: Read<Tag, []> & Write<Tag, []> & Sized = {
         frag.uint8(tag.codePointAt(1) || 0x20);
         frag.uint8(tag.codePointAt(2) || 0x20);
         frag.uint8(tag.codePointAt(3) || 0x20);
-    }
+    },
 };

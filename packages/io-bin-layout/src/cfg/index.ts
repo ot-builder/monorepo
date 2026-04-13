@@ -1,4 +1,4 @@
-import { GsubGpos } from "@ot-builder/ot-layout";
+import type { GsubGpos } from "@ot-builder/ot-layout";
 
 export interface LayoutCfgProps {
     gdefWriteTrick?: number;
@@ -23,5 +23,5 @@ export enum LookupWriteTrick {
     AvoidUsingContextualLookup = 0x0010,
 
     ContextualForceFormat3 = 0x10000,
-    ContextualForceFormat2 = 0x20000
+    ContextualForceFormat2 = 0x20000,
 }

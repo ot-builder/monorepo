@@ -5,7 +5,7 @@ import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
 import { GposMarkToMarkReader } from "../gpos-mark-read";
 import { GposMarkToMarkWriter } from "../gpos-mark-write";
 
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
+import { type LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GPOS mark-to-base lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0x100);
@@ -18,7 +18,7 @@ describe("GPOS mark-to-base lookup handler", () => {
         reader: () => new GposMarkToMarkReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposMarkToMark.test(BimapCtx.from(gOrd), a, b);
-        }
+        },
     };
 
     test("Mark class without bases", () => {

@@ -58,7 +58,7 @@ export class start {
     public kind: ASTKinds.start = ASTKinds.start;
     public rgs: Ranges;
     public ranges: RangeDecl[];
-    constructor(rgs: Ranges) {
+    public constructor(rgs: Ranges) {
         this.rgs = rgs;
         this.ranges = ((): RangeDecl[] => {
             return this.rgs.ranges;
@@ -71,7 +71,7 @@ export class Ranges_1 {
     public car: Range;
     public cdr: Ranges;
     public ranges: RangeDecl[];
-    constructor(car: Range, cdr: Ranges) {
+    public constructor(car: Range, cdr: Ranges) {
         this.car = car;
         this.cdr = cdr;
         this.ranges = ((): RangeDecl[] => {
@@ -83,7 +83,7 @@ export class Ranges_2 {
     public kind: ASTKinds.Ranges_2 = ASTKinds.Ranges_2;
     public range: Range;
     public ranges: RangeDecl[];
-    constructor(range: Range) {
+    public constructor(range: Range) {
         this.range = range;
         this.ranges = ((): RangeDecl[] => {
             return [this.range.codeRange];
@@ -97,7 +97,7 @@ export class Range_1 {
     public start: CodePoint;
     public end: CodePoint;
     public codeRange: RangeDecl;
-    constructor(exclude: Nullable<string>, start: CodePoint, end: CodePoint) {
+    public constructor(exclude: Nullable<string>, start: CodePoint, end: CodePoint) {
         this.exclude = exclude;
         this.start = start;
         this.end = end;
@@ -115,7 +115,7 @@ export class Range_2 {
     public exclude: Nullable<string>;
     public at: CodePoint;
     public codeRange: RangeDecl;
-    constructor(exclude: Nullable<string>, at: CodePoint) {
+    public constructor(exclude: Nullable<string>, at: CodePoint) {
         this.exclude = exclude;
         this.at = at;
         this.codeRange = ((): RangeDecl => {
@@ -127,7 +127,7 @@ export class CodePoint {
     public kind: ASTKinds.CodePoint = ASTKinds.CodePoint;
     public literal: string;
     public value: number;
-    constructor(literal: string) {
+    public constructor(literal: string) {
         this.literal = literal;
         this.value = ((): number => {
             return parseInt(this.literal, 16);
@@ -153,7 +153,7 @@ export class Parser {
     private pos: PosInfo;
     private negating: boolean = false;
     private memoSafe: boolean = true;
-    constructor(input: string) {
+    public constructor(input: string) {
         this.pos = { overallPos: 0, line: 1, offset: 0 };
         this.input = input;
     }
@@ -523,7 +523,7 @@ export type MatchAttempt = RegexMatch | EOFMatch;
 export class SyntaxErr {
     public pos: PosInfo;
     public expmatches: MatchAttempt[];
-    constructor(pos: PosInfo, expmatches: MatchAttempt[]) {
+    public constructor(pos: PosInfo, expmatches: MatchAttempt[]) {
         this.pos = pos;
         this.expmatches = [...expmatches];
     }

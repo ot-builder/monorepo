@@ -1,8 +1,8 @@
-export { TvdAccess } from "./shared/iup";
 export { TupleVariationGeometryClient, TupleVariationRead, TupleVariationSource } from "./read";
-export { TupleAllocator } from "./write/tuple-allocator";
+export { TvdAccess } from "./shared/iup";
 export {
     TupleVariationBuildContext,
     TupleVariationBuildSource,
-    TupleVariationWriteOpt
+    TupleVariationWriteOpt,
 } from "./write";
+export { TupleAllocator } from "./write/tuple-allocator";

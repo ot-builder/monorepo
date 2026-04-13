@@ -1,9 +1,9 @@
-import { CffLimits, CffWriteContext } from "../../../context/write";
-import { Mir } from "../mir";
+import type { CffLimits, CffWriteContext } from "../../../context/write";
+import type { Mir } from "../mir";
 
-import { CharStringGlobalOptimizer, CharStringGlobalOptimizerFactory } from "./general";
+import type { CharStringGlobalOptimizer, CharStringGlobalOptimizerFactory } from "./general";
 import { Pairing } from "./pair/analyzer";
-import { SubroutineAnalyzer } from "./subr/general";
+import type { SubroutineAnalyzer } from "./subr/general";
 import { RuleSet } from "./subr/rule-set";
 
 class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
@@ -12,7 +12,7 @@ class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
 
     private analyzer: SubroutineAnalyzer;
 
-    constructor(ctx: CffWriteContext, fdCount: number) {
+    public constructor(ctx: CffWriteContext, fdCount: number) {
         for (let fdId = 0; fdId < fdCount; fdId++) {
             this.localSubroutines[fdId] = [];
         }
@@ -33,7 +33,7 @@ class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
         return {
             charStrings: charStrings,
             localSubroutines: this.localSubroutines,
-            globalSubroutines: globalSubroutines
+            globalSubroutines: globalSubroutines,
         };
     }
 }
@@ -41,5 +41,5 @@ class CharStringGlobalOptSubr implements CharStringGlobalOptimizer {
 export const CharStringGlobalOptSubrFactory: CharStringGlobalOptimizerFactory = {
     createOptimizer(ctx, fdCount) {
         return new CharStringGlobalOptSubr(ctx, fdCount);
-    }
+    },
 };

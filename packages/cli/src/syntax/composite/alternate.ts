@@ -1,10 +1,10 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 
-import { ParseState, ParseResult } from "../../argv-parser";
-import { Syntax, Grammar } from "../../command";
+import { ParseResult, type ParseState } from "../../argv-parser";
+import type { Grammar, Syntax } from "../../command";
 
 export class AlternateSyntax<T> implements Syntax<null | T> {
-    constructor(private readonly alternatives: Syntax<null | T>[]) {}
+    public constructor(private readonly alternatives: Syntax<null | T>[]) {}
     public handle(st: ParseState, grammar: Grammar) {
         for (const alternative of this.alternatives) {
             const result = alternative.handle(st, grammar);

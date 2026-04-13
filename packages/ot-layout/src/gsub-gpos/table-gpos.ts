@@ -1,14 +1,14 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { CaseCreator, CaseType, Data, FallbackPropCreator } from "@ot-builder/prelude";
-import * as Primitive from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { CaseCreator, type CaseType, type Data, FallbackPropCreator } from "@ot-builder/prelude";
+import type * as Primitive from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 import { DicingStore } from "../dicing-store";
 
-import * as GeneralLookup from "./general/lookup";
+import type * as GeneralLookup from "./general/lookup";
 import { Gpos as LookupType } from "./general/lookup-type";
-import * as GsubGpos from "./table-shared";
+import type * as GsubGpos from "./table-shared";
 
 export * as FeatureParams from "./feature-params";
 export { Gpos as LookupType } from "./general/lookup-type";
@@ -17,11 +17,11 @@ export { Gpos as LookupType } from "./general/lookup-type";
 export const Tag = "GPOS";
 
 export class Table implements GsubGpos.TableT<Lookup> {
-    constructor(
+    public constructor(
         public scripts: Map<Primitive.Tag, Script> = new Map(),
         public features: Feature[] = [],
         public lookups: Lookup[] = [],
-        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined
+        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined,
     ) {}
 }
 export type Feature = GsubGpos.FeatureT<Lookup>;
@@ -35,49 +35,49 @@ export type SingleProp = GeneralLookup.GposSinglePropT<OtGlyph, OtVar.Value>;
 export type Single = CaseType<typeof LookupType.Single, SingleProp>;
 export const Single = CaseCreator(
     LookupType.Single,
-    FallbackPropCreator<SingleProp>(() => ({ adjustments: new Map() }))
+    FallbackPropCreator<SingleProp>(() => ({ adjustments: new Map() })),
 );
 
 export type PairProp = GeneralLookup.GposPairPropT<OtGlyph, OtVar.Value>;
 export type Pair = CaseType<typeof LookupType.Pair, PairProp>;
 export const Pair = CaseCreator(
     LookupType.Pair,
-    FallbackPropCreator<PairProp>(() => ({ adjustments: DicingStore.create() }))
+    FallbackPropCreator<PairProp>(() => ({ adjustments: DicingStore.create() })),
 );
 
 export type CursiveProp = GeneralLookup.GposCursivePropT<OtGlyph, OtVar.Value>;
 export type Cursive = CaseType<typeof LookupType.Cursive, CursiveProp>;
 export const Cursive = CaseCreator(
     LookupType.Cursive,
-    FallbackPropCreator<CursiveProp>(() => ({ attachments: new Map() }))
+    FallbackPropCreator<CursiveProp>(() => ({ attachments: new Map() })),
 );
 
 export type MarkToBaseProp = GeneralLookup.GposMarkToBasePropT<OtGlyph, OtVar.Value>;
 export type MarkToBase = CaseType<typeof LookupType.MarkToBase, MarkToBaseProp>;
 export const MarkToBase = CaseCreator(
     LookupType.MarkToBase,
-    FallbackPropCreator<MarkToBaseProp>(() => ({ marks: new Map(), bases: new Map() }))
+    FallbackPropCreator<MarkToBaseProp>(() => ({ marks: new Map(), bases: new Map() })),
 );
 
 export type MarkToLigatureProp = GeneralLookup.GposMarkToLigaturePropT<OtGlyph, OtVar.Value>;
 export type MarkToLigature = CaseType<typeof LookupType.MarkToLigature, MarkToLigatureProp>;
 export const MarkToLigature = CaseCreator(
     LookupType.MarkToLigature,
-    FallbackPropCreator<MarkToLigatureProp>(() => ({ marks: new Map(), bases: new Map() }))
+    FallbackPropCreator<MarkToLigatureProp>(() => ({ marks: new Map(), bases: new Map() })),
 );
 
 export type MarkToMarkProp = GeneralLookup.GposMarkToMarkPropT<OtGlyph, OtVar.Value>;
 export type MarkToMark = CaseType<typeof LookupType.MarkToMark, MarkToMarkProp>;
 export const MarkToMark = CaseCreator(
     LookupType.MarkToMark,
-    FallbackPropCreator<MarkToMarkProp>(() => ({ marks: new Map(), baseMarks: new Map() }))
+    FallbackPropCreator<MarkToMarkProp>(() => ({ marks: new Map(), baseMarks: new Map() })),
 );
 
 export type ChainingProp = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, Lookup>;
 export type Chaining = CaseType<typeof LookupType.Chaining, ChainingProp>;
 export const Chaining = CaseCreator(
     LookupType.Chaining,
-    FallbackPropCreator<ChainingProp>(() => ({ rules: [] }))
+    FallbackPropCreator<ChainingProp>(() => ({ rules: [] })),
 );
 
 export type Lookup = Single | Pair | Cursive | MarkToBase | MarkToMark | MarkToLigature | Chaining;

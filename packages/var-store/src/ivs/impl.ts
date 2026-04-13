@@ -1,15 +1,15 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { F2D14, Int16, Int32, Int8, UInt16 } from "@ot-builder/primitive";
+import { F2D14, Int8, Int16, Int32, UInt16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import {
     CReadTimeIVS,
-    DelayDeltaValue,
+    type DelayDeltaValue,
     GeneralWriteTimeIVStore,
     ReadTimeIVD,
-    WriteTimeIVD
+    type WriteTimeIVD,
 } from "./general";
 
 const RegionList = {
@@ -19,7 +19,7 @@ const RegionList = {
             "IVS::VariationRegionList::axisCount",
             axisCount,
             "fvar::axisCount",
-            designSpace.length
+            designSpace.length,
         );
         const regionCount = vw.uint16();
 
@@ -48,7 +48,7 @@ const RegionList = {
                 fr.array(F2D14, mDim ? [mDim.min, mDim.peak, mDim.max] : [-1, 0, 1]);
             }
         }
-    })
+    }),
 };
 
 function createIVD() {
@@ -59,7 +59,7 @@ function createIVS() {
 }
 
 const IVD = {
-    ...Read(vw => {
+    ...Read((vw) => {
         const ivd = createIVD();
         const itemCount = vw.uint16();
         const fLong_wordDeltaCount = vw.uint16();
@@ -114,7 +114,7 @@ const IVD = {
             if (dim < wordDeltaCount) fr.push(Longer, delta);
             else fr.push(Shorter, delta);
         }
-    })
+    }),
 };
 
 export type ReadTimeIVS = CReadTimeIVS<OtVar.Dim, OtVar.Master, OtVar.Value>;
@@ -140,7 +140,7 @@ export const ReadTimeIVS = {
         }
 
         return ivs;
-    })
+    }),
 };
 
 export type WriteTimeDelayValue = DelayDeltaValue<OtVar.Dim, OtVar.Master, OtVar.Value>;
@@ -165,5 +165,5 @@ export const WriteTimeIVS = {
         }
 
         frag.bytes(Frag.pack(fr));
-    })
+    }),
 };

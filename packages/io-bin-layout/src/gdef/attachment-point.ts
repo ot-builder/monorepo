@@ -1,12 +1,12 @@
 import { Read, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gdef } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { LayoutCfg } from "../cfg";
+import type { LayoutCfg } from "../cfg";
 import { CovUtils, GidCoverage } from "../shared/coverage";
 
 export const GdefAttachmentPointList = {
@@ -21,7 +21,7 @@ export const GdefAttachmentPointList = {
             const pointIndices = pAttachPoint.array(pointCount, UInt16);
             atp.set(
                 gOrd.at(gid),
-                pointIndices.map(z => ({ pointIndex: z }))
+                pointIndices.map((z) => ({ pointIndex: z })),
             );
         }
         return atp;
@@ -36,5 +36,5 @@ export const GdefAttachmentPointList = {
             frAttPoint.uint16(pl.length);
             for (const z of pl) frAttPoint.uint16(z.pointIndex);
         }
-    })
+    }),
 };

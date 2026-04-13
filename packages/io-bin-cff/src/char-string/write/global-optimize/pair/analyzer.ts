@@ -1,13 +1,13 @@
 import { Errors } from "@ot-builder/errors";
 
-import { CffLimits } from "../../../../context/write";
+import type { CffLimits } from "../../../../context/write";
 import { CharStringOperator } from "../../../../interp/operator";
-import { Mir, MirNonTerminal, MirType } from "../../mir";
-import { SubroutineAnalyzer, SubroutineAnalyzerFactory } from "../subr/general";
-import { NTRuleStub, Rule, RuleSet } from "../subr/rule-set";
+import { Mir, type MirNonTerminal, MirType } from "../../mir";
+import type { SubroutineAnalyzer, SubroutineAnalyzerFactory } from "../subr/general";
+import { NTRuleStub, Rule, type RuleSet } from "../subr/rule-set";
 
 import { MirKeyProvider } from "./ir-key-provider";
-import { Input, NonTerminalBuilder, RuleBuilder, Session } from "./pairing";
+import { Input, type NonTerminalBuilder, type RuleBuilder, Session } from "./pairing";
 
 function buildInput(limits: CffLimits, session: Session<Mir>, source: Iterable<Mir>) {
     const input = new Input<Mir>(Mir.nop());
@@ -44,7 +44,7 @@ export class PairingAnalyzer
             type: MirType.NonTerminal,
             id: this.nNonTerminal++,
             stackRise: a.stackRise + b.stackRise,
-            stackRidge: Math.max(1, a.stackRidge, a.stackRise + b.stackRidge)
+            stackRidge: Math.max(1, a.stackRidge, a.stackRise + b.stackRidge),
         };
     }
 
@@ -68,5 +68,5 @@ export class PairingAnalyzer
 }
 
 export const Pairing: SubroutineAnalyzerFactory = {
-    create: () => new PairingAnalyzer()
+    create: () => new PairingAnalyzer(),
 };

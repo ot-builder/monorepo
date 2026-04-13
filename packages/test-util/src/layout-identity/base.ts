@@ -1,6 +1,6 @@
-import { Base } from "@ot-builder/ot-layout";
+import type { Base } from "@ot-builder/ot-layout";
 
-import { Compare, EmptyCtx, StdCompare } from "../compar-util";
+import { Compare, type EmptyCtx, StdCompare } from "../compar-util";
 import * as FastMatch from "../fast-match";
 
 export const test = StdCompare((bim: EmptyCtx, a: Base.Table, b: Base.Table) => {
@@ -17,7 +17,7 @@ const testBaseScript = StdCompare((bim: EmptyCtx, a: Base.Script, b: Base.Script
     testBaseValues(bim, a.baseValues, b.baseValues);
     testMinMaxTable(bim, a.defaultMinMax, b.defaultMinMax);
     Compare.optional(bim, a.baseLangSysRecords, b.baseLangSysRecords, (bim, a, b) =>
-        Compare.map(bim, a, b, testMinMaxTable)
+        Compare.map(bim, a, b, testMinMaxTable),
     );
 });
 

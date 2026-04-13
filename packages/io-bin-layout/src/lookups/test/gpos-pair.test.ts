@@ -1,15 +1,15 @@
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import { type OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 import { BimapCtx, LookupIdentity } from "@ot-builder/test-util";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 import { GposPairReader } from "../gpos-pair-read";
 import { GposPairWriter } from "../gpos-pair-write";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
-    SetupVariation
+    SetupVariation,
 } from "./-shared-test-util.test";
 
 describe("GPOS pair lookup handler", () => {
@@ -23,7 +23,7 @@ describe("GPOS pair lookup handler", () => {
         reader: () => new GposPairReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposPair.test(BimapCtx.from(gOrd), a, b);
-        }
+        },
     };
 
     function kern(amount: OtVar.Value): Gpos.AdjustmentPair {
@@ -87,7 +87,7 @@ describe("GPOS pair lookup handler", () => {
             lookup.adjustments.set(
                 new Set([gOrd.at(0x4 * gid)]),
                 new Set([gOrd.at(0x4 * gid)]),
-                kern(gid)
+                kern(gid),
             );
         }
 
@@ -116,7 +116,7 @@ describe("GPOS pair lookup handler", () => {
             lookup.adjustments.set(
                 new Set([gOrd.at(0x4 * gid)]),
                 new Set([gOrd.at(0x4 * gid)]),
-                kern(variation.create([bold, Math.round(gid / 8)], [wide, Math.round(-gid / 8)]))
+                kern(variation.create([bold, Math.round(gid / 8)], [wide, Math.round(-gid / 8)])),
             );
         }
 

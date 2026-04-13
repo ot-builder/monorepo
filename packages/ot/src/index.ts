@@ -1,20 +1,31 @@
-export * from "./font";
+export { Cmap, OtEncoding as Encoding } from "@ot-builder/ot-encoding";
+export { XPrv } from "@ot-builder/ot-ext-private";
+export {
+    Cff,
+    Cvt,
+    Fpgm,
+    OtGeometryUtil as GeometryUtil,
+    OtGlyph as Glyph,
+    OtGlyphNamer as GlyphNamer,
+    OtGlyphNamingSource as GlyphNamingSource,
+    Prep,
+} from "@ot-builder/ot-glyphs";
+export {
+    Base,
+    DicingStore,
+    DicingStoreRep,
+    Gdef,
+    Gpos,
+    Gsub,
+    GsubGpos,
+    Math,
+} from "@ot-builder/ot-layout";
+export { Avar, Fvar, Gasp, Head, Maxp, MetricHead, Os2, Post } from "@ot-builder/ot-metadata";
+export { Meta, Name, Stat } from "@ot-builder/ot-name";
 export { Sfnt } from "@ot-builder/ot-sfnt";
-
+export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
+export { TSI5, TSI0123, TSIC } from "@ot-builder/ot-vtt-private";
 export { OtVar as Var } from "@ot-builder/variance";
 
-export { Head, Maxp, Os2, MetricHead, Fvar, Post, Avar, Gasp } from "@ot-builder/ot-metadata";
-
-export { OtGlyph as Glyph, Cff, Cvt, Fpgm, Prep } from "@ot-builder/ot-glyphs";
-export { OtGlyphNamingSource as GlyphNamingSource } from "@ot-builder/ot-glyphs";
-export { OtGlyphNamer as GlyphNamer } from "@ot-builder/ot-glyphs";
-export { OtGeometryUtil as GeometryUtil } from "@ot-builder/ot-glyphs";
-export { OtStandardGlyphNamer as StandardGlyphNamer } from "@ot-builder/ot-standard-glyph-namer";
+export * from "./font";
 export * from "./glyph-store-aliases";
-
-export { Cmap, OtEncoding as Encoding } from "@ot-builder/ot-encoding";
-export { Name, Stat, Meta } from "@ot-builder/ot-name";
-export { DicingStore, DicingStoreRep } from "@ot-builder/ot-layout";
-export { Gdef, Gsub, Gpos, GsubGpos, Base, Math } from "@ot-builder/ot-layout";
-export { XPrv } from "@ot-builder/ot-ext-private";
-export { TSI0123, TSI5, TSIC } from "@ot-builder/ot-vtt-private";

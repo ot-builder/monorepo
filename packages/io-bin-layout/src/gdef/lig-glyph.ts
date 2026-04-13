@@ -1,7 +1,7 @@
 import { Read, Write } from "@ot-builder/bin-util";
-import { Gdef } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { Gdef } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
 import { CaretValue } from "./lig-caret-value";
 
@@ -11,7 +11,7 @@ export const LigGlyph = {
         const carets = view.array(
             caretCount,
             { ...Read((view, ivs?: Data.Maybe<ReadTimeIVS>) => view.ptr16().next(CaretValue)) },
-            ivs
+            ivs,
         );
         return carets;
     }),
@@ -20,5 +20,5 @@ export const LigGlyph = {
         for (const caret of carets) {
             frag.ptr16New().push(CaretValue, caret, ivs);
         }
-    })
+    }),
 };

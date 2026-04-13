@@ -1,8 +1,8 @@
-import { NullablePtr16, NonNullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Math as OtMath } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { MathValueRecord } from "../shared/math-value-record";
@@ -16,7 +16,7 @@ const MathGlyphVariantRecord = {
     write(fr: Frag, gvr: OtMath.GlyphVariantRecord, gOrd: Data.Order<OtGlyph>) {
         fr.uint16(gOrd.reverse(gvr.variantGlyph));
         fr.uint16(OtVar.Ops.originOf(gvr.advanceMeasurement));
-    }
+    },
 };
 const MathGlyphPartRecord = {
     read(bv: BinaryView, gOrd: Data.Order<OtGlyph>) {
@@ -30,7 +30,7 @@ const MathGlyphPartRecord = {
             startConnectorLength,
             endConnectorLength,
             fullAdvance,
-            partFlags
+            partFlags,
         );
     },
     write(fr: Frag, gp: OtMath.GlyphPart, gOrd: Data.Order<OtGlyph>) {
@@ -39,7 +39,7 @@ const MathGlyphPartRecord = {
         fr.uint16(OtVar.Ops.originOf(gp.endConnectorLength));
         fr.uint16(OtVar.Ops.originOf(gp.fullAdvance));
         fr.uint16(gp.flags);
-    }
+    },
 };
 
 const MathGlyphAssembly = {
@@ -53,7 +53,7 @@ const MathGlyphAssembly = {
         fr.push(MathValueRecord, ga.italicCorrection);
         fr.uint16(ga.parts.length);
         fr.array(MathGlyphPartRecord, ga.parts, gOrd);
-    }
+    },
 };
 const Ptr16MathGlyphAssemblyNullable = NullablePtr16(MathGlyphAssembly);
 
@@ -68,6 +68,6 @@ export const MathGlyphConstruction = {
         fr.push(Ptr16MathGlyphAssemblyNullable, gc.assembly, gOrd);
         fr.uint16(gc.variants.length);
         fr.array(MathGlyphVariantRecord, gc.variants, gOrd);
-    }
+    },
 };
 export const Ptr16MathGlyphConstruction = NonNullablePtr16(MathGlyphConstruction);

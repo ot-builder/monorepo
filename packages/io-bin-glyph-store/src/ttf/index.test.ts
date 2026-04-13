@@ -21,7 +21,7 @@ function ttfGsRoundTrip(file: string) {
         cfg,
         md,
         OtListGlyphStoreFactory,
-        ReadTtfGlyphs
+        ReadTtfGlyphs,
     );
     const timeRead = new Date();
 
@@ -35,7 +35,7 @@ function ttfGsRoundTrip(file: string) {
         cfg,
         md,
         OtListGlyphStoreFactory,
-        ReadTtfGlyphs
+        ReadTtfGlyphs,
     );
 
     GlyphIdentity.testStore(glyphs, glyphs1, GlyphIdentity.CompareMode.TTF);
@@ -46,7 +46,7 @@ function ttfGsRoundTrip(file: string) {
     console.log(
         `Test file ${file}\n` +
             `TTF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `TTF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+            `TTF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
     );
 }
 

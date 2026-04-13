@@ -1,5 +1,5 @@
-import { VarianceDim } from "./dimension";
-import { VarianceInstance, VarianceInstanceTuple } from "./instance";
+import type { VarianceDim } from "./dimension";
+import type { VarianceInstance, VarianceInstanceTuple } from "./instance";
 
 export interface VarianceMaster<A extends VarianceDim> {
     /**
@@ -16,7 +16,7 @@ export interface VarianceMaster<A extends VarianceDim> {
 
 export type VarianceMasterCollectResult<
     A extends VarianceDim,
-    M extends VarianceMaster<VarianceDim>
+    M extends VarianceMaster<VarianceDim>,
 > = {
     /** Index of master */
     readonly index: number;
@@ -24,10 +24,8 @@ export type VarianceMasterCollectResult<
     readonly master: M;
 };
 
-export interface VarianceMasterSet<
-    A extends VarianceDim,
-    M extends VarianceMaster<VarianceDim>
-> extends Iterable<[M, number]> {
+export interface VarianceMasterSet<A extends VarianceDim, M extends VarianceMaster<VarianceDim>>
+    extends Iterable<[M, number]> {
     /** Size of master set */
     readonly size: number;
     /** Query the records and return the index and corresponding collected masters, or `undefined` if the master is not recorded. */

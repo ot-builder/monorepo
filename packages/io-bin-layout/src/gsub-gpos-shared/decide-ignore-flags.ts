@@ -1,5 +1,5 @@
-import { Gdef, LayoutCommon } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import { Gdef, type LayoutCommon } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
 export interface IgnoreFlagOptions {
     ignoreBaseGlyphs?: boolean;
@@ -11,9 +11,9 @@ export interface IgnoreFlagOptions {
 
 export function decideIgnoreFlags<G, X>(
     gs: Data.Maybe<ReadonlySet<G>>,
-    gdef: Data.Maybe<Gdef.General.TableT<G, X>>
+    gdef: Data.Maybe<Gdef.General.TableT<G, X>>,
 ): null | IgnoreFlagOptions {
-    if (!gdef || !gs || !gs.size) return null;
+    if (!gdef || !gs?.size) return null;
 
     const [nonMarks, marks] = gsSplitMarks(gs, gdef.glyphClassDef);
 
@@ -22,7 +22,7 @@ export function decideIgnoreFlags<G, X>(
         gdef.glyphClassDef,
         Gdef.GlyphClass.Base,
         { ignoreBaseGlyphs: true },
-        { ignoreBaseGlyphs: false }
+        { ignoreBaseGlyphs: false },
     );
 
     const igfLigature = igfGlyphClass(
@@ -30,7 +30,7 @@ export function decideIgnoreFlags<G, X>(
         gdef.glyphClassDef,
         Gdef.GlyphClass.Ligature,
         { ignoreLigatures: true },
-        { ignoreLigatures: false }
+        { ignoreLigatures: false },
     );
 
     const igfMark =
@@ -39,7 +39,7 @@ export function decideIgnoreFlags<G, X>(
             gdef.glyphClassDef,
             Gdef.GlyphClass.Mark,
             { ignoreMarks: true },
-            { ignoreMarks: false }
+            { ignoreMarks: false },
         ) ||
         igfMarkAttachmentClass(marks, gdef.glyphClassDef, gdef.markAttachClassDef) ||
         igfMarkFilterSet(marks, gdef.glyphClassDef, gdef.markGlyphSets);
@@ -47,14 +47,14 @@ export function decideIgnoreFlags<G, X>(
     return {
         ...igfBase,
         ...igfLigature,
-        ...igfMark
+        ...igfMark,
     };
 }
 
 /// Split non-mark and mark glyphs
 function gsSplitMarks<G>(
     ignoredGlyphs: ReadonlySet<G>,
-    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>
+    glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
 ): [Set<G>, Set<G>] {
     if (!glyphClassDef) return [new Set(ignoredGlyphs), new Set()];
 
@@ -76,7 +76,7 @@ function igfGlyphClass<G>(
     glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
     glyphClass: Gdef.GlyphClass,
     positive: IgnoreFlagOptions,
-    negative: IgnoreFlagOptions
+    negative: IgnoreFlagOptions,
 ): null | IgnoreFlagOptions {
     if (!glyphClassDef) return null;
 
@@ -103,7 +103,7 @@ function igfGlyphClass<G>(
 function igfMarkAttachmentClass<G>(
     ignoredMarks: ReadonlySet<G>,
     glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
-    markAttachmentClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>
+    markAttachmentClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
 ): null | IgnoreFlagOptions {
     if (!glyphClassDef || !markAttachmentClassDef) return null;
 
@@ -116,12 +116,12 @@ function igfMarkAttachmentClass<G>(
         (ignoredMarks.has(g) ? ignoredMarkClasses : keptMarkClasses).add(k);
     }
 
-    let finalMarkClass: undefined | number = undefined;
+    let finalMarkClass: undefined | number;
     for (const k of keptMarkClasses) {
         // Hybrid class, fail
         if (ignoredMarkClasses.has(k)) return null;
         // Multiple mark classes to keep, fail
-        if (finalMarkClass != undefined) return null;
+        if (finalMarkClass !== undefined) return null;
         finalMarkClass = k;
     }
 
@@ -134,7 +134,7 @@ function igfMarkAttachmentClass<G>(
 function igfMarkFilterSet<G>(
     ignoredMarks: ReadonlySet<G>,
     glyphClassDef: Data.Maybe<LayoutCommon.ClassDef.T<G>>,
-    markGlyphSets: Data.Maybe<Array<ReadonlySet<G>>>
+    markGlyphSets: Data.Maybe<Array<ReadonlySet<G>>>,
 ): null | IgnoreFlagOptions {
     if (!glyphClassDef || !markGlyphSets) return null;
     out: for (let mgsIndex = 0; mgsIndex < markGlyphSets.length; mgsIndex++) {

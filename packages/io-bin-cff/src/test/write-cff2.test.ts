@@ -4,7 +4,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Cff, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
-import { CffCfgProps, DefaultCffCfgProps } from "../cfg";
+import { type CffCfgProps, DefaultCffCfgProps } from "../cfg";
 import { ReadCff2 } from "../main/read-cff2";
 import { WriteCff2 } from "../main/write-cff2";
 
@@ -18,11 +18,11 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
 
     const timeStart = new Date();
-    const { cff: cff } = new BinaryView(sfnt.tables.get(Cff.Tag2)!).next(
+    const { cff } = new BinaryView(sfnt.tables.get(Cff.Tag2)!).next(
         ReadCff2,
         cfg,
         gs.decideOrder(),
-        designSpace
+        designSpace,
     );
     const timeRead = new Date();
     const bufCff = Frag.pack(Frag.from(WriteCff2, cff, gs.decideOrder(), cfg, head, designSpace));
@@ -33,7 +33,7 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
         ReadCff2,
         cfg,
         gs1.decideOrder(),
-        designSpace
+        designSpace,
     );
 
     GlyphIdentity.testStore(gs, gs1, GlyphIdentity.CompareMode.RemoveCycle);
@@ -41,17 +41,17 @@ function cff2RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     console.log(
         `Test file ${file}\n` +
             `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
     );
 }
 
 const DontOptimize: Partial<CffCfgProps> = {
     doGlobalOptimization: false,
-    doLocalOptimization: false
+    doLocalOptimization: false,
 };
 const Optimize: Partial<CffCfgProps> = {
     doGlobalOptimization: true,
-    doLocalOptimization: true
+    doLocalOptimization: true,
 };
 
 test("CFF2 Write: roundtrip, Source Serif Variable Roman", () => {

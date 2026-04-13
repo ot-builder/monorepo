@@ -1,11 +1,11 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 
-import { SubtableHandler, SubtableHandlerKey, SubtableWriteOptions } from "./general";
+import { type SubtableHandler, SubtableHandlerKey, type SubtableWriteOptions } from "./general";
 import { UnicodeEncodingCollector } from "./unicode-encoding-collector";
 
 export class UnicodeFull implements SubtableHandler {
@@ -47,16 +47,16 @@ export class UnicodeFull implements SubtableHandler {
     }
 
     public createAssignments(frag: Frag) {
-        if (!frag || !frag.size) return [];
+        if (!frag.size) return [];
         return [
             { platform: 3, encoding: 10, frag },
-            { platform: 0, encoding: 4, frag }
+            { platform: 0, encoding: 4, frag },
         ];
     }
 }
 
 class CmapFormat12Seg {
-    constructor(unicode: number, gid: number) {
+    public constructor(unicode: number, gid: number) {
         this.unicodeStart = this.unicodeEnd = unicode;
         this.gidStart = this.gidEnd = gid;
     }
@@ -118,7 +118,7 @@ class CmapFormat12Writer {
     }
 
     public getFrag(collected: [number, number][], options: SubtableWriteOptions) {
-        if (!collected || !collected.length) return null;
+        if (!collected.length) return null;
 
         let hasNonBmp = false;
         for (const [unicode] of collected) {

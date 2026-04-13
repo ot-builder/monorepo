@@ -256,5 +256,5 @@ export default [
     "cacute",
     "Ccaron",
     "ccaron",
-    "dcroat"
+    "dcroat",
 ];

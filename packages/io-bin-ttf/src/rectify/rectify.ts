@@ -1,6 +1,6 @@
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export function rectifyGlyphOrder(gOrd: Data.Order<OtGlyph>) {
@@ -27,7 +27,7 @@ interface PointAttachmentHandlerState {
 type PointAttachmentHandler = (st: PointAttachmentHandlerState) => OtGlyph.Geometry;
 
 class AttachmentPointToCoordAlg {
-    constructor(private readonly gs: Set<OtGlyph>) {}
+    public constructor(private readonly gs: Set<OtGlyph>) {}
 
     public process(geom: OtGlyph.Geometry): PointAttachmentHandler {
         switch (geom.type) {
@@ -36,7 +36,7 @@ class AttachmentPointToCoordAlg {
             case OtGlyph.GeometryType.TtReference:
                 return this.ttReference(geom);
             case OtGlyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map(item => this.process(item)));
+                return this.geometryList(geom.items.map((item) => this.process(item)));
         }
     }
     public contourSet(cs: OtGlyph.ContourSetProps): PointAttachmentHandler {
@@ -69,19 +69,19 @@ class AttachmentPointToCoordAlg {
                         ...ref.transform,
                         scaledOffset: false,
                         dx: 0,
-                        dy: 0
+                        dy: 0,
                     });
 
                     tfm = {
                         ...ref.transform,
                         scaledOffset: false,
                         dx: OtVar.Ops.minus(zOut.x, zInTransformed.x),
-                        dy: OtVar.Ops.minus(zOut.y, zInTransformed.y)
+                        dy: OtVar.Ops.minus(zOut.y, zInTransformed.y),
                     };
                 } else {
                     throw Errors.Ttf.InvalidPointAttachment(
                         ref.pointAttachment.outer.pointIndex,
-                        ref.pointAttachment.inner.pointIndex
+                        ref.pointAttachment.inner.pointIndex,
                     );
                 }
             }

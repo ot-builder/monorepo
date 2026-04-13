@@ -22,7 +22,7 @@ export function ArrToCount<T>(iter: ReadonlyArray<T>, fallback: T) {
 export function* FlatMatrixSized<T>(
     mat: ReadonlyArray<ReadonlyArray<T>>,
     columns: number,
-    fallback: T
+    fallback: T,
 ) {
     const rows = mat.length;
     for (let p = 0; p < rows; p++) {
@@ -51,7 +51,7 @@ export function* Zip<A, B>(as: ReadonlyArray<A>, bs: ReadonlyArray<B>): Iterable
 
 export function* ZipWithIndex<A, B>(
     as: ReadonlyArray<A>,
-    bs: ReadonlyArray<B>
+    bs: ReadonlyArray<B>,
 ): IterableIterator<[A, B, number]> {
     if (as.length !== bs.length) throw new Error("length mismatch");
     for (let id = 0; id < as.length; id++) {
@@ -60,7 +60,7 @@ export function* ZipWithIndex<A, B>(
 }
 export function* ZipWithIndexReverse<A, B>(
     as: ReadonlyArray<A>,
-    bs: ReadonlyArray<B>
+    bs: ReadonlyArray<B>,
 ): IterableIterator<[A, B, number]> {
     if (as.length !== bs.length) throw new Error("length mismatch");
     for (let id = as.length; id-- > 0; ) {
@@ -70,7 +70,7 @@ export function* ZipWithIndexReverse<A, B>(
 export function* Zip3WithIndex<A, B, C>(
     as: ReadonlyArray<A>,
     bs: ReadonlyArray<B>,
-    cs: ReadonlyArray<C>
+    cs: ReadonlyArray<C>,
 ): IterableIterator<[A, B, C, number]> {
     if (as.length !== bs.length) throw new Error("length mismatch");
     if (as.length !== cs.length) throw new Error("length mismatch");

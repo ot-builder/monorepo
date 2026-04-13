@@ -1,4 +1,4 @@
-import { BinaryView, Frag, Ranged, Read, Sized, Write } from "@ot-builder/bin-util";
+import type { BinaryView, Frag, Ranged, Read, Sized, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 
 export class Fixed implements Sized, Read<number, []>, Write<number, []>, Ranged {
@@ -9,10 +9,10 @@ export class Fixed implements Sized, Read<number, []>, Write<number, []>, Ranged
     public readonly min: number; // minimum possible value
     public readonly max: number; // maximum possible value
 
-    constructor(
+    public constructor(
         private readonly signed: boolean,
         integerBits: number,
-        fractionBits: number
+        fractionBits: number,
     ) {
         this.shiftBits = 32 - integerBits - fractionBits;
         this.exponent = 1 << fractionBits;

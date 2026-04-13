@@ -1,5 +1,5 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Math as OtMath } from "@ot-builder/ot-layout";
 
@@ -12,7 +12,7 @@ const MathKern = {
         const kernValues = bv.array(heightCount + 1, MathValueRecord);
         return new OtMath.Kern(
             kernValues[heightCount],
-            Array.from(ImpLib.Iterators.Zip(correctionHeight, kernValues.slice(0, heightCount)))
+            Array.from(ImpLib.Iterators.Zip(correctionHeight, kernValues.slice(0, heightCount))),
         );
     },
     write(fr: Frag, x: OtMath.Kern) {
@@ -26,7 +26,7 @@ const MathKern = {
         fr.uint16(correctionHeight.length);
         fr.arrayN(MathValueRecord, correctionHeight.length, correctionHeight);
         fr.arrayN(MathValueRecord, correctionHeight.length + 1, kernValues);
-    }
+    },
 };
 const Ptr16MathKernNullable = NullablePtr16(MathKern);
 
@@ -43,5 +43,5 @@ export const MathKernInfo = {
         fr.push(Ptr16MathKernNullable, ki.topLeft);
         fr.push(Ptr16MathKernNullable, ki.bottomRight);
         fr.push(Ptr16MathKernNullable, ki.bottomLeft);
-    }
+    },
 };

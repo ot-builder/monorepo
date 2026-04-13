@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier } from "../interface";
+import type { CoordRectifier } from "../interface";
 
 export function rectifyPostTable(rec: CoordRectifier, table: Ot.Post.Table) {
     const newTable = new Ot.Post.Table(table.majorVersion, table.minorVersion);

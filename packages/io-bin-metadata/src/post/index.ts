@@ -1,13 +1,13 @@
-import { BinaryView, Frag, Write } from "@ot-builder/bin-util";
+import { type BinaryView, type Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Post } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F16D16 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import macGlyphNames from "./mac-glyph-names";
 
-const coMacGlyphNames: Map<string, number> = (function () {
+const coMacGlyphNames: Map<string, number> = (() => {
     const m = new Map<string, number>();
     for (let nid = 0; nid < macGlyphNames.length; nid++) {
         m.set(macGlyphNames[nid], nid);
@@ -22,7 +22,7 @@ class PostFormat1Names implements Data.Naming.Source<number> {
 }
 
 class PostFormat2Names implements Data.Naming.Source<number> {
-    constructor(private mapping: ReadonlyMap<number, string>) {}
+    public constructor(private mapping: ReadonlyMap<number, string>) {}
     public getName(gid: number) {
         return this.mapping.get(gid) || "";
     }
@@ -38,7 +38,7 @@ const PascalString = {
         const buf = Buffer.from(name, "utf-8");
         b.uint8(buf.length);
         b.bytes(buf);
-    }
+    },
 };
 
 function nameGlyphPostVersion2(bp: BinaryView) {
@@ -101,7 +101,7 @@ export const PostAndNameIo = {
         post: Post.Table,
         glyphCount?: Data.Maybe<number>,
         nameSource?: Data.Maybe<Data.Naming.Source<number>>,
-        keepMemorySettings?: Data.Maybe<boolean>
+        keepMemorySettings?: Data.Maybe<boolean>,
     ) {
         frag.uint16(post.majorVersion);
         frag.uint16(post.minorVersion);
@@ -123,7 +123,7 @@ export const PostAndNameIo = {
         if (post.majorVersion === 2 && post.minorVersion === 0 && glyphCount && nameSource) {
             frag.push(PostVersion2NameList, glyphCount, nameSource);
         }
-    }
+    },
 };
 
 const PostVersion2NameList = Write(
@@ -148,5 +148,5 @@ const PostVersion2NameList = Write(
         }
         // names
         for (const name of newGlyphNames) frag.push(PascalString, name);
-    }
+    },
 );

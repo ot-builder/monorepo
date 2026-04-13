@@ -1,4 +1,4 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Fpgm, Prep } from "@ot-builder/ot-glyphs";
 
 export const FpgmIo = {
@@ -8,7 +8,7 @@ export const FpgmIo = {
     },
     write(frag: Frag, table: Fpgm.Table) {
         frag.bytes(table.instructions);
-    }
+    },
 };
 
 export const PrepIo = {
@@ -18,5 +18,5 @@ export const PrepIo = {
     },
     write(frag: Frag, table: Prep.Table) {
         frag.bytes(table.instructions);
-    }
+    },
 };

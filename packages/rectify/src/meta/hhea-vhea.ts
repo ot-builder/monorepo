@@ -1,11 +1,11 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier } from "../interface";
+import type { CoordRectifier } from "../interface";
 
 function inPlaceRectifyHheaVheaTable(
     rec: CoordRectifier,
     newTable: Ot.MetricHead.Table,
-    table: Ot.MetricHead.Table
+    table: Ot.MetricHead.Table,
 ) {
     newTable.advanceMax = table.advanceMax;
     newTable.minStartSideBearing = table.minStartSideBearing;

@@ -1,10 +1,10 @@
-import { GsubGpos } from "@ot-builder/ot-layout";
+import type { GsubGpos } from "@ot-builder/ot-layout";
 
-import { LayoutCfg, LookupWriteTrick } from "../cfg";
+import type { LayoutCfg, LookupWriteTrick } from "../cfg";
 
 export function setLookupTricks<L extends GsubGpos.LookupProp>(
     table: GsubGpos.TableT<L>,
-    cfg: LayoutCfg
+    cfg: LayoutCfg,
 ) {
     const tricks: Map<L, LookupWriteTrick> = new Map();
     if (cfg.layout.lookupWriteTricks) {

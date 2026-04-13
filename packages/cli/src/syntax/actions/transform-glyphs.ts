@@ -1,11 +1,11 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
-import { CliProc, Ot } from "ot-builder";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { CliProc, type Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (!st.isOption("--transform-glyphs")) return ParseResult(st, null);
         st = st.next();
 
@@ -17,10 +17,10 @@ export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
             xy: parseFloat(tfmArgs[2].trim()),
             yy: parseFloat(tfmArgs[3].trim()),
             dx: parseFloat(tfmArgs[4].trim()),
-            dy: parseFloat(tfmArgs[5].trim())
+            dy: parseFloat(tfmArgs[5].trim()),
         };
 
-        return ParseResult(st.next(), async state => {
+        return ParseResult(st.next(), async (state) => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to do GC.");
             CliProc.inPlaceTransformFontGlyph(entry.font, transform);
@@ -33,7 +33,7 @@ export const TransformGlyphsSyntax: Syntax<null | CliAction> = {
             .indent("")
             .message(
                 "Perform a 2x3 affine transform to all glyphs' geometries in the font.",
-                "Composite fonts will be flattened."
+                "Composite fonts will be flattened.",
             );
-    }
+    },
 };

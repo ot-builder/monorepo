@@ -1,6 +1,6 @@
-import { Mir, MirType } from "../../mir";
+import { type Mir, MirType } from "../../mir";
 
-import { KeyProvider } from "./pairing";
+import type { KeyProvider } from "./pairing";
 
 export const MirKeyProvider: KeyProvider<Mir> = {
     getIrKey(ir: Mir) {
@@ -22,5 +22,5 @@ export const MirKeyProvider: KeyProvider<Mir> = {
     },
     isBarrier(ir: Mir) {
         return ir.type === MirType.Nop;
-    }
+    },
 };

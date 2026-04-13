@@ -1,10 +1,10 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
 
-import { LookupWriteTrick } from "../cfg";
-import { OtlStat } from "../stat";
+import type { LookupWriteTrick } from "../cfg";
+import type { OtlStat } from "../stat";
 
 export interface SubtableReadingContext<L> {
     crossReferences: Data.Order<L>;
@@ -53,5 +53,5 @@ export enum LookupFlag {
     IgnoreLigatures = 4,
     IgnoreMarks = 8,
     UseMarkFilteringSet = 0x0010,
-    MarkAttachmentType = 0xff00
+    MarkAttachmentType = 0xff00,
 }

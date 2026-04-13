@@ -1,14 +1,14 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const ConsolidateSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (!st.isOption("--consolidate")) return ParseResult(st, null);
 
-        return ParseResult(st.next(), async state => {
+        return ParseResult(st.next(), async (state) => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to do consolidate.");
 
@@ -20,5 +20,5 @@ export const ConsolidateSyntax: Syntax<null | CliAction> = {
     displayHelp(shower: CliHelpShower) {
         shower.message(Style.Option`--consolidate`);
         shower.indent("").message("Perform consolidation of the font at the stack top.");
-    }
+    },
 };

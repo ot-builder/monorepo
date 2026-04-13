@@ -1,11 +1,11 @@
 import * as Ot from "@ot-builder/ot";
 
-import { GlyphTraceProc, GlyphTracer } from "../interface";
+import type { GlyphTraceProc, GlyphTracer } from "../interface";
 
 import * as TraceImpl_Glyph from "./trace-impl/glyph";
 
 export function traceGlyphDependents(g: Ot.Glyph): GlyphTraceProc {
-    return tracer => {
+    return (tracer) => {
         if (!tracer.has(g)) return;
         if (!g.geometry) return;
         return new TraceGlyphsAlg().process(g.geometry)(tracer);
@@ -18,7 +18,7 @@ class TraceGlyphsAlg {
             case Ot.Glyph.GeometryType.ContourSet:
                 return this.contourSet(geom);
             case Ot.Glyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map(item => this.process(item)));
+                return this.geometryList(geom.items.map((item) => this.process(item)));
             case Ot.Glyph.GeometryType.TtReference:
                 return this.ttReference(geom);
         }

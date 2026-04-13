@@ -1,5 +1,5 @@
-import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
-import { Ot } from "ot-builder";
+import { type CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
+import type { Ot } from "ot-builder";
 
 export class CliState implements CliArgSource {
     // Options
@@ -24,7 +24,7 @@ export class CliState implements CliArgSource {
 }
 
 export class CliStackEntryPlaceholder {
-    constructor(public readonly identifier: string) {}
+    public constructor(public readonly identifier: string) {}
     public toString() {
         return `[${this.identifier}]`;
     }
@@ -33,9 +33,9 @@ export class CliStackEntryPlaceholder {
     }
 }
 export class CliStackEntry extends CliStackEntryPlaceholder {
-    constructor(
+    public constructor(
         identifier: string,
-        public readonly font: Ot.Font
+        public readonly font: Ot.Font,
     ) {
         super(identifier);
     }

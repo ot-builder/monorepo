@@ -4,7 +4,7 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { Cff, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
-import { CffCfgProps, DefaultCffCfgProps } from "../cfg";
+import { type CffCfgProps, DefaultCffCfgProps } from "../cfg";
 import { ReadCff1 } from "../main/read-cff1";
 import { WriteCff1 } from "../main/write-cff1";
 
@@ -16,10 +16,10 @@ function cff1RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     const gs = OtListGlyphStoreFactory.createStoreFromSize(maxp.numGlyphs);
 
     const timeStart = new Date();
-    const { cff: cff, cffGlyphNaming: naming } = new BinaryView(sfnt.tables.get(Cff.Tag1)!).next(
+    const { cff, cffGlyphNaming: naming } = new BinaryView(sfnt.tables.get(Cff.Tag1)!).next(
         ReadCff1,
         cfg,
-        gs.decideOrder()
+        gs.decideOrder(),
     );
     if (naming) for (const g of gs.items) g.name = naming.getName(g) || `?`;
 
@@ -35,17 +35,17 @@ function cff1RoundTripLoop(file: string, override: Partial<CffCfgProps>) {
     console.log(
         `Test file ${file}\n` +
             `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
     );
 }
 
 const DontOptimize: Partial<CffCfgProps> = {
     doGlobalOptimization: false,
-    doLocalOptimization: false
+    doLocalOptimization: false,
 };
 const Optimize: Partial<CffCfgProps> = {
     doGlobalOptimization: true,
-    doLocalOptimization: true
+    doLocalOptimization: true,
 };
 
 test("CFF1 Write: roundtrip, Source Serif Pro Regular", () => {

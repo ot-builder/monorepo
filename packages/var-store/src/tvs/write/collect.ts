@@ -9,7 +9,7 @@ export class TvsCollector extends DelayValueCollector<
     OtVar.Value,
     DelayDeltaValue
 > {
-    constructor() {
+    public constructor() {
         super(OtVar.Ops, new OtVar.MasterSet());
     }
 
@@ -19,10 +19,10 @@ export class TvsCollector extends DelayValueCollector<
 }
 
 export class DelayDeltaValue {
-    constructor(
+    public constructor(
         private col: TvsCollector,
         public origin: number,
-        private deltaMA: number[]
+        private deltaMA: number[],
     ) {}
     public resolve() {
         return this.col.resolveDeltas(this.deltaMA);
@@ -37,7 +37,7 @@ export function collectDeltaData(mc: TvsCollector, dimensions: number, data: OtV
         for (let zid = 0; zid < n; zid++) {
             for (let dim = 0; dim < dimensions; dim++) {
                 z[ImpLib.Arith.d2(dimensions, zid, dim)] = mc.collect(
-                    contour[ImpLib.Arith.d2(dimensions, zid, dim)]
+                    contour[ImpLib.Arith.d2(dimensions, zid, dim)],
                 );
             }
         }

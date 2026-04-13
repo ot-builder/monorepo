@@ -1,11 +1,11 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 import { Int16, UInt16 } from "@ot-builder/primitive";
 
-import { SubtableHandler, SubtableHandlerKey, SubtableWriteOptions } from "./general";
+import { type SubtableHandler, SubtableHandlerKey, type SubtableWriteOptions } from "./general";
 import { UnicodeEncodingCollector } from "./unicode-encoding-collector";
 
 export class UnicodeBmp implements SubtableHandler {
@@ -34,7 +34,7 @@ export class UnicodeBmp implements SubtableHandler {
         const idRangeOffsetParser = view.lift(16 + segCount * UInt16.size * 3);
 
         for (let seg = 0; seg < segCount; seg += 1) {
-            let glyphIndex;
+            let glyphIndex: number;
             const endCount = endCountParser.uint16();
             const startCount = startCountParser.uint16();
             const idDelta = idDeltaParser.uint16();
@@ -73,7 +73,7 @@ export class UnicodeBmp implements SubtableHandler {
     }
 
     public createAssignments(frag: Frag) {
-        if (!frag || !frag.size) return [];
+        if (!frag?.size) return [];
         return [
             { platform: 3, encoding: 1, frag },
             { platform: 0, encoding: 3, frag }
@@ -220,7 +220,7 @@ class CmapFormat4Writer {
             const run = this.runs[rid];
             endCode.push(run.unicodeEnd);
             startCode.push(run.unicodeStart);
-            if (!run.glyphIdArray || !run.glyphIdArray.length) {
+            if (!run.glyphIdArray?.length) {
                 idDelta.push(Int16.from(run.gidStart - run.unicodeStart));
                 idRangeOffsets.push(0);
             } else {
@@ -231,7 +231,7 @@ class CmapFormat4Writer {
                 );
 
                 const idRgOffset = UInt16.size * (glyphIdArray.length + (this.runs.length - rid));
-                if (idRgOffset != UInt16.from(idRgOffset)) {
+                if (idRgOffset !== UInt16.from(idRgOffset)) {
                     // idRangeOffset overflows -- this only happens at crafted situations.
                     return null;
                 }
@@ -290,7 +290,7 @@ class CmapFormat4Writer {
     }
 
     public getFrag(collected: [number, number][]) {
-        if (!collected || !collected.length) return null;
+        if (!collected?.length) return null;
         this.iterateSegments(collected);
         if (this.runs.length > Int16.max) return null;
         const ca = this.collectArrays();

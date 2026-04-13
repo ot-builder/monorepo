@@ -1,10 +1,10 @@
-import { GlyphTraceProc } from "../../interface";
+import type { GlyphTraceProc } from "../../interface";
 
 export function Nop(): GlyphTraceProc {
-    return tracer => {};
+    return (tracer) => {};
 }
 export function Seq(from: Iterable<GlyphTraceProc>): GlyphTraceProc {
-    return tracer => {
+    return (tracer) => {
         for (const proc of from) proc(tracer);
     };
 }

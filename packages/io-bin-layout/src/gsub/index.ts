@@ -1,15 +1,19 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Gsub } from "@ot-builder/ot-layout";
 
-import { LayoutCfg } from "../cfg";
-import {
+import type { LayoutCfg } from "../cfg";
+import type {
     LookupReader,
     LookupReaderFactory,
     LookupWriter,
-    LookupWriterFactory
+    LookupWriterFactory,
 } from "../gsub-gpos-shared/general";
-import { CGsubGposTable, TableReadContext, TableWriteContext } from "../gsub-gpos-shared/table";
+import {
+    CGsubGposTable,
+    type TableReadContext,
+    type TableWriteContext,
+} from "../gsub-gpos-shared/table";
 import { GsubChainingReader, GsubContextualReader } from "../lookups/contextual-read";
 import { GsubChainingContextualWriter } from "../lookups/contextual-write";
 import { GsubLigatureReader, GsubLigatureWriter } from "../lookups/gsub-ligature";
@@ -17,14 +21,14 @@ import {
     GsubAlternateReader,
     GsubAlternateWriter,
     GsubMultiReader,
-    GsubMultiWriter
+    GsubMultiWriter,
 } from "../lookups/gsub-multi-alternate";
 import { GsubReverseReader, GsubReverseWriter } from "../lookups/gsub-reverse";
 import { GsubSingleReader, GsubSingleWriter } from "../lookups/gsub-single";
 
 const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> = {
     extendedFormat: 7,
-    isExtendedFormat: x => x === 7,
+    isExtendedFormat: (x) => x === 7,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(x: number): LookupReader<Gsub.Lookup, any> {
         switch (x) {
@@ -60,7 +64,7 @@ const gsub: LookupReaderFactory<Gsub.Lookup> & LookupWriterFactory<Gsub.Lookup> 
         const sink: Gsub.Lookup[] = [];
         for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
         return sink;
-    }
+    },
 };
 
 export const GsubTableIo = {
@@ -70,5 +74,5 @@ export const GsubTableIo = {
     },
     write(frag: Frag, table: Gsub.Table, cfg: LayoutCfg, twc: TableWriteContext) {
         return frag.push(new CGsubGposTable<Gsub.Lookup>(), table, cfg, gsub, twc);
-    }
+    },
 };

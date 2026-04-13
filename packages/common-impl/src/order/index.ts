@@ -1,8 +1,8 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 // Default implementation
 export class ListStoreFactory<T> implements Data.OrderStoreFactory<T, ListStore<T>> {
-    constructor(private readonly sourceKind: string) {}
+    public constructor(private readonly sourceKind: string) {}
     public createStoreFromList(items: Iterable<T>) {
         return new ListStore(this.sourceKind, [...items]);
     }
@@ -11,9 +11,9 @@ export class ListStoreFactoryWithDefault<T>
     extends ListStoreFactory<T>
     implements Data.OrderStoreFactoryWithDefault<T, ListStore<T>>
 {
-    constructor(
+    public constructor(
         sourceKind: string,
-        private readonly create: () => T
+        private readonly create: () => T,
     ) {
         super(sourceKind);
     }
@@ -25,9 +25,9 @@ export class ListStoreFactoryWithDefault<T>
 }
 
 export class ListStore<T> implements Data.OrderStore<T> {
-    constructor(
+    public constructor(
         private readonly sourceKind: string,
-        public readonly items: Array<T>
+        public readonly items: Array<T>,
     ) {}
 
     public decideOrder(): Data.Order<T> {
@@ -36,9 +36,9 @@ export class ListStore<T> implements Data.OrderStore<T> {
 }
 
 class ListOrder<T> implements Data.Order<T> {
-    constructor(
+    public constructor(
         private readonly sourceKind: string,
-        private readonly items: ReadonlyArray<T>
+        private readonly items: ReadonlyArray<T>,
     ) {
         this.length = items.length;
         this.revMap = new Map();

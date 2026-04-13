@@ -1,6 +1,6 @@
-import { CliAction, Grammar } from "./command";
+import type { CliAction, Grammar } from "./command";
 import { getPackageVersion } from "./package-version";
-import { CliState } from "./state";
+import type { CliState } from "./state";
 import { ConsolidateSyntax } from "./syntax/actions/consolidate";
 import { DropSyntax } from "./syntax/actions/drop";
 import { GcSyntax } from "./syntax/actions/gc";
@@ -13,7 +13,7 @@ import { SubsetSyntax } from "./syntax/actions/subset";
 import { TransformGlyphsSyntax } from "./syntax/actions/transform-glyphs";
 import { AlternateSyntax } from "./syntax/composite/alternate";
 import { MainCommandSyntax } from "./syntax/composite/main-command";
-import { Join, PossessiveRepeatSyntax } from "./syntax/composite/possessive-repeat";
+import { type Join, PossessiveRepeatSyntax } from "./syntax/composite/possessive-repeat";
 import { StartSyntax } from "./syntax/composite/start";
 import { HelpSyntax } from "./syntax/document/help";
 import { VersionSyntax } from "./syntax/document/version";
@@ -22,10 +22,10 @@ import { SetRecalcOs2AvgCharWidthSyntax } from "./syntax/options/set-recalc-os2-
 
 const cliActionJoiner: Join<CliAction> = {
     join(actions: CliAction[]): CliAction {
-        return async function (state: CliState) {
+        return async (state: CliState) => {
             for (const action of actions) await action(state);
         };
-    }
+    },
 };
 
 // Grammar Creator
@@ -46,7 +46,7 @@ export async function createGrammar(): Promise<Grammar> {
         ConsolidateSyntax,
 
         SetOptimizationLevelSyntax,
-        SetRecalcOs2AvgCharWidthSyntax
+        SetRecalcOs2AvgCharWidthSyntax,
     ]);
     const appVersion = await getPackageVersion();
     const start = new StartSyntax(
@@ -54,8 +54,8 @@ export async function createGrammar(): Promise<Grammar> {
         new AlternateSyntax([
             HelpSyntax,
             VersionSyntax,
-            new MainCommandSyntax(new PossessiveRepeatSyntax(cliActionJoiner, element))
-        ])
+            new MainCommandSyntax(new PossessiveRepeatSyntax(cliActionJoiner, element)),
+        ]),
     );
 
     return { element, start };

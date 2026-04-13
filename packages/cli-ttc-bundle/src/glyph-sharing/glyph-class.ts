@@ -9,14 +9,14 @@ export enum GlyphClass {
     Simple = 1 << 1,
     CommonWidth = 1 << 2,
     CommonHeight = 1 << 3,
-    VeryLast = 0xffff
+    VeryLast = 0xffff,
 }
 
 export function decideGlyphClass(
     glyph: Ot.Glyph,
     gid: number,
     commonWidth: number,
-    commonHeight: number
+    commonHeight: number,
 ): GlyphClass {
     if (gid === 0) return GlyphClass.NotDef;
 

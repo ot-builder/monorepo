@@ -1,0 +1,82 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": true,
+        "includes": [
+            "packages/*/src/**/*.ts",
+            "doc/**/*.ts",
+            "doc/**/*.tsx",
+
+            "!packages/*/lib",
+            "!**/generated.ts",
+            "!doc/.next"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 100
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "correctness": {
+                "noUnusedFunctionParameters": "off",
+                "noUnusedVariables": "off",
+                "noUnusedImports": "off"
+            },
+            "suspicious": {
+                "noExplicitAny": "off"
+            },
+            "complexity": {
+                "noExcessiveCognitiveComplexity": "off"
+            },
+            "style": {
+                "useConst": "error",
+                "noNonNullAssertion": "off",
+                "useTemplate": "off",
+                "useConsistentMemberAccessibility": {
+                    "level": "error",
+                    "options": {
+                        "accessibility": "explicit"
+                    }
+                }
+            }
+        }
+    },
+    "overrides": [
+        {
+            "includes": [".vscode/**/*.json"],
+            "json": { "parser": { "allowComments": true, "allowTrailingCommas": true } }
+        }
+    ],
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": {
+                    "level": "on",
+                    "options": {
+                        "identifierOrder": "natural",
+                        "groups": [
+                            ":NODE:",
+                            ":BLANK_LINE:",
+                            ":PACKAGE:",
+                            ":BLANK_LINE:",
+                            "../**",
+                            ":BLANK_LINE:",
+                            "./**"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

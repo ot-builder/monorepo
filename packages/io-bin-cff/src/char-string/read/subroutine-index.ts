@@ -2,8 +2,8 @@ import { Read, Write } from "@ot-builder/bin-util";
 
 import { CffReadIndex } from "../../cff-index/read";
 import { CffWriteIndex } from "../../cff-index/write";
-import { CffReadContext } from "../../context/read";
-import { CffWriteContext } from "../../context/write";
+import type { CffReadContext } from "../../context/read";
+import type { CffWriteContext } from "../../context/write";
 
 export const CffSubroutineIndex = {
     ...Read((view, ctx: CffReadContext) => {
@@ -13,9 +13,9 @@ export const CffSubroutineIndex = {
         frag.push(
             new CffWriteIndex<Buffer>({ write: (f, item, ctx) => f.bytes(item) }),
             subrs,
-            ctx
+            ctx,
         );
-    })
+    }),
 };
 
 export const CffBufferIndex = CffSubroutineIndex;

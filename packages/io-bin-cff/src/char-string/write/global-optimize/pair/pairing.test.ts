@@ -1,16 +1,22 @@
-import { Input, KeyProvider, NonTerminalBuilder, RuleBuilder, Session } from "./pairing";
+import {
+    Input,
+    type KeyProvider,
+    type NonTerminalBuilder,
+    type RuleBuilder,
+    Session,
+} from "./pairing";
 
-export class NonTerminalRule<K> {
-    constructor(
+class NonTerminalRule<K> {
+    public constructor(
         public readonly symbol: K,
-        public readonly parts: K[]
+        public readonly parts: K[],
     ) {}
     public toString() {
         return `${this.symbol} -> ${this.parts.join("")}`;
     }
 }
-export class RootRule<K> {
-    constructor(public readonly parts: K[]) {}
+class RootRule<K> {
+    public constructor(public readonly parts: K[]) {}
     public toString() {
         return `${this.parts.join("")}`;
     }
@@ -21,11 +27,11 @@ const TestRuleBuilder: RuleBuilder<string, NonTerminalRule<string>, RootRule<str
     },
     createInputRule(parts: string[]) {
         return new RootRule(parts);
-    }
+    },
 };
 const StringKeyProvider: KeyProvider<string> = {
-    getIrKey: s => s,
-    isBarrier: s => s === " "
+    getIrKey: (s) => s,
+    isBarrier: (s) => s === " ",
 };
 class StringNtSrc implements NonTerminalBuilder<string> {
     private n = 0;
@@ -79,12 +85,12 @@ describe("Re-pair pair management", () => {
         session.appendString(input, "aaabcaabaaabcabdabd");
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("EBECC");
-        expect(rules.map(x => x.toString())).toEqual([
+        expect(rules.map((x) => x.toString())).toEqual([
             `A -> ab`,
             `B -> aA`,
             `C -> Ad`,
             `D -> aB`,
-            `E -> Dc`
+            `E -> Dc`,
         ]);
     });
     test("Combined compression test 2", () => {
@@ -93,7 +99,7 @@ describe("Re-pair pair management", () => {
         session.appendString(input, "singing.do.wah.diddy.diddy.dum.diddy.do");
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("sHHG.wahEEAumEG");
-        expect(rules.map(x => x.toString())).toEqual([
+        expect(rules.map((x) => x.toString())).toEqual([
             "A -> .d",
             "B -> id",
             "C -> dy",
@@ -101,7 +107,7 @@ describe("Re-pair pair management", () => {
             "E -> DC",
             "F -> in",
             "G -> Ao",
-            "H -> Fg"
+            "H -> Fg",
         ]);
     });
     test("Combined compression test 3", () => {
@@ -109,11 +115,11 @@ describe("Re-pair pair management", () => {
         const input = new Input<string>("");
         session.appendString(
             input,
-            "abcabccabcabcbcabccabacabbbcabccababcabccabcabcbcabccabacabcaba"
+            "abcabccabcabcbcabccabacabbbcabccababcabccabcabcbcabccabacabcaba",
         );
         const rules = [...session.doCompress(new StringNtSrc(), TestRuleBuilder)];
         expect(session.inputToRule(input, TestRuleBuilder).toString()).toBe("JbEJBa");
-        expect(rules.map(x => x.toString())).toEqual([
+        expect(rules.map((x) => x.toString())).toEqual([
             "A -> ab",
             "B -> cA",
             "C -> Bc",
@@ -123,7 +129,7 @@ describe("Re-pair pair management", () => {
             "G -> AD",
             "H -> CE",
             "I -> GH",
-            "J -> IF"
+            "J -> IF",
         ]);
     });
 });

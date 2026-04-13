@@ -25,5 +25,5 @@ export const CffOffset = {
             default:
                 return frag.uint32(offset + 1);
         }
-    })
+    }),
 };

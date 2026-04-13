@@ -1,12 +1,12 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gdef } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
-import { LayoutCfg } from "../cfg";
+import type { LayoutCfg } from "../cfg";
 import { ClassDef } from "../shared/class-def";
 
 import { GdefAttachmentPointList } from "./attachment-point";
@@ -34,9 +34,7 @@ export const GdefTableIo = {
         gdef.markAttachClassDef = pMarkAttachClassDef
             ? pMarkAttachClassDef.next(ClassDef, gOrd)
             : null;
-        gdef.markGlyphSets = pMarkGlyphSetsDef
-            ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd)
-            : null;
+        gdef.markGlyphSets = pMarkGlyphSetsDef ? pMarkGlyphSetsDef.next(MarkGlyphSets, gOrd) : null;
 
         return { gdef, ivs };
     }),
@@ -48,7 +46,7 @@ export const GdefTableIo = {
             cfg: LayoutCfg,
             gOrd: Data.Order<OtGlyph>,
             ivs: Data.Maybe<WriteTimeIVS>,
-            designSpace: Data.Maybe<OtVar.DesignSpace>
+            designSpace: Data.Maybe<OtVar.DesignSpace>,
         ) => {
             const trick = cfg.layout.gdefWriteTrick || 0;
             const fClassDef = gdef.glyphClassDef
@@ -82,6 +80,6 @@ export const GdefTableIo = {
             frag.ptr16(fMarkAttachClassDef);
             if (minorVersion >= 2) frag.ptr16(fMarkGlyphSets);
             if (minorVersion >= 3) frag.ptr32(fIVS);
-        }
-    )
+        },
+    ),
 };

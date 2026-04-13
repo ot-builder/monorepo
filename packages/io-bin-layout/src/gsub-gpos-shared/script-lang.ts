@@ -1,7 +1,7 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { Tag, UInt16 } from "@ot-builder/primitive";
 
 type Feature<L> = GsubGpos.FeatureT<L>;
@@ -13,7 +13,7 @@ class CLangSysTable<L> {
         const vLookupOrder = view.ptr16Nullable(); // Reserved, keep zero
         const requiredFeature = fOrd.tryAt(view.uint16()); // 0xFFFF should return undefined
         const featureIndexCount = view.uint16();
-        const features = view.array(featureIndexCount, UInt16).map(id => fOrd.at(id));
+        const features = view.array(featureIndexCount, UInt16).map((id) => fOrd.at(id));
         return { requiredFeature, features };
     }
     public write(frag: Frag, lang: LangSys<L>, fOrd: Data.Order<Feature<L>>) {
@@ -22,7 +22,7 @@ class CLangSysTable<L> {
         frag.uint16(lang.features.length);
         frag.array(
             UInt16,
-            lang.features.map(f => fOrd.reverse(f))
+            lang.features.map((f) => fOrd.reverse(f)),
         );
     }
 }
@@ -46,7 +46,7 @@ class CScriptTable<L> {
     public write(frag: Frag, script: Script<L>, fOrd: Data.Order<Feature<L>>) {
         frag.push(CPtr16LangSysTable<L>(), script.defaultLanguage, fOrd);
         const langs = [...script.languages].sort((a, b) =>
-            a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0
+            a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0,
         );
         frag.uint16(langs.length);
         for (const [tag, lang] of langs) {

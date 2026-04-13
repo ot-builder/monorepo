@@ -1,19 +1,19 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14, Int8, UInt8 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
-import { TtfCfg } from "../cfg";
-import { TtfWritingExtraInfoSink } from "../extra-info-sink/index";
+import type { TtfCfg } from "../cfg";
+import type { TtfWritingExtraInfoSink } from "../extra-info-sink/index";
 
 import { CompositeGlyph, GlyphClassifier, SimpleGlyph } from "./classifier";
-import { LocaTable } from "./loca";
+import type { LocaTable } from "./loca";
 import { ComponentFlag, GlyfOffsetAlign, SimpleGlyphFlag } from "./shared";
 
 class FlagShrinker {
-    constructor(private cfg: TtfCfg) {}
+    public constructor(private cfg: TtfCfg) {}
     private flags: number[] = [];
     private repeating = 0;
     private last = 0;
@@ -132,8 +132,8 @@ const SimpleGlyphData = Write((frag: Frag, sg: SimpleGlyph, cfg: TtfCfg) => {
 
 function analyzeComponent(ref: OtGlyph.TtReference) {
     let flag = 0,
-        arg1,
-        arg2;
+        arg1: number,
+        arg2: number;
     if (ref.pointAttachment) {
         arg1 = ref.pointAttachment.outer.pointIndex;
         arg2 = ref.pointAttachment.inner.pointIndex;
@@ -276,7 +276,7 @@ export const GlyfTableWrite = Write(
 );
 
 class StdGlyfDataSink {
-    constructor(
+    public constructor(
         private readonly loca: LocaTable,
         private readonly frag: Frag
     ) {}

@@ -1,13 +1,13 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Head } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Head } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
-import { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
+import type { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
 import { CffWriteContext } from "../context/write";
 import { CffFdArrayIo } from "../dict/font-dict";
 import { CffTopDictIo, CffTopDictWrite } from "../dict/top";
@@ -25,7 +25,7 @@ export const WriteCff2 = Write(
         cfg: CffCfg,
         head: Head.Table,
         designSpace?: Data.Maybe<OtVar.DesignSpace>,
-        stat?: Data.Maybe<OtGlyph.Stat.Sink>
+        stat?: Data.Maybe<OtGlyph.Stat.Sink>,
     ) => {
         cffCleanupUnusedData(cff);
 
@@ -41,12 +41,12 @@ export const WriteCff2 = Write(
             majorVersion: 2,
             minorVersion: 0,
             headerSize: 5,
-            topDictLength: fgTop.size
+            topDictLength: fgTop.size,
         });
         frag.embed(fgTop);
         frag.push(CffSubroutineIndex, charStringResults.globalSubroutines, ctx);
         cffCleanupUnusedData(cff);
-    }
+    },
 );
 
 function setupTopDict(
@@ -54,7 +54,7 @@ function setupTopDict(
     gOrd: Data.Order<OtGlyph>,
     charStringResults: CharStringGlobalOptimizeResult,
     ctx: CffWriteContext,
-    designSpace?: Data.Maybe<OtVar.DesignSpace>
+    designSpace?: Data.Maybe<OtVar.DesignSpace>,
 ) {
     const td: CffTopDictWrite = new CffTopDictWrite(cff.topDict);
     td.fgCharStrings = Frag.from(CffSubroutineIndex, charStringResults.charStrings, ctx);

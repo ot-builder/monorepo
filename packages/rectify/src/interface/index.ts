@@ -1,4 +1,4 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 
 // RECTIFICATION INTERFACES
 export interface GlyphReferenceRectifier {
@@ -19,20 +19,20 @@ export interface CoordRectifier {
 ////// "Point Attachment" rectifier
 export enum PointAttachmentRectifyManner {
     TrustAttachment,
-    TrustCoordinate
+    TrustCoordinate,
 }
 export interface PointAttachmentRectifier {
     readonly manner: PointAttachmentRectifyManner;
     acceptOffset(
         actual: { x: Ot.Var.Value; y: Ot.Var.Value },
-        desired: { x: Ot.Var.Value; y: Ot.Var.Value }
+        desired: { x: Ot.Var.Value; y: Ot.Var.Value },
     ): { x: boolean; y: boolean };
 }
 
-export const IdGlyphRefRectifier: GlyphReferenceRectifier = { glyphRef: g => g };
-export const IdAxisRectifier: AxisRectifier = { dim: a => a, axis: a => a, addedAxes: [] };
-export const IdCoordRectifier: CoordRectifier = { coord: x => x, cv: x => x };
+export const IdGlyphRefRectifier: GlyphReferenceRectifier = { glyphRef: (g) => g };
+export const IdAxisRectifier: AxisRectifier = { dim: (a) => a, axis: (a) => a, addedAxes: [] };
+export const IdCoordRectifier: CoordRectifier = { coord: (x) => x, cv: (x) => x };
 export const IdPointAttachmentRectifier: PointAttachmentRectifier = {
     manner: PointAttachmentRectifyManner.TrustAttachment,
-    acceptOffset: () => ({ x: true, y: true })
+    acceptOffset: () => ({ x: true, y: true }),
 };

@@ -9,7 +9,7 @@ export interface TtfWritingExtraInfoSink {
         argXScale: number,
         argScale01: number,
         argScale10: number,
-        argYScale: number
+        argYScale: number,
     ): void;
 }
 

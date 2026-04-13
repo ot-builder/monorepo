@@ -6,7 +6,7 @@ import { OtVar } from "@ot-builder/variance";
 import { MathValueRecord } from "../shared/math-value-record";
 
 export const MathConstants = {
-    ...Read<OtMath.Constants>(bp => {
+    ...Read<OtMath.Constants>((bp) => {
         const x = new OtMath.Constants();
         x.scriptPercentScaleDown = bp.int16();
         x.scriptScriptPercentScaleDown = bp.int16();
@@ -123,6 +123,6 @@ export const MathConstants = {
         fr.push(MathValueRecord, x.radicalKernBeforeDegree);
         fr.push(MathValueRecord, x.radicalKernAfterDegree);
         fr.int16(x.radicalDegreeBottomRaisePercent);
-    })
+    }),
 };
 export const Ptr16MathConstantsNullable = NullablePtr16(MathConstants);

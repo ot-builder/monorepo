@@ -2,14 +2,14 @@ import { Frag, Write, WriteOpt } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { F2D14 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 import { TvhFlags, TvhSetFlags } from "../shared/flags";
 import { DeltaRunDp, PointCount, PointNumberRunDp } from "../shared/runs";
 
-import { collectDeltaData, DelayDeltaValue, TvsCollector } from "./collect";
+import { collectDeltaData, type DelayDeltaValue, TvsCollector } from "./collect";
 import { iupOptimize } from "./iup-optimize";
-import { MasterToTupleConverter, TupleAllocator } from "./tuple-allocator";
+import { MasterToTupleConverter, type TupleAllocator } from "./tuple-allocator";
 
 export interface TupleVariationBuildContext {
     readonly designSpace: OtVar.DesignSpace;
@@ -45,7 +45,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         // - Header
         const fHaveSharedPoints =
             !ctx.forcePrivatePointNumbers &&
-            !ImpLib.BitMask.allTrue(blobResults.map(x => x.embedPointIndex))
+            !ImpLib.BitMask.allTrue(blobResults.map((x) => x.embedPointIndex))
                 ? TvhSetFlags.SHARED_POINT_NUMBERS
                 : 0;
         frRoot.uint16(fHaveSharedPoints | blobResults.length);
@@ -59,7 +59,7 @@ export const TupleVariationWriteOpt = WriteOpt(
         }
 
         return frRoot;
-    }
+    },
 );
 
 interface BlobWriteResult {
@@ -74,14 +74,13 @@ function writeBlob(
     tuc: MasterToTupleConverter,
     data: DelayDeltaValue[][],
     mid: number,
-    master: OtVar.Master
+    master: OtVar.Master,
 ): BlobWriteResult {
     let result = writeBlobImpl(source, ctx, tuc, data, mid, master, 0);
     if (ctx.iupTolerance) {
         const resOpt = writeBlobImpl(source, ctx, tuc, data, mid, master, ctx.iupTolerance);
         if (
-            (resOpt.bufBody.byteLength <= result.bufBody.byteLength ||
-                result.hasNonIntegerDelta) &&
+            (resOpt.bufBody.byteLength <= result.bufBody.byteLength || result.hasNonIntegerDelta) &&
             !resOpt.hasNonIntegerDelta
         ) {
             result = resOpt;
@@ -97,7 +96,7 @@ function writeBlobImpl(
     data: DelayDeltaValue[][],
     mid: number,
     master: OtVar.Master,
-    tolerance: number
+    tolerance: number,
 ): BlobWriteResult {
     const frBody = new Frag();
 
@@ -105,7 +104,7 @@ function writeBlobImpl(
         source,
         data,
         mid,
-        tolerance
+        tolerance,
     );
     if (ImpLib.BitMask.allFalseN(n, mask)) mask[0] = true;
     const embedPointIndex = ctx.forcePrivatePointNumbers || !ImpLib.BitMask.allTrueN(n, mask);
@@ -120,7 +119,7 @@ function writeBlobImpl(
         embedPointIndex,
         hasNonIntegerDelta,
         bufHeader: Frag.pack(hr.frag),
-        bufBody: Frag.pack(frBody)
+        bufBody: Frag.pack(frBody),
     };
 }
 
@@ -149,7 +148,7 @@ function decidePointsAndDeltas(
     source: TupleVariationBuildSource,
     data: DelayDeltaValue[][],
     mid: number,
-    tolerance: number
+    tolerance: number,
 ) {
     const mask: boolean[] = [];
     const deltas: number[] = [];
@@ -188,7 +187,7 @@ function writeTupleVariationHeader(
     ctx: TupleVariationBuildContext,
     tuc: MasterToTupleConverter,
     master: OtVar.Master,
-    embedPointIndex: boolean
+    embedPointIndex: boolean,
 ) {
     const frag = new Frag();
     const { min, peak, max } = tuc.getTuples(master);
@@ -226,10 +225,10 @@ const DeltaRuns = Write(
             if (mask[zid]) dp.update(ImpLib.Arith.Round.Coord(delta));
         }
         dp.write(frag);
-    }
+    },
 );
 
-const AllPoints = Write(frag => frag.uint8(0));
+const AllPoints = Write((frag) => frag.uint8(0));
 const PointsMask = Write((frag: Frag, n: number, mask: boolean[]) => {
     if (ImpLib.BitMask.allTrueN(n, mask)) {
         frag.uint8(0);

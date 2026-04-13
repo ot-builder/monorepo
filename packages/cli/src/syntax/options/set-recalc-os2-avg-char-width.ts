@@ -1,17 +1,17 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (st.isOption("++recalc-os2-avg-char-width")) {
-            return ParseResult(st.next(), async state => {
+            return ParseResult(st.next(), async (state) => {
                 state.recalcOs2XAvgCharWidth = true;
             });
         }
         if (st.isOption("--recalc-os2-avg-char-width")) {
-            return ParseResult(st.next(), async state => {
+            return ParseResult(st.next(), async (state) => {
                 state.recalcOs2XAvgCharWidth = false;
             });
         }
@@ -21,7 +21,7 @@ export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
         shower.message(
             Style.Option`++recalc-os2-avg-char-width`,
             `;`,
-            Style.Option`--recalc-os2-avg-char-width`
+            Style.Option`--recalc-os2-avg-char-width`,
         );
         shower
             .indent("")
@@ -32,7 +32,7 @@ export const SetRecalcOs2AvgCharWidthSyntax: Syntax<null | CliAction> = {
                 Style.Option`--recalc-os2-avg-char-width`,
                 `to disable,`,
                 Style.Option`++recalc-os2-avg-char-width`,
-                `to enable. By default recalculation is enabled.`
+                `to enable. By default recalculation is enabled.`,
             );
-    }
+    },
 };

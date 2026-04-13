@@ -1,10 +1,10 @@
-import * as util from "util";
+import * as util from "node:util";
 
-import { VarianceDim } from "../interface/dimension";
-import { VarianceInstance } from "../interface/instance";
-import { VarianceMasterSet } from "../interface/master";
+import type { VarianceDim } from "../interface/dimension";
+import type { VarianceInstance } from "../interface/instance";
+import type { VarianceMasterSet } from "../interface/master";
 
-import { OtVarMaster } from "./master";
+import type { OtVarMaster } from "./master";
 
 export type OtVarValue = number | OtVarValueC;
 
@@ -14,7 +14,7 @@ export class OtVarValueC {
 
     private constructor(
         private readonly masterSet: VarianceMasterSet<VarianceDim, OtVarMaster>,
-        public readonly origin: number
+        public readonly origin: number,
     ) {}
 
     private getVarianceByIndex(index: number) {
@@ -93,7 +93,7 @@ export class OtVarValueC {
     public scaleAddScaleVariable(thisScale: number, otherScale: number, other: OtVarValueC) {
         const v1 = new OtVarValueC(
             this.masterSet,
-            thisScale * this.origin + otherScale * other.origin
+            thisScale * this.origin + otherScale * other.origin,
         );
 
         if (other.masterSet === this.masterSet) {
@@ -101,8 +101,8 @@ export class OtVarValueC {
                 v1.deltaValues = new Float64Array(
                     Math.max(
                         this.deltaValues ? this.deltaValues.length : 0,
-                        other.deltaValues ? other.deltaValues.length : 0
-                    )
+                        other.deltaValues ? other.deltaValues.length : 0,
+                    ),
                 );
                 if (this.deltaValues) {
                     for (let mid = 0; mid < this.deltaValues.length; mid++) {
@@ -144,7 +144,7 @@ export class OtVarValueC {
     public static Create(
         masterSet: VarianceMasterSet<VarianceDim, OtVarMaster>,
         origin: number,
-        variance: Iterable<[OtVarMaster, number]>
+        variance: Iterable<[OtVarMaster, number]>,
     ) {
         const v = new OtVarValueC(masterSet, origin);
         for (const [master, delta] of variance) v.setDelta(master, delta);

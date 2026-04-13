@@ -1,9 +1,9 @@
 import * as ImpLib from "@ot-builder/common-impl";
 
-import { VarianceDim } from "../interface/dimension";
-import { VarianceMasterSet } from "../interface/master";
+import type { VarianceDim } from "../interface/dimension";
+import type { VarianceMasterSet } from "../interface/master";
 
-import { OtVarMaster } from "./master";
+import type { OtVarMaster } from "./master";
 
 type VRStep = [number, number, number];
 
@@ -19,8 +19,6 @@ export class OtVarMasterSet implements VarianceMasterSet<VarianceDim, OtVarMaste
     private masterList: VRCRecord[] = [];
     private masterMap = new ImpLib.PathMapImpl<number, VRCRecord>();
     private masterMapCache = new WeakMap<OtVarMaster, VRCRecord>();
-
-    constructor() {}
 
     private putAxis(a: VarianceDim) {
         const axisIndex = this.axisMap.get(a);

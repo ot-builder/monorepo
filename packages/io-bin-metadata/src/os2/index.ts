@@ -1,4 +1,4 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Os2 } from "@ot-builder/ot-metadata";
 import { Tag } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
@@ -30,7 +30,7 @@ export const Os2Panose = {
         b.uint8(panose.bLetterform);
         b.uint8(panose.bMidline);
         b.uint8(panose.bXHeight);
-    }
+    },
 };
 
 export const Os2TableIo = {
@@ -124,5 +124,5 @@ export const Os2TableIo = {
         if (table.version < 5) return;
         frag.uint16(table.usLowerOpticalPointSize);
         frag.uint16(table.usUpperOpticalPointSize);
-    }
+    },
 };

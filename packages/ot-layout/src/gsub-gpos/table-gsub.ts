@@ -1,13 +1,13 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { CaseCreator, CaseType, Data, FallbackPropCreator } from "@ot-builder/prelude";
-import * as Primitive from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { CaseCreator, type CaseType, type Data, FallbackPropCreator } from "@ot-builder/prelude";
+import type * as Primitive from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 
-import * as GeneralLookup from "./general/lookup";
+import type * as GeneralLookup from "./general/lookup";
 import { Gsub as LookupType } from "./general/lookup-type";
-import * as GsubGpos from "./table-shared";
+import type * as GsubGpos from "./table-shared";
 
 export * as FeatureParams from "./feature-params";
 export { Gsub as LookupType } from "./general/lookup-type";
@@ -16,11 +16,11 @@ export { Gsub as LookupType } from "./general/lookup-type";
 export const Tag = "GSUB";
 
 export class Table implements GsubGpos.TableT<Lookup> {
-    constructor(
+    public constructor(
         public scripts: Map<Primitive.Tag, Script> = new Map(),
         public features: Feature[] = [],
         public lookups: Lookup[] = [],
-        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined
+        public featureVariations: Data.Maybe<FeatureVariation[]> = undefined,
     ) {}
 }
 
@@ -37,40 +37,40 @@ export type SingleProp = GeneralLookup.GsubSinglePropT<OtGlyph, OtVar.Value>;
 export type Single = CaseType<typeof LookupType.Single, SingleProp>;
 export const Single = CaseCreator(
     LookupType.Single,
-    FallbackPropCreator<SingleProp>(() => ({ mapping: new Map() }))
+    FallbackPropCreator<SingleProp>(() => ({ mapping: new Map() })),
 );
 
 export type MultipleAlternateProp = GeneralLookup.GsubMultipleAlternatePropT<OtGlyph, OtVar.Value>;
 export type Multiple = CaseType<typeof LookupType.Multi, MultipleAlternateProp>;
 export const Multiple = CaseCreator(
     LookupType.Multi,
-    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() }))
+    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() })),
 );
 export type Alternate = CaseType<typeof LookupType.Alternate, MultipleAlternateProp>;
 export const Alternate = CaseCreator(
     LookupType.Alternate,
-    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() }))
+    FallbackPropCreator<MultipleAlternateProp>(() => ({ mapping: new Map() })),
 );
 
 export type LigatureProp = GeneralLookup.GsubLigaturePropT<OtGlyph, OtVar.Value>;
 export type Ligature = CaseType<typeof LookupType.Ligature, LigatureProp>;
 export const Ligature = CaseCreator(
     LookupType.Ligature,
-    FallbackPropCreator<LigatureProp>(() => ({ mapping: [] }))
+    FallbackPropCreator<LigatureProp>(() => ({ mapping: [] })),
 );
 
 export type ChainingProp = GeneralLookup.ForwardChainingPropT<OtGlyph, OtVar.Value, Lookup>;
 export type Chaining = CaseType<typeof LookupType.Chaining, ChainingProp>;
 export const Chaining = CaseCreator(
     LookupType.Chaining,
-    FallbackPropCreator<ChainingProp>(() => ({ rules: [] }))
+    FallbackPropCreator<ChainingProp>(() => ({ rules: [] })),
 );
 
 export type ReverseSubProp = GeneralLookup.GsubReverseSingleSubPropT<OtGlyph, OtVar.Value>;
 export type ReverseSub = CaseType<typeof LookupType.Reverse, ReverseSubProp>;
 export const ReverseSub = CaseCreator(
     LookupType.Reverse,
-    FallbackPropCreator<ReverseSubProp>(() => ({ rules: [] }))
+    FallbackPropCreator<ReverseSubProp>(() => ({ rules: [] })),
 );
 
 export type Lookup = Single | Multiple | Alternate | Ligature | Chaining | ReverseSub;

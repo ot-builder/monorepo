@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
+import type { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 
 function rectifyCoordPrivateDict(rec: CoordRectifier, pd: Ot.Cff.PrivateDict) {
@@ -50,7 +50,7 @@ function rectifyCoordFontDict(rec: CoordRectifier, fd: Ot.Cff.FontDict) {
         result.fontMatrix = {
             ...fd.fontMatrix,
             dx: rec.coord(fd.fontMatrix.dx),
-            dy: rec.coord(fd.fontMatrix.dy)
+            dy: rec.coord(fd.fontMatrix.dy),
         };
     }
     return result;
@@ -69,7 +69,7 @@ function rectifyGlyphCID(rec: GlyphReferenceRectifier, cid: Ot.Cff.CID) {
 export function rectifyCffTable(
     rg: GlyphReferenceRectifier,
     rc: CoordRectifier,
-    table: Ot.Cff.Table
+    table: Ot.Cff.Table,
 ) {
     const result = new Ot.Cff.Table(table.version);
     result.postScriptFontName = table.postScriptFontName;

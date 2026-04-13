@@ -1,28 +1,28 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Cff } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CffReadIndex } from "../cff-index/read";
 import { CffWriteIndex } from "../cff-index/write";
 import { CffDrawCallRaw } from "../char-string/write/draw-call";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import { CffOperator } from "../interp/operator";
 
-import { DictEncoder } from "./encoder";
+import type { DictEncoder } from "./encoder";
 import {
     CffDictDataCollector,
-    CffDictInterpreter,
+    type CffDictInterpreter,
     CffDictInterpreterBase,
     CffDictReadT,
-    CffDictWriteT
+    CffDictWriteT,
 } from "./general";
 import { CffPrivateDictIo } from "./private-dict";
 
 export class CffFontDictInterpreterBase extends CffDictInterpreterBase {
-    constructor(protected ctx: CffReadContext) {
+    public constructor(protected ctx: CffReadContext) {
         super(null);
     }
 
@@ -154,7 +154,7 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         }
     }
 
-    public *collectDrawCalls(pd: Cff.FontDict, ctx: CffWriteContext, rest: void) {
+    public *collectDrawCalls(pd: Cff.FontDict, ctx: CffWriteContext, rest: undefined) {
         // Strings
         yield* this.emitString(ctx, pd.version, CffOperator.Version);
         yield* this.emitString(ctx, pd.notice, CffOperator.Notice);
@@ -171,12 +171,12 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         yield* this.emitNum(
             pd.underlinePosition,
             emp.underlinePosition,
-            CffOperator.UnderlinePosition
+            CffOperator.UnderlinePosition,
         );
         yield* this.emitNum(
             pd.underlineThickness,
             emp.underlineThickness,
-            CffOperator.UnderlineThickness
+            CffOperator.UnderlineThickness,
         );
         yield* this.emitNum(pd.paintType, emp.paintType, CffOperator.PaintType);
         yield* this.emitNum(pd.charStringType, emp.charStringType, CffOperator.CharStringType);
@@ -193,7 +193,7 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
         encoder: DictEncoder,
         fd: Cff.FontDict,
         ctx: CffWriteContext,
-        rest: void
+        rest: undefined,
     ) {
         if (fd.privateDict) {
             const frPrivateDict = Frag.from(CffPrivateDictIo, fd.privateDict, ctx, rest);
@@ -205,21 +205,21 @@ export class CffFontDictDataCollector extends CffDictDataCollector<Cff.FontDict>
 
 export const CffFontDictIo = {
     ...CffDictReadT<Cff.FontDict>((vwDict, ctx) => new CffFontDictInterpreter(ctx)),
-    ...CffDictWriteT<Cff.FontDict>(new CffFontDictDataCollector())
+    ...CffDictWriteT<Cff.FontDict>(new CffFontDictDataCollector()),
 };
 
 const CffFontDictIndexWrite = new CffWriteIndex({
-    write: (f, fd: Cff.FontDict, ctx) => f.push(CffFontDictIo, fd, ctx, undefined)
+    write: (f, fd: Cff.FontDict, ctx) => f.push(CffFontDictIo, fd, ctx, undefined),
 });
 
 export const CffFdArrayIo = {
     ...Read((view, ctx: CffReadContext) => {
         return view.next(
             new CffReadIndex({ read: (view, ctx, size) => view.next(CffFontDictIo, ctx, size) }),
-            ctx
+            ctx,
         );
     }),
     ...Write((frag, fdArray: Cff.FontDict[], ctx: CffWriteContext) => {
         return frag.push(CffFontDictIndexWrite, fdArray, ctx);
-    })
+    }),
 };

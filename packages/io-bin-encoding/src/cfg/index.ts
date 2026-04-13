@@ -10,5 +10,5 @@ export interface EncodingCfgPt {
 }
 export const DefaultEncodingCfgProps: EncodingCfgProps = {
     statOs2UnicodeRanges: true,
-    forceCmapSubtableFormatToBePresent: true
+    forceCmapSubtableFormatToBePresent: true,
 };

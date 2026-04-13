@@ -1,5 +1,5 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { Head, Maxp } from "@ot-builder/ot-metadata";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { Head, Maxp } from "@ot-builder/ot-metadata";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LocaShortOffsetScaling } from "./shared";
@@ -41,5 +41,5 @@ export const LocaTableIo = {
                 frag.uint32(offset);
             }
         }
-    }
+    },
 };

@@ -15,35 +15,35 @@ test("Draw call generator test", () => {
         OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 0 },
             new Set([hints.hStems[0]]),
-            new Set()
+            new Set(),
         ),
         OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 1 },
             new Set([hints.hStems[1]]),
-            new Set()
+            new Set(),
         ),
         OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 1, index: 0 },
             new Set([hints.hStems[0]]),
-            new Set()
+            new Set(),
         ),
         OtGlyph.CffHint.createMask(
             { geometry: 1, contour: 0, index: 0 },
             new Set([hints.hStems[0], hints.hStems[1]]),
-            new Set()
-        )
+            new Set(),
+        ),
     ];
     hints.counterMasks = [
         OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 0 },
             new Set([hints.hStems[0]]),
-            new Set()
+            new Set(),
         ),
         OtGlyph.CffHint.createMask(
             { geometry: 0, contour: 0, index: 0 },
             new Set([hints.hStems[1]]),
-            new Set()
-        )
+            new Set(),
+        ),
     ];
     glyph.hints = hints;
 
@@ -52,14 +52,14 @@ test("Draw call generator test", () => {
             OtGlyph.Point.create(1, 1, OtGlyph.PointType.Corner),
             OtGlyph.Point.create(2, 1, OtGlyph.PointType.Corner),
             OtGlyph.Point.create(2, 2, OtGlyph.PointType.Corner),
-            OtGlyph.Point.create(1, 2, OtGlyph.PointType.Corner)
+            OtGlyph.Point.create(1, 2, OtGlyph.PointType.Corner),
         ],
         [
             OtGlyph.Point.create(10, 10, OtGlyph.PointType.Corner),
             OtGlyph.Point.create(20, 10, OtGlyph.PointType.Corner),
             OtGlyph.Point.create(20, 20, OtGlyph.PointType.Lead),
-            OtGlyph.Point.create(10, 20, OtGlyph.PointType.Follow)
-        ]
+            OtGlyph.Point.create(10, 20, OtGlyph.PointType.Follow),
+        ],
     ]);
 
     const drawCalls = codeGenGlyph(ctx, 0, glyph);
@@ -80,6 +80,6 @@ test("Draw call generator test", () => {
     10 0 RLineTo
     0 10 -10 0 0 -10 RRCurveTo
     HintMask[1 1]
-`)
+`),
     );
 });

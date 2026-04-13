@@ -1,17 +1,17 @@
 import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 import {
-    CoordRectifier,
-    GlyphReferenceRectifier,
-    PointAttachmentRectifier,
-    PointAttachmentRectifyManner
+    type CoordRectifier,
+    type GlyphReferenceRectifier,
+    type PointAttachmentRectifier,
+    PointAttachmentRectifyManner,
 } from "../interface";
 import { RectifyImpl } from "../shared";
 
 enum TraverseProgress {
     PROCESSING = 1,
-    PROCESSED = 2
+    PROCESSED = 2,
 }
 interface GlyphRectifyGlobalState {
     progress: Map<Ot.Glyph, TraverseProgress>;
@@ -21,16 +21,16 @@ interface GlyphRectifyHandlerState {
 }
 
 class GeometryProcessor {
-    constructor(
+    public constructor(
         private readonly recGlyphRef: GlyphReferenceRectifier,
         private readonly recCoord: CoordRectifier,
         private readonly recPA: PointAttachmentRectifier,
-        private readonly globalState: GlyphRectifyGlobalState
+        private readonly globalState: GlyphRectifyGlobalState,
     ) {}
 
     public process(
         geom: Ot.Glyph.Geometry,
-        st: GlyphRectifyHandlerState
+        st: GlyphRectifyHandlerState,
     ): null | Ot.Glyph.Geometry {
         switch (geom.type) {
             case Ot.Glyph.GeometryType.ContourSet:
@@ -51,7 +51,7 @@ class GeometryProcessor {
                 c1[zid] = Ot.Glyph.Point.create(
                     this.recCoord.coord(z.x),
                     this.recCoord.coord(z.y),
-                    z.kind
+                    z.kind,
                 );
             }
             cs1.push(c1);
@@ -64,7 +64,7 @@ class GeometryProcessor {
 
     private processGeometryList(
         items: ReadonlyArray<Ot.Glyph.Geometry>,
-        st: GlyphRectifyHandlerState
+        st: GlyphRectifyHandlerState,
     ) {
         const sink: Ot.Glyph.Geometry[] = [];
         for (const item of items) {
@@ -83,7 +83,7 @@ class GeometryProcessor {
         const ref1 = new Ot.Glyph.TtReference(to1, {
             ...ref.transform,
             dx: this.recCoord.coord(ref.transform.dx),
-            dy: this.recCoord.coord(ref.transform.dy)
+            dy: this.recCoord.coord(ref.transform.dy),
         });
         ref1.roundXyToGrid = ref.roundXyToGrid;
         ref1.useMyMetrics = ref.useMyMetrics;
@@ -92,7 +92,7 @@ class GeometryProcessor {
         this.processTtReferenceImpl(innerPoints, st, ref1);
         for (const z of innerPoints) {
             st.points.push(
-                Ot.Glyph.PointOps.applyTransform(Ot.Glyph.Point.create(z.x, z.y), ref1.transform)
+                Ot.Glyph.PointOps.applyTransform(Ot.Glyph.Point.create(z.x, z.y), ref1.transform),
             );
         }
         return ref1;
@@ -101,7 +101,7 @@ class GeometryProcessor {
     private processTtReferenceImpl(
         innerPoints: Data.XY<Ot.Var.Value>[],
         st: GlyphRectifyHandlerState,
-        ref1: Ot.Glyph.TtReference
+        ref1: Ot.Glyph.TtReference,
     ) {
         if (!ref1.pointAttachment) return;
 
@@ -118,12 +118,12 @@ class GeometryProcessor {
                 ...ref1.transform,
                 scaledOffset: false,
                 dx: 0,
-                dy: 0
-            })
+                dy: 0,
+            }),
         );
         const accept = this.recPA.acceptOffset(desiredOffset, {
             x: ref1.transform.dx,
-            y: ref1.transform.dy
+            y: ref1.transform.dy,
         });
         if (accept.x && accept.y) return;
 
@@ -133,7 +133,7 @@ class GeometryProcessor {
                     ...ref1.transform,
                     dx: desiredOffset.x,
                     dy: desiredOffset.y,
-                    scaledOffset: false
+                    scaledOffset: false,
                 };
                 break;
             case PointAttachmentRectifyManner.TrustCoordinate:
@@ -144,7 +144,7 @@ class GeometryProcessor {
 }
 
 class HintProcessor {
-    constructor(private readonly rec: CoordRectifier) {}
+    public constructor(private readonly rec: CoordRectifier) {}
 
     public process(geom: Ot.Glyph.Hint): Ot.Glyph.Hint {
         switch (geom.type) {
@@ -167,8 +167,8 @@ class HintProcessor {
         const h1 = new Ot.Glyph.CffHint();
         h1.hStems = [...stemHMap.values()];
         h1.vStems = [...stemVMap.values()];
-        h1.hintMasks = ch.hintMasks.map(m => this.processMask(m, stemHMap, stemVMap));
-        h1.counterMasks = ch.counterMasks.map(m => this.processMask(m, stemHMap, stemVMap));
+        h1.hintMasks = ch.hintMasks.map((m) => this.processMask(m, stemHMap, stemVMap));
+        h1.counterMasks = ch.counterMasks.map((m) => this.processMask(m, stemHMap, stemVMap));
         return h1;
     }
     private processHintStem(stem: Ot.Glyph.CffHintStem) {
@@ -177,7 +177,7 @@ class HintProcessor {
     private processMask(
         mask: Ot.Glyph.CffHintMask,
         stemHMap: Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>,
-        stemVMap: Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>
+        stemVMap: Map<Ot.Glyph.CffHintStem, Ot.Glyph.CffHintStem>,
     ) {
         const maskH: Set<Ot.Glyph.CffHintStem> = new Set();
         const maskV: Set<Ot.Glyph.CffHintStem> = new Set();
@@ -198,7 +198,7 @@ function processGlyph(
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
     glyph: Ot.Glyph,
-    state: GlyphRectifyGlobalState
+    state: GlyphRectifyGlobalState,
 ) {
     const preProgress = state.progress.get(glyph);
     if (preProgress === TraverseProgress.PROCESSING)
@@ -216,11 +216,11 @@ function processGlyph(
     }
     glyph.horizontal = {
         start: recCoord.coord(glyph.horizontal.start),
-        end: recCoord.coord(glyph.horizontal.end)
+        end: recCoord.coord(glyph.horizontal.end),
     };
     glyph.vertical = {
         start: recCoord.coord(glyph.vertical.start),
-        end: recCoord.coord(glyph.vertical.end)
+        end: recCoord.coord(glyph.vertical.end),
     };
 
     state.progress.set(glyph, TraverseProgress.PROCESSED);
@@ -230,7 +230,7 @@ export function inPlaceRectifyGlyphStore<GS extends Ot.GlyphStore>(
     recGlyphRef: GlyphReferenceRectifier,
     recCoord: CoordRectifier,
     recPA: PointAttachmentRectifier,
-    glyphs: GS
+    glyphs: GS,
 ) {
     const gOrd = glyphs.decideOrder();
     const st: GlyphRectifyGlobalState = { progress: new Map() };

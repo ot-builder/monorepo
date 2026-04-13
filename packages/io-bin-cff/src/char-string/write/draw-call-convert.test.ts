@@ -11,15 +11,15 @@ const Wght = new OtVar.Dim("wght", 100, 400, 900);
 const Wdth = new OtVar.Dim("wdth", 25, 100, 200);
 const Bold = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: -1, peak: 0, max: 1 }
+    { dim: Wdth, min: -1, peak: 0, max: 1 },
 ]);
 const Wide = new OtVar.Master([
     { dim: Wght, min: -1, peak: 0, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wdth, min: 0, peak: 1, max: 1 },
 ]);
 const Corner = new OtVar.Master([
     { dim: Wght, min: 0, peak: 1, max: 1 },
-    { dim: Wdth, min: 0, peak: 1, max: 1 }
+    { dim: Wdth, min: 0, peak: 1, max: 1 },
 ]);
 
 test("CFF Encoding: Draw call conversion", () => {
@@ -30,9 +30,9 @@ test("CFF Encoding: Draw call conversion", () => {
             cr.make(1, [Bold, 2], [Wide, 3]),
             cr.make(4, [Bold, 5], [Wide, 6]),
             7,
-            cr.make(8, [Bold, 9], [Wide, 10])
+            cr.make(8, [Bold, 9], [Wide, 10]),
         ],
-        CharStringOperator.RLineTo
+        CharStringOperator.RLineTo,
     );
     const dcSeq = CffDrawCall.charStringSeqFromRawSeq(ctx, [dcrSeq]);
     const mirSeq = CffDrawCall.charStringSeqToMir(ctx, dcSeq);
@@ -55,7 +55,7 @@ test("CFF Encoding: Draw call conversion", () => {
         Mir.operand(10),
         Mir.operand(1),
         Mir.operator(CharStringOperator.Blend, -3),
-        Mir.operator(CharStringOperator.RLineTo, -4)
+        Mir.operator(CharStringOperator.RLineTo, -4),
     ]);
 });
 

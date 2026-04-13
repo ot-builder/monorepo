@@ -1,16 +1,16 @@
-import { CliHelpShower } from "@ot-builder/cli-help-shower";
+import type { CliHelpShower } from "@ot-builder/cli-help-shower";
 
-import { ParseResult, ParseState } from "../../argv-parser";
-import { Grammar, Syntax } from "../../command";
+import { ParseResult, type ParseState } from "../../argv-parser";
+import type { Grammar, Syntax } from "../../command";
 
 export interface Join<T> {
     join(items: T[]): T;
 }
 
 export class PossessiveRepeatSyntax<T> implements Syntax<T> {
-    constructor(
+    public constructor(
         private readonly joiner: Join<T>,
-        private readonly body: Syntax<null | T>
+        private readonly body: Syntax<null | T>,
     ) {}
     public handle(st0: ParseState, grammar: Grammar) {
         const results: T[] = [];

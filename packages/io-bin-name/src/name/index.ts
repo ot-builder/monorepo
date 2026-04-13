@@ -1,4 +1,4 @@
-import { BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, BufferWriter, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Name } from "@ot-builder/ot-name";
 import * as iconv from "iconv-lite";
@@ -61,7 +61,7 @@ const NameRecord = {
         if (a.encodingID !== b.encodingID) return a.encodingID - b.encodingID;
         if (a.languageID !== b.languageID) return a.languageID - b.languageID;
         return a.nameID - b.nameID;
-    }
+    },
 };
 
 const LangTagRecord = {
@@ -75,7 +75,7 @@ const LangTagRecord = {
         const buf = iconv.encode(ltr, `utf16-be`);
         frag.uint16(buf.byteLength);
         frag.uint16(alloc.add(buf));
-    }
+    },
 };
 
 export const NameIo = {
@@ -101,7 +101,7 @@ export const NameIo = {
         return table;
     },
     write(frag: Frag, table: Name.Table) {
-        const format = table.langTagMap && table.langTagMap.length ? 1 : 0;
+        const format = table.langTagMap?.length ? 1 : 0;
         const frStrings = new Frag();
         const noa = new NameOffsetAllocator();
         const sortedRecords = Array.from(table.records).sort(NameRecord.compare);
@@ -113,11 +113,11 @@ export const NameIo = {
             frag.push(NameRecord, rec, noa);
         }
         if (format === 1) {
-            if (!table.langTagMap || !table.langTagMap.length) throw Errors.Unreachable();
+            if (!table.langTagMap?.length) throw Errors.Unreachable();
             frag.uint16(table.langTagMap.length);
             for (const lt of table.langTagMap) frag.push(LangTagRecord, lt, noa);
         }
         noa.add(iconv.encode("\n", "utf-8")); // Ensure that the frStrings will not be empty
         frStrings.bytes(noa.getBuffer());
-    }
+    },
 };

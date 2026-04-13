@@ -3,10 +3,10 @@ import { CliProc, Ot } from "ot-builder";
 import { decideGlyphClass, GlyphClass } from "./glyph-class";
 
 class SparseSharingEntry {
-    constructor(
+    public constructor(
         public readonly glyph: Ot.Glyph,
         public glyphClass: GlyphClass,
-        public usages: number
+        public usages: number,
     ) {}
 }
 
@@ -54,7 +54,7 @@ export class SparseGlyphSharer extends CliProc.GlyphSharer<Ot.ListGlyphStore> {
             postSpace = new SparseSharingEntry(
                 this.createPadGlyph(".otb-ttc-bundle/post-space", commonWidth, commonHeight),
                 GlyphClass.PostSpacePad,
-                this.fonts.length
+                this.fonts.length,
             );
             speList.push(postSpace);
         }

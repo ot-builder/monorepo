@@ -1,8 +1,8 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Avar } from "@ot-builder/ot-metadata";
 import { F2D14 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 const AxisSegmentMapList = {
     read(view: BinaryView) {
@@ -22,7 +22,7 @@ const AxisSegmentMapList = {
             frag.push(F2D14, from);
             frag.push(F2D14, to);
         }
-    }
+    },
 };
 
 export const AvarIo = {
@@ -53,5 +53,5 @@ export const AvarIo = {
                 throw Errors.Avar.MissingMapping(dim.tag);
             }
         }
-    }
+    },
 };

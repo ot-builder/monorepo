@@ -1,22 +1,22 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Gdef, GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { OtVar } from "@ot-builder/variance";
 
-import { LayoutCfg } from "../cfg";
-import { OtlStat } from "../stat";
+import type { LayoutCfg } from "../cfg";
+import type { OtlStat } from "../stat";
 
 import { CFeatureList } from "./feature-list";
 import { CFeatureVariations } from "./feature-variation";
-import { LookupReaderFactory, LookupWriterFactory } from "./general";
-import { CReadLookupList, LookupReadContext } from "./read-lookup-list";
+import type { LookupReaderFactory, LookupWriterFactory } from "./general";
+import { CReadLookupList, type LookupReadContext } from "./read-lookup-list";
 import { CScriptList } from "./script-lang";
 import { setLookupTricks } from "./trick";
-import { LookupWriteContext, WriteLookupList } from "./write-lookup-list";
+import { type LookupWriteContext, WriteLookupList } from "./write-lookup-list";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -39,7 +39,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         view: BinaryView,
         cfg: LayoutCfg,
         lrf: LookupReaderFactory<L>,
-        trc: TableReadContext
+        trc: TableReadContext,
     ) {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
@@ -58,7 +58,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         const scripts = vScriptList.next(new CScriptList<L>(), fOrd);
 
         const featureVariations =
-            vFeatureVariation && trc.designSpace && trc.designSpace.length
+            vFeatureVariation && trc.designSpace?.length
                 ? vFeatureVariation.next(new CFeatureVariations<L>(), trc.designSpace, fOrd, lOrd)
                 : null;
 
@@ -69,7 +69,7 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         table: GsubGpos.TableT<L>,
         cfg: LayoutCfg,
         lwf: LookupWriterFactory<L>,
-        twc: TableWriteContext
+        twc: TableWriteContext,
     ) {
         const lwc: LookupWriteContext<L> = { ...twc, tricks: setLookupTricks(table, cfg) };
         const fLookups = Frag.solidFrom(WriteLookupList, table.lookups, lwf, lwc);
@@ -82,14 +82,14 @@ export class CGsubGposTable<L extends GsubGpos.LookupProp> {
         // Script list
         const fScripts = Frag.solidFrom(new CScriptList<L>(), table.scripts, fOrd);
         const fFeatureVariations =
-            !table.featureVariations || !twc.designSpace || !twc.designSpace.length
+            !table.featureVariations || !twc.designSpace?.length
                 ? null
                 : Frag.solidFrom(
                       new CFeatureVariations<L>(),
                       table.featureVariations,
                       twc.designSpace,
                       fOrd,
-                      lOrd
+                      lOrd,
                   );
 
         // Write it!

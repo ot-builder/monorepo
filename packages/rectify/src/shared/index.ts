@@ -1,8 +1,8 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 import { OtGeometryUtil } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { CoordRectifier, GlyphReferenceRectifier } from "../interface";
+import type { CoordRectifier, GlyphReferenceRectifier } from "../interface";
 
 // Rectifiable implementation methods
 export namespace RectifyImpl {
@@ -12,7 +12,7 @@ export namespace RectifyImpl {
     export function maybeT<R, X>(
         rec: R,
         x: null | undefined | X,
-        fn: (rec: R, x: X) => null | undefined | X
+        fn: (rec: R, x: X) => null | undefined | X,
     ) {
         if (!x) return x;
         else return fn(rec, x);
@@ -21,7 +21,7 @@ export namespace RectifyImpl {
         rec1: R1,
         rec2: R2,
         x: null | undefined | X,
-        fn: (rec1: R1, rec2: R2, x: X) => null | undefined | X
+        fn: (rec1: R1, rec2: R2, x: X) => null | undefined | X,
     ) {
         if (!x) return x;
         else return fn(rec1, rec2, x);
@@ -29,7 +29,7 @@ export namespace RectifyImpl {
     export function setAllT<R, X>(
         rec: R,
         xs: ReadonlySet<X>,
-        fn: (rec: R, x: X) => null | undefined | X
+        fn: (rec: R, x: X) => null | undefined | X,
     ) {
         const xs1: Set<X> = new Set();
         for (const x of xs) {
@@ -42,7 +42,7 @@ export namespace RectifyImpl {
     export function setSomeT<R, X>(
         rec: R,
         xs: ReadonlySet<X>,
-        fn: (rec: R, x: X) => null | undefined | X
+        fn: (rec: R, x: X) => null | undefined | X,
     ) {
         const xs1: Set<X> = new Set();
         for (const x of xs) {
@@ -54,7 +54,7 @@ export namespace RectifyImpl {
     export function listAllT<R, X>(
         rectifier: R,
         m: ReadonlyArray<X>,
-        fn: (re: R, x: X) => null | undefined | X
+        fn: (re: R, x: X) => null | undefined | X,
     ) {
         const m1: X[] = [];
         for (const x of m) {
@@ -68,7 +68,7 @@ export namespace RectifyImpl {
         rectifier1: R1,
         rectifier2: R2,
         m: ReadonlyArray<X>,
-        fn: (r1: R1, r2: R2, x: X) => null | undefined | X
+        fn: (r1: R1, r2: R2, x: X) => null | undefined | X,
     ) {
         const m1: X[] = [];
         for (const x of m) {
@@ -81,7 +81,7 @@ export namespace RectifyImpl {
     export function listSomeT<R, X>(
         rectifier: R,
         m: ReadonlyArray<X>,
-        fn: (re: R, x: X) => null | undefined | X
+        fn: (re: R, x: X) => null | undefined | X,
     ) {
         const m1: X[] = [];
         for (const x of m) {
@@ -94,7 +94,7 @@ export namespace RectifyImpl {
         rectifier1: R1,
         rectifier2: R2,
         m: ReadonlyArray<X>,
-        fn: (re: R1, re2: R2, x: X) => null | undefined | X
+        fn: (re: R1, re2: R2, x: X) => null | undefined | X,
     ) {
         const m1: X[] = [];
         for (const x of m) {
@@ -106,7 +106,7 @@ export namespace RectifyImpl {
     export function listSparseT<R, X>(
         rectifier: R,
         m: ReadonlyArray<null | undefined | X>,
-        fn: (re: R, x: X) => null | undefined | X
+        fn: (re: R, x: X) => null | undefined | X,
     ) {
         const m1: Array<null | undefined | X> = [];
         for (const x of m) {
@@ -119,7 +119,7 @@ export namespace RectifyImpl {
         rectifier: R,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R, x: X) => null | undefined | X,
-        fnY: (re: R, y: Y) => null | undefined | Y
+        fnY: (re: R, y: Y) => null | undefined | Y,
     ) {
         const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
@@ -135,7 +135,7 @@ export namespace RectifyImpl {
         rectifier: R,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R, x: X) => null | undefined | X,
-        fnY: (re: R, x1: X, y: Y) => null | undefined | Y
+        fnY: (re: R, x1: X, y: Y) => null | undefined | Y,
     ) {
         const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
@@ -152,7 +152,7 @@ export namespace RectifyImpl {
         rectifier2: R2,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R1, x: X) => null | undefined | X,
-        fnY: (re: R2, y: Y) => null | undefined | Y
+        fnY: (re: R2, y: Y) => null | undefined | Y,
     ) {
         const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
@@ -169,7 +169,7 @@ export namespace RectifyImpl {
         rectifier2: R2,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R1, x: X) => null | undefined | X,
-        fnY: (r1: R1, r2: R2, y: Y) => null | undefined | Y
+        fnY: (r1: R1, r2: R2, y: Y) => null | undefined | Y,
     ) {
         const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
@@ -185,7 +185,7 @@ export namespace RectifyImpl {
         rectifier: R,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R, x: X) => null | undefined | X,
-        fnY: (re: R, y: Y) => null | undefined | Y
+        fnY: (re: R, y: Y) => null | undefined | Y,
     ) {
         return bimapSomeT(rectifier, rectifier, m, fnX, fnY);
     }
@@ -194,7 +194,7 @@ export namespace RectifyImpl {
         rectifier2: R2,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R1, x: X) => null | undefined | X,
-        fnY: (re: R2, x1: X, y: Y) => null | undefined | Y
+        fnY: (re: R2, x1: X, y: Y) => null | undefined | Y,
     ) {
         const m1 = new Map<X, Y>();
         for (const [x, y] of m) {
@@ -210,7 +210,7 @@ export namespace RectifyImpl {
         rectifier: R,
         m: ReadonlyMap<X, Y>,
         fnX: (re: R, x: X) => null | undefined | X,
-        fnY: (re: R, x1: X, y: Y) => null | undefined | Y
+        fnY: (re: R, x1: X, y: Y) => null | undefined | Y,
     ) {
         return bimapSomeT2(rectifier, rectifier, m, fnX, fnY);
     }
@@ -227,7 +227,7 @@ export namespace RectifyImpl {
         }
         export function setSomeN(
             rec: GlyphReferenceRectifier,
-            gs: Data.Maybe<ReadonlySet<Ot.Glyph>>
+            gs: Data.Maybe<ReadonlySet<Ot.Glyph>>,
         ) {
             if (!gs) return null;
             const gs1 = RectifyImpl.setSomeT(rec, gs, single);
@@ -245,13 +245,13 @@ export namespace RectifyImpl {
         }
         export function bimapAll(
             rec: GlyphReferenceRectifier,
-            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>
+            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>,
         ) {
             return RectifyImpl.mapAllT(rec, gm, single, single);
         }
         export function bimapSome(
             rec: GlyphReferenceRectifier,
-            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>
+            gm: ReadonlyMap<Ot.Glyph, Ot.Glyph>,
         ) {
             return RectifyImpl.mapSomeT(rec, gm, single, single);
         }
@@ -270,14 +270,14 @@ export namespace RectifyImpl {
         export function mapAllTX<X>(
             rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.mapAllT(rec, gm, single, fn);
         }
         export function mapSomeTX<X>(
             rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.mapSomeT(rec, gm, single, fn);
         }
@@ -285,7 +285,7 @@ export namespace RectifyImpl {
             rec: GlyphReferenceRectifier,
             rec2: R2,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec: R2, x: X) => null | undefined | X
+            fn: (rec: R2, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.bimapSomeT(rec, rec2, gm, single, fn);
         }
@@ -293,21 +293,21 @@ export namespace RectifyImpl {
             rec: GlyphReferenceRectifier,
             rec2: R2,
             gm: ReadonlyMap<Ot.Glyph, X>,
-            fn: (rec1: GlyphReferenceRectifier, rec2: R2, x: X) => null | undefined | X
+            fn: (rec1: GlyphReferenceRectifier, rec2: R2, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.bimapSome2T(rec, rec2, gm, single, fn);
         }
         export function comapAllTY<X>(
             rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<X, Ot.Glyph>,
-            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.mapAllT(rec, gm, fn, single);
         }
         export function comapSomeTY<X>(
             rec: GlyphReferenceRectifier,
             gm: ReadonlyMap<X, Ot.Glyph>,
-            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X
+            fn: (rec: GlyphReferenceRectifier, x: X) => null | undefined | X,
         ) {
             return RectifyImpl.mapSomeT(rec, gm, fn, single);
         }
@@ -319,7 +319,7 @@ export namespace RectifyImpl {
         }
         export function list(
             rec: CoordRectifier,
-            arr: ReadonlyArray<Ot.Var.Value>
+            arr: ReadonlyArray<Ot.Var.Value>,
         ): Ot.Var.Value[] {
             return RectifyImpl.listSomeT(rec, arr, single);
         }
@@ -366,10 +366,7 @@ export namespace RectifyImpl {
             }
             return a1;
         }
-        export function listSomeOpt<L>(
-            a: ReadonlyArray<null | undefined | L>,
-            ls: ReadonlySet<L>
-        ) {
+        export function listSomeOpt<L>(a: ReadonlyArray<null | undefined | L>, ls: ReadonlySet<L>) {
             const a1: L[] = [];
             for (const item of a) {
                 const l1 = findInSet(item, ls);

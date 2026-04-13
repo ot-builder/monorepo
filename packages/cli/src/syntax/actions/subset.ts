@@ -1,14 +1,14 @@
-import * as Fs from "fs";
+import * as Fs from "node:fs";
 
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 import * as ParseUnicodeRanges from "../../sub-parsers/unicode-ranges/generated";
 
 export const SubsetSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (!st.isOption("--subset")) return ParseResult(st, null);
         st = st.next();
 
@@ -35,7 +35,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             argument = st.expectArgument();
         }
 
-        return ParseResult(st.next(), async state => {
+        return ParseResult(st.next(), async (state) => {
             const entry = state.pop();
             if (!entry) throw new RangeError("Stack size invalid. No font to subset.");
             console.log(`Subset ${entry}`);
@@ -58,7 +58,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
         shower
             .indent("")
             .message(
-                "Subset the font at the stack top according to the text or unicode ranges given."
+                "Subset the font at the stack top according to the text or unicode ranges given.",
             )
             .message(
                 ...["Option", Style.Option`--unicodes`, "is specified by a comma/semicolon"],
@@ -66,7 +66,7 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
                 ...["optionally prefixed with", Style.Arg`U+`, "or", Style.Arg`0x`, "."],
                 ...["Prefixing a range with operator", Style.Arg`-`, "indicates exclusion, and"],
                 ...["will exclude the specified range from the character set to be kept."],
-                ...["For example, the following parameter:"]
+                ...["For example, the following parameter:"],
             );
         shower
             .indent("    ")
@@ -75,9 +75,9 @@ export const SubsetSyntax: Syntax<null | CliAction> = {
             .indent("")
             .message(
                 "Will subset the font with Basic ASCII and General Punctuation block,",
-                "but without number digits."
+                "but without number digits.",
             );
-    }
+    },
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ class UnicodeRangesParser implements CharSubsetParser {
 }
 
 class FileParser implements CharSubsetParser {
-    constructor(private readonly subParser: CharSubsetParser) {}
+    public constructor(private readonly subParser: CharSubsetParser) {}
     public async parse(path: string) {
         const body = await Fs.promises.readFile(path, "utf-8");
         return this.subParser.parse(body);

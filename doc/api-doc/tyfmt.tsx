@@ -6,9 +6,16 @@ import {
     InlineEntry,
     ObjectComma,
     OnlyKeys,
-    RenderRef
+    RenderRef,
 } from "./formatter";
-import { getParent, isExport, isOptional, TyApplyExport, TyExport, TyRep } from "./tyrep";
+import {
+    getParent,
+    isExport,
+    isOptional,
+    type TyApplyExport,
+    type TyExport,
+    type TyRep,
+} from "./tyrep";
 
 export const R = (props: { s: TyRep }) => FormatType(props.s);
 
@@ -124,7 +131,7 @@ const MemberDeclImpl = (props: MemberDeclProps & { member: boolean }) => {
             <DeclHeader {...props} optional={props.optional || optional} />
             <span className="api-doc-delimiter">{":\u200B"}</span>
             {FormatType(ty)}
-        </>
+        </>,
     );
 };
 
@@ -137,7 +144,7 @@ const MethodDeclImpl = (props: MethodDeclProps & { member: boolean }) =>
                 "(",
                 ObjectComma,
                 props.long ? OnlyKeys : InlineEntry,
-                ")"
+                ")",
             )}
             {props.returns ? (
                 <>
@@ -146,5 +153,5 @@ const MethodDeclImpl = (props: MethodDeclProps & { member: boolean }) =>
                 </>
             ) : null}
         </>,
-        props.long ? FormatObjectImpl(props.args || {}, "", () => null, BlockEntry, "") : null
+        props.long ? FormatObjectImpl(props.args || {}, "", () => null, BlockEntry, "") : null,
     );

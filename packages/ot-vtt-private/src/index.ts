@@ -1,11 +1,11 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as TSI0123 from "./tsi0123/index";
-import * as TSI5 from "./tsi5/index";
-import * as TSIC from "./tsic/index";
+import type * as TSI5 from "./tsi5/index";
+import type * as TSI0123 from "./tsi0123/index";
+import type * as TSIC from "./tsic/index";
 
-export * as TSI0123 from "./tsi0123/index";
 export * as TSI5 from "./tsi5/index";
+export * as TSI0123 from "./tsi0123/index";
 export * as TSIC from "./tsic/index";
 
 export interface OtVttPrivate {

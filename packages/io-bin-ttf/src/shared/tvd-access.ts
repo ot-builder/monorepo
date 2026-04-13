@@ -1,7 +1,7 @@
 import { OtVar } from "@ot-builder/variance";
 
 export abstract class CumulativeTvd {
-    constructor(ms: OtVar.MasterSet) {
+    public constructor(ms: OtVar.MasterSet) {
         this.valueCreator = new OtVar.ValueFactory(ms);
     }
     private valueCreator: OtVar.ValueFactory;

@@ -1,7 +1,7 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
 
-import { BimapCtx, StdCompare } from "../../compar-util";
+import { type BimapCtx, StdCompare } from "../../compar-util";
 
 import { GposAdjIdentity } from "./gpos-shared";
 

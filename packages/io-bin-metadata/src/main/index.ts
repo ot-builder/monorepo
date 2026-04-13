@@ -1,7 +1,7 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
 import {
     Avar,
     Fvar,
@@ -10,13 +10,13 @@ import {
     Maxp,
     MetricHead,
     Os2,
-    OtFontIoMetadata,
-    Post
+    type OtFontIoMetadata,
+    Post,
 } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
 
 import { AvarIo } from "../avar";
-import { FontMetadataCfg } from "../cfg";
+import type { FontMetadataCfg } from "../cfg";
 import { FvarIo } from "../fvar";
 import { GaspTableIo } from "../gasp";
 import { HeadIo } from "../head";
@@ -68,11 +68,7 @@ export function readOtMetadata(sfnt: Sfnt, cfg: FontMetadataCfg): OtFontIoMetada
     return md;
 }
 
-export function writeOtMetadata(
-    sink: SfntIoTableSink,
-    cfg: FontMetadataCfg,
-    md: OtFontIoMetadata
-) {
+export function writeOtMetadata(sink: SfntIoTableSink, cfg: FontMetadataCfg, md: OtFontIoMetadata) {
     if (md.fvar) {
         const sfEmpty = new ImpLib.State(false);
         const bMvar = Frag.packFrom(MvarTableIo, md.fvar.getDesignSpace(), md, sfEmpty);
@@ -86,7 +82,7 @@ export function writeOtMetadata(
     if (md.post) {
         sink.add(
             Post.Tag,
-            Frag.packFrom(PostAndNameIo, md.post, md.maxp.numGlyphs, md.postGlyphNaming)
+            Frag.packFrom(PostAndNameIo, md.post, md.maxp.numGlyphs, md.postGlyphNaming),
         );
     }
     if (md.vhea) sink.add(MetricHead.TagVhea, Frag.packFrom(MetricHeadIo, md.vhea));

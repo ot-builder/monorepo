@@ -1,15 +1,15 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import { type BinaryView, Frag } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { LookupWriteTrick } from "../cfg";
 import {
-    LookupReader,
-    LookupWriter,
-    SubtableReadingContext,
+    type LookupReader,
+    type LookupWriter,
+    type SubtableReadingContext,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext,
 } from "../gsub-gpos-shared/general";
 import { CovUtils, GidCoverage, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
 import { GposAdjustment } from "../shared/gpos-adjust";
@@ -31,14 +31,14 @@ const SubtableFormat1 = {
         frag: Frag,
         adj: Gpos.Adjustment,
         data: number[],
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const fmt = GposAdjustment.decideFormat(adj);
         frag.uint16(1);
         frag.push(Ptr16GidCoverage, data, ctx.trick);
         frag.uint16(fmt);
         frag.push(GposAdjustment, adj, fmt, ctx.ivs);
-    }
+    },
 };
 
 const SubtableFormat2 = {
@@ -70,14 +70,14 @@ const SubtableFormat2 = {
         data: [number, Gpos.Adjustment][],
         fmt: number,
 
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         frag.uint16(2);
         frag.push(Ptr16GidCoverage, CovUtils.gidListFromAuxMap(data), ctx.trick);
         frag.uint16(fmt);
         frag.uint16(data.length);
         frag.array(GposAdjustment, CovUtils.valueListFromAuxMap(data), fmt, ctx.ivs);
-    }
+    },
 };
 
 export class GposSingleReader implements LookupReader<Gpos.Lookup, Gpos.Single> {
@@ -87,7 +87,7 @@ export class GposSingleReader implements LookupReader<Gpos.Lookup, Gpos.Single> 
     public parseSubtable(
         view: BinaryView,
         lookup: Gpos.Single,
-        context: SubtableReadingContext<Gpos.Lookup>
+        context: SubtableReadingContext<Gpos.Lookup>,
     ) {
         const format = view.lift(0).uint16();
         switch (format) {
@@ -128,7 +128,7 @@ class GsubSingleWriterState {
 }
 
 const MaxUniformItems = Math.floor(
-    (SubtableSizeLimit - UInt16.size * 16) / (UInt16.size * MaxCovItemWords)
+    (SubtableSizeLimit - UInt16.size * 16) / (UInt16.size * MaxCovItemWords),
 );
 
 export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> {
@@ -160,7 +160,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
     private buildJagged(
         frags: Frag[],
         jagged: [number, Gpos.Adjustment][],
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const { fmt, data } = this.pickJaggedData(jagged);
         frags.push(Frag.from(SubtableFormat2, data, fmt, ctx));
@@ -171,7 +171,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
         frags: Frag[],
         adj: Gpos.Adjustment,
         gids: number[],
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const data = CovUtils.sortGidList([...gids].slice(0, MaxUniformItems));
         frags.push(Frag.from(SubtableFormat1, adj, data, ctx));
@@ -195,7 +195,7 @@ export class GposSingleWriter implements LookupWriter<Gpos.Lookup, Gpos.Single> 
 
         // flat
         for (const [gidDiff, [adj, gids]] of st.mappings) {
-            if (gids && gids.length) {
+            if (gids?.length) {
                 while (gids.length) {
                     const len = this.buildUniform(frags, adj, gids, ctx);
                     gids.splice(0, len);

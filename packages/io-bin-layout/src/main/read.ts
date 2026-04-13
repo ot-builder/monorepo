@@ -1,24 +1,31 @@
 import { BinaryView } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Base, Gdef, Gpos, Gsub, Math as OtMath, OtFontLayoutData } from "@ot-builder/ot-layout";
-import { OtFontMetadata } from "@ot-builder/ot-metadata";
-import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS } from "@ot-builder/var-store";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import {
+    Base,
+    Gdef,
+    Gpos,
+    Gsub,
+    type OtFontLayoutData,
+    Math as OtMath,
+} from "@ot-builder/ot-layout";
+import type { OtFontMetadata } from "@ot-builder/ot-metadata";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS } from "@ot-builder/var-store";
 
 import { BaseTableIo } from "../base";
-import { LayoutCfg } from "../cfg";
+import type { LayoutCfg } from "../cfg";
 import { GdefTableIo } from "../gdef";
 import { GposTableIo } from "../gpos";
 import { GsubTableIo } from "../gsub";
-import { TableReadContext } from "../gsub-gpos-shared/table";
+import type { TableReadContext } from "../gsub-gpos-shared/table";
 import { MathTableIo } from "../math";
 
 export function readOtl(
     sfnt: Sfnt,
     cfg: LayoutCfg,
     gOrd: Data.Order<OtGlyph>,
-    md: OtFontMetadata
+    md: OtFontMetadata,
 ): OtFontLayoutData {
     let gdef: Data.Maybe<Gdef.Table> = null;
     let ivs: Data.Maybe<ReadTimeIVS> = null;

@@ -1,13 +1,13 @@
-import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { GID, UInt24 } from "@ot-builder/primitive";
+import type { Cmap } from "@ot-builder/ot-encoding";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { GID, UInt24 } from "@ot-builder/primitive";
 
 export class UnicodeEncodingCollector {
-    constructor(
+    public constructor(
         private encoding: Cmap.EncodingMap,
         private gOrd: Data.Order<OtGlyph>,
-        private readonly maxCodePoint: number
+        private readonly maxCodePoint: number,
     ) {}
     public collect(): [number, number][] {
         const results: Array<[number, number]> = [];
@@ -23,7 +23,7 @@ export class UnicodeEncodingCollector {
 }
 
 export class UvsEncodingEntry {
-    constructor(public readonly selector: UInt24) {}
+    public constructor(public readonly selector: UInt24) {}
     public defaults: UInt24[] = [];
     public nonDefaults: [UInt24, GID][] = [];
 
@@ -33,10 +33,10 @@ export class UvsEncodingEntry {
     }
 }
 export class UvsEncodingCollector {
-    constructor(
+    public constructor(
         private encoding: Cmap.VsEncodingMap,
         private defaults: Cmap.EncodingMap,
-        private gOrd: Data.Order<OtGlyph>
+        private gOrd: Data.Order<OtGlyph>,
     ) {}
     public collect(): UvsEncodingEntry[] {
         const m: Map<number, UvsEncodingEntry> = new Map();

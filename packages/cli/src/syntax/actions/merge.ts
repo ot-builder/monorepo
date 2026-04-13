@@ -1,11 +1,11 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 import { CliProc, Ot } from "ot-builder";
 
 import { ParseResult } from "../../argv-parser";
-import { CliAction, Syntax } from "../../command";
+import type { CliAction, Syntax } from "../../command";
 
 export const MergeSyntax: Syntax<null | CliAction> = {
-    handle: st => {
+    handle: (st) => {
         if (!st.isOption("--merge")) return ParseResult(st, null);
         st = st.next();
 
@@ -15,7 +15,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
             st = st.next();
         }
 
-        return ParseResult(st, async state => {
+        return ParseResult(st, async (state) => {
             const add = state.pop();
             if (!add) throw new RangeError("Stack size invalid. No font to do GC.");
             const into = state.pop();
@@ -43,7 +43,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
                 Style.Arg`a.ttf`,
                 `while glyphs from`,
                 Style.Arg`b.ttf`,
-                `will be added to it.`
+                `will be added to it.`,
             )
             .message(
                 `When`,
@@ -52,7 +52,7 @@ export const MergeSyntax: Syntax<null | CliAction> = {
                 Style.Arg`b.ttf`,
                 `will be preferred; otherwise, characters from`,
                 Style.Arg`a.ttf`,
-                `will be preferred.`
+                `will be preferred.`,
             );
-    }
+    },
 };

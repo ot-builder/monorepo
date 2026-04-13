@@ -10,12 +10,12 @@ import {
     Loca,
     PrepIo,
     rectifyGlyphOrder,
-    TtfCfg
+    type TtfCfg,
 } from "@ot-builder/io-bin-ttf";
-import { Cvt, Fpgm, Prep, TtfCoGlyphs } from "@ot-builder/ot-glyphs";
+import { Cvt, Fpgm, Prep, type TtfCoGlyphs } from "@ot-builder/ot-glyphs";
 
-import { ReadGlyphStoreImpl } from "../general/read";
-import { WriteGlyphStoreImpl } from "../general/write";
+import type { ReadGlyphStoreImpl } from "../general/read";
+import type { WriteGlyphStoreImpl } from "../general/write";
 
 export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
     readGlyphs(sfnt, cfg, gOrd, ctx) {
@@ -29,14 +29,14 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         if (ctx.designSpace && bGvar) {
             const gvarIgnore = {
                 horizontalMetric: ctx.hMetricVariable,
-                verticalMetric: ctx.vMetricVariable
+                verticalMetric: ctx.vMetricVariable,
             };
             const gvar = new BinaryView(bGvar).next(
                 Gvar.Read,
                 gOrd,
                 cfg,
                 gvarIgnore,
-                ctx.designSpace
+                ctx.designSpace,
             );
         }
         rectifyGlyphOrder(gOrd);
@@ -56,7 +56,7 @@ export const ReadTtfGlyphs: ReadGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         }
 
         return cog;
-    }
+    },
 };
 export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
     writeMetricVariance: true,
@@ -81,5 +81,5 @@ export const WriteTtfGlyphs: WriteGlyphStoreImpl<TtfCfg, TtfCoGlyphs> = {
         sfnt.add(Glyf.Tag, bufGlyf);
         const bufLoca = Frag.packFrom(Loca.Io, loca1, ctx.head);
         sfnt.add(Loca.Tag, bufLoca);
-    }
+    },
 };

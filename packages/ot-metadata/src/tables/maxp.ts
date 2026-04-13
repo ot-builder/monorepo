@@ -1,4 +1,4 @@
-import { UInt16, UInt32 } from "@ot-builder/primitive";
+import type { UInt16, UInt32 } from "@ot-builder/primitive";
 
 export const Tag = "maxp";
 

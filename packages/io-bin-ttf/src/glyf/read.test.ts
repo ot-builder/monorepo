@@ -23,7 +23,7 @@ test("Reading : TTF, static", () => {
         GlyfTableRead,
         loca,
         gOrd,
-        new OtGlyph.CoStat.Forward()
+        new OtGlyph.CoStat.Forward(),
     );
     rectifyGlyphOrder(gOrd);
     {
@@ -35,26 +35,26 @@ test("Reading : TTF, static", () => {
                 OtGlyph.Point.create(80, 0),
                 OtGlyph.Point.create(500, 670),
                 OtGlyph.Point.create(560, 670),
-                OtGlyph.Point.create(140, 0)
+                OtGlyph.Point.create(140, 0),
             ],
             [
                 OtGlyph.Point.create(560, 0),
                 OtGlyph.Point.create(500, 0),
                 OtGlyph.Point.create(80, 670),
-                OtGlyph.Point.create(140, 670)
+                OtGlyph.Point.create(140, 670),
             ],
             [
                 OtGlyph.Point.create(140, 50),
                 OtGlyph.Point.create(500, 50),
                 OtGlyph.Point.create(500, 620),
-                OtGlyph.Point.create(140, 620)
+                OtGlyph.Point.create(140, 620),
             ],
             [
                 OtGlyph.Point.create(80, 0),
                 OtGlyph.Point.create(80, 670),
                 OtGlyph.Point.create(560, 670),
-                OtGlyph.Point.create(560, 0)
-            ]
+                OtGlyph.Point.create(560, 0),
+            ],
         ]);
     }
     {

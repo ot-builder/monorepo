@@ -1,6 +1,6 @@
 // XPRV: Extensible Private Data
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 export const Tag = "XPRV";
 export type Blob = Map<string, Buffer>;

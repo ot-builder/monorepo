@@ -1,12 +1,12 @@
 import { Frag } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { MetricBasicIo, MetricVarianceIo, VorgIo } from "@ot-builder/io-bin-metric";
-import { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { MetricBasic, MetricVariance, OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
-import { MetricHead } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { HmtxStat, VmtxStat } from "@ot-builder/stat-glyphs";
-import { OtVar } from "@ot-builder/variance";
+import type { SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
+import { MetricBasic, MetricVariance, type OtGlyph, Vorg } from "@ot-builder/ot-glyphs";
+import type { MetricHead } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import type { HmtxStat, VmtxStat } from "@ot-builder/stat-glyphs";
+import type { OtVar } from "@ot-builder/variance";
 
 export function writeHMetrics(
     sink: SfntIoTableSink,
@@ -14,7 +14,7 @@ export function writeHMetrics(
     hhea: Data.Maybe<MetricHead.Table>,
     statHmtx: Data.Maybe<HmtxStat>,
     gOrd: Data.Order<OtGlyph>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>
+    designSpace: Data.Maybe<OtVar.DesignSpace>,
 ) {
     if (!hhea || !statHmtx) return;
 
@@ -32,7 +32,7 @@ export function writeVMetrics(
     vhea: Data.Maybe<MetricHead.Table>,
     statVmtx: VmtxStat | null,
     gOrd: Data.Order<OtGlyph>,
-    designSpace: Data.Maybe<OtVar.DesignSpace>
+    designSpace: Data.Maybe<OtVar.DesignSpace>,
 ) {
     if (!vhea || !statVmtx) return;
 

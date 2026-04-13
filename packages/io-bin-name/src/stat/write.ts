@@ -2,7 +2,7 @@ import { Frag, FragPointerEmbedding, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { Stat } from "@ot-builder/ot-name";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 
 export const StatWrite = Write((frag, stat: Stat.Table) => {
@@ -25,7 +25,7 @@ const StatTableBody = Write(
         frag,
         stat: Stat.Table,
         acValueRecordOffset: ImpLib.Access<number>,
-        acNeedFormat12: ImpLib.Access<boolean>
+        acNeedFormat12: ImpLib.Access<boolean>,
     ) => {
         const start = frag.size;
         frag.push(DesignAxisArray, stat.designAxes);
@@ -35,10 +35,10 @@ const StatTableBody = Write(
                 AxisValueArray,
                 stat.assignments,
                 ImpLib.Order.fromList(`DesignAxes`, stat.designAxes),
-                acNeedFormat12
-            )
+                acNeedFormat12,
+            ),
         );
-    }
+    },
 );
 
 const DesignAxisArray = Write((frag, axes: ReadonlyArray<Stat.Axis>) => {
@@ -54,24 +54,24 @@ const AxisValueArray = Write(
         frag,
         ava: ReadonlyArray<[Stat.AxisValue.General, Stat.NameAssignment]>,
         axes: AxisOrder,
-        acNeedFormat12: ImpLib.Access<boolean>
+        acNeedFormat12: ImpLib.Access<boolean>,
     ) => {
         for (const item of ava) {
             frag.ptr16New(FragPointerEmbedding.EmbedRelative).push(
                 AxisValue,
                 item,
                 axes,
-                acNeedFormat12
+                acNeedFormat12,
             );
         }
-    }
+    },
 );
 const AxisValue = Write(
     (
         frag,
         [av, asg]: [Stat.AxisValue.General, Stat.NameAssignment],
         axes: AxisOrder,
-        acNeedFormat12: ImpLib.Access<boolean>
+        acNeedFormat12: ImpLib.Access<boolean>,
     ) => {
         if (av instanceof Stat.AxisValue.Static) {
             frag.push(AxisValueFormat1, [av, asg], axes);
@@ -85,7 +85,7 @@ const AxisValue = Write(
         } else {
             throw Errors.STAT.UnknownAxisValueFormat();
         }
-    }
+    },
 );
 
 const AxisValueFormat1 = Write(
@@ -95,7 +95,7 @@ const AxisValueFormat1 = Write(
             .uint16(asg.flags)
             .uint16(asg.valueNameID)
             .push(F16D16, av.value);
-    }
+    },
 );
 const AxisValueFormat2 = Write(
     (frag, [av, asg]: [Stat.AxisValue.Variable, Stat.NameAssignment], axes: AxisOrder) => {
@@ -106,7 +106,7 @@ const AxisValueFormat2 = Write(
             .push(F16D16, av.nominal)
             .push(F16D16, av.min)
             .push(F16D16, av.max);
-    }
+    },
 );
 const AxisValueFormat3 = Write(
     (frag, [av, asg]: [Stat.AxisValue.Linked, Stat.NameAssignment], axes: AxisOrder) => {
@@ -116,7 +116,7 @@ const AxisValueFormat3 = Write(
             .uint16(asg.valueNameID)
             .push(F16D16, av.value)
             .push(F16D16, av.linkedValue);
-    }
+    },
 );
 const AxisValueFormat4 = Write(
     (frag, [av, asg]: [Stat.AxisValue.PolyAxis, Stat.NameAssignment], axes: AxisOrder) => {
@@ -124,5 +124,5 @@ const AxisValueFormat4 = Write(
         for (const [axis, value] of av.assignments) {
             frag.uint16(axes.reverse(axis)).push(F16D16, value);
         }
-    }
+    },
 );

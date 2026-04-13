@@ -1,17 +1,17 @@
 import { Frag, Write } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, Gpos, Gsub, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { type Gdef, Gpos, Gsub, type GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
-import { WriteTimeIVS } from "@ot-builder/var-store";
+import type { WriteTimeIVS } from "@ot-builder/var-store";
 
 import { LookupWriteTrick } from "../cfg";
-import { EmptyStat, OtlStat } from "../stat";
+import { EmptyStat, type OtlStat } from "../stat";
 
 import { decideIgnoreFlags } from "./decide-ignore-flags";
-import { LookupFlag, LookupWriterFactory, SubtableWriteContext } from "./general";
+import { LookupFlag, type LookupWriterFactory, type SubtableWriteContext } from "./general";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -87,7 +87,7 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         lookupIsDependency: boolean,
         lwf: LookupWriterFactory<L>,
         gdef: Data.Maybe<Gdef.Table>,
-        context: SubtableWriteContext<L>
+        context: SubtableWriteContext<L>,
     ) {
         const { flags, markFilteringSet } = this.getIgnoreFlags(lookup, gdef);
         for (const writer of lwf.writers()) {
@@ -100,10 +100,10 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
                 rank: this.getLookupRank(
                     writer.getLookupTypeSymbol(lookup),
                     lookupIsDependency,
-                    context.trick
+                    context.trick,
                 ),
                 subtableIDs: [],
-                useExtension: false
+                useExtension: false,
             };
             this.lookupHeaders.push(header);
             const subtables = writer.createSubtableFragments(lookup, context);
@@ -128,10 +128,10 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
         const ignore = decideIgnoreFlags(lookup.ignoreGlyphs, gdef) || {
             ignoreBaseGlyphs: false,
             ignoreLigatures: false,
-            ignoreMarks: false
+            ignoreMarks: false,
         };
         let flags = 0;
-        let markFilteringSet: Data.Maybe<number> = undefined;
+        let markFilteringSet: Data.Maybe<number>;
         if (lookup.rightToLeft) flags |= LookupFlag.RightToLeft;
         if (ignore) {
             if (ignore.ignoreBaseGlyphs) flags |= LookupFlag.IgnoreBaseGlyphs;
@@ -278,30 +278,32 @@ class LookupListWriter<L extends GsubGpos.LookupProp> {
     }
 }
 
-export const WriteLookupList = Write(function <L extends GsubGpos.LookupProp>(
-    frag: Frag,
-    lookups: L[],
-    lwf: LookupWriterFactory<L>,
-    lwc: LookupWriteContext<L>
-) {
-    const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
-    const llw = new LookupListWriter();
-    const dependentLookups: Set<L> = new Set();
-    for (const lookup of lookups) {
-        for (const dep of lwf.queryDependencies(lookup)) dependentLookups.add(dep);
-    }
-    for (const lookup of lookups) {
-        const trick = lwc.tricks
-            ? lwc.tricks.get(lookup) || LookupWriteTrick.None
-            : LookupWriteTrick.None;
-        llw.pushLookup(lookup, dependentLookups.has(lookup), lwf, lwc.gdef, {
-            trick,
-            gOrd: lwc.gOrd,
-            crossReferences,
-            ivs: lwc.ivs,
-            stat: lwc.stat || new EmptyStat()
-        });
-    }
-    llw.stabilize();
-    frag.push(llw, lwf);
-});
+export const WriteLookupList = Write(
+    <L extends GsubGpos.LookupProp>(
+        frag: Frag,
+        lookups: L[],
+        lwf: LookupWriterFactory<L>,
+        lwc: LookupWriteContext<L>,
+    ) => {
+        const crossReferences = ImpLib.Order.fromList(`Lookups`, lookups);
+        const llw = new LookupListWriter();
+        const dependentLookups: Set<L> = new Set();
+        for (const lookup of lookups) {
+            for (const dep of lwf.queryDependencies(lookup)) dependentLookups.add(dep);
+        }
+        for (const lookup of lookups) {
+            const trick = lwc.tricks
+                ? lwc.tricks.get(lookup) || LookupWriteTrick.None
+                : LookupWriteTrick.None;
+            llw.pushLookup(lookup, dependentLookups.has(lookup), lwf, lwc.gdef, {
+                trick,
+                gOrd: lwc.gOrd,
+                crossReferences,
+                ivs: lwc.ivs,
+                stat: lwc.stat || new EmptyStat(),
+            });
+        }
+        llw.stabilize();
+        frag.push(llw, lwf);
+    },
+);

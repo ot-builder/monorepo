@@ -1,7 +1,7 @@
-import { Frag, Write } from "@ot-builder/bin-util";
+import { Frag, type Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 
-import { CffWriteContext } from "../context/write";
+import type { CffWriteContext } from "../context/write";
 import { CffIndexCount } from "../structs/index.count";
 import { CffOffSize } from "../structs/off-size";
 import { CffOffset } from "../structs/offset";
@@ -9,7 +9,7 @@ import { CffOffset } from "../structs/offset";
 export type CffIndexItemWriteContext = [CffWriteContext, number];
 
 export class CffWriteIndex<T> implements Write<readonly T[], [CffWriteContext]> {
-    constructor(private writeItem: Write<T, CffIndexItemWriteContext>) {}
+    public constructor(private writeItem: Write<T, CffIndexItemWriteContext>) {}
     private collectOffsets(items: readonly T[], context: CffWriteContext) {
         Assert.NoGap("CFF Index items", items);
         let dataSize = 0;

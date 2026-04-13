@@ -1,11 +1,11 @@
-import { Frag } from "@ot-builder/bin-util";
+import type { Frag } from "@ot-builder/bin-util";
 import { ComponentFlag } from "@ot-builder/io-bin-ttf";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { TSI0123 } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
-import { UInt16 } from "@ot-builder/primitive";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { TSI0123 } from "@ot-builder/ot-vtt-private";
+import type { Data } from "@ot-builder/prelude";
+import type { UInt16 } from "@ot-builder/primitive";
 
-import { VttExtraInfoSource } from "../extra-info-source";
+import type { VttExtraInfoSource } from "../extra-info-source";
 
 type TsiEntry = {
     readonly glyphIndex: UInt16;
@@ -17,7 +17,7 @@ export function writeTSI0123(
     frTSI13: Frag,
     table: TSI0123.Table,
     gOrd: Data.Order<OtGlyph>,
-    textProcessor: ProgramProcessor
+    textProcessor: ProgramProcessor,
 ) {
     const sink: TsiEntry[] = [];
     for (let gid = 0; gid < gOrd.length; gid++) {
@@ -47,11 +47,11 @@ function collectTSI0123Entry(
     sink: TsiEntry[],
     gid: number,
     text: string,
-    textProcessor: ProgramProcessor
+    textProcessor: ProgramProcessor,
 ) {
     sink.push({
         glyphIndex: gid,
-        textBuffer: Buffer.from(textProcessor.processProgram(gid, text), "utf-8")
+        textBuffer: Buffer.from(textProcessor.processProgram(gid, text), "utf-8"),
     });
 }
 
@@ -62,13 +62,13 @@ export interface ProgramProcessor {
 }
 
 export class TSI01Processor implements ProgramProcessor {
-    constructor(private readonly extraInfoReporter: VttExtraInfoSource) {}
+    public constructor(private readonly extraInfoReporter: VttExtraInfoSource) {}
     public processProgram(gid: number, text: string) {
         if (gid >= 0xfffa) return text;
 
         text = text.replace(
             /^(?:USEMYMETRICS|(?:NON)?OVERLAP|(?:UN)?SCALEDCOMPONENTOFFSET|S?(?:OFFSET|ANCHOR))\[[rR]?\].*$(?:\r|\n|\r\n)?/gm,
-            ""
+            "",
         );
 
         let pseudoInstructions = "";

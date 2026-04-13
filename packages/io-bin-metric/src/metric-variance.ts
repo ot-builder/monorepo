@@ -1,10 +1,15 @@
 import { Frag, Read, Write } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { MetricVariance } from "@ot-builder/ot-glyphs";
-import { Maxp } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
-import { DeltaSetIndexMap, IndexMapping, ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { Maxp } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
+import {
+    DeltaSetIndexMap,
+    type IndexMapping,
+    ReadTimeIVS,
+    WriteTimeIVS,
+} from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export const MetricVarianceIo = {
@@ -28,7 +33,7 @@ export const MetricVarianceIo = {
                 nMappingsNeeded: mv.measures.length,
                 addMapping(gid, outer, inner) {
                     mv.measures[gid].advance = ivs.queryValue(outer, inner);
-                }
+                },
             });
         } else {
             for (let gid = 0; gid < mv.measures.length; gid++) {
@@ -47,7 +52,7 @@ export const MetricVarianceIo = {
                 nMappingsNeeded: mv.measures.length,
                 addMapping(gid, outer, inner) {
                     mv.measures[gid].start = ivs.queryValue(outer, inner);
-                }
+                },
             });
         }
 
@@ -58,7 +63,7 @@ export const MetricVarianceIo = {
             frag,
             mv: MetricVariance.Table,
             designSpace: OtVar.DesignSpace,
-            pEmpty?: Data.Maybe<ImpLib.Access<boolean>>
+            pEmpty?: Data.Maybe<ImpLib.Access<boolean>>,
         ) => {
             // No axes present in font, reject
             if (!designSpace.length) throw Errors.Variation.NoAxes();
@@ -71,8 +76,8 @@ export const MetricVarianceIo = {
                     dim: designSpace.at(0),
                     min: 0,
                     peak: 1,
-                    max: 1
-                }
+                    max: 1,
+                },
             ]);
 
             let empty = true;
@@ -80,17 +85,14 @@ export const MetricVarianceIo = {
             const originMap: IndexMapping[] = [];
             for (let gid = 0; gid < mv.measures.length; gid++) {
                 if (!OtVar.Ops.isConstant(mv.measures[gid].advance)) empty = false;
-                advanceMap[gid] = ivs.valueToInnerOuterIDForce(
-                    mv.measures[gid].advance,
-                    mFallback
-                );
+                advanceMap[gid] = ivs.valueToInnerOuterIDForce(mv.measures[gid].advance, mFallback);
             }
             if (mv.isVertical) {
                 for (let gid = 0; gid < mv.measures.length; gid++) {
                     if (!OtVar.Ops.isConstant(mv.measures[gid].start)) empty = false;
                     originMap[gid] = ivs.valueToInnerOuterIDForce(
                         mv.measures[gid].start,
-                        mFallback
+                        mFallback,
                     );
                 }
             }
@@ -103,6 +105,6 @@ export const MetricVarianceIo = {
             frag.ptr32(null); // LSB/RSB/TSB/BSB mappings are always set to empty
             frag.ptr32(null); // due to the limitation of OTVAR variation (no min/max functions)
             if (mv.isVertical) frag.ptr32(Frag.from(DeltaSetIndexMap, false, originMap)); // VORG mappings
-        }
-    )
+        },
+    ),
 };

@@ -1,7 +1,7 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { MetricBasic, MetricVariance, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Fvar, Head, MetricHead } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import { MetricBasic, MetricVariance, type OtGlyph } from "@ot-builder/ot-glyphs";
+import { type Fvar, Head, type MetricHead } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export class HmtxStat implements OtGlyph.Stat.Sink {
@@ -16,11 +16,11 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
 
     public hOrgStartAtZero = true;
 
-    constructor(
+    public constructor(
         private hhea: MetricHead.Table,
         private head: Head.Table,
         fvar?: Data.Maybe<Fvar.Table>,
-        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
+        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>,
     ) {
         if (fvar) this.hvar = new MetricVariance.Table(false);
     }
@@ -31,7 +31,7 @@ export class HmtxStat implements OtGlyph.Stat.Sink {
         gid: number,
         horizontal: OtGlyph.Metric,
         vertical: OtGlyph.Metric,
-        extent: OtGlyph.Stat.BoundingBox
+        extent: OtGlyph.Stat.BoundingBox,
     ) {
         const hOrg = this.hvar ? 0 : horizontal.start;
         const stHOrg = ImpLib.Arith.Round.Coord(OtVar.Ops.originOf(hOrg));
@@ -86,11 +86,11 @@ export function statLongMetricCount(hea: MetricHead.Table, mtx: MetricBasic.Tabl
 }
 
 export class HmtxCoStat implements OtGlyph.CoStat.Source {
-    constructor(
+    public constructor(
         private alwaysStartAtZero: boolean,
         private hmtx: MetricBasic.Table,
         private hvar?: Data.Maybe<MetricVariance.Table>,
-        private outer?: Data.Maybe<OtGlyph.CoStat.Source>
+        private outer?: Data.Maybe<OtGlyph.CoStat.Source>,
     ) {}
 
     public getHMetric(gid: number, extent: Data.Maybe<OtGlyph.Stat.BoundingBox>) {
@@ -100,18 +100,15 @@ export class HmtxCoStat implements OtGlyph.CoStat.Source {
         } else {
             start = extent.xMin - this.hmtx.measures[gid].startSideBearing;
             if (this.hvar) {
-                start = OtVar.Ops.add(
-                    start,
-                    OtVar.Ops.removeOrigin(this.hvar.measures[gid].start)
-                );
+                start = OtVar.Ops.add(start, OtVar.Ops.removeOrigin(this.hvar.measures[gid].start));
             }
         }
         const end: OtVar.Value = OtVar.Ops.add(
             start,
             OtVar.Ops.add(
                 this.hmtx.measures[gid].advance,
-                this.hvar ? OtVar.Ops.removeOrigin(this.hvar.measures[gid].advance) : 0
-            )
+                this.hvar ? OtVar.Ops.removeOrigin(this.hvar.measures[gid].advance) : 0,
+            ),
         );
         return { start, end };
     }

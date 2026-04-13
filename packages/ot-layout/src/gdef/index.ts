@@ -1,10 +1,10 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { OtVar } from "@ot-builder/variance";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtVar } from "@ot-builder/variance";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 
 import * as GeneralGdef from "./general";
-import * as GdefSubParts from "./sub-parts";
+import type * as GdefSubParts from "./sub-parts";
 
 export const Tag = "GDEF";
 
@@ -23,7 +23,7 @@ export enum GlyphClass {
     Base = 1,
     Ligature = 2,
     Mark = 3,
-    Component = 4
+    Component = 4,
 }
 
 // alias

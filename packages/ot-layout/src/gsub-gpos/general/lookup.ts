@@ -1,7 +1,7 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as LayoutCommon from "../../common";
-import { DicingStore } from "../../dicing-store";
+import type * as LayoutCommon from "../../common";
+import type { DicingStore } from "../../dicing-store";
 
 export interface LookupPropT<G> {
     rightToLeft?: boolean;

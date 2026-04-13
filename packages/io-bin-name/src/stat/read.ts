@@ -2,10 +2,10 @@ import { Read } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
 import { Stat } from "@ot-builder/ot-name";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F16D16, Tag, UInt16 } from "@ot-builder/primitive";
 
-export const StatRead = Read(view => {
+export const StatRead = Read((view) => {
     const majorVersion = view.uint16();
     const minorVersion = view.uint16();
     Assert.SubVersionSupported("STATTable", majorVersion, minorVersion, [1, 1], [1, 2]);
@@ -73,7 +73,7 @@ const AxisValueFormat1 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Static(axis, value),
-        new Stat.NameAssignment(flags, valueNameID)
+        new Stat.NameAssignment(flags, valueNameID),
     );
 });
 
@@ -91,7 +91,7 @@ const AxisValueFormat2 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Variable(axis, rangeMinValue, nominalValue, rangeMaxValue),
-        new Stat.NameAssignment(flags, valueNameID)
+        new Stat.NameAssignment(flags, valueNameID),
     );
 });
 
@@ -108,7 +108,7 @@ const AxisValueFormat3 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.Linked(axis, value, linkedValue),
-        new Stat.NameAssignment(flags, valueNameID)
+        new Stat.NameAssignment(flags, valueNameID),
     );
 });
 
@@ -129,6 +129,6 @@ const AxisValueFormat4 = Read((view, axes: AxisOrder) => {
 
     return ImpLib.Tuple.Tie(
         new Stat.AxisValue.PolyAxis(assignments),
-        new Stat.NameAssignment(flags, valueNameID)
+        new Stat.NameAssignment(flags, valueNameID),
     );
 });

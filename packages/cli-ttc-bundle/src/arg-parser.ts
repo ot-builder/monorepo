@@ -1,5 +1,5 @@
 import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
-import { CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
+import { type CliArgSource, OptimizationLevel } from "@ot-builder/cli-shared";
 
 import { getPackageVersion } from "./package-version";
 
@@ -81,37 +81,37 @@ export async function displayHelp() {
         .message(`otb-ttc-bundle: TTC bundler, version ${await getPackageVersion()}`)
         .message(Style.Rule)
         .message(`Usage:`)
-        .withIndent(Style.Bullet, s => {
+        .withIndent(Style.Bullet, (s) => {
             s.message(
                 Style.Cmd`otb-ttc-bundle`,
                 Style.Option`-h`,
                 ";",
                 Style.Cmd`otb-ttc-bundle`,
-                Style.Option`--help`
+                Style.Option`--help`,
             )
                 .indent("")
                 .message("Display help message");
         })
-        .withIndent(Style.Bullet, s => {
+        .withIndent(Style.Bullet, (s) => {
             s.message(
                 Style.Cmd`otb-ttc-bundle`,
                 Style.Option`-v`,
                 ";",
                 Style.Cmd`otb-ttc-bundle`,
-                Style.Option`--version`
+                Style.Option`--version`,
             )
                 .indent("")
                 .message("Display version of this utility.");
         })
-        .withIndent(Style.Bullet, s => {
+        .withIndent(Style.Bullet, (s) => {
             s.hangingIndent("  ").message(
                 Style.Cmd`otb-ttc-bundle`,
                 ...Style.OptRun(`options`),
                 ...Style.OptRun(Style.Option`-o`, Style.Param`output`),
-                ...[Style.Param`input_1`, `...`, Style.Param`input_n`]
+                ...[Style.Param`input_1`, `...`, Style.Param`input_n`],
             );
             s.indent("").message(`Bundles multiple TTF into one TTC with glyph sharing.`);
-            s.withIndent(Style.Bullet, s => {
+            s.withIndent(Style.Bullet, (s) => {
                 s.message(Style.Option`-o`, Style.Param`output`)
                     .indent(``)
                     .message(`Set output file path.`);
@@ -120,10 +120,8 @@ export async function displayHelp() {
                     .message(`Input files, could be either TTF, OTF or TTC.`);
             });
             s.indent("").message(``).message(`Options:`);
-            s.withIndent(Style.Bullet, s => {
-                s.message(Style.Option`--verbose`)
-                    .indent(``)
-                    .message(`Set to verbose mode.`);
+            s.withIndent(Style.Bullet, (s) => {
+                s.message(Style.Option`--verbose`).indent(``).message(`Set to verbose mode.`);
                 s.message(Style.Option`-u`, `;`, Style.Option`--unify`)
                     .indent(``)
                     .message(`Unify glyph set.`);

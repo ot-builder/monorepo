@@ -13,12 +13,7 @@ test("Reading : name", () => {
         if (r.platformID === 3 && r.encodingID === 1 && r.languageID === 1033 && r.nameID === 1) {
             expect(r.value).toBe(`Source Serif Variable`);
         }
-        if (
-            r.platformID === 3 &&
-            r.encodingID === 1 &&
-            r.languageID === 1033 &&
-            r.nameID === 270
-        ) {
+        if (r.platformID === 3 && r.encodingID === 1 && r.languageID === 1033 && r.nameID === 270) {
             expect(r.value).toBe(`SourceSerifRoman-Black`);
         }
     }

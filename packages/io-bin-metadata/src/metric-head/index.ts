@@ -47,5 +47,5 @@ export const MetricHeadIo = {
         frag.int16(table._reserved3);
         frag.int16(table.metricDataFormat);
         frag.uint16(table.numberOfLongMetrics);
-    })
+    }),
 };

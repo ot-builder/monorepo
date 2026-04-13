@@ -1,27 +1,31 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { Gpos } from "@ot-builder/ot-layout";
 
-import { LayoutCfg } from "../cfg";
-import {
+import type { LayoutCfg } from "../cfg";
+import type {
     LookupReader,
     LookupReaderFactory,
     LookupWriter,
-    LookupWriterFactory
+    LookupWriterFactory,
 } from "../gsub-gpos-shared/general";
-import { CGsubGposTable, TableReadContext, TableWriteContext } from "../gsub-gpos-shared/table";
+import {
+    CGsubGposTable,
+    type TableReadContext,
+    type TableWriteContext,
+} from "../gsub-gpos-shared/table";
 import { GposChainingReader, GposContextualReader } from "../lookups/contextual-read";
 import { GposChainingContextualWriter } from "../lookups/contextual-write";
 import { GposCursiveReader, GposCursiveWriter } from "../lookups/gpos-cursive";
 import {
     GposMarkToBaseReader,
     GposMarkToLigatureReader,
-    GposMarkToMarkReader
+    GposMarkToMarkReader,
 } from "../lookups/gpos-mark-read";
 import {
     GposMarkToBaseWriter,
     GposMarkToLigatureWriter,
-    GposMarkToMarkWriter
+    GposMarkToMarkWriter,
 } from "../lookups/gpos-mark-write";
 import { GposPairReader } from "../lookups/gpos-pair-read";
 import { GposPairWriter } from "../lookups/gpos-pair-write";
@@ -29,7 +33,7 @@ import { GposSingleReader, GposSingleWriter } from "../lookups/gpos-single";
 
 const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> = {
     extendedFormat: 9,
-    isExtendedFormat: x => x === 9,
+    isExtendedFormat: (x) => x === 9,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createReader(x: number): LookupReader<Gpos.Lookup, any> {
         switch (x) {
@@ -68,7 +72,7 @@ const gpos: LookupReaderFactory<Gpos.Lookup> & LookupWriterFactory<Gpos.Lookup> 
         const sink: Gpos.Lookup[] = [];
         for (const rule of lookup.rules) for (const app of rule.applications) sink.push(app.apply);
         return sink;
-    }
+    },
 };
 
 export const GposTableIo = {
@@ -78,5 +82,5 @@ export const GposTableIo = {
     },
     write(frag: Frag, table: Gpos.Table, cfg: LayoutCfg, twc: TableWriteContext) {
         return frag.push(new CGsubGposTable<Gpos.Lookup>(), table, cfg, gpos, twc);
-    }
+    },
 };

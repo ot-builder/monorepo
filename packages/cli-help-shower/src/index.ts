@@ -3,16 +3,16 @@ import { CONSOLE_WIDTH } from "./style";
 // From strip-ansi
 const AnsiPattern = [
     "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
+    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))",
 ].join("|");
 
 const AnsiRegex = new RegExp(AnsiPattern, "g");
 
 export class CliHelpShower {
-    constructor(
+    public constructor(
         private readonly indentPrefix = "",
         private readonly bulletPrefix = "",
-        private readonly hangingIndentPrefix = ""
+        private readonly hangingIndentPrefix = "",
     ) {}
     public indent(bullet = "") {
         return new CliHelpShower(this.indentPrefix + "  ", bullet, this.hangingIndentPrefix);
@@ -25,16 +25,12 @@ export class CliHelpShower {
         return new CliHelpShower(
             this.indentPrefix,
             this.bulletPrefix,
-            this.hangingIndentPrefix + s
+            this.hangingIndentPrefix + s,
         );
     }
     public message(...text: (string | null | undefined)[]) {
-        const words = text
-            .filter(t => !!t)
-            .map(t => (t ? t.split(" ") : []))
-            .reduce((a, b) => [...a, ...b], []);
+        const words = text.filter((t) => !!t).flatMap((t) => (t ? t.split(" ") : []));
         this.messageImpl(words);
-
         return this;
     }
     private messageImpl(words: string[]) {

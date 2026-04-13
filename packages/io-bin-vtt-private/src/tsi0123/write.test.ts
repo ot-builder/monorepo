@@ -8,7 +8,7 @@ import { VttExtraInfoSinkImpl } from "../extra-info-source";
 import { readTSI0123 } from "./read";
 import { NopProcessor, TSI01Processor, writeTSI0123 } from "./write";
 
-test("TSI0 TSI1 write simple", function () {
+test("TSI0 TSI1 write simple", () => {
     const gOrd = OtListGlyphStoreFactory.createStoreFromSize(4).decideOrder();
     const tsi01 = new TSI0123.Table();
     tsi01.glyphPrograms.set(gOrd.at(0), "A");
@@ -32,7 +32,7 @@ test("TSI0 TSI1 write simple", function () {
     expect(tsi01AfterLoop.fpgmProgram).toBe("FPGM");
 });
 
-test("TSI0 TSI1 Pseudo Instruction", function () {
+test("TSI0 TSI1 Pseudo Instruction", () => {
     const gOrd = OtListGlyphStoreFactory.createStoreFromSize(8).decideOrder();
     const eis = new VttExtraInfoSinkImpl();
     eis.setComponentInfo(
@@ -47,7 +47,7 @@ test("TSI0 TSI1 Pseudo Instruction", function () {
         1,
         0,
         0,
-        1
+        1,
     );
     eis.setComponentInfo(0, 1, ComponentFlag.ARGS_ARE_XY_VALUES, 2, 2, 3, 1, 0, 0, 1);
     eis.setComponentInfo(
@@ -60,7 +60,7 @@ test("TSI0 TSI1 Pseudo Instruction", function () {
         2,
         0,
         0,
-        2
+        2,
     );
     eis.setComponentInfo(0, 3, ComponentFlag.WE_HAVE_A_TWO_BY_TWO, 4, 254, -435, 2, 0.5, 0.5, 2);
 
@@ -69,7 +69,7 @@ test("TSI0 TSI1 Pseudo Instruction", function () {
         gOrd.at(0),
         "OVERLAP[]\rUSEMYMETRICS[]\rOFFSET[R], 1, 1, 2\r" +
             "OVERLAP[]\rOFFSET[r], 2, 2, 3\r\r" +
-            "Body"
+            "Body",
     );
 
     const frTSI0 = new Frag();
@@ -85,6 +85,6 @@ test("TSI0 TSI1 Pseudo Instruction", function () {
             "OVERLAP[]\rOFFSET[r], 2, 2, 3\r" +
             "OVERLAP[]\rSOFFSET[r], 3, 3, 4, 2.0000, 0.0000, 0.0000, 2.0000\r" +
             "OVERLAP[]\rSANCHOR[r], 4, 254, -435, 2.0000, 0.5000, 0.5000, 2.0000\r\r" +
-            "Body"
+            "Body",
     );
 });

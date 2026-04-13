@@ -87,7 +87,7 @@ export const LookupRemovableAlg = new CLookupRemovableAlg();
 export class CRemoveBrokenLinkAlg {
     public process(
         lookup: Ot.Gsub.Lookup | Ot.Gpos.Lookup,
-        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>
+        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>,
     ) {
         switch (lookup.type) {
             case Ot.Gsub.LookupType.Chaining:
@@ -100,7 +100,7 @@ export class CRemoveBrokenLinkAlg {
     }
     public chaining(
         props: Ot.Gsub.Chaining | Ot.Gpos.Chaining,
-        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>
+        validSet: Set<Ot.Gsub.Lookup | Ot.Gpos.Lookup>,
     ) {
         let rear = 0;
         for (let front = 0; front < props.rules.length; front++) {

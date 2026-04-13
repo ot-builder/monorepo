@@ -6,10 +6,7 @@ import { createSubsetRectifier } from "../support/initial-visible-glyphs";
 
 import { consolidateGsubGpos } from "./merge-consolidate/index";
 
-export function gcFont<GS extends Ot.GlyphStore>(
-    font: Ot.Font<GS>,
-    gsf: Ot.GlyphStoreFactory<GS>
-) {
+export function gcFont<GS extends Ot.GlyphStore>(font: Ot.Font<GS>, gsf: Ot.GlyphStoreFactory<GS>) {
     if (font.gsub) cleanupInaccessibleLookups(font.gsub);
     if (font.gpos) cleanupInaccessibleLookups(font.gpos);
 
@@ -24,10 +21,8 @@ export function gcFont<GS extends Ot.GlyphStore>(
 function cleanupInaccessibleLookups<L>(table: Ot.GsubGpos.TableT<L>) {
     const keptFeatures = new Set<Ot.GsubGpos.FeatureT<L>>();
     for (const script of table.scripts.values()) {
-        if (script.defaultLanguage)
-            collectAccessibleFeatures(script.defaultLanguage, keptFeatures);
-        for (const lang of script.languages.values())
-            collectAccessibleFeatures(lang, keptFeatures);
+        if (script.defaultLanguage) collectAccessibleFeatures(script.defaultLanguage, keptFeatures);
+        for (const lang of script.languages.values()) collectAccessibleFeatures(lang, keptFeatures);
     }
 
     const keptLookups = new Set<L>();
@@ -75,7 +70,7 @@ function extendIndirectLookups<L>(keptLookups: Set<L>) {
 
 function collectAccessibleFeatures<L>(
     lang: Ot.GsubGpos.LanguageT<L>,
-    sink: Set<Ot.GsubGpos.FeatureT<L>>
+    sink: Set<Ot.GsubGpos.FeatureT<L>>,
 ) {
     if (lang.requiredFeature) sink.add(lang.requiredFeature);
     for (const feature of lang.features) sink.add(feature);

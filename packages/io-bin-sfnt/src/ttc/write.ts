@@ -1,14 +1,14 @@
 import { BufferWriter } from "@ot-builder/bin-util";
-import { Sfnt } from "@ot-builder/ot-sfnt";
+import type { Sfnt } from "@ot-builder/ot-sfnt";
 import { Tag, UInt16, UInt32 } from "@ot-builder/primitive";
 
 import {
     allocateBlobOffsets,
-    BlobStore,
+    type BlobStore,
     BufferToSlice,
     collectTableData,
-    TableRecord,
-    TableSliceCollection
+    type TableRecord,
+    type TableSliceCollection,
 } from "../otf/collector";
 
 export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {
@@ -48,7 +48,7 @@ export function writeSfntTtcFromTableSlices(sfntList: TableSliceCollection[]) {
         bw.seek(currentOffsetTableOffset);
 
         const numTable = rec.tableRecords.length;
-        const searchRange = Math.pow(2, Math.floor(Math.log(numTable) / Math.LN2)) * 16;
+        const searchRange = 2 ** Math.floor(Math.log(numTable) / Math.LN2) * 16;
         const entrySelector = Math.floor(Math.log(numTable) / Math.LN2);
         const rangeShift = numTable * 16 - searchRange;
 

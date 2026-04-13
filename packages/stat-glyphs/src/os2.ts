@@ -1,12 +1,12 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Os2 } from "@ot-builder/ot-metadata";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Os2 } from "@ot-builder/ot-metadata";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 export class Os2Stat implements OtGlyph.Stat.Sink {
-    constructor(
+    public constructor(
         private os2: Os2.Table,
-        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>
+        private readonly outer?: Data.Maybe<OtGlyph.Stat.Sink>,
     ) {}
 
     private metricsCount: number = 0;
@@ -19,7 +19,7 @@ export class Os2Stat implements OtGlyph.Stat.Sink {
         gid: number,
         horizontal: OtGlyph.Metric,
         vertical: OtGlyph.Metric,
-        extent: OtGlyph.Stat.BoundingBox
+        extent: OtGlyph.Stat.BoundingBox,
     ) {
         if (this.outer) this.outer.setMetric(gid, horizontal, vertical, extent);
         const adv = OtVar.Ops.originOf(horizontal.end) - OtVar.Ops.originOf(horizontal.start);

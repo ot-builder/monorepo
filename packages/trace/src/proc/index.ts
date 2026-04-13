@@ -1,6 +1,6 @@
-import * as Ot from "@ot-builder/ot";
+import type * as Ot from "@ot-builder/ot";
 
-import { GlyphTracer } from "../interface";
+import type { GlyphTracer } from "../interface";
 
 import { traceGlyphDependents } from "./glyphs";
 import { traceGpos, traceGsub } from "./gsub-gpos";
@@ -27,7 +27,7 @@ export function traceGlyphs<GS extends Ot.GlyphStore>(tracer: GlyphTracer, font:
 
 export function visibleGlyphsFromUnicodeSet<GS extends Ot.GlyphStore>(
     font: Ot.Font<GS>,
-    unicodeSet: { has(u: number): boolean }
+    unicodeSet: { has(u: number): boolean },
 ) {
     const gOrd = font.glyphs.decideOrder();
     const init: Set<Ot.Glyph> = new Set();

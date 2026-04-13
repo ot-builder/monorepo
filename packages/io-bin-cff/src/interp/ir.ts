@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export type Operator = { opCode: number; flags?: Data.Maybe<number[]> };
 export type Operand = { t: number };

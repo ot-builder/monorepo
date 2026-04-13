@@ -1,14 +1,14 @@
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { Assert } from "@ot-builder/errors";
-import { Cvt } from "@ot-builder/ot-glyphs";
+import type { Cvt } from "@ot-builder/ot-glyphs";
 import {
-    TupleVariationBuildContext,
-    TupleVariationBuildSource,
-    TupleVariationGeometryClient,
+    type TupleVariationBuildContext,
+    type TupleVariationBuildSource,
+    type TupleVariationGeometryClient,
     TupleVariationRead,
     TupleVariationWriteOpt,
-    TvdAccess
+    type TvdAccess,
 } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
@@ -27,12 +27,12 @@ export const CvarIo = {
         frag: Frag,
         cvt: Cvt.Table,
         designSpace: OtVar.DesignSpace,
-        acEmpty?: ImpLib.Access<boolean>
+        acEmpty?: ImpLib.Access<boolean>,
     ) {
         frag.uint16(1).uint16(0);
         const context: TupleVariationBuildContext = {
             designSpace: designSpace,
-            forceEmbedPeak: true // This is CVAR so force embedding
+            forceEmbedPeak: true, // This is CVAR so force embedding
         };
         const source = new CvtTupleVariationSource(cvt);
         const tvd = TupleVariationWriteOpt.writeOpt(source, context);
@@ -44,11 +44,11 @@ export const CvarIo = {
             // Tell the outside that we are writing something empty
             if (acEmpty) acEmpty.set(true);
         }
-    }
+    },
 };
 
 class CvtTvhClient implements TupleVariationGeometryClient {
-    constructor(cvt: Cvt.Table) {
+    public constructor(cvt: Cvt.Table) {
         const ms = new OtVar.MasterSet();
         this.contours = this.createContours(ms, cvt);
     }
@@ -68,10 +68,10 @@ class CvtTvhClient implements TupleVariationGeometryClient {
     }
 }
 class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
-    constructor(
+    public constructor(
         ms: OtVar.MasterSet,
         public readonly cvt: Cvt.Table,
-        public readonly cvtId: number
+        public readonly cvtId: number,
     ) {
         super(ms);
         this.original = OtVar.Ops.originOf(cvt.items[cvtId] || 0);
@@ -84,7 +84,7 @@ class CvtTvdAccess extends CumulativeTvd implements TvdAccess<OtVar.Master> {
 }
 
 class CvtTupleVariationSource implements TupleVariationBuildSource {
-    constructor(cvt: Cvt.Table) {
+    public constructor(cvt: Cvt.Table) {
         const cs: OtVar.Value[][] = [];
         for (const entry of cvt.items) cs.push([entry]);
         this.data = cs;

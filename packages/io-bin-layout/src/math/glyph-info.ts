@@ -1,8 +1,8 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Math as OtMath } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 import { NullablePtr16GlyphCoverage } from "../shared/coverage";
 
@@ -18,7 +18,7 @@ export const MathGlyphInfo = {
             mathItalicsCorrection,
             topAccentAttachment,
             extendedShapes,
-            kernInfo
+            kernInfo,
         );
     },
     write(fr: Frag, gi: OtMath.GlyphInfo, gOrd: Data.Order<OtGlyph>) {
@@ -26,6 +26,6 @@ export const MathGlyphInfo = {
         fr.push(Ptr16GlyphMathValueRecordMap, gi.topAccentAttachments, gOrd);
         fr.push(NullablePtr16GlyphCoverage, gi.extendedShapes, gOrd);
         fr.push(Ptr16GlyphMathKernInfoMap, gi.kernInfos, gOrd);
-    }
+    },
 };
 export const Ptr16MathGlyphInfoNullable = NullablePtr16(MathGlyphInfo);

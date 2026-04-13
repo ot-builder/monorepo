@@ -4,9 +4,9 @@ import { readSfntOtf } from "@ot-builder/io-bin-sfnt";
 import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
 import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 
-import { DefaultTtfCfgProps, TtfCfgProps } from "../cfg";
+import { DefaultTtfCfgProps, type TtfCfgProps } from "../cfg";
 import { NopTtfWritingExtraInfoSink } from "../extra-info-sink";
-import { LocaTable, LocaTableIo, LocaTag } from "../glyf/loca";
+import { type LocaTable, LocaTableIo, LocaTag } from "../glyf/loca";
 import { GlyfTableRead } from "../glyf/read";
 import { GlyfTag } from "../glyf/shared";
 import { GlyfTableWrite } from "../glyf/write";
@@ -21,7 +21,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
     const sfnt = readSfntOtf(bufFont);
     const cfg = {
         ttf: { ...DefaultTtfCfgProps, ...(override || {}) },
-        fontMetadata: {}
+        fontMetadata: {},
     };
     const { head, maxp, fvar } = readOtMetadata(sfnt, cfg);
     const designSpace = fvar ? fvar.getDesignSpace() : null;
@@ -32,7 +32,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         GlyfTableRead,
         loca,
         gOrd,
-        new OtGlyph.CoStat.Forward()
+        new OtGlyph.CoStat.Forward(),
     );
     if (designSpace) {
         const gvar = new BinaryView(sfnt.tables.get(GvarTag)!).next(
@@ -40,7 +40,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
             gOrd,
             cfg,
             {},
-            designSpace
+            designSpace,
         );
     }
     rectifyGlyphOrder(gOrd);
@@ -57,7 +57,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         cfg,
         loca1,
         stat,
-        new NopTtfWritingExtraInfoSink()
+        new NopTtfWritingExtraInfoSink(),
     );
     expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
     for (const offset of loca1.glyphOffsets) expect(offset % 4).toBe(0);
@@ -70,7 +70,7 @@ function roundTripTest(file: string, override: Partial<TtfCfgProps>, identityTol
         GlyfTableRead,
         loca2,
         gOrd2,
-        new OtGlyph.CoStat.Forward()
+        new OtGlyph.CoStat.Forward(),
     );
     if (designSpace && gvarBuf) {
         const gvar2 = new BinaryView(gvarBuf).next(GvarTableRead, gOrd2, cfg, {}, designSpace);

@@ -1,14 +1,14 @@
-import { GeneralVar } from "@ot-builder/variance";
+import type { GeneralVar } from "@ot-builder/variance";
 
 export abstract class DelayValueCollector<
     A extends GeneralVar.Dim,
     M extends GeneralVar.Master<A>,
     X,
-    D
+    D,
 > {
-    constructor(
+    public constructor(
         private readonly op: GeneralVar.Ops<A, M, X>,
-        private readonly masterSet: GeneralVar.MasterSet<A, M>
+        private readonly masterSet: GeneralVar.MasterSet<A, M>,
     ) {}
 
     private masterList: M[] = [];
@@ -53,7 +53,7 @@ export abstract class DelayValueCollector<
     }
 
     public getMasterList() {
-        return this.relocation.map(r => [r, this.masterList[r]] as [number, M]);
+        return this.relocation.map((r) => [r, this.masterList[r]] as [number, M]);
     }
 
     public get size() {

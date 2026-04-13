@@ -14,7 +14,7 @@ test("OTL Integrated Test Loop - Feature Variations", () => {
             expect(condition.min).toBe(23152 / 0x10000);
             expect(condition.max).toBe(23340 / 0x10000);
 
-            const rvrn = gsub.features.find(f => f.tag === "rvrn")!;
+            const rvrn = gsub.features.find((f) => f.tag === "rvrn")!;
 
             expect(fv123.substitutions.get(rvrn)).toBeTruthy();
             const substitutedFeature = fv123.substitutions.get(rvrn)!;

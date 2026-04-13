@@ -1,12 +1,12 @@
-import { CliHelpShower, Style } from "@ot-builder/cli-help-shower";
+import { type CliHelpShower, Style } from "@ot-builder/cli-help-shower";
 
-import { ParseState } from "../../argv-parser";
-import { Grammar, Syntax } from "../../command";
+import type { ParseState } from "../../argv-parser";
+import type { Grammar, Syntax } from "../../command";
 
 export class StartSyntax<T> implements Syntax<T> {
-    constructor(
+    public constructor(
         private readonly appVersion: string,
-        private readonly body: Syntax<T>
+        private readonly body: Syntax<T>,
     ) {}
     public handle(st0: ParseState, grammar: Grammar) {
         return this.body.handle(st0, grammar);

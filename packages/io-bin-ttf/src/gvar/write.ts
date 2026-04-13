@@ -1,17 +1,17 @@
 import { alignBufferSize, Frag, Write } from "@ot-builder/bin-util";
-import * as ImpLib from "@ot-builder/common-impl";
+import type * as ImpLib from "@ot-builder/common-impl";
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { F2D14, UInt16 } from "@ot-builder/primitive";
 import {
     TupleAllocator,
-    TupleVariationBuildContext,
-    TupleVariationBuildSource,
-    TupleVariationWriteOpt
+    type TupleVariationBuildContext,
+    type TupleVariationBuildSource,
+    TupleVariationWriteOpt,
 } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
-import { TtfCfg } from "../cfg";
+import type { TtfCfg } from "../cfg";
 
 import { GvarFlag, GvarOffsetAlign } from "./shared";
 
@@ -21,13 +21,13 @@ export const GvarTableWrite = Write(
         gOrd: Data.Order<OtGlyph>,
         cfg: TtfCfg,
         designSpace: OtVar.DesignSpace,
-        acEmpty?: ImpLib.Access<boolean>
+        acEmpty?: ImpLib.Access<boolean>,
     ) => {
         const ta = new TupleAllocator();
         const context: TupleVariationBuildContext = {
             designSpace: designSpace,
             tupleAllocator: ta,
-            iupTolerance: cfg.ttf.gvarOptimizeTolerance
+            iupTolerance: cfg.ttf.gvarOptimizeTolerance,
         };
 
         const gvarBody = new Frag();
@@ -37,7 +37,7 @@ export const GvarTableWrite = Write(
         for (let gid = 0; gid < gOrd.length; gid++) {
             let tvd = TupleVariationWriteOpt.writeOpt(
                 new GlyphTupleVariationSource(gOrd.at(gid)),
-                context
+                context,
             );
             if (!tvd && cfg.ttf.gvarForceProduceGVD) {
                 tvd = Frag.uint16(0).uint16(4).uint32(0);
@@ -85,20 +85,20 @@ export const GvarTableWrite = Write(
                 frag.uint32(gvarOffsets[gid]);
             }
         }
-    }
+    },
 );
 
 class GlyphTupleVariationSource implements TupleVariationBuildSource {
     public readonly dimensions = 2;
     public readonly data: OtVar.Value[][];
 
-    constructor(glyph: OtGlyph) {
+    public constructor(glyph: OtGlyph) {
         this.data = [
             ...(glyph.geometry ? new GeomVarCollector().process(glyph.geometry) : []),
             [glyph.horizontal.start, 0],
             [glyph.horizontal.end, 0],
             [0, glyph.vertical.start],
-            [0, glyph.vertical.end]
+            [0, glyph.vertical.end],
         ];
     }
 }

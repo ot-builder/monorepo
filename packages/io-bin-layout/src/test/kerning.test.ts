@@ -31,10 +31,38 @@ test("OTL Integrated Test Loop - Kerning 1", () => {
 
 // prettier-ignore
 const TestPairs = [
-    "ĄJ", "Ąg", "Ąģ", "Ąj", "Ąȷ", "Qȷ", "ąj", "ąȷ",
-    "gȷ", "ģȷ", "ıȷ", "ųȷ", "vȷ", "Va", "Vá", "Vą",
-    "Vf", "Vﬂ", "V.", "З‼", "Ҙ₮", "ΛΎ", "ҫ₡", "ъŋ",
-    "/,", "/.", "1,", "1.", "3,", "3.", "4,", "4."
+    "ĄJ",
+    "Ąg",
+    "Ąģ",
+    "Ąj",
+    "Ąȷ",
+    "Qȷ",
+    "ąj",
+    "ąȷ",
+    "gȷ",
+    "ģȷ",
+    "ıȷ",
+    "ųȷ",
+    "vȷ",
+    "Va",
+    "Vá",
+    "Vą",
+    "Vf",
+    "Vﬂ",
+    "V.",
+    "З‼",
+    "Ҙ₮",
+    "ΛΎ",
+    "ҫ₡",
+    "ъŋ",
+    "/,",
+    "/.",
+    "1,",
+    "1.",
+    "3,",
+    "3.",
+    "4,",
+    "4.",
 ];
 
 test("OTL Integrated Test Loop - Kerning 2", () => {
@@ -98,7 +126,7 @@ function VariableKerningTestLoop(lutIndex: number, file: string) {
             const evaluatedKern = [
                 OtVar.Ops.evaluate(kern.dWidth, null),
                 OtVar.Ops.evaluate(kern.dWidth, thin),
-                OtVar.Ops.evaluate(kern.dWidth, heavy)
+                OtVar.Ops.evaluate(kern.dWidth, heavy),
             ];
             if (round === 0) {
                 round0Results[pairId] = evaluatedKern;

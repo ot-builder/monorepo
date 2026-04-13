@@ -1,17 +1,17 @@
-import * as Crypto from "crypto";
+import * as Crypto from "node:crypto";
 
 import * as ImpLib from "@ot-builder/common-impl";
 import * as Ot from "@ot-builder/ot";
-import * as Rectify from "@ot-builder/rectify";
+import type * as Rectify from "@ot-builder/rectify";
 
-import { DesignUnifierSession } from "../design-unifier";
-import { ValueProcessor } from "../design-unifier/value-process";
+import type { DesignUnifierSession } from "../design-unifier";
+import type { ValueProcessor } from "../design-unifier/value-process";
 
 class SharedGlyphProp {
-    constructor(
+    public constructor(
         public readonly glyph: Ot.Glyph,
         public readonly fid: number,
-        public readonly priority: number
+        public readonly priority: number,
     ) {}
     public compare(b: SharedGlyphProp) {
         return this.fid - b.fid || this.priority - b.priority;
@@ -24,7 +24,7 @@ export class SharedGlyphStore implements Ot.GlyphStore {
         return Ot.ListGlyphStoreFactory.createStoreFromList(
             Array.from(this.mapping.values())
                 .sort((a, b) => a.compare(b))
-                .map(g => g.glyph)
+                .map((g) => g.glyph),
         ).decideOrder();
     }
 }
@@ -33,7 +33,7 @@ export class GlyphSharingRectifier implements Rectify.GlyphReferenceRectifier {
     private rankMap = new Map<string, number>();
     private mapping = new Map<Ot.Glyph, Ot.Glyph>();
 
-    constructor(public readonly gs: SharedGlyphStore) {}
+    public constructor(public readonly gs: SharedGlyphStore) {}
 
     private amendHashByRank(rawHash: string) {
         const rank = this.rankMap.get(rawHash) || 0;
@@ -59,7 +59,7 @@ export class GlyphSharingRectifier implements Rectify.GlyphReferenceRectifier {
 }
 
 export class GlyphHasher {
-    constructor(private readonly session: DesignUnifierSession) {}
+    public constructor(private readonly session: DesignUnifierSession) {}
 
     private readonly computed: Map<Ot.Glyph, string> = new Map();
     private readonly reverse: Map<string, Ot.Glyph> = new Map();
@@ -86,7 +86,7 @@ export class GlyphHasher {
     }
     public computeImpl(glyph: Ot.Glyph) {
         const geomAlg = new HashGeometry(this, this.session.vp);
-        const hintAlg = new HashHinting(this, this.session.vp);
+        const hintAlg = new HashHinting(this.session.vp);
 
         const hr = new ImpLib.Hasher();
         const hrMetrics = hr.begin();
@@ -101,16 +101,16 @@ export class GlyphHasher {
 }
 
 class HashGeometry {
-    constructor(
+    public constructor(
         private readonly gh: GlyphHasher,
-        private readonly vp: ValueProcessor
+        private readonly vp: ValueProcessor,
     ) {}
     public process(geom: Ot.Glyph.Geometry): ImpLib.HashRep {
         switch (geom.type) {
             case Ot.Glyph.GeometryType.ContourSet:
                 return this.contourSet(geom);
             case Ot.Glyph.GeometryType.GeometryList:
-                return this.geometryList(geom.items.map(item => this.process(item)));
+                return this.geometryList(geom.items.map((item) => this.process(item)));
             case Ot.Glyph.GeometryType.TtReference:
                 return this.ttReference(geom);
         }
@@ -147,7 +147,7 @@ class HashGeometry {
         if (ref.pointAttachment) {
             hr.begin().number(
                 ref.pointAttachment.outer.pointIndex,
-                ref.pointAttachment.inner.pointIndex
+                ref.pointAttachment.inner.pointIndex,
             );
         }
         return hr;
@@ -162,10 +162,7 @@ class HashGeometry {
 }
 
 class HashHinting {
-    constructor(
-        private readonly gh: GlyphHasher,
-        private readonly vp: ValueProcessor
-    ) {}
+    public constructor(private readonly vp: ValueProcessor) {}
     public process(geom: Ot.Glyph.Hint): ImpLib.HashRep {
         switch (geom.type) {
             case Ot.Glyph.HintType.TtInstruction:

@@ -7,7 +7,7 @@ export const FdSelectSentinelMismatch = (actual: number, expected: number) =>
     new RangeError(`FDSelect sentinel mismatch: ${actual} ~ ${expected}`);
 export const FdSelect4NotSupported = () =>
     new TypeError(
-        "This font requires format 4 FDSelect, but it is not supported in CFF version 1."
+        "This font requires format 4 FDSelect, but it is not supported in CFF version 1.",
     );
 export const FdIdOverflow = (actual: number, limit: number) =>
     new RangeError(`FDSelect FD Id overflow: ${actual} >= ${limit}`);

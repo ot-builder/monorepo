@@ -11,10 +11,10 @@ export class DesignUnifierSession {
 }
 
 export class DesignSpaceUnifier implements Rectify.AxisRectifier, Rectify.CoordRectifier {
-    constructor(
+    public constructor(
         private session: DesignUnifierSession,
         fvarRef: Ot.Fvar.Table,
-        fvarCur: Ot.Fvar.Table
+        fvarCur: Ot.Fvar.Table,
     ) {
         if (fvarRef.axes.length !== fvarCur.axes.length) {
             throw new Error("Fvar axes count mismatch");
@@ -51,18 +51,18 @@ export class DesignSpaceUnifier implements Rectify.AxisRectifier, Rectify.CoordR
 export function unifyDesignSpacesImpl(
     session: DesignUnifierSession,
     ref: Ot.Font,
-    demand: Ot.Font
+    demand: Ot.Font,
 ) {
     const fvar0 = ref.fvar;
     const fvarI = demand.fvar;
     if (fvar0 && fvarI) {
         const du = new DesignSpaceUnifier(session, fvar0, fvarI);
         Rectify.inPlaceRectifyFont(
-            { glyphRef: g => g },
+            { glyphRef: (g) => g },
             du,
             du,
             new StdPointAttachRectifier(),
-            demand
+            demand,
         );
     } else if (fvarI) {
         throw new Error("Cannot unify variable font with static font");

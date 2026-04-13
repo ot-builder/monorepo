@@ -1,11 +1,11 @@
-import { BinaryView, Read } from "@ot-builder/bin-util";
+import { type BinaryView, Read } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Errors } from "@ot-builder/errors";
 import { F2D14 } from "@ot-builder/primitive";
 import { OtVar } from "@ot-builder/variance";
 
 import { TvhFlags, TvhSetFlags } from "../shared/flags";
-import { inferDeltas, TvdAccess } from "../shared/iup";
+import { inferDeltas, type TvdAccess } from "../shared/iup";
 import { DeltaRun, PointCount, PointNumberRun } from "../shared/runs";
 
 export interface TupleVariationSource {
@@ -66,7 +66,7 @@ export const TupleVariationRead = Read(
         }
 
         return client.finish();
-    }
+    },
 );
 
 const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) => {
@@ -102,7 +102,7 @@ const TupleVariationHeader = Read((view: BinaryView, vsr: TupleVariationSource) 
     return {
         master: new OtVar.Master(dims),
         variationDataSize,
-        hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS)
+        hasPrivatePoints: !!(_tupleIndex & TvhFlags.PRIVATE_POINT_NUMBERS),
     };
 });
 

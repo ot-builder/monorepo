@@ -1,15 +1,14 @@
 import { Errors } from "@ot-builder/errors";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVD, ReadTimeIVS } from "@ot-builder/var-store";
 import { OtVar } from "@ot-builder/variance";
 
 export class CffStackMachine {
     public ivd: ReadTimeIVD<OtVar.Dim, OtVar.Master, OtVar.Value> | null = null;
     public stack: OtVar.Value[] = [];
     public vms = new OtVar.MasterSet();
-    private varCreator = new OtVar.ValueFactory(this.vms);
 
-    constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
+    public constructor(public ivs?: Data.Maybe<ReadTimeIVS>) {
         if (ivs) this.ivd = ivs.tryGetIVD(0);
     }
 
@@ -87,7 +86,7 @@ export class CffStackMachine {
                 variance: number[] = [];
             for (let ixMaster = 0; ixMaster < nMasters; ixMaster++) {
                 variance[ixMaster] = OtVar.Ops.originOf(
-                    args[nValues + ixVal * nMasters + ixMaster]
+                    args[nValues + ixVal * nMasters + ixMaster],
                 );
             }
             results.push(OtVar.Ops.add(orig, this.ivs.buildValue(this.ivd, variance)));

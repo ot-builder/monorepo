@@ -1,16 +1,18 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { VarianceDim as Dim } from "../interface/dimension";
-import { VarianceInstance } from "../interface/instance";
+import type { VarianceDim as Dim } from "../interface/dimension";
+import type { VarianceInstance } from "../interface/instance";
 
-import { OtVarMaster, OtVarMasterDim } from "./master";
+import { OtVarMaster, type OtVarMasterDim } from "./master";
 import { OtVarMasterSet } from "./master-set";
 import { OtVarValueFactory } from "./ops";
 
 // Type exports
 export type DesignSpace = Data.Order<Dim>;
 export type Instance = VarianceInstance<Dim>;
+
 export { VarianceDim as Dim } from "../interface/dimension";
+
 export { OtVarMaster as Master, OtVarMasterDim as MasterDim } from "./master";
 export { OtVarMasterSet as MasterSet } from "./master-set";
 export { OtVarOps as Ops, OtVarValueFactory as ValueFactory } from "./ops";

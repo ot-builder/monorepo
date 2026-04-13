@@ -5,7 +5,7 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 import { LookupWriteTrick } from "../../cfg";
 import { GsubSingleReader, GsubSingleWriter } from "../gsub-single";
 
-import { LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
+import { type LookupRoundTripConfig, LookupRoundTripTest } from "./-shared-test-util.test";
 
 describe("GSUB single lookup handler", () => {
     const gStore = OtListGlyphStoreFactory.createStoreFromSize(0xffff);
@@ -18,7 +18,7 @@ describe("GSUB single lookup handler", () => {
         reader: () => new GsubSingleReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GsubSingle.test(BimapCtx.from(gOrd), a, b);
-        }
+        },
     };
 
     test("Simple", () => {
@@ -31,7 +31,7 @@ describe("GSUB single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage,
         });
     });
     test("Unusual", () => {
@@ -44,7 +44,7 @@ describe("GSUB single lookup handler", () => {
         LookupRoundTripTest(lookup, roundtripConfig);
         LookupRoundTripTest(lookup, {
             ...roundtripConfig,
-            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage
+            trick: LookupWriteTrick.AvoidBreakSubtable | LookupWriteTrick.UseFlatCoverage,
         });
     });
 });

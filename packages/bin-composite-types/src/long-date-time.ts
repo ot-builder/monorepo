@@ -4,7 +4,7 @@ const Power2To32 = 0x0100000000;
 const OtBaseEpoch = Date.UTC(1904, 1, 1);
 
 export const LongDateTime = {
-    ...Read<Date>(view => {
+    ...Read<Date>((view) => {
         const high = view.uint32();
         const low = view.uint32();
         return new Date((high * Power2To32 + low) * 1000 + OtBaseEpoch);
@@ -15,5 +15,5 @@ export const LongDateTime = {
         const low = time % Power2To32;
         fr.uint32(high);
         fr.uint32(low);
-    })
+    }),
 };

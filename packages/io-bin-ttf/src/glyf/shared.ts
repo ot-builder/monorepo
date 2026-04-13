@@ -8,7 +8,7 @@ export enum SimpleGlyphFlag {
     X_IS_SAME_OR_POSITIVE_X_SHORT_VECTOR = 0x10, // This x is same (Positive x-Short vector)
     Y_IS_SAME_OR_POSITIVE_Y_SHORT_VECTOR = 0x20, // This y is same (Positive y-Short vector)
     OVERLAP_SIMPLE = 0x40,
-    Reserved = 0x80
+    Reserved = 0x80,
 }
 
 export enum ComponentFlag {
@@ -24,7 +24,7 @@ export enum ComponentFlag {
     USE_MY_METRICS = 0x200,
     OVERLAP_COMPOUND = 0x400,
     SCALED_COMPONENT_OFFSET = 0x800,
-    UNSCALED_COMPONENT_OFFSET = 0x1000
+    UNSCALED_COMPONENT_OFFSET = 0x1000,
 }
 
 export const GlyfOffsetAlign = 4;

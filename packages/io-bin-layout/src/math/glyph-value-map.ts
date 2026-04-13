@@ -1,7 +1,7 @@
 import { NonNullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
 import { MathValueRecord } from "../shared/math-value-record";
@@ -9,7 +9,7 @@ import { MathValueRecord } from "../shared/math-value-record";
 import { MathKernInfo } from "./kern";
 
 export class GlyphValueMapIo<T> {
-    constructor(private readonly ioProc: Read<T> & Write<T>) {}
+    public constructor(private readonly ioProc: Read<T> & Write<T>) {}
     public read(bv: BinaryView, gOrd: Data.Order<OtGlyph>) {
         const cov = bv.next(Ptr16GidCoverage);
         const count = bv.uint16();

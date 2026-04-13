@@ -2,7 +2,7 @@ import { CffStandardStrings } from "./data";
 
 export class CffStringSource {
     private data: string[];
-    constructor() {
+    public constructor() {
         this.data = [...CffStandardStrings];
     }
     public put(sid: number, s: string) {

@@ -1,4 +1,4 @@
-import { PathMapAllocator, PathMap, PathMapLens } from "./interface";
+import type { PathMap, PathMapAllocator, PathMapLens } from "./interface";
 
 class PathMapNode<Step, Value> {
     public value: Value | undefined;
@@ -34,7 +34,7 @@ export class IndexAllocator implements PathMapAllocator<number> {
 
 class PathMapLensImpl<Step, Value> implements PathMapLens<Step, Value> {
     private current: PathMapNode<Step, Value>;
-    constructor(node: PathMapNode<Step, Value>) {
+    public constructor(node: PathMapNode<Step, Value>) {
         this.current = node;
     }
     public get() {
@@ -123,7 +123,7 @@ export class PathMapImpl<Step, Value> implements PathMap<Step, Value> {
     }
 
     public static create<Step, Value>(
-        iter?: Iterable<[ReadonlyArray<Step>, Value]>
+        iter?: Iterable<[ReadonlyArray<Step>, Value]>,
     ): PathMapImpl<Step, Value> {
         const pm = new PathMapImpl<Step, Value>();
         if (iter) for (const [key, value] of iter) pm.set(key, value);

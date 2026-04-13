@@ -16,5 +16,5 @@ export const DefaultTtfCfgProps: TtfCfgProps = {
     gvarOptimizeTolerance: 1 / 128,
     gvarForceProduceGVD: false,
     gvarForceZeroGapsBetweenGVD: false,
-    gvarReadPermissiveGlyphCount: false
+    gvarReadPermissiveGlyphCount: false,
 };

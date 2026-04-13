@@ -1,8 +1,8 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { LayoutCommon } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { LayoutCommon } from "@ot-builder/ot-layout";
 
-import { BimapCtx, StdCompare } from "../../compar-util";
+import { type BimapCtx, StdCompare } from "../../compar-util";
 import * as CoverageIdentity from "../coverage";
 
 type MarkGlyphSets = Array<LayoutCommon.Coverage.T<OtGlyph>>;

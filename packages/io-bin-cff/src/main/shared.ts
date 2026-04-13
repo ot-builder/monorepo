@@ -1,9 +1,9 @@
 import { Errors } from "@ot-builder/errors";
-import { Cff, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { Cff, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffCharStringInterpStateImpl } from "../char-string/read/interpret-state";
 import { interpretCharString } from "../char-string/read/interpreter";
 import { CffGlyphBuilder } from "../char-string/read/shape-building";
@@ -12,18 +12,18 @@ import { CffDrawCall } from "../char-string/write/draw-call";
 import { codeGenGlyph } from "../char-string/write/draw-call-gen";
 import {
     MinimalDrawCallOptimizers,
-    StandardDrawCallOptimizers
+    StandardDrawCallOptimizers,
 } from "../char-string/write/draw-call-optimize";
 import { cffOptimizeDrawCall } from "../char-string/write/draw-call-optimize/general";
 import { CharStringGlobalOptEmptyImplFactory } from "../char-string/write/global-optimize/empty-impl";
-import { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
+import type { CharStringGlobalOptimizeResult } from "../char-string/write/global-optimize/general";
 import { CharStringGlobalOptSubrFactory } from "../char-string/write/global-optimize/subroutine-analyze";
 import { CffCidCharsetSink, CffGlyphNameCharsetSink } from "../charset/glyph-data-sink";
-import { CffCharSet, CffCharSetSink } from "../charset/io";
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import { CffCharSet, type CffCharSetSink } from "../charset/io";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 import { CffFdArrayIo } from "../dict/font-dict";
-import { CffTopDictRead } from "../dict/top";
+import type { CffTopDictRead } from "../dict/top";
 import { CffGlyphFdSelectSink } from "../fd-select/glyph-data-sink";
 import { CffFdSelect } from "../fd-select/io";
 import { Cff2IVS } from "../structs/cff2-ivs";
@@ -39,7 +39,7 @@ export function readCffCommon(
     topDict: CffTopDictRead,
     ctx: CffReadContext,
     gSubrs: Buffer[],
-    designSpace?: Data.Maybe<OtVar.DesignSpace>
+    designSpace?: Data.Maybe<OtVar.DesignSpace>,
 ) {
     cff.topDict = topDict.fd;
     if (topDict.cidROS) cff.cid = topDict.cidROS;
@@ -74,7 +74,7 @@ function readGlyph(
     gid: number,
     glyph: OtGlyph,
     charStrings: Buffer[],
-    gSubrs: Buffer[]
+    gSubrs: Buffer[],
 ) {
     const fdId = cff.fdSelect ? cff.fdSelect.get(glyph) || 0 : 0;
     const pd = getCorrespondedPd(cff, fdId);
@@ -95,9 +95,9 @@ function readGlyph(
             global: gSubrs,
             local: localSubrs,
             defaultWidthX: pd.defaultWidthX,
-            nominalWidthX: pd.nominalWidthX
+            nominalWidthX: pd.nominalWidthX,
         },
-        gb
+        gb,
     );
     gb.endChar();
 
@@ -109,7 +109,7 @@ function readGlyph(
 }
 
 export function cffCleanupUnusedData(cff: Cff.Table) {
-    if (cff.topDict && cff.topDict.privateDict) {
+    if (cff.topDict?.privateDict) {
         cff.topDict.privateDict.localSubroutines = null;
     }
     if (cff.fdArray) {
@@ -124,7 +124,7 @@ function setLocalSubrForFd(fd: Cff.FontDict, lSubrs: Buffer[]) {
 }
 
 export function applyBuildResults(cff: Cff.Table, results: CharStringGlobalOptimizeResult) {
-    if (cff.fdArray && cff.fdArray.length) {
+    if (cff.fdArray?.length) {
         for (let fdId = 0; fdId < cff.fdArray.length; fdId++) {
             const fd = cff.fdArray[fdId];
             const lSubrs = results.localSubroutines[fdId] || [];
@@ -155,7 +155,7 @@ export function buildCharStrings(
     cff: Cff.Table,
     cfg: CffCfg,
     gOrd: Data.Order<OtGlyph>,
-    ctx: CffWriteContext
+    ctx: CffWriteContext,
 ) {
     const fdCount = cff.fdArray ? cff.fdArray.length : 1;
     const optimizer = getOptimizer(cfg, ctx, fdCount);

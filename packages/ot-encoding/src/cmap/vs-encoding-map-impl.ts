@@ -2,7 +2,7 @@ export class VsEncodingMapT<G> {
     private sizeCache: undefined | number = undefined;
     private mapping: Map<number, Map<number, G>> = new Map();
 
-    constructor(init?: Iterable<[number, number, G]>) {
+    public constructor(init?: Iterable<[number, number, G]>) {
         if (init) {
             for (const [code, vs, glyph] of init) {
                 this.set(code, vs, glyph);

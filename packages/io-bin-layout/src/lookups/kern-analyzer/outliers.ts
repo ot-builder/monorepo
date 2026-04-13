@@ -1,11 +1,11 @@
 import { Errors } from "@ot-builder/errors";
-import { Gpos } from "@ot-builder/ot-layout";
+import type { Gpos } from "@ot-builder/ot-layout";
 import { UInt16 } from "@ot-builder/primitive";
 
 import { MaxCovItemWords } from "../../shared/coverage";
 import { GposAdjustment } from "../../shared/gpos-adjust";
 
-import { ClassMatrix } from "./class-matrix";
+import type { ClassMatrix } from "./class-matrix";
 
 export class OutlierTree<G> {
     public mapping: Map<G, Map<G, Gpos.AdjustmentPair>> = new Map();
@@ -104,7 +104,7 @@ namespace OutlierAnalyzerImpl {
             cm: ClassMatrix<G>,
             c1p: number,
             c1t: number,
-            sink: number[]
+            sink: number[],
         ) {
             let pc = 0;
             for (const c2 of sink) {
@@ -160,7 +160,7 @@ namespace OutlierAnalyzerImpl {
             cm: ClassMatrix<G>,
             c2p: number,
             c2t: number,
-            sink: number[]
+            sink: number[],
         ) {
             let pc = 0;
             for (const c1 of sink) {

@@ -1,4 +1,4 @@
-import { UInt8, Int16, UInt16 } from "@ot-builder/primitive";
+import type { Int16, UInt8, UInt16 } from "@ot-builder/primitive";
 
 export const Tag = "VDMX";
 
@@ -20,6 +20,6 @@ export class VdmxRecord {
 }
 
 export class Table {
-    constructor(public readonly version: UInt16 = 1) {}
+    public constructor(public readonly version: UInt16 = 1) {}
     public records: Array<VdmxRecord> = [];
 }

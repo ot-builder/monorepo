@@ -1,12 +1,12 @@
-import { BinaryView } from "@ot-builder/bin-util";
+import type { BinaryView } from "@ot-builder/bin-util";
 import * as ImpLib from "@ot-builder/common-impl";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Gdef, GsubGpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS } from "@ot-builder/var-store";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { Gdef, type GsubGpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS } from "@ot-builder/var-store";
 
-import { LookupFlag, LookupReader, LookupReaderFactory } from "./general";
+import { LookupFlag, type LookupReader, type LookupReaderFactory } from "./general";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@ export interface LookupReadContext {
 
 export class CReadLookupList<L extends GsubGpos.LookupProp> {
     private readExtensionSubtables(subtableViews: BinaryView[]) {
-        let extensionLookupType: undefined | number = undefined;
+        let extensionLookupType: undefined | number;
         const realSubtables: BinaryView[] = [];
         for (const vSubTable of subtableViews) {
             const format = vSubTable.uint16();
@@ -28,7 +28,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
             Assert.FormatSupported(
                 `ExtensionSubstFormat::extensionLookupType`,
                 type,
-                extensionLookupType || 0
+                extensionLookupType || 0,
             );
             realSubtables.push(vSubTable.ptr32());
         }
@@ -72,7 +72,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         ignores: Set<OtGlyph>,
         flags: number,
         markFilteringSet: Data.Maybe<number>,
-        gdef: Gdef.Table
+        gdef: Gdef.Table,
     ) {
         if (
             gdef.glyphClassDef &&
@@ -93,7 +93,7 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         lookup: L,
         flags: number,
         markFilteringSet: Data.Maybe<number>,
-        gdef: Data.Maybe<Gdef.Table>
+        gdef: Data.Maybe<Gdef.Table>,
     ) {
         if (flags & LookupFlag.RightToLeft) lookup.rightToLeft = true;
         if (!gdef) return;
@@ -141,13 +141,13 @@ export class CReadLookupList<L extends GsubGpos.LookupProp> {
         for (const [lookup, reader, sts] of ImpLib.Iterators.Zip3WithIndex(
             lookups,
             readers,
-            subtables
+            subtables,
         )) {
             for (const st of sts) {
                 reader.parseSubtable(st, lookup, {
                     ivs: lrc.ivs,
                     gOrd: lrc.gOrd,
-                    crossReferences: lookupOrder
+                    crossReferences: lookupOrder,
                 });
             }
         }

@@ -10,14 +10,14 @@ export type CaseClassType<Tag, Props, A extends any[]> = {
 
 export function CaseCreator<Tag, Props, A extends any[]>(
     typeTag: Tag,
-    fn: (...args: A) => Props
+    fn: (...args: A) => Props,
 ): CaseClassType<Tag, Props, A> {
     const CtorImpl = CaseCtorImpl(typeTag, fn);
     return Object.assign(CtorImpl, { Type: typeTag });
 }
 function CaseCtorImpl<Tag, Props, A extends any[]>(
     typeTag: Tag,
-    fn: (...args: A) => Props
+    fn: (...args: A) => Props,
 ): CaseCtorType<Tag, Props, A> {
     return function (this: any, ...args: A) {
         initialize(this, typeTag, fn(...args));

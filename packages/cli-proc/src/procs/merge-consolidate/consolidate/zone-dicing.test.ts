@@ -1,4 +1,4 @@
-import { diceZones, Span, SrcZone, DstZone, Zone } from "./zone-dicing";
+import { type DstZone, diceZones, type Span, type SrcZone, type Zone } from "./zone-dicing";
 
 test("Multi condition set dicing", () => {
     MultiDiceTest<number>(
@@ -7,25 +7,25 @@ test("Multi condition set dicing", () => {
         MakeZone(2, [1, 2], [1, 2], [2, 3]),
         MakeZone(3, [3, 4], [0, 3], [0, 2]),
         MakeZone(4, [0, 2], [0, 4], [0, 4]),
-        MakeZone(5, [2, 4], [0, 4], [1, 4])
+        MakeZone(5, [2, 4], [0, 4], [1, 4]),
     );
 
     MultiDiceTest<number>(
         2,
         MakeZone(1, [0, 2], [0, 4], [0, 4]),
-        MakeZone(2, [2, 4], [0, 4], [1, 4])
+        MakeZone(2, [2, 4], [0, 4], [1, 4]),
     );
 
     MultiDiceTest<number>(
         1,
         MakeZone(1, [0, 2], [0, 4], [0, 4]),
-        MakeZone(2, [0, 2], [0, 4], [0, 4])
+        MakeZone(2, [0, 2], [0, 4], [0, 4]),
     );
 
     MultiDiceTest<number>(
         7,
         MakeZone(1, [1, 3], [1, 3], [1, 3]),
-        MakeZone(2, [2, 4], [2, 4], [2, 4])
+        MakeZone(2, [2, 4], [2, 4], [2, 4]),
     );
 });
 
@@ -76,7 +76,7 @@ function* testPointInZone(
     dn: number,
     d: number,
     carry: number[],
-    zone: Zone
+    zone: Zone,
 ): IterableIterator<number[]> {
     if (d >= dn) {
         yield carry;

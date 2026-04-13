@@ -1,9 +1,9 @@
 import { Errors } from "@ot-builder/errors";
 import { OtGeometryUtil, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export class GlyphClassifier {
-    constructor(private gOrd: Data.Order<OtGlyph>) {}
+    public constructor(private gOrd: Data.Order<OtGlyph>) {}
     public cache: WeakMap<OtGlyph, SpaceGlyph> = new Map();
 
     private classifyImpl(g: OtGlyph): SpaceGlyph {
@@ -24,7 +24,7 @@ export class GlyphClassifier {
                 g.horizontal,
                 g.vertical,
                 algGeom.collectedReferences,
-                algHint.collectedInstructions
+                algHint.collectedInstructions,
             );
         }
         if (algGeom.hasContours && algGeom.allContours) {
@@ -33,7 +33,7 @@ export class GlyphClassifier {
                 g.horizontal,
                 g.vertical,
                 algGeom.collectedContourSets,
-                algHint.collectedInstructions
+                algHint.collectedInstructions,
             );
         }
         throw Errors.Ttf.MixedGlyph(gid);
@@ -99,10 +99,10 @@ class HintClassifier {
 }
 
 export class SpaceGlyph {
-    constructor(
+    public constructor(
         protected gid: number,
         public hm: OtGlyph.Metric,
-        public vm: OtGlyph.Metric
+        public vm: OtGlyph.Metric,
     ) {}
     public getStatData(): OtGlyph.Stat.ComplexGlyphStat {
         return {
@@ -112,7 +112,7 @@ export class SpaceGlyph {
             depth: 0,
             eigenReferences: 0,
             totalContours: 0,
-            totalPoints: 0
+            totalPoints: 0,
         };
     }
     public stat(sink: OtGlyph.Stat.Sink) {
@@ -123,12 +123,12 @@ export class SpaceGlyph {
 }
 
 export class SimpleGlyph extends SpaceGlyph {
-    constructor(
+    public constructor(
         gid: number,
         hm: OtGlyph.Metric,
         vm: OtGlyph.Metric,
         public outlines: OtGlyph.ContourSet[],
-        public instructions: Buffer
+        public instructions: Buffer,
     ) {
         super(gid, hm, vm);
         const bound = OtGeometryUtil.apply(OtGeometryUtil.GetBound, ...this.outlines);
@@ -142,7 +142,7 @@ export class SimpleGlyph extends SpaceGlyph {
             depth: 0,
             eigenReferences: 0,
             totalContours: contourCount,
-            totalPoints: pointCount
+            totalPoints: pointCount,
         };
     }
 
@@ -160,13 +160,13 @@ export class SimpleGlyph extends SpaceGlyph {
 }
 
 export class CompositeGlyph extends SpaceGlyph {
-    constructor(
+    public constructor(
         classifier: GlyphClassifier,
         gid: number,
         hm: OtGlyph.Metric,
         vm: OtGlyph.Metric,
         public references: OtGlyph.TtReference[],
-        public instructions: Buffer
+        public instructions: Buffer,
     ) {
         super(gid, hm, vm);
 
@@ -188,7 +188,7 @@ export class CompositeGlyph extends SpaceGlyph {
             depth,
             eigenReferences: references.length,
             totalContours,
-            totalPoints
+            totalPoints,
         };
     }
 

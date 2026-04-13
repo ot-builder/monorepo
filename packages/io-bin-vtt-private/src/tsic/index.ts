@@ -1,8 +1,8 @@
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, type Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { TSIC } from "@ot-builder/ot-vtt-private";
 import { F2D14, Int16, Tag, UInt16 } from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 import * as iconv from "iconv-lite";
 
 export const TsicTable = {
@@ -48,7 +48,7 @@ export const TsicTable = {
         for (let iRecord = 0; iRecord < table.records.length; iRecord++) {
             frag.push(TsicRecord, table.records[iRecord]);
         }
-    })
+    }),
 };
 
 const TsicRecord = {
@@ -79,5 +79,5 @@ const TsicRecord = {
             frag.uint16(cvtEntriesArray[iCvt][0]); // CVTArray
         for (let iCvt = 0; iCvt < cvtEntriesArray.length; iCvt++)
             frag.int16(cvtEntriesArray[iCvt][1]); // CVTValueArray
-    })
+    }),
 };

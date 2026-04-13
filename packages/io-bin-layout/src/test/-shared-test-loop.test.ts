@@ -1,12 +1,12 @@
-import { readEncoding, DefaultEncodingCfgProps } from "@ot-builder/io-bin-encoding";
+import { DefaultEncodingCfgProps, readEncoding } from "@ot-builder/io-bin-encoding";
 import { readOtMetadata } from "@ot-builder/io-bin-metadata";
 import { readSfntOtf, SfntIoTableSink } from "@ot-builder/io-bin-sfnt";
-import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
-import { OtFontLayoutData } from "@ot-builder/ot-layout";
-import { Fvar } from "@ot-builder/ot-metadata";
+import type { Cmap } from "@ot-builder/ot-encoding";
+import { type OtGlyph, OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
+import type { OtFontLayoutData } from "@ot-builder/ot-layout";
+import type { Fvar } from "@ot-builder/ot-metadata";
 import { Sfnt } from "@ot-builder/ot-sfnt";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { TestFont } from "@ot-builder/test-util";
 
 import { readOtl } from "../main/read";

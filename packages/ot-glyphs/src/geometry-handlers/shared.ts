@@ -11,9 +11,9 @@ export interface OtGeometrySink<T> {
 }
 
 class OtTransformedGeometrySink<T> implements OtGeometrySink<T> {
-    constructor(
+    public constructor(
         private readonly sink: OtGeometrySink<T>,
-        private readonly transform: OtGlyph.Transform2X3
+        private readonly transform: OtGlyph.Transform2X3,
     ) {}
     public beginContour() {
         this.sink.beginContour();
@@ -30,7 +30,7 @@ class OtTransformedGeometrySink<T> implements OtGeometrySink<T> {
 }
 
 export class OtGeometryTraverse<T> {
-    constructor(protected readonly sink: OtGeometrySink<T>) {}
+    public constructor(protected readonly sink: OtGeometrySink<T>) {}
 
     public process(geom: OtGlyph.Geometry) {
         switch (geom.type) {
@@ -46,7 +46,7 @@ export class OtGeometryTraverse<T> {
             }
             case OtGlyph.GeometryType.TtReference: {
                 const sub = new OtGeometryTraverse(
-                    new OtTransformedGeometrySink(this.sink, geom.transform)
+                    new OtTransformedGeometrySink(this.sink, geom.transform),
                 );
                 if (geom.to.geometry) sub.process(geom.to.geometry);
                 break;

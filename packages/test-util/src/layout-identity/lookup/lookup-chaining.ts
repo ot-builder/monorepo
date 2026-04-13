@@ -1,13 +1,13 @@
 import * as ImpLib from "@ot-builder/common-impl";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { GsubGpos } from "@ot-builder/ot-layout";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { GsubGpos } from "@ot-builder/ot-layout";
 
-import { LookupCtx, StdCompare } from "../../compar-util";
+import { type LookupCtx, StdCompare } from "../../compar-util";
 
 function ruleMatch<L>(
     bmg: LookupCtx<OtGlyph, L>,
     rExp: GsubGpos.ChainingRule<L>,
-    rAct: GsubGpos.ChainingRule<L>
+    rAct: GsubGpos.ChainingRule<L>,
 ) {
     if (rExp.match.length !== rAct.match.length) return false;
     if (rExp.inputBegins !== rAct.inputBegins) return false;
@@ -27,7 +27,7 @@ function ruleMatch<L>(
 function testSingle<L>(
     bmg: LookupCtx<OtGlyph, L>,
     expected: GsubGpos.ChainingProp<L>,
-    actual: GsubGpos.ChainingProp<L>
+    actual: GsubGpos.ChainingProp<L>,
 ) {
     for (const rExp of expected.rules) {
         let foundMatchRule = false;

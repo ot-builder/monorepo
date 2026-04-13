@@ -1,6 +1,6 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import { VarianceDim } from "./dimension";
+import type { VarianceDim } from "./dimension";
 
 export type VarianceInstanceTupleW<A extends VarianceDim> = Map<A, number>;
 export type VarianceInstanceTuple<A extends VarianceDim> = ReadonlyMap<A, number>;

@@ -22,12 +22,12 @@ describe("GDEF write", () => {
         const gdefDat = new BinaryView(sfnt.tables.get(Gdef.Tag)!).next(
             GdefTableIo,
             gOrd,
-            designSpace
+            designSpace,
         );
 
         const ivsW = WriteTimeIVS.create(new OtVar.MasterSet());
         const gdefBuf = Frag.pack(
-            Frag.from(GdefTableIo, gdefDat.gdef, cfg, gOrd, ivsW, designSpace)
+            Frag.from(GdefTableIo, gdefDat.gdef, cfg, gOrd, ivsW, designSpace),
         );
 
         const gdefDat2 = new BinaryView(gdefBuf).next(GdefTableIo, gOrd, designSpace);

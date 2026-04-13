@@ -1,6 +1,6 @@
 import * as Ot from "@ot-builder/ot";
 
-import { GlyphReferenceRectifier } from "../interface";
+import type { GlyphReferenceRectifier } from "../interface";
 import { RectifyImpl } from "../shared";
 
 // We do not implement rectifier for TSIC since it uses a different variation model

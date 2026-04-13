@@ -1,6 +1,6 @@
 // TSI 01 and 23
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 export const TagTSI0 = "TSI0";
 export const TagTSI1 = "TSI1";

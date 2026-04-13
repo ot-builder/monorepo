@@ -1,9 +1,14 @@
 import { BinaryView, Frag } from "@ot-builder/bin-util";
 import { Errors } from "@ot-builder/errors";
 import { OtListGlyphStoreFactory } from "@ot-builder/ot-glyphs";
-import { Gsub, GsubGpos } from "@ot-builder/ot-layout";
+import type { Gsub, GsubGpos } from "@ot-builder/ot-layout";
 
-import { LookupReader, LookupReaderFactory, LookupWriter, LookupWriterFactory } from "./general";
+import type {
+    LookupReader,
+    LookupReaderFactory,
+    LookupWriter,
+    LookupWriterFactory,
+} from "./general";
 import { CReadLookupList } from "./read-lookup-list";
 import { WriteLookupList } from "./write-lookup-list";
 
@@ -13,7 +18,7 @@ class MockLookup implements GsubGpos.LookupProp {
     public readonly type: MockLookupSymbolType = MockLookupType;
     public rightToLeft = false;
     public ignoreGlyphs = null;
-    constructor(public count: number) {}
+    public constructor(public count: number) {}
 }
 
 class MockLookupReader implements LookupReader<GsubGpos.LookupProp, MockLookup> {
@@ -67,14 +72,14 @@ class MockLookupWriterFactory implements LookupWriterFactory<Gsub.Lookup> {
 
 describe("Lookup list writer", () => {
     function testLookupListRoundTrip(sizes: number[]) {
-        const ls = sizes.map(s => new MockLookup(s));
+        const ls = sizes.map((s) => new MockLookup(s));
         const lwf = new MockLookupWriterFactory();
         const gOrd = OtListGlyphStoreFactory.createStoreFromSize(0x1000).decideOrder();
         const bufLookupList = Frag.pack(Frag.from(WriteLookupList, ls, lwf, { gOrd }));
 
         const lrf = new MockLookupReaderFactory();
         const ls1 = new BinaryView(bufLookupList).next(new CReadLookupList<Gsub.Lookup>(), lrf, {
-            gOrd
+            gOrd,
         });
         expect(ls1).toEqual(ls);
     }

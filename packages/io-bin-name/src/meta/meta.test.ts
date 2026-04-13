@@ -12,7 +12,5 @@ test("Meta table read-write roundtrip", () => {
     const meta = new BinaryView(bufMeta).next(MetaTableIo);
 
     expect(new Map(meta.data).get(`dlng`)).toBe("en-US");
-    expect((new Map(meta.data).get(`TEST`)! as Buffer).toString("utf-8")).toBe(
-        "This is some test"
-    );
+    expect((new Map(meta.data).get(`TEST`)! as Buffer).toString("utf-8")).toBe("This is some test");
 });

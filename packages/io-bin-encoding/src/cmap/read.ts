@@ -1,10 +1,10 @@
 import { Read } from "@ot-builder/bin-util";
 import { Assert } from "@ot-builder/errors";
 import { Cmap } from "@ot-builder/ot-encoding";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
-import { SubtableRawData } from "./general";
+import type { SubtableRawData } from "./general";
 import { SubtableHandlers } from "./handlers";
 
 export const ReadCmap = Read((view, gOrd: Data.Order<OtGlyph>) => {

@@ -1,5 +1,5 @@
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "TSIC";
 

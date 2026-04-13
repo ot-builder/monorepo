@@ -1,7 +1,7 @@
-import { BinaryView } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { BinaryView } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { TSI0123 } from "@ot-builder/ot-vtt-private";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16, UInt32 } from "@ot-builder/primitive";
 
 export type Tsi02Record = {
@@ -13,7 +13,7 @@ export type Tsi02Record = {
 export function readTSI0123(
     viewTable02: BinaryView,
     viewTable13: BinaryView,
-    gOrd: Data.Order<OtGlyph>
+    gOrd: Data.Order<OtGlyph>,
 ) {
     const sizeOfTSI02Record = UInt16.size * 2 + UInt32.size; // 8 bytes
     const totalRecords = viewTable02.sourceBufferSize / sizeOfTSI02Record;

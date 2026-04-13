@@ -27,7 +27,7 @@ function cmapRoundtrip(file: string) {
     }
 
     const bufCmap = Frag.pack(
-        Frag.from(WriteCmap, cmap, gOrd, { encoding: DefaultEncodingCfgProps })
+        Frag.from(WriteCmap, cmap, gOrd, { encoding: DefaultEncodingCfgProps }),
     );
     const cmap1 = new BinaryView(bufCmap).next(ReadCmap, gOrd);
 

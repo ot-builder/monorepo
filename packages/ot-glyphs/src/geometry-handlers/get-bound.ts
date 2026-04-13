@@ -1,9 +1,9 @@
 import { OtVar } from "@ot-builder/variance";
 
 import { OtGlyph } from "../ot-glyph";
-import { BoundingBox } from "../ot-glyph/stat";
+import type { BoundingBox } from "../ot-glyph/stat";
 
-import { OtGeometrySink } from "./shared";
+import type { OtGeometrySink } from "./shared";
 
 export class OtGhGetBound implements OtGeometrySink<BoundingBox> {
     private bb = new OtGlyph.Stat.BoundingBoxBuilder();

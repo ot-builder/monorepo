@@ -1,6 +1,6 @@
-import { BinaryView, Read } from "@ot-builder/bin-util";
+import type { BinaryView, Read } from "@ot-builder/bin-util";
 
-import { CffReadContext } from "../context/read";
+import type { CffReadContext } from "../context/read";
 import { CffIndexCount } from "../structs/index.count";
 import { CffOffSize } from "../structs/off-size";
 import { CffOffset } from "../structs/offset";
@@ -8,7 +8,7 @@ import { CffOffset } from "../structs/offset";
 export type CffIndexItemReadContext = [CffReadContext, number, number];
 
 export class CffReadIndex<T> implements Read<T[], [CffReadContext]> {
-    constructor(private readItem: Read<T, CffIndexItemReadContext>) {}
+    public constructor(private readItem: Read<T, CffIndexItemReadContext>) {}
     public read(view: BinaryView, context: CffReadContext) {
         const count = view.next(CffIndexCount, context.version);
         const offSize = view.next(CffOffSize);
@@ -21,7 +21,7 @@ export class CffReadIndex<T> implements Read<T[], [CffReadContext]> {
                 this.readItem,
                 context,
                 offsets[index + 1] - offsets[index],
-                index
+                index,
             );
         }
         view.bytes(offsets[count]);

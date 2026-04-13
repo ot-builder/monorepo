@@ -1,8 +1,8 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as LayoutCommon from "../common";
+import type * as LayoutCommon from "../common";
 
-import * as GdefSubParts from "./sub-parts";
+import type * as GdefSubParts from "./sub-parts";
 
 export type Coverage<G> = LayoutCommon.Coverage.T<G>;
 export type ClassDef<G> = LayoutCommon.ClassDef.T<G>;

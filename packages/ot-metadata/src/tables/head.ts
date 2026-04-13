@@ -1,4 +1,4 @@
-import { F16D16, Int16, UInt16, UInt32 } from "@ot-builder/primitive";
+import type { F16D16, Int16, UInt16, UInt32 } from "@ot-builder/primitive";
 
 export const Tag = "head";
 
@@ -19,7 +19,7 @@ export enum Flags {
     Converted = 1 << 12,
     OptimizedForClearType = 1 << 13,
     LastResortFont = 1 << 14,
-    Reserved15 = 1 << 15
+    Reserved15 = 1 << 15,
 }
 
 export enum MacStyle {
@@ -30,7 +30,7 @@ export enum MacStyle {
     Outline = 1 << 3,
     Shadow = 1 << 4,
     Condensed = 1 << 5,
-    Extended = 1 << 6
+    Extended = 1 << 6,
 }
 
 export enum FontDirectionHint {
@@ -38,13 +38,13 @@ export enum FontDirectionHint {
     OnlyStrongLTR = 1,
     StrongLTROrNeutral = 2,
     OnlyStrongRTL = -1,
-    StrongRTLOrNeutral = -2
+    StrongRTLOrNeutral = -2,
 }
 
 export class Table {
-    constructor(
+    public constructor(
         public readonly majorVersion: UInt16 = 0x1,
-        public readonly minorVersion: UInt16 = 0
+        public readonly minorVersion: UInt16 = 0,
     ) {}
     public fontRevision: F16D16 = 0;
     public readonly checkSumAdjust: UInt32 = 0;

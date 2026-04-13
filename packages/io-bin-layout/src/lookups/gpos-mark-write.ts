@@ -1,16 +1,21 @@
 import { Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
-import { WriteTimeIVS } from "@ot-builder/var-store";
+import type { WriteTimeIVS } from "@ot-builder/var-store";
 
 import {
-    LookupWriter,
+    type LookupWriter,
     SubtableSizeLimit,
-    SubtableWriteContext
+    type SubtableWriteContext,
 } from "../gsub-gpos-shared/general";
-import { CovAuxMappingT, CovUtils, MaxCovItemWords, Ptr16GidCoverage } from "../shared/coverage";
+import {
+    type CovAuxMappingT,
+    CovUtils,
+    MaxCovItemWords,
+    Ptr16GidCoverage,
+} from "../shared/coverage";
 import { GposAnchor, NullablePtr16GposAnchor, Ptr16GposAnchor } from "../shared/gpos-anchor";
 
 type SingleMarkRecord<G> = {
@@ -28,20 +33,20 @@ const MarkArray = {
         frag: Frag,
         axm: CovAuxMappingT<SingleMarkRecord<OtGlyph>>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         frag.uint16(axm.length); // markCount
         for (const [gid, smr] of axm) {
             frag.uint16(relocation.forward[smr.class]) // markClass
                 .push(Ptr16GposAnchor, smr.anchor, ctx.ivs); // markAnchorOffset
         }
-    }
+    },
 };
 
 function getBaseAnchor(
     clsSubtable: number,
     record: Gpos.BaseRecord,
-    relocation: MarkClassRelocation
+    relocation: MarkClassRelocation,
 ) {
     return record.baseAnchors[relocation.reward[clsSubtable]];
 }
@@ -51,7 +56,7 @@ const BaseArray = {
         frag: Frag,
         axm: CovAuxMappingT<Gpos.BaseRecord>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         frag.uint16(axm.length);
         for (const [gid, br] of axm) {
@@ -60,14 +65,14 @@ const BaseArray = {
                 frag.push(NullablePtr16GposAnchor, anchor, ctx.ivs);
             }
         }
-    }
+    },
 };
 
 function getLigatureAnchor(
     clsSubtable: number,
     component: number,
     record: Gpos.LigatureBaseRecord,
-    relocation: MarkClassRelocation
+    relocation: MarkClassRelocation,
 ) {
     return (record.baseAnchors[component] || [])[relocation.reward[clsSubtable]];
 }
@@ -77,7 +82,7 @@ const LigatureArray = {
         frag: Frag,
         axm: CovAuxMappingT<Gpos.LigatureBaseRecord>,
         relocation: MarkClassRelocation,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         frag.uint16(axm.length);
         for (const [gid, br] of axm) {
@@ -90,7 +95,7 @@ const LigatureArray = {
                 }
             }
         }
-    }
+    },
 };
 
 interface MarkPlanClass<G, B> {
@@ -100,9 +105,9 @@ interface MarkPlanClass<G, B> {
 abstract class MarkWritePlan<G, B> {
     protected readonly relocation: MarkClassRelocation;
     public readonly bases: Map<G, B>;
-    constructor(
+    public constructor(
         public readonly marks: SingleMarkRecord<G>[],
-        rawBases: Map<G, B>
+        rawBases: Map<G, B>,
     ) {
         this.relocation = this.getMarkPlanRelocation(marks);
         this.bases = new Map();
@@ -147,10 +152,7 @@ abstract class MarkWritePlan<G, B> {
             const plan = this.bisect(ivs);
             if (!plan) return [this];
             const [lower, upper] = plan;
-            return [
-                ...lower.autoBisect(ivs, limit, d + 1),
-                ...upper.autoBisect(ivs, limit, d + 1)
-            ];
+            return [...lower.autoBisect(ivs, limit, d + 1), ...upper.autoBisect(ivs, limit, d + 1)];
         }
     }
 
@@ -175,7 +177,7 @@ abstract class MarkWritePlan<G, B> {
         const n = Math.floor(this.marks.length / 2);
         return [
             this.sub(this.marks.slice(0, n), this.bases),
-            this.sub(this.marks.slice(n), this.bases)
+            this.sub(this.marks.slice(n), this.bases),
         ];
     }
 
@@ -195,7 +197,7 @@ abstract class MarkWritePlan<G, B> {
     }
 
     protected getMarkAxm(gOrd: Data.Order<G>) {
-        return CovUtils.auxMapFromExtractor(this.marks, gOrd, r => r.glyph);
+        return CovUtils.auxMapFromExtractor(this.marks, gOrd, (r) => r.glyph);
     }
 }
 
@@ -274,7 +276,7 @@ class MarkLigatureWritePlan extends MarkWritePlan<OtGlyph, Gpos.LigatureBaseReco
     }
     protected sub(
         marks: SingleMarkRecord<OtGlyph>[],
-        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>
+        bases: Map<OtGlyph, Gpos.LigatureBaseRecord>,
     ) {
         return new MarkLigatureWritePlan(marks, bases);
     }
@@ -301,7 +303,7 @@ abstract class GposMarkWriterBase<G, B> {
         cls: MarkPlanClass<G, B>,
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const frags: Frag[] = [];
         for (const stpStart of this.getInitialPlans(cls, marks, bases)) {
@@ -317,7 +319,7 @@ abstract class GposMarkWriterBase<G, B> {
     private getInitialPlans(
         cls: MarkPlanClass<G, B>,
         marks: Map<G, Gpos.MarkRecord>,
-        bases: Map<G, B>
+        bases: Map<G, B>,
     ) {
         const maxCls = this.getMaxAnchorClass(marks);
         const clsSetAdded = new Set<number>();
@@ -346,7 +348,7 @@ abstract class GposMarkWriterBase<G, B> {
         marks: Map<G, Gpos.MarkRecord>,
         bases: Map<G, B>,
         maxCls: number,
-        clsSetAdded: Set<number>
+        clsSetAdded: Set<number>,
     ) {
         let firstClass = true;
         const planBases = new Map<G, B>();
@@ -372,7 +374,7 @@ abstract class GposMarkWriterBase<G, B> {
                 currentClassMarks.set(g, { glyph: g, class: c, anchor });
                 if (planMarks.has(g)) fConflict = true;
             }
-            if (fConflict) break loopCls;
+            if (fConflict) break;
 
             // Ensure the base array is a rectangular matrix
             if (firstClass) {
@@ -401,7 +403,7 @@ abstract class GposMarkWriterBase<G, B> {
     private basesHasAtLeastOneBaseInThisClass(
         cls: MarkPlanClass<G, B>,
         c: number,
-        bases: Map<G, B>
+        bases: Map<G, B>,
     ) {
         for (const [g, br] of bases) {
             if (cls.baseCoversMarkClass(c, br)) {
@@ -428,14 +430,9 @@ export class GposMarkToBaseWriter
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToBase,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
-        return this.createSubtableFragmentsImpl(
-            MarkBaseWritePlan,
-            lookup.marks,
-            lookup.bases,
-            ctx
-        );
+        return this.createSubtableFragmentsImpl(MarkBaseWritePlan, lookup.marks, lookup.bases, ctx);
     }
 }
 export class GposMarkToLigatureWriter
@@ -453,13 +450,13 @@ export class GposMarkToLigatureWriter
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToLigature,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         return this.createSubtableFragmentsImpl(
             MarkLigatureWritePlan,
             lookup.marks,
             lookup.bases,
-            ctx
+            ctx,
         );
     }
 }
@@ -481,13 +478,13 @@ export class GposMarkToMarkWriter
     }
     public createSubtableFragments(
         lookup: Gpos.MarkToMark,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         return this.createSubtableFragmentsImpl(
             MarkBaseWritePlan,
             lookup.marks,
             lookup.baseMarks,
-            ctx
+            ctx,
         );
     }
 }

@@ -1,9 +1,9 @@
 import { Read } from "@ot-builder/bin-util";
-import { Cff, CffCoGlyphsWithNaming, OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
-import { OtVar } from "@ot-builder/variance";
+import { Cff, type CffCoGlyphsWithNaming, type OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
+import type { OtVar } from "@ot-builder/variance";
 
-import { CffCfg } from "../cfg";
+import type { CffCfg } from "../cfg";
 import { CffSubroutineIndex } from "../char-string/read/subroutine-index";
 import { CffReadContext } from "../context/read";
 import { CffTopDictIo } from "../dict/top";
@@ -17,7 +17,7 @@ export const ReadCff2 = Read(
         cfg: CffCfg,
         gOrd: Data.Order<OtGlyph>,
         designSpace?: Data.Maybe<OtVar.DesignSpace>,
-        coStat?: Data.Maybe<OtGlyph.CoStat.Source>
+        coStat?: Data.Maybe<OtGlyph.CoStat.Source>,
     ): CffCoGlyphsWithNaming => {
         const ctx = new CffReadContext(2, view.lift(0), coStat);
         const cff = new Cff.Table(2);
@@ -31,5 +31,5 @@ export const ReadCff2 = Read(
         cffCleanupUnusedData(cff);
 
         return { cff, cffGlyphNaming: ctx.naming };
-    }
+    },
 );

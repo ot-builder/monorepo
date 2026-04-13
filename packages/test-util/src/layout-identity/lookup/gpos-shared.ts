@@ -1,5 +1,5 @@
-import { Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 
 import * as FastMatch from "../../fast-match";
 
@@ -14,7 +14,7 @@ export function GposAdjIdentity(expected: Gpos.Adjustment, actual: Gpos.Adjustme
 export function GposAnchorIdentity(
     expected: Data.Maybe<Gpos.Anchor>,
     actual: Data.Maybe<Gpos.Anchor>,
-    place = ""
+    place = "",
 ) {
     if (!expected && !actual) return;
     if (!expected) throw new Error("Expected to be null but present @ " + place);

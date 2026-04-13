@@ -1,6 +1,6 @@
-import { OtGlyph } from "../ot-glyph";
+import type { OtGlyph } from "../ot-glyph";
 
-import { OtGeometrySink } from "./shared";
+import type { OtGeometrySink } from "./shared";
 
 export class OtGhPointLister implements OtGeometrySink<OtGlyph.Point[]> {
     public points: OtGlyph.Point[] = [];

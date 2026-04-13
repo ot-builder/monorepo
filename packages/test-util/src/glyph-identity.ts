@@ -1,5 +1,5 @@
 import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import * as FastMatch from "./fast-match";
@@ -12,7 +12,7 @@ export enum CompareMode {
     CompareInstructions = 4,
     CompareName = 8,
 
-    TTF = 6
+    TTF = 6,
 }
 
 export function test(
@@ -20,7 +20,7 @@ export function test(
     actual: OtGlyph,
     mode: CompareMode = CompareMode.None,
     tolerance = 1,
-    place = ""
+    place = "",
 ) {
     if (mode & CompareMode.CompareName) {
         expect(actual.name).toBe(expected.name);
@@ -40,7 +40,7 @@ function testGeometry(
     geomA: Data.Maybe<OtGlyph.Geometry>,
     mode: CompareMode = CompareMode.None,
     tolerance = 1,
-    place = ""
+    place = "",
 ) {
     if (!geomE && !geomA) return;
     expect(!!geomE).toBe(!!geomA);
@@ -53,7 +53,7 @@ function testInitGeometry(
     geomA: OtGlyph.Geometry,
     mode: CompareMode = CompareMode.None,
     tolerance = 1,
-    place = ""
+    place = "",
 ) {
     switch (geomE.type) {
         case OtGlyph.GeometryType.ContourSet: {
@@ -63,7 +63,7 @@ function testInitGeometry(
                 geomA as OtGlyph.ContourSet,
                 !!(mode & CompareMode.RemoveCycle),
                 tolerance,
-                place
+                place,
             );
         }
         case OtGlyph.GeometryType.TtReference: {
@@ -72,7 +72,7 @@ function testInitGeometry(
                 geomE as OtGlyph.TtReference,
                 geomA as OtGlyph.TtReference,
                 mode,
-                tolerance
+                tolerance,
             );
         }
         case OtGlyph.GeometryType.GeometryList: {
@@ -81,7 +81,7 @@ function testInitGeometry(
                 geomE as OtGlyph.GeometryList,
                 geomA as OtGlyph.GeometryList,
                 mode,
-                tolerance
+                tolerance,
             );
         }
     }
@@ -91,7 +91,7 @@ export function testStore<GS extends Data.OrderStore<OtGlyph>>(
     expected: GS,
     actual: GS,
     mode: CompareMode = CompareMode.None,
-    tolerance = 1
+    tolerance = 1,
 ) {
     const goA = expected.decideOrder();
     const goB = actual.decideOrder();
@@ -102,7 +102,7 @@ export function testStore<GS extends Data.OrderStore<OtGlyph>>(
 }
 
 function removeContourCycle(c: OtGlyph.Point[]) {
-    if (!c || !c.length) return;
+    if (!c?.length) return;
     if (
         OtVar.Ops.equal(c[0].x, c[c.length - 1].x, 1 / 64) &&
         OtVar.Ops.equal(c[0].y, c[c.length - 1].y, 1 / 64) &&
@@ -118,7 +118,7 @@ function testContours(
     actual: OtGlyph.ContourSetProps,
     handleCycle: boolean,
     tolerance: number,
-    place = ""
+    place = "",
 ) {
     FastMatch.exactly(actual.contours.length, expected.contours.length);
 
@@ -137,13 +137,13 @@ function testContours(
                 cE[zid].x,
                 cA[zid].x,
                 place + "/" + contourId + "/" + zid + "/x",
-                tolerance
+                tolerance,
             );
             FastMatch.otvar(
                 cE[zid].y,
                 cA[zid].y,
                 place + "/" + contourId + "/" + zid + "/y",
-                tolerance
+                tolerance,
             );
             FastMatch.exactly(cE[zid].kind, cA[zid].kind);
         }
@@ -154,7 +154,7 @@ function testGeometryList(
     expected: OtGlyph.GeometryList,
     actual: OtGlyph.GeometryList,
     tolerance: number,
-    mode: number
+    mode: number,
 ) {
     expect(expected.items.length).toBe(actual.items.length);
     for (let rid = 0; rid < expected.items.length; rid++) {
@@ -168,7 +168,7 @@ function testReference(
     expected: OtGlyph.TtReferenceProps,
     actual: OtGlyph.TtReferenceProps,
     tolerance: number,
-    mode: number
+    mode: number,
 ) {
     test(expected.to, actual.to, mode, tolerance);
     FastMatch.otvar(expected.transform.dx, actual.transform.dx, "dx", tolerance);
@@ -187,7 +187,7 @@ function testHints(
     hintA: Data.Maybe<OtGlyph.Hint>,
     mode: CompareMode = CompareMode.None,
     tolerance = 1,
-    place = ""
+    place = "",
 ) {
     if (!(mode & CompareMode.CompareInstructions)) return;
     if (!hintE && !hintA) return;
@@ -201,13 +201,13 @@ function testInitialHints(
     hintA: OtGlyph.Hint,
     mode: CompareMode = CompareMode.None,
     tolerance = 1,
-    place = ""
+    place = "",
 ) {
     switch (hintE.type) {
         case OtGlyph.HintType.TtInstruction:
             expect(hintA.type).toBe(OtGlyph.HintType.TtInstruction);
             expect((hintE as OtGlyph.TtInstruction).instructions).toEqual(
-                (hintA as OtGlyph.TtInstruction).instructions
+                (hintA as OtGlyph.TtInstruction).instructions,
             );
             return;
     }

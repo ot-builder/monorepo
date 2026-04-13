@@ -1,5 +1,5 @@
-import * as Primitive from "@ot-builder/primitive";
-import { OtVar } from "@ot-builder/variance";
+import type * as Primitive from "@ot-builder/primitive";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "OS/2";
 
@@ -14,7 +14,7 @@ export enum FsType {
     Reserved6 = 1 << 6,
     Reserved7 = 1 << 7,
     NoSubsetting = 1 << 8,
-    BitmapEmbeddingOnly = 1 << 9
+    BitmapEmbeddingOnly = 1 << 9,
 }
 
 export enum FsSelection {
@@ -28,7 +28,7 @@ export enum FsSelection {
     REGULAR = 1 << 6,
     USE_TYPO_METRICS = 1 << 7,
     WWS = 1 << 8,
-    OBLIQUE = 1 << 9
+    OBLIQUE = 1 << 9,
 }
 
 export enum CodePageRange1 {
@@ -64,7 +64,7 @@ export enum CodePageRange1 {
     Oem7 = 1 << 28,
     MacRoman = 1 << 29,
     Oem = 1 << 30,
-    Symbol = 1 << 31
+    Symbol = 1 << 31,
 }
 export enum CodePageRange2 {
     None = 0,
@@ -99,7 +99,7 @@ export enum CodePageRange2 {
     CP737 = 1 << 28,
     CP708 = 1 << 29,
     CP850 = 1 << 30,
-    CP437 = 1 << 31
+    CP437 = 1 << 31,
 }
 
 export enum UnicodeRange1 {
@@ -135,7 +135,7 @@ export enum UnicodeRange1 {
     HangulJamo = 1 << 28,
     LatinExtendedAdditional = 1 << 29,
     GreekExtended = 1 << 30,
-    Punctuations = 1 << 31
+    Punctuations = 1 << 31,
 }
 
 export enum UnicodeRange2 {
@@ -171,7 +171,7 @@ export enum UnicodeRange2 {
     PrivateUseAreaP0 = 1 << 28,
     CJKStrokes = 1 << 29,
     AlphabeticPresentationForms = 1 << 30,
-    ArabicPresentationFormsA = 1 << 31
+    ArabicPresentationFormsA = 1 << 31,
 }
 export enum UnicodeRange3 {
     None = 0,
@@ -206,7 +206,7 @@ export enum UnicodeRange3 {
     Tags = 1 << 28,
     Limbu = 1 << 29,
     TaiLe = 1 << 30,
-    NewTaiLue = 1 << 31
+    NewTaiLue = 1 << 31,
 }
 export enum UnicodeRange4 {
     None = 0,
@@ -236,7 +236,7 @@ export enum UnicodeRange4 {
     AncientSymbols = 1 << 23,
     PhaistosDisc = 1 << 24,
     CarianAndLycian = 1 << 25,
-    DominoAndMahjongTiles = 1 << 26
+    DominoAndMahjongTiles = 1 << 26,
 }
 
 export class Panose {
@@ -253,7 +253,7 @@ export class Panose {
 }
 
 export class Table {
-    constructor(public readonly version: Primitive.UInt16) {}
+    public constructor(public readonly version: Primitive.UInt16) {}
     public xAvgCharWidth: Primitive.Int16 = 0;
     public usWeightClass: Primitive.UInt16 = 0;
     public usWidthClass: Primitive.UInt16 = 0;

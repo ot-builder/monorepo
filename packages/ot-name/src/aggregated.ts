@@ -1,8 +1,8 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
-import * as Meta from "./tables/meta";
-import * as Name from "./tables/name";
-import * as Stat from "./tables/stat";
+import type * as Meta from "./tables/meta";
+import type * as Name from "./tables/name";
+import type * as Stat from "./tables/stat";
 
 export interface OtNameData {
     name?: Data.Maybe<Name.Table>;

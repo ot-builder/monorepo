@@ -1,4 +1,4 @@
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 export interface CompareContext<C> {
     readonly derived: boolean;
@@ -10,7 +10,7 @@ export type CompareFunction<C extends CompareContext<C>, T> = (
     ctx: C,
     actual: T,
     expected: T,
-    place?: string
+    place?: string,
 ) => void;
 
 export function symmetricCompare<C extends CompareContext<C>, T>(f: CompareFunction<C, T>) {
@@ -39,7 +39,7 @@ export namespace Compare {
         ctx: C,
         a: Data.Maybe<T>,
         b: Data.Maybe<T>,
-        f: CompareFunction<C, T>
+        f: CompareFunction<C, T>,
     ) {
         expect(!!a).toBe(!!b);
         if (a && b) f(ctx, a, b);
@@ -48,7 +48,7 @@ export namespace Compare {
         ctx: C,
         a: ReadonlyMap<A, T>,
         b: ReadonlyMap<A, T>,
-        f: CompareFunction<C, T>
+        f: CompareFunction<C, T>,
     ) {
         for (const [key, va] of a) {
             const vb = b.get(key);

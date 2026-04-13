@@ -4,7 +4,7 @@ import { Head } from "@ot-builder/ot-metadata";
 import { F16D16 } from "@ot-builder/primitive";
 
 export const HeadIo = {
-    ...Read<Head.Table>(view => {
+    ...Read<Head.Table>((view) => {
         const majorVersion = view.uint16();
         const minorVersion = view.uint16();
         const head = new Head.Table(majorVersion, minorVersion);
@@ -45,5 +45,5 @@ export const HeadIo = {
         fr.int16(head.fontDirectionHint);
         fr.int16(head.indexToLocFormat);
         fr.int16(head.glyphDataFormat);
-    })
+    }),
 };

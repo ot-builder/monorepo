@@ -5,9 +5,9 @@ import { BimapCtx, Disorder, LookupIdentity } from "@ot-builder/test-util";
 import { GposCursiveReader, GposCursiveWriter } from "../gpos-cursive";
 
 import {
-    LookupRoundTripConfig,
+    type LookupRoundTripConfig,
     LookupRoundTripTest,
-    SetupVariation
+    SetupVariation,
 } from "./-shared-test-util.test";
 
 describe("GPOS cursive lookup handler", () => {
@@ -21,7 +21,7 @@ describe("GPOS cursive lookup handler", () => {
         reader: () => new GposCursiveReader(),
         validate(gOrd, lOrd, a, b) {
             LookupIdentity.GposCursive.test(BimapCtx.from(gOrd), a, b);
-        }
+        },
     };
 
     test("Very different", () => {
@@ -30,12 +30,12 @@ describe("GPOS cursive lookup handler", () => {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {
                     x: Math.round(gid / 8),
-                    y: Math.round(-gid / 8)
+                    y: Math.round(-gid / 8),
                 },
                 exit: {
                     x: Math.round((gid * 2) / 8),
-                    y: Math.round((-gid * 2) / 8)
-                }
+                    y: Math.round((-gid * 2) / 8),
+                },
             });
         }
         lookup.attachments = Disorder.shuffleMap(lookup.attachments);
@@ -48,12 +48,12 @@ describe("GPOS cursive lookup handler", () => {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {
                     x: Math.round(gid / 8),
-                    y: Math.round(-gid / 8)
+                    y: Math.round(-gid / 8),
                 },
                 exit: {
                     x: Math.round((gid * 2) / 8),
-                    y: Math.round((-gid * 2) / 8)
-                }
+                    y: Math.round((-gid * 2) / 8),
+                },
             });
         }
         lookup.attachments = Disorder.shuffleMap(lookup.attachments);
@@ -69,12 +69,12 @@ describe("GPOS cursive lookup handler", () => {
             lookup.attachments.set(gOrd.at(gid), {
                 entry: {
                     x: variation.create([bold, Math.round(gid / 8)]),
-                    y: variation.create([wide, Math.round(-gid / 8)])
+                    y: variation.create([wide, Math.round(-gid / 8)]),
                 },
                 exit: {
                     x: variation.create([bold, Math.round((gid * 2) / 8)]),
-                    y: variation.create([wide, Math.round((-gid * 2) / 8)])
-                }
+                    y: variation.create([wide, Math.round((-gid * 2) / 8)]),
+                },
             });
         }
         lookup.attachments = Disorder.shuffleMap(lookup.attachments);

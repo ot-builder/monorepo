@@ -1,8 +1,8 @@
 import { NonNullablePtr16, NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
+import { type BinaryView, Frag, Read, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { Data } from "@ot-builder/prelude";
 
 import { LookupWriteTrick } from "../cfg";
 
@@ -47,7 +47,7 @@ export namespace CovUtils {
     export function auxMapFromMapExcl<G, T>(
         mapping: Iterable<[G, T]>,
         gOrd: Data.Order<G>,
-        exclude: ReadonlySet<G>
+        exclude: ReadonlySet<G>,
     ) {
         const answer: CovAuxMappingT<T> = [];
         for (const [g, t] of mapping) if (!exclude.has(g)) answer.push([gOrd.reverse(g), t]);
@@ -57,7 +57,7 @@ export namespace CovUtils {
     export function auxMapFromExtractor<G, T>(
         mapping: Iterable<T>,
         gOrd: Data.Order<G>,
-        extract: (from: T) => G
+        extract: (from: T) => G,
     ) {
         const answer: CovAuxMappingT<T> = [];
         for (const t of mapping) answer.push([gOrd.reverse(extract(t)), t]);
@@ -67,7 +67,7 @@ export namespace CovUtils {
     export function* mapFromNumbers<G, T>(
         gids: ReadonlyArray<number>,
         values: ReadonlyArray<T>,
-        gOrd: Data.Order<G>
+        gOrd: Data.Order<G>,
     ): IterableIterator<[G, T]> {
         Assert.SizeMatch("cov-map length", values.length, gids.length);
         for (let item = 0; item < gids.length; item++) {
@@ -76,7 +76,7 @@ export namespace CovUtils {
     }
     export function splitListFromMap<G, T>(
         mapping: Iterable<[G, T]>,
-        gOrd: Data.Order<G>
+        gOrd: Data.Order<G>,
     ): CovSplitLists<T> {
         const gidList: number[] = [];
         const values: T[] = [];
@@ -89,7 +89,7 @@ export namespace CovUtils {
     }
     export function* glyphsFromGidList<G>(
         gids: Iterable<number>,
-        gOrd: Data.Order<G>
+        gOrd: Data.Order<G>,
     ): IterableIterator<G> {
         for (const gid of gids) yield gOrd.at(gid);
     }
@@ -113,13 +113,13 @@ export const GlyphCoverage = {
     write(frag: Frag, gs: ReadonlySet<OtGlyph>, gOrd: Data.Order<OtGlyph>, trick: number = 0) {
         const gl = CovUtils.gidListFromGlyphSet(gs, gOrd);
         frag.push(GidCoverage, gl, trick);
-    }
+    },
 };
 export const NullablePtr16GlyphCoverage = NullablePtr16(GlyphCoverage);
 export const Ptr16GlyphCoverage = NonNullablePtr16(GlyphCoverage);
 
 export const GidCoverage = {
-    ...Read(view => {
+    ...Read((view) => {
         const format = view.lift(0).uint16();
         switch (format) {
             case 1:
@@ -156,13 +156,13 @@ export const GidCoverage = {
                 frag.embed(format1);
             }
         }
-    })
+    }),
 };
 export const NullablePtr16GidCoverage = NullablePtr16(GidCoverage);
 export const Ptr16GidCoverage = NonNullablePtr16(GidCoverage);
 
 const OtGidCoverageFormat1 = {
-    ...Read(view => {
+    ...Read((view) => {
         const format = view.uint16();
         if (format !== 1) throw Errors.Unreachable();
 
@@ -187,7 +187,7 @@ const OtGidCoverageFormat1 = {
             frag.uint16(gid);
             lastGID = gid;
         }
-    })
+    }),
 };
 
 interface CoverageRun {
@@ -226,7 +226,7 @@ class CoverageRunCollector {
 }
 
 const OtGidCoverageFormat2 = {
-    ...Read(view => {
+    ...Read((view) => {
         const format = view.uint16();
         if (format !== 2) throw Errors.Unreachable();
 
@@ -250,7 +250,7 @@ const OtGidCoverageFormat2 = {
         collector.end();
 
         frag.push(OtGidCoverageFormat2FromCollector, collector);
-    })
+    }),
 };
 
 const OtGidCoverageFormat2FromCollector = {
@@ -259,5 +259,5 @@ const OtGidCoverageFormat2FromCollector = {
         for (const run of collector.runs) {
             frag.uint16(run.startGlyphID).uint16(run.endGlyphID).uint16(run.startCoverageIndex);
         }
-    })
+    }),
 };

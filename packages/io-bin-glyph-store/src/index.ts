@@ -1,10 +1,15 @@
-export { readGlyphStore } from "./general/read";
-export { writeGlyphStore, GlyphStoreWriteExtraInfoSink } from "./general/write";
-export { ReadCffGlyphs, WriteCffGlyphs } from "./cff/index";
-export { ReadTtfGlyphs, WriteTtfGlyphs } from "./ttf/index";
-export { SkipReadGlyphs, SkipWriteGlyphs } from "./empty/index";
+export { CffCfg, CffCfgProps, CffCfgPt, DefaultCffCfgProps } from "@ot-builder/io-bin-cff";
+export {
+    DefaultTtfCfgProps,
+    NopTtfWritingExtraInfoSink,
+    TtfCfg,
+    TtfCfgProps,
+    TtfCfgPt,
+} from "@ot-builder/io-bin-ttf";
 
-export { NopTtfWritingExtraInfoSink } from "@ot-builder/io-bin-ttf";
-export { TtfCfgProps, TtfCfg, TtfCfgPt, DefaultTtfCfgProps } from "@ot-builder/io-bin-ttf";
-export { CffCfgProps, CffCfg, CffCfgPt, DefaultCffCfgProps } from "@ot-builder/io-bin-cff";
+export { ReadCffGlyphs, WriteCffGlyphs } from "./cff/index";
 export * from "./cfg/glyph-store-cfg";
+export { SkipReadGlyphs, SkipWriteGlyphs } from "./empty/index";
+export { readGlyphStore } from "./general/read";
+export { GlyphStoreWriteExtraInfoSink, writeGlyphStore } from "./general/write";
+export { ReadTtfGlyphs, WriteTtfGlyphs } from "./ttf/index";

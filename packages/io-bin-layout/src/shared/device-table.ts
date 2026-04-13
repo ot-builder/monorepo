@@ -1,9 +1,9 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
 import { Read, Write } from "@ot-builder/bin-util";
-import { LayoutCommon } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
-import { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
-import { OtVar } from "@ot-builder/variance";
+import type { LayoutCommon } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
+import type { ReadTimeIVS, WriteTimeIVS } from "@ot-builder/var-store";
+import type { OtVar } from "@ot-builder/variance";
 
 enum DeltaFormat {
     LOCAL_2_BIT_DELTAS = 0x0001,
@@ -12,7 +12,7 @@ enum DeltaFormat {
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     FORMAT_MASK = 0x0003,
     VARIATION_INDEX = 0x8000,
-    Reserved = 0x7ffc
+    Reserved = 0x7ffc,
 }
 
 function deviceDeltaSizeFromFormat(format: number) {
@@ -56,7 +56,7 @@ export const DeviceDeltaBits = {
             deltas: ReadonlyArray<number>,
             ppemMin: number,
             ppemMax: number,
-            deltaFormat: number
+            deltaFormat: number,
         ) => {
             const deltaBits = deviceDeltaSizeFromFormat(deltaFormat);
             const deltasPerWord = 16 / deltaBits;
@@ -75,11 +75,11 @@ export const DeviceDeltaBits = {
                 }
             }
             if (!flushed) bb.uint16(word);
-        }
-    )
+        },
+    ),
 };
 
-export const EmptyDeviceTable = Write(frag => {
+export const EmptyDeviceTable = Write((frag) => {
     frag.uint16(1);
     frag.uint16(1);
     frag.uint16(DeltaFormat.LOCAL_8_BIT_DELTAS);
@@ -121,7 +121,7 @@ export const DeviceTable = {
             } else {
                 return bp.next(DeviceDeltaBits, arg0, arg1, deltaFormat);
             }
-        }
+        },
     ),
     ...Write(
         (bb, v: LayoutCommon.Adjust.DeviceDataT<OtVar.Value>, ivs?: Data.Maybe<WriteTimeIVS>) => {
@@ -148,8 +148,8 @@ export const DeviceTable = {
             } else {
                 bb.push(EmptyDeviceTable, undefined);
             }
-        }
-    )
+        },
+    ),
 };
 
 export const Ptr16DeviceTable = NullablePtr16(DeviceTable);

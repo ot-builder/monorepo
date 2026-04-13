@@ -1,12 +1,12 @@
-import { OtVar } from "@ot-builder/variance";
+import type { OtVar } from "@ot-builder/variance";
 
 export const Tag = "MVAR";
 export class Entry {
-    constructor(
+    public constructor(
         public readonly tag: string,
-        public readonly value: OtVar.Value
+        public readonly value: OtVar.Value,
     ) {}
 }
 export class Table {
-    constructor(public entries: Entry[] = []) {}
+    public constructor(public entries: Entry[] = []) {}
 }

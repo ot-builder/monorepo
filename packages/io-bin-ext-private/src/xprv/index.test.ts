@@ -14,16 +14,16 @@ test("ExtPrivate roundtrip", () => {
             gOrd.at(1),
             new Map([
                 ["test 2", Buffer.from("Per glyph data 2-1", "utf-8")],
-                ["test 3", Buffer.from("Per glyph data 2-2", "utf-8")]
-            ])
+                ["test 3", Buffer.from("Per glyph data 2-2", "utf-8")],
+            ]),
         ],
         [
             gOrd.at(2),
             new Map([
                 ["test 2", Buffer.from("Per glyph data 2-3", "utf-8")],
-                ["test 3", Buffer.from("Per glyph data 2-4", "utf-8")]
-            ])
-        ]
+                ["test 3", Buffer.from("Per glyph data 2-4", "utf-8")],
+            ]),
+        ],
     ]);
 
     const bufXPrv = Frag.packFrom(WriteXPrv, xPrv, gOrd);

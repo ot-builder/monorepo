@@ -1,27 +1,27 @@
-import { OtGlyph } from "@ot-builder/ot-glyphs";
-import { DicingStore, Gpos } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
+import { type DicingStore, Gpos } from "@ot-builder/ot-layout";
+import type { Data } from "@ot-builder/prelude";
 import { UInt16 } from "@ot-builder/primitive";
 
-import { SubtableWriteContext } from "../../gsub-gpos-shared/general";
+import type { SubtableWriteContext } from "../../gsub-gpos-shared/general";
 import { MaxClsDefItemWords } from "../../shared/class-def";
 import { MaxCovItemWords } from "../../shared/coverage";
 import { GposAdjustment } from "../../shared/gpos-adjust";
 
 export class AdjStore {
-    constructor(
+    public constructor(
         public indexMatrix: ReadonlyArray<ReadonlyArray<number>>,
-        public adjustments: ReadonlyArray<Gpos.AdjustmentPair>
+        public adjustments: ReadonlyArray<Gpos.AdjustmentPair>,
     ) {}
 }
 
 export class ClassMatrix<G> {
-    constructor(
+    public constructor(
         public cFirst: G[][], // Per-class glyph list for first glyph. Class 0 reserved for neutral
         public cSecond: G[][], // Per-class glyph list for second glyph. Class 0 reserved for neutral
         // cSecond must cover all glyphs present in the font, so when cleaning up zero "columns" we
         // must move then to class 0 rather than simply delete them.
-        public adjStore: AdjStore // Adjustments matrix
+        public adjStore: AdjStore, // Adjustments matrix
     ) {}
 
     public derive() {
@@ -44,10 +44,10 @@ export class ClassMatrix<G> {
     }
 
     public firstClassValid(c1: number) {
-        return this.cFirst[c1] && this.cFirst[c1].length;
+        return this.cFirst[c1]?.length;
     }
     public secondClassValid(c2: number) {
-        return this.cSecond[c2] && this.cSecond[c2].length;
+        return this.cSecond[c2]?.length;
     }
 
     public getEffectiveFirstClasses() {
@@ -90,7 +90,7 @@ export class ClassMatrix<G> {
 
     public static analyze(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         return AnalyzeClassMatrixImpl.main(ds, ctx);
     }
@@ -148,8 +148,8 @@ export class ClassMatrix<G> {
         c1RelocationRaw.sort(compareRelocation);
         c2RelocationRaw.sort(compareRelocation);
 
-        const c1Relocation = [0, ...c1RelocationRaw.map(x => x[0])];
-        const c2Relocation = [0, ...c2RelocationRaw.map(x => x[0])];
+        const c1Relocation = [0, ...c1RelocationRaw.map((x) => x[0])];
+        const c2Relocation = [0, ...c2RelocationRaw.map((x) => x[0])];
         return [c1Relocation, c2Relocation];
     }
 }
@@ -194,7 +194,7 @@ namespace AnalyzeClassMatrixImpl {
         coiFirst: ClassOrderItem<G>[],
         coiSecond: ClassOrderItem<G>[],
         ds: DicingStore<G, G, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const cFirst: G[][] = [];
         const cSecond: G[][] = [];
@@ -229,7 +229,7 @@ namespace AnalyzeClassMatrixImpl {
 
     export function main(
         ds: DicingStore<OtGlyph, OtGlyph, Gpos.AdjustmentPair>,
-        ctx: SubtableWriteContext<Gpos.Lookup>
+        ctx: SubtableWriteContext<Gpos.Lookup>,
     ) {
         const _cFirst = ds.getXClassDef();
         const _cSecond = ds.getYClassDef();
@@ -289,7 +289,7 @@ namespace MeasureClassMatrixImpl {
                     (8 +
                         effFst.glyphs * (MaxClsDefItemWords + MaxCovItemWords) + // 1 cov + 1 cls
                         effSnd.glyphs * MaxClsDefItemWords) + // 1 class def
-                dataSize // Actual Data
+                dataSize, // Actual Data
         };
     }
 }
@@ -341,7 +341,7 @@ namespace BisectClassMatrixImpl {
 
     export function bisect<G>(
         cm: ClassMatrix<G>,
-        allowUneven: boolean
+        allowUneven: boolean,
     ): [ClassMatrix<G>, ClassMatrix<G>] {
         const cm1 = cm.derive();
         const cm2 = cm.derive();

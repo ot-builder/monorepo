@@ -1,7 +1,7 @@
-import { Read, Write, Frag } from "@ot-builder/bin-util";
-import { XPrv } from "@ot-builder/ot-ext-private";
+import { Frag, Read, Write } from "@ot-builder/bin-util";
+import type { XPrv } from "@ot-builder/ot-ext-private";
 
-export const ReadBlob = Read<XPrv.Blob>(view => {
+export const ReadBlob = Read<XPrv.Blob>((view) => {
     const nEntries = view.uint32();
     const map: XPrv.Blob = new Map();
     for (let id = 0; id < nEntries; id++) {

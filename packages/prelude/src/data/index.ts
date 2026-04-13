@@ -1,4 +1,4 @@
 export * from "./maybe";
-export * from "./order-store";
 export * as Naming from "./naming";
+export * from "./order-store";
 export * from "./xy";

@@ -7,7 +7,7 @@ import { GlyphIdentity, TestFont } from "@ot-builder/test-util";
 import { NopTtfWritingExtraInfoSink } from "../extra-info-sink/index";
 import { rectifyGlyphOrder } from "../rectify/rectify";
 
-import { LocaTable, LocaTableIo, LocaTag } from "./loca";
+import { type LocaTable, LocaTableIo, LocaTag } from "./loca";
 import { GlyfTableRead } from "./read";
 import { GlyfTag } from "./shared";
 import { GlyfTableWrite } from "./write";
@@ -24,7 +24,7 @@ function roundTripTest(file: string, padSpace: boolean) {
         GlyfTableRead,
         loca,
         gOrd,
-        new OtGlyph.CoStat.Forward()
+        new OtGlyph.CoStat.Forward(),
     );
     rectifyGlyphOrder(gOrd);
 
@@ -43,7 +43,7 @@ function roundTripTest(file: string, padSpace: boolean) {
         { ttf: DefaultFontMetadataCfgProps },
         loca1,
         stat,
-        new NopTtfWritingExtraInfoSink()
+        new NopTtfWritingExtraInfoSink(),
     );
     expect(loca1.glyphOffsets.length).toBe(1 + maxp.numGlyphs);
     for (const offset of loca1.glyphOffsets) expect(offset % 4).toBe(0);
@@ -56,7 +56,7 @@ function roundTripTest(file: string, padSpace: boolean) {
         GlyfTableRead,
         loca2,
         gOrd2,
-        new OtGlyph.CoStat.Forward()
+        new OtGlyph.CoStat.Forward(),
     );
     rectifyGlyphOrder(gOrd2);
 

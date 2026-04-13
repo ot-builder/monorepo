@@ -1,7 +1,7 @@
-import { iupContour, TvdAccess } from "./iup";
+import { iupContour, type TvdAccess } from "./iup";
 
 class MockTvdAccess implements TvdAccess<number> {
-    constructor(public readonly original: number) {}
+    public constructor(public readonly original: number) {}
     public deltas: number[] = [0];
     public addDelta(master: number, delta: number) {
         this.deltas[master] = (this.deltas[master] || 0) + delta;
@@ -10,11 +10,11 @@ class MockTvdAccess implements TvdAccess<number> {
 }
 
 function setupOrig(...a: number[]) {
-    return a.map(x => new MockTvdAccess(x));
+    return a.map((x) => new MockTvdAccess(x));
 }
 
 function mapArr(a: MockTvdAccess[]) {
-    return a.map(x => x.deltas[0]); // only 1 dimension
+    return a.map((x) => x.deltas[0]); // only 1 dimension
 }
 
 test("IUP test : empty delta case", () => {

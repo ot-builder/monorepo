@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sigma } from "@ot-builder/prelude";
-import { UInt16, UInt24 } from "@ot-builder/primitive";
+import type { UInt16, UInt24 } from "@ot-builder/primitive";
 
 export const TID_StylisticSet = new Sigma.TypeID<StylisticSet>("OTB::FeatureParams::StylisticSet");
 export interface StylisticSet {
@@ -8,7 +8,7 @@ export interface StylisticSet {
 }
 
 export const TID_CharacterVariant = new Sigma.TypeID<CharacterVariant>(
-    "OTB::FeatureParams::CharacterVariant"
+    "OTB::FeatureParams::CharacterVariant",
 );
 export interface CharacterVariant {
     readonly featUiLabelNameId: UInt16;

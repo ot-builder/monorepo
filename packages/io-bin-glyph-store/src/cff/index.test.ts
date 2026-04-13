@@ -22,7 +22,7 @@ function cffGsRoundTrip(file: string) {
         cfg,
         md,
         OtListGlyphStoreFactory,
-        ReadCffGlyphs
+        ReadCffGlyphs,
     );
     const timeRead = new Date();
 
@@ -40,7 +40,7 @@ function cffGsRoundTrip(file: string) {
         cfg,
         md,
         OtListGlyphStoreFactory,
-        ReadCffGlyphs
+        ReadCffGlyphs,
     );
     if (cff1.cffGlyphNaming) {
         for (const g of glyphs1.items) g.name = cff1.cffGlyphNaming.getName(g) || `?`;
@@ -51,13 +51,13 @@ function cffGsRoundTrip(file: string) {
         glyphs1,
         GlyphIdentity.CompareMode.RemoveCycle |
             GlyphIdentity.CompareMode.CompareMetric |
-            GlyphIdentity.CompareMode.CompareName
+            GlyphIdentity.CompareMode.CompareName,
     );
 
     console.log(
         `Test file ${file}\n` +
             `CFF read time ${timeRead.valueOf() - timeStart.valueOf()}\n` +
-            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`
+            `CFF write time ${timeWritten.valueOf() - timeRead.valueOf()}`,
     );
 }
 

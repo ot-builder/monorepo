@@ -1,7 +1,7 @@
 export * as GposCursive from "./gpos-cursive";
 export * as GposMarkToBase from "./gpos-mark-to-base";
-export * as GposMarkToMark from "./gpos-mark-to-mark";
 export * as GposMarkToLigature from "./gpos-mark-to-ligature";
+export * as GposMarkToMark from "./gpos-mark-to-mark";
 export * as GposPair from "./gpos-pair";
 export * as GposSingle from "./gpos-single";
 export * as GsubLigature from "./gsub-ligature";

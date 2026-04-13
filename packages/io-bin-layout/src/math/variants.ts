@@ -1,8 +1,8 @@
 import { NullablePtr16 } from "@ot-builder/bin-composite-types";
-import { BinaryView, Frag } from "@ot-builder/bin-util";
-import { OtGlyph } from "@ot-builder/ot-glyphs";
+import type { BinaryView, Frag } from "@ot-builder/bin-util";
+import type { OtGlyph } from "@ot-builder/ot-glyphs";
 import { Math as OtMath } from "@ot-builder/ot-layout";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 import { OtVar } from "@ot-builder/variance";
 
 import { CovUtils, Ptr16GidCoverage } from "../shared/coverage";
@@ -21,7 +21,7 @@ export const MathVariants = {
         return new OtMath.Variants(
             minConnectorOverlap,
             new Map(CovUtils.mapFromNumbers(covVertical, vGlyphConstructions, gOrd)),
-            new Map(CovUtils.mapFromNumbers(covHorizontal, hGlyphConstructions, gOrd))
+            new Map(CovUtils.mapFromNumbers(covHorizontal, hGlyphConstructions, gOrd)),
         );
     },
     write(fr: Frag, mv: OtMath.Variants, gOrd: Data.Order<OtGlyph>) {
@@ -37,14 +37,14 @@ export const MathVariants = {
             Ptr16MathGlyphConstruction,
             auxVertical.length,
             CovUtils.valueListFromAuxMap(auxVertical),
-            gOrd
+            gOrd,
         );
         fr.arrayN(
             Ptr16MathGlyphConstruction,
             auxHorizontal.length,
             CovUtils.valueListFromAuxMap(auxHorizontal),
-            gOrd
+            gOrd,
         );
-    }
+    },
 };
 export const Ptr16MathVariantsNullable = NullablePtr16(MathVariants);

@@ -12,7 +12,7 @@ function* scanPlaneDiceZones<S>(
     dn: number,
     d: number,
     carry: Zone,
-    zones: SrcZone<S>[]
+    zones: SrcZone<S>[],
 ): IterableIterator<DstZone<S>> {
     if (d >= dn) {
         yield fetchMatchingSs(carry, zones);

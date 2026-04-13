@@ -1,6 +1,6 @@
-import { Algebra } from "@ot-builder/prelude";
+import type { Algebra } from "@ot-builder/prelude";
 
-import * as Transform2X3 from "../transform-2x3";
+import type * as Transform2X3 from "../transform-2x3";
 
 export interface T<X> {
     readonly x: X;
@@ -14,9 +14,9 @@ export interface PointFactoryT<X> {
 
 export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
     public readonly neutral: T<X>;
-    constructor(
+    public constructor(
         private vsX: Algebra.VectorSpace<X, number>,
-        private factory: PointFactoryT<X>
+        private factory: PointFactoryT<X>,
     ) {
         this.neutral = factory.create(vsX.neutral, vsX.neutral, 0);
     }
@@ -37,7 +37,7 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
         return this.factory.create(
             this.vsX.add(a.x, this.vsX.scale(s, b.x)),
             this.vsX.add(a.y, this.vsX.scale(s, b.y)),
-            a.kind
+            a.kind,
         );
     }
     public applyTransform(a: T<X>, t: Transform2X3.T<X>) {
@@ -47,7 +47,7 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
             return this.factory.create(
                 this.vsX.addScale(this.vsX.scale(t.xx, x0), t.yx, y0),
                 this.vsX.addScale(this.vsX.scale(t.xy, x0), t.yy, y0),
-                a.kind
+                a.kind,
             );
         } else {
             // ⎛ xx yx ⎞ ⎛ x ⎞ + ⎛ dx ⎞ == ⎛ dx + xx * x + yx * y ⎞
@@ -55,7 +55,7 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
             return this.factory.create(
                 this.vsX.addScale(this.vsX.addScale(t.dx, t.xx, a.x), t.yx, a.y),
                 this.vsX.addScale(this.vsX.addScale(t.dy, t.xy, a.x), t.yy, a.y),
-                a.kind
+                a.kind,
             );
         }
     }
@@ -71,7 +71,7 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
             xy: t.xy,
             yy: t.yy,
             dx: this.vsX.addScale(this.vsX.scale(t.xx, t.dx), t.yx, t.dy),
-            dy: this.vsX.addScale(this.vsX.scale(t.xy, t.dx), t.yy, t.dy)
+            dy: this.vsX.addScale(this.vsX.scale(t.xy, t.dx), t.yy, t.dy),
         };
     }
 
@@ -90,7 +90,7 @@ export class OpT<X> implements Algebra.VectorSpace<T<X>, number> {
             xy: a.xy * b.xx + a.yy * b.xy,
             yy: a.xy * b.yx + a.yy * b.yy,
             dx: this.vsX.addScale(this.vsX.addScale(a.dx, a.xx, b.dx), a.yx, b.dy),
-            dy: this.vsX.addScale(this.vsX.addScale(a.dy, a.xy, b.dx), a.yy, b.dy)
+            dy: this.vsX.addScale(this.vsX.addScale(a.dy, a.xy, b.dx), a.yy, b.dy),
         };
     }
 }

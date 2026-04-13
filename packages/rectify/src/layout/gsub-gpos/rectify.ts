@@ -1,11 +1,11 @@
 import * as Ot from "@ot-builder/ot";
-import { Data } from "@ot-builder/prelude";
+import type { Data } from "@ot-builder/prelude";
 
 import {
-    CoordRectifier,
-    GlyphReferenceRectifier,
-    PointAttachmentRectifier,
-    PointAttachmentRectifyManner
+    type CoordRectifier,
+    type GlyphReferenceRectifier,
+    type PointAttachmentRectifier,
+    PointAttachmentRectifyManner,
 } from "../../interface";
 import { RectifyImpl } from "../../shared";
 
@@ -17,7 +17,7 @@ export function RStub<C>(demand: C, fill: (dst: C) => void): RStub<C> {
 export function rectifyLookupList<L, A>(
     lookups: L[],
     alg: A,
-    app: (lookup: L, alg: A) => RStub<L>
+    app: (lookup: L, alg: A) => RStub<L>,
 ): Map<L, L> {
     const replicateProcedures: RStub<L>[] = [];
     for (let lid = 0; lid < lookups.length; lid++) {
@@ -35,10 +35,10 @@ export function rectifyLookupList<L, A>(
 }
 
 abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
-    constructor(
+    public constructor(
         protected readonly rg: GlyphReferenceRectifier,
         protected readonly rc: CoordRectifier,
-        protected readonly rap: Data.Maybe<PointAttachmentRectifier>
+        protected readonly rap: Data.Maybe<PointAttachmentRectifier>,
     ) {}
 
     protected _cache: WeakMap<L, RStub<L>> = new Map();
@@ -56,12 +56,12 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
 
     protected processChainingRules(
         props: Ot.GsubGpos.ChainingProp<L>,
-        ret: Ot.GsubGpos.ChainingProp<L>
+        ret: Ot.GsubGpos.ChainingProp<L>,
     ) {
         ret.rules = [];
-        ProcessRules: for (const rule of props.rules) {
+        for (const rule of props.rules) {
             const match1 = RectifyImpl.listAllT(this.rg, rule.match, RectifyImpl.Glyph.setSome);
-            if (!match1 || !this.isValidMatchingSequence(match1)) continue ProcessRules;
+            if (!match1 || !this.isValidMatchingSequence(match1)) continue;
             const applications1: Ot.GsubGpos.ChainingApplication<L>[] = [];
             for (const app of rule.applications) {
                 const stub = this._cache.get(app.apply);
@@ -71,7 +71,7 @@ abstract class RectifyGlyphCoordAlgBase<L extends Ot.GsubGpos.LookupProp> {
                 match: match1,
                 applications: applications1,
                 inputBegins: rule.inputBegins,
-                inputEnds: rule.inputEnds
+                inputEnds: rule.inputEnds,
             });
         }
     }
@@ -104,36 +104,36 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubSingle(props: Ot.Gsub.SingleProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.Single(), ret => {
+        return RStub(new Ot.Gsub.Single(), (ret) => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.bimapSome(this.rg, props.mapping);
         });
     }
 
     private gsubMulti(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.Multiple(), ret => {
+        return RStub(new Ot.Gsub.Multiple(), (ret) => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
-                RectifyImpl.Glyph.listAll
+                RectifyImpl.Glyph.listAll,
             );
         });
     }
 
     private gsubAlternate(props: Ot.Gsub.MultipleAlternateProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.Alternate(), ret => {
+        return RStub(new Ot.Gsub.Alternate(), (ret) => {
             this.setMeta(props, ret);
             ret.mapping = RectifyImpl.Glyph.mapSomeTX(
                 this.rg,
                 props.mapping,
-                RectifyImpl.Glyph.listAll
+                RectifyImpl.Glyph.listAll,
             );
         });
     }
 
     private gsubLigature(props: Ot.Gsub.LigatureProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.Ligature(), ret => {
+        return RStub(new Ot.Gsub.Ligature(), (ret) => {
             this.setMeta(props, ret);
             const mapping1: Array<Ot.Gsub.LigatureEntry> = [];
             for (const { from, to } of props.mapping) {
@@ -148,7 +148,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubReverse(props: Ot.Gsub.ReverseSubProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.ReverseSub(), ret => {
+        return RStub(new Ot.Gsub.ReverseSub(), (ret) => {
             this.setMeta(props, ret);
             ret.rules = RectifyImpl.listSomeT(this.rg, props.rules, (rec, rule) => {
                 const match1 = RectifyImpl.listAllT(rec, rule.match, RectifyImpl.Glyph.setSome);
@@ -160,7 +160,7 @@ export class RectifyGsubGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gsub.L
     }
 
     private gsubChaining(props: Ot.Gsub.ChainingProp): RStub<Ot.Gsub.Lookup> {
-        return RStub(new Ot.Gsub.Chaining(), ret => {
+        return RStub(new Ot.Gsub.Chaining(), (ret) => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);
         });
@@ -188,16 +188,16 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposSingle(props: Ot.Gpos.SingleProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.Single(), ret => {
+        return RStub(new Ot.Gpos.Single(), (ret) => {
             this.setMeta(props, ret);
             ret.adjustments = RectifyImpl.Glyph.mapSomeTX(this.rg, props.adjustments, (rec, x) =>
-                rectifyAdjustment(this.rc, x)
+                rectifyAdjustment(this.rc, x),
             );
         });
     }
 
     public gposPair(props: Ot.Gpos.PairProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.Pair(), ret => {
+        return RStub(new Ot.Gpos.Pair(), (ret) => {
             this.setMeta(props, ret);
 
             const rep = props.adjustments.toRep();
@@ -214,7 +214,7 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
                     if (adj == null) continue;
                     row[c2] = [
                         rectifyAdjustment(this.rc, adj[0]),
-                        rectifyAdjustment(this.rc, adj[1])
+                        rectifyAdjustment(this.rc, adj[1]),
                     ];
                 }
             }
@@ -223,74 +223,74 @@ export class RectifyGposGlyphCoordAlg extends RectifyGlyphCoordAlgBase<Ot.Gpos.L
     }
 
     public gposCursive(props: Ot.Gpos.CursiveProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.Cursive(), ret => {
+        return RStub(new Ot.Gpos.Cursive(), (ret) => {
             this.setMeta(props, ret);
             ret.attachments = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.attachments,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x))
+                (rg, g, x) => rectifyAnchorPairAP(this.rap, g, rectifyAnchorPair(this.rc, x)),
             );
         });
     }
 
     public gposMarkToBase(props: Ot.Gpos.MarkToBaseProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.MarkToBase(), ret => {
+        return RStub(new Ot.Gpos.MarkToBase(), (ret) => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
             );
             ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
+                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x)),
             );
         });
     }
 
     public gposMarkToMark(props: Ot.Gpos.MarkToMarkProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.MarkToMark(), ret => {
+        return RStub(new Ot.Gpos.MarkToMark(), (ret) => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
             );
             ret.baseMarks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.baseMarks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x))
+                (rg, g, x) => rectifyBaseRecordAP(this.rap, g, rectifyBaseRecord(this.rc, x)),
             );
         });
     }
 
     public gposMarkToLigature(props: Ot.Gpos.MarkToLigatureProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.MarkToLigature(), ret => {
+        return RStub(new Ot.Gpos.MarkToLigature(), (ret) => {
             this.setMeta(props, ret);
             ret.marks = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.marks,
                 (rg, g) => rg.glyphRef(g),
-                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x))
+                (rg, g, x) => rectifyMarkRecordAP(this.rap, g, rectifyMarkRecord(this.rc, x)),
             );
             ret.bases = RectifyImpl.mapSomeT2(
                 this.rg,
                 props.bases,
                 (rg, g) => rg.glyphRef(g),
                 (rg, g, x) =>
-                    rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x))
+                    rectifyLigatureRecordAP(this.rap, g, rectifyLigatureRecord(this.rc, x)),
             );
         });
     }
 
     public gposChaining(props: Ot.Gpos.ChainingProp): RStub<Ot.Gpos.Lookup> {
-        return RStub(new Ot.Gpos.Chaining(), ret => {
+        return RStub(new Ot.Gpos.Chaining(), (ret) => {
             this.setMeta(props, ret);
             this.processChainingRules(props, ret);
         });
@@ -304,7 +304,7 @@ function rectifyAdjustment(rec: CoordRectifier, adj: Ot.Gpos.Adjustment) {
         dX: rec.coord(adj.dX),
         dY: rec.coord(adj.dY),
         dWidth: rec.coord(adj.dWidth),
-        dHeight: rec.coord(adj.dHeight)
+        dHeight: rec.coord(adj.dHeight),
     };
 }
 function rectifyAnchor(rec: CoordRectifier, anc: Ot.Gpos.Anchor) {
@@ -313,7 +313,7 @@ function rectifyAnchor(rec: CoordRectifier, anc: Ot.Gpos.Anchor) {
 function rectifyAnchorAP(
     rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
-    z: Ot.Gpos.Anchor
+    z: Ot.Gpos.Anchor,
 ) {
     if (!rectifier || !z.attachToPoint) return z;
     const desired = RectifyImpl.getGlyphPoints(context)[z.attachToPoint.pointIndex];
@@ -330,17 +330,17 @@ function rectifyAnchorAP(
 function rectifyAnchorPair(rec: CoordRectifier, ap: Ot.Gpos.CursiveAnchorPair) {
     return {
         entry: !ap.entry ? ap.entry : rectifyAnchor(rec, ap.entry),
-        exit: !ap.exit ? ap.exit : rectifyAnchor(rec, ap.exit)
+        exit: !ap.exit ? ap.exit : rectifyAnchor(rec, ap.exit),
     };
 }
 function rectifyAnchorPairAP(
     rectifier: Data.Maybe<PointAttachmentRectifier>,
     context: Ot.Glyph,
-    ap: Ot.Gpos.CursiveAnchorPair
+    ap: Ot.Gpos.CursiveAnchorPair,
 ) {
     return {
         entry: !ap.entry ? ap.entry : rectifyAnchorAP(rectifier, context, ap.entry),
-        exit: !ap.exit ? ap.exit : rectifyAnchorAP(rectifier, context, ap.exit)
+        exit: !ap.exit ? ap.exit : rectifyAnchorAP(rectifier, context, ap.exit),
     };
 }
 function rectifyMarkRecord(rec: CoordRectifier, mr: Ot.Gpos.MarkRecord) {
@@ -355,7 +355,7 @@ function rectifyMarkRecord(rec: CoordRectifier, mr: Ot.Gpos.MarkRecord) {
 function rectifyMarkRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.MarkRecord
+    mr: Ot.Gpos.MarkRecord,
 ) {
     const mr1: Ot.Gpos.MarkRecord = { markAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.markAnchors.length; clsAnchor++) {
@@ -379,7 +379,7 @@ function rectifyBaseRecord(rec: CoordRectifier, mr: Ot.Gpos.BaseRecord) {
 function rectifyBaseRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.BaseRecord
+    mr: Ot.Gpos.BaseRecord,
 ) {
     const mr1: Ot.Gpos.BaseRecord = { baseAnchors: [] };
     for (let clsAnchor = 0; clsAnchor < mr.baseAnchors.length; clsAnchor++) {
@@ -406,7 +406,7 @@ function rectifyLigatureRecord(rec: CoordRectifier, mr: Ot.Gpos.LigatureBaseReco
 function rectifyLigatureRecordAP(
     rec: Data.Maybe<PointAttachmentRectifier>,
     glyph: Ot.Glyph,
-    mr: Ot.Gpos.LigatureBaseRecord
+    mr: Ot.Gpos.LigatureBaseRecord,
 ) {
     const mr1: Ot.Gpos.LigatureBaseRecord = { baseAnchors: [] };
     for (let part = 0; part < mr.baseAnchors.length; part++) {

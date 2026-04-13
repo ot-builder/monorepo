@@ -1,9 +1,9 @@
-import { Frag, Ranged, Read, Sized, Write } from "@ot-builder/bin-util";
+import { Frag, type Ranged, Read, type Sized, Write } from "@ot-builder/bin-util";
 import { Assert, Errors } from "@ot-builder/errors";
-import { UInt16, UInt8 } from "@ot-builder/primitive";
+import { UInt8, UInt16 } from "@ot-builder/primitive";
 
-import { CffReadContext } from "../context/read";
-import { CffWriteContext } from "../context/write";
+import type { CffReadContext } from "../context/read";
+import type { CffWriteContext } from "../context/write";
 
 export interface CffCharSetDataSource {
     getMappingList(): readonly number[];
@@ -20,7 +20,7 @@ const FdSelectFormat0 = {
             const fd = view.uint16();
             sink.put(gid, fd);
         }
-    })
+    }),
 };
 const CffCharSetFormat12 = {
     ...Read((view, sink: CffCharSetSink, wdRest: Read<number> & Sized) => {
@@ -40,7 +40,7 @@ const CffCharSetFormat12 = {
             frag: Frag,
             format: UInt8,
             values: readonly number[],
-            wdRest: Write<number> & Sized & Ranged
+            wdRest: Write<number> & Sized & Ranged,
         ) => {
             frag.uint8(format);
             let lastSid = -1;
@@ -58,8 +58,8 @@ const CffCharSetFormat12 = {
                 }
             }
             frag.push(wdRest, rest);
-        }
-    )
+        },
+    ),
 };
 
 export const CffCharSet = {
@@ -87,5 +87,5 @@ export const CffCharSet = {
         } else {
             frag.bytes(bFormat2);
         }
-    })
+    }),
 };
