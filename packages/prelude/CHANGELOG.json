@@ -2,6 +2,21 @@
   "name": "@ot-builder/prelude",
   "entries": [
     {
+      "date": "Sat, 18 Apr 2026 03:33:08 GMT",
+      "version": "1.8.0",
+      "tag": "@ot-builder/prelude_v1.8.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/prelude",
+            "commit": "257e56266ee82948f006caadc69f385b84ab389d",
+            "comment": "Move to typescript 6 and Biome"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Nov 2025 06:24:43 GMT",
       "version": "1.7.7",
       "tag": "@ot-builder/prelude_v1.7.7",

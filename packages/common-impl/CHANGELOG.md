@@ -1,8 +1,17 @@
 # Change Log - @ot-builder/common-impl
 
-<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 03:33:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.0
+
+Sat, 18 Apr 2026 03:33:07 GMT
+
+### Minor changes
+
+- Move to typescript 6 and Biome (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/prelude to v1.8.0
 
 ## 1.7.7
 

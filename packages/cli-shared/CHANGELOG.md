@@ -1,8 +1,18 @@
 # Change Log - @ot-builder/cli-shared
 
-<!-- This log was last generated on Sat, 27 Dec 2025 02:19:02 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 03:33:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.0
+
+Sat, 18 Apr 2026 03:33:07 GMT
+
+### Minor changes
+
+- Move to typescript 6 and Biome (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/ot to v1.8.0
+- Bump @ot-builder/io-bin-font to v1.8.0
 
 ## 1.7.9
 

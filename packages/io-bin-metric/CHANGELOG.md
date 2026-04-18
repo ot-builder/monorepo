@@ -1,8 +1,29 @@
 # Change Log - @ot-builder/io-bin-metric
 
-<!-- This log was last generated on Fri, 28 Nov 2025 06:24:43 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 18 Apr 2026 03:33:07 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.0
+
+Sat, 18 Apr 2026 03:33:07 GMT
+
+### Minor changes
+
+- Move to typescript 6 and Biome (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-util to v1.8.0
+- Bump @ot-builder/common-impl to v1.8.0
+- Bump @ot-builder/errors to v1.8.0
+- Bump @ot-builder/ot-glyphs to v1.8.0
+- Bump @ot-builder/ot-metadata to v1.8.0
+- Bump @ot-builder/prelude to v1.8.0
+- Bump @ot-builder/primitive to v1.8.0
+- Bump @ot-builder/var-store to v1.8.0
+- Bump @ot-builder/variance to v1.8.0
+- Bump @ot-builder/ot-sfnt to v1.8.0
+- Bump @ot-builder/io-bin-metadata to v1.8.0
+- Bump @ot-builder/io-bin-sfnt to v1.8.0
+- Bump @ot-builder/test-util to v1.8.0
 
 ## 1.7.8
 
