@@ -43,6 +43,6 @@
     "@ot-builder/io-bin-sfnt": "1.8.0",
     "@ot-builder/test-util": "1.8.0",
     "@types/jest": "^30.0.0",
-    "jest": "^30.2.0"
+    "jest": "^30.5.0"
   }
 }
