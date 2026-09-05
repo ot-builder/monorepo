@@ -2,6 +2,63 @@
   "name": "ot-builder",
   "entries": [
     {
+      "date": "Sat, 05 Sep 2026 03:59:50 GMT",
+      "version": "1.8.1",
+      "tag": "ot-builder_v1.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "ot-builder",
+            "commit": "d5bb06517bdabb02407fa36ca7179be735fbe348",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/io-bin-font to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/primitive to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/rectify to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/trace to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/prelude to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/ot to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "ot-builder",
+            "comment": "Bump @ot-builder/cli-proc to v1.8.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Apr 2026 03:33:08 GMT",
       "version": "1.8.0",
       "tag": "ot-builder_v1.8.0",

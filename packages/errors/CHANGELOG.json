@@ -2,6 +2,21 @@
   "name": "@ot-builder/errors",
   "entries": [
     {
+      "date": "Sat, 05 Sep 2026 03:59:50 GMT",
+      "version": "1.8.1",
+      "tag": "@ot-builder/errors_v1.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/errors",
+            "commit": "d5bb06517bdabb02407fa36ca7179be735fbe348",
+            "comment": "Bump deps"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Apr 2026 03:33:07 GMT",
       "version": "1.8.0",
       "tag": "@ot-builder/errors_v1.8.0",

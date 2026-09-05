@@ -1,8 +1,16 @@
 # Change Log - @ot-builder/errors
 
-<!-- This log was last generated on Sat, 18 Apr 2026 03:33:07 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 05 Sep 2026 03:59:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.1
+
+Sat, 05 Sep 2026 03:59:50 GMT
+
+### Patches
+
+- Bump deps (otbbuilder-dev@users.noreply.github.com)
 
 ## 1.8.0
 

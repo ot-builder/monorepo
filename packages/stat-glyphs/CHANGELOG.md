@@ -1,8 +1,23 @@
 # Change Log - @ot-builder/stat-glyphs
 
-<!-- This log was last generated on Sat, 18 Apr 2026 03:33:08 GMT and should not be manually modified. -->
+<!-- This log was last generated on Sat, 05 Sep 2026 03:59:50 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 1.8.1
+
+Sat, 05 Sep 2026 03:59:50 GMT
+
+### Patches
+
+- Bump deps (otbbuilder-dev@users.noreply.github.com)
+- Bump @ot-builder/bin-composite-types to v1.8.1
+- Bump @ot-builder/common-impl to v1.8.1
+- Bump @ot-builder/ot-glyphs to v1.8.1
+- Bump @ot-builder/ot-metadata to v1.8.1
+- Bump @ot-builder/prelude to v1.8.1
+- Bump @ot-builder/primitive to v1.8.1
+- Bump @ot-builder/variance to v1.8.1
 
 ## 1.8.0
 

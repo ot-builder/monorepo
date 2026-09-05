@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Bump deps",
-  "packageName": "@ot-builder/stat-glyphs",
-  "email": "otbbuilder-dev@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

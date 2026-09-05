@@ -2,6 +2,135 @@
   "name": "@ot-builder/io-bin-font",
   "entries": [
     {
+      "date": "Sat, 05 Sep 2026 03:59:50 GMT",
+      "version": "1.8.1",
+      "tag": "@ot-builder/io-bin-font_v1.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/io-bin-font",
+            "commit": "d5bb06517bdabb02407fa36ca7179be735fbe348",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-encoding to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-ext-private to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-glyph-store to v1.9.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-layout to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-metadata to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-name to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-sfnt to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/io-bin-vtt-private to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-glyphs to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-metadata to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-sfnt to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/prelude to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-encoding to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-ext-private to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-layout to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-name to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/ot-vtt-private to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/io-bin-font",
+            "comment": "Bump @ot-builder/bin-util to v1.8.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Apr 2026 03:33:07 GMT",
       "version": "1.8.0",
       "tag": "@ot-builder/io-bin-font_v1.8.0",

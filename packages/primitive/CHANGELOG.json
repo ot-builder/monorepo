@@ -2,6 +2,39 @@
   "name": "@ot-builder/primitive",
   "entries": [
     {
+      "date": "Sat, 05 Sep 2026 03:59:50 GMT",
+      "version": "1.8.1",
+      "tag": "@ot-builder/primitive_v1.8.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "otbbuilder-dev@users.noreply.github.com",
+            "package": "@ot-builder/primitive",
+            "commit": "d5bb06517bdabb02407fa36ca7179be735fbe348",
+            "comment": "Bump deps"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/bin-util to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/errors to v1.8.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@ot-builder/primitive",
+            "comment": "Bump @ot-builder/prelude to v1.8.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 18 Apr 2026 03:33:08 GMT",
       "version": "1.8.0",
       "tag": "@ot-builder/primitive_v1.8.0",
